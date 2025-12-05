@@ -1,0 +1,432 @@
+/**
+ * BbQ ChatWidgets - Corporate Theme
+ * Professional corporate theme for business applications
+ * Color Scheme: Slate blues with professional gray accents
+ */
+
+/* Base Widget Styles */
+.bbq-widget {
+    font-family: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1f2937;
+    box-sizing: border-box;
+}
+
+/* Button Widget */
+.bbq-button,
+button.bbq-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    margin: 8px 4px 8px 0;
+    border: 1px solid #1f2937;
+    border-radius: 4px;
+    background-color: #1f2937;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    outline: none;
+    text-transform: none;
+}
+
+.bbq-button:hover {
+    background-color: #111827;
+    border-color: #111827;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.bbq-button:active {
+    background-color: #0f172a;
+    transform: scale(0.98);
+}
+
+.bbq-button:disabled {
+    background-color: #d1d5db;
+    border-color: #d1d5db;
+    color: #9ca3af;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.bbq-button:focus-visible {
+    outline: 2px solid #1f2937;
+    outline-offset: 2px;
+}
+
+.bbq-button.secondary {
+    background-color: white;
+    color: #1f2937;
+    border: 1px solid #d1d5db;
+}
+
+.bbq-button.secondary:hover {
+    background-color: #f9fafb;
+    border-color: #9ca3af;
+}
+
+/* Dropdown Widget */
+.bbq-dropdown-label,
+label.bbq-dropdown-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.bbq-dropdown,
+select.bbq-dropdown {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    background-color: white;
+    color: #1f2937;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.bbq-dropdown:hover {
+    border-color: #9ca3af;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bbq-dropdown:focus {
+    outline: none;
+    border-color: #1f2937;
+    box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.1);
+}
+
+.bbq-dropdown option {
+    color: #1f2937;
+    background-color: white;
+    padding: 10px;
+}
+
+.bbq-dropdown option:hover {
+    background-color: #f3f4f6;
+}
+
+/* Slider Widget */
+.bbq-slider-label,
+label.bbq-slider-label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.bbq-slider,
+input[type="range"].bbq-slider {
+    display: block;
+    width: 100%;
+    margin-bottom: 16px;
+    height: 4px;
+    border: none;
+    border-radius: 2px;
+    background: linear-gradient(to right, #d1d5db, #d1d5db) no-repeat;
+    background-size: var(--value) 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.bbq-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #1f2937;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    border: 2px solid white;
+}
+
+.bbq-slider::-webkit-slider-thumb:hover {
+    background-color: #111827;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+.bbq-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #1f2937;
+    border: 2px solid white;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.bbq-slider::-moz-range-thumb:hover {
+    background-color: #111827;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+.bbq-slider::-moz-range-track {
+    border: none;
+    background: transparent;
+}
+
+/* Input Widget */
+.bbq-input-label,
+label.bbq-input-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.bbq-input,
+input[type="text"].bbq-input,
+input[type="email"].bbq-input {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    background-color: white;
+    color: #1f2937;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.bbq-input:hover {
+    border-color: #9ca3af;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bbq-input:focus {
+    outline: none;
+    border-color: #1f2937;
+    box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.1);
+}
+
+.bbq-input::placeholder {
+    color: #9ca3af;
+}
+
+/* Toggle Widget */
+.bbq-toggle,
+label.bbq-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+.bbq-toggle input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #1f2937;
+    transition: all 0.3s ease;
+}
+
+.bbq-toggle input[type="checkbox"]:hover {
+    transform: scale(1.05);
+}
+
+.bbq-toggle input[type="checkbox"]:focus-visible {
+    outline: 2px solid #1f2937;
+    outline-offset: 2px;
+}
+
+/* File Upload Widget */
+.bbq-file-label,
+label.bbq-file-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.bbq-file,
+input[type="file"].bbq-file {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    background-color: #f9fafb;
+    color: #1f2937;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.bbq-file:hover {
+    border-color: #9ca3af;
+    background-color: #f3f4f6;
+}
+
+.bbq-file:focus {
+    outline: none;
+    border-color: #1f2937;
+    background-color: white;
+}
+
+/* Card Widget */
+.bbq-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.bbq-card:hover {
+    border-color: #1f2937;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.bbq-card h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+    letter-spacing: -0.2px;
+}
+
+.bbq-card p {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+.bbq-card img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+
+.bbq-card .bbq-button {
+    align-self: flex-start;
+    margin-top: 12px;
+}
+
+/* Unsupported Widget */
+.bbq-unsupported {
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 1px solid #f87171;
+    border-radius: 4px;
+    background-color: #fee2e2;
+    color: #991b1b;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .bbq-widget {
+        font-size: 13px;
+    }
+
+    .bbq-button,
+    button.bbq-button {
+        width: 100%;
+        padding: 12px 16px;
+        margin-bottom: 8px;
+    }
+
+    .bbq-dropdown,
+    .bbq-input,
+    .bbq-file {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+
+    .bbq-card {
+        padding: 14px;
+    }
+
+    .bbq-card h3 {
+        font-size: 15px;
+    }
+
+    .bbq-card p {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .bbq-button,
+    button.bbq-button {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .bbq-card {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .bbq-widget,
+    .bbq-button,
+    .bbq-dropdown,
+    .bbq-slider,
+    .bbq-input,
+    .bbq-file,
+    .bbq-card {
+        transition: none;
+        animation: none;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .bbq-button,
+    button.bbq-button,
+    .bbq-dropdown,
+    .bbq-input,
+    .bbq-file,
+    .bbq-slider {
+        border: 1px solid #1f2937;
+        box-shadow: none;
+    }
+}

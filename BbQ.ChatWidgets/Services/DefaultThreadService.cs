@@ -6,12 +6,12 @@ namespace BbQ.ChatWidgets.Services;
 
 public sealed class DefaultThreadService : IThreadService
 {
-    private readonly ConcurrentDictionary<string, ChatMessage> _threads = new();
-    public ChatMessage AppendMessageToThread(string threadId, ChatTurn chatTurn)
+    private readonly ConcurrentDictionary<string, ChatMessages> _threads = new();
+    public ChatMessages AppendMessageToThread(string threadId, ChatTurn chatTurn)
     {
         if (_threads.TryGetValue(threadId, out var chatMessage))
         {
-            _threads[threadId] = new ChatMessage([..chatMessage.Turns.Append(chatTurn)]);
+            _threads[threadId] = new ChatMessages([..chatMessage.Turns.Append(chatTurn)]);
             return _threads[threadId];
         }
         else
@@ -23,7 +23,7 @@ public sealed class DefaultThreadService : IThreadService
     public string CreateThread()
     {
         string threadId = Guid.NewGuid().ToString("N");
-        _threads[threadId] = new ChatMessage([]);
+        _threads[threadId] = new ChatMessages([]);
         return threadId;
     }
 
@@ -32,7 +32,7 @@ public sealed class DefaultThreadService : IThreadService
         _threads.TryRemove(threadId, out _);
     }
 
-    public ChatMessage GetMessage(string threadId)
+    public ChatMessages GetMessage(string threadId)
     {
         if (_threads.TryGetValue(threadId, out var chatMessage))
         {

@@ -7,6 +7,6 @@ public interface IThreadService
     void DeleteThread(string threadId);
     string CreateThread();
     bool ThreadExists(string threadId);
-    ChatMessage AppendMessageToThread(string threadId, ChatTurn chatTurn);
-    ChatMessage GetMessage(string threadId);
+    ChatMessages AppendMessageToThread(string threadId, ChatTurn chatTurn);
+    ChatMessages GetMessage(string threadId);
 }

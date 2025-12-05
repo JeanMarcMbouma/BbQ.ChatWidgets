@@ -17,19 +17,14 @@ namespace BbQ.ChatWidgets.Models;
 /// The class uses JSON polymorphism to automatically deserialize to the correct type.
 /// </remarks>
 [JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(ButtonWidget), "button")]
-[JsonDerivedType(typeof(CardWidget), "card")]
-[JsonDerivedType(typeof(InputWidget), "input")]
-[JsonDerivedType(typeof(DropdownWidget), "dropdown")]
-[JsonDerivedType(typeof(SliderWidget), "slider")]
-[JsonDerivedType(typeof(ToggleWidget), "toggle")]
-[JsonDerivedType(typeof(FileUploadWidget), "fileupload")]
+[JsonDerivedType(typeof(ButtonWidget), typeDiscriminator: "button")]
+[JsonDerivedType(typeof(CardWidget), typeDiscriminator: "card")]
+[JsonDerivedType(typeof(InputWidget), typeDiscriminator: "input")]
+[JsonDerivedType(typeof(DropdownWidget), typeDiscriminator: "dropdown")]
+[JsonDerivedType(typeof(SliderWidget), typeDiscriminator: "slider")]
+[JsonDerivedType(typeof(ToggleWidget), typeDiscriminator: "toggle")]
+[JsonDerivedType(typeof(FileUploadWidget), typeDiscriminator: "fileupload")]
 public abstract record ChatWidget(
-    /// <summary>
-    /// The type identifier for this widget, used for JSON deserialization and rendering.
-    /// </summary>
-    [property: JsonPropertyName("type")]
-    string Type, 
     
     /// <summary>
     /// The label or text displayed to the user for this widget.
@@ -61,7 +56,7 @@ public sealed record ButtonWidget(
     /// The action identifier triggered when the button is clicked.
     /// </summary>
     string Action)
-    : ChatWidget("button", Label, Action);
+    : ChatWidget(Label, Action);
 
 /// <summary>
 /// A card widget that displays rich content including title, description, and optional image.
@@ -102,7 +97,7 @@ public sealed record CardWidget(
     /// Optional URL for an image displayed in the card.
     /// </summary>
     string? ImageUrl = null)
-    : ChatWidget("card", Label, Action);
+    : ChatWidget(Label, Action);
 
 /// <summary>
 /// An input widget for collecting short text from the user.
@@ -136,7 +131,7 @@ public sealed record InputWidget(
     /// Optional maximum number of characters allowed in the input.
     /// </summary>
     int? MaxLength = null)
-    : ChatWidget("input", Label, Action);
+    : ChatWidget(Label, Action);
 
 /// <summary>
 /// A dropdown widget for selecting from multiple predefined options.
@@ -166,7 +161,7 @@ public sealed record DropdownWidget(
     /// The list of options available for selection.
     /// </summary>
     IReadOnlyList<string> Options)
-    : ChatWidget("dropdown", Label, Action);
+    : ChatWidget(Label, Action);
 
 /// <summary>
 /// A slider widget for selecting a numeric value from a range.
@@ -212,7 +207,7 @@ public sealed record SliderWidget(
     /// Optional default value. If not specified, defaults to the minimum value.
     /// </summary>
     int? Default = null)
-    : ChatWidget("slider", Label, Action);
+    : ChatWidget(Label, Action);
 
 /// <summary>
 /// A toggle widget for boolean (yes/no, on/off) selection.
@@ -242,7 +237,7 @@ public sealed record ToggleWidget(
     /// The initial state of the toggle (true = checked/enabled, false = unchecked/disabled).
     /// </summary>
     bool DefaultValue)
-    : ChatWidget("toggle", Label, Action);
+    : ChatWidget(Label, Action);
 
 /// <summary>
 /// A file upload widget for selecting and uploading files.
@@ -277,26 +272,33 @@ public sealed record FileUploadWidget(
     /// Optional maximum file size in bytes. The system should enforce this limit.
     /// </summary>
     long? MaxBytes = null)
-    : ChatWidget("fileupload", Label, Action);
+    : ChatWidget(Label, Action);
 
 /// <summary>
 /// Extension methods for <see cref="ChatWidget"/> instances.
 /// </summary>
 public static class ChatWidgetExtensions
 {
-    /// <summary>
-    /// Gets the JSON schema for a widget type.
-    /// </summary>
-    /// <remarks>
-    /// The schema describes the structure and properties of the widget type,
-    /// enabling tools and utilities to understand widget requirements.
-    /// </remarks>
-    /// <param name="widget">The widget instance to get the schema for.</param>
-    /// <returns>
-    /// A JSON schema as a string representing the structure of this widget type.
-    /// </returns>
-    public static object GetSchema(this ChatWidget widget)
+    extension(ChatWidget widget)
     {
-        return Serialization.Default.GetJsonSchemaAsNode(widget.GetType()).ToString();
+        /// <summary>
+        /// Gets the JSON schema for a widget type.
+        /// </summary>
+        /// <remarks>
+        /// The schema describes the structure and properties of the widget type,
+        /// enabling tools and utilities to understand widget requirements.
+        /// </remarks>
+        /// <param name="widget">The widget instance to get the schema for.</param>
+        /// <returns>
+        /// A JSON schema as a string representing the structure of this widget type.
+        /// </returns>
+        public object GetSchema()
+        {
+            ChatWidget chatWidget = widget;
+            return Serialization.Default.GetJsonSchemaAsNode(chatWidget.GetType()).ToString();
+        }
+
+        public string Type => widget.GetType().Name.Replace("Widget", "").ToLowerInvariant();
     }
+    
 }

@@ -9,19 +9,19 @@ namespace BbQ.ChatWidgets.Models;
 /// A chat message encapsulates the full history of turns in a conversation.
 /// It provides a sequence of chat turns that can be converted to AI framework formats.
 /// </remarks>
-public record ChatMessage(
+public record ChatMessages(
     /// <summary>
     /// The sequence of turns (messages) in this chat conversation.
     /// </summary>
     IReadOnlyList<ChatTurn> Turns);
 
 /// <summary>
-/// Extension methods for converting <see cref="ChatMessage"/> to AI framework formats.
+/// Extension methods for converting <see cref="ChatMessages"/> to AI framework formats.
 /// </summary>
 public static class ChatMessageExtensions
 {
     /// <summary>
-    /// Converts a <see cref="ChatMessage"/> to a list of <see cref="Microsoft.Extensions.AI.ChatMessage"/> suitable for AI clients.
+    /// Converts a <see cref="ChatMessages"/> to a list of <see cref="Microsoft.Extensions.AI.ChatMessage"/> suitable for AI clients.
     /// </summary>
     /// <remarks>
     /// This method:
@@ -38,7 +38,7 @@ public static class ChatMessageExtensions
     /// A read-only list of <see cref="Microsoft.Extensions.AI.ChatMessage"/> objects
     /// suitable for sending to an AI chat client.
     /// </returns>
-    public static IReadOnlyList<Microsoft.Extensions.AI.ChatMessage> ToAIMessages(this ChatMessage chatMessage)
+    public static IReadOnlyList<Microsoft.Extensions.AI.ChatMessage> ToAIMessages(this ChatMessages chatMessage)
     {
         var messages = new List<Microsoft.Extensions.AI.ChatMessage>();
         foreach (var turn in chatMessage.Turns.TakeLast(10))

@@ -21,7 +21,7 @@ namespace BbQ.ChatWidgets.Services;
 /// - Toggle: Boolean checkbox
 /// - FileUpload: File selection
 /// </remarks>
-internal sealed class DefaultWidgetToolsProvider : IWidgetToolsProvider
+public sealed class DefaultWidgetToolsProvider : IWidgetToolsProvider
 {
     private IReadOnlyList<WidgetTool>? _cachedTools;
 

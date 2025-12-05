@@ -20,7 +20,7 @@ namespace BbQ.ChatWidgets.Services;
 /// - ToggleWidget: Checkbox toggle for boolean values
 /// - FileUploadWidget: File upload input with optional file type restrictions
 /// </remarks>
-internal sealed class DefaultWidgetHintParser : IWidgetHintParser
+public sealed class DefaultWidgetHintParser : IWidgetHintParser
 {
     private const string WidgetMarkerStart = "<widget>";
     private const string WidgetMarkerEnd = "</widget>";

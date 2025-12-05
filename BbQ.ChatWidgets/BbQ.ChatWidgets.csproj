@@ -42,8 +42,4 @@
     <None Include="IMPLEMENTATION_SUMMARY.md" Pack="true" PackagePath="documentation\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Tools\" />
-  </ItemGroup>
-
 </Project>

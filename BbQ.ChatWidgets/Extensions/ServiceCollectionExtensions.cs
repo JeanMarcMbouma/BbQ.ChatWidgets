@@ -5,6 +5,7 @@ using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BbQ.ChatWidgets.Extensions;
@@ -60,7 +61,6 @@ public static class ServiceCollectionExtensions
             services.AddScoped(sp => options.ActionHandlerFactory(sp));
         else
             services.AddScoped<IWidgetActionHandler, DefaultWidgetActionHandler>();
-
         return services;
     }
 

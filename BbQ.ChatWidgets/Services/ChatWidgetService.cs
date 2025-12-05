@@ -91,7 +91,7 @@ public sealed class ChatWidgetService
 
         var messages = _threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.User, userMessage, ThreadId: threadId));
 
-        var completion = await _chat.GetResponseAsync<BbQStructuredResponse>(messages.ToAIMessages(), chatOptions, cancellationToken: ct);
+        var completion = await _chat.GetResponseAsync<BbQStructuredResponse>(messages.ToAIMessages(), Serialization.Default, chatOptions, cancellationToken: ct);
 
         var (content, widgets) = completion.Result;
 

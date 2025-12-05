@@ -28,6 +28,7 @@ public abstract record ChatWidget(
     /// <summary>
     /// The type identifier for this widget, used for JSON deserialization and rendering.
     /// </summary>
+    [property: JsonPropertyName("type")]
     string Type, 
     
     /// <summary>

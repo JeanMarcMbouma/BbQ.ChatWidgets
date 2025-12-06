@@ -48,7 +48,7 @@ public class ChatTurnTests
         var widgets = new List<ChatWidget>
         {
             new ButtonWidget("Click", "click"),
-            new DropdownWidget("Choose", "choose", new[] { "A", "B" })
+            new DropdownWidget("Choose", "choose", ["A", "B"])
         };
         var turn = new ChatTurn(ChatRole.Assistant, "Choose an option", widgets, "thread-123");
 

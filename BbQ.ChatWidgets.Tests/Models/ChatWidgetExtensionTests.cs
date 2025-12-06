@@ -42,7 +42,7 @@ public class ChatWidgetExtensionTests
     public void GetSchema_DropdownWidget_ReturnsSchema()
     {
         // Arrange
-        ChatWidget widget = new DropdownWidget("Select", "action", new[] { "A", "B" });
+        ChatWidget widget = new DropdownWidget("Select", "action", ["A", "B"]);
 
         // Act
         var schema = widget.GetSchema();

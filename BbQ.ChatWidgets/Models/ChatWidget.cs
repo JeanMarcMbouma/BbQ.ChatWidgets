@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Schema;
+﻿using System.Text.Json;
+using System.Text.Json.Schema;
 using System.Text.Json.Serialization;
 
 namespace BbQ.ChatWidgets.Models;
@@ -298,7 +299,32 @@ public static class ChatWidgetExtensions
             return Serialization.Default.GetJsonSchemaAsNode(chatWidget.GetType()).ToString();
         }
 
+        public string ToJson()
+        {
+            return JsonSerializer.Serialize(widget, Serialization.Default);
+        }
+
         public string Type => widget.GetType().Name.Replace("Widget", "").ToLowerInvariant();
     }
-    
+
+    extension(ChatWidget)
+    {
+        public static ChatWidget? FromJson(string json)
+        {
+            return JsonSerializer.Deserialize<ChatWidget?>(json, Serialization.Default);
+        }
+
+        public static IReadOnlyList<ChatWidget>? ListFromJson(string json)
+        {
+            return JsonSerializer.Deserialize<IReadOnlyList<ChatWidget>?>(json, Serialization.Default);
+        }
+    }
+
+    extension(IEnumerable<ChatWidget> widgets)
+    {
+        public string ToJson()
+        {
+            return JsonSerializer.Serialize(widgets, Serialization.Default);
+        }
+    }
 }

@@ -44,7 +44,7 @@ public sealed class DefaultWidgetToolsProvider : IWidgetToolsProvider
             new(new ButtonWidget("Click Action", "click")),
             new(new CardWidget("View Details", "view", "Card Title", "Card description text", null)),
             new(new InputWidget("Enter Text", "input", "placeholder text", MaxLength: 100)),
-            new(new DropdownWidget("Select Option", "select", new[] { "Option 1", "Option 2", "Option 3" })),
+            new(new DropdownWidget("Select Option", "select", ["Option 1", "Option 2", "Option 3"])),
             new(new SliderWidget("Choose Value", "slide", Min: 0, Max: 100, Step: 1, Default: 50)),
             new(new ToggleWidget("Enable Feature", "toggle", DefaultValue: false)),
             new(new FileUploadWidget("Upload File", "upload", Accept: ".pdf,.doc", MaxBytes: 5_000_000))

@@ -13,11 +13,11 @@ public class ChatWidgetSerializationTests
     public void ButtonWidget_SerializesCorrectly()
     {
         // Arrange
-        ChatWidget widget = new ButtonWidget("Click Me", "action_click");
-        var json = JsonSerializer.Serialize(widget, Serialization.Default);
+        var widget = new ButtonWidget("Click Me", "action_click");
+        var json = widget.ToJson();
 
         // Act
-        var deserialized = JsonSerializer.Deserialize<ChatWidget>(json, Serialization.Default);
+        var deserialized = ChatWidget.FromJson(json);
 
         // Assert
         Assert.NotNull(deserialized);
@@ -31,17 +31,17 @@ public class ChatWidgetSerializationTests
     public void CardWidget_SerializesWithAllProperties()
     {
         // Arrange
-        ChatWidget widget = new CardWidget(
+        var widget = new CardWidget(
             Label: "View Product",
             Action: "view_product",
             Title: "Product Name",
             Description: "A great product",
             ImageUrl: "https://example.com/image.jpg"
         );
-        var json = JsonSerializer.Serialize(widget, Serialization.Default);
+        var json = widget.ToJson();
 
         // Act
-        var deserialized = JsonSerializer.Deserialize<ChatWidget>(json, Serialization.Default);
+        var deserialized = ChatWidget.FromJson(json);
 
         // Assert
         Assert.NotNull(deserialized);
@@ -58,11 +58,11 @@ public class ChatWidgetSerializationTests
     {
         // Arrange
         var options = new[] { "Small", "Medium", "Large" };
-        ChatWidget widget = new DropdownWidget("Select Size", "select_size", options);
-        var json = JsonSerializer.Serialize(widget, Serialization.Default);
+        var widget = new DropdownWidget("Select Size", "select_size", options);
+        var json = widget.ToJson();
 
         // Act
-        var deserialized = JsonSerializer.Deserialize<ChatWidget>(json, Serialization.Default);
+        var deserialized = ChatWidget.FromJson(json);
 
         // Assert
         Assert.NotNull(deserialized);
@@ -76,11 +76,11 @@ public class ChatWidgetSerializationTests
     public void SliderWidget_SerializesWithRange()
     {
         // Arrange
-        ChatWidget widget = new SliderWidget("Volume", "set_volume", Min: 0, Max: 100, Step: 5, Default: 50);
-        var json = JsonSerializer.Serialize(widget, Serialization.Default);
+        var widget = new SliderWidget("Volume", "set_volume", Min: 0, Max: 100, Step: 5, Default: 50);
+        var json = widget.ToJson();
 
         // Act
-        var deserialized = JsonSerializer.Deserialize<ChatWidget>(json, Serialization.Default);
+        var deserialized = ChatWidget.FromJson(json);
 
         // Assert
         Assert.NotNull(deserialized);
@@ -96,11 +96,11 @@ public class ChatWidgetSerializationTests
     public void ToggleWidget_SerializesWithDefaultValue()
     {
         // Arrange
-        ChatWidget widget = new ToggleWidget("Enable Notifications", "toggle_notifications", DefaultValue: true);
-        var json = JsonSerializer.Serialize(widget, Serialization.Default);
+        var widget = new ToggleWidget("Enable Notifications", "toggle_notifications", DefaultValue: true);
+        var json = widget.ToJson();
 
         // Act
-        var deserialized = JsonSerializer.Deserialize<ChatWidget>(json, Serialization.Default);
+        var deserialized = ChatWidget.FromJson(json);
 
         // Assert
         Assert.NotNull(deserialized);
@@ -113,11 +113,11 @@ public class ChatWidgetSerializationTests
     public void InputWidget_SerializesWithPlaceholder()
     {
         // Arrange
-        ChatWidget widget = new InputWidget("Name", "input_name", Placeholder: "Enter your name", MaxLength: 50);
-        var json = JsonSerializer.Serialize(widget, Serialization.Default);
+        var widget = new InputWidget("Name", "input_name", Placeholder: "Enter your name", MaxLength: 50);
+        var json = widget.ToJson();
 
         // Act
-        var deserialized = JsonSerializer.Deserialize<ChatWidget>(json, Serialization.Default);
+        var deserialized = ChatWidget.FromJson(json);
 
         // Assert
         Assert.NotNull(deserialized);
@@ -131,11 +131,11 @@ public class ChatWidgetSerializationTests
     public void FileUploadWidget_SerializesWithConstraints()
     {
         // Arrange
-        ChatWidget widget = new FileUploadWidget("Upload", "upload_file", Accept: ".pdf,.docx", MaxBytes: 5000000);
-        var json = JsonSerializer.Serialize(widget, Serialization.Default);
+        var widget = new FileUploadWidget("Upload", "upload_file", Accept: ".pdf,.docx", MaxBytes: 5000000);
+        var json = widget.ToJson();
 
         // Act
-        var deserialized = JsonSerializer.Deserialize<ChatWidget>(json, Serialization.Default);
+        var deserialized = ChatWidget.FromJson(json);
 
         // Assert
         Assert.NotNull(deserialized);
@@ -152,13 +152,13 @@ public class ChatWidgetSerializationTests
         var widgets = new List<ChatWidget>
         {
             new ButtonWidget("Submit", "submit"),
-            new DropdownWidget("Choice", "choose", new[] { "A", "B" }),
+            new DropdownWidget("Choice", "choose", ["A", "B"]),
             new ToggleWidget("Enable", "enable", true)
         };
-        var json = JsonSerializer.Serialize(widgets, Serialization.Default);
+        var json = widgets.ToJson();
 
         // Act
-        var deserialized = JsonSerializer.Deserialize<List<ChatWidget>>(json, Serialization.Default);
+        var deserialized = ChatWidget.ListFromJson(json);
 
         // Assert
         Assert.NotNull(deserialized);

@@ -51,7 +51,7 @@ public class ChatWidgetTypePropertyTests
     public void DropdownWidget_HasCorrectType()
     {
         // Arrange
-        var widget = new DropdownWidget("Select", "action", new[] { "A", "B" });
+        var widget = new DropdownWidget("Select", "action", ["A", "B"]);
 
         // Act
         var type = widget.Type;
@@ -106,7 +106,7 @@ public class ChatWidgetTypePropertyTests
         Assert.Equal("Button Label", new ButtonWidget("Button Label", "action").Label);
         Assert.Equal("Card Label", new CardWidget("Card Label", "action", "title").Label);
         Assert.Equal("Input Label", new InputWidget("Input Label", "action").Label);
-        Assert.Equal("Dropdown Label", new DropdownWidget("Dropdown Label", "action", new[] { "A" }).Label);
+        Assert.Equal("Dropdown Label", new DropdownWidget("Dropdown Label", "action", ["A"]).Label);
         Assert.Equal("Slider Label", new SliderWidget("Slider Label", "action", 0, 10, 1).Label);
         Assert.Equal("Toggle Label", new ToggleWidget("Toggle Label", "action", false).Label);
         Assert.Equal("Upload Label", new FileUploadWidget("Upload Label", "action").Label);
@@ -119,7 +119,7 @@ public class ChatWidgetTypePropertyTests
         Assert.Equal("click", new ButtonWidget("Label", "click").Action);
         Assert.Equal("view", new CardWidget("Label", "view", "title").Action);
         Assert.Equal("submit", new InputWidget("Label", "submit").Action);
-        Assert.Equal("select", new DropdownWidget("Label", "select", new[] { "A" }).Action);
+        Assert.Equal("select", new DropdownWidget("Label", "select", ["A"]).Action);
         Assert.Equal("slide", new SliderWidget("Label", "slide", 0, 10, 1).Action);
         Assert.Equal("toggle", new ToggleWidget("Label", "toggle", false).Action);
         Assert.Equal("upload", new FileUploadWidget("Label", "upload").Action);

@@ -26,12 +26,12 @@ namespace BbQ.ChatWidgets.Models;
 [JsonDerivedType(typeof(ToggleWidget), typeDiscriminator: "toggle")]
 [JsonDerivedType(typeof(FileUploadWidget), typeDiscriminator: "fileupload")]
 public abstract record ChatWidget(
-    
+
     /// <summary>
     /// The label or text displayed to the user for this widget.
     /// </summary>
-    string Label, 
-    
+    string Label,
+
     /// <summary>
     /// The action identifier triggered when the user interacts with this widget.
     /// </summary>
@@ -51,8 +51,8 @@ public sealed record ButtonWidget(
     /// <summary>
     /// The text displayed on the button.
     /// </summary>
-    string Label, 
-    
+    string Label,
+
     /// <summary>
     /// The action identifier triggered when the button is clicked.
     /// </summary>
@@ -77,23 +77,23 @@ public sealed record CardWidget(
     /// <summary>
     /// The label for the card's action button.
     /// </summary>
-    string Label, 
-    
+    string Label,
+
     /// <summary>
     /// The action identifier triggered when the card is activated.
     /// </summary>
-    string Action, 
-    
+    string Action,
+
     /// <summary>
     /// The title displayed at the top of the card.
     /// </summary>
-    string Title, 
-    
+    string Title,
+
     /// <summary>
     /// Optional descriptive text displayed below the title.
     /// </summary>
-    string? Description = null, 
-    
+    string? Description = null,
+
     /// <summary>
     /// Optional URL for an image displayed in the card.
     /// </summary>
@@ -116,18 +116,18 @@ public sealed record InputWidget(
     /// <summary>
     /// The label for the input field.
     /// </summary>
-    string Label, 
-    
+    string Label,
+
     /// <summary>
     /// The action identifier triggered when the user submits the input.
     /// </summary>
-    string Action, 
-    
+    string Action,
+
     /// <summary>
     /// Optional placeholder text shown when the input is empty.
     /// </summary>
-    string? Placeholder = null, 
-    
+    string? Placeholder = null,
+
     /// <summary>
     /// Optional maximum number of characters allowed in the input.
     /// </summary>
@@ -151,13 +151,13 @@ public sealed record DropdownWidget(
     /// <summary>
     /// The label for the dropdown.
     /// </summary>
-    string Label, 
-    
+    string Label,
+
     /// <summary>
     /// The action identifier triggered when an option is selected.
     /// </summary>
-    string Action, 
-    
+    string Action,
+
     /// <summary>
     /// The list of options available for selection.
     /// </summary>
@@ -182,28 +182,28 @@ public sealed record SliderWidget(
     /// <summary>
     /// The label for the slider.
     /// </summary>
-    string Label, 
-    
+    string Label,
+
     /// <summary>
     /// The action identifier triggered when the slider value changes.
     /// </summary>
-    string Action, 
-    
+    string Action,
+
     /// <summary>
     /// The minimum value of the range.
     /// </summary>
-    int Min, 
-    
+    int Min,
+
     /// <summary>
     /// The maximum value of the range.
     /// </summary>
-    int Max, 
-    
+    int Max,
+
     /// <summary>
     /// The increment between values (step size).
     /// </summary>
-    int Step, 
-    
+    int Step,
+
     /// <summary>
     /// Optional default value. If not specified, defaults to the minimum value.
     /// </summary>
@@ -227,13 +227,13 @@ public sealed record ToggleWidget(
     /// <summary>
     /// The label for the toggle.
     /// </summary>
-    string Label, 
-    
+    string Label,
+
     /// <summary>
     /// The action identifier triggered when the toggle state changes.
     /// </summary>
-    string Action, 
-    
+    string Action,
+
     /// <summary>
     /// The initial state of the toggle (true = checked/enabled, false = unchecked/disabled).
     /// </summary>
@@ -256,19 +256,19 @@ public sealed record FileUploadWidget(
     /// <summary>
     /// The label for the file upload input.
     /// </summary>
-    string Label, 
-    
+    string Label,
+
     /// <summary>
     /// The action identifier triggered when a file is selected for upload.
     /// </summary>
-    string Action, 
-    
+    string Action,
+
     /// <summary>
     /// Optional file type filter (e.g., ".pdf,.docx" or "image/*").
     /// Corresponds to the HTML accept attribute.
     /// </summary>
-    string? Accept = null, 
-    
+    string? Accept = null,
+
     /// <summary>
     /// Optional maximum file size in bytes. The system should enforce this limit.
     /// </summary>
@@ -289,31 +289,78 @@ public static class ChatWidgetExtensions
         /// The schema describes the structure and properties of the widget type,
         /// enabling tools and utilities to understand widget requirements.
         /// </remarks>
-        /// <param name="widget">The widget instance to get the schema for.</param>
         /// <returns>
         /// A JSON schema as a string representing the structure of this widget type.
         /// </returns>
         public object GetSchema()
         {
-            ChatWidget chatWidget = widget;
-            return Serialization.Default.GetJsonSchemaAsNode(chatWidget.GetType()).ToString();
+            return Serialization.Default.GetJsonSchemaAsNode(widget.GetType()).ToString();
         }
 
+        /// <summary>
+        /// Serializes the widget to a JSON string.
+        /// </summary>
+        /// <remarks>
+        /// The resulting JSON includes the type discriminator and all widget properties.
+        /// Uses camelCase property naming per the configured JSON serialization options.
+        /// </remarks>
+        /// <returns>
+        /// A JSON string representation of the widget.
+        /// </returns>
         public string ToJson()
         {
             return JsonSerializer.Serialize(widget, Serialization.Default);
         }
 
-        public string Type => widget.GetType().Name.Replace("Widget", "").ToLowerInvariant();
+        /// <summary>
+        /// Gets the type name of the widget in lowercase without the "Widget" suffix.
+        /// </summary>
+        /// <remarks>
+        /// For example, a <see cref="ButtonWidget"/> returns "button",
+        /// and a <see cref="CardWidget"/> returns "card".
+        /// This matches the type discriminator values used in JSON serialization.
+        /// </remarks>
+        /// <returns>
+        /// The normalized type name in lowercase.
+        /// </returns>
+        public string Type
+        {
+            get
+            {
+                return widget.GetType().Name.Replace("Widget", "").ToLowerInvariant();
+            }
+        }
     }
 
     extension(ChatWidget)
     {
+        /// <summary>
+        /// Deserializes a JSON string to a <see cref="ChatWidget"/> instance.
+        /// </summary>
+        /// <remarks>
+        /// The JSON must contain a valid "type" discriminator field indicating which widget type to deserialize to.
+        /// If the JSON is invalid or the type discriminator is unrecognized, returns null.
+        /// </remarks>
+        /// <param name="json">The JSON string to deserialize.</param>
+        /// <returns>
+        /// A <see cref="ChatWidget"/> instance of the appropriate derived type, or null if deserialization fails.
+        /// </returns>
         public static ChatWidget? FromJson(string json)
         {
             return JsonSerializer.Deserialize<ChatWidget?>(json, Serialization.Default);
         }
 
+        /// <summary>
+        /// Deserializes a JSON string to a collection of <see cref="ChatWidget"/> instances.
+        /// </summary>
+        /// <remarks>
+        /// The JSON must be an array of widget objects, each with a valid "type" discriminator field.
+        /// If the JSON is invalid or any type discriminator is unrecognized, returns null.
+        /// </remarks>
+        /// <param name="json">The JSON array string to deserialize.</param>
+        /// <returns>
+        /// A read-only list of <see cref="ChatWidget"/> instances, or null if deserialization fails.
+        /// </returns>
         public static IReadOnlyList<ChatWidget>? ListFromJson(string json)
         {
             return JsonSerializer.Deserialize<IReadOnlyList<ChatWidget>?>(json, Serialization.Default);
@@ -322,6 +369,16 @@ public static class ChatWidgetExtensions
 
     extension(IEnumerable<ChatWidget> widgets)
     {
+        /// <summary>
+        /// Serializes a collection of widgets to a JSON string.
+        /// </summary>
+        /// <remarks>
+        /// The resulting JSON is an array of widget objects, each with its type discriminator.
+        /// Uses camelCase property naming per the configured JSON serialization options.
+        /// </remarks>
+        /// <returns>
+        /// A JSON string representation of the widget collection.
+        /// </returns>
         public string ToJson()
         {
             return JsonSerializer.Serialize(widgets, Serialization.Default);

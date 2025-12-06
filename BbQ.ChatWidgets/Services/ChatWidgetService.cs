@@ -27,6 +27,7 @@ public sealed class ChatWidgetService
     private readonly IWidgetActionHandler _actions;
     private readonly IWidgetToolsProvider _toolsProvider;
     private readonly IThreadService _threadService;
+    private readonly IWidgetHintParser _widgetHintParser;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ChatWidgetService"/> class.
@@ -38,12 +39,13 @@ public sealed class ChatWidgetService
     /// <exception cref="ArgumentNullException">
     /// Thrown if any parameter is null.
     /// </exception>
-    public ChatWidgetService(IChatClient chat, IWidgetActionHandler actions, IWidgetToolsProvider toolsProvider, IThreadService threadService)
+    public ChatWidgetService(IChatClient chat, IWidgetActionHandler actions, IWidgetHintParser widgetHintParser , IWidgetToolsProvider toolsProvider, IThreadService threadService)
     {
         _chat = chat;
         _actions = actions;
         _toolsProvider = toolsProvider;
         _threadService = threadService;
+        _widgetHintParser = widgetHintParser;
     }
 
     /// <summary>
@@ -82,18 +84,28 @@ public sealed class ChatWidgetService
             threadId = _threadService.CreateThread();
         }
 
+        var getWidgets = AIFunctionFactory.Create(() =>
+        {
+            return _toolsProvider.GetTools();
+        }, new AIFunctionFactoryOptions
+        {
+            Name = "get_widget_tools",
+            Description = "Retrieves the available widgets for the chat session."
+        });
+
         var chatOptions = new ChatOptions
         {
-            Tools = [.. _toolsProvider.GetTools()],
+            Tools = [getWidgets],
             ToolMode = ChatToolMode.Auto,
-            AllowMultipleToolCalls = true
+            AllowMultipleToolCalls = true,
         };
 
         var messages = _threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.User, userMessage, ThreadId: threadId));
 
-        var completion = await _chat.GetResponseAsync<BbQStructuredResponse>(messages.ToAIMessages(), Serialization.Default, chatOptions, cancellationToken: ct);
+        var completion = await _chat.GetResponseAsync(messages.ToAIMessages(), chatOptions, ct);
 
-        var (content, widgets) = completion.Result;
+
+        var (content, widgets) = _widgetHintParser.Parse(completion.Text);
 
         return new ChatTurn(ChatRole.Assistant, content, widgets, threadId);
     }

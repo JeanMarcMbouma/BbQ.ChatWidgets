@@ -49,7 +49,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton(options);
         services.AddSingleton<WidgetRegistry>();
         services.AddScoped<ChatWidgetService>();
-        services.AddSingleton<IChatWidgetRenderer, Renderers.DefaultWidgetRenderer>();
+        services.AddSingleton<IChatWidgetRenderer, Renderers.SsrWidgetRenderer>();
         services.AddScoped<IThreadService, DefaultThreadService>();
         services.AddSingleton<IWidgetHintParser, DefaultWidgetHintParser>();
         

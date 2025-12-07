@@ -2,28 +2,28 @@
 
 This guide explains how to manage, update, and maintain the consolidated BbQ.ChatWidgets documentation.
 
-## ?? Documentation Locations
+## — Documentation Locations
 
 ### Primary Location
 ```
 Repository Root
-??? docs/          ? ALL DOCUMENTATION HERE
+— docs/          — ALL DOCUMENTATION HERE
 ```
 
 ### Source Code Documentation
 ```
 BbQ.ChatWidgets/
-??? Models/
-?   ??? ChatWidget.cs          ? XML comments
-?   ??? ChatTurn.cs            ? XML comments
-?   ??? ...
-??? Services/
-?   ??? ChatWidgetService.cs   ? XML comments
-?   ??? ...
-??? ...                        ? All files have XML comments
+— Models/
+   — ChatWidget.cs          — XML comments
+   — ChatTurn.cs            — XML comments
+   — ...
+— Services/
+   — ChatWidgetService.cs   — XML comments
+   — ...
+— ...                        — All files have XML comments
 ```
 
-## ?? Documentation Workflow
+## — Documentation Workflow
 
 ### When Adding a New Feature
 
@@ -77,7 +77,7 @@ BbQ.ChatWidgets/
 4. **Announce in CHANGELOG**
    - Add to `docs/CHANGELOG.md` (create if needed)
 
-## ?? File Structure Guide
+## — File Structure Guide
 
 ### Creating New Documentation
 
@@ -192,7 +192,7 @@ Events if applicable.
 Complete working examples.
 ```
 
-## ?? Cross-Reference Style
+## — Cross-Reference Style
 
 Use relative links:
 ```markdown
@@ -207,7 +207,7 @@ Use code references:
 [RespondAsync method](../api/services/ChatWidgetService.md#respondAsync)
 ```
 
-## ?? XML Comment Standards
+## — XML Comment Standards
 
 ### Class-Level Comments
 ```csharp
@@ -263,7 +263,7 @@ public async Task<Result> MyMethod(string param1, string param2)
 public string MyProperty { get; set; }
 ```
 
-## ?? Quality Checklist
+## — Quality Checklist
 
 Before committing documentation changes:
 
@@ -292,7 +292,7 @@ Before committing documentation changes:
 - [ ] Example code is correct
 - [ ] Links use proper `<see cref=""/>` syntax
 
-## ?? Maintenance Tasks
+## — Maintenance Tasks
 
 ### Weekly
 - Fix broken links (check in PRs)
@@ -316,7 +316,7 @@ Before committing documentation changes:
 - Update architecture diagrams
 - Reorganize if needed
 
-## ?? Monitoring Documentation Health
+## — Monitoring Documentation Health
 
 ### Automated Checks
 Add to CI/CD:
@@ -338,7 +338,7 @@ Add to CI/CD:
 - [ ] Is formatting consistent?
 - [ ] Is terminology consistent?
 
-## ?? Documentation Metrics
+## — Documentation Metrics
 
 Track:
 - Number of documentation pages
@@ -347,7 +347,7 @@ Track:
 - Average page length
 - User feedback/issues
 
-## ?? Contributing Documentation
+## — Contributing Documentation
 
 ### For Maintainers
 1. Create feature branch: `docs/topic-name`
@@ -364,7 +364,7 @@ Track:
 5. Submit PR with description
 6. Be ready to revise based on feedback
 
-## ?? Documentation Deployment
+## — Documentation Deployment
 
 ### Local Preview
 ```bash
@@ -387,7 +387,7 @@ mkdocs serve
 - Sphinx for Python ecosystem
 - Jekyll for GitHub Pages
 
-## ?? Common Tasks
+## — Common Tasks
 
 ### "How do I add a new guide?"
 1. Create `docs/guides/TOPIC.md`
@@ -420,14 +420,14 @@ mkdocs serve
 3. Keep for 2-3 releases
 4. Remove after migration period
 
-## ?? Getting Help
+## — Getting Help
 
 - **Questions?** Open GitHub issue with label `documentation`
 - **Want to help?** See `docs/contributing/DOCUMENTATION.md`
 - **Found an error?** Submit PR with fix
 - **Have suggestions?** Open GitHub discussion
 
-## ?? Related Documents
+## — Related Documents
 
 - `docs/INDEX.md` - Documentation overview
 - `docs/contributing/DOCUMENTATION.md` - Documentation standards

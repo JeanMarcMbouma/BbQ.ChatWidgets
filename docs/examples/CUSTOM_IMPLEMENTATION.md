@@ -16,21 +16,21 @@ This example includes:
 
 ```
 CustomChatApp/
-??? Program.cs
-??? Controllers/
-?   ??? ChatController.cs
-??? Models/
-?   ??? Domain/
-?   ??? DTOs/
-??? Services/
-?   ??? ToolsProvider.cs
-?   ??? ActionHandler.cs
-?   ??? ValidationService.cs
-??? Data/
-?   ??? AppDbContext.cs
-?   ??? Migrations/
-??? Tests/
-    ??? ChatServiceTests.cs
+— Program.cs
+— Controllers/
+    — ChatController.cs
+— Models/
+    — Domain/
+    — DTOs/
+— Services/
+    — ToolsProvider.cs
+    — ActionHandler.cs
+    — ValidationService.cs
+— Data/
+    — AppDbContext.cs
+    — Migrations/
+— Tests/
+    — ChatServiceTests.cs
 ```
 
 ## Program.cs

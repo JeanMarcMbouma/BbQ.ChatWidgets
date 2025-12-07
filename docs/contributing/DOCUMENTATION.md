@@ -15,14 +15,14 @@ Guidelines for writing documentation for BbQ.ChatWidgets.
 
 ```
 docs/
-??? README.md                 # Docs overview
-??? GETTING_STARTED.md        # Quick start
-??? ARCHITECTURE.md           # System design
-??? guides/                   # How-to guides
-??? examples/                 # Code examples
-??? design/                   # Design decisions
-??? api/                      # API reference
-??? contributing/             # Contributor guides
+— README.md                 # Docs overview
+— GETTING_STARTED.md        # Quick start
+— ARCHITECTURE.md           # System design
+— guides/                   # How-to guides
+— examples/                 # Code examples
+— design/                   # Design decisions
+— api/                      # API reference
+— contributing/             # Contributor guides
 ```
 
 ### Naming Conventions
@@ -51,17 +51,17 @@ docs/
 ```markdown
 Specify language for syntax highlighting:
 
-?```csharp
+```csharp
 public class MyClass { }
-?```
+```
 
-?```javascript
+```javascript
 const x = 1;
-?```
+```
 
-?```bash
+```bash
 dotnet build
-?```
+```
 ```
 
 ### Lists

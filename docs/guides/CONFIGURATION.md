@@ -272,7 +272,7 @@ var openaiClient = new OpenAI.Chat.ChatClient(
 builder.Services.AddBbQChatWidgets(options =>
 {
     options.RoutePrefix = chatWidgetsConfig["RoutePrefix"] 
-        ?? "/api/chat";
+    — "/api/chat";
     options.ChatClientFactory = sp => openaiClient;
 });
 ```

@@ -13,15 +13,15 @@ How to write tests for BbQ.ChatWidgets.
 
 ```
 BbQ.ChatWidgets.Tests/
-??? Services/
-?   ??? ChatWidgetServiceTests.cs
-?   ??? DefaultThreadServiceTests.cs
-??? Models/
-?   ??? ChatWidgetTests.cs
-?   ??? ChatTurnTests.cs
-??? Fixtures/
-    ??? MockChatClient.cs
-    ??? TestDataBuilder.cs
+— Services/
+    — ChatWidgetServiceTests.cs
+    — DefaultThreadServiceTests.cs
+— Models/
+    — ChatWidgetTests.cs
+    — ChatTurnTests.cs
+— Fixtures/
+    — MockChatClient.cs
+    — TestDataBuilder.cs
 ```
 
 ## Test Naming

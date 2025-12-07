@@ -57,11 +57,11 @@ The documentation has been reorganized into a clean, logical structure that make
 ### Folder Structure (Unchanged but Ready)
 ```
 docs/
-??? guides/                    (Ready for detailed guides)
-??? examples/                  (Ready for code examples)
-??? design/                    (Ready for design decisions)
-??? api/                       (Ready for API reference)
-??? contributing/              (Ready for contributor guides)
+— guides/                    (Ready for detailed guides)
+— examples/                  (Ready for code examples)
+— design/                    (Ready for design decisions)
+— api/                       (Ready for API reference)
+— contributing/              (Ready for contributor guides)
 ```
 
 ## Navigation Flow

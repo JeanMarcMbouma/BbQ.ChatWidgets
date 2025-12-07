@@ -32,6 +32,8 @@ Find the documentation you need in seconds.
 | Create custom widgets | [guides/CUSTOM_WIDGETS.md](guides/CUSTOM_WIDGETS.md) |
 | Handle widget actions | [guides/CUSTOM_ACTION_HANDLERS.md](guides/CUSTOM_ACTION_HANDLERS.md) |
 
+| Serialization & runtime registration | See **Custom Widgets** guide (runtime `AddCustomWidgetSupport` and `Serialization.Default`) |
+
 ### AI & Tools
 | Topic | File |
 |---|---|

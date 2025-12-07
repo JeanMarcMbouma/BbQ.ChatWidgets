@@ -62,30 +62,52 @@ public record RatingWidget(
 
 ### Step 2: Register the Widget Type
 
-Register the widget in your DI container:
+There are two supported approaches to wire up your custom widget for JSON polymorphic (de)serialization:
+
+- Compile-time registration (attributes)
+- Runtime registration (recommended for external libraries)
+
+Compile-time registration
+
+You can add `[JsonDerivedType]` attributes to your assembly so `System.Text.Json` knows about the discriminator at build time. This works well when you control the widget assembly.
+
+Runtime registration (recommended)
+
+When you want to add custom widgets from external projects without modifying the library source, register them at runtime via the provided DI helpers. This approach injects a small custom registry and a converter that resolves custom types at deserialization time.
+
+Example using DI helper `AddCustomWidgetSupport`:
 
 ```csharp
-builder.Services
-    .ConfigureJsonSerializerOptions(options =>
-    {
-        options.AddChatWidgetType<RatingWidget>("rating");
-    });
+// In Program.cs (or Startup)
+builder.Services.AddBbQChatWidgets();
+
+// Registers the custom registry and injects it into the serialization system
+builder.Services.AddCustomWidgetSupport(registry =>
+{
+    // Auto-discriminator will be derived from the type name (lower-cased)
+    registry.Register<RatingWidget>();
+
+    // Or register with explicit discriminator
+    registry.Register<ProgressWidget>("progress");
+});
 ```
 
-Or manually in JsonSerializerOptions:
+Notes:
+- `AddCustomWidgetSupport()` registers an `ICustomWidgetRegistry` singleton and configures `Serialization.Default` to use the extensible converter.
+- Use `registry.Register<T>()` to auto-generate a discriminator (from the type name) or `registry.Register<T>("discriminator")` to specify it explicitly.
+- This avoids needing `[JsonDerivedType]` attributes and lets external libraries add widgets without touching the core.
+
+Manual runtime registration
+
+If you don't use the DI helper, you can create and configure the registry yourself and call `Serialization.SetCustomWidgetRegistry(...)` during application startup.
 
 ```csharp
-var options = new JsonSerializerOptions();
-
-// Register widget for polymorphic deserialization
-options.AddChatWidgetType<RatingWidget>("rating");
-
-var json = JsonSerializer.Serialize(new RatingWidget(
-    Label: "Rate this response",
-    Action: "submit_rating",
-    MaxRating: 5
-), options);
+var registry = new CustomWidgetRegistry();
+registry.Register<RatingWidget>("rating");
+Serialization.SetCustomWidgetRegistry(registry);
 ```
+
+Use `Serialization.Default` (it will include the extensible converter when a custom registry is configured) when serializing/deserializing widgets across the app.
 
 ### Step 3: Create the Frontend Component
 

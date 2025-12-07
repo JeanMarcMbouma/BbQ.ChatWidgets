@@ -74,5 +74,7 @@ public sealed class BbQChatOptions
     /// );
     /// </code>
     /// </remarks>
-    public Func<IServiceProvider, IWidgetActionHandler>? ActionHandlerFactory { get; set; }
+    public Func<IServiceProvider, IAIToolsProvider>? ToolProviderFactory { get; set; }
+    public Func<IServiceProvider, IAIInstructionProvider>? AIInstructionProviderFactory { get; set; }
+    public Func<IServiceProvider, IWidgetToolsProvider>? WidgetToolsProviderFactory { get; set; }
 }

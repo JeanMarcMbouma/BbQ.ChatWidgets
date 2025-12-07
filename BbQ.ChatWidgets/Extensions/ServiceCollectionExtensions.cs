@@ -1,6 +1,5 @@
 ﻿using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Endpoints;
-using BbQ.ChatWidgets.Handlers;
 using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Services;
 using Microsoft.AspNetCore.Builder;
@@ -52,15 +51,24 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IChatWidgetRenderer, Renderers.DefaultWidgetRenderer>();
         services.AddScoped<IThreadService, DefaultThreadService>();
         services.AddSingleton<IWidgetHintParser, DefaultWidgetHintParser>();
-        services.AddSingleton<IWidgetToolsProvider, DefaultWidgetToolsProvider>();
 
         if (options.ChatClientFactory is not null)
             services.AddSingleton(sp => options.ChatClientFactory(sp));
 
-        if (options.ActionHandlerFactory is not null)
-            services.AddScoped(sp => options.ActionHandlerFactory(sp));
+        if (options.ToolProviderFactory is not null)
+            services.AddScoped(sp => options.ToolProviderFactory(sp));
         else
-            services.AddScoped<IWidgetActionHandler, DefaultWidgetActionHandler>();
+            services.AddScoped<IAIToolsProvider, DefaultAIToolsProvider>();
+
+        if (options.AIInstructionProviderFactory is not null)
+            services.AddScoped(sp => options.AIInstructionProviderFactory(sp));
+        else
+            services.AddScoped<IAIInstructionProvider, DefaultInstructionProvider>();
+        if (options.WidgetToolsProviderFactory is not null)
+            services.AddSingleton(sp => options.WidgetToolsProviderFactory(sp));
+        else
+            services.AddSingleton<IWidgetToolsProvider, DefaultWidgetToolsProvider>();
+
         return services;
     }
 

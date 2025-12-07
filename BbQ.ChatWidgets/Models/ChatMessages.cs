@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.AI;
-
-namespace BbQ.ChatWidgets.Models;
+﻿namespace BbQ.ChatWidgets.Models;
 
 /// <summary>
 /// Represents a complete chat message history for a conversation.

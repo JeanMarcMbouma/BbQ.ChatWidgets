@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace BbQ.ChatWidgets.Endpoints;
+﻿namespace BbQ.ChatWidgets.Endpoints;
 
 /// <summary>
 /// Data transfer object for user message requests.

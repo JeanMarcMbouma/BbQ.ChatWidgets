@@ -17,37 +17,31 @@ namespace BbQ.ChatWidgets.Services;
 /// 
 /// The service integrates with:
 /// - <see cref="IChatClient"/> for AI responses
-/// - <see cref="IWidgetActionHandler"/> for processing widget actions
+/// - <see cref="IWidgetHintParser"/> for parsing widget definitions from AI responses
 /// - <see cref="IWidgetToolsProvider"/> for exposing widget capabilities
+/// - <see cref="IAIToolsProvider"/> for additional AI tools
 /// - <see cref="IThreadService"/> for conversation management
+/// - <see cref="IAIInstructionProvider"/> for custom AI instructions
 /// </remarks>
-public sealed class ChatWidgetService
+/// <remarks>
+/// Initializes a new instance of the <see cref="ChatWidgetService"/> class.
+/// </remarks>
+/// <param name="chat">The AI chat client used for generating responses.</param>
+/// <param name="aiToolsProvider">The provider that supplies additional AI tools.</param>
+/// <param name="widgetToolsProvider">The provider that supplies available widget tools to the AI.</param>
+/// <param name="widgetHintParser">The parser for extracting widget hints from AI responses.</param>
+/// <param name="threadService">The service for managing conversation threads and message history.</param>
+/// <param name="instructionProvider">The provider for custom AI instructions.</param>
+/// <exception cref="ArgumentNullException">
+/// Thrown if any parameter is null.
+/// </exception>
+public sealed class ChatWidgetService(IChatClient chat, 
+    IWidgetHintParser widgetHintParser, 
+    IWidgetToolsProvider widgetToolsProvider, 
+    IAIToolsProvider aiToolsProvider,
+    IThreadService threadService,
+    IAIInstructionProvider instructionProvider)
 {
-    private readonly IChatClient _chat;
-    private readonly IWidgetActionHandler _actions;
-    private readonly IWidgetToolsProvider _toolsProvider;
-    private readonly IThreadService _threadService;
-    private readonly IWidgetHintParser _widgetHintParser;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ChatWidgetService"/> class.
-    /// </summary>
-    /// <param name="chat">The AI chat client used for generating responses.</param>
-    /// <param name="actions">The handler for processing widget-triggered actions.</param>
-    /// <param name="toolsProvider">The provider that supplies available widget tools to the AI.</param>
-    /// <param name="threadService">The service for managing conversation threads and message history.</param>
-    /// <exception cref="ArgumentNullException">
-    /// Thrown if any parameter is null.
-    /// </exception>
-    public ChatWidgetService(IChatClient chat, IWidgetActionHandler actions, IWidgetHintParser widgetHintParser , IWidgetToolsProvider toolsProvider, IThreadService threadService)
-    {
-        _chat = chat;
-        _actions = actions;
-        _toolsProvider = toolsProvider;
-        _threadService = threadService;
-        _widgetHintParser = widgetHintParser;
-    }
-
     /// <summary>
     /// Processes a user message and generates an AI response with optional embedded widgets.
     /// </summary>
@@ -79,14 +73,14 @@ public sealed class ChatWidgetService
     /// </exception>
     public async Task<ChatTurn> RespondAsync(string userMessage, string? threadId = null, CancellationToken ct = default)
     {
-        if(threadId == null || !_threadService.ThreadExists(threadId))
+        if(threadId == null || !threadService.ThreadExists(threadId))
         {
-            threadId = _threadService.CreateThread();
+            threadId = threadService.CreateThread();
         }
 
         var getWidgets = AIFunctionFactory.Create(() =>
         {
-            return _toolsProvider.GetTools();
+            return widgetToolsProvider.GetTools();
         }, new AIFunctionFactoryOptions
         {
             Name = "get_widget_tools",
@@ -95,19 +89,21 @@ public sealed class ChatWidgetService
 
         var chatOptions = new ChatOptions
         {
-            Tools = [getWidgets],
+            Tools = [..aiToolsProvider.GetAITools(), getWidgets],
             ToolMode = ChatToolMode.Auto,
             AllowMultipleToolCalls = true,
+            Instructions = instructionProvider.GetInstructions()
         };
 
-        var messages = _threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.User, userMessage, ThreadId: threadId));
+        var messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.User, userMessage, ThreadId: threadId));
 
-        var completion = await _chat.GetResponseAsync(messages.ToAIMessages(), chatOptions, ct);
+        var completion = await chat.GetResponseAsync(messages.ToAIMessages(), chatOptions, ct);
 
+        var (content, widgets) = widgetHintParser.Parse(completion.Text);
 
-        var (content, widgets) = _widgetHintParser.Parse(completion.Text);
+        messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.Assistant, content, widgets, threadId));
 
-        return new ChatTurn(ChatRole.Assistant, content, widgets, threadId);
+        return messages.Turns[messages.Turns.Count - 1];
     }
 
     /// <summary>
@@ -139,5 +135,13 @@ public sealed class ChatWidgetService
     /// Thrown if the operation is cancelled via the cancellation token.
     /// </exception>
     public Task<ChatTurn> HandleActionAsync(string action, IReadOnlyDictionary<string, object?> payload, string threadId, CancellationToken ct = default)
-        => _actions.HandleAsync(action, payload, threadId, ct);
+    {
+        var content = action switch
+        {
+            "retry" => "Retrying the last request...",
+            _ => $"Action '{action}' received with payload: {System.Text.Json.JsonSerializer.Serialize(payload)}"
+        };
+
+        return RespondAsync(content, threadId, ct);
+    }
 }

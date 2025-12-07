@@ -1,0 +1,49 @@
+name: .NET Publish
+
+on:
+  push:
+    tags:
+      - 'v*' # Triggers on tags like v1.0.0
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # Required for NuGet Trusted Publishing
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Get Version
+      id: version
+      run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+    - name: Restore dependencies
+      run: dotnet restore BbQ.ChatWidgets.slnx
+
+    - name: Build
+      run: dotnet build BbQ.ChatWidgets.slnx --no-restore --configuration Release
+
+    - name: Test
+      run: dotnet test BbQ.ChatWidgets.slnx --no-build --configuration Release --verbosity normal
+
+    - name: Pack
+      run: dotnet pack BbQ.ChatWidgets/BbQ.ChatWidgets.csproj --no-build --configuration Release --output ./nupkg /p:PackageVersion=${{ steps.version.outputs.version }}
+
+    - name: NuGet login (OIDC -> temp API key)
+      uses: NuGet/login@v1
+      id: login
+      with:
+        user: ${{ secrets.NUGET_USER }}
+
+    - name: Publish to NuGet
+      run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+
+    - name: Publish Symbols
+      run: dotnet nuget push ./nupkg/*.snupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json --skip-duplicate

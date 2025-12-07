@@ -1,0 +1,39 @@
+name: NPM Publish
+
+on:
+  push:
+    tags:
+      - 'npm-v*' # Triggers on tags like npm-v1.0.0
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: js
+    permissions:
+      contents: read
+      id-token: write # Required for NPM provenance
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        registry-url: 'https://registry.npmjs.org'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build
+      run: npm run build
+
+    - name: Test
+      run: npm test
+
+    - name: Publish to NPM
+      run: npm publish --provenance --access public
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

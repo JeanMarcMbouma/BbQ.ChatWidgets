@@ -80,6 +80,60 @@ options.WidgetToolsProviderFactory = sp => provider;
 ```csharp
 options.ToolProviderFactory = sp => provider;
 ```
+
+### Choosing Between `ToolProviderFactory` and `WidgetToolsProviderFactory`
+
+Use this simple guidance to decide which factory to implement:
+
+- **`WidgetToolsProviderFactory`**: implement this when you want to expose UI widgets (buttons, forms, cards) to the AI. It returns `WidgetTool` instances that wrap `ChatWidget` definitions — recommended for projects that embed interactive widgets in assistant responses.
+- **`ToolProviderFactory`**: implement this when you want to expose general-purpose AI tools or functions (e.g., search, translation, database queries) as `AITool` instances. Use this for model-invokable functions that are not UI widgets.
+
+Minimal examples:
+
+IAIToolsProvider (model-facing tools)
+
+```csharp
+public class SampleAIToolsProvider : IAIToolsProvider
+{
+    public IReadOnlyList<Microsoft.Extensions.AI.AITool> GetAITools()
+    {
+        // Return AITool instances representing callable functions
+        return new List<Microsoft.Extensions.AI.AITool>
+        {
+            new Microsoft.Extensions.AI.AITool("search_products", "Search products")
+        };
+    }
+}
+
+// Register via ToolProviderFactory
+builder.Services.AddBbQChatWidgets(options =>
+{
+    options.ToolProviderFactory = sp => new SampleAIToolsProvider();
+});
+```
+
+IWidgetToolsProvider (widget-facing tools — recommended for widget authors)
+
+```csharp
+public class SampleWidgetToolsProvider : IWidgetToolsProvider
+{
+    public IReadOnlyList<BbQ.ChatWidgets.Models.WidgetTool> GetTools()
+    {
+        return new List<BbQ.ChatWidgets.Models.WidgetTool>
+        {
+            new BbQ.ChatWidgets.Models.WidgetTool(
+                new BbQ.ChatWidgets.Models.ChatWidget("button") { Label = "Search", Action = "search_products" }
+            )
+        };
+    }
+}
+
+// Register via WidgetToolsProviderFactory
+builder.Services.AddBbQChatWidgets(options =>
+{
+    options.WidgetToolsProviderFactory = sp => new SampleWidgetToolsProvider();
+});
+```
 **Type**: `Func<IServiceProvider, IAIToolsProvider>`  
 **Default**: `DefaultToolsProvider`  
 **Description**: Provides custom AI tools/functions

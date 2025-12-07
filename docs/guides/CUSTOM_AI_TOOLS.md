@@ -270,6 +270,45 @@ public async Task<string> ExecuteToolAsync(
 }
 ```
 
+## Quick Comparison: Tools vs Widgets
+
+Short decision guide:
+
+- Use **AI tools** (`IAIToolsProvider` / `ToolProviderFactory`) when you need the model to call functions that perform backend work (search, translate, query DB). These return `AITool` instances.
+- Use **Widget tools** (`IWidgetToolsProvider` / `WidgetToolsProviderFactory`) when you want the model to understand and embed interactive UI widgets (buttons, forms, cards). These return `WidgetTool` instances that wrap `ChatWidget` objects.
+
+Example `IAIToolsProvider` snippet (simple function/tool):
+
+```csharp
+public class SampleAIToolsProvider : IAIToolsProvider
+{
+    public IReadOnlyList<Microsoft.Extensions.AI.AITool> GetAITools()
+    {
+        return new List<Microsoft.Extensions.AI.AITool>
+        {
+            new Microsoft.Extensions.AI.AITool("translate_text", "Translate text to another language")
+        };
+    }
+}
+```
+
+Example `IWidgetToolsProvider` snippet (widget adapter):
+
+```csharp
+public class SampleWidgetToolsProvider : IWidgetToolsProvider
+{
+    public IReadOnlyList<BbQ.ChatWidgets.Models.WidgetTool> GetTools()
+    {
+        return new List<BbQ.ChatWidgets.Models.WidgetTool>
+        {
+            new BbQ.ChatWidgets.Models.WidgetTool(
+                new BbQ.ChatWidgets.Models.ChatWidget("button") { Label = "Translate", Action = "translate_text" }
+            )
+        };
+    }
+}
+```
+
 ## Error Handling
 
 ```csharp

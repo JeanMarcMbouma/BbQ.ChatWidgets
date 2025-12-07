@@ -51,30 +51,80 @@ public sealed class BbQChatOptions
     public Func<IServiceProvider, IChatClient>? ChatClientFactory { get; set; }
 
     /// <summary>
-    /// Gets or sets the factory function for creating custom <see cref="IWidgetActionHandler"/> instances.
+    /// Gets or sets the factory function for creating custom tool providers.
     /// </summary>
     /// <remarks>
-    /// This factory allows providing a custom action handler for processing widget actions.
-    /// If not provided, the default <see cref="DefaultWidgetActionHandler"/> is used.
+    /// This factory allows providing a custom provider for AI tools that extend the chat widget functionality.
+    /// If not provided, no additional AI tools beyond the standard widget tools are registered.
     /// 
     /// The factory receives the <see cref="IServiceProvider"/> allowing access to dependencies
-    /// needed by the action handler (database, external services, etc.).
+    /// needed by the tool provider (databases, external services, configuration, etc.).
     /// 
-    /// Custom action handlers can:
-    /// - Access application state and databases
-    /// - Perform domain-specific operations
-    /// - Call external APIs
-    /// - Generate custom responses based on widget actions
+    /// Custom tool providers can:
+    /// - Register additional AI-callable tools
+    /// - Integrate with domain-specific functionality
+    /// - Access application state and services
+    /// - Extend the AI assistant's capabilities
     /// 
     /// Example:
     /// <code>
-    /// options.ActionHandlerFactory = sp => new MyCustomActionHandler(
+    /// options.ToolProviderFactory = sp => new MyCustomToolProvider(
     ///     sp.GetRequiredService&lt;IDatabase&gt;(),
-    ///     sp.GetRequiredService&lt;IExternalService&gt;()
+    ///     sp.GetRequiredService&lt;IConfiguration&gt;()
     /// );
     /// </code>
     /// </remarks>
     public Func<IServiceProvider, IAIToolsProvider>? ToolProviderFactory { get; set; }
+
+    /// <summary>
+    /// Gets or sets the factory function for creating custom AI instruction providers.
+    /// </summary>
+    /// <remarks>
+    /// This factory allows providing custom system instructions or prompts for the AI model.
+    /// If not provided, the AI assistant uses only the default widget-related instructions.
+    /// 
+    /// The factory receives the <see cref="IServiceProvider"/> allowing access to dependencies
+    /// needed by the instruction provider (configuration, domain logic, etc.).
+    /// 
+    /// Custom instruction providers can:
+    /// - Supply domain-specific system prompts
+    /// - Customize AI behavior and tone
+    /// - Add context-specific instructions
+    /// - Integrate domain knowledge into the AI responses
+    /// 
+    /// Example:
+    /// <code>
+    /// options.AIInstructionProviderFactory = sp => new MyCustomInstructionProvider(
+    ///     sp.GetRequiredService&lt;IConfiguration&gt;(),
+    ///     sp.GetRequiredService&lt;IDomainService&gt;()
+    /// );
+    /// </code>
+    /// </remarks>
     public Func<IServiceProvider, IAIInstructionProvider>? AIInstructionProviderFactory { get; set; }
+
+    /// <summary>
+    /// Gets or sets the factory function for creating custom widget tools providers.
+    /// </summary>
+    /// <remarks>
+    /// This factory allows providing a custom provider for widget-specific AI tools.
+    /// If not provided, the default widget tools (button, card, input, dropdown, slider, toggle, file upload)
+    /// are automatically registered.
+    /// 
+    /// The factory receives the <see cref="IServiceProvider"/> allowing access to dependencies
+    /// needed by the widget tools provider.
+    /// 
+    /// Custom widget tools providers can:
+    /// - Override or extend the default widget tool definitions
+    /// - Add validation or constraint logic for widget parameters
+    /// - Customize the JSON schemas for widget tools
+    /// - Register additional widget types beyond the standard set
+    /// 
+    /// Example:
+    /// <code>
+    /// options.WidgetToolsProviderFactory = sp => new MyCustomWidgetToolsProvider(
+    ///     sp.GetRequiredService&lt;ILogger&lt;MyCustomWidgetToolsProvider&gt;&gt;()
+    /// );
+    /// </code>
+    /// </remarks>
     public Func<IServiceProvider, IWidgetToolsProvider>? WidgetToolsProviderFactory { get; set; }
 }

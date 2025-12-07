@@ -21,6 +21,25 @@ using OpenAI.Chat;
 
 internal class Program
 {
+    /// <summary>
+    /// Main entry point for the BbQ.ChatWidgets Console Sample Application.
+    /// </summary>
+    /// <remarks>
+    /// This method:
+    /// 1. Builds the application configuration using User Secrets
+    /// 2. Sets up the dependency injection container with logging
+    /// 3. Creates and configures an OpenAI chat client
+    /// 4. Registers BbQ.ChatWidgets services and custom services
+    /// 5. Runs the interactive chat loop
+    /// 
+    /// The application demonstrates:
+    /// - Using OpenAI chat client with BbQ.ChatWidgets
+    /// - Storing secrets securely using User Secrets
+    /// - Multi-turn conversation management
+    /// - Interactive widget handling
+    /// </remarks>
+    /// <param name="args">Command-line arguments (currently unused).</param>
+    /// <returns>A task that represents the asynchronous main operation.</returns>
     private static async Task Main(string[] args)
     {
         // Build configuration with User Secrets support
@@ -82,8 +101,23 @@ internal class Program
         }
 
         /// <summary>
-        /// Runs the interactive chat loop
+        /// Runs the interactive chat loop for the console application.
         /// </summary>
+        /// <remarks>
+        /// This method manages the main conversation loop, allowing users to:
+        /// - Send messages and receive AI responses with interactive widgets
+        /// - View conversation history with the "history" command
+        /// - Clear the conversation with the "clear" command
+        /// - Exit the application with the "exit" command
+        /// 
+        /// The method continuously prompts for user input and displays:
+        /// - AI responses with formatted text
+        /// - Available widgets in the response
+        /// - Error messages if communication with OpenAI fails
+        /// </remarks>
+        /// <param name="chatService">The chat service for processing user messages.</param>
+        /// <param name="conversationManager">The conversation manager for maintaining history.</param>
+        /// <param name="logger">The logger for logging operations and errors.</param>
         static async Task RunInteractiveChat(
             ChatService chatService,
             ConversationManager conversationManager,
@@ -157,8 +191,13 @@ internal class Program
 namespace BbQ.ChatWidgets.Sample
 {
     /// <summary>
-    /// Main chat service that handles communication with OpenAI and widget parsing
+    /// Service for handling chat interactions with AI integration.
     /// </summary>
+    /// <remarks>
+    /// This service acts as a bridge between the console application and the ChatWidgetService,
+    /// managing the current conversation thread and delegating message processing to the
+    /// ChatWidgetService for AI response generation with widget support.
+    /// </remarks>
     public class ChatService
     {
         private readonly ChatWidgetService _widgetService;
@@ -166,6 +205,12 @@ namespace BbQ.ChatWidgets.Sample
         private readonly ILogger _logger;
         private string? _currentThreadId;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ChatService"/> class.
+        /// </summary>
+        /// <param name="widgetService">The chat widget service for processing messages.</param>
+        /// <param name="conversationManager">The conversation manager for maintaining message history.</param>
+        /// <param name="loggerFactory">The logger factory for creating a logger instance.</param>
         public ChatService(
             ChatWidgetService widgetService,
             ConversationManager conversationManager,
@@ -177,8 +222,28 @@ namespace BbQ.ChatWidgets.Sample
         }
 
         /// <summary>
-        /// Sends a message to OpenAI and returns the response with parsed widgets
+        /// Sends a message to the AI and returns the response with parsed widgets.
         /// </summary>
+        /// <remarks>
+        /// This method:
+        /// 1. Initializes a conversation thread on the first call
+        /// 2. Adds the user message to local history
+        /// 3. Calls ChatWidgetService to process the message and get AI response
+        /// 4. Returns the response which may contain embedded widgets
+        /// 
+        /// The ChatWidgetService handles:
+        /// - Providing widget tools to the AI model
+        /// - Parsing widget markers from the response
+        /// - Managing conversation threading
+        /// </remarks>
+        /// <param name="userMessage">The user's message to send to the AI.</param>
+        /// <returns>
+        /// A task that completes with a <see cref="ChatTurn"/> containing the AI response
+        /// and any parsed widgets.
+        /// </returns>
+        /// <exception cref="HttpRequestException">
+        /// Thrown if the request to the OpenAI API fails.
+        /// </exception>
         public async Task<ChatTurn> SendMessageAsync(string userMessage)
         {
             // Initialize thread on first message
@@ -199,16 +264,28 @@ namespace BbQ.ChatWidgets.Sample
     }
 
     /// <summary>
-    /// Manages multi-turn conversations and message history
+    /// Manages multi-turn conversations and message history.
     /// </summary>
+    /// <remarks>
+    /// This class maintains a thread-safe collection of conversation turns (messages and responses)
+    /// and provides methods for adding turns, clearing history, and retrieving messages in various formats.
+    /// </remarks>
     public class ConversationManager
     {
         private readonly List<ChatTurn> _turns = new();
+
+        /// <summary>
+        /// Gets the unique identifier for the current conversation thread.
+        /// </summary>
         public string CurrentThreadId { get; } = Guid.NewGuid().ToString();
 
         /// <summary>
-        /// Adds a user message to the conversation
+        /// Adds a user message to the conversation.
         /// </summary>
+        /// <remarks>
+        /// Creates a new ChatTurn with the user's message and adds it to the conversation history.
+        /// </remarks>
+        /// <param name="message">The user's message text.</param>
         public void AddUserMessage(string message)
         {
             _turns.Add(new ChatTurn(
@@ -220,32 +297,54 @@ namespace BbQ.ChatWidgets.Sample
         }
 
         /// <summary>
-        /// Adds an assistant response to the conversation
+        /// Adds an assistant response (turn) to the conversation.
         /// </summary>
+        /// <remarks>
+        /// Appends a ChatTurn (typically containing an assistant response and optional widgets)
+        /// to the conversation history.
+        /// </remarks>
+        /// <param name="turn">The chat turn to add to the conversation.</param>
         public void AddTurn(ChatTurn turn)
         {
             _turns.Add(turn);
         }
 
         /// <summary>
-        /// Gets all messages in the current conversation as AI message format
+        /// Gets all messages in the current conversation as AI message format.
         /// </summary>
+        /// <remarks>
+        /// Converts all conversation turns to the Microsoft.Extensions.AI.ChatMessage format,
+        /// suitable for passing to the chat client.
+        /// </remarks>
+        /// <returns>
+        /// An enumerable of <see cref="Microsoft.Extensions.AI.ChatMessage"/> representing
+        /// all conversation turns.
+        /// </returns>
         public IEnumerable<Microsoft.Extensions.AI.ChatMessage> GetMessages()
         {
             return _turns.Select(turn => new Microsoft.Extensions.AI.ChatMessage(turn.Role, turn.Content));
         }
 
         /// <summary>
-        /// Clears the conversation history
+        /// Clears the conversation history.
         /// </summary>
+        /// <remarks>
+        /// Removes all stored conversation turns, resetting the conversation to empty state.
+        /// Note: The <see cref="CurrentThreadId"/> remains the same.
+        /// </remarks>
         public void ClearHistory()
         {
             _turns.Clear();
         }
 
         /// <summary>
-        /// Prints the conversation history to console
+        /// Prints the conversation history to the console.
         /// </summary>
+        /// <remarks>
+        /// Displays the complete conversation history in a formatted manner, showing each turn
+        /// with the speaker role and content, plus any widgets associated with each turn.
+        /// Does nothing if no turns exist in the history.
+        /// </remarks>
         public void PrintHistory()
         {
             if (_turns.Count == 0)

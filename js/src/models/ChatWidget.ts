@@ -68,7 +68,7 @@ export abstract class ChatWidget {
           obj.min,
           obj.max,
           obj.step,
-          obj.default
+          obj.defaultValue
         );
       case 'toggle':
         return new ToggleWidget(obj.label, obj.action, obj.defaultValue ?? false);
@@ -210,7 +210,7 @@ export class SliderWidget extends ChatWidget {
     readonly min: number,
     readonly max: number,
     readonly step: number,
-    readonly default?: number
+    readonly defaultValue?: number
   ) {
     super('slider', label, action);
   }
@@ -223,7 +223,7 @@ export class SliderWidget extends ChatWidget {
       min: this.min,
       max: this.max,
       step: this.step,
-      default: this.default,
+      defaultValue: this.defaultValue,
     };
   }
 }

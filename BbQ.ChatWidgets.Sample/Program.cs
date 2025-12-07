@@ -6,6 +6,7 @@ using BbQ.ChatWidgets.Extensions;
 using BbQ.ChatWidgets.Sample;
 using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Services;
+using BbQ.ChatWidgets.Sample.Actions;
 using OpenAI;
 using OpenAI.Chat;
 
@@ -17,6 +18,7 @@ using OpenAI.Chat;
 /// - Storing secrets securely using User Secrets
 /// - Multi-turn conversation management
 /// - Interactive widget handling
+/// - Typed action handlers with IWidgetAction<T>
 /// </summary>
 
 internal class Program
@@ -30,13 +32,15 @@ internal class Program
     /// 2. Sets up the dependency injection container with logging
     /// 3. Creates and configures an OpenAI chat client
     /// 4. Registers BbQ.ChatWidgets services and custom services
-    /// 5. Runs the interactive chat loop
+    /// 5. Registers typed action handlers
+    /// 6. Runs the interactive chat loop
     /// 
     /// The application demonstrates:
     /// - Using OpenAI chat client with BbQ.ChatWidgets
     /// - Storing secrets securely using User Secrets
     /// - Multi-turn conversation management
     /// - Interactive widget handling
+    /// - Typed action handlers with IWidgetAction<T>
     /// </remarks>
     /// <param name="args">Command-line arguments (currently unused).</param>
     /// <returns>A task that represents the asynchronous main operation.</returns>
@@ -73,6 +77,9 @@ internal class Program
             // Register custom services
             .AddSingleton<ChatService>()
             .AddSingleton<ConversationManager>()
+            // Register typed action handlers
+            .AddScoped<GreetingHandler>()
+            .AddScoped<FeedbackHandler>()
             .BuildServiceProvider();
 
         // Get logger
@@ -84,6 +91,35 @@ internal class Program
 
         try
         {
+            // Register typed actions with the registry
+            var actionRegistry = serviceProvider.GetRequiredService<IWidgetActionRegistry>();
+            var handlerResolver = serviceProvider.GetRequiredService<IWidgetActionHandlerResolver>();
+
+            // Register greeting action
+            var greetingAction = new GreetingAction();
+            actionRegistry.RegisterAction(new WidgetActionMetadata(
+                greetingAction.Name,
+                greetingAction.Description,
+                greetingAction.PayloadSchema,
+                typeof(GreetingPayload)
+            ));
+            handlerResolver.RegisterHandler(greetingAction.Name, typeof(GreetingHandler));
+
+            // Register feedback action
+            var feedbackAction = new FeedbackAction();
+            actionRegistry.RegisterAction(new WidgetActionMetadata(
+                feedbackAction.Name,
+                feedbackAction.Description,
+                feedbackAction.PayloadSchema,
+                typeof(FeedbackPayload)
+            ));
+            handlerResolver.RegisterHandler(feedbackAction.Name, typeof(FeedbackHandler));
+
+            logger.LogInformation("Registered typed action handlers:");
+            logger.LogInformation($"  - {greetingAction.Name}: {greetingAction.Description}");
+            logger.LogInformation($"  - {feedbackAction.Name}: {feedbackAction.Description}");
+            logger.LogInformation("");
+
             // Get services
             var chatService = serviceProvider.GetRequiredService<ChatService>();
             var conversationManager = serviceProvider.GetRequiredService<ConversationManager>();
@@ -272,7 +308,7 @@ namespace BbQ.ChatWidgets.Sample
     /// </remarks>
     public class ConversationManager
     {
-        private readonly List<ChatTurn> _turns = new();
+        private readonly List<ChatTurn> _turns = [];
 
         /// <summary>
         /// Gets the unique identifier for the current conversation thread.

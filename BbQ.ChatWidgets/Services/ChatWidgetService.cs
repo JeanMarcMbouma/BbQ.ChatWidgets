@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.AI;
 using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Abstractions;
+using System.Text.Json;
+using System.Reflection;
 
 namespace BbQ.ChatWidgets.Services;
 
@@ -13,7 +15,7 @@ namespace BbQ.ChatWidgets.Services;
 /// - Manages conversation threads and message history
 /// - Provides available widget tools to the AI chat client
 /// - Processes user messages and generates responses with embedded widgets
-/// - Handles widget actions triggered by user interactions
+/// - Handles widget actions triggered by user interactions using type-safe handlers
 /// 
 /// The service integrates with:
 /// - <see cref="IChatClient"/> for AI responses
@@ -22,25 +24,18 @@ namespace BbQ.ChatWidgets.Services;
 /// - <see cref="IAIToolsProvider"/> for additional AI tools
 /// - <see cref="IThreadService"/> for conversation management
 /// - <see cref="IAIInstructionProvider"/> for custom AI instructions
+/// - <see cref="IWidgetActionRegistry"/> for action metadata
+/// - <see cref="IWidgetActionHandlerResolver"/> for handler resolution
 /// </remarks>
-/// <remarks>
-/// Initializes a new instance of the <see cref="ChatWidgetService"/> class.
-/// </remarks>
-/// <param name="chat">The AI chat client used for generating responses.</param>
-/// <param name="aiToolsProvider">The provider that supplies additional AI tools.</param>
-/// <param name="widgetToolsProvider">The provider that supplies available widget tools to the AI.</param>
-/// <param name="widgetHintParser">The parser for extracting widget hints from AI responses.</param>
-/// <param name="threadService">The service for managing conversation threads and message history.</param>
-/// <param name="instructionProvider">The provider for custom AI instructions.</param>
-/// <exception cref="ArgumentNullException">
-/// Thrown if any parameter is null.
-/// </exception>
-public sealed class ChatWidgetService(IChatClient chat, 
-    IWidgetHintParser widgetHintParser, 
-    IWidgetToolsProvider widgetToolsProvider, 
+public sealed class ChatWidgetService(
+    IChatClient chat,
+    IWidgetHintParser widgetHintParser,
+    IWidgetToolsProvider widgetToolsProvider,
     IAIToolsProvider aiToolsProvider,
     IThreadService threadService,
-    IAIInstructionProvider instructionProvider)
+    IAIInstructionProvider instructionProvider,
+    IWidgetActionRegistry actionRegistry,
+    IWidgetActionHandlerResolver handlerResolver)
 {
     /// <summary>
     /// Processes a user message and generates an AI response with optional embedded widgets.
@@ -111,11 +106,12 @@ public sealed class ChatWidgetService(IChatClient chat,
     /// </summary>
     /// <remarks>
     /// This method is called when a user interacts with a widget (e.g., clicks a button, submits a form).
-    /// The action is processed by the configured action handler, which may:
-    /// - Update application state
-    /// - Query a database
-    /// - Call external services
-    /// - Generate a response based on the action
+    /// It:
+    /// 1. Looks up the action metadata from the registry
+    /// 2. Resolves the appropriate typed handler
+    /// 3. Deserializes the payload to the correct type
+    /// 4. Invokes the handler with type-safe parameters
+    /// 5. Appends the response to thread history
     /// 
     /// The response may contain additional widgets for continued interaction.
     /// </remarks>
@@ -127,21 +123,64 @@ public sealed class ChatWidgetService(IChatClient chat,
     /// </param>
     /// <param name="threadId">The conversation thread ID for maintaining context.</param>
     /// <param name="ct">Cancellation token to cancel the async operation.</param>
+    /// <param name="serviceProvider">The service provider for resolving dependencies.</param>
     /// <returns>
     /// A task that completes with a <see cref="ChatTurn"/> containing the action response
     /// with any resulting widgets.
     /// </returns>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown if no handler is registered for the action.
+    /// </exception>
     /// <exception cref="OperationCanceledException">
     /// Thrown if the operation is cancelled via the cancellation token.
     /// </exception>
-    public Task<ChatTurn> HandleActionAsync(string action, IReadOnlyDictionary<string, object?> payload, string threadId, CancellationToken ct = default)
+    public async Task<ChatTurn> HandleActionAsync(
+        string action,
+        IReadOnlyDictionary<string, object?> payload,
+        string threadId,
+        IServiceProvider serviceProvider,
+        CancellationToken ct = default)
     {
-        var content = action switch
+        // Get action metadata from registry
+        var actionMetadata = actionRegistry.GetAction(action);
+        if (actionMetadata == null)
         {
-            "retry" => "Retrying the last request...",
-            _ => $"Action '{action}' received with payload: {System.Text.Json.JsonSerializer.Serialize(payload)}"
-        };
+            // Fallback to legacy behavior if no registered action
+            var content = $"Action '{action}' received with payload: {JsonSerializer.Serialize(payload)}";
+            return await RespondAsync(content, threadId, ct);
+        }
 
-        return RespondAsync(content, threadId, ct);
+        // Resolve handler
+        var handler = handlerResolver.ResolveHandler(action, serviceProvider) ?? throw new InvalidOperationException($"No handler registered for action: {action}");
+
+        // Deserialize payload to correct type
+        var payloadJson = JsonSerializer.Serialize(payload);
+        object? typedPayload;
+
+        try
+        {
+            typedPayload = JsonSerializer.Deserialize(payloadJson, actionMetadata.PayloadType, Serialization.Default);
+        }
+        catch (JsonException ex)
+        {
+            throw new InvalidOperationException($"Failed to deserialize payload for action '{action}'", ex);
+        }
+
+        // Invoke handler via reflection
+        var handleMethod = handler.GetType()
+            .GetMethods(BindingFlags.Public | BindingFlags.Instance)
+            .FirstOrDefault(m => m.Name == "HandleActionAsync" && m.IsGenericMethodDefinition == false);
+
+        if (handleMethod == null)
+        {
+            throw new InvalidOperationException($"Handler for action '{action}' does not have HandleActionAsync method");
+        }
+
+        var result = await (Task<ChatTurn>)handleMethod.Invoke(handler, [typedPayload, threadId, serviceProvider])!;
+
+        // Append to thread history
+        threadService.AppendMessageToThread(threadId, result);
+
+        return result;
     }
 }

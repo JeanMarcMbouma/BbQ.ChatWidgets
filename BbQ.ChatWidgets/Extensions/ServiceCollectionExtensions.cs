@@ -26,7 +26,8 @@ public static class ServiceCollectionExtensions
     /// - <see cref="IWidgetToolsProvider"/>: Widget tools provider
     /// - <see cref="IChatWidgetRenderer"/>: Widget HTML renderer
     /// - <see cref="IThreadService"/>: Thread/conversation management
-    /// - <see cref="IWidgetActionHandler"/>: Action handler (custom or default)
+    /// - <see cref="IWidgetActionRegistry"/>: Action metadata registry
+    /// - <see cref="IWidgetActionHandlerResolver"/>: Handler resolution service
     /// - <see cref="IChatClient"/>: Chat client (if factory provided)
     /// 
     /// Usage:
@@ -51,6 +52,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IChatWidgetRenderer, Renderers.DefaultWidgetRenderer>();
         services.AddScoped<IThreadService, DefaultThreadService>();
         services.AddSingleton<IWidgetHintParser, DefaultWidgetHintParser>();
+        
+        // Register action registry and handler resolver
+        services.AddSingleton<IWidgetActionRegistry, DefaultWidgetActionRegistry>();
+        services.AddSingleton<IWidgetActionHandlerResolver, DefaultWidgetActionHandlerResolver>();
 
         if (options.ChatClientFactory is not null)
             services.AddSingleton(sp => options.ChatClientFactory(sp));
@@ -64,6 +69,7 @@ public static class ServiceCollectionExtensions
             services.AddScoped(sp => options.AIInstructionProviderFactory(sp));
         else
             services.AddScoped<IAIInstructionProvider, DefaultInstructionProvider>();
+            
         if (options.WidgetToolsProviderFactory is not null)
             services.AddSingleton(sp => options.WidgetToolsProviderFactory(sp));
         else
@@ -154,7 +160,7 @@ public static class ServiceCollectionExtensions
         var dto = await DeserializeRequest<WidgetActionDto>(context);
         var ct = context.RequestAborted;
 
-        var turn = await service.HandleActionAsync(dto.Action, dto.Payload ?? new(), dto.ThreadId, ct);
+        var turn = await service.HandleActionAsync(dto.Action, dto.Payload ?? [], dto.ThreadId, services, ct);
         await WriteJsonResponse(context, turn);
     }
 

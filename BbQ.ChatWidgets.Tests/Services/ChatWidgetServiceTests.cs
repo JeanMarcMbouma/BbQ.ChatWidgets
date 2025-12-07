@@ -19,6 +19,8 @@ public class ChatWidgetServiceTests
     private readonly Mock<IAIToolsProvider> mockAIToolsProvider = new();
     private readonly Mock<IThreadService> mockThreadService = new();
     private readonly Mock<IAIInstructionProvider> mockAIInstructionsProvider = new();
+    private readonly Mock<IWidgetActionRegistry> mockActionRegistry = new();
+    private readonly Mock<IWidgetActionHandlerResolver> mockHandlerResolver = new();
 
     private readonly ChatWidgetService chatWidgetService;
 
@@ -30,7 +32,9 @@ public class ChatWidgetServiceTests
             mockToolsProvider.Object,
             mockAIToolsProvider.Object,
             mockThreadService.Object,
-            mockAIInstructionsProvider.Object
+            mockAIInstructionsProvider.Object,
+            mockActionRegistry.Object,
+            mockHandlerResolver.Object
         );
     }
 

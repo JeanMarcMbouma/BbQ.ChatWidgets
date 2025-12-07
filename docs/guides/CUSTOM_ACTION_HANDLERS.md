@@ -1,15 +1,16 @@
 ﻿# Custom Action Handlers Guide
 
-Learn how to handle widget interactions and custom actions.
+Learn how to handle widget interactions and custom actions using both the legacy `IWidgetActionHandler` approach and the new typed handler system.
 
 ## Overview
 
 This guide shows you how to:
 1. Understand widget actions
-2. Create action handlers
+2. Create action handlers (legacy and typed)
 3. Register action handlers
 4. Process widget data
 5. Generate responses
+6. Make the LLM aware of available actions
 
 ## Understanding Actions
 
@@ -44,9 +45,208 @@ Browser renders response
 }
 ```
 
-## Creating Action Handlers
+## Two Approaches: Legacy vs. Typed
 
-### Step 1: Implement IWidgetActionHandler
+### Legacy Approach: IWidgetActionHandler
+Simple, string-based action routing with dynamic payloads (backward compatible)
+
+### Modern Approach: IWidgetAction<T> + IActionWidgetActionHandler<TWidgetAction, T>
+Type-safe, with automatic LLM awareness and schema generation
+
+**Recommendation**: Use the typed approach for new code. Both can coexist during migration.
+
+## Creating Typed Action Handlers (Recommended)
+
+### Step 1: Define the Payload Type
+
+```csharp
+namespace MyApp.Actions;
+
+/// <summary>
+/// Payload for form submission action.
+/// </summary>
+public sealed record FormSubmissionPayload(
+    string Name,
+    string Email
+);
+```
+
+### Step 2: Define the Action
+
+```csharp
+using BbQ.ChatWidgets.Abstractions;
+using System.Text.Json;
+
+namespace MyApp.Actions;
+
+/// <summary>
+/// Action for form submission.
+/// </summary>
+public sealed class FormSubmissionAction : IWidgetAction<FormSubmissionPayload>
+{
+    public string Name => "submit_form";
+
+    public string Description =>
+        "Handles form submission with name and email validation.";
+
+    public string PayloadSchema =>
+        JsonSerializer.Serialize(new
+        {
+            name = "string (required)",
+            email = "string (required, valid email)"
+        });
+}
+```
+
+### Step 3: Implement the Handler
+
+```csharp
+using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Models;
+using Microsoft.Extensions.Logging;
+
+namespace MyApp.Actions;
+
+/// <summary>
+/// Handler for form submission actions.
+/// </summary>
+public sealed class FormSubmissionHandler :
+    IActionWidgetActionHandler<FormSubmissionAction, FormSubmissionPayload>
+{
+    private readonly ILogger<FormSubmissionHandler> _logger;
+
+    public FormSubmissionHandler(ILogger<FormSubmissionHandler> logger)
+    {
+        _logger = logger;
+    }
+
+    public async Task<ChatTurn> HandleActionAsync(
+        FormSubmissionAction action,
+        FormSubmissionPayload payload,
+        string threadId,
+        IServiceProvider serviceProvider)
+    {
+        try
+        {
+            _logger.LogInformation(
+                "Handling form submission for {Email}",
+                payload.Email);
+
+            // Validation (type-safe, no casting)
+            if (string.IsNullOrEmpty(payload.Name))
+                throw new ValidationException("Name is required");
+
+            if (!IsValidEmail(payload.Email))
+                throw new ValidationException("Email must be valid");
+
+            // Process the form
+            await Task.Delay(100); // Simulate work
+
+            // Generate response
+            var message = $"Thank you! Your submission has been received.";
+
+            // Create next widget if needed
+            var widgets = new List<ChatWidget>
+            {
+                new ButtonWidget(
+                    Label: "Next Step",
+                    Action: "continue_process"
+                )
+            };
+
+            // Return as chat turn
+            return new ChatTurn(
+                Role: ChatRole.Assistant,
+                Content: message,
+                Widgets: widgets,
+                ThreadId: threadId
+            );
+        }
+        catch (ValidationException ex)
+        {
+            _logger.LogWarning(ex, "Validation failed");
+            return new ChatTurn(
+                ChatRole.Assistant,
+                $"Error: {ex.Message}",
+                Array.Empty<ChatWidget>(),
+                threadId
+            );
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Action handling failed");
+            return new ChatTurn(
+                ChatRole.Assistant,
+                "An error occurred. Please try again later.",
+                Array.Empty<ChatWidget>(),
+                threadId
+            );
+        }
+    }
+
+    private bool IsValidEmail(string email)
+    {
+        try
+        {
+            var addr = new System.Net.Mail.MailAddress(email);
+            return addr.Address == email;
+        }
+        catch { return false; }
+    }
+}
+
+public class ValidationException : Exception
+{
+    public ValidationException(string message) : base(message) { }
+}
+```
+
+### Step 4: Register in DI Container
+
+```csharp
+// Program.cs
+using MyApp.Actions;
+using BbQ.ChatWidgets.Services;
+using BbQ.ChatWidgets.Abstractions;
+
+var builder = WebApplicationBuilder.CreateBuilder(args);
+
+// Register BbQ ChatWidgets
+builder.Services.AddBbQChatWidgets(options =>
+{
+    options.ChatClientFactory = sp => new OpenAIChatClient("API_KEY");
+});
+
+// Register the typed action and handler
+builder.Services.AddScoped<FormSubmissionHandler>();
+
+// Configure the registry after building
+var app = builder.Build();
+
+// Register action with metadata
+var actionRegistry = app.Services.GetRequiredService<IWidgetActionRegistry>();
+var handlerResolver = app.Services.GetRequiredService<IWidgetActionHandlerResolver>();
+var formAction = new FormSubmissionAction();
+
+actionRegistry.RegisterAction(new WidgetActionMetadata(
+    formAction.Name,
+    formAction.Description,
+    formAction.PayloadSchema,
+    typeof(FormSubmissionPayload)
+));
+
+handlerResolver.RegisterHandler(
+    formAction.Name,
+    typeof(FormSubmissionHandler)
+);
+
+app.MapBbQChatEndpoints();
+app.Run();
+```
+
+## Legacy Approach: IWidgetActionHandler
+
+For backward compatibility or simpler use cases:
 
 ```csharp
 using BbQ.ChatWidgets.Models;
@@ -77,10 +277,10 @@ public class FormSubmissionActionHandler : IWidgetActionHandler
         try
         {
             _logger.LogInformation(
-                "Handling form submission for thread {ThreadId}", 
+                "Handling form submission for thread {ThreadId}",
                 threadId);
 
-            // Validate payload
+            // Validate payload (requires casting)
             ValidateFormPayload(payload);
 
             // Process the form data
@@ -132,8 +332,6 @@ public class FormSubmissionActionHandler : IWidgetActionHandler
         var name = payload["name"].ToString();
         var email = payload["email"].ToString();
 
-        // Process the form (save to database, send email, etc.)
-        // This is a mock implementation
         await Task.Delay(100);
 
         return new FormSubmissionResult
@@ -150,48 +348,72 @@ public class FormSubmissionActionHandler : IWidgetActionHandler
             var addr = new System.Net.Mail.MailAddress(email);
             return addr.Address == email;
         }
-        catch
-        {
-            return false;
-        }
+        catch { return false; }
     }
 }
 
 public record FormSubmissionResult(bool Success, string SubmissionId);
 ```
 
-### Step 2: Register the Handler
+## LLM Awareness
 
-```csharp
-builder.Services.AddScoped<IWidgetActionHandler, 
-    FormSubmissionActionHandler>();
+### How It Works
 
-builder.Services.AddBbQChatWidgets(options =>
-{
-    options.ChatClientFactory = sp => chatClient;
-});
+1. **Action Registration**: When you register an action with `IWidgetActionRegistry`, it stores metadata including the action name, description, and payload schema.
+
+2. **Dynamic Instructions**: The `DefaultInstructionProvider` queries the registry and generates LLM instructions that include all registered actions.
+
+3. **LLM Sees Actions**: The AI model receives instructions like:
 ```
+## Registered Actions
+
+The following actions are available for widgets:
+- **submit_form**: Handles form submission with name and email validation.
+  Payload: {"name":"string (required)","email":"string (required, valid email)"}
+
+- **check_status**: Check the status of a submitted form.
+  Payload: {"submissionId":"string"}
+```
+
+4. **Correct Widget Generation**: The LLM knows which actions are available and uses them with correct payloads.
+
+### Example: LLM Generated Widget
+
+```json
+{
+  "type": "button",
+  "label": "Submit",
+  "action": "submit_form"
+}
+```
+
+The LLM will include the correct action name based on registered actions.
 
 ## Common Action Patterns
 
-### Button Click
+### Button Click (Typed)
 
 ```csharp
-public class ButtonActionHandler : IWidgetActionHandler
+public record ConfirmPayload(bool Confirmed);
+
+public class ConfirmAction : IWidgetAction<ConfirmPayload>
+{
+    public string Name => "confirm";
+    public string Description => "Confirms an action.";
+    public string PayloadSchema => JsonSerializer.Serialize(new { confirmed = "boolean" });
+}
+
+public class ConfirmHandler : IActionWidgetActionHandler<ConfirmAction, ConfirmPayload>
 {
     public async Task<ChatTurn> HandleActionAsync(
-        string action,
-        Dictionary<string, object> payload,
+        ConfirmAction action,
+        ConfirmPayload payload,
         string threadId,
         IServiceProvider serviceProvider)
     {
-        var message = action switch
-        {
-            "confirm" => "You confirmed the action.",
-            "cancel" => "Action was cancelled.",
-            "try_again" => "Let's try again. What would you like?",
-            _ => throw new InvalidOperationException()
-        };
+        var message = payload.Confirmed
+            ? "You confirmed the action."
+            : "Action was cancelled.";
 
         return new ChatTurn(
             ChatRole.Assistant,
@@ -203,64 +425,35 @@ public class ButtonActionHandler : IWidgetActionHandler
 }
 ```
 
-### Form Input
+### Dropdown Selection (Typed)
 
 ```csharp
-public class InputActionHandler : IWidgetActionHandler
+public record SelectPayload(string Option);
+
+public class SelectAction : IWidgetAction<SelectPayload>
 {
-    private readonly UserService _userService;
-
-    public InputActionHandler(UserService userService)
-    {
-        _userService = userService;
-    }
-
-    public async Task<ChatTurn> HandleActionAsync(
-        string action,
-        Dictionary<string, object> payload,
-        string threadId,
-        IServiceProvider serviceProvider)
-    {
-        var input = payload["value"].ToString();
-
-        if (action == "save_name")
-        {
-            await _userService.SaveUserNameAsync(input);
-            return new ChatTurn(
-                ChatRole.Assistant,
-                $"Nice to meet you, {input}!",
-                Array.Empty<ChatWidget>(),
-                threadId
-            );
-        }
-
-        throw new InvalidOperationException($"Unknown action: {action}");
-    }
+    public string Name => "select_option";
+    public string Description => "Selects an option from a dropdown.";
+    public string PayloadSchema => JsonSerializer.Serialize(new { option = "string" });
 }
-```
 
-### Dropdown Selection
-
-```csharp
-public class DropdownActionHandler : IWidgetActionHandler
+public class SelectHandler : IActionWidgetActionHandler<SelectAction, SelectPayload>
 {
     public async Task<ChatTurn> HandleActionAsync(
-        string action,
-        Dictionary<string, object> payload,
+        SelectAction action,
+        SelectPayload payload,
         string threadId,
         IServiceProvider serviceProvider)
     {
-        var selectedOption = payload["selected"].ToString();
-
-        var (message, widgets) = selectedOption switch
+        var (message, widgets) = payload.Option switch
         {
-            "option1" => 
+            "option1" =>
                 ("You selected Option 1. Here's what happens next...",
                  new ChatWidget[] { new ButtonWidget("Continue", "continue") }),
-            "option2" => 
+            "option2" =>
                 ("You selected Option 2. Let me show you details...",
                  new ChatWidget[] { new CardWidget("Details", "view_details") }),
-            _ => throw new InvalidOperationException()
+            _ => ("Invalid option.", Array.Empty<ChatWidget>())
         };
 
         return new ChatTurn(
@@ -273,266 +466,103 @@ public class DropdownActionHandler : IWidgetActionHandler
 }
 ```
 
-### File Upload
-
-```csharp
-public class FileUploadActionHandler : IWidgetActionHandler
-{
-    private readonly FileStorageService _fileService;
-
-    public FileUploadActionHandler(FileStorageService fileService)
-    {
-        _fileService = fileService;
-    }
-
-    public async Task<ChatTurn> HandleActionAsync(
-        string action,
-        Dictionary<string, object> payload,
-        string threadId,
-        IServiceProvider serviceProvider)
-    {
-        if (action != "upload_document")
-            throw new InvalidOperationException();
-
-        var fileData = payload["file"].ToString();
-        var fileName = payload["fileName"].ToString();
-
-        // Process file
-        var fileId = await _fileService.StoreFileAsync(
-            fileName,
-            fileData);
-
-        return new ChatTurn(
-            ChatRole.Assistant,
-            $"File '{fileName}' uploaded successfully!",
-            new[]
-            {
-                new ButtonWidget("Process File", "process_file")
-            },
-            threadId
-        );
-    }
-}
-```
-
-## Complete Example: Multi-Step Form
-
-### Action Handler
-
-```csharp
-public class MultiStepFormHandler : IWidgetActionHandler
-{
-    private readonly FormDataService _formService;
-    private readonly IThreadService _threadService;
-
-    public MultiStepFormHandler(
-        FormDataService formService,
-        IThreadService threadService)
-    {
-        _formService = formService;
-        _threadService = threadService;
-    }
-
-    public async Task<ChatTurn> HandleActionAsync(
-        string action,
-        Dictionary<string, object> payload,
-        string threadId,
-        IServiceProvider serviceProvider)
-    {
-        return action switch
-        {
-            "step1_submit" => await HandleStep1Async(payload, threadId),
-            "step2_submit" => await HandleStep2Async(payload, threadId),
-            "step3_submit" => await HandleStep3Async(payload, threadId),
-            _ => throw new InvalidOperationException($"Unknown action: {action}")
-        };
-    }
-
-    private async Task<ChatTurn> HandleStep1Async(
-        Dictionary<string, object> payload,
-        string threadId)
-    {
-        var name = payload["name"].ToString();
-        var email = payload["email"].ToString();
-
-        await _formService.SaveStep1Async(threadId, name, email);
-
-        return new ChatTurn(
-            ChatRole.Assistant,
-            "Great! Now let's get some details about your company.",
-            new ChatWidget[]
-            {
-                new InputWidget(
-                    Label: "Company Name",
-                    Action: "step2_submit",
-                    Placeholder: "Enter company name"
-                )
-            },
-            threadId
-        );
-    }
-
-    private async Task<ChatTurn> HandleStep2Async(
-        Dictionary<string, object> payload,
-        string threadId)
-    {
-        var companyName = payload["companyName"].ToString();
-
-        await _formService.SaveStep2Async(threadId, companyName);
-
-        return new ChatTurn(
-            ChatRole.Assistant,
-            "Perfect! Finally, tell us about your needs.",
-            new ChatWidget[]
-            {
-                new DropdownWidget(
-                    Label: "What are your main needs?",
-                    Action: "step3_submit",
-                    Options: new[]
-                    {
-                        "Sales",
-                        "Marketing",
-                        "Support",
-                        "Other"
-                    }
-                )
-            },
-            threadId
-        );
-    }
-
-    private async Task<ChatTurn> HandleStep3Async(
-        Dictionary<string, object> payload,
-        string threadId)
-    {
-        var needs = payload["selected"].ToString();
-
-        await _formService.SaveStep3Async(threadId, needs);
-
-        return new ChatTurn(
-            ChatRole.Assistant,
-            "Thank you for completing the form! " +
-            "We'll be in touch shortly.",
-            Array.Empty<ChatWidget>(),
-            threadId
-        );
-    }
-}
-```
-
-## Error Handling
-
-```csharp
-public class SafeActionHandler : IWidgetActionHandler
-{
-    private readonly ILogger<SafeActionHandler> _logger;
-
-    public SafeActionHandler(ILogger<SafeActionHandler> logger)
-    {
-        _logger = logger;
-    }
-
-    public async Task<ChatTurn> HandleActionAsync(
-        string action,
-        Dictionary<string, object> payload,
-        string threadId,
-        IServiceProvider serviceProvider)
-    {
-        try
-        {
-            return await ProcessActionAsync(action, payload, threadId);
-        }
-        catch (ValidationException ex)
-        {
-            _logger.LogWarning(ex, "Validation failed");
-            return new ChatTurn(
-                ChatRole.Assistant,
-                $"There was an issue: {ex.Message}",
-                Array.Empty<ChatWidget>(),
-                threadId
-            );
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Action handler failed");
-            return new ChatTurn(
-                ChatRole.Assistant,
-                "An error occurred. Please try again later.",
-                Array.Empty<ChatWidget>(),
-                threadId
-            );
-        }
-    }
-
-    private async Task<ChatTurn> ProcessActionAsync(
-        string action,
-        Dictionary<string, object> payload,
-        string threadId)
-    {
-        // Implementation here
-        return new ChatTurn(ChatRole.Assistant, "", 
-            Array.Empty<ChatWidget>(), threadId);
-    }
-}
-```
-
 ## Best Practices
 
 ### Do's ✅
-- Validate all input
-- Log important actions
-- Handle errors gracefully
-- Provide user feedback
-- Use dependency injection
-- Return clear messages
-- Validate thread ownership
-- Sanitize user data
+- Validate all input at the handler level
+- Log important actions for debugging
+- Handle errors gracefully with user-friendly messages
+- Use dependency injection for services
+- Return clear, actionable messages
+- Use the typed handler approach for new code
+- Register actions with comprehensive descriptions and schemas
+- Include payload examples in descriptions
 
 ### Don'ts ❌
 - Don't trust client input
-- Don't expose sensitive data
-- Don't make blocking calls
+- Don't expose sensitive data in error messages
+- Don't make blocking calls without async
 - Don't skip error handling
 - Don't hardcode values
-- Don't ignore security
-- Don't return raw exceptions
+- Don't ignore security concerns
+- Don't return raw exception messages to users
+- Don't forget to register actions in the DI container
 
-## Testing Actions
+## Testing Typed Handlers
 
 ```csharp
 [Fact]
-public async Task HandleAction_ValidPayload_ReturnsCorrectResponse()
+public async Task FormSubmissionHandler_ValidPayload_ReturnsConfirmation()
 {
     // Arrange
-    var handler = new FormSubmissionActionHandler(
-        new MockThreadService(),
-        new MockLogger());
-
-    var payload = new Dictionary<string, object>
-    {
-        { "name", "John Doe" },
-        { "email", "john@example.com" }
-    };
+    var logger = new Mock<ILogger<FormSubmissionHandler>>();
+    var handler = new FormSubmissionHandler(logger.Object);
+    var action = new FormSubmissionAction();
+    var payload = new FormSubmissionPayload("John Doe", "john@example.com");
+    var serviceProvider = new ServiceCollection().BuildServiceProvider();
 
     // Act
     var result = await handler.HandleActionAsync(
-        "submit_form",
+        action,
         payload,
         "thread-123",
-        new MockServiceProvider());
+        serviceProvider);
 
     // Assert
-    Assert.NotNull(result);
+    Assert.Equal(ChatRole.Assistant, result.Role);
     Assert.Contains("received", result.Content.ToLower());
+    Assert.Single(result.Widgets!);
+}
+
+[Fact]
+public async Task FormSubmissionHandler_InvalidEmail_ReturnsError()
+{
+    // Arrange
+    var logger = new Mock<ILogger<FormSubmissionHandler>>();
+    var handler = new FormSubmissionHandler(logger.Object);
+    var action = new FormSubmissionAction();
+    var payload = new FormSubmissionPayload("John Doe", "invalid-email");
+    var serviceProvider = new ServiceCollection().BuildServiceProvider();
+
+    // Act
+    var result = await handler.HandleActionAsync(
+        action,
+        payload,
+        "thread-123",
+        serviceProvider);
+
+    // Assert
+    Assert.Contains("error", result.Content.ToLower());
 }
 ```
 
+## Migration from Legacy Handlers
+
+Both systems work together:
+
+1. **Phase 1**: Keep existing `IWidgetActionHandler` implementations
+2. **Phase 2**: Add new functionality using typed handlers
+3. **Phase 3**: Gradually migrate legacy handlers to typed approach
+4. **Phase 4**: Remove legacy handlers once migration is complete
+
+## Benefits of Typed Handlers
+
+| Feature | Benefit |
+|---------|---------|
+| **Type Safety** | No casting, compile-time checks |
+| **LLM Awareness** | Actions automatically in AI instructions |
+| **Schema Validation** | Payload structure validated automatically |
+| **Better Tooling** | Full IntelliSense support |
+| **Testability** | Easier to mock and test |
+| **Maintainability** | Single source of truth |
+
 ## Next Steps
 
-- **[Custom Widgets](CUSTOM_WIDGETS.md)** - Create custom widgets
-- **[Custom AI Tools](CUSTOM_AI_TOOLS.md)** - Add AI tools
-- **[Examples](../examples/)** - See working examples
-- **[API Reference](../api/)** - Detailed API docs
+- **[Typed Action Handlers](TYPED_ACTION_HANDLERS.md)** - Advanced typed handler patterns
+- **[Custom Widgets](CUSTOM_WIDGETS.md)** - Create custom widget types
+- **[Custom AI Tools](CUSTOM_AI_TOOLS.md)** - Add AI-callable tools
+- **[Examples](../examples/)** - More complete examples
+- **[API Reference](../api/)** - Full API documentation
 
 ---
 

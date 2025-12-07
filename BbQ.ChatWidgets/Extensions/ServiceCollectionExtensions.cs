@@ -48,6 +48,7 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton(options);
         services.AddSingleton<WidgetRegistry>();
+        services.AddSingleton<IWidgetRegistry>(sp => sp.GetRequiredService<WidgetRegistry>());
         services.AddScoped<ChatWidgetService>();
         services.AddSingleton<IChatWidgetRenderer, Renderers.SsrWidgetRenderer>();
         services.AddScoped<IThreadService, DefaultThreadService>();

@@ -21,7 +21,7 @@ public class WidgetRegistryTests
         // Assert
         Assert.NotNull(types);
         Assert.NotEmpty(types);
-        Assert.Equal(7, types.Count());
+        Assert.Equal(11, types.Count());
     }
 
     [Fact]
@@ -113,5 +113,57 @@ public class WidgetRegistryTests
 
         // Assert
         Assert.Contains(typeof(FileUploadWidget), types);
+    }
+
+    [Fact]
+    public void GetRegisteredTypes_IncludesDatePickerWidget()
+    {
+        // Arrange
+        var registry = new WidgetRegistry();
+
+        // Act
+        var types = registry.GetRegisteredTypes();
+
+        // Assert
+        Assert.Contains(typeof(DatePickerWidget), types);
+    }
+
+    [Fact]
+    public void GetRegisteredTypes_IncludesMultiSelectWidget()
+    {
+        // Arrange
+        var registry = new WidgetRegistry();
+
+        // Act
+        var types = registry.GetRegisteredTypes();
+
+        // Assert
+        Assert.Contains(typeof(MultiSelectWidget), types);
+    }
+
+    [Fact]
+    public void GetRegisteredTypes_IncludesProgressBarWidget()
+    {
+        // Arrange
+        var registry = new WidgetRegistry();
+
+        // Act
+        var types = registry.GetRegisteredTypes();
+
+        // Assert
+        Assert.Contains(typeof(ProgressBarWidget), types);
+    }
+
+    [Fact]
+    public void GetRegisteredTypes_IncludesThemeSwitcherWidget()
+    {
+        // Arrange
+        var registry = new WidgetRegistry();
+
+        // Act
+        var types = registry.GetRegisteredTypes();
+
+        // Assert
+        Assert.Contains(typeof(ThemeSwitcherWidget), types);
     }
 }

@@ -1,0 +1,86 @@
+{
+  "name": "@bbq-chat/widgets",
+  "version": "1.0.0",
+  "description": "Framework-agnostic widget library for AI chat UIs",
+  "license": "MIT",
+  "author": "BbQ ChatWidgets Contributors",
+  "homepage": "https://github.com/JeanMarcMbouma/BbQ.ChatWidgets",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JeanMarcMbouma/BbQ.ChatWidgets.git",
+    "directory": "js"
+  },
+  "bugs": {
+    "url": "https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/issues"
+  },
+  "keywords": [
+    "chat",
+    "widgets",
+    "ui",
+    "interactive",
+    "form",
+    "components",
+    "typescript"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./models": {
+      "import": "./dist/models/index.js",
+      "require": "./dist/models/index.cjs",
+      "types": "./dist/models/index.d.ts"
+    },
+    "./renderers": {
+      "import": "./dist/renderers/index.js",
+      "require": "./dist/renderers/index.cjs",
+      "types": "./dist/renderers/index.d.ts"
+    },
+    "./handlers": {
+      "import": "./dist/handlers/index.js",
+      "require": "./dist/handlers/index.cjs",
+      "types": "./dist/handlers/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc && node scripts/build.mjs",
+    "build:watch": "tsc --watch",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "type-check": "tsc --noEmit",
+    "prepublishOnly": "npm run build && npm run test && npm run lint",
+    "prepare": "npm run build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "@vitest/coverage-v8": "^1.1.0",
+    "@vitest/ui": "^1.1.0",
+    "esbuild": "^0.19.11",
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3",
+    "vitest": "^1.1.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

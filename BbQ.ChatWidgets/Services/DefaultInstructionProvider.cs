@@ -47,6 +47,22 @@ namespace BbQ.ChatWidgets.Services
                    Format: <widget>{"type":"fileupload","label":"LABEL","action":"action_id","accept":".pdf,.docx","maxBytes":5000000}</widget>
                    Use when: You need the user to upload a file
 
+                8. **DatePicker Widget** - For selecting dates
+                   Format: <widget>{"type":"datepicker","label":"LABEL","action":"action_id","minDate":"YYYY-MM-DD","maxDate":"YYYY-MM-DD"}</widget>
+                   Use when: You need the user to select a date
+
+                9. **MultiSelect Widget** - For selecting multiple options
+                   Format: <widget>{"type":"multiselect","label":"LABEL","action":"action_id","options":["OPTION1","OPTION2","OPTION3"]}</widget>
+                   Use when: The user can select multiple options from a list
+
+                10. **ProgressBar Widget** - For showing progress
+                    Format: <widget>{"type":"progressbar","label":"LABEL","action":"action_id","value":50,"max":100}</widget>
+                    Use when: You need to display progress for a task
+
+                11. **ThemeSwitcher Widget** - For switching themes
+                    Format: <widget>{"type":"themeswitcher","label":"LABEL","action":"action_id","themes":["light","dark","system"]}</widget>
+                    Use when: You want the user to select a UI theme
+
                 When generating widgets:
                 - Always provide clear, actionable labels
                 - Use descriptive action IDs (e.g., "delete_item", "save_changes")

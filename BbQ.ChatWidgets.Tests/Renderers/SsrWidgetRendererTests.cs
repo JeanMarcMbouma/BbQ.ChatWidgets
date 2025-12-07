@@ -195,6 +195,82 @@ public class SsrWidgetRendererTests
     }
 
     [Fact]
+    public void RenderWidget_WithDatePickerWidget_GeneratesDateInputHtml()
+    {
+        // Arrange
+        var widget = new DatePickerWidget(
+            Label: "Select Date",
+            Action: "pick_date",
+            MinDate: "2024-01-01",
+            MaxDate: "2024-12-31"
+        );
+
+        // Act
+        var html = _renderer.RenderWidget(widget);
+
+        // Assert
+        Assert.NotNull(html);
+        Assert.Contains("bbq-date-picker", html);
+        Assert.Contains("data-widget-type=\"datepicker\"", html);
+        Assert.Contains("type=\"date\"", html);
+        Assert.Contains("min=\"2024-01-01\"", html);
+        Assert.Contains("max=\"2024-12-31\"", html);
+        Assert.Contains("bbq-date-picker-label", html);
+        Assert.Contains("Select Date", html);
+    }
+
+    [Fact]
+    public void RenderWidget_WithMultiSelectWidget_GeneratesMultipleSelectHtml()
+    {
+        // Arrange
+        var widget = new MultiSelectWidget(
+            Label: "Select Items",
+            Action: "select_items",
+            Options: ["Item1", "Item2", "Item3"]
+        );
+
+        // Act
+        var html = _renderer.RenderWidget(widget);
+
+        // Assert
+        Assert.NotNull(html);
+        Assert.Contains("bbq-multi-select", html);
+        Assert.Contains("data-widget-type=\"multiselect\"", html);
+        Assert.Contains("multiple", html);
+        Assert.Contains("bbq-multi-select-select", html);
+        Assert.Contains("<option value=\"Item1\">Item1</option>", html);
+        Assert.Contains("<option value=\"Item2\">Item2</option>", html);
+        Assert.Contains("<option value=\"Item3\">Item3</option>", html);
+    }
+
+    [Fact]
+    public void RenderWidget_WithProgressBarWidget_GeneratesProgressHtml()
+    {
+        // Arrange
+        var widget = new ProgressBarWidget(
+            Label: "Upload Progress",
+            Action: "upload_progress",
+            Value: 75,
+            Max: 100
+        );
+
+        // Act
+        var html = _renderer.RenderWidget(widget);
+
+        // Assert
+        Assert.NotNull(html);
+        Assert.Contains("bbq-progress-bar", html);
+        Assert.Contains("data-widget-type=\"progressbar\"", html);
+        Assert.Contains("<progress", html);
+        Assert.Contains("value=\"75\"", html);
+        Assert.Contains("max=\"100\"", html);
+        Assert.Contains("bbq-progress-bar-element", html);
+        Assert.Contains("aria-valuenow=\"75\"", html);
+        Assert.Contains("aria-valuemax=\"100\"", html);
+        Assert.Contains("75%", html);
+    }
+
+    [Fact]
     public void RenderWidget_EscapesHtmlContent_PreventingXss()
     {
         // Arrange
@@ -268,7 +344,10 @@ public class SsrWidgetRendererTests
             new SliderWidget("Test", "test", 0, 100, 1),
             new ToggleWidget("Test", "test", false),
             new FileUploadWidget("Test", "test"),
-            new ThemeSwitcherWidget("Test", "test", ["theme1", "theme2"])
+            new ThemeSwitcherWidget("Test", "test", ["theme1", "theme2"]),
+            new DatePickerWidget("Test", "test"),
+            new MultiSelectWidget("Test", "test", ["A", "B"]),
+            new ProgressBarWidget("Test", "test", 50, 100)
         };
 
         // Act & Assert

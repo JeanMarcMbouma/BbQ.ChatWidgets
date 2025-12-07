@@ -26,6 +26,9 @@ namespace BbQ.ChatWidgets.Models;
 [JsonDerivedType(typeof(ToggleWidget), typeDiscriminator: "toggle")]
 [JsonDerivedType(typeof(FileUploadWidget), typeDiscriminator: "fileupload")]
 [JsonDerivedType(typeof(ThemeSwitcherWidget), typeDiscriminator: "themeswitcher")]
+[JsonDerivedType(typeof(DatePickerWidget), typeDiscriminator: "datepicker")]
+[JsonDerivedType(typeof(MultiSelectWidget), typeDiscriminator: "multiselect")]
+[JsonDerivedType(typeof(ProgressBarWidget), typeDiscriminator: "progressbar")]
 public abstract record ChatWidget(
 
     /// <summary>
@@ -307,6 +310,111 @@ public sealed record ThemeSwitcherWidget(
     /// The list of available theme options.
     /// </summary>
     IReadOnlyList<string> Themes)
+    : ChatWidget(Label, Action);
+
+/// <summary>
+/// A date picker widget for selecting a date.
+/// </summary>
+/// <remarks>
+/// Date picker widgets allow users to select a specific date within an optional date range.
+/// Common uses:
+/// - Appointment scheduling
+/// - Event date selection
+/// - Deadline specification
+/// - Birthday/date of birth selection
+/// 
+/// Example JSON:
+/// {"type":"datepicker","label":"Select date","action":"pick_date","minDate":"2024-01-01","maxDate":"2024-12-31"}
+/// </remarks>
+public sealed record DatePickerWidget(
+    /// <summary>
+    /// The label for the date picker.
+    /// </summary>
+    string Label,
+
+    /// <summary>
+    /// The action identifier triggered when a date is selected.
+    /// </summary>
+    string Action,
+
+    /// <summary>
+    /// Optional minimum date in YYYY-MM-DD format.
+    /// </summary>
+    string? MinDate = null,
+
+    /// <summary>
+    /// Optional maximum date in YYYY-MM-DD format.
+    /// </summary>
+    string? MaxDate = null)
+    : ChatWidget(Label, Action);
+
+/// <summary>
+/// A multi-select widget for selecting multiple options from a list.
+/// </summary>
+/// <remarks>
+/// Multi-select widgets allow users to select multiple options from a predefined list.
+/// Common uses:
+/// - Selecting multiple categories
+/// - Multi-item checklist
+/// - Filter selection with multiple values
+/// - Bulk action selection
+/// 
+/// Example JSON:
+/// {"type":"multiselect","label":"Select items","action":"select_items","options":["Option1","Option2","Option3"]}
+/// </remarks>
+public sealed record MultiSelectWidget(
+    /// <summary>
+    /// The label for the multi-select widget.
+    /// </summary>
+    string Label,
+
+    /// <summary>
+    /// The action identifier triggered when selections change.
+    /// </summary>
+    string Action,
+
+    /// <summary>
+    /// The list of options available for selection.
+    /// </summary>
+    IReadOnlyList<string> Options)
+    : ChatWidget(Label, Action);
+
+/// <summary>
+/// A progress bar widget for displaying progress of a task.
+/// </summary>
+/// <remarks>
+/// Progress bar widgets display the completion status of a task or operation.
+/// Common uses:
+/// - File upload/download progress
+/// - Task completion percentage
+/// - Loading progress indication
+/// - Multi-step process progress
+/// 
+/// The widget is read-only and typically updated by the backend as progress occurs.
+/// 
+/// Example JSON:
+/// {"type":"progressbar","label":"Upload progress","action":"upload_progress","value":65,"max":100}
+/// </remarks>
+public sealed record ProgressBarWidget(
+    /// <summary>
+    /// The label for the progress bar.
+    /// </summary>
+    string Label,
+
+    /// <summary>
+    /// The action identifier or event name for progress tracking.
+    /// </summary>
+    string Action,
+
+    /// <summary>
+    /// The current progress value.
+    /// </summary>
+    int Value,
+
+    /// <summary>
+    /// The maximum value (represents 100% completion).
+    /// </summary>
+    int Max)
     : ChatWidget(Label, Action);
 
 /// <summary>

@@ -165,6 +165,74 @@ public class ChatWidgetSerializationTests
     }
 
     [Fact]
+    public void DatePickerWidget_SerializesWithDateRange()
+    {
+        // Arrange
+        var widget = new DatePickerWidget(
+            "Select Date",
+            "pick_date",
+            MinDate: "2024-01-01",
+            MaxDate: "2024-12-31"
+        );
+        var json = widget.ToJson();
+
+        // Act
+        var deserialized = ChatWidget.FromJson(json);
+
+        // Assert
+        Assert.NotNull(deserialized);
+        Assert.IsType<DatePickerWidget>(deserialized);
+        var datePicker = (DatePickerWidget)deserialized;
+        Assert.Equal("2024-01-01", datePicker.MinDate);
+        Assert.Equal("2024-12-31", datePicker.MaxDate);
+        Assert.Equal("datepicker", datePicker.Type);
+    }
+
+    [Fact]
+    public void MultiSelectWidget_SerializesWithOptions()
+    {
+        // Arrange
+        var options = new[] { "Item1", "Item2", "Item3" };
+        var widget = new MultiSelectWidget("Select Items", "select_items", options);
+        var json = widget.ToJson();
+
+        // Act
+        var deserialized = ChatWidget.FromJson(json);
+
+        // Assert
+        Assert.NotNull(deserialized);
+        Assert.IsType<MultiSelectWidget>(deserialized);
+        var multiSelect = (MultiSelectWidget)deserialized;
+        Assert.Equal(3, multiSelect.Options.Count);
+        Assert.Contains("Item2", multiSelect.Options);
+        Assert.Equal("multiselect", multiSelect.Type);
+    }
+
+    [Fact]
+    public void ProgressBarWidget_SerializesWithProgress()
+    {
+        // Arrange
+        var widget = new ProgressBarWidget(
+            "Upload Progress",
+            "upload_progress",
+            Value: 75,
+            Max: 100
+        );
+        var json = widget.ToJson();
+
+        // Act
+        var deserialized = ChatWidget.FromJson(json);
+
+        // Assert
+        Assert.NotNull(deserialized);
+        Assert.IsType<ProgressBarWidget>(deserialized);
+        var progressBar = (ProgressBarWidget)deserialized;
+        Assert.Equal(75, progressBar.Value);
+        Assert.Equal(100, progressBar.Max);
+        Assert.Equal("progressbar", progressBar.Type);
+    }
+
+    [Fact]
     public void WidgetList_DeserializesPolymorphically()
     {
         // Arrange

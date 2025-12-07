@@ -1,10 +1,10 @@
-﻿# Widget Types Overview - Updated with ThemeSwitcherWidget
+﻿# Widget Types Overview - Complete Catalog
 
 ## All Widget Types (9 Total)
 
-BbQ.ChatWidgets now includes **9 widget types** covering most common UI needs:
+BbQ.ChatWidgets now includes **9 widget types** covering all common UI interactions:
 
-### Interactive Input Widgets (4)
+### Interactive Input Widgets (5)
 
 | Widget | Purpose | Output | Example |
 |--------|---------|--------|---------|
@@ -12,164 +12,32 @@ BbQ.ChatWidgets now includes **9 widget types** covering most common UI needs:
 | **InputWidget** | Text input | `<input type="text">` | Name, Email, Search |
 | **DropdownWidget** | Selection from list | `<select>` | Choose option |
 | **FileUploadWidget** | File selection | `<input type="file">` | Upload document |
+| **DatePickerWidget** | Date selection | `<input type="date">` | Appointment, Deadline |
 
-### Selection Widgets (2)
+### Selection Widgets (3)
 
 | Widget | Purpose | Output | Example |
 |--------|---------|--------|---------|
-| **ToggleWidget** | Boolean on/off | `<input type="checkbox">` | Enable/disable feature |
+| **ToggleWidget** | Boolean on/off | `<input type="checkbox">` | Enable/disable |
 | **SliderWidget** | Numeric range | `<input type="range">` | Volume, Rating, Price |
+| **MultiSelectWidget** | Multiple selection | `<select multiple>` | Categories, Items |
 
-### Content Display Widgets (1)
+### Specialized Selection Widgets (1)
+
+| Widget | Purpose | Output | Example |
+|--------|---------|--------|---------|
+| **ThemeSwitcherWidget** | Theme selection | `<select>` | Light/Dark mode |
+
+### Content Display Widgets (2)
 
 | Widget | Purpose | Output | Example |
 |--------|---------|--------|---------|
 | **CardWidget** | Rich content | `<div>` with content | Product card, Result card |
+| **ProgressBarWidget** | Progress indication | `<progress>` | Upload, Task completion |
 
-### Specialized Selection Widgets (2)
+---
 
-| Widget | Purpose | Output | Example |
-|--------|---------|--------|---------|
-| **DropdownWidget** | Categorical choice | `<select>` | Size, Color, Category |
-| **ThemeSwitcherWidget** | Theme/preference choice | `<select>` with themes | Light/Dark mode, Color scheme |
-
-## Widget Comparison Matrix
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│ WIDGET TYPE         │ INPUT │ OUTPUT │ INTERACTIVE │ CUSTOMIZABLE   │
-├─────────────────────────────────────────────────────────────────────┤
-│ Button              │  ✗    │  ✗     │  ✓✓         │  ✗             │
-│ Card                │  ✗    │  ✓✓    │  ✓          │  ✓             │
-│ Input               │  ✓✓   │  ✗     │  ✓✓         │  ✓             │
-│ Dropdown            │  ✓    │  ✗     │  ✓          │  ✓✓            │
-│ Slider              │  ✓✓   │  ✓     │  ✓✓         │  ✓             │
-│ Toggle              │  ✓    │  ✗     │  ✓          │  ✗             │
-│ FileUpload          │  ✓✓   │  ✗     │  ✓✓         │  ✓             │
-│ ThemeSwitcher       │  ✓    │  ✗     │  ✓          │  ✓✓            │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-## New: ThemeSwitcherWidget
-
-### Overview
-ThemeSwitcherWidget is a specialized dropdown for selecting from theme options. It's optimized for:
-- Light/dark mode selection
-- Color scheme customization
-- Visual preference settings
-- Application theming
-
-### vs DropdownWidget
-While both render as `<select>` elements, `ThemeSwitcherWidget` is semantically specialized:
-
-| Aspect | DropdownWidget | ThemeSwitcherWidget |
-|--------|---|---|
-| **Purpose** | Generic selection | Theme/preference selection |
-| **CSS Classes** | `bbq-dropdown` | `bbq-theme-switcher` |
-| **Property Name** | `Options` | `Themes` |
-| **Semantics** | Neutral | Theme-specific |
-| **UI Pattern** | Any selection | Theme switching |
-| **Best For** | Size, Color, Category | Light/Dark, Visual prefs |
-
-### Quick Comparison
-
-```csharp
-// Generic dropdown for any selection
-var dropdown = new DropdownWidget(
-    "Size",
-    "select_size",
-    ["Small", "Medium", "Large"]
-);
-
-// Specialized for theme selection
-var themeSwitcher = new ThemeSwitcherWidget(
-    "Theme",
-    "set_theme",
-    ["light", "dark", "auto"]
-);
-```
-
-## When to Use Each Widget
-
-### ButtonWidget
-- Click-based actions
-- Confirmations
-- Single-step commands
-
-```csharp
-new ButtonWidget("Submit", "submit_form")
-```
-
-### InputWidget
-- Text input
-- Short responses
-- Searchable content
-
-```csharp
-new InputWidget("Search", "search", Placeholder: "Enter search term")
-```
-
-### DropdownWidget
-- Multiple categorical choices
-- Sizes, colors, categories
-- Status values
-
-```csharp
-new DropdownWidget("Status", "set_status", ["Open", "Closed", "Pending"])
-```
-
-### SliderWidget
-- Numeric ranges
-- Continuous values
-- Visual feedback on range
-
-```csharp
-new SliderWidget("Price", "filter_price", Min: 0, Max: 1000, Step: 10)
-```
-
-### ToggleWidget
-- Yes/No questions
-- Enable/Disable features
-- Boolean preferences
-
-```csharp
-new ToggleWidget("Notifications", "toggle_notifications", DefaultValue: true)
-```
-
-### FileUploadWidget
-- Document upload
-- File selection
-- Attachment handling
-
-```csharp
-new FileUploadWidget("Upload", "upload_file", Accept: ".pdf,.docx")
-```
-
-### CardWidget
-- Featured content
-- Product display
-- Rich information
-
-```csharp
-new CardWidget(
-    Label: "View",
-    Action: "view_product",
-    Title: "Product Name",
-    Description: "Details",
-    ImageUrl: "https://..."
-)
-```
-
-### ThemeSwitcherWidget ⭐ NEW
-- Light/Dark mode
-- Color scheme selection
-- Visual customization
-
-```csharp
-new ThemeSwitcherWidget("Theme", "set_theme", ["light", "dark", "auto"])
-```
-
-## Widget Hierarchy
+## Complete Widget Hierarchy
 
 ```
 ChatWidget (abstract)
@@ -180,10 +48,56 @@ ChatWidget (abstract)
 ├── SliderWidget
 ├── ToggleWidget
 ├── FileUploadWidget
-└── ThemeSwitcherWidget ⭐ NEW
+├── ThemeSwitcherWidget
+├── DatePickerWidget
+├── MultiSelectWidget
+└── ProgressBarWidget
 ```
 
-## HTML Output Reference
+---
+
+## Quick Selection Guide
+
+### For Data Input
+- **InputWidget** → Text entry (name, email, search)
+- **DatePickerWidget** → Date selection
+- **SliderWidget** → Numeric range selection
+- **FileUploadWidget** → File upload
+
+### For Selection
+- **DropdownWidget** → Single choice from predefined list
+- **MultiSelectWidget** → Multiple choices from list
+- **ToggleWidget** → Yes/No or on/off
+- **ThemeSwitcherWidget** → Theme/preference choice
+
+### For Actions
+- **ButtonWidget** → Trigger action
+- **CardWidget** → Featured content with action
+
+### For Status/Progress
+- **ProgressBarWidget** → Show task progress
+
+---
+
+## Property Comparison
+
+| Widget | Properties | Required | Optional |
+|--------|-----------|----------|----------|
+| Button | Label, Action | 2 | 0 |
+| Card | Label, Action, Title | 3 | Description, ImageUrl |
+| Input | Label, Action | 2 | Placeholder, MaxLength |
+| Dropdown | Label, Action, Options | 3 | 0 |
+| Slider | Label, Action, Min, Max, Step | 5 | Default |
+| Toggle | Label, Action, DefaultValue | 3 | 0 |
+| FileUpload | Label, Action | 2 | Accept, MaxBytes |
+| ThemeSwitcher | Label, Action, Themes | 3 | 0 |
+| DatePicker | Label, Action | 2 | MinDate, MaxDate |
+| MultiSelect | Label, Action, Options | 3 | 0 |
+| ProgressBar | Label, Action, Value, Max | 4 | 0 |
+
+---
+
+## HTML Element Mapping
 
 ### ButtonWidget
 ```html
@@ -245,7 +159,7 @@ ChatWidget (abstract)
 </div>
 ```
 
-### ThemeSwitcherWidget ⭐
+### ThemeSwitcherWidget
 ```html
 <div class="bbq-widget bbq-theme-switcher">
   <label class="bbq-theme-switcher-label">Label</label>
@@ -255,6 +169,35 @@ ChatWidget (abstract)
   </select>
 </div>
 ```
+
+### DatePickerWidget
+```html
+<div class="bbq-widget bbq-date-picker">
+  <label class="bbq-date-picker-label">Label</label>
+  <input type="date" class="bbq-date-picker-input">
+</div>
+```
+
+### MultiSelectWidget
+```html
+<div class="bbq-widget bbq-multi-select">
+  <label class="bbq-multi-select-label">Label</label>
+  <select class="bbq-multi-select-input" multiple>
+    <option>Option 1</option>
+    <option>Option 2</option>
+  </select>
+</div>
+```
+
+### ProgressBarWidget
+```html
+<div class="bbq-widget bbq-progress-bar">
+  <label class="bbq-progress-bar-label">Label</label>
+  <progress class="bbq-progress-bar-input" value="50" max="100"></progress>
+</div>
+```
+
+---
 
 ## Rendering Path
 
@@ -363,11 +306,14 @@ This allows styling at multiple levels:
 | 5 | Slider | Input | range | Numeric range |
 | 6 | Toggle | Input | checkbox | Boolean |
 | 7 | FileUpload | Input | file | File selection |
-| 8 | ThemeSwitcher | Selection | select | Theme choice ⭐ |
+| 8 | ThemeSwitcher | Selection | select | Theme choice |
+| 9 | DatePicker | Input | date | Date selection |
+| 10 | MultiSelect | Selection | select | Multiple choices |
+| 11 | ProgressBar | Display | progress | Progress indication |
 
 ---
 
-**Need help choosing?** See the "When to Use Each Widget" section above.
+**Need help choosing?** See the "Quick Selection Guide" section above.
 
 **Want to add a widget?** Follow the "Creating New Widgets" pattern.
 

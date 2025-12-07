@@ -67,6 +67,9 @@ namespace BbQ.ChatWidgets.Renderers
             ToggleWidget tg => RenderToggle(tg),
             FileUploadWidget fu => RenderFileUpload(fu),
             ThemeSwitcherWidget ts => RenderThemeSwitcher(ts),
+            DatePickerWidget dp => RenderDatePicker(dp),
+            MultiSelectWidget ms => RenderMultiSelect(ms),
+            ProgressBarWidget pb => RenderProgressBar(pb),
             _ => RenderUnsupported(widget)
         };
 
@@ -272,6 +275,85 @@ namespace BbQ.ChatWidgets.Renderers
             }
 
             html += "</select></div>";
+
+            return html;
+        }
+
+        private static string RenderDatePicker(DatePickerWidget dp)
+        {
+            var label = Escape(dp.Label);
+            var action = Escape(dp.Action);
+            var id = GenerateId(dp.Action);
+            var inputId = $"{id}-date";
+
+            var html = $@"<div class=""bbq-widget bbq-date-picker"" data-widget-id=""{id}"" data-widget-type=""datepicker"">";
+            html += $"<label class=\"bbq-date-picker-label\" for=\"{inputId}\">{label}</label>";
+
+            var minDate = dp.MinDate is not null ? $" min=\"{Escape(dp.MinDate)}\"" : "";
+            var maxDate = dp.MaxDate is not null ? $" max=\"{Escape(dp.MaxDate)}\"" : "";
+
+            html += $@"<input 
+                type=""date"" 
+                id=""{inputId}"" 
+                class=""bbq-date-picker-input"" 
+                data-action=""{action}""{minDate}{maxDate} 
+                aria-labelledby=""{inputId}"" />";
+
+            html += "</div>";
+
+            return html;
+        }
+
+        private static string RenderMultiSelect(MultiSelectWidget ms)
+        {
+            var label = Escape(ms.Label);
+            var action = Escape(ms.Action);
+            var id = GenerateId(ms.Action);
+            var selectId = $"{id}-select";
+
+            var html = $@"<div class=""bbq-widget bbq-multi-select"" data-widget-id=""{id}"" data-widget-type=""multiselect"">";
+            html += $"<label class=\"bbq-multi-select-label\" for=\"{selectId}\">{label}</label>";
+            html += $@"<select 
+                id=""{selectId}"" 
+                class=""bbq-multi-select-select"" 
+                data-action=""{action}"" 
+                multiple 
+                aria-labelledby=""{selectId}"">";
+
+            foreach (var option in ms.Options)
+            {
+                var escapedOption = Escape(option);
+                html += $"<option value=\"{escapedOption}\">{escapedOption}</option>";
+            }
+
+            html += "</select></div>";
+
+            return html;
+        }
+
+        private static string RenderProgressBar(ProgressBarWidget pb)
+        {
+            var label = Escape(pb.Label);
+            var action = Escape(pb.Action);
+            var id = GenerateId(pb.Action);
+            var percentage = pb.Max > 0 ? (pb.Value * 100) / pb.Max : 0;
+
+            var html = $@"<div class=""bbq-widget bbq-progress-bar"" data-widget-id=""{id}"" data-widget-type=""progressbar"">";
+            html += $"<label class=\"bbq-progress-bar-label\" for=\"{id}-progress\">{label}</label>";
+            html += $@"<progress 
+                id=""{id}-progress"" 
+                class=""bbq-progress-bar-element"" 
+                value=""{pb.Value}"" 
+                max=""{pb.Max}"" 
+                data-action=""{action}"" 
+                aria-label=""{label}"" 
+                aria-valuenow=""{pb.Value}"" 
+                aria-valuemin=""0"" 
+                aria-valuemax=""{pb.Max}"">
+                {percentage}%
+            </progress>";
+            html += $"<span class=\"bbq-progress-bar-value\" aria-live=\"polite\">{percentage}%</span>";
+            html += "</div>";
 
             return html;
         }

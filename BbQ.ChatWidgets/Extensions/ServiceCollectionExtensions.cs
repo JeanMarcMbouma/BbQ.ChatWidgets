@@ -108,21 +108,14 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         Action<ICustomWidgetRegistry>? configure = null)
     {
-        // Register the custom widget registry
-        services.AddSingleton<ICustomWidgetRegistry, CustomWidgetRegistry>(sp =>
-        {
-            var registry = new CustomWidgetRegistry();
-            configure?.Invoke(registry);
-            return registry;
-        });
+        var registry = new CustomWidgetRegistry();
+        configure?.Invoke(registry);
 
-        // Initialize Serialization with the custom registry so it can deserialize custom widgets
-        services.AddSingleton(sp =>
-        {
-            var registry = sp.GetRequiredService<ICustomWidgetRegistry>();
-            Models.Serialization.SetCustomWidgetRegistry(registry);
-            return registry;
-        });
+        // Register the custom widget registry
+        services.AddSingleton<ICustomWidgetRegistry>(registry);
+
+        // Set the registry in Serialization so the converter has access to it
+        Serialization.SetCustomWidgetRegistry(registry);
 
         return services;
     }

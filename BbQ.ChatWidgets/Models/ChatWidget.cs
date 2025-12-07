@@ -15,20 +15,8 @@ namespace BbQ.ChatWidgets.Models;
 /// - <c>Action</c>: Identifier for the action triggered when user interacts with widget
 /// 
 /// Specific widget types extend this base with additional properties relevant to their functionality.
-/// The class uses JSON polymorphism to automatically deserialize to the correct type.
+/// The class uses a custom JSON converter to automatically deserialize to the correct type.
 /// </remarks>
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(ButtonWidget), typeDiscriminator: "button")]
-[JsonDerivedType(typeof(CardWidget), typeDiscriminator: "card")]
-[JsonDerivedType(typeof(InputWidget), typeDiscriminator: "input")]
-[JsonDerivedType(typeof(DropdownWidget), typeDiscriminator: "dropdown")]
-[JsonDerivedType(typeof(SliderWidget), typeDiscriminator: "slider")]
-[JsonDerivedType(typeof(ToggleWidget), typeDiscriminator: "toggle")]
-[JsonDerivedType(typeof(FileUploadWidget), typeDiscriminator: "fileupload")]
-[JsonDerivedType(typeof(ThemeSwitcherWidget), typeDiscriminator: "themeswitcher")]
-[JsonDerivedType(typeof(DatePickerWidget), typeDiscriminator: "datepicker")]
-[JsonDerivedType(typeof(MultiSelectWidget), typeDiscriminator: "multiselect")]
-[JsonDerivedType(typeof(ProgressBarWidget), typeDiscriminator: "progressbar")]
 public abstract record ChatWidget(
 
     /// <summary>

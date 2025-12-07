@@ -51,6 +51,7 @@ public static class Serialization
     {
         get
         {
+            // Create new options each time to ensure current registry is used
             var options = new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -58,11 +59,8 @@ public static class Serialization
                 TypeInfoResolver = new DefaultJsonTypeInfoResolver()
             };
 
-            // Add extensible converter for custom widget support if registry is available
-            if (_customRegistry != null)
-            {
-                options.Converters.Add(new ExtensibleChatWidgetConverter(_customRegistry));
-            }
+            // Add custom converter for ChatWidget that handles both built-in and custom widgets
+            options.Converters.Add(new ChatWidgetConverter(_customRegistry));
 
             return options;
         }

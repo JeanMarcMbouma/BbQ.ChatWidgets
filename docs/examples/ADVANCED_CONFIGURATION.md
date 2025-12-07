@@ -66,7 +66,8 @@ var openaiClient = new ChatClient("gpt-4o-mini", apiKey)
 builder.Services.AddBbQChatWidgets(options =>
 {
     options.ChatClientFactory = sp => openaiClient;
-    options.ToolProviderFactory = sp => 
+    // Register a widget-based provider that returns WidgetTool instances
+    options.WidgetToolsProviderFactory = sp => 
         sp.GetRequiredService<CustomToolsProvider>();
 });
 
@@ -95,27 +96,16 @@ builder.Services.ConfigureJsonSerializerOptions(options =>
 ## Custom Tools Example
 
 ```csharp
-// CustomToolsProvider.cs
-public class CustomToolsProvider : IAIToolsProvider
+// CustomToolsProvider.cs (widget-based provider example)
+public class CustomToolsProvider : IWidgetToolsProvider
 {
-    public IEnumerable<ToolDefinition> GetTools()
+    public IReadOnlyList<BbQ.ChatWidgets.Models.WidgetTool> GetTools()
     {
-        yield return new ToolDefinition
+        return new List<BbQ.ChatWidgets.Models.WidgetTool>
         {
-            Name = "get_user_info",
-            Description = "Get user information",
-            InputSchema = new { /* schema */ }
-        };
-    }
-
-    public async Task<string> HandleToolCallAsync(
-        string toolName,
-        Dictionary<string, object> arguments)
-    {
-        return toolName switch
-        {
-            "get_user_info" => await GetUserInfoAsync(arguments),
-            _ => throw new InvalidOperationException()
+            new BbQ.ChatWidgets.Models.WidgetTool(
+                new BbQ.ChatWidgets.Models.ChatWidget("button") { Label = "Get user info", Action = "get_user_info" }
+            )
         };
     }
 }

@@ -7,8 +7,7 @@ using BbQ.ChatWidgets.Sample;
 using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Services;
 using BbQ.ChatWidgets.Sample.Actions;
-using OpenAI;
-using OpenAI.Chat;
+using BbQ.ChatWidgets.Abstractions;
 
 /// <summary>
 /// BbQ.ChatWidgets Console Sample Application
@@ -97,23 +96,11 @@ internal class Program
 
             // Register greeting action
             var greetingAction = new GreetingAction();
-            actionRegistry.RegisterAction(new WidgetActionMetadata(
-                greetingAction.Name,
-                greetingAction.Description,
-                greetingAction.PayloadSchema,
-                typeof(GreetingPayload)
-            ));
-            handlerResolver.RegisterHandler(greetingAction.Name, typeof(GreetingHandler));
+            actionRegistry.RegisterHandler<GreetingAction, GreetingPayload, GreetingHandler>(handlerResolver, greetingAction);
 
             // Register feedback action
             var feedbackAction = new FeedbackAction();
-            actionRegistry.RegisterAction(new WidgetActionMetadata(
-                feedbackAction.Name,
-                feedbackAction.Description,
-                feedbackAction.PayloadSchema,
-                typeof(FeedbackPayload)
-            ));
-            handlerResolver.RegisterHandler(feedbackAction.Name, typeof(FeedbackHandler));
+            actionRegistry.RegisterHandler<FeedbackAction, FeedbackPayload, FeedbackHandler>(handlerResolver, feedbackAction);
 
             logger.LogInformation("Registered typed action handlers:");
             logger.LogInformation($"  - {greetingAction.Name}: {greetingAction.Description}");

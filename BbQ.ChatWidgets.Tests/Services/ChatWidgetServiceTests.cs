@@ -3,7 +3,6 @@ using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Services;
 using BbQ.MockLite;
 using Microsoft.Extensions.AI;
-using System.Text.Json;
 using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Services;
@@ -137,12 +136,9 @@ class MockChatClient : IChatClient
 
     public Task<ChatResponse> GetResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default)
     {
-        var input = @"<widget>{""type"":""input"",""label"":""Email"",""action"":""email"",""placeholder"":""user@example.com"",""maxLength"":100}</widget>";
-        var item = JsonSerializer.Serialize(new BbQStructuredResponse(
-            Content: input,
-            Widgets: [new InputWidget("Email", "email")]
-        ));
-        return Task.FromResult(new ChatResponse<BbQStructuredResponse>(new ChatResponse([new ChatMessage(ChatRole.Assistant, item)]), Serialization.Default) as ChatResponse);
+        var input = @"This is a widget: <widget>{""type"":""input"",""label"":""Email"",""action"":""email"",""placeholder"":""user@example.com"",""maxLength"":100}</widget>";
+        
+        return Task.FromResult(new ChatResponse([new ChatMessage(ChatRole.Assistant, input)]));
     }
 
     public object? GetService(Type serviceType, object? serviceKey = null)

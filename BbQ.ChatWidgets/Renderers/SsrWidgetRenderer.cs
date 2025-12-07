@@ -66,6 +66,7 @@ namespace BbQ.ChatWidgets.Renderers
             SliderWidget sl => RenderSlider(sl),
             ToggleWidget tg => RenderToggle(tg),
             FileUploadWidget fu => RenderFileUpload(fu),
+            ThemeSwitcherWidget ts => RenderThemeSwitcher(ts),
             _ => RenderUnsupported(widget)
         };
 
@@ -245,6 +246,32 @@ namespace BbQ.ChatWidgets.Renderers
                 data-action=""{action}""{accept}{maxBytes} 
                 aria-labelledby=""{inputId}"" />";
             html += "</div>";
+
+            return html;
+        }
+
+        private static string RenderThemeSwitcher(ThemeSwitcherWidget ts)
+        {
+            var label = Escape(ts.Label);
+            var action = Escape(ts.Action);
+            var id = GenerateId(ts.Action);
+            var selectId = $"{id}-select";
+
+            var html = $@"<div class=""bbq-widget bbq-theme-switcher"" data-widget-id=""{id}"" data-widget-type=""themeswitcher"">";
+            html += $"<label class=\"bbq-theme-switcher-label\" for=\"{selectId}\">{label}</label>";
+            html += $@"<select 
+                id=""{selectId}"" 
+                class=""bbq-theme-switcher-select"" 
+                data-action=""{action}"" 
+                aria-labelledby=""{selectId}"">";
+
+            foreach (var theme in ts.Themes)
+            {
+                var escapedTheme = Escape(theme);
+                html += $"<option value=\"{escapedTheme}\">{escapedTheme}</option>";
+            }
+
+            html += "</select></div>";
 
             return html;
         }

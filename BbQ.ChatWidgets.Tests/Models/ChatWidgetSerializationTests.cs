@@ -145,6 +145,26 @@ public class ChatWidgetSerializationTests
     }
 
     [Fact]
+    public void ThemeSwitcherWidget_SerializesWithThemes()
+    {
+        // Arrange
+        var themes = new[] { "light", "dark", "auto" };
+        var widget = new ThemeSwitcherWidget("Choose Theme", "set_theme", themes);
+        var json = widget.ToJson();
+
+        // Act
+        var deserialized = ChatWidget.FromJson(json);
+
+        // Assert
+        Assert.NotNull(deserialized);
+        Assert.IsType<ThemeSwitcherWidget>(deserialized);
+        var switcher = (ThemeSwitcherWidget)deserialized;
+        Assert.Equal(3, switcher.Themes.Count);
+        Assert.Contains("dark", switcher.Themes);
+        Assert.Equal("themeswitcher", switcher.Type);
+    }
+
+    [Fact]
     public void WidgetList_DeserializesPolymorphically()
     {
         // Arrange

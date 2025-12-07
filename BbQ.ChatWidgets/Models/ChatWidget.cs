@@ -25,6 +25,7 @@ namespace BbQ.ChatWidgets.Models;
 [JsonDerivedType(typeof(SliderWidget), typeDiscriminator: "slider")]
 [JsonDerivedType(typeof(ToggleWidget), typeDiscriminator: "toggle")]
 [JsonDerivedType(typeof(FileUploadWidget), typeDiscriminator: "fileupload")]
+[JsonDerivedType(typeof(ThemeSwitcherWidget), typeDiscriminator: "themeswitcher")]
 public abstract record ChatWidget(
 
     /// <summary>
@@ -273,6 +274,39 @@ public sealed record FileUploadWidget(
     /// Optional maximum file size in bytes. The system should enforce this limit.
     /// </summary>
     long? MaxBytes = null)
+    : ChatWidget(Label, Action);
+
+/// <summary>
+/// A theme switcher widget for selecting between multiple theme options.
+/// </summary>
+/// <remarks>
+/// Theme switcher widgets allow users to select from predefined theme options.
+/// Common uses:
+/// - Light/dark mode switching
+/// - Color scheme selection
+/// - Application theme customization
+/// 
+/// The themes are provided as a list of option strings, and the selected theme
+/// is sent as the payload when the user makes a selection.
+/// 
+/// Example JSON:
+/// {"type":"themeswitcher","label":"Choose theme","action":"set_theme","themes":["light","dark","auto"]}
+/// </remarks>
+public sealed record ThemeSwitcherWidget(
+    /// <summary>
+    /// The label for the theme switcher.
+    /// </summary>
+    string Label,
+
+    /// <summary>
+    /// The action identifier triggered when a theme is selected.
+    /// </summary>
+    string Action,
+
+    /// <summary>
+    /// The list of available theme options.
+    /// </summary>
+    IReadOnlyList<string> Themes)
     : ChatWidget(Label, Action);
 
 /// <summary>

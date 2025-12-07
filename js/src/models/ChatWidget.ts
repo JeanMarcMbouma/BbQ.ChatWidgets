@@ -2,18 +2,13 @@
  * ChatWidget Type Discriminator
  * Used to identify widget types in JSON serialization
  */
-export type ChatWidgetType =
-  | 'button'
-  | 'card'
-  | 'input'
-  | 'dropdown'
-  | 'slider'
-  | 'toggle'
-  | 'fileupload'
-  | 'themeswitcher'
-  | 'datepicker'
-  | 'multiselect'
-  | 'progressbar';
+/**
+ * ChatWidget Type Discriminator
+ * Can be any string - built-in types are documented but custom types are supported at runtime
+ */
+export type ChatWidgetType = string;
+
+import { customWidgetRegistry } from './CustomWidgetRegistry';
 
 /**
  * Base class for all chat widgets
@@ -46,6 +41,10 @@ export abstract class ChatWidget {
    */
   static fromObject(obj: any): ChatWidget | null {
     if (!obj.type) return null;
+
+    // Try runtime-registered custom widgets first
+    const factory = customWidgetRegistry.getFactory(obj.type);
+    if (factory) return factory(obj);
 
     switch (obj.type) {
       case 'button':

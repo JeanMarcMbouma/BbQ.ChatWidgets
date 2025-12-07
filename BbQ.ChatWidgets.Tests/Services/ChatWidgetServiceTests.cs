@@ -13,14 +13,31 @@ namespace BbQ.ChatWidgets.Tests.Services;
 /// </summary>
 public class ChatWidgetServiceTests
 {
+    private readonly MockChatClient mockChat = new();
+    private readonly Mock<IWidgetHintParser> mockWidgetHintParser = new();
+    private readonly Mock<IWidgetToolsProvider> mockToolsProvider = new();
+    private readonly Mock<IAIToolsProvider> mockAIToolsProvider = new();
+    private readonly Mock<IThreadService> mockThreadService = new();
+    private readonly Mock<IAIInstructionProvider> mockAIInstructionsProvider = new();
+
+    private readonly ChatWidgetService chatWidgetService;
+
+    public ChatWidgetServiceTests()
+    {
+        chatWidgetService = new ChatWidgetService(
+            mockChat,
+            mockWidgetHintParser.Object,
+            mockToolsProvider.Object,
+            mockAIToolsProvider.Object,
+            mockThreadService.Object,
+            mockAIInstructionsProvider.Object
+        );
+    }
+
     [Fact]
     public async Task RespondAsync_CreatesThreadIfNotExists()
     {
         // Arrange
-        var mockChat = new MockChatClient();
-        var mockActionHandler = new Mock<IWidgetActionHandler>();
-        var mockToolsProvider = new Mock<IWidgetToolsProvider>();
-        var mockThreadService = new Mock<IThreadService>();
 
         mockThreadService.Setup(ts => ts.ThreadExists(It.IsAny<string>()), () => false);
         mockThreadService.Setup(ts => ts.CreateThread(), () => "thread-123");
@@ -28,15 +45,13 @@ public class ChatWidgetServiceTests
             .Setup(ts => ts.AppendMessageToThread(
                 It.IsAny<string>(),
                 It.IsAny<ChatTurn>()),
-                () => new ChatMessages([]));
+                () => new ChatMessages([new ChatTurn(ChatRole.User, "Hello")]));
 
         mockToolsProvider.Setup(tp => tp.GetTools(), () => []);
-
-
-        var service = new ChatWidgetService(mockChat, mockActionHandler.Object, mockToolsProvider.Object, mockThreadService.Object);
+        mockAIToolsProvider.Setup(tp => tp.GetAITools(), () => []);
 
         // Act
-        var result = await service.RespondAsync("Hello", threadId: null);
+        var result = await chatWidgetService.RespondAsync("Hello", threadId: null);
 
         // Assert
         mockThreadService.Verify(ts => ts.CreateThread(), Times.Once);
@@ -46,22 +61,16 @@ public class ChatWidgetServiceTests
     public async Task RespondAsync_UsesExistingThread()
     {
         // Arrange
-        var mockChat = new MockChatClient();
-        var mockActionHandler = new Mock<IWidgetActionHandler>();
-        var mockToolsProvider = new Mock<IWidgetToolsProvider>();
-        var mockThreadService = new Mock<IThreadService>();
-
         mockThreadService.Setup(ts => ts.ThreadExists("thread-123"), () => true);
         mockThreadService
-            .Setup(ts => ts.AppendMessageToThread(It.IsAny<string>(), It.IsAny<ChatTurn>()), () => new ChatMessages([]));
+            .Setup(ts => ts.AppendMessageToThread(It.IsAny<string>(), It.IsAny<ChatTurn>()), () => new ChatMessages([new ChatTurn(ChatRole.User, "Hello")]));
 
-        mockToolsProvider.Setup(tp => tp.GetTools(), () => new List<WidgetTool>());
+        mockToolsProvider.Setup(tp => tp.GetTools(), () => []);
+        mockAIToolsProvider.Setup(tp => tp.GetAITools(), () => []);
 
-
-        var service = new ChatWidgetService(mockChat, mockActionHandler.Object, mockToolsProvider.Object, mockThreadService.Object);
 
         // Act
-        var result = await service.RespondAsync("Hello", threadId: "thread-123");
+        var result = await chatWidgetService.RespondAsync("Hello", threadId: "thread-123");
 
         // Assert
         mockThreadService.Verify(ts => ts.CreateThread(), Times.Never);
@@ -71,56 +80,45 @@ public class ChatWidgetServiceTests
     public async Task RespondAsync_AppendsMessageToThread()
     {
         // Arrange
-        var mockChat = new MockChatClient();
-
-        var mockActionHandler = new Mock<IWidgetActionHandler>();
-        var mockToolsProvider = new Mock<IWidgetToolsProvider>();
-        var mockThreadService = new Mock<IThreadService>();
 
         mockThreadService.Setup(ts => ts.ThreadExists(It.IsAny<string>()), () => true);
         mockThreadService
-            .Setup(ts => ts.AppendMessageToThread(It.IsAny<string>(), It.IsAny<ChatTurn>()), () => new ChatMessages([]));
+            .Setup(ts => ts.AppendMessageToThread(It.IsAny<string>(), It.IsAny<ChatTurn>()), () => new ChatMessages([new ChatTurn(ChatRole.User, "Hello")]));
 
-        mockToolsProvider.Setup(tp => tp.GetTools(), () => new List<WidgetTool>());
+        mockToolsProvider.Setup(tp => tp.GetTools(), () => []);
+        mockAIToolsProvider.Setup(tp => tp.GetAITools(), () => []);
 
-
-        var service = new ChatWidgetService(mockChat, mockActionHandler.Object, mockToolsProvider.Object, mockThreadService.Object);
 
         // Act
-        await service.RespondAsync("Test message", threadId: "thread-123");
+        await chatWidgetService.RespondAsync("Test message", threadId: "thread-123");
 
         // Assert
         mockThreadService.Verify(
             ts => ts.AppendMessageToThread(
                 It.IsAny<string>(),
                 It.Matches<ChatTurn>(ct => ct.Content == "Test message" && ct.Role == ChatRole.User)),
-            Times.Once);
+            Times.Exactly(2));
     }
 
     [Fact]
     public async Task RespondAsync_ProvidesTool()
     {
         // Arrange
-        var mockChat = new MockChatClient();
-        var mockActionHandler = new Mock<IWidgetActionHandler>();
-        var mockToolsProvider = new Mock<IWidgetToolsProvider>();
-        var mockThreadService = new Mock<IThreadService>();
-
         mockThreadService.Setup(ts => ts.ThreadExists(It.IsAny<string>()), () => true);
         mockThreadService
-            .Setup(ts => ts.AppendMessageToThread(It.IsAny<string>(), It.IsAny<ChatTurn>()), () => new ChatMessages([]));
+            .Setup(ts => ts.AppendMessageToThread(It.IsAny<string>(), It.IsAny<ChatTurn>()), () => new ChatMessages([new ChatTurn(ChatRole.User, "Hello")]));
 
         var tools = new List<WidgetTool> { new(new ButtonWidget("test", "Test tool")) };
         mockToolsProvider.Setup(tp => tp.GetTools(), () => tools);
-
-        var service = new ChatWidgetService(mockChat, mockActionHandler.Object, mockToolsProvider.Object, mockThreadService.Object);
+        mockAIToolsProvider.Setup(tp => tp.GetAITools(), () => tools);
 
         // Act
-        await service.RespondAsync("Test", threadId: "thread-123");
+        await chatWidgetService.RespondAsync("Test", threadId: "thread-123");
 
         // Assert
-        mockToolsProvider.Verify(
-            c => c.GetTools(),
+
+        mockAIToolsProvider.Verify(
+            c => c.GetAITools(),
             Times.Once);
     }
 }

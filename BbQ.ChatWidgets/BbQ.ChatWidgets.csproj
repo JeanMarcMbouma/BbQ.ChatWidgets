@@ -32,14 +32,8 @@
     <None Include="themes\bbq-chat-light.css" Pack="true" PackagePath="contentFiles\any\any\themes\" />
     <None Include="themes\bbq-chat-dark.css" Pack="true" PackagePath="contentFiles\any\any\themes\" />
     <None Include="themes\bbq-chat-corporate.css" Pack="true" PackagePath="contentFiles\any\any\themes\" />
-    <None Include="themes\README.md" Pack="true" PackagePath="contentFiles\any\any\themes\" />
   </ItemGroup>
 
   <!-- Include documentation in NuGet package -->
-  <ItemGroup>
-    <None Include="README_WIDGETS.md" Pack="true" PackagePath="documentation\" />
-    <None Include="AI_PROMPT_GUIDE.md" Pack="true" PackagePath="documentation\" />
-    <None Include="IMPLEMENTATION_SUMMARY.md" Pack="true" PackagePath="documentation\" />
-  </ItemGroup>
 
 </Project>

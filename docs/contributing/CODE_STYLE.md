@@ -74,15 +74,16 @@ private const string EP = "/api/chat";
 ### One Class Per File
 ```
 Services/
-??? ChatWidgetService.cs
-??? DefaultThreadService.cs
-??? DefaultToolsProvider.cs
-??? ...
 
 Models/
-??? ChatWidget.cs
-??? ChatTurn.cs
-??? ...
+— ChatWidgetService.cs
+— DefaultThreadService.cs
+— DefaultToolsProvider.cs
+— ...
+```
+— ChatWidget.cs
+— ChatTurn.cs
+— ...
 ```
 
 ### Using Statements Order

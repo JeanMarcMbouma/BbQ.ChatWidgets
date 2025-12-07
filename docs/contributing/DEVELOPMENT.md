@@ -64,21 +64,21 @@ Navigate to `http://localhost:5000`
 
 ```
 BbQ.ChatWidgets/
-??? BbQ.ChatWidgets/                  # Main library
-?   ??? Models/                       # Data structures
-?   ??? Services/                     # Core services
-?   ??? Extensions/                   # Extension methods
-?   ??? Abstractions/                 # Interfaces
-?
-??? BbQ.ChatWidgets.Tests/            # Unit tests
-?   ??? Services/
-?   ??? Models/
-?
-??? BbQ.ChatWidgets.Sample/           # Sample app
-?   ??? Program.cs
-?   ??? wwwroot/
-?
-??? docs/                             # Documentation
+— BbQ.ChatWidgets/                  # Main library
+  — Models/                       # Data structures
+  — Services/                     # Core services
+  — Extensions/                   # Extension methods
+  — Abstractions/                 # Interfaces
+
+— BbQ.ChatWidgets.Tests/            # Unit tests
+  — Services/
+  — Models/
+
+— BbQ.ChatWidgets.Sample/           # Sample app
+  — Program.cs
+  — wwwroot/
+
+— docs/                             # Documentation
 ```
 
 ## Common Commands

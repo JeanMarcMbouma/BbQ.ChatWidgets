@@ -33,17 +33,17 @@ This example demonstrates:
 
 ```
 project/
-??? Program.cs (main setup)
-??? Handlers/
-?   ??? CustomActionHandler.cs
-?   ??? CustomToolsProvider.cs
-??? Models/
-?   ??? RatingWidget.cs
-?   ??? ProgressWidget.cs
-?   ??? AlertWidget.cs
-??? Services/
-    ??? FormService.cs
-    ??? ToolService.cs
+— Program.cs (main setup)
+— Handlers/
+    — CustomActionHandler.cs
+    — CustomToolsProvider.cs
+— Models/
+    — RatingWidget.cs
+    — ProgressWidget.cs
+    — AlertWidget.cs
+— Services/
+    — FormService.cs
+    — ToolService.cs
 ```
 
 ## Program.cs Setup

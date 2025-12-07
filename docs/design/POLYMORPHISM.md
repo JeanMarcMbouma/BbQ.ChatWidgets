@@ -169,13 +169,13 @@ public record Chat
 
 ```
 ChatWidget (abstract)
-??? ButtonWidget
-??? CardWidget
-??? InputWidget
-??? DropdownWidget
-??? SliderWidget
-??? ToggleWidget
-??? FileUploadWidget
+— ButtonWidget
+— CardWidget
+— InputWidget
+— DropdownWidget
+— SliderWidget
+— ToggleWidget
+— FileUploadWidget
 ```
 
 ### Serialization Example

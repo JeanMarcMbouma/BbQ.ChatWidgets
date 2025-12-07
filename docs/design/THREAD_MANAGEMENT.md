@@ -39,11 +39,11 @@ public interface IThreadService
 ```
 ThreadId: "thread-abc-123"
 
-?? Turn 1: User ? "Hello"
-?? Turn 2: Assistant ? "Hi! How can I help?"
-?? Turn 3: User ? "What are widgets?"
-?? Turn 4: Assistant ? "Widgets are..." + ButtonWidget
-?? Turn 5: User ? (clicks widget) "submit_action"
+— Turn 1: User — "Hello"
+— Turn 2: Assistant — "Hi! How can I help?"
+— Turn 3: User — "What are widgets?"
+— Turn 4: Assistant — "Widgets are..." + ButtonWidget
+— Turn 5: User — (clicks widget) "submit_action"
 ```
 
 ## Rationale

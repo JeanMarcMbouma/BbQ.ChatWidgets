@@ -211,16 +211,16 @@ BbQ.ChatWidgets comes with 7 widget types:
 ## Common Tasks
 
 ### "How do I customize widget behavior?"
-? Read [Custom Action Handlers](../guides/CUSTOM_ACTION_HANDLERS.md)
+👉 Read [Custom Action Handlers](../guides/CUSTOM_ACTION_HANDLERS.md)
 
 ### "How do I add my own widget types?"
-? Read [Custom Widgets](../guides/CUSTOM_WIDGETS.md)
+👉 Read [Custom Widgets](../guides/CUSTOM_WIDGETS.md)
 
 ### "How do I extend AI capabilities?"
-? Read [Custom AI Tools](../guides/CUSTOM_AI_TOOLS.md)
+👉 Read [Custom AI Tools](../guides/CUSTOM_AI_TOOLS.md)
 
 ### "How do I manage long conversations?"
-? Read [Context Windows](../design/CONTEXT_WINDOWS.md)
+👉 Read [Context Windows](../design/CONTEXT_WINDOWS.md)
 
 ## Troubleshooting
 
@@ -243,4 +243,4 @@ See [Basic Example](../examples/BASIC_SETUP.md) for a complete working example w
 
 **Questions?** Open an issue on [GitHub](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets).
 
-**Time taken**: ~5 minutes ?
+**Time taken**: ~5 minutes ⏱️

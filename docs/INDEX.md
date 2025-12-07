@@ -2,7 +2,7 @@
 
 Welcome to the BbQ.ChatWidgets documentation. This is your entry point to all available resources.
 
-## ?? Getting Started
+## 🚀 Getting Started
 
 **New to BbQ.ChatWidgets?** Start here:
 
@@ -15,7 +15,7 @@ Welcome to the BbQ.ChatWidgets documentation. This is your entry point to all av
 3. **[Examples](examples/)** 
    - Working code examples you can copy and paste
 
-## ?? Documentation by Purpose
+## 📚 Documentation by Purpose
 
 ### Installation & Setup
 - **[Getting Started](GETTING_STARTED.md)** - Quick 5-minute setup
@@ -51,7 +51,7 @@ Welcome to the BbQ.ChatWidgets documentation. This is your entry point to all av
 - **[Testing Guide](contributing/TESTING.md)** - Writing tests
 - **[Documentation Guide](contributing/DOCUMENTATION.md)** - Documenting code
 
-## ?? Documentation by Audience
+## — Documentation by Audience
 
 ### I'm a User (Just want to use the library)
 ```
@@ -77,7 +77,7 @@ Start ? contributing/DEVELOPMENT.md (set up)
       ? contributing/DOCUMENTATION.md (doc standards)
 ```
 
-## ?? Find Documentation by Topic
+## — Find Documentation by Topic
 
 | I want to... | Read this |
 |---|---|
@@ -94,45 +94,45 @@ Start ? contributing/DEVELOPMENT.md (set up)
 | **Contribute to the project** | [Development Setup](contributing/DEVELOPMENT.md) |
 | **Find any documentation quickly** | [Quick Reference](QUICK_REFERENCE.md) |
 
-## ?? Documentation Structure
+## — Documentation Structure
 
 ```
 docs/
-??? INDEX.md                          ? You are here
-??? GETTING_STARTED.md                ? 5-minute quick start
-??? ARCHITECTURE.md                   ? System architecture
-??? QUICK_REFERENCE.md                ? Find docs by topic
-??? MANAGEMENT.md                     ? Maintaining documentation
-?
-??? guides/                           ? How-to guides
-?   ??? INSTALLATION.md              
-?   ??? CONFIGURATION.md             
-?   ??? CUSTOM_WIDGETS.md            
-?   ??? CUSTOM_AI_TOOLS.md           
-?   ??? CUSTOM_ACTION_HANDLERS.md    
-?
-??? examples/                         ? Code examples
-?   ??? BASIC_SETUP.md               
-?   ??? ADVANCED_CONFIGURATION.md    
-?   ??? CUSTOM_IMPLEMENTATION.md     
-?
-??? design/                           ? Design decisions
-?   ??? POLYMORPHISM.md              
-?   ??? THREAD_MANAGEMENT.md         
-?   ??? CONTEXT_WINDOWS.md           
-?   ??? SERIALIZATION.md             
-?
-??? api/                              ? API Reference
-?   ??? services/                    
-?   ??? models/                      
-?   ??? abstractions/                
-?   ??? extensions/                  
-?
-??? contributing/                     ? Development guides
-    ??? DEVELOPMENT.md               
-    ??? CODE_STYLE.md                
-    ??? TESTING.md                   
-    ??? DOCUMENTATION.md             
+— INDEX.md                          — You are here
+— GETTING_STARTED.md                — 5-minute quick start
+— ARCHITECTURE.md                   — System architecture
+— QUICK_REFERENCE.md                — Find docs by topic
+— MANAGEMENT.md                     — Maintaining documentation
+
+— guides/                           — How-to guides
+      — INSTALLATION.md              
+      — CONFIGURATION.md             
+      — CUSTOM_WIDGETS.md            
+      — CUSTOM_AI_TOOLS.md           
+      — CUSTOM_ACTION_HANDLERS.md    
+
+— examples/                         — Code examples
+      — BASIC_SETUP.md               
+      — ADVANCED_CONFIGURATION.md   
+      — CUSTOM_IMPLEMENTATION.md    
+
+— design/                           — Design decisions
+      — POLYMORPHISM.md              
+      — THREAD_MANAGEMENT.md        
+      — CONTEXT_WINDOWS.md          
+      — SERIALIZATION.md            
+
+— api/                              — API Reference
+      — services/                    
+      — models/                      
+      — abstractions/                
+      — extensions/                  
+
+— contributing/                     — Development guides
+      — DEVELOPMENT.md               
+      — CODE_STYLE.md               
+      — TESTING.md                  
+      — DOCUMENTATION.md            
 ```
 
 ## ? Quick Navigation
@@ -141,7 +141,7 @@ docs/
 - **[Quick Reference ?](QUICK_REFERENCE.md)** - Find what you need
 - **[Management ?](MANAGEMENT.md)** - Maintaining docs
 
-## ?? Tips
+## — Tips
 
 - **Bookmark this page** - It's your navigation hub
 - **Use Ctrl+F** - Find docs by keyword
@@ -149,7 +149,7 @@ docs/
 - **Read XML comments** - Hover in IDE for inline documentation
 - **Ask questions** - Open [GitHub issues](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/issues)
 
-## ?? Need Help?
+## — Need Help?
 
 | Question | Answer |
 |---|---|

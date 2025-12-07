@@ -80,6 +80,54 @@ public static class ServiceCollectionExtensions
     }
 
     /// <summary>
+    /// Registers support for custom widgets that can be defined outside the library.
+    /// </summary>
+    /// <remarks>
+    /// This extension method enables external applications to define and register
+    /// custom ChatWidget types at runtime without modifying the library.
+    /// 
+    /// Custom widgets:
+    /// - Are automatically available for serialization/deserialization
+    /// - Work seamlessly with the built-in widget system
+    /// - Support AI tool generation
+    /// - Can handle custom actions
+    /// 
+    /// Usage:
+    /// <code>
+    /// services.AddCustomWidgetSupport(registry =>
+    /// {
+    ///     registry.Register(typeof(MyRatingWidget), "rating");
+    ///     registry.Register<MyPollWidget>(); // Auto-discriminator: "mypoll"
+    /// });
+    /// </code>
+    /// </remarks>
+    /// <param name="services">The service collection to register services with.</param>
+    /// <param name="configure">Configuration action to register custom widget types.</param>
+    /// <returns>The service collection for method chaining.</returns>
+    public static IServiceCollection AddCustomWidgetSupport(
+        this IServiceCollection services,
+        Action<ICustomWidgetRegistry>? configure = null)
+    {
+        // Register the custom widget registry
+        services.AddSingleton<ICustomWidgetRegistry, CustomWidgetRegistry>(sp =>
+        {
+            var registry = new CustomWidgetRegistry();
+            configure?.Invoke(registry);
+            return registry;
+        });
+
+        // Initialize Serialization with the custom registry so it can deserialize custom widgets
+        services.AddSingleton(sp =>
+        {
+            var registry = sp.GetRequiredService<ICustomWidgetRegistry>();
+            Models.Serialization.SetCustomWidgetRegistry(registry);
+            return registry;
+        });
+
+        return services;
+    }
+
+    /// <summary>
     /// Maps BbQ ChatWidgets API endpoints to the application.
     /// </summary>
     /// <remarks>

@@ -8,7 +8,6 @@ import {
   SliderWidget,
   ToggleWidget,
   FileUploadWidget,
-  ThemeSwitcherWidget,
   DatePickerWidget,
   MultiSelectWidget,
   ProgressBarWidget,

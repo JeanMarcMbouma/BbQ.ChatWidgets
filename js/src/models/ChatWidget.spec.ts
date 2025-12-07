@@ -11,7 +11,7 @@ import {
   DatePickerWidget,
   MultiSelectWidget,
   ProgressBarWidget,
-} from '../src/models/ChatWidget';
+} from './ChatWidget';
 
 describe('ChatWidget Serialization', () => {
   describe('ButtonWidget', () => {
@@ -82,7 +82,7 @@ describe('ChatWidget Serialization', () => {
       expect(deserialized.min).toBe(0);
       expect(deserialized.max).toBe(100);
       expect(deserialized.step).toBe(5);
-      expect(deserialized.default).toBe(50);
+      expect(deserialized.defaultValue).toBe(50);
     });
   });
 

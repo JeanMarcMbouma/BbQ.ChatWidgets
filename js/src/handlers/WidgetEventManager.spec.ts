@@ -1,7 +1,7 @@
 import { describe, it, expect, afterEach } from 'vitest';
-import { WidgetEventManager, DefaultWidgetActionHandler } from '../src/handlers/WidgetEventManager';
-import { SsrWidgetRenderer } from '../src/renderers/SsrWidgetRenderer';
-import { ButtonWidget, InputWidget, DropdownWidget } from '../src/models/ChatWidget';
+import { WidgetEventManager, DefaultWidgetActionHandler } from './WidgetEventManager';
+import { SsrWidgetRenderer } from '../renderers/SsrWidgetRenderer';
+import { ButtonWidget, InputWidget, DropdownWidget } from '../models/ChatWidget';
 
 describe('WidgetEventManager', () => {
   let container: HTMLDivElement;
@@ -12,9 +12,10 @@ describe('WidgetEventManager', () => {
   };
 
   const teardown = () => {
-    if (container) {
+    if (container && container.parentNode === document.body) {
       document.body.removeChild(container);
     }
+    container = null as any;
   };
 
   afterEach(teardown);

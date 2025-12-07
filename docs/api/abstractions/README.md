@@ -63,7 +63,7 @@ public interface IWidgetActionHandler
 ```csharp
 public interface IWidgetToolsProvider
 {
-    IEnumerable<ToolDefinition> GetTools();
+    IReadOnlyList<BbQ.ChatWidgets.Models.WidgetTool> GetTools();
 }
 ```
 
@@ -73,16 +73,13 @@ public interface IWidgetToolsProvider
 
 **Methods**:
 - `GetTools()` - Return available tools
-- `HandleToolCallAsync(toolName, arguments)` - Execute tool
+ - `GetTools()` - Return available tools
 
 **Example**:
 ```csharp
 public interface IAIToolsProvider
 {
-    IEnumerable<ToolDefinition> GetTools();
-    Task<string> HandleToolCallAsync(
-        string toolName,
-        Dictionary<string, object> arguments);
+    IReadOnlyList<Microsoft.Extensions.AI.AITool> GetAITools();
 }
 ```
 

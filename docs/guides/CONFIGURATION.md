@@ -153,14 +153,14 @@ builder.Services.AddBbQChatWidgets(options =>
 ```csharp
 public class CustomWidgetProvider : IWidgetToolsProvider
 {
-    public IEnumerable<ToolDefinition> GetTools()
+    public IReadOnlyList<BbQ.ChatWidgets.Models.WidgetTool> GetTools()
     {
-        // Return your custom widget definitions
-        yield return new ToolDefinition
+        // Return your custom widget definitions as WidgetTool instances
+        return new List<BbQ.ChatWidgets.Models.WidgetTool>
         {
-            Name = "custom_button",
-            Description = "A custom button widget",
-            InputSchema = new { /* schema */ }
+            new BbQ.ChatWidgets.Models.WidgetTool(
+                new BbQ.ChatWidgets.Models.ChatWidget("button") { Label = "Get weather", Action = "get_weather" }
+            )
         };
     }
 }
@@ -178,14 +178,10 @@ builder.Services.AddBbQChatWidgets(options =>
 ```csharp
 public class CustomToolsProvider : IAIToolsProvider
 {
-    public IEnumerable<ToolDefinition> GetTools()
+    public IReadOnlyList<Microsoft.Extensions.AI.AITool> GetAITools()
     {
-        yield return new ToolDefinition
-        {
-            Name = "get_user_info",
-            Description = "Get information about the current user",
-            InputSchema = new { /* schema */ }
-        };
+        // Return AITool instances for the AI client. For widget-focused tools prefer IWidgetToolsProvider/WidgetTool.
+        return new List<Microsoft.Extensions.AI.AITool>();
     }
 }
 

@@ -59,7 +59,8 @@ var openaiClient = new ChatClient("gpt-4o-mini", apiKey)
 builder.Services.AddBbQChatWidgets(options =>
 {
     options.ChatClientFactory = sp => openaiClient;
-    options.ToolProviderFactory = sp => 
+    // Register a widget-based tools provider (returns WidgetTool instances)
+    options.WidgetToolsProviderFactory = sp => 
         sp.GetRequiredService<CustomToolsProvider>();
 });
 
@@ -107,7 +108,7 @@ public record FieldDefinition(
 
 ```csharp
 // Services/CustomToolsProvider.cs
-public class CustomToolsProvider : IAIToolsProvider
+public class CustomToolsProvider : IWidgetToolsProvider
 {
     private readonly AppDbContext _db;
     private readonly ILogger<CustomToolsProvider> _logger;
@@ -120,74 +121,18 @@ public class CustomToolsProvider : IAIToolsProvider
         _logger = logger;
     }
 
-    public IEnumerable<ToolDefinition> GetTools()
+    public IReadOnlyList<BbQ.ChatWidgets.Models.WidgetTool> GetTools()
     {
-        yield return new ToolDefinition
+        // Build WidgetTool instances that wrap ChatWidget definitions from the DB
+        return new List<BbQ.ChatWidgets.Models.WidgetTool>
         {
-            Name = "search_products",
-            Description = "Search products by keyword",
-            InputSchema = new
-            {
-                type = "object",
-                properties = new
-                {
-                    keyword = new { type = "string" },
-                    maxResults = new { type = "integer" }
-                },
-                required = new[] { "keyword" }
-            }
+            new BbQ.ChatWidgets.Models.WidgetTool(
+                new BbQ.ChatWidgets.Models.ChatWidget("button") { Label = "Search products", Action = "search_products" }
+            ),
+            new BbQ.ChatWidgets.Models.WidgetTool(
+                new BbQ.ChatWidgets.Models.ChatWidget("button") { Label = "Get profile", Action = "get_user_profile" }
+            )
         };
-
-        yield return new ToolDefinition
-        {
-            Name = "get_user_profile",
-            Description = "Get current user profile",
-            InputSchema = new { type = "object" }
-        };
-    }
-
-    public async Task<string> HandleToolCallAsync(
-        string toolName,
-        Dictionary<string, object> arguments)
-    {
-        try
-        {
-            return toolName switch
-            {
-                "search_products" => 
-                    await SearchProductsAsync(arguments),
-                "get_user_profile" => 
-                    await GetUserProfileAsync(),
-                _ => throw new InvalidOperationException()
-            };
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Tool failed: {Tool}", toolName);
-            throw;
-        }
-    }
-
-    private async Task<string> SearchProductsAsync(
-        Dictionary<string, object> args)
-    {
-        var keyword = (string)args["keyword"];
-        var maxResults = args.TryGetValue("maxResults", out var mr) 
-            ? Convert.ToInt32(mr) : 10;
-
-        var products = await _db.Products
-            .Where(p => EF.Functions.Like(p.Name, $"%{keyword}%"))
-            .Take(maxResults)
-            .Select(p => new { p.Id, p.Name, p.Price })
-            .ToListAsync();
-
-        return JsonSerializer.Serialize(products);
-    }
-
-    private async Task<string> GetUserProfileAsync()
-    {
-        var user = new { Id = 1, Name = "John Doe" };
-        return JsonSerializer.Serialize(user);
     }
 }
 ```

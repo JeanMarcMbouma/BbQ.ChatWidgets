@@ -20,10 +20,8 @@ Tools are functions that the AI can call to get information or perform actions:
 ```csharp
 public interface IAIToolsProvider
 {
-    IEnumerable<ToolDefinition> GetTools();
-    Task<string> HandleToolCallAsync(
-        string toolName,
-        Dictionary<string, object> arguments);
+    // Returns the AI-facing tools that the model can call.
+    IReadOnlyList<Microsoft.Extensions.AI.AITool> GetAITools();
 }
 ```
 
@@ -41,90 +39,40 @@ With custom tools, your AI can:
 
 ### Step 1: Define a Tool Definition
 
-Create a class to provide tool definitions:
+Create a class to provide AI tools. In this project there are two related extension points:
+
+- `IAIToolsProvider` (returns `AITool` instances for the AI client), and
+- `IWidgetToolsProvider` (returns `WidgetTool` instances that adapt `ChatWidget` objects).
+
+An example `IAIToolsProvider` implementation (model-facing tools):
 
 ```csharp
-public class CustomToolsProvider : IAIToolsProvider
+public class CustomAIToolsProvider : IAIToolsProvider
 {
-    public IEnumerable<ToolDefinition> GetTools()
+    public IReadOnlyList<Microsoft.Extensions.AI.AITool> GetAITools()
     {
-        yield return new ToolDefinition
+        // Return model-facing tools. For widget-based tools prefer IWidgetToolsProvider/WidgetTool.
+        return new List<Microsoft.Extensions.AI.AITool>
         {
-            Name = "get_weather",
-            Description = "Get current weather for a city",
-            InputSchema = new
-            {
-                type = "object",
-                properties = new
-                {
-                    city = new
-                    {
-                        type = "string",
-                        description = "City name"
-                    },
-                    units = new
-                    {
-                        type = "string",
-                        description = "Temperature units (celsius/fahrenheit)",
-                        @enum = new[] { "celsius", "fahrenheit" }
-                    }
-                },
-                required = new[] { "city" }
-            }
-        };
-
-        yield return new ToolDefinition
-        {
-            Name = "get_user_profile",
-            Description = "Get current user's profile information",
-            InputSchema = new
-            {
-                type = "object",
-                properties = new { },
-                required = new string[] { }
-            }
+            // Construct AITool or reuse the WidgetTool adapter when appropriate.
         };
     }
+}
+```
 
-    public async Task<string> HandleToolCallAsync(
-        string toolName,
-        Dictionary<string, object> arguments)
+If you want to expose widget types to the AI (recommended for widget authors), implement `IWidgetToolsProvider` and return `WidgetTool` instances that wrap `ChatWidget` objects:
+
+```csharp
+public class CustomWidgetToolsProvider : IWidgetToolsProvider
+{
+    public IReadOnlyList<BbQ.ChatWidgets.Models.WidgetTool> GetTools()
     {
-        return toolName switch
+        return new List<BbQ.ChatWidgets.Models.WidgetTool>
         {
-            "get_weather" => await GetWeatherAsync(arguments),
-            "get_user_profile" => await GetUserProfileAsync(arguments),
-            _ => throw new InvalidOperationException($"Unknown tool: {toolName}")
+            new BbQ.ChatWidgets.Models.WidgetTool(
+                new BbQ.ChatWidgets.Models.ChatWidget("button") { Label = "Get weather", Action = "get_weather" }
+            )
         };
-    }
-
-    private async Task<string> GetWeatherAsync(
-        Dictionary<string, object> arguments)
-    {
-        var city = (string)arguments["city"];
-        var units = arguments.TryGetValue("units", out var u) 
-            ? (string)u 
-            : "celsius";
-
-        // Call weather API
-        // This is a mock implementation
-        return $@"{{
-            ""city"": ""{city}"",
-            ""temperature"": 22,
-            ""units"": ""{units}"",
-            ""condition"": ""Sunny""
-        }}";
-    }
-
-    private async Task<string> GetUserProfileAsync(
-        Dictionary<string, object> arguments)
-    {
-        // Get user from context
-        return @"{
-            ""name"": ""John Doe"",
-            ""email"": ""john@example.com"",
-            ""subscription"": ""premium""
-        }";
     }
 }
 ```
@@ -167,77 +115,31 @@ builder.Services.AddBbQChatWidgets(options =>
 ### Backend
 
 ```csharp
-public class DatabaseToolsProvider : IAIToolsProvider
+// Example: register a widget-based tools provider backed by a database
+public class DatabaseWidgetToolsProvider : IWidgetToolsProvider
 {
     private readonly IDbContextFactory<AppDbContext> _dbFactory;
 
-    public DatabaseToolsProvider(
-        IDbContextFactory<AppDbContext> dbFactory)
+    public DatabaseWidgetToolsProvider(IDbContextFactory<AppDbContext> dbFactory)
     {
         _dbFactory = dbFactory;
     }
 
-    public IEnumerable<ToolDefinition> GetTools()
+    public IReadOnlyList<BbQ.ChatWidgets.Models.WidgetTool> GetTools()
     {
-        yield return new ToolDefinition
-        {
-            Name = "query_products",
-            Description = "Search for products in the database",
-            InputSchema = new
-            {
-                type = "object",
-                properties = new
-                {
-                    keyword = new
-                    {
-                        type = "string",
-                        description = "Search keyword"
-                    },
-                    maxResults = new
-                    {
-                        type = "integer",
-                        description = "Maximum number of results",
-                        minimum = 1,
-                        maximum = 100
-                    }
-                },
-                required = new[] { "keyword" }
-            }
-        };
-    }
-
-    public async Task<string> HandleToolCallAsync(
-        string toolName,
-        Dictionary<string, object> arguments)
-    {
-        if (toolName != "query_products")
-            throw new InvalidOperationException($"Unknown tool: {toolName}");
-
-        var keyword = (string)arguments["keyword"];
-        var maxResults = arguments.TryGetValue("maxResults", out var mr)
-            ? Convert.ToInt32(mr)
-            : 10;
-
-        using var context = await _dbFactory.CreateDbContextAsync();
-
-        var products = await context.Products
-            .Where(p => p.Name.Contains(keyword) || 
-                       p.Description.Contains(keyword))
-            .Take(maxResults)
-            .ToListAsync();
-
-        return JsonSerializer.Serialize(products);
+        // Build WidgetTool instances from database metadata or configuration.
+        return new List<BbQ.ChatWidgets.Models.WidgetTool>();
     }
 }
 
 // Register it
 builder.Services.AddBbQChatWidgets(options =>
 {
-    options.ToolProviderFactory = sp => 
-        sp.GetRequiredService<DatabaseToolsProvider>();
+    options.WidgetToolsProviderFactory = sp =>
+        sp.GetRequiredService<DatabaseWidgetToolsProvider>();
 });
 
-builder.Services.AddScoped<DatabaseToolsProvider>();
+builder.Services.AddScoped<DatabaseWidgetToolsProvider>();
 ```
 
 ## Common Tool Patterns
@@ -245,42 +147,18 @@ builder.Services.AddScoped<DatabaseToolsProvider>();
 ### Read-Only Information Tools
 
 ```csharp
-public class InfoToolsProvider : IAIToolsProvider
+public class InfoToolsProvider : IWidgetToolsProvider
 {
-    public IEnumerable<ToolDefinition> GetTools()
+    public IReadOnlyList<BbQ.ChatWidgets.Models.WidgetTool> GetTools()
     {
-        yield return new ToolDefinition
+        return new List<BbQ.ChatWidgets.Models.WidgetTool>
         {
-            Name = "get_company_info",
-            Description = "Get company information",
-            InputSchema = new { type = "object", properties = new { } }
-        };
-
-        yield return new ToolDefinition
-        {
-            Name = "get_pricing",
-            Description = "Get current pricing",
-            InputSchema = new { type = "object", properties = new { } }
-        };
-    }
-
-    public async Task<string> HandleToolCallAsync(
-        string toolName,
-        Dictionary<string, object> arguments)
-    {
-        return toolName switch
-        {
-            "get_company_info" => @"{
-                ""name"": ""Company Inc"",
-                ""founded"": 2020,
-                ""employees"": 150
-            }",
-            "get_pricing" => @"{
-                ""basic"": 29,
-                ""pro"": 99,
-                ""enterprise"": ""Contact us""
-            }",
-            _ => throw new InvalidOperationException($"Unknown tool: {toolName}")
+            new BbQ.ChatWidgets.Models.WidgetTool(
+                new BbQ.ChatWidgets.Models.ChatWidget("button") { Label = "Company info", Action = "get_company_info" }
+            ),
+            new BbQ.ChatWidgets.Models.WidgetTool(
+                new BbQ.ChatWidgets.Models.ChatWidget("button") { Label = "Pricing", Action = "get_pricing" }
+            )
         };
     }
 }
@@ -289,7 +167,7 @@ public class InfoToolsProvider : IAIToolsProvider
 ### External API Integration
 
 ```csharp
-public class ExternalAPIToolsProvider : IAIToolsProvider
+public class ExternalAPIToolsProvider : IWidgetToolsProvider
 {
     private readonly HttpClient _httpClient;
 
@@ -298,41 +176,14 @@ public class ExternalAPIToolsProvider : IAIToolsProvider
         _httpClient = httpClient;
     }
 
-    public IEnumerable<ToolDefinition> GetTools()
+    public IReadOnlyList<BbQ.ChatWidgets.Models.WidgetTool> GetTools()
     {
-        yield return new ToolDefinition
+        return new List<BbQ.ChatWidgets.Models.WidgetTool>
         {
-            Name = "translate_text",
-            Description = "Translate text to another language",
-            InputSchema = new
-            {
-                type = "object",
-                properties = new
-                {
-                    text = new { type = "string" },
-                    targetLanguage = new { type = "string" }
-                },
-                required = new[] { "text", "targetLanguage" }
-            }
+            new BbQ.ChatWidgets.Models.WidgetTool(
+                new BbQ.ChatWidgets.Models.ChatWidget("button") { Label = "Translate", Action = "translate_text" }
+            )
         };
-    }
-
-    public async Task<string> HandleToolCallAsync(
-        string toolName,
-        Dictionary<string, object> arguments)
-    {
-        if (toolName != "translate_text")
-            throw new InvalidOperationException($"Unknown tool: {toolName}");
-
-        var text = (string)arguments["text"];
-        var language = (string)arguments["targetLanguage"];
-
-        // Call external translation API
-        var response = await _httpClient.GetAsync(
-            $"https://api.example.com/translate?" +
-            $"text={text}&lang={language}");
-
-        return await response.Content.ReadAsStringAsync();
     }
 }
 
@@ -341,7 +192,7 @@ builder.Services.AddHttpClient<ExternalAPIToolsProvider>();
 
 builder.Services.AddBbQChatWidgets(options =>
 {
-    options.ToolProviderFactory = sp => 
+    options.WidgetToolsProviderFactory = sp => 
         sp.GetRequiredService<ExternalAPIToolsProvider>();
 });
 ```
@@ -349,7 +200,7 @@ builder.Services.AddBbQChatWidgets(options =>
 ### User Context Tools
 
 ```csharp
-public class UserContextToolsProvider : IAIToolsProvider
+public class UserContextToolsProvider : IWidgetToolsProvider
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly UserService _userService;
@@ -362,33 +213,14 @@ public class UserContextToolsProvider : IAIToolsProvider
         _userService = userService;
     }
 
-    public IEnumerable<ToolDefinition> GetTools()
+    public IReadOnlyList<BbQ.ChatWidgets.Models.WidgetTool> GetTools()
     {
-        yield return new ToolDefinition
+        return new List<BbQ.ChatWidgets.Models.WidgetTool>
         {
-            Name = "get_user_preferences",
-            Description = "Get current user's preferences",
-            InputSchema = new { type = "object", properties = new { } }
+            new BbQ.ChatWidgets.Models.WidgetTool(
+                new BbQ.ChatWidgets.Models.ChatWidget("button") { Label = "User preferences", Action = "get_user_preferences" }
+            )
         };
-    }
-
-    public async Task<string> HandleToolCallAsync(
-        string toolName,
-        Dictionary<string, object> arguments)
-    {
-        if (toolName != "get_user_preferences")
-            throw new InvalidOperationException($"Unknown tool: {toolName}");
-
-        var userId = _httpContextAccessor.HttpContext?
-            .User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-        if (userId == null)
-            return "{\"error\": \"User not authenticated\"}";
-
-        var preferences = await _userService
-            .GetUserPreferencesAsync(userId);
-
-        return JsonSerializer.Serialize(preferences);
     }
 }
 ```
@@ -417,7 +249,7 @@ public class UserContextToolsProvider : IAIToolsProvider
 ## Tool Input Validation
 
 ```csharp
-public async Task<string> HandleToolCallAsync(
+public async Task<string> ExecuteToolAsync(
     string toolName,
     Dictionary<string, object> arguments)
 {
@@ -441,7 +273,7 @@ public async Task<string> HandleToolCallAsync(
 ## Error Handling
 
 ```csharp
-public async Task<string> HandleToolCallAsync(
+public async Task<string> ExecuteToolAsync(
     string toolName,
     Dictionary<string, object> arguments)
 {

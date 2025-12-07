@@ -4,11 +4,11 @@ BbQ.ChatWidgets is a framework-agnostic widget library for AI chat UIs, built on
 
 ## Features
 
-- ?? **JSON contract for widgets** - Define UI widgets in JSON
-- ?? **Minimal API endpoints** - Quick setup with automatic endpoints
-- ?? **JavaScript client with auto-binding** - Frontend-agnostic widget rendering
-- ?? **LLM tool integration** - Seamless AI model integration
-- ?? **Localization + theming** - Full i18n and theme support
+- **JSON contract for widgets** - Define UI widgets in JSON
+- **Minimal API endpoints** - Quick setup with automatic endpoints
+- **JavaScript client with auto-binding** - Frontend-agnostic widget rendering
+- **LLM tool integration** - Seamless AI model integration
+- **Localization + theming** - Full i18n and theme support
 
 ## Quick Start
 
@@ -24,10 +24,10 @@ app.MapBbQChatEndpoints();
 
 Complete documentation is available in the `/docs` folder:
 
-- **[?? Getting Started](docs/GETTING_STARTED.md)** - Get up and running in 5 minutes
-- **[?? Master Index](docs/INDEX.md)** - Navigation hub for all documentation
-- **[??? Architecture Guide](docs/ARCHITECTURE.md)** - Understand how it works
-- **[?? Quick Reference](docs/QUICK_REFERENCE.md)** - Find what you need quickly
+- **[Getting Started](docs/GETTING_STARTED.md)** - Get up and running in 5 minutes
+- **[Master Index](docs/INDEX.md)** - Navigation hub for all documentation
+- **[Architecture Guide](docs/ARCHITECTURE.md)** - Understand how it works
+- **[Quick Reference](docs/QUICK_REFERENCE.md)** - Find what you need quickly
 
 ## Key Concepts
 
@@ -46,12 +46,12 @@ Complete documentation is available in the `/docs` folder:
 ### Architecture Components
 
 ```
-User ? ASP.NET Core App ? ChatWidgetService
-                            ?
-                    ChatClient (OpenAI, Claude, etc.)
-                    + WidgetToolsProvider
-                    + ThreadService
-                    + WidgetHintParser
+User -> ASP.NET Core App -> ChatWidgetService
+                |
+            ChatClient (OpenAI, Claude, etc.)
+            + WidgetToolsProvider
+            + ThreadService
+            + WidgetHintParser
 ```
 
 ## Installation
@@ -101,19 +101,19 @@ console.log('Widgets:', data.widgets);
 
 ## Learning Paths
 
-### ?? For Users
+### — For Users
 1. [Getting Started](docs/GETTING_STARTED.md) (5 min)
 2. [Installation Guide](docs/guides/INSTALLATION.md)
 3. [Examples](docs/examples/)
 4. [API Reference](docs/api/)
 
-### ????? For Developers
+### — For Developers
 1. [Architecture Guide](docs/ARCHITECTURE.md)
 2. [Custom Widgets](docs/guides/CUSTOM_WIDGETS.md)
 3. [Custom AI Tools](docs/guides/CUSTOM_AI_TOOLS.md)
 4. [API Reference](docs/api/)
 
-### ?? For Contributors
+### — For Contributors
 1. [Development Setup](docs/contributing/DEVELOPMENT.md)
 2. [Code Style](docs/contributing/CODE_STYLE.md)
 3. [Testing Guide](docs/contributing/TESTING.md)
@@ -136,6 +136,6 @@ We welcome contributions! See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for gui
 
 ---
 
-**Ready to get started?** ? [Getting Started Guide](docs/GETTING_STARTED.md)
+**Ready to get started?** [Getting Started Guide](docs/GETTING_STARTED.md)
 
-**Need help?** ? [Documentation Index](docs/INDEX.md)
+**Need help?** [Documentation Index](docs/INDEX.md)

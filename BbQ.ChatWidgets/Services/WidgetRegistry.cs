@@ -120,12 +120,48 @@ public sealed class WidgetRegistry : IWidgetRegistry
         bool isInteractive = false,
         params string[] tags) where T : ChatWidget
     {
+        Register(typeof(T), typeId, description, category, isInteractive, tags);
+    }
+
+    /// <summary>
+    /// Registers a widget type with optional metadata using a Type parameter.
+    /// </summary>
+    /// <remarks>
+    /// This overload allows registration without requiring a generic type parameter,
+    /// making it convenient for dynamic or reflection-based registration scenarios.
+    /// </remarks>
+    /// <param name="widgetType">The widget class type to register. Must inherit from <see cref="ChatWidget"/>.</param>
+    /// <param name="typeId">The type identifier string (e.g., "button", "custom_widget").</param>
+    /// <param name="description">Optional description of the widget.</param>
+    /// <param name="category">Optional category or group (e.g., "input", "display").</param>
+    /// <param name="isInteractive">Whether this widget supports user interaction.</param>
+    /// <param name="tags">Optional tags for filtering.</param>
+    /// <exception cref="ArgumentException">
+    /// Thrown if widgetType does not inherit from ChatWidget or typeId is null/empty.
+    /// </exception>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown if widgetType is null.
+    /// </exception>
+    public void Register(
+        Type widgetType,
+        string typeId,
+        string description = "",
+        string category = "custom",
+        bool isInteractive = false,
+        params string[] tags)
+    {
+        if (widgetType == null)
+            throw new ArgumentNullException(nameof(widgetType));
+
         if (string.IsNullOrWhiteSpace(typeId))
             throw new ArgumentException("Type ID cannot be null or empty.", nameof(typeId));
 
+        if (!typeof(ChatWidget).IsAssignableFrom(widgetType))
+            throw new ArgumentException($"Type '{widgetType.Name}' must inherit from ChatWidget.", nameof(widgetType));
+
         var metadata = new WidgetMetadata(
             typeId,
-            typeof(T),
+            widgetType,
             description,
             category,
             isInteractive,

@@ -45,6 +45,49 @@ public static class WidgetRegistryExtensions
     }
 
     /// <summary>
+    /// Registers a custom widget type by passing its Type parameter.
+    /// </summary>
+    /// <remarks>
+    /// This overload is useful for dynamic or reflection-based registration scenarios
+    /// where the type is not known at compile time.
+    /// </remarks>
+    /// <param name="registry">The widget registry.</param>
+    /// <param name="widgetType">The widget class type to register. Must inherit from <see cref="ChatWidget"/>.</param>
+    /// <param name="typeId">The type identifier string (e.g., "custom_widget").</param>
+    /// <param name="description">A human-readable description of the widget.</param>
+    /// <param name="category">The category or group (e.g., "input", "display", "utility").</param>
+    /// <param name="isInteractive">Whether this widget supports user interaction.</param>
+    /// <param name="tags">Optional tags for filtering and searching.</param>
+    /// <example>
+    /// <code>
+    /// var registry = services.GetRequiredService&lt;IWidgetRegistry&gt;();
+    /// var customWidgetType = Type.GetType("MyApp.Widgets.CustomWidget");
+    /// registry.RegisterCustom(
+    ///     customWidgetType,
+    ///     "custom_widget",
+    ///     "A custom widget for special use cases",
+    ///     "custom",
+    ///     isInteractive: true,
+    ///     "advanced"
+    /// );
+    /// </code>
+    /// </example>
+    public static void RegisterCustom(
+        this IWidgetRegistry registry,
+        Type widgetType,
+        string typeId,
+        string description,
+        string category = "custom",
+        bool isInteractive = false,
+        params string[] tags)
+    {
+        if (registry is WidgetRegistry concreteRegistry)
+        {
+            concreteRegistry.Register(widgetType, typeId, description, category, isInteractive, tags);
+        }
+    }
+
+    /// <summary>
     /// Registers multiple custom widgets at once.
     /// </summary>
     /// <param name="registry">The widget registry.</param>

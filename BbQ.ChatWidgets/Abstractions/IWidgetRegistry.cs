@@ -102,6 +102,30 @@ public interface IWidgetRegistry
         params string[] tags) where T : ChatWidget;
 
     /// <summary>
+    /// Registers a widget type with optional metadata using a Type parameter.
+    /// </summary>
+    /// <remarks>
+    /// This overload allows registration without requiring a generic type parameter,
+    /// making it convenient for dynamic or reflection-based registration scenarios.
+    /// </remarks>
+    /// <param name="widgetType">The widget class type to register. Must inherit from <see cref="ChatWidget"/>.</param>
+    /// <param name="typeId">The type identifier string (e.g., "button", "custom_widget").</param>
+    /// <param name="description">Optional description of the widget.</param>
+    /// <param name="category">Optional category or group (e.g., "input", "display").</param>
+    /// <param name="isInteractive">Whether this widget supports user interaction.</param>
+    /// <param name="tags">Optional tags for filtering.</param>
+    /// <exception cref="ArgumentException">
+    /// Thrown if widgetType does not inherit from ChatWidget.
+    /// </exception>
+    void Register(
+        Type widgetType,
+        string typeId,
+        string description = "",
+        string category = "custom",
+        bool isInteractive = false,
+        params string[] tags);
+
+    /// <summary>
     /// Checks if a widget type is registered.
     /// </summary>
     /// <param name="typeId">The widget type identifier.</param>

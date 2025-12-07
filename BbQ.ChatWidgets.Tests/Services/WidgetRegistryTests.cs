@@ -166,4 +166,69 @@ public class WidgetRegistryTests
         // Assert
         Assert.Contains(typeof(ThemeSwitcherWidget), types);
     }
+
+    [Fact]
+    public void Register_WithTypeParameter_RegistersWidgetCorrectly()
+    {
+        // Arrange
+        var registry = new WidgetRegistry();
+        var initialCount = registry.GetCount();
+
+        // Act
+        registry.Register(
+            typeof(InputWidget),
+            "custom_input",
+            "Custom input field",
+            "custom",
+            isInteractive: true,
+            "form", "text");
+
+        // Assert
+        Assert.Equal(initialCount + 1, registry.GetCount());
+        Assert.True(registry.IsRegistered("custom_input"));
+        var metadata = registry.GetMetadata("custom_input");
+        Assert.NotNull(metadata);
+        Assert.Equal("custom_input", metadata.TypeId);
+        Assert.Equal(typeof(InputWidget), metadata.Type);
+        Assert.Equal("Custom input field", metadata.Description);
+        Assert.Equal("custom", metadata.Category);
+        Assert.True(metadata.IsInteractive);
+        Assert.Contains("form", metadata.Tags);
+        Assert.Contains("text", metadata.Tags);
+    }
+
+    [Fact]
+    public void Register_WithTypeParameter_ThrowsForNullType()
+    {
+        // Arrange
+        var registry = new WidgetRegistry();
+
+        // Act & Assert
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type
+        Assert.Throws<ArgumentNullException>(() =>
+            registry.Register(null, "test_widget"));
+#pragma warning restore CS8625
+    }
+
+    [Fact]
+    public void Register_WithTypeParameter_ThrowsForInvalidType()
+    {
+        // Arrange
+        var registry = new WidgetRegistry();
+
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() =>
+            registry.Register(typeof(string), "test_widget"));
+    }
+
+    [Fact]
+    public void Register_WithTypeParameter_ThrowsForEmptyTypeId()
+    {
+        // Arrange
+        var registry = new WidgetRegistry();
+
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() =>
+            registry.Register(typeof(InputWidget), ""));
+    }
 }

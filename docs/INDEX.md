@@ -1,163 +1,165 @@
-# BbQ.ChatWidgets - Main Documentation Index
+# Documentation Index
 
-This is the central documentation hub for BbQ.ChatWidgets. All documentation has been consolidated here.
+Welcome to the BbQ.ChatWidgets documentation. This is your entry point to all available resources.
 
-## ?? Documentation Guide
+## ?? Getting Started
 
-### ?? Getting Started
-- **[Quick Start (5 Minutes)](GETTING_STARTED.md)** - Get up and running immediately
-- **[Installation Guide](guides/INSTALLATION.md)** - Step-by-step setup instructions
-- **[Basic Example](examples/BASIC_SETUP.md)** - Copy-paste ready code
+**New to BbQ.ChatWidgets?** Start here:
 
-### ??? Architecture & Design
-- **[System Architecture](ARCHITECTURE.md)** - How BbQ.ChatWidgets works
-- **[Design Decisions](design/)** - Why things are the way they are
+1. **[Quick Start Guide](GETTING_STARTED.md)** (5 minutes)
+   - Installation, basic setup, send your first message
+   
+2. **[Architecture Overview](ARCHITECTURE.md)** (10 minutes)
+   - Understand how the system works, key components
+
+3. **[Examples](examples/)** 
+   - Working code examples you can copy and paste
+
+## ?? Documentation by Purpose
+
+### Installation & Setup
+- **[Getting Started](GETTING_STARTED.md)** - Quick 5-minute setup
+- **[Installation Guide](guides/INSTALLATION.md)** - Detailed setup steps
+- **[Configuration Guide](guides/CONFIGURATION.md)** - All options explained
+
+### Learning & Understanding
+- **[Architecture Guide](ARCHITECTURE.md)** - System overview
+- **[Design Decisions](design/)** - Why things are designed this way
   - [JSON Polymorphism](design/POLYMORPHISM.md)
   - [Thread Management](design/THREAD_MANAGEMENT.md)
   - [Context Windows](design/CONTEXT_WINDOWS.md)
 
-### ?? API Reference
-Complete documentation of all services, models, and extensions:
-- **[Services](api/services/README.md)** - Core service classes
-- **[Models](api/models/README.md)** - Data structures and records
-- **[Abstractions](api/abstractions/README.md)** - Interfaces and contracts
-- **[Extensions](api/extensions/README.md)** - Helper extension methods
-
-### ?? Configuration & Customization
-- **[Configuration Guide](guides/CONFIGURATION.md)** - All options explained
-- **[Custom Widgets](guides/CUSTOM_WIDGETS.md)** - Create your own widget types
+### Building & Customizing
+- **[Custom Widgets Guide](guides/CUSTOM_WIDGETS.md)** - Create your own widgets
 - **[Custom AI Tools](guides/CUSTOM_AI_TOOLS.md)** - Extend AI capabilities
-- **[Custom Actions](guides/CUSTOM_ACTION_HANDLERS.md)** - Handle widget actions
+- **[Custom Actions](guides/CUSTOM_ACTION_HANDLERS.md)** - Handle widget interactions
 
-### ?? Code Examples
-- **[Basic Setup](examples/BASIC_SETUP.md)** - Minimal working example
-- **[Advanced Configuration](examples/ADVANCED_CONFIGURATION.md)** - Complex setups
-- **[Custom Implementation](examples/CUSTOM_IMPLEMENTATION.md)** - Complete custom example
+### Code Examples
+- **[Basic Setup Example](examples/BASIC_SETUP.md)** - Minimal working example
+- **[Advanced Configuration](examples/ADVANCED_CONFIGURATION.md)** - Complex scenarios
+- **[Custom Implementation](examples/CUSTOM_IMPLEMENTATION.md)** - Full custom example
 
-### ?? Contributing
+### API Reference
+- **[Services](api/services/README.md)** - Core service classes
+- **[Models](api/models/README.md)** - Data structures
+- **[Abstractions](api/abstractions/README.md)** - Interfaces & contracts
+- **[Extensions](api/extensions/README.md)** - Helper methods
+
+### Contributing
 - **[Development Setup](contributing/DEVELOPMENT.md)** - Set up dev environment
 - **[Code Style](contributing/CODE_STYLE.md)** - Coding standards
-- **[Documentation](contributing/DOCUMENTATION.md)** - Docs guidelines
-- **[Testing](contributing/TESTING.md)** - Testing guidelines
+- **[Testing Guide](contributing/TESTING.md)** - Writing tests
+- **[Documentation Guide](contributing/DOCUMENTATION.md)** - Documenting code
 
-## ?? Find What You Need
+## ?? Documentation by Audience
+
+### I'm a User (Just want to use the library)
+```
+Start ? GETTING_STARTED.md (5 min)
+      ? examples/BASIC_SETUP.md (copy & paste)
+      ? guides/CONFIGURATION.md (customize)
+      ? api/README.md (reference)
+```
+
+### I'm a Developer (Want to extend/customize)
+```
+Start ? ARCHITECTURE.md (understand design)
+      ? guides/CUSTOM_WIDGETS.md or CUSTOM_AI_TOOLS.md
+      ? examples/ (see working code)
+      ? api/ (detailed reference)
+```
+
+### I'm Contributing Code
+```
+Start ? contributing/DEVELOPMENT.md (set up)
+      ? contributing/CODE_STYLE.md (standards)
+      ? contributing/TESTING.md (write tests)
+      ? contributing/DOCUMENTATION.md (doc standards)
+```
+
+## ?? Find Documentation by Topic
 
 | I want to... | Read this |
 |---|---|
-| Get started in 5 minutes | [Quick Start](GETTING_STARTED.md) |
-| Install the library | [Installation Guide](guides/INSTALLATION.md) |
-| Understand how it works | [Architecture](ARCHITECTURE.md) |
-| See working code | [Basic Example](examples/BASIC_SETUP.md) |
-| Configure options | [Configuration Guide](guides/CONFIGURATION.md) |
-| Create custom widgets | [Custom Widgets](guides/CUSTOM_WIDGETS.md) |
-| Extend AI capabilities | [Custom AI Tools](guides/CUSTOM_AI_TOOLS.md) |
-| Look up API documentation | [API Reference](api/README.md) |
-| Contribute code | [Development Setup](contributing/DEVELOPMENT.md) |
+| **Get started quickly** | [Quick Start](GETTING_STARTED.md) |
+| **Install the library** | [Installation Guide](guides/INSTALLATION.md) |
+| **Understand the architecture** | [Architecture Guide](ARCHITECTURE.md) |
+| **See working code** | [Examples](examples/) |
+| **Configure options** | [Configuration Guide](guides/CONFIGURATION.md) |
+| **Create custom widgets** | [Custom Widgets Guide](guides/CUSTOM_WIDGETS.md) |
+| **Extend AI capabilities** | [Custom AI Tools Guide](guides/CUSTOM_AI_TOOLS.md) |
+| **Handle widget actions** | [Custom Actions Guide](guides/CUSTOM_ACTION_HANDLERS.md) |
+| **Look up API** | [API Reference](api/README.md) |
+| **Understand design decisions** | [Design Docs](design/) |
+| **Contribute to the project** | [Development Setup](contributing/DEVELOPMENT.md) |
+| **Find any documentation quickly** | [Quick Reference](QUICK_REFERENCE.md) |
 
 ## ?? Documentation Structure
 
 ```
 docs/
-??? README.md                           # This file
-??? GETTING_STARTED.md                  # 5-minute quick start
-??? FEATURES.md                         # Feature overview
-??? ARCHITECTURE.md                     # System architecture
+??? INDEX.md                          ? You are here
+??? GETTING_STARTED.md                ? 5-minute quick start
+??? ARCHITECTURE.md                   ? System architecture
+??? QUICK_REFERENCE.md                ? Find docs by topic
+??? MANAGEMENT.md                     ? Maintaining documentation
 ?
-??? guides/                             # How-to guides
-?   ??? INSTALLATION.md                 # Installation steps
-?   ??? CONFIGURATION.md                # Configuration options
-?   ??? CUSTOM_WIDGETS.md               # Creating widgets
-?   ??? CUSTOM_AI_TOOLS.md              # Extending AI
-?   ??? CUSTOM_ACTION_HANDLERS.md       # Custom actions
+??? guides/                           ? How-to guides
+?   ??? INSTALLATION.md              
+?   ??? CONFIGURATION.md             
+?   ??? CUSTOM_WIDGETS.md            
+?   ??? CUSTOM_AI_TOOLS.md           
+?   ??? CUSTOM_ACTION_HANDLERS.md    
 ?
-??? examples/                           # Code examples
-?   ??? BASIC_SETUP.md                  # Simple example
-?   ??? ADVANCED_CONFIGURATION.md       # Complex setup
-?   ??? CUSTOM_IMPLEMENTATION.md        # Full custom impl
+??? examples/                         ? Code examples
+?   ??? BASIC_SETUP.md               
+?   ??? ADVANCED_CONFIGURATION.md    
+?   ??? CUSTOM_IMPLEMENTATION.md     
 ?
-??? design/                             # Design decisions
-?   ??? POLYMORPHISM.md                 # JSON polymorphic types
-?   ??? THREAD_MANAGEMENT.md            # Thread design
-?   ??? CONTEXT_WINDOWS.md              # AI context management
-?   ??? SERIALIZATION.md                # Serialization strategy
+??? design/                           ? Design decisions
+?   ??? POLYMORPHISM.md              
+?   ??? THREAD_MANAGEMENT.md         
+?   ??? CONTEXT_WINDOWS.md           
+?   ??? SERIALIZATION.md             
 ?
-??? api/                                # API Reference
-?   ??? README.md                       # API overview
-?   ??? services/                       # Service documentation
-?   ?   ??? ChatWidgetService.md
-?   ?   ??? DefaultThreadService.md
-?   ?   ??? ...
-?   ??? models/                         # Model documentation
-?   ?   ??? ChatWidget.md
-?   ?   ??? ChatTurn.md
-?   ?   ??? ...
-?   ??? abstractions/                   # Interface documentation
-?   ?   ??? ...
-?   ??? extensions/                     # Extension method docs
-?       ??? ...
+??? api/                              ? API Reference
+?   ??? services/                    
+?   ??? models/                      
+?   ??? abstractions/                
+?   ??? extensions/                  
 ?
-??? contributing/                       # Development guides
-    ??? DEVELOPMENT.md                  # Dev setup
-    ??? CODE_STYLE.md                   # Code standards
-    ??? DOCUMENTATION.md                # Doc standards
-    ??? TESTING.md                      # Test guidelines
+??? contributing/                     ? Development guides
+    ??? DEVELOPMENT.md               
+    ??? CODE_STYLE.md                
+    ??? TESTING.md                   
+    ??? DOCUMENTATION.md             
 ```
 
-## ?? Quick Reference
+## ? Quick Navigation
 
-### Core Concepts
-1. **Widgets** - Interactive UI elements (Button, Card, Input, etc.)
-2. **Chat Turns** - Individual messages in a conversation
-3. **Threads** - Conversation contexts
-4. **Tools** - AI-callable functions
-5. **Actions** - Widget interaction handlers
-
-### Key Files
-- **ChatWidgetService** - Main orchestrator
-- **DefaultThreadService** - Conversation management
-- **ChatWidget** - Widget definitions
-- **ChatTurn** - Message representation
-- **Serialization** - JSON configuration
-
-## ?? Related Resources
-
-- **GitHub**: [BbQ.ChatWidgets](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets)
-- **NuGet**: [BbQ.ChatWidgets](https://www.nuget.org/packages/BbQ.ChatWidgets/)
-- **Issues**: [GitHub Issues](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/issues)
+- **[? Back to README](../README.md)** - Project overview
+- **[Quick Reference ?](QUICK_REFERENCE.md)** - Find what you need
+- **[Management ?](MANAGEMENT.md)** - Maintaining docs
 
 ## ?? Tips
 
-- **Start here**: [Getting Started Guide](GETTING_STARTED.md)
-- **Have questions?** Check the [FAQ](#faq) or open an issue
-- **Found a bug?** [Report it](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/issues/new)
-- **Want to contribute?** [See Contributing Guide](contributing/DEVELOPMENT.md)
-
-## ?? In-Code Documentation
-
-In addition to these guides, the source code includes comprehensive **XML comments**:
-- Every class is documented
-- Every public method is documented
-- Parameters and return values are explained
-- Examples are inline with the code
-
-**Access in your IDE:**
-- Hover over any type or method
-- Press `Ctrl+Shift+Space` for quick docs
-- Use "Go To Definition" to read full comments
+- **Bookmark this page** - It's your navigation hub
+- **Use Ctrl+F** - Find docs by keyword
+- **Check "Next Steps"** - End of each doc suggests what to read next
+- **Read XML comments** - Hover in IDE for inline documentation
+- **Ask questions** - Open [GitHub issues](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/issues)
 
 ## ?? Need Help?
 
-1. **First time?** ? [Getting Started](GETTING_STARTED.md)
-2. **How to use?** ? [API Reference](api/README.md)
-3. **Not working?** ? [Troubleshooting](guides/INSTALLATION.md#troubleshooting)
-4. **Need more?** ? [GitHub Issues](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/issues)
-
-## ?? License
-
-Documentation is provided under the same license as the code (MIT). See LICENSE file in root.
+| Question | Answer |
+|---|---|
+| **Where do I start?** | [Getting Started](GETTING_STARTED.md) |
+| **How does it work?** | [Architecture](ARCHITECTURE.md) |
+| **How do I do X?** | [Quick Reference](QUICK_REFERENCE.md) |
+| **Where's the API docs?** | [API Reference](api/README.md) |
+| **I found a bug** | [Open issue](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/issues) |
+| **I want to contribute** | [Development Setup](contributing/DEVELOPMENT.md) |
 
 ---
 
-**Last Updated**: 2024  
-**Version**: 1.0.0+  
-**Status**: Complete and Current
+**Next Step**: [Getting Started Guide ?](GETTING_STARTED.md)

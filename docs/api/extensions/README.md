@@ -1,0 +1,174 @@
+# Extensions API
+
+Helper methods and extension functions.
+
+## Overview
+
+Extensions provide convenient helper methods for common tasks.
+
+## IServiceCollectionExtensions
+
+Extension methods for dependency injection setup.
+
+### AddBbQChatWidgets
+
+Registers all BbQ.ChatWidgets services.
+
+```csharp
+public static IServiceCollection AddBbQChatWidgets(
+    this IServiceCollection services,
+    Action<BbQChatOptions>? configureOptions = null)
+```
+
+**Usage**:
+```csharp
+builder.Services.AddBbQChatWidgets(options =>
+{
+    options.RoutePrefix = "/api/chat";
+    options.ChatClientFactory = sp => chatClient;
+});
+```
+
+### ConfigureJsonSerializerOptions
+
+Configure JSON serialization for widgets.
+
+```csharp
+public static void ConfigureJsonSerializerOptions(
+    this IServiceCollection services,
+    Action<JsonSerializerOptions> configure)
+```
+
+**Usage**:
+```csharp
+builder.Services.ConfigureJsonSerializerOptions(options =>
+{
+    options.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+});
+```
+
+## JsonSerializerOptions Extensions
+
+Extensions for JSON serialization configuration.
+
+### AddChatWidgetType
+
+Register a custom widget type.
+
+```csharp
+public static void AddChatWidgetType<TWidget>(
+    this JsonSerializerOptions options,
+    string typeDiscriminator)
+    where TWidget : ChatWidget
+```
+
+**Usage**:
+```csharp
+var options = new JsonSerializerOptions();
+options.AddChatWidgetType<RatingWidget>("rating");
+options.AddChatWidgetType<ProgressWidget>("progress");
+```
+
+## ChatClientExtensions
+
+Extensions for chat client integration.
+
+### AsIChatClient
+
+Convert chat client to IChatClient.
+
+```csharp
+public static IChatClient AsIChatClient(
+    this ChatClient chatClient)
+```
+
+**Usage**:
+```csharp
+var openaiClient = new ChatClient("gpt-4o-mini", apiKey);
+var iChatClient = openaiClient.AsIChatClient();
+```
+
+## StringExtensions
+
+String helper methods.
+
+### HasValue
+
+Check if string is not null or empty.
+
+```csharp
+public static bool HasValue(this string? value) =>
+    !string.IsNullOrEmpty(value);
+```
+
+**Usage**:
+```csharp
+if (input.HasValue())
+{
+    // Process input
+}
+```
+
+## EnumerableExtensions
+
+Collection helper methods.
+
+### IsEmpty
+
+Check if collection is empty.
+
+```csharp
+public static bool IsEmpty<T>(
+    this IEnumerable<T> collection) =>
+    !collection.Any();
+```
+
+**Usage**:
+```csharp
+if (widgets.IsEmpty())
+{
+    // No widgets
+}
+```
+
+## JsonExtensions
+
+JSON helper methods.
+
+### ToJsonElement
+
+Convert object to JsonElement.
+
+```csharp
+public static JsonElement ToJsonElement(
+    this object? obj)
+```
+
+**Usage**:
+```csharp
+var element = myObject.ToJsonElement();
+```
+
+### FromJsonElement
+
+Convert JsonElement to typed object.
+
+```csharp
+public static T? FromJsonElement<T>(
+    this JsonElement element)
+```
+
+**Usage**:
+```csharp
+var data = element.FromJsonElement<MyType>();
+```
+
+## Related Documents
+
+- **[Services](../services/)** - Service documentation
+- **[Models](../models/)** - Data structures
+- **[Abstractions](../abstractions/)** - Interfaces
+
+---
+
+**Back to:** [API Reference](../README.md)

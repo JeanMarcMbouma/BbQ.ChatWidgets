@@ -119,10 +119,12 @@ public class ServiceCollectionIntegrationTests
 
         // Act
         var registry = serviceProvider.GetRequiredService<WidgetRegistry>();
-        var types = registry.GetRegisteredTypes();
+        var instances = registry.GetInstances();
 
         // Assert
-        Assert.Equal(11, types.Count());
+        Assert.Equal(11, instances.Count());
+        
+        var types = instances.Select(w => w.GetType()).Distinct().ToList();
         Assert.Contains(typeof(ButtonWidget), types);
         Assert.Contains(typeof(CardWidget), types);
         Assert.Contains(typeof(InputWidget), types);

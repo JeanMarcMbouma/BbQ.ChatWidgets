@@ -46,7 +46,11 @@
       "import": "./dist/handlers/index.js",
       "require": "./dist/handlers/index.cjs",
       "types": "./dist/handlers/index.d.ts"
-    }
+    },
+    "./styles": "./dist/styles/index.css",
+    "./styles/light": "./dist/styles/light.css",
+    "./styles/dark": "./dist/styles/dark.css",
+    "./styles/corporate": "./dist/styles/corporate.css"
   },
   "files": [
     "dist",

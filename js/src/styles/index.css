@@ -1,0 +1,13 @@
+/**
+ * BbQ ChatWidgets - Default Light Theme
+ * Import any theme by using one of the following:
+ *
+ * @import '@bbq-chat/widgets/styles/light.css';    // Light theme (default)
+ * @import '@bbq-chat/widgets/styles/dark.css';     // Dark theme
+ * @import '@bbq-chat/widgets/styles/corporate.css'; // Corporate theme
+ *
+ * Or from link tag:
+ * <link rel="stylesheet" href="node_modules/@bbq-chat/widgets/dist/styles/light.css">
+ */
+
+@import './light.css';

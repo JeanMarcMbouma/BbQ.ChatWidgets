@@ -1,6 +1,7 @@
+using BbQ.ChatWidgets.Abstractions;
+using System.Collections.Concurrent;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using BbQ.ChatWidgets.Abstractions;
 
 namespace BbQ.ChatWidgets.Models;
 
@@ -15,6 +16,7 @@ namespace BbQ.ChatWidgets.Models;
 public sealed class ChatWidgetConverter : JsonConverter<ChatWidget>
 {
     private readonly ICustomWidgetRegistry? _customRegistry;
+    private static readonly ConcurrentDictionary<string, JsonSerializerOptions> _serializerOptionsCache = new();
 
     public ChatWidgetConverter(ICustomWidgetRegistry? customRegistry = null)
     {
@@ -45,7 +47,7 @@ public sealed class ChatWidgetConverter : JsonConverter<ChatWidget>
 
         // Determine the target type
         Type? targetType = GetBuiltInWidgetType(discriminator);
-        
+
         // If not built-in, try custom registry
         if (targetType == null && _customRegistry != null)
         {
@@ -57,17 +59,26 @@ public sealed class ChatWidgetConverter : JsonConverter<ChatWidget>
 
         // Deserialize as the target type, using options without this converter to avoid infinite recursion
         var json = root.GetRawText();
-        var optionsWithoutConverter = new JsonSerializerOptions(options);
-        var convertersToKeep = options.Converters
-            .Where(c => !(c is ChatWidgetConverter))
-            .ToList();
-        optionsWithoutConverter.Converters.Clear();
-        foreach (var converter in convertersToKeep)
+        JsonSerializerOptions optionsToUse;
+        if (_serializerOptionsCache.TryGetValue(discriminator, out var cachedOptions))
         {
-            optionsWithoutConverter.Converters.Add(converter);
+            optionsToUse = cachedOptions;
         }
-        
-        var widget = JsonSerializer.Deserialize(json, targetType, optionsWithoutConverter) as ChatWidget;
+        else
+        {
+            var optionsWithoutConverter = new JsonSerializerOptions(options);
+            var convertersToKeep = options.Converters
+                .Where(c => c is not ChatWidgetConverter)
+                .ToList();
+            optionsWithoutConverter.Converters.Clear();
+            foreach (var converter in convertersToKeep)
+            {
+                optionsWithoutConverter.Converters.Add(converter);
+            }
+            _serializerOptionsCache[discriminator] = optionsWithoutConverter;
+            optionsToUse = optionsWithoutConverter;
+        }
+        var widget = JsonSerializer.Deserialize(json, targetType, optionsToUse) as ChatWidget;
 
         return widget;
     }
@@ -75,26 +86,40 @@ public sealed class ChatWidgetConverter : JsonConverter<ChatWidget>
     public override void Write(Utf8JsonWriter writer, ChatWidget value, JsonSerializerOptions options)
     {
         // Create options without this converter to avoid recursion
-        var optionsWithoutConverter = new JsonSerializerOptions(options);
-        var convertersToKeep = options.Converters
-            .Where(c => !(c is ChatWidgetConverter))
-            .ToList();
-        
-        optionsWithoutConverter.Converters.Clear();
-        foreach (var converter in convertersToKeep)
+        if (value == null)
         {
-            optionsWithoutConverter.Converters.Add(converter);
+            writer.WriteNullValue();
+            return;
+        }
+        JsonSerializerOptions jsonSerializerOptions;
+        if (_serializerOptionsCache.TryGetValue(value.Type, out var cachedOptions))
+        {
+            jsonSerializerOptions = cachedOptions;
+        }
+        else
+        {
+            var optionsWithoutConverter = new JsonSerializerOptions(options);
+            var convertersToKeep = options.Converters
+                .Where(c => c is not ChatWidgetConverter)
+                .ToList();
+            optionsWithoutConverter.Converters.Clear();
+            foreach (var converter in convertersToKeep)
+            {
+                optionsWithoutConverter.Converters.Add(converter);
+            }
+            _serializerOptionsCache[value.Type] = optionsWithoutConverter;
+            jsonSerializerOptions = optionsWithoutConverter;
         }
 
         // Get the JSON for the derived type
-        var tempJson = JsonSerializer.Serialize(value, value.GetType(), optionsWithoutConverter);
+        var tempJson = JsonSerializer.Serialize(value, value.GetType(), jsonSerializerOptions);
         using var jsonDoc = JsonDocument.Parse(tempJson);
         var tempElement = jsonDoc.RootElement;
 
         // Write the object with the type discriminator added
         writer.WriteStartObject();
         writer.WriteString("type", value.Type);
-        
+
         // Copy all existing properties
         foreach (var property in tempElement.EnumerateObject())
         {

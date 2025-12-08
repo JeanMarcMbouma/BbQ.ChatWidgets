@@ -15,20 +15,15 @@ namespace BbQ.ChatWidgets.Services;
 /// - The registry is the single source of truth for available widget instances
 /// - No metadata extraction needed — instances provide all required information
 /// </remarks>
-public sealed class DefaultWidgetToolsProvider : IWidgetToolsProvider
+/// <remarks>
+/// Initializes a new instance of the <see cref="DefaultWidgetToolsProvider"/> class.
+/// </remarks>
+/// <param name="registry">The widget registry to use for discovering available widgets.</param>
+/// <exception cref="ArgumentNullException">Thrown if registry is null.</exception>
+public sealed class DefaultWidgetToolsProvider(IWidgetRegistry registry) : IWidgetToolsProvider
 {
-    private readonly IWidgetRegistry _registry;
+    private readonly IWidgetRegistry _registry = registry ?? throw new ArgumentNullException(nameof(registry));
     private IReadOnlyList<WidgetTool>? _cachedTools;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DefaultWidgetToolsProvider"/> class.
-    /// </summary>
-    /// <param name="registry">The widget registry to use for discovering available widgets.</param>
-    /// <exception cref="ArgumentNullException">Thrown if registry is null.</exception>
-    public DefaultWidgetToolsProvider(IWidgetRegistry registry)
-    {
-        _registry = registry ?? throw new ArgumentNullException(nameof(registry));
-    }
 
     /// <summary>
     /// Gets the list of available widget tools for use by AI models.
@@ -46,20 +41,7 @@ public sealed class DefaultWidgetToolsProvider : IWidgetToolsProvider
         var tools = new List<WidgetTool>();
 
         // Create tools from all registered widget instances
-        foreach (var instance in _registry.GetInstances())
-        {
-            try
-            {
-                var tool = new WidgetTool(instance);
-                tools.Add(tool);
-            }
-            catch (Exception ex)
-            {
-                // Log and skip problematic widgets without breaking the entire provider
-                System.Diagnostics.Debug.WriteLine($"Warning: Failed to create tool for widget: {ex.Message}");
-            }
-        }
-
+        tools.AddRange(_registry.GetInstances().Select(instance => new WidgetTool(instance)) ?? []);
         _cachedTools = tools.AsReadOnly();
         return _cachedTools;
     }

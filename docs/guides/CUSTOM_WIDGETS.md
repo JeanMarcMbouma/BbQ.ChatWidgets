@@ -97,7 +97,7 @@ Notes:
 - Use `registry.Register<T>()` to auto-generate a discriminator (from the type name) or `registry.Register<T>("discriminator")` to specify it explicitly.
 - This avoids needing `[JsonDerivedType]` attributes and lets external libraries add widgets without touching the core.
 
-Manual runtime registration
+#### Manual runtime registration
 
 If you don't use the DI helper, you can create and configure the registry yourself and call `Serialization.SetCustomWidgetRegistry(...)` during application startup.
 

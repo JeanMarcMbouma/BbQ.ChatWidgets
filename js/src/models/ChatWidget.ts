@@ -2,18 +2,13 @@
  * ChatWidget Type Discriminator
  * Used to identify widget types in JSON serialization
  */
-export type ChatWidgetType =
-  | 'button'
-  | 'card'
-  | 'input'
-  | 'dropdown'
-  | 'slider'
-  | 'toggle'
-  | 'fileupload'
-  | 'themeswitcher'
-  | 'datepicker'
-  | 'multiselect'
-  | 'progressbar';
+/**
+ * ChatWidget Type Discriminator
+ * Can be any string - built-in types are documented but custom types are supported at runtime
+ */
+export type ChatWidgetType = string;
+
+import { customWidgetRegistry } from './CustomWidgetRegistry';
 
 /**
  * Base class for all chat widgets
@@ -47,6 +42,10 @@ export abstract class ChatWidget {
   static fromObject(obj: any): ChatWidget | null {
     if (!obj.type) return null;
 
+    // Try runtime-registered custom widgets first
+    const factory = customWidgetRegistry.getFactory(obj.type);
+    if (factory) return factory(obj);
+
     switch (obj.type) {
       case 'button':
         return new ButtonWidget(obj.label, obj.action);
@@ -69,7 +68,7 @@ export abstract class ChatWidget {
           obj.min,
           obj.max,
           obj.step,
-          obj.default
+          obj.defaultValue
         );
       case 'toggle':
         return new ToggleWidget(obj.label, obj.action, obj.defaultValue ?? false);
@@ -211,7 +210,7 @@ export class SliderWidget extends ChatWidget {
     readonly min: number,
     readonly max: number,
     readonly step: number,
-    readonly default?: number
+    readonly defaultValue?: number
   ) {
     super('slider', label, action);
   }
@@ -224,7 +223,7 @@ export class SliderWidget extends ChatWidget {
       min: this.min,
       max: this.max,
       step: this.step,
-      default: this.default,
+      defaultValue: this.defaultValue,
     };
   }
 }

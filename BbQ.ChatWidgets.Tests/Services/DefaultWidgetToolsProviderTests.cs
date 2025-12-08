@@ -1,5 +1,6 @@
 using Xunit;
 using BbQ.ChatWidgets.Services;
+using BbQ.ChatWidgets.Abstractions;
 
 namespace BbQ.ChatWidgets.Tests.Services;
 
@@ -8,7 +9,13 @@ namespace BbQ.ChatWidgets.Tests.Services;
 /// </summary>
 public class DefaultWidgetToolsProviderTests
 {
-    private readonly DefaultWidgetToolsProvider _provider = new();
+    private readonly IWidgetRegistry _registry = new WidgetRegistry();
+    private readonly DefaultWidgetToolsProvider _provider;
+
+    public DefaultWidgetToolsProviderTests()
+    {
+        _provider = new DefaultWidgetToolsProvider(_registry);
+    }
 
     [Fact]
     public void GetTools_ReturnsWidgetTools()
@@ -89,6 +96,36 @@ public class DefaultWidgetToolsProviderTests
 
         // Assert
         Assert.Contains(tools, t => t.Name == "fileupload");
+    }
+
+    [Fact]
+    public void GetTools_RespectsRegistryAsSourceOfTruth()
+    {
+        // Arrange - create a new provider with a fresh registry
+        var registry = new WidgetRegistry();
+        var provider = new DefaultWidgetToolsProvider(registry);
+
+        // Act
+        var tools = provider.GetTools();
+
+        // Assert - verify all registered widgets have tools
+        // The registry is initialized with 11 built-in widgets
+        Assert.Equal(11, tools.Count());
+        
+        // Expected widget type IDs
+        var expectedWidgetIds = new[] 
+        { 
+            "button", "card", "input", "dropdown", "slider", "toggle", 
+            "fileupload", "datepicker", "multiselect", "progressbar", "themeswitcher"
+        };
+        
+        var toolNames = tools.Select(t => t.Name).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        
+        // All expected widgets should have tools
+        foreach (var typeId in expectedWidgetIds)
+        {
+            Assert.Contains(typeId, toolNames);
+        }
     }
 
     [Fact]

@@ -75,8 +75,25 @@ public static class ServiceCollectionExtensions
         else
             services.AddSingleton<IWidgetToolsProvider, DefaultWidgetToolsProvider>();
 
+        if (options.WidgetRegistryConfigurator is not null)
+        {
+            services.AddSingleton<IWidgetRegistry>(sp =>
+            {
+                var registry = sp.GetRequiredService<WidgetRegistry>();
+                options.WidgetRegistryConfigurator(registry);
+                Serialization.SetCustomWidgetRegistry(registry);
+                return registry;
+            });
+        } 
+        else
+        {
+
+            services.AddSingleton<IWidgetRegistry>(sp => sp.GetRequiredService<WidgetRegistry>());
+        }
+
         return services;
     }
+
 
     /// <summary>
     /// Maps BbQ ChatWidgets API endpoints to the application.

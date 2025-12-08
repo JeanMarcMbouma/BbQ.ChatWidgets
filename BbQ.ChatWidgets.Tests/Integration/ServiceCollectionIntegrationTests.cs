@@ -119,10 +119,12 @@ public class ServiceCollectionIntegrationTests
 
         // Act
         var registry = serviceProvider.GetRequiredService<WidgetRegistry>();
-        var types = registry.GetRegisteredTypes();
+        var instances = registry.GetInstances();
 
         // Assert
-        Assert.Equal(7, types.Count());
+        Assert.Equal(11, instances.Count());
+        
+        var types = instances.Select(w => w.GetType()).Distinct().ToList();
         Assert.Contains(typeof(ButtonWidget), types);
         Assert.Contains(typeof(CardWidget), types);
         Assert.Contains(typeof(InputWidget), types);
@@ -130,6 +132,10 @@ public class ServiceCollectionIntegrationTests
         Assert.Contains(typeof(SliderWidget), types);
         Assert.Contains(typeof(ToggleWidget), types);
         Assert.Contains(typeof(FileUploadWidget), types);
+        Assert.Contains(typeof(DatePickerWidget), types);
+        Assert.Contains(typeof(MultiSelectWidget), types);
+        Assert.Contains(typeof(ProgressBarWidget), types);
+        Assert.Contains(typeof(ThemeSwitcherWidget), types);
     }
 
     [Fact]

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { SsrWidgetRenderer } from '../src/renderers/SsrWidgetRenderer';
+import { SsrWidgetRenderer } from './SsrWidgetRenderer';
 import {
   ButtonWidget,
   CardWidget,
@@ -12,7 +12,7 @@ import {
   DatePickerWidget,
   MultiSelectWidget,
   ProgressBarWidget,
-} from '../src/models/ChatWidget';
+} from '../models/ChatWidget';
 
 describe('SsrWidgetRenderer', () => {
   const renderer = new SsrWidgetRenderer();

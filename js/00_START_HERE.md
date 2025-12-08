@@ -200,6 +200,28 @@ export function Widgets() {
 }
 ```
 
+## Runtime Custom Widgets (NPM)
+
+You can register custom widget types at runtime from an external package or application without editing the library source.
+
+```ts
+import { customWidgetRegistry, ChatWidget } from '@bbq-chat/widgets/models';
+
+// Simple class
+class RatingWidget extends ChatWidget {
+  constructor(label: string, action: string, public maxRating = 5) {
+    super('rating', label, action);
+  }
+  toObject() { return { type: this.type, label: this.label, action: this.action, maxRating: this.maxRating }; }
+}
+
+// Register (auto factory that assigns props to prototype)
+customWidgetRegistry.registerClass('rating', RatingWidget);
+
+// Deserialize
+const parsed = ChatWidget.fromJson('{"type":"rating","label":"Rate","action":"do","maxRating":5}');
+```
+
 See **INTEGRATION.md** for Vue, Angular, Svelte, Next.js examples.
 
 ## 🔧 Available Commands

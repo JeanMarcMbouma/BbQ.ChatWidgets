@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Services;
 
 namespace BbQ.ChatWidgets.Models;
 
@@ -22,7 +23,7 @@ namespace BbQ.ChatWidgets.Models;
 /// </remarks>
 public static class Serialization
 {
-    private static ICustomWidgetRegistry? _customRegistry;
+    private static IWidgetRegistry registry = new WidgetRegistry();
 
     /// <summary>
     /// Sets the custom widget registry for custom widget deserialization support.
@@ -31,9 +32,9 @@ public static class Serialization
     /// This is set automatically when AddCustomWidgetSupport is called in dependency injection.
     /// The registry allows deserializing custom widget types defined outside the library.
     /// </remarks>
-    public static void SetCustomWidgetRegistry(ICustomWidgetRegistry? registry)
+    public static void SetCustomWidgetRegistry(IWidgetRegistry registry)
     {
-        _customRegistry = registry;
+        Serialization.registry = registry;
     }
 
     /// <summary>
@@ -60,7 +61,7 @@ public static class Serialization
             };
 
             // Add custom converter for ChatWidget that handles both built-in and custom widgets
-            options.Converters.Add(new ChatWidgetConverter(_customRegistry));
+            options.Converters.Add(new ChatWidgetConverter(registry));
 
             return options;
         }

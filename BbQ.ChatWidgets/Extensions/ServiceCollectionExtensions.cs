@@ -48,7 +48,6 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton(options);
         services.AddSingleton<WidgetRegistry>();
-        services.AddSingleton<IWidgetRegistry>(sp => sp.GetRequiredService<WidgetRegistry>());
         services.AddScoped<ChatWidgetService>();
         services.AddSingleton<IChatWidgetRenderer, Renderers.SsrWidgetRenderer>();
         services.AddScoped<IThreadService, DefaultThreadService>();
@@ -76,49 +75,25 @@ public static class ServiceCollectionExtensions
         else
             services.AddSingleton<IWidgetToolsProvider, DefaultWidgetToolsProvider>();
 
-        return services;
-    }
+        if (options.WidgetRegistryConfigurator is not null)
+        {
+            services.AddSingleton<IWidgetRegistry>(sp =>
+            {
+                var registry = sp.GetRequiredService<WidgetRegistry>();
+                options.WidgetRegistryConfigurator(registry);
+                Serialization.SetCustomWidgetRegistry(registry);
+                return registry;
+            });
+        } 
+        else
+        {
 
-    /// <summary>
-    /// Registers support for custom widgets that can be defined outside the library.
-    /// </summary>
-    /// <remarks>
-    /// This extension method enables external applications to define and register
-    /// custom ChatWidget types at runtime without modifying the library.
-    /// 
-    /// Custom widgets:
-    /// - Are automatically available for serialization/deserialization
-    /// - Work seamlessly with the built-in widget system
-    /// - Support AI tool generation
-    /// - Can handle custom actions
-    /// 
-    /// Usage:
-    /// <code>
-    /// services.AddCustomWidgetSupport(registry =>
-    /// {
-    ///     registry.Register(typeof(MyRatingWidget), "rating");
-    ///     registry.Register<MyPollWidget>(); // Auto-discriminator: "mypoll"
-    /// });
-    /// </code>
-    /// </remarks>
-    /// <param name="services">The service collection to register services with.</param>
-    /// <param name="configure">Configuration action to register custom widget types.</param>
-    /// <returns>The service collection for method chaining.</returns>
-    public static IServiceCollection AddCustomWidgetSupport(
-        this IServiceCollection services,
-        Action<ICustomWidgetRegistry>? configure = null)
-    {
-        var registry = new CustomWidgetRegistry();
-        configure?.Invoke(registry);
-
-        // Register the custom widget registry
-        services.AddSingleton<ICustomWidgetRegistry>(registry);
-
-        // Set the registry in Serialization so the converter has access to it
-        Serialization.SetCustomWidgetRegistry(registry);
+            services.AddSingleton<IWidgetRegistry>(sp => sp.GetRequiredService<WidgetRegistry>());
+        }
 
         return services;
     }
+
 
     /// <summary>
     /// Maps BbQ ChatWidgets API endpoints to the application.

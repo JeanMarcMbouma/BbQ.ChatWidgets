@@ -13,15 +13,9 @@ namespace BbQ.ChatWidgets.Models;
 /// registered in ICustomWidgetRegistry. It works alongside the standard JsonPolymorphic
 /// attributes for built-in types but provides fallback support for custom widgets.
 /// </remarks>
-public sealed class ChatWidgetConverter : JsonConverter<ChatWidget>
+public sealed class ChatWidgetConverter(IWidgetRegistry widgetRegistry) : JsonConverter<ChatWidget>
 {
-    private readonly ICustomWidgetRegistry? _customRegistry;
     private static readonly ConcurrentDictionary<string, JsonSerializerOptions> _serializerOptionsCache = new();
-
-    public ChatWidgetConverter(ICustomWidgetRegistry? customRegistry = null)
-    {
-        _customRegistry = customRegistry;
-    }
 
     public override bool CanConvert(Type typeToConvert)
     {
@@ -46,13 +40,7 @@ public sealed class ChatWidgetConverter : JsonConverter<ChatWidget>
             throw new JsonException("Widget 'type' cannot be empty.");
 
         // Determine the target type
-        Type? targetType = GetBuiltInWidgetType(discriminator);
-
-        // If not built-in, try custom registry
-        if (targetType == null && _customRegistry != null)
-        {
-            targetType = _customRegistry.GetWidgetType(discriminator);
-        }
+        Type? targetType = widgetRegistry.GetInstance(discriminator)?.GetType();
 
         if (targetType == null)
             throw new JsonException($"Unknown widget type: '{discriminator}'.");
@@ -129,24 +117,4 @@ public sealed class ChatWidgetConverter : JsonConverter<ChatWidget>
 
         writer.WriteEndObject();
     }
-
-    /// <summary>
-    /// Maps built-in widget discriminators to types.
-    /// </summary>
-    private static Type? GetBuiltInWidgetType(string discriminator) =>
-        discriminator switch
-        {
-            "button" => typeof(ButtonWidget),
-            "card" => typeof(CardWidget),
-            "input" => typeof(InputWidget),
-            "dropdown" => typeof(DropdownWidget),
-            "slider" => typeof(SliderWidget),
-            "toggle" => typeof(ToggleWidget),
-            "fileupload" => typeof(FileUploadWidget),
-            "themeswitcher" => typeof(ThemeSwitcherWidget),
-            "datepicker" => typeof(DatePickerWidget),
-            "multiselect" => typeof(MultiSelectWidget),
-            "progressbar" => typeof(ProgressBarWidget),
-            _ => null
-        };
 }

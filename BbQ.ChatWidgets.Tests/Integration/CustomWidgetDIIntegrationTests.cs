@@ -13,43 +13,30 @@ namespace BbQ.ChatWidgets.Tests.Integration;
 /// </summary>
 public class CustomWidgetDIIntegrationTests
 {
-    [Fact]
-    public void AddCustomWidgetSupport_RegistersCustomWidgetRegistry()
-    {
-        // Arrange
-        var services = new ServiceCollection();
-        services.AddBbQChatWidgets();
-        services.AddCustomWidgetSupport();
-
-        // Act
-        var provider = services.BuildServiceProvider();
-        var registry = provider.GetService<ICustomWidgetRegistry>();
-
-        // Assert
-        Assert.NotNull(registry);
-        Assert.IsType<CustomWidgetRegistry>(registry);
-    }
-
+    
     [Fact]
     public void AddCustomWidgetSupport_WithConfiguration_RegistersCustomWidgets()
     {
         // Arrange
         var services = new ServiceCollection();
-        services.AddBbQChatWidgets();
-        services.AddCustomWidgetSupport(registry =>
+        services.AddBbQChatWidgets(options =>
         {
-            registry.Register<TestDIRatingWidget>();
-            registry.Register<TestDIPollWidget>("poll");
+            options.WidgetRegistryConfigurator = registry =>
+            {
+                registry.Register(new TestDIRatingWidget("testdirating", "Rate this item"));
+                registry.Register(new TestDIPollWidget("poll", "What is your favorite color?"), "poll");
+            };
         });
+        var provider = services.BuildServiceProvider();
 
         // Act
-        var provider = services.BuildServiceProvider();
-        var registry = provider.GetService<ICustomWidgetRegistry>();
+
+        var registry = provider.GetRequiredService<IWidgetRegistry>();
 
         // Assert
         Assert.NotNull(registry);
-        Assert.Equal(typeof(TestDIRatingWidget), registry.GetWidgetType("testdirating"));
-        Assert.Equal(typeof(TestDIPollWidget), registry.GetWidgetType("poll"));
+        Assert.Equal(typeof(TestDIRatingWidget), registry.GetInstance("testdirating")?.GetType());
+        Assert.Equal(typeof(TestDIPollWidget), registry.GetInstance("poll")?.GetType());
     }
 
     [Fact]
@@ -57,10 +44,12 @@ public class CustomWidgetDIIntegrationTests
     {
         // Arrange
         var services = new ServiceCollection();
-        services.AddBbQChatWidgets();
-        services.AddCustomWidgetSupport(registry =>
+        services.AddBbQChatWidgets(options =>
         {
-            registry.Register<TestDIRatingWidget>();
+            options.WidgetRegistryConfigurator = registry =>
+            {
+                registry.Register(new TestDIRatingWidget("testdirating", "Rate this item"));
+            };
         });
 
         var provider = services.BuildServiceProvider();
@@ -80,26 +69,27 @@ public class CustomWidgetDIIntegrationTests
     {
         // Arrange
         var services = new ServiceCollection();
-        services.AddBbQChatWidgets();
-        services.AddCustomWidgetSupport(registry =>
+        services.AddBbQChatWidgets(options =>
         {
-            registry.Register<TestDIRatingWidget>();
-            registry.Register<TestDIPollWidget>();
-            registry.Register<TestDIFeedbackWidget>();
+            options.WidgetRegistryConfigurator = registry =>
+            {
+                registry.Register(new TestDIRatingWidget("testdirating", "Rate this item"));
+                registry.Register(new TestDIPollWidget("poll", "What is your favorite color?"));
+                registry.Register(new TestDIFeedbackWidget("testdifeedback", "Provide your feedback"));
+            };
         });
 
         var provider = services.BuildServiceProvider();
-        var registry = provider.GetService<ICustomWidgetRegistry>();
+        var registry = provider.GetService<IWidgetRegistry>();
 
         // Act
-        var registrations = registry?.GetAllRegistrations();
+        var registrations = registry?.GetInstances();
 
         // Assert
         Assert.NotNull(registrations);
-        Assert.Equal(3, registrations.Count);
-        Assert.Contains("testdirating", registrations.Keys);
-        Assert.Contains("testdipoll", registrations.Keys);
-        Assert.Contains("testdifeedback", registrations.Keys);
+        Assert.Contains("testdirating", registrations.Select(x => x.Type));
+        Assert.Contains("testdipoll", registrations.Select(x => x.Type));
+        Assert.Contains("testdifeedback", registrations.Select(x => x.Type));
     }
 
     [Fact]
@@ -107,17 +97,22 @@ public class CustomWidgetDIIntegrationTests
     {
         // Arrange
         var services = new ServiceCollection();
-        services.AddBbQChatWidgets();
-        services.AddCustomWidgetSupport();
+        services.AddBbQChatWidgets(options =>
+        {
+            options.WidgetRegistryConfigurator = registry =>
+            {
+                registry.Register(new TestDIRatingWidget("testdirating", "Rate this item"));
+                registry.Register(new TestDIPollWidget("poll", "What is your favorite color?"));
+            };
+        });
 
         var provider = services.BuildServiceProvider();
-        var registry = provider.GetService<ICustomWidgetRegistry>();
+        var registry = provider.GetService<IWidgetRegistry>();
 
         // Act
-        registry?.Register<TestDIRatingWidget>();
 
         // Assert
-        Assert.NotNull(registry?.GetWidgetType("testdirating"));
+        Assert.NotNull(registry?.GetInstance("testdirating"));
     }
 
     [Fact]
@@ -125,10 +120,12 @@ public class CustomWidgetDIIntegrationTests
     {
         // Arrange
         var services = new ServiceCollection();
-        services.AddBbQChatWidgets();
-        services.AddCustomWidgetSupport(registry =>
+        services.AddBbQChatWidgets(options =>
         {
-            registry.Register<TestDIRatingWidget>();
+            options.WidgetRegistryConfigurator = registry =>
+            {
+                registry.Register(new TestDIRatingWidget("Rate This", "submit", 10));
+            };
         });
 
         services.BuildServiceProvider();
@@ -152,11 +149,14 @@ public class CustomWidgetDIIntegrationTests
     {
         // Arrange
         var services = new ServiceCollection();
-        services.AddBbQChatWidgets();
-        services.AddCustomWidgetSupport(registry =>
+        services.AddBbQChatWidgets(options =>
         {
-            registry.Register<TestDIRatingWidget>();
+            options.WidgetRegistryConfigurator = registry =>
+            {
+                registry.Register(new TestDIRatingWidget("testdirating", "Rate this item"));
+            };
         });
+
 
         services.BuildServiceProvider();
 
@@ -185,7 +185,10 @@ public sealed record TestDIRatingWidget(
     string Label,
     string Action,
     int MaxRating = 5
-) : ChatWidget(Label, Action);
+) : ChatWidget(Label, Action)
+{
+    public override string Purpose => "Rate a product or service";
+}
 
 /// <summary>
 /// Another test custom widget for DI integration tests.
@@ -194,7 +197,10 @@ public sealed record TestDIPollWidget(
     string Label,
     string Action,
     string Question = "What do you think?"
-) : ChatWidget(Label, Action);
+) : ChatWidget(Label, Action)
+{
+    public override string Purpose => "Conduct a poll or survey";
+}
 
 /// <summary>
 /// Third test custom widget for DI integration tests.
@@ -204,4 +210,7 @@ public sealed record TestDIFeedbackWidget(
     string Action,
     int MinRating = 1,
     int MaxRating = 5
-) : ChatWidget(Label, Action);
+) : ChatWidget(Label, Action)
+{
+    public override string Purpose => "Collect user feedback with rating";
+}

@@ -127,4 +127,7 @@ public sealed class BbQChatOptions
     /// </code>
     /// </remarks>
     public Func<IServiceProvider, IWidgetToolsProvider>? WidgetToolsProviderFactory { get; set; }
+
+
+    public Action<IWidgetRegistry>? WidgetRegistryConfigurator { get; set; }
 }

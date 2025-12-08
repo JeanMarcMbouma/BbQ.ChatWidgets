@@ -27,7 +27,11 @@ public abstract record ChatWidget(
     /// <summary>
     /// The action identifier triggered when the user interacts with this widget.
     /// </summary>
-    string Action);
+    string Action)
+{
+    [JsonIgnore]
+    public abstract string Purpose { get; }
+}
 
 /// <summary>
 /// A simple button widget that triggers an action when clicked.
@@ -49,7 +53,14 @@ public sealed record ButtonWidget(
     /// The action identifier triggered when the button is clicked.
     /// </summary>
     string Action)
-    : ChatWidget(Label, Action);
+    : ChatWidget(Label, Action)
+{
+    public override string Purpose => """
+           **Button Widget** - For calling actions
+           Format: <widget>{"type":"button","label":"ACTION_LABEL","action":"action_id"}</widget>
+           Use when: You want the user to trigger an action (submit, delete, approve, etc.)
+        """;
+}
 
 /// <summary>
 /// A card widget that displays rich content including title, description, and optional image.
@@ -90,7 +101,14 @@ public sealed record CardWidget(
     /// Optional URL for an image displayed in the card.
     /// </summary>
     string? ImageUrl = null)
-    : ChatWidget(Label, Action);
+    : ChatWidget(Label, Action)
+{
+    public override string Purpose => """
+           **Card Widget** - For displaying rich content
+           Format: <widget>{"type":"card","label":"ACTION_LABEL","action":"action_id","title":"TITLE","description":"DESCRIPTION","imageUrl":"URL"}</widget>
+           Use when: You need to show featured content, products, or items with descriptions
+        """;
+}
 
 /// <summary>
 /// An input widget for collecting short text from the user.
@@ -124,7 +142,14 @@ public sealed record InputWidget(
     /// Optional maximum number of characters allowed in the input.
     /// </summary>
     int? MaxLength = null)
-    : ChatWidget(Label, Action);
+    : ChatWidget(Label, Action)
+{
+    public override string Purpose => """
+           **Input Widget** - For text input
+           Format: <widget>{"type":"input","label":"LABEL","action":"action_id","placeholder":"PLACEHOLDER","maxLength":100}</widget>
+           Use when: You need the user to enter text (name, email, etc.)
+        """;
+}
 
 /// <summary>
 /// A dropdown widget for selecting from multiple predefined options.
@@ -154,7 +179,14 @@ public sealed record DropdownWidget(
     /// The list of options available for selection.
     /// </summary>
     IReadOnlyList<string> Options)
-    : ChatWidget(Label, Action);
+    : ChatWidget(Label, Action)
+{
+    public override string Purpose => """
+           **Dropdown Widget** - For selecting from options
+           Format: <widget>{"type":"dropdown","label":"LABEL","action":"action_id","options":["OPTION1","OPTION2","OPTION3"]}</widget>
+           Use when: There are multiple predefined options to choose from
+        """;
+}
 
 /// <summary>
 /// A slider widget for selecting a numeric value from a range.
@@ -200,7 +232,14 @@ public sealed record SliderWidget(
     /// Optional default value. If not specified, defaults to the minimum value.
     /// </summary>
     int? Default = null)
-    : ChatWidget(Label, Action);
+    : ChatWidget(Label, Action)
+{
+    public override string Purpose => """
+           **Slider Widget** - For numeric selection
+           Format: <widget>{"type":"slider","label":"LABEL","action":"action_id","min":0,"max":100,"step":5,"default":50}</widget>
+           Use when: You need a value selection from a range
+        """;
+}
 
 /// <summary>
 /// A toggle widget for boolean (yes/no, on/off) selection.
@@ -230,7 +269,14 @@ public sealed record ToggleWidget(
     /// The initial state of the toggle (true = checked/enabled, false = unchecked/disabled).
     /// </summary>
     bool DefaultValue)
-    : ChatWidget(Label, Action);
+    : ChatWidget(Label, Action)
+{
+    public override string Purpose => """
+           **Toggle Widget** - For boolean selection
+           Format: <widget>{"type":"toggle","label":"LABEL","action":"action_id","defaultValue":false}</widget>
+           Use when: You need an on/off or yes/no selection
+        """;
+}
 
 /// <summary>
 /// A file upload widget for selecting and uploading files.
@@ -265,7 +311,14 @@ public sealed record FileUploadWidget(
     /// Optional maximum file size in bytes. The system should enforce this limit.
     /// </summary>
     long? MaxBytes = null)
-    : ChatWidget(Label, Action);
+    : ChatWidget(Label, Action)
+{
+    public override string Purpose => """
+           **FileUpload Widget** - For file uploads
+           Format: <widget>{"type":"fileupload","label":"LABEL","action":"action_id","accept":".pdf,.doc","maxBytes":5000000}</widget>
+           Use when: You need the user to upload a file
+        """;
+}
 
 /// <summary>
 /// A theme switcher widget for selecting between multiple theme options.
@@ -298,7 +351,14 @@ public sealed record ThemeSwitcherWidget(
     /// The list of available theme options.
     /// </summary>
     IReadOnlyList<string> Themes)
-    : ChatWidget(Label, Action);
+    : ChatWidget(Label, Action)
+{
+    public override string Purpose => """
+           **ThemeSwitcher Widget** - For switching themes
+           Format: <widget>{"type":"themeswitcher","label":"LABEL","action":"action_id","themes":["light","dark","system"]}</widget>
+           Use when: You want the user to select a UI theme
+        """;
+}
 
 /// <summary>
 /// A date picker widget for selecting a date.
@@ -334,7 +394,14 @@ public sealed record DatePickerWidget(
     /// Optional maximum date in YYYY-MM-DD format.
     /// </summary>
     string? MaxDate = null)
-    : ChatWidget(Label, Action);
+    : ChatWidget(Label, Action)
+{
+    public override string Purpose => """
+           **DatePicker Widget** - For selecting dates
+           Format: <widget>{"type":"datepicker","label":"LABEL","action":"action_id","minDate":"YYYY-MM-DD","maxDate":"YYYY-MM-DD"}</widget>
+           Use when: You need the user to select a date
+        """;
+}
 
 /// <summary>
 /// A multi-select widget for selecting multiple options from a list.
@@ -365,7 +432,14 @@ public sealed record MultiSelectWidget(
     /// The list of options available for selection.
     /// </summary>
     IReadOnlyList<string> Options)
-    : ChatWidget(Label, Action);
+    : ChatWidget(Label, Action)
+{
+    public override string Purpose => """
+           **MultiSelect Widget** - For selecting multiple options
+           Format: <widget>{"type":"multiselect","label":"LABEL","action":"action_id","options":["OPTION1","OPTION2","OPTION3"]}</widget>
+           Use when: The user can select multiple options from a list
+        """;
+}
 
 /// <summary>
 /// A progress bar widget for displaying progress of a task.
@@ -403,7 +477,14 @@ public sealed record ProgressBarWidget(
     /// The maximum value (represents 100% completion).
     /// </summary>
     int Max)
-    : ChatWidget(Label, Action);
+    : ChatWidget(Label, Action)
+{
+    public override string Purpose => """
+           **ProgressBar Widget** - For showing progress
+           Format: <widget>{"type":"progressbar","label":"LABEL","action":"action_id","value":50,"max":100}</widget>
+           Use when: You need to display progress for a task
+        """;
+}
 
 /// <summary>
 /// Extension methods for <see cref="ChatWidget"/> instances.

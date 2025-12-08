@@ -33,7 +33,10 @@ public sealed record TestRatingWidget(
     string Label,
     string Action,
     int MaxRating = 5
-) : ChatWidget(Label, Action);
+) : ChatWidget(Label, Action)
+{
+    public override string Purpose => "Rate a product or service";
+}
 
 /// <summary>
 /// Test custom widget that shadows built-in button.
@@ -42,7 +45,10 @@ public sealed record TestCustomButtonWidget(
     string Label,
     string Action,
     string CustomProperty = ""
-) : ChatWidget(Label, Action);
+) : ChatWidget(Label, Action)
+{
+    public override string Purpose => "Custom button with extra property";
+}
 
 /// <summary>
 /// Test custom widget with complex properties.
@@ -53,4 +59,7 @@ public sealed record TestPollWidget(
     string Question = "",
     List<string> Options = default!,
     bool AllowMultiple = false
-) : ChatWidget(Label, Action);
+) : ChatWidget(Label, Action)
+{
+    public override string Purpose => "Conduct a poll with multiple options";
+}

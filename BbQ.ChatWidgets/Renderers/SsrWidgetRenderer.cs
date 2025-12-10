@@ -70,6 +70,7 @@ namespace BbQ.ChatWidgets.Renderers
             DatePickerWidget dp => RenderDatePicker(dp),
             MultiSelectWidget ms => RenderMultiSelect(ms),
             ProgressBarWidget pb => RenderProgressBar(pb),
+            FormWidget form => RenderForm(form),
             _ => RenderUnsupported(widget)
         };
 
@@ -353,6 +354,113 @@ namespace BbQ.ChatWidgets.Renderers
                 {percentage}%
             </progress>";
             html += $"<span class=\"bbq-progress-bar-value\" aria-live=\"polite\">{percentage}%</span>";
+            html += "</div>";
+
+            return html;
+        }
+
+        private static string RenderForm(FormWidget form)
+        {
+            var title = Escape(form.Title);
+            var action = Escape(form.Action);
+            var id = GenerateId(form.Action);
+
+            var html = $@"<div class=""bbq-widget bbq-form"" data-widget-id=""{id}"" data-widget-type=""form"">";
+            html += $@"<fieldset class=""bbq-form-fieldset"">";
+            html += $@"<legend class=""bbq-form-title"">{title}</legend>";
+
+            // Render form fields
+            foreach (var field in form.Fields)
+            {
+                var fieldId = $"{id}-{Escape(field.Name)}";
+                var fieldLabel = Escape(field.Label);
+                var fieldType = Escape(field.Type);
+                var required = field.Required ? " required" : "";
+                var requiredIndicator = field.Required ? "<span class=\"bbq-form-required\">*</span>" : "";
+
+                html += $@"<div class=""bbq-form-field"">";
+                html += $@"<label class=""bbq-form-field-label"" for=""{fieldId}"">{fieldLabel}{requiredIndicator}</label>";
+
+                switch (fieldType)
+                {
+                    case "input":
+                    case "text":
+                    case "email":
+                    case "number":
+                    case "password":
+                        var inputType = fieldType == "input" ? "text" : fieldType;
+                        html += $@"<input 
+                            type=""{inputType}"" 
+                            id=""{fieldId}"" 
+                            class=""bbq-form-input"" 
+                            name=""{Escape(field.Name)}"" 
+                            placeholder=""{fieldLabel}""{required} />";
+                        break;
+
+                    case "textarea":
+                        html += $@"<textarea 
+                            id=""{fieldId}"" 
+                            class=""bbq-form-textarea"" 
+                            name=""{Escape(field.Name)}"" 
+                            placeholder=""{fieldLabel}""{required}></textarea>";
+                        break;
+
+                    case "dropdown":
+                    case "select":
+                        html += $@"<select 
+                            id=""{fieldId}"" 
+                            class=""bbq-form-select"" 
+                            name=""{Escape(field.Name)}""{required}>
+                            <option value="""">Select...</option>
+                        </select>";
+                        break;
+
+                    case "checkbox":
+                        html += $@"<input 
+                            type=""checkbox"" 
+                            id=""{fieldId}"" 
+                            class=""bbq-form-checkbox"" 
+                            name=""{Escape(field.Name)}"" />";
+                        break;
+
+                    case "radio":
+                        html += $@"<input 
+                            type=""radio"" 
+                            id=""{fieldId}"" 
+                            class=""bbq-form-radio"" 
+                            name=""{Escape(field.Name)}"" />";
+                        break;
+
+                    default:
+                        html += $@"<input 
+                            type=""text"" 
+                            id=""{fieldId}"" 
+                            class=""bbq-form-input"" 
+                            name=""{Escape(field.Name)}""{required} />";
+                        break;
+                }
+
+                html += "</div>";
+            }
+
+            // Render form actions
+            html += @"<div class=""bbq-form-actions"">";
+            foreach (var formAction in form.Actions)
+            {
+                var actionLabel = Escape(formAction.Label);
+                var actionType = Escape(formAction.Type);
+                var buttonClass = formAction.Type == "submit" ? "bbq-form-submit" : "bbq-form-cancel";
+                html += $@"<button 
+                    type=""button"" 
+                    class=""bbq-form-button {buttonClass}"" 
+                    data-action=""{action}"" 
+                    data-action-type=""{actionType}"">
+                    {actionLabel}
+                </button>";
+            }
+            html += "</div>";
+
+            html += "</fieldset>";
             html += "</div>";
 
             return html;

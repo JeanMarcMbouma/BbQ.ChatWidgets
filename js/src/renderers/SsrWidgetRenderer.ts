@@ -46,6 +46,8 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
         return this.renderMultiSelect(widget as any);
       case 'progressbar':
         return this.renderProgressBar(widget as any);
+      case 'form':
+        return this.renderForm(widget as any);
       default:
         return this.renderUnsupported(widget);
     }
@@ -242,6 +244,73 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     html += `<label class="bbq-progress-bar-label" for="${id}-progress">${label}</label>`;
     html += `<progress id="${id}-progress" class="bbq-progress-bar-element" value="${widget.value}" max="${widget.max}" data-action="${action}" aria-label="${label}" aria-valuenow="${widget.value}" aria-valuemin="0" aria-valuemax="${widget.max}">${percentage}%</progress>`;
     html += `<span class="bbq-progress-bar-value" aria-live="polite">${percentage}%</span>`;
+    html += '</div>';
+
+    return html;
+  }
+
+  private renderForm(widget: any): string {
+    const id = this.generateId(widget.action);
+    const title = this.escape(widget.title);
+    const action = this.escape(widget.action);
+
+    let html = `<div class="bbq-widget bbq-form" data-widget-id="${id}" data-widget-type="form">`;
+    html += `<fieldset class="bbq-form-fieldset">`;
+    html += `<legend class="bbq-form-title">${title}</legend>`;
+
+    // Render form fields
+    if (widget.fields && Array.isArray(widget.fields)) {
+      for (const field of widget.fields) {
+        const fieldId = `${id}-${this.escape(field.name)}`;
+        const fieldLabel = this.escape(field.label);
+        const fieldType = this.escape(field.type);
+        const required = field.required ? ' required' : '';
+
+        html += `<div class="bbq-form-field">`;
+        html += `<label class="bbq-form-field-label" for="${fieldId}">${fieldLabel}${field.required ? '<span class="bbq-form-required">*</span>' : ''}</label>`;
+
+        switch (fieldType) {
+          case 'input':
+          case 'text':
+          case 'email':
+          case 'number':
+          case 'password':
+            html += `<input type="${fieldType === 'input' ? 'text' : fieldType}" id="${fieldId}" class="bbq-form-input" name="${this.escape(field.name)}" placeholder="${this.escape(field.label)}"${required} />`;
+            break;
+          case 'textarea':
+            html += `<textarea id="${fieldId}" class="bbq-form-textarea" name="${this.escape(field.name)}" placeholder="${this.escape(field.label)}"${required}></textarea>`;
+            break;
+          case 'dropdown':
+          case 'select':
+            html += `<select id="${fieldId}" class="bbq-form-select" name="${this.escape(field.name)}"${required}><option value="">Select...</option></select>`;
+            break;
+          case 'checkbox':
+            html += `<input type="checkbox" id="${fieldId}" class="bbq-form-checkbox" name="${this.escape(field.name)}" />`;
+            break;
+          case 'radio':
+            html += `<input type="radio" id="${fieldId}" class="bbq-form-radio" name="${this.escape(field.name)}" />`;
+            break;
+          default:
+            html += `<input type="text" id="${fieldId}" class="bbq-form-input" name="${this.escape(field.name)}"${required} />`;
+        }
+
+        html += '</div>';
+      }
+    }
+
+    // Render form actions
+    if (widget.actions && Array.isArray(widget.actions)) {
+      html += '<div class="bbq-form-actions">';
+      for (const formAction of widget.actions) {
+        const actionLabel = this.escape(formAction.label);
+        const actionType = this.escape(formAction.type);
+        const buttonClass = formAction.type === 'submit' ? 'bbq-form-submit' : 'bbq-form-cancel';
+        html += `<button type="button" class="bbq-form-button ${buttonClass}" data-action="${action}" data-action-type="${actionType}">${actionLabel}</button>`;
+      }
+      html += '</div>';
+    }
+
+    html += '</fieldset>';
     html += '</div>';
 
     return html;

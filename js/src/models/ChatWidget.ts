@@ -82,6 +82,14 @@ export abstract class ChatWidget {
         return new MultiSelectWidget(obj.label, obj.action, obj.options || []);
       case 'progressbar':
         return new ProgressBarWidget(obj.label, obj.action, obj.value, obj.max);
+      case 'form':
+        return new FormWidget(
+          obj.label || obj.title,
+          obj.action,
+          obj.title,
+          obj.fields || [],
+          obj.actions || []
+        );
       default:
         return null;
     }
@@ -348,3 +356,49 @@ export class ProgressBarWidget extends ChatWidget {
     };
   }
 }
+
+/**
+ * Form field definition for use in FormWidget
+ */
+export interface FormField {
+  name: string;
+  label: string;
+  type: string; // widget type or input type
+  required: boolean;
+  validationHint?: string;
+}
+
+/**
+ * Form action (submit or cancel) for use in FormWidget
+ */
+export interface FormAction {
+  type: 'submit' | 'cancel';
+  label: string;
+}
+
+/**
+ * Form widget - collect structured input with multiple fields
+ */
+export class FormWidget extends ChatWidget {
+  constructor(
+    label: string,
+    action: string,
+    readonly title: string,
+    readonly fields: FormField[],
+    readonly actions: FormAction[]
+  ) {
+    super('form', label, action);
+  }
+
+  toObject() {
+    return {
+      type: this.type,
+      label: this.label,
+      action: this.action,
+      title: this.title,
+      fields: this.fields,
+      actions: this.actions,
+    };
+  }
+}
+

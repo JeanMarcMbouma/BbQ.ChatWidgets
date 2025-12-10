@@ -486,6 +486,77 @@ public sealed record ProgressBarWidget(
         """;
 }
 
+public record FormWidget(
+    string Title,
+    string Action,
+    IReadOnlyList<FormField> Fields,
+    IReadOnlyList<FormAction> Actions
+) : ChatWidget("form", Action)
+{
+    public override string Purpose => """
+           **Form Widget** - For collecting structured input
+           Format: <widget>{"type":"form","title":"TITLE","action":"action_id","fields":[...],"actions":[...]}</widget>
+           Schema: {
+                  "name": "form",
+                  "description": "Composite form widget with structured fields, nested widgets, validation, and mandatory submit/cancel actions",
+                  "parameters": {
+                    "title": {
+                      "type": "string",
+                      "description": "Title of the form"
+                    },
+                    "fields": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": { "type": "string" },
+                          "label": { "type": "string" },
+                          "type": {
+                            "type": "string",
+                            "description": "Widget type (text, number, email, dropdown, slider, toggle, fileupload, etc.)"
+                          },
+                          "required": { "type": "boolean" },
+                          "validation": {
+                            "type": "string",
+                            "description": "Validation hint or regex"
+                          }
+                        },
+                        "required": ["name", "label", "type"]
+                      }
+                    },
+                    "actions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": { "enum": ["submit", "cancel"] },
+                          "label": { "type": "string" }
+                        },
+                        "required": ["type", "label"]
+                      },
+                      "minItems": 2,
+                      "description": "Every form must include both submit and cancel actions"
+                    }
+                  },
+                  "required": ["title", "fields", "actions"]
+                }
+           Use when: You need to collect multiple pieces of structured data from the user
+        """;
+}
+
+public record FormField(
+    string Name,
+    string Label,
+    string Type,          // supports widget types
+    bool Required,
+    string? ValidationHint = null
+);
+
+public record FormAction(
+    string Type,          // "submit" or "cancel"
+    string Label
+);
+
 /// <summary>
 /// Extension methods for <see cref="ChatWidget"/> instances.
 /// </summary>

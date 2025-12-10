@@ -43,6 +43,12 @@ public sealed class WidgetRegistry : IWidgetRegistry
         Register(new MultiSelectWidget("Select Items", "multiselect", ["Item 1", "Item 2", "Item 3"]));
         Register(new ProgressBarWidget("Progress", "progress", Value: 50, Max: 100));
         Register(new ThemeSwitcherWidget("Select Theme", "theme", ["Light", "Dark"]));
+        Register(new FormWidget("Submit Form", "form",
+        [
+            new FormField("Name", "name_input", "input", true),
+            new FormField("Email", "email_input", "input", true),
+            new FormField("Submit", "submit_button", "button", true)
+        ], [new FormAction("submit", "Submit Form"), new FormAction("cancel", "Cancel Form")]));
     }
 
     /// <summary>

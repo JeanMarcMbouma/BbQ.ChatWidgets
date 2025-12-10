@@ -60,6 +60,7 @@ export class WidgetEventManager {
     this.attachCardHandlers(container);
     this.attachThemeSwitcherHandlers(container);
     this.attachDatePickerHandlers(container);
+    this.attachFormHandlers(container);
   }
 
   private attachButtonHandlers(container: Element): void {
@@ -190,5 +191,59 @@ export class WidgetEventManager {
           if (action) this.actionHandler.handle(action, { date });
         });
       });
+  }
+
+  private attachFormHandlers(container: Element): void {
+    container.querySelectorAll('[data-widget-type="form"]').forEach((form) => {
+      // Attach click handlers to form buttons
+      form.querySelectorAll('button[data-action]').forEach((button) => {
+        button.addEventListener('click', (e: Event) => {
+          e.preventDefault();
+          const action = button.getAttribute('data-action');
+          if (!action) return;
+
+          // Collect form data
+          const payload: Record<string, any> = {};
+
+          // Get all form inputs (both inside and outside fieldset)
+          const inputs = form.querySelectorAll('input, select, textarea');
+          inputs.forEach((input: Element) => {
+            const field = input as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+            const name = field.getAttribute('name');
+
+            if (!name) return;
+
+            // Handle different input types
+            if (field instanceof HTMLInputElement) {
+              if (field.type === 'checkbox') {
+                payload[name] = field.checked;
+              } else if (field.type === 'radio') {
+                if (field.checked) {
+                  payload[name] = field.value;
+                }
+              } else if (field.type === 'file') {
+                payload[name] = field.files ? Array.from(field.files).map((f) => ({
+                  name: f.name,
+                  size: f.size,
+                  type: f.type,
+                })) : [];
+              } else {
+                payload[name] = field.value;
+              }
+            } else if (field instanceof HTMLSelectElement) {
+              if (field.multiple) {
+                payload[name] = Array.from(field.selectedOptions).map((o) => o.value);
+              } else {
+                payload[name] = field.value;
+              }
+            } else if (field instanceof HTMLTextAreaElement) {
+              payload[name] = field.value;
+            }
+          });
+
+          this.actionHandler.handle(action, payload);
+        });
+      });
+    });
   }
 }

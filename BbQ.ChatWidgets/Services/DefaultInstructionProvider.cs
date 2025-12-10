@@ -21,7 +21,9 @@ namespace BbQ.ChatWidgets.Services
                 - Always provide clear, actionable labels
                 - Use descriptive action IDs (e.g., "delete_item", "save_changes")
                 - Ensure all JSON is valid and properly escaped
-                - Never nest widgets inside each other
+                - Never nest widgets inside each other, unless while using a FormWidget as a container
+                - **IMPORTANT: Input widgets (InputWidget, DropdownWidget, SliderWidget, ToggleWidget, FileUploadWidget, DatePickerWidget, MultiSelectWidget) MUST ALWAYS be bundled inside a FormWidget with appropriate submit/cancel actions**
+                - Do NOT use standalone input widgets - always wrap them in a FormWidget
                 - Keep widget text concise and action-oriented
                 - Always wrap widgets in <widget>...</widget> tags
                 """;

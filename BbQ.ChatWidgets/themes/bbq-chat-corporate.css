@@ -389,9 +389,200 @@ input[type="file"].bbq-file {
     .bbq-card p {
         font-size: 13px;
     }
+
+    .bbq-form-actions {
+        flex-direction: column;
+        justify-content: stretch;
+    }
+
+    .bbq-form-button {
+        width: 100%;
+    }
 }
 
-@media (max-width: 480px) {
+/* Form Widget */
+.bbq-form {
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid #d1d5db;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.bbq-form-fieldset {
+    border: none;
+    margin: 0;
+    padding: 24px;
+}
+
+.bbq-form-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 24px 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #1f2937;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+.bbq-form-field {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.bbq-form-field:last-of-type {
+    margin-bottom: 0;
+}
+
+.bbq-form-field-label {
+    display: block;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.bbq-form-required {
+    color: #dc2626;
+    margin-left: 4px;
+    font-weight: 700;
+}
+
+.bbq-form-input,
+.bbq-form-textarea,
+.bbq-form-select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-family: "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    color: #1f2937;
+    background-color: white;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.bbq-form-textarea {
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.5;
+}
+
+.bbq-form-input:focus,
+.bbq-form-textarea:focus,
+.bbq-form-select:focus {
+    outline: none;
+    border-color: #1f2937;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.1);
+}
+
+.bbq-form-input:hover,
+.bbq-form-textarea:hover,
+.bbq-form-select:hover {
+    border-color: #9ca3af;
+}
+
+.bbq-form-input:disabled,
+.bbq-form-textarea:disabled,
+.bbq-form-select:disabled {
+    background-color: #f9fafb;
+    color: #9ca3af;
+    cursor: not-allowed;
+    border-color: #e5e7eb;
+}
+
+.bbq-form-checkbox,
+.bbq-form-radio {
+    width: auto;
+    margin: 0 8px 0 0;
+    padding: 0;
+    cursor: pointer;
+    accent-color: #1f2937;
+}
+
+.bbq-form-checkbox + label,
+.bbq-form-radio + label {
+    display: inline;
+    margin: 0;
+    font-weight: normal;
+    cursor: pointer;
+    color: #1f2937;
+}
+
+.bbq-form-actions {
+    display: flex;
+    gap: 12px;
+    padding: 20px 24px;
+    background-color: #f9fafb;
+    border-top: 1px solid #d1d5db;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.bbq-form-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    min-width: 100px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.bbq-form-submit {
+    background-color: #1f2937;
+    color: white;
+    border: 1px solid #1f2937;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.bbq-form-submit:hover {
+    background-color: #111827;
+    border-color: #111827;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.bbq-form-submit:active {
+    background-color: #0f172a;
+    transform: scale(0.98);
+}
+
+.bbq-form-cancel {
+    background-color: white;
+    color: #1f2937;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.bbq-form-cancel:hover {
+    background-color: #f9fafb;
+    border-color: #9ca3af;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bbq-form-cancel:active {
+    background-color: #f3f4f6;
+    transform: scale(0.98);
+}
+
+.bbq-form-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+@media (max-width: 640px) {
     .bbq-button,
     button.bbq-button {
         padding: 10px 12px;

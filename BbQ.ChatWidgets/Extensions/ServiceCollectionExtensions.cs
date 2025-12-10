@@ -50,7 +50,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<WidgetRegistry>();
         services.AddScoped<ChatWidgetService>();
         services.AddSingleton<IChatWidgetRenderer, Renderers.SsrWidgetRenderer>();
-        services.AddScoped<IThreadService, DefaultThreadService>();
+        services.AddSingleton<IThreadService, DefaultThreadService>();
         services.AddSingleton<IWidgetHintParser, DefaultWidgetHintParser>();
         
         // Register action registry and handler resolver
@@ -119,13 +119,13 @@ public static class ServiceCollectionExtensions
 
             if (context.Request.Method == HttpMethods.Post && path == $"{prefix}/message")
             {
-                await HandleMessageRequest(context, app.ApplicationServices);
+                await HandleMessageRequest(context);
                 return;
             }
 
             if (context.Request.Method == HttpMethods.Post && path == $"{prefix}/action")
             {
-                await HandleActionRequest(context, app.ApplicationServices);
+                await HandleActionRequest(context);
                 return;
             }
 
@@ -144,9 +144,9 @@ public static class ServiceCollectionExtensions
     /// 2. Calls <see cref="ChatWidgetService.RespondAsync"/>
     /// 3. Serializes the response back to JSON
     /// </remarks>
-    private static async Task HandleMessageRequest(HttpContext context, IServiceProvider services)
+    private static async Task HandleMessageRequest(HttpContext context)
     {
-        var service = services.GetRequiredService<ChatWidgetService>();
+        var service = context.RequestServices.GetRequiredService<ChatWidgetService>();
         var dto = await DeserializeRequest<UserMessageDto>(context);
         var ct = context.RequestAborted;
 
@@ -163,13 +163,13 @@ public static class ServiceCollectionExtensions
     /// 2. Calls <see cref="ChatWidgetService.HandleActionAsync"/>
     /// 3. Serializes the response back to JSON
     /// </remarks>
-    private static async Task HandleActionRequest(HttpContext context, IServiceProvider services)
+    private static async Task HandleActionRequest(HttpContext context)
     {
-        var service = services.GetRequiredService<ChatWidgetService>();
+        var service = context.RequestServices.GetRequiredService<ChatWidgetService>();
         var dto = await DeserializeRequest<WidgetActionDto>(context);
         var ct = context.RequestAborted;
 
-        var turn = await service.HandleActionAsync(dto.Action, dto.Payload ?? [], dto.ThreadId, services, ct);
+        var turn = await service.HandleActionAsync(dto.Action, dto.Payload ?? [], dto.ThreadId, context.RequestServices, ct);
         await WriteJsonResponse(context, turn);
     }
 

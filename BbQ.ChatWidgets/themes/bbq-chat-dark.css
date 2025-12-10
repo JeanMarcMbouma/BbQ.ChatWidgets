@@ -368,6 +368,188 @@ input[type="file"].bbq-file {
     .bbq-card p {
         font-size: 13px;
     }
+
+    .bbq-form-actions {
+        flex-direction: column;
+        justify-content: stretch;
+    }
+
+    .bbq-form-button {
+        width: 100%;
+    }
+}
+
+/* Form Widget */
+.bbq-form {
+    background-color: #1e293b;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.bbq-form-fieldset {
+    border: none;
+    margin: 0;
+    padding: 20px;
+}
+
+.bbq-form-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #f1f5f9;
+    margin: 0 0 20px 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #8b5cf6;
+}
+
+.bbq-form-field {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.bbq-form-field:last-of-type {
+    margin-bottom: 0;
+}
+
+.bbq-form-field-label {
+    display: block;
+    margin: 0 0 8px 0;
+    font-weight: 500;
+    color: #e2e8f0;
+    font-size: 14px;
+}
+
+.bbq-form-required {
+    color: #f87171;
+    margin-left: 4px;
+    font-weight: 600;
+}
+
+.bbq-form-input,
+.bbq-form-textarea,
+.bbq-form-select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #475569;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #e2e8f0;
+    background-color: #0f172a;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.bbq-form-textarea {
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.5;
+}
+
+.bbq-form-input:focus,
+.bbq-form-textarea:focus,
+.bbq-form-select:focus {
+    outline: none;
+    border-color: #8b5cf6;
+    background-color: #1a202c;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+.bbq-form-input:hover,
+.bbq-form-textarea:hover,
+.bbq-form-select:hover {
+    border-color: #64748b;
+}
+
+.bbq-form-input:disabled,
+.bbq-form-textarea:disabled,
+.bbq-form-select:disabled {
+    background-color: #0a0f1f;
+    color: #64748b;
+    cursor: not-allowed;
+    border-color: #334155;
+}
+
+.bbq-form-checkbox,
+.bbq-form-radio {
+    width: auto;
+    margin: 0 8px 0 0;
+    padding: 0;
+    cursor: pointer;
+    accent-color: #8b5cf6;
+}
+
+.bbq-form-checkbox + label,
+.bbq-form-radio + label {
+    display: inline;
+    margin: 0;
+    font-weight: normal;
+    cursor: pointer;
+    color: #e2e8f0;
+}
+
+.bbq-form-actions {
+    display: flex;
+    gap: 12px;
+    padding: 16px 20px;
+    background-color: #0f172a;
+    border-top: 1px solid #334155;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.bbq-form-button {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    min-width: 100px;
+    text-align: center;
+}
+
+.bbq-form-submit {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.bbq-form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(139, 92, 246, 0.4);
+    background: linear-gradient(135deg, #a78bfa 0%, #818cf8 100%);
+}
+
+.bbq-form-submit:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+.bbq-form-cancel {
+    background-color: #475569;
+    color: #e2e8f0;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.bbq-form-cancel:hover {
+    background-color: #64748b;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.bbq-form-cancel:active {
+    transform: translateY(0);
+}
+
+.bbq-form-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
 }
 
 /* Accessibility */

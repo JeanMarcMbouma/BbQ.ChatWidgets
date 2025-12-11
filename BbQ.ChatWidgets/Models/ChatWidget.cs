@@ -152,6 +152,53 @@ public sealed record InputWidget(
 }
 
 /// <summary>
+/// A textarea widget for multi-line text input.
+/// </summary>
+/// <remarks>
+/// TextArea widgets are used when users need to enter multiple lines of text.
+/// They support:
+/// - Placeholder text shown when empty
+/// - Maximum length constraint
+/// - Minimum and maximum row constraints for sizing
+/// 
+/// Example JSON:
+/// {"type":"textarea","label":"Enter message","action":"input","placeholder":"Your message here","maxLength":500,"rows":5}
+/// </remarks>
+public sealed record TextAreaWidget(
+    /// <summary>
+    /// The label for the textarea field.
+    /// </summary>
+    string Label,
+
+    /// <summary>
+    /// The action identifier triggered when the user submits the textarea.
+    /// </summary>
+    string Action,
+
+    /// <summary>
+    /// Optional placeholder text shown when the textarea is empty.
+    /// </summary>
+    string? Placeholder = null,
+
+    /// <summary>
+    /// Optional maximum number of characters allowed in the textarea.
+    /// </summary>
+    int? MaxLength = null,
+
+    /// <summary>
+    /// Optional number of rows to display for the textarea.
+    /// </summary>
+    int? Rows = null)
+    : ChatWidget(Label, Action)
+{
+    public override string Purpose => """
+           **TextArea Widget** - For multi-line text input
+           Format: <widget>{"type":"textarea","label":"LABEL","action":"action_id","placeholder":"PLACEHOLDER","maxLength":500,"rows":5}</widget>
+           Use when: You need the user to enter multiple lines of text (feedback, comments, descriptions, etc.)
+        """;
+}
+
+/// <summary>
 /// A dropdown widget for selecting from multiple predefined options.
 /// </summary>
 /// <remarks>

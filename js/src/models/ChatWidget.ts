@@ -59,6 +59,8 @@ export abstract class ChatWidget {
         );
       case 'input':
         return new InputWidget(obj.label, obj.action, obj.placeholder, obj.maxLength);
+      case 'textarea':
+        return new TextAreaWidget(obj.label, obj.action, obj.placeholder, obj.maxLength, obj.rows);
       case 'dropdown':
         return new DropdownWidget(obj.label, obj.action, obj.options || []);
       case 'slider':
@@ -186,6 +188,32 @@ export class InputWidget extends ChatWidget {
       action: this.action,
       placeholder: this.placeholder,
       maxLength: this.maxLength,
+    };
+  }
+}
+
+/**
+ * TextArea widget - multi-line text input
+ */
+export class TextAreaWidget extends ChatWidget {
+  constructor(
+    label: string,
+    action: string,
+    readonly placeholder?: string,
+    readonly maxLength?: number,
+    readonly rows?: number
+  ) {
+    super('textarea', label, action);
+  }
+
+  toObject() {
+    return {
+      type: this.type,
+      label: this.label,
+      action: this.action,
+      placeholder: this.placeholder,
+      maxLength: this.maxLength,
+      rows: this.rows,
     };
   }
 }

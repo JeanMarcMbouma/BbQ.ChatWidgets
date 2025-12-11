@@ -231,6 +231,51 @@ input[type="email"].bbq-input {
     color: #9ca3af;
 }
 
+/* TextArea Widget */
+.bbq-textarea-label,
+label.bbq-textarea-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.bbq-textarea,
+textarea.bbq-textarea {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    background-color: white;
+    color: #1f2937;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.bbq-textarea:hover {
+    border-color: #9ca3af;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bbq-textarea:focus {
+    outline: none;
+    border-color: #1f2937;
+    box-shadow: 0 0 0 3px rgba(31, 41, 55, 0.1);
+}
+
+.bbq-textarea::placeholder {
+    color: #9ca3af;
+}
+
 /* Toggle Widget */
 .bbq-toggle,
 label.bbq-toggle {

@@ -30,6 +30,8 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
         return this.renderCard(widget as any);
       case 'input':
         return this.renderInput(widget as any);
+      case 'textarea':
+        return this.renderTextArea(widget as any);
       case 'dropdown':
         return this.renderDropdown(widget as any);
       case 'slider':
@@ -99,6 +101,25 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     const maxLength = widget.maxLength ? ` maxlength="${widget.maxLength}"` : '';
 
     html += `<input type="text" id="${inputId}" class="bbq-input-field" data-action="${action}"${placeholder}${maxLength} aria-labelledby="${inputId}" />`;
+    html += '</div>';
+
+    return html;
+  }
+
+  private renderTextArea(widget: any): string {
+    const label = this.escape(widget.label);
+    const action = this.escape(widget.action);
+    const id = this.generateId(widget.action);
+    const textareaId = `${id}-textarea`;
+
+    let html = `<div class="bbq-widget bbq-textarea" data-widget-id="${id}" data-widget-type="textarea">`;
+    html += `<label class="bbq-textarea-label" for="${textareaId}">${label}</label>`;
+
+    const placeholder = widget.placeholder ? ` placeholder="${this.escape(widget.placeholder)}"` : '';
+    const maxLength = widget.maxLength ? ` maxlength="${widget.maxLength}"` : '';
+    const rows = widget.rows ? ` rows="${widget.rows}"` : ' rows="4"';
+
+    html += `<textarea id="${textareaId}" class="bbq-textarea-field" data-action="${action}"${placeholder}${maxLength}${rows} aria-labelledby="${textareaId}"></textarea>`;
     html += '</div>';
 
     return html;

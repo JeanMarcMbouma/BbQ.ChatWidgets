@@ -122,7 +122,7 @@ public class ServiceCollectionIntegrationTests
         var instances = registry.GetInstances();
 
         // Assert
-        Assert.Equal(11, instances.Count());
+        Assert.Equal(13, instances.Count());
         
         var types = instances.Select(w => w.GetType()).Distinct().ToList();
         Assert.Contains(typeof(ButtonWidget), types);
@@ -136,6 +136,8 @@ public class ServiceCollectionIntegrationTests
         Assert.Contains(typeof(MultiSelectWidget), types);
         Assert.Contains(typeof(ProgressBarWidget), types);
         Assert.Contains(typeof(ThemeSwitcherWidget), types);
+        Assert.Contains(typeof(FormWidget), types);
+        Assert.Contains(typeof(TextAreaWidget), types);
     }
 
     [Fact]

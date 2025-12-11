@@ -52,6 +52,7 @@ export class WidgetEventManager {
   attachHandlers(container: Element): void {
     this.attachButtonHandlers(container);
     this.attachInputHandlers(container);
+    this.attachTextAreaHandlers(container);
     this.attachDropdownHandlers(container);
     this.attachSliderHandlers(container);
     this.attachToggleHandlers(container);
@@ -77,6 +78,16 @@ export class WidgetEventManager {
       (input as HTMLInputElement).addEventListener('change', (e: Event) => {
         const action = (e.target as HTMLInputElement).getAttribute('data-action');
         const value = (e.target as HTMLInputElement).value;
+        if (action) this.actionHandler.handle(action, { value });
+      });
+    });
+  }
+
+  private attachTextAreaHandlers(container: Element): void {
+    container.querySelectorAll('[data-widget-type="textarea"] textarea').forEach((textarea) => {
+      (textarea as HTMLTextAreaElement).addEventListener('change', (e: Event) => {
+        const action = (e.target as HTMLTextAreaElement).getAttribute('data-action');
+        const value = (e.target as HTMLTextAreaElement).value;
         if (action) this.actionHandler.handle(action, { value });
       });
     });

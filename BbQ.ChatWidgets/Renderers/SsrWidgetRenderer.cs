@@ -62,6 +62,7 @@ namespace BbQ.ChatWidgets.Renderers
             ButtonWidget btn => RenderButton(btn),
             CardWidget card => RenderCard(card),
             InputWidget input => RenderInput(input),
+            TextAreaWidget textarea => RenderTextArea(textarea),
             DropdownWidget dd => RenderDropdown(dd),
             SliderWidget sl => RenderSlider(sl),
             ToggleWidget tg => RenderToggle(tg),
@@ -148,6 +149,30 @@ namespace BbQ.ChatWidgets.Renderers
                 class=""bbq-input-field"" 
                 data-action=""{action}""{placeholder}{maxLength} 
                 aria-labelledby=""{inputId}"" />";
+            html += "</div>";
+
+            return html;
+        }
+
+        private static string RenderTextArea(TextAreaWidget textarea)
+        {
+            var label = Escape(textarea.Label);
+            var action = Escape(textarea.Action);
+            var id = GenerateId(textarea.Action);
+            var textareaId = $"{id}-textarea";
+
+            var html = $@"<div class=""bbq-widget bbq-textarea"" data-widget-id=""{id}"" data-widget-type=""textarea"">";
+            html += $"<label class=\"bbq-textarea-label\" for=\"{textareaId}\">{label}</label>";
+
+            var placeholder = textarea.Placeholder is not null ? $" placeholder=\"{Escape(textarea.Placeholder)}\"" : "";
+            var maxLength = textarea.MaxLength is not null ? $" maxlength=\"{textarea.MaxLength}\"" : "";
+            var rows = textarea.Rows is not null ? $" rows=\"{textarea.Rows}\"" : " rows=\"4\"";
+
+            html += $@"<textarea 
+                id=""{textareaId}"" 
+                class=""bbq-textarea-field"" 
+                data-action=""{action}""{placeholder}{maxLength}{rows} 
+                aria-labelledby=""{textareaId}""></textarea>";
             html += "</div>";
 
             return html;

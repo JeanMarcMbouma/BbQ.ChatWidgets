@@ -110,7 +110,7 @@ public class DefaultWidgetToolsProviderTests
 
         // Assert - verify all registered widgets have tools
         // The registry is initialized with 11 built-in widgets
-        Assert.Equal(11, tools.Count());
+        Assert.Equal(13, tools.Count());
         
         // Expected widget type IDs
         var expectedWidgetIds = new[] 

@@ -49,6 +49,7 @@ public sealed class WidgetRegistry : IWidgetRegistry
             new FormField("Email", "email_input", "input", true),
             new FormField("Submit", "submit_button", "button", true)
         ], [new FormAction("submit", "Submit Form"), new FormAction("cancel", "Cancel Form")]));
+        Register(new TextAreaWidget("Enter Description", "textarea", "Type here...", Rows: 5, MaxLength: 500));
     }
 
     /// <summary>

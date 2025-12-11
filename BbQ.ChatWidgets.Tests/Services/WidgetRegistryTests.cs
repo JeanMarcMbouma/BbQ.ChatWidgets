@@ -21,7 +21,7 @@ public class WidgetRegistryTests
         // Assert
         Assert.NotNull(instances);
         Assert.NotEmpty(instances);
-        Assert.Equal(11, instances.Count());
+        Assert.Equal(13, instances.Count());
     }
 
     [Fact]

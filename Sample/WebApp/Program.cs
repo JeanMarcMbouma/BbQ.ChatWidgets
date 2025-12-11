@@ -3,6 +3,7 @@ using BbQ.ChatWidgets.Extensions;
 using BbQ.ChatWidgets.Sample.WebApp.Actions;
 using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Services;
+using BbQ.ChatWidgets.Sample.WebApp.Models;
 
 /// <summary>
 /// BbQ.ChatWidgets Web API Sample Application
@@ -49,11 +50,18 @@ services.AddBbQChatWidgets(bbqOptions =>
 {
     bbqOptions.RoutePrefix = "/api/chat";
     bbqOptions.ChatClientFactory = sp => chatClient;
+    bbqOptions.WidgetRegistryConfigurator = registry =>
+    {
+        // Additional custom widget registrations can go here
+        // e.g., registry.Register(new CustomWidget(...));
+        registry.Register(new EChartsWidget("Sales Chart", "on_chart_click", "bar", "{\"xAxis\": {\"type\": \"category\", \"data\": [\"Jan\", \"Feb\", \"Mar\"]}, \"yAxis\": {\"type\": \"value\"}, \"series\": [{\"data\": [100, 200, 150], \"type\": \"bar\"}]}"));
+    };
 });
 
 // Register typed action handlers
 services.AddScoped<GreetingHandler>();
 services.AddScoped<FeedbackHandler>();
+services.AddScoped<EChartsClickHandler>();
 
 // Add CORS for React frontend
 services.AddCors(options =>
@@ -86,6 +94,10 @@ actionRegistry.RegisterHandler<GreetingAction, GreetingPayload, GreetingHandler>
 // Register feedback action
 var feedbackAction = new FeedbackAction();
 actionRegistry.RegisterHandler<FeedbackAction, FeedbackPayload, FeedbackHandler>(handlerResolver, feedbackAction);
+
+// Register ECharts click action (demonstrates custom widget integration)
+var echartsClickAction = new EChartsClickAction();
+actionRegistry.RegisterHandler<EChartsClickAction, EChartsClickPayload, EChartsClickHandler>(handlerResolver, echartsClickAction);
 
 // Map BbQ.ChatWidgets endpoints
 app.MapBbQChatEndpoints();

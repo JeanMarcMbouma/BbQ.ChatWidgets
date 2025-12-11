@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { ChatWidget } from '@bbq/chatwidgets';
 import type { ChatTurn } from '@bbq/chatwidgets';
 
 export interface ChatMessage extends ChatTurn {
@@ -66,6 +67,21 @@ export const useChat = (apiBaseUrl = '/api/chat'): UseChat => {
 
         const turn = (await response.json()) as ChatTurn;
 
+        // Deserialize widgets if present
+        let deserializedWidgets: any[] | null = null;
+        if (turn.widgets && Array.isArray(turn.widgets)) {
+          deserializedWidgets = turn.widgets
+            .map((w: any) => {
+              try {
+                return ChatWidget.fromObject(w);
+              } catch (err) {
+                console.error('Failed to deserialize widget:', w, err);
+                return null;
+              }
+            })
+            .filter((w): w is ChatWidget => w !== null);
+        }
+
         // Update threadId from backend response if provided
         if (turn.threadId && turn.threadId !== currentThreadId) {
           setThreadId(turn.threadId);
@@ -78,6 +94,7 @@ export const useChat = (apiBaseUrl = '/api/chat'): UseChat => {
           {
             id: assistantMessageId,
             ...turn,
+            widgets: deserializedWidgets,
           },
         ]);
       } catch (err) {

@@ -158,7 +158,8 @@ public class CustomWidgetDIIntegrationTests
         });
 
 
-        services.BuildServiceProvider();
+        var provider = services.BuildServiceProvider();
+        var registry = provider.GetService<IWidgetRegistry>();
 
         // Act - Deserialize built-in widget
         var builtInJson = """{"type":"button","label":"Click","action":"submit"}""";

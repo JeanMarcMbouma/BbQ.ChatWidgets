@@ -13,6 +13,16 @@ public sealed class DefaultThreadService : IThreadService
         if (_threads.TryGetValue(threadId, out var chatMessage))
         {
             _threads[threadId] = new ChatMessages([..chatMessage.Turns.Append(chatTurn)]);
+            if(chatTurn.Widgets?.Any(x => x is IRecyclableWidget) == true)
+            {
+                foreach (var widget in chatTurn.Widgets)
+                {
+                    if (widget is IRecyclableWidget recyclableWidget)
+                    {
+                        recyclableWidget.Recycle();
+                    }
+                }
+            }
             return _threads[threadId];
         }
         else

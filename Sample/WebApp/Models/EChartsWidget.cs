@@ -24,6 +24,14 @@ public sealed record EChartsWidget(
         }</widget>
         Renders interactive charts using Apache ECharts.
         Schema: {
+            type: string (echarts),
+            label: string,
+            action: string,
+            chartType: string (e.g., 'bar', 'line', 'pie'),
+            jsonData: string (ECharts options in JSON format)
+        }
+        ECharts options schema: 
+         {
           "type": "echarts",
           "properties": {
             "title": {

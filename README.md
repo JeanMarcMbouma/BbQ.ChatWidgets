@@ -2,6 +2,10 @@
 
 BbQ.ChatWidgets is a framework-agnostic widget library for AI chat UIs, built on Microsoft.Extensions.AI.
 
+**Requirements:** Node >= 20, .NET SDK >= 8.0 (use nvm/nvm-windows and official .NET SDK installers).
+
+**Run tests (quick):** .NET: `dotnet test` (repo root or specific project). JavaScript: `npm test` in `Sample/WebApp/ClientApp` (adds vitest script).
+
 ## Features
 
 - **JSON contract for widgets** - Define UI widgets in JSON

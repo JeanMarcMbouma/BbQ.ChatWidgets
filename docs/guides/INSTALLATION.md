@@ -273,6 +273,23 @@ console.log(response.widgets);
 - Check widget tools are registered
 - Review AI response format
 
+### Copying themes & static assets
+
+The repository includes helper scripts to copy theme CSS and static assets into the library/wwwroot when required. Run one of the following from the repository root if you see missing styling or before packaging:
+
+PowerShell (Windows):
+```powershell
+Set-Location -Path BbQ.ChatWidgets\BbQ.ChatWidgets
+.\copy-themes.ps1
+```
+
+CMD (Windows):
+```
+BbQ.ChatWidgets\BbQ.ChatWidgets\copy-themes.bat
+```
+
+When to run: before `dotnet build`/`dotnet pack` if you need theme files included, or when the sample app shows missing CSS.
+
 ## Next Steps
 
 - **[Configuration Guide](CONFIGURATION.md)** - Configure all options

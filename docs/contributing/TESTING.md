@@ -322,6 +322,16 @@ dotnet test /p:CollectCoverage=true
 dotnet test --verbosity detailed
 ```
 
+### Frontend / JavaScript tests
+
+The sample frontend uses Vitest. From the sample frontend folder run:
+```bash
+cd Sample/WebApp/ClientApp
+npm install
+npm test
+```
+If `npm test` is not present, run `npx vitest` directly or add `"test": "vitest"` to `package.json` scripts.
+
 ## Code Coverage Goals
 
 Aim for:

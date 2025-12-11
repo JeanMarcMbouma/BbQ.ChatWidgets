@@ -1,6 +1,11 @@
 import { EChartsWidget } from './EChartsWidget';
 
 /**
+ * ECharts SSR renderer (container only).
+ * See docs/widgets/ECHARTS_WIDGET.md for the SSR→client contract and integration notes.
+ */
+
+/**
  * Generates HTML for ECharts widget container (without initialization)
  * Initialization is handled in React component via useEffect
  */

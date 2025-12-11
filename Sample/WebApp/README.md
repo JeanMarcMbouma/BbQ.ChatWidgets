@@ -53,14 +53,21 @@ Sample/WebApp/
 
 ### 1. Configure OpenAI API Key
 
-Copy the example settings and add your API key:
+Configure OpenAI API Key — copy example settings and add your API key.
 
+Bash (macOS / Linux):
 ```bash
 cd Sample/WebApp
 cp appsettings.example.json appsettings.Development.json
 ```
 
-Edit `appsettings.Development.json` and add your OpenAI API key:
+PowerShell (Windows):
+```powershell
+Set-Location -Path Sample\WebApp
+Copy-Item -Path appsettings.example.json -Destination appsettings.Development.json
+```
+
+Then edit `appsettings.Development.json` and set `OpenAI:ApiKey` (and optionally `OpenAI:ModelId`).
 
 ```json
 {

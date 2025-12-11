@@ -1,12 +1,10 @@
-# Complete Documentation - Final Summary
+# Documentation Status
 
-## ✅ Documentation is Now Complete!
+Documentation status: Last reviewed: 2025-12-10 — living documentation; update this date when APIs or features change.
 
-All documentation has been created and organized in a logical, professional structure.
+## Overview
 
----
-
-## 📦 What's Included
+The documentation for BbQ.ChatWidgets is organized into the following sections:
 
 ### Root Level
 - 📄 `README.md` - Project overview with quick start

@@ -8,6 +8,10 @@ using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Services;
 using BbQ.ChatWidgets.Sample.Actions;
 using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Agents.Extensions;
+using BbQ.Outcome;
+using BbQ.ChatWidgets.Agents.Abstractions;
+using BbQ.ChatWidgets.Agents;
 
 /// <summary>
 /// BbQ.ChatWidgets Console Sample Application
@@ -79,6 +83,11 @@ internal class Program
             // Register typed action handlers
             .AddScoped<GreetingHandler>()
             .AddScoped<FeedbackHandler>()
+            .AddScoped<IAgent, ChatAgent>()
+            .AddAgentPipeline(pipeline =>
+            {
+                pipeline.Use<ChatAgentMiddleware>();
+            })
             .BuildServiceProvider();
 
         // Get logger
@@ -113,6 +122,15 @@ internal class Program
 
             logger.LogInformation("Chat application started. Type 'exit' to quit.");
             logger.LogInformation("");
+
+            var agentDelegate = serviceProvider.GetRequiredService<AgentDelegate>();
+
+            var data = await agentDelegate(new ChatRequest(
+                
+                ThreadId: conversationManager.CurrentThreadId,
+                RequestServices: serviceProvider,
+                Metadata: []
+            ), CancellationToken.None);
 
             // Main chat loop
             await RunInteractiveChat(chatService, conversationManager, logger);
@@ -387,6 +405,30 @@ namespace BbQ.ChatWidgets.Sample
                 }
             }
             Console.WriteLine("\n===========================\n");
+        }
+    }
+
+    public class ChatAgent : IAgent
+    {
+        public Task<Outcome<ChatTurn>> InvokeAsync(ChatRequest request, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(Outcome<ChatTurn>.From(new ChatTurn(
+                Role: ChatRole.Assistant,
+                Content: "Hello from ChatAgent!",
+                Widgets: null,
+                ThreadId: request.ThreadId
+            )));
+        }
+    }
+
+    public class ChatAgentMiddleware : IAgentMiddleware
+    {
+        public async Task<Outcome<ChatTurn>> InvokeAsync(ChatRequest request, AgentDelegate next, CancellationToken cancellationToken)
+        {
+            // Pre-processing logic can be added here
+            var result = await next(request, cancellationToken);
+            // Post-processing logic can be added here
+            return result;
         }
     }
 }

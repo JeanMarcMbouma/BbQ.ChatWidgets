@@ -21,6 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BbQ.Outcome" Version="1.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.3.0" />
     <PackageReference Include="Microsoft.Extensions.AI" Version="*" />

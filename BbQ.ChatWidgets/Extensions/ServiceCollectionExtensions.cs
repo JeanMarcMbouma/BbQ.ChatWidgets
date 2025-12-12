@@ -1,7 +1,10 @@
 ﻿using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Agents;
+using BbQ.ChatWidgets.Agents.Abstractions;
 using BbQ.ChatWidgets.Endpoints;
 using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Services;
+using BbQ.Outcome;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.AI;
@@ -129,10 +132,34 @@ public static class ServiceCollectionExtensions
                 return;
             }
 
+            if(context.Request.Method == HttpMethods.Post && path == $"{prefix}/agent" )
+            {
+                await HandleAgentRequest(context);
+                return;
+            }
+
             await next();
         });
 
         return app;
+    }
+
+    private static async Task HandleAgentRequest(HttpContext context)
+    {
+        var payload = await DeserializeRequest<UserMessageDto>(context);
+        var dto = await DeserializeRequest<Dictionary<string, object>>(context);
+        var chatRequest = new ChatRequest(payload.ThreadId, context.RequestServices, dto);
+        var agentDelegate = context.RequestServices.GetRequiredService<AgentDelegate>();
+        var ct = context.RequestAborted;
+        var turn = await agentDelegate(chatRequest, ct);
+        await turn.Match(result =>
+        {
+            return WriteJsonResponse(context, result);
+        }, error =>
+        {
+            context.Response.StatusCode = 500;
+            return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(new { Error = error }));
+        });
     }
 
     /// <summary>

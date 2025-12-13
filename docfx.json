@@ -1,26 +1,42 @@
 {
-  "metadata": [
-    {
-      "src": [
-        { "files": ["BbQ.ChatWidgets/BbQ.ChatWidgets.csproj"] }
-      ],
-      "dest": "api",
-      "properties": {
-        "TargetFramework": "net8.0"
-      }
-    }
-  ],
   "build": {
     "content": [
-      { "files": ["README.md", "docs/**.md"] },
-      { "files": ["api/**.yml"] }
+      {
+        "files": [
+          "docs/**.md",
+          "README.md",
+          "api/**.yml"
+        ],
+        "exclude": [
+          "**/node_modules/**",
+          "js/**",
+          "Sample/**/node_modules/**",
+          "**/ClientApp/**/node_modules/**"
+        ]
+      }
     ],
     "resource": [
-      { "files": ["docs/**/**"] }
+      {
+        "files": [
+          "**/*.*",
+          "!**/*.csproj",
+          "!**/*.dll",
+          "!**/*.xml"
+          ,
+          "!**/node_modules/**",
+          "!js/node_modules/**",
+          "!**/ClientApp/**/node_modules/**",
+          "!Sample/**/node_modules/**"
+        ]
+      }
     ],
-    "dest": "docs_site",
     "globalMetadata": {
-      "_appTitle": "BbQ.ChatWidgets"
-    }
+      "_appTitle": "BbQ.ChatWidgets",
+      "_disableContribution": true
+    },
+    "template": [
+      "default"
+    ]
+
   }
 }

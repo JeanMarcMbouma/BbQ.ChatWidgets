@@ -60,6 +60,7 @@
   ],
   "scripts": {
     "build": "tsc && node scripts/build.mjs",
+    "docs:js": "npx typedoc --out ../docs/js src --tsconfig tsconfig.json --options typedoc.json",
     "build:watch": "tsc --watch",
     "test": "vitest",
     "test:ui": "vitest --ui",

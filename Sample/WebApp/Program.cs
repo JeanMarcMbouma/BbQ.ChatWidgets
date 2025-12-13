@@ -4,6 +4,9 @@ using BbQ.ChatWidgets.Sample.WebApp.Actions;
 using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Services;
 using BbQ.ChatWidgets.Sample.WebApp.Models;
+using BbQ.ChatWidgets.Agents.Abstractions;
+using BbQ.ChatWidgets.Sample.WebApp.Agents;
+using BbQ.ChatWidgets.Sample.WebApp.Services;
 
 /// <summary>
 /// BbQ.ChatWidgets Web API Sample Application
@@ -14,6 +17,8 @@ using BbQ.ChatWidgets.Sample.WebApp.Models;
 /// - React frontend consuming the chat API
 /// - Widget-based interactive UI
 /// - Typed action handlers with IWidgetAction<T>
+/// - Triage agent with intent classification and agent routing
+/// - Agent-to-agent communication through metadata
 /// </summary>
 /// 
 var builder = WebApplication.CreateBuilder(args);
@@ -58,10 +63,16 @@ services.AddBbQChatWidgets(bbqOptions =>
     };
 });
 
+// Register triage agent system with specialized agents
+services.AddWebAppTriageAgents();
+
 // Register typed action handlers
 services.AddScoped<GreetingHandler>();
 services.AddScoped<FeedbackHandler>();
 services.AddScoped<EChartsClickHandler>();
+
+// Register triage-aware chat service
+services.AddScoped<TriageAwareChatService>();
 
 // Add CORS for React frontend
 services.AddCors(options =>
@@ -98,6 +109,30 @@ actionRegistry.RegisterHandler<FeedbackAction, FeedbackPayload, FeedbackHandler>
 // Register ECharts click action (demonstrates custom widget integration)
 var echartsClickAction = new EChartsClickAction();
 actionRegistry.RegisterHandler<EChartsClickAction, EChartsClickPayload, EChartsClickHandler>(handlerResolver, echartsClickAction);
+
+// Log startup information
+var logger = app.Services.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");
+logger.LogInformation("=== BbQ.ChatWidgets Web API Sample ===");
+logger.LogInformation("Chat API available at POST /api/chat/message");
+logger.LogInformation("Widget actions available at POST /api/chat/action");
+logger.LogInformation("React frontend served from wwwroot/");
+logger.LogInformation("");
+logger.LogInformation("Triage Agent System: Enabled");
+
+// Log registered agents
+var agentRegistry = app.Services.GetRequiredService<IAgentRegistry>();
+logger.LogInformation("Registered specialized agents:");
+foreach (var agentName in agentRegistry.GetRegisteredAgents())
+{
+    logger.LogInformation($"  - {agentName}");
+}
+
+logger.LogInformation("User intent categories:");
+logger.LogInformation("  - HelpRequest ? help-agent");
+logger.LogInformation("  - DataQuery ? data-query-agent");
+logger.LogInformation("  - ActionRequest ? action-agent");
+logger.LogInformation("  - Feedback ? feedback-agent");
+logger.LogInformation("  - Unknown ? help-agent (fallback)");
 
 // Map BbQ.ChatWidgets endpoints
 app.MapBbQChatEndpoints();

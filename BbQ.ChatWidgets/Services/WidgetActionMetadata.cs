@@ -67,6 +67,6 @@ public sealed class WidgetActionMetadata : IWidgetActionMetadata
         Name = name;
         Description = description ?? "";
         PayloadSchema = payloadSchema ?? "{}";
-        PayloadType = payloadType ?? typeof(object);
+        PayloadType = payloadType ?? typeof(object); 
     }
 }

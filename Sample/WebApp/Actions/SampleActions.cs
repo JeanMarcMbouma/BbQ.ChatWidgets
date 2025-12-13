@@ -1,6 +1,5 @@
 using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Models;
-using BbQ.ChatWidgets.Sample.WebApp.Models;
 using Microsoft.Extensions.AI;
 using System.Text.Json;
 
@@ -39,7 +38,6 @@ public sealed class GreetingHandler :
     IActionWidgetActionHandler<GreetingAction, GreetingPayload>
 {
     public async Task<ChatTurn> HandleActionAsync(
-        GreetingAction action,
         GreetingPayload payload,
         string threadId,
         IServiceProvider serviceProvider)
@@ -66,7 +64,7 @@ public sealed class GreetingHandler :
 /// Payload for a feedback action.
 /// </summary>
 public sealed record FeedbackPayload(
-    int Rating,
+    string Rating,
     string Comments
 );
 
@@ -95,13 +93,12 @@ public sealed class FeedbackHandler :
     IActionWidgetActionHandler<FeedbackAction, FeedbackPayload>
 {
     public async Task<ChatTurn> HandleActionAsync(
-        FeedbackAction action,
         FeedbackPayload payload,
         string threadId,
         IServiceProvider serviceProvider)
     {
         // Type-safe access to payload
-        var stars = new string('⭐', payload.Rating);
+        var stars = new string('⭐', int.Parse(payload.Rating));
         var message = $"Thank you for your feedback! {stars}";
 
         if (!string.IsNullOrEmpty(payload.Comments))
@@ -156,7 +153,6 @@ public sealed class EChartsClickHandler :
     IActionWidgetActionHandler<EChartsClickAction, EChartsClickPayload>
 {
     public async Task<ChatTurn> HandleActionAsync(
-        EChartsClickAction action,
         EChartsClickPayload payload,
         string threadId,
         IServiceProvider serviceProvider)

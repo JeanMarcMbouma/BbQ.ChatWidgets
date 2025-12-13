@@ -39,5 +39,5 @@ public interface IActionWidgetActionHandler<TWidgetAction, T> where TWidgetActio
     /// <param name="threadId">The conversation thread ID.</param>
     /// <param name="serviceProvider">Service provider for dependency injection.</param>
     /// <returns>A task resulting in a <see cref="ChatTurn"/> response.</returns>
-    Task<ChatTurn> HandleActionAsync(TWidgetAction action, T payload, string threadId, IServiceProvider serviceProvider);
+    Task<ChatTurn> HandleActionAsync(T payload, string threadId, IServiceProvider serviceProvider);
 }

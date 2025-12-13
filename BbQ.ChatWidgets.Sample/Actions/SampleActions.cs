@@ -1,4 +1,4 @@
-using BbQ.ChatWidgets.Abstractions;
+﻿using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Models;
 using Microsoft.Extensions.AI;
 using System.Text.Json;
@@ -38,7 +38,6 @@ public sealed class GreetingHandler :
     IActionWidgetActionHandler<GreetingAction, GreetingPayload>
 {
     public async Task<ChatTurn> HandleActionAsync(
-        GreetingAction action,
         GreetingPayload payload,
         string threadId,
         IServiceProvider serviceProvider)
@@ -94,13 +93,12 @@ public sealed class FeedbackHandler :
     IActionWidgetActionHandler<FeedbackAction, FeedbackPayload>
 {
     public async Task<ChatTurn> HandleActionAsync(
-        FeedbackAction action,
         FeedbackPayload payload,
         string threadId,
         IServiceProvider serviceProvider)
     {
         // Type-safe access to payload
-        var stars = new string('?', payload.Rating);
+        var stars = new string('⭐', payload.Rating);
         var message = $"Thank you for your feedback! {stars}";
 
         if (!string.IsNullOrEmpty(payload.Comments))

@@ -8,7 +8,6 @@ using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Services;
 using BbQ.ChatWidgets.Sample.Actions;
 using BbQ.ChatWidgets.Abstractions;
-using BbQ.ChatWidgets.Agents.Extensions;
 using BbQ.Outcome;
 using BbQ.ChatWidgets.Agents.Abstractions;
 using BbQ.ChatWidgets.Agents;

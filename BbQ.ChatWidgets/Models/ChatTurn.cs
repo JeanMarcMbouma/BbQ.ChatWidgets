@@ -36,3 +36,25 @@ public record ChatTurn(
     /// </summary>
     string ThreadId = ""
 );
+
+
+public record StreamChatTurn(
+    /// <summary>
+    /// The role of the message sender (User or Assistant).
+    /// </summary>
+    ChatRole Role,
+
+    /// <summary>
+    /// The text content of this turn's message.
+    /// </summary>
+    string Content,
+
+    /// <summary>
+    /// The conversation thread ID this turn belongs to.
+    /// </summary>
+    string ThreadId,
+
+    ///<summary>
+    /// The flag indicating whether a response is a delta
+    /// </summary>
+    bool IsDelta = false) :  ChatTurn(Role, Content, [], ThreadId);

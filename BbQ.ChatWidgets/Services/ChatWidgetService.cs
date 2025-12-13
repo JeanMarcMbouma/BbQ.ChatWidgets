@@ -3,6 +3,7 @@ using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Abstractions;
 using System.Text.Json;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace BbQ.ChatWidgets.Services;
 
@@ -99,6 +100,48 @@ public sealed class ChatWidgetService(
         messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.Assistant, content, widgets, threadId));
 
         return messages.Turns[messages.Turns.Count - 1];
+    }
+
+    
+    public async IAsyncEnumerable<ChatTurn> StreamResponseAsync(string userMessage, string? threadId, [EnumeratorCancellation]CancellationToken cancellationToken = default)
+    {
+        if (threadId == null || !threadService.ThreadExists(threadId))
+        {
+            threadId = threadService.CreateThread();
+        }
+
+        var getWidgets = AIFunctionFactory.Create(() =>
+        {
+            return widgetToolsProvider.GetTools();
+        }, new AIFunctionFactoryOptions
+        {
+            Name = "get_widget_tools",
+            Description = "Retrieves the available widgets for the chat session."
+        });
+
+        var chatOptions = new ChatOptions
+        {
+            Tools = [.. aiToolsProvider.GetAITools(), getWidgets],
+            ToolMode = ChatToolMode.Auto,
+            AllowMultipleToolCalls = true,
+            Instructions = instructionProvider.GetInstructions()
+        };
+
+        var messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.User, userMessage, ThreadId: threadId));
+        string responseText = string.Empty;
+        var chatWidgets = new List<ChatWidget>();
+        await foreach(var responseUpdate in chat.GetStreamingResponseAsync(messages.ToAIMessages(), chatOptions, cancellationToken))
+        {
+            var (content, widgets) = widgetHintParser.Parse(responseUpdate.Text);
+            responseText = responseUpdate.Text;
+            if(widgets != null  && widgets.Count > 0)
+                chatWidgets.AddRange(widgets);
+            yield return new StreamChatTurn(ChatRole.Assistant, responseText, threadId, IsDelta: true);
+        }
+
+        messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.Assistant, responseText, chatWidgets, threadId));
+
+        yield return messages.Turns[messages.Turns.Count - 1];
     }
 
     /// <summary>

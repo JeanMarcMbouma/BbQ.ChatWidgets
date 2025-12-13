@@ -119,7 +119,7 @@ public sealed class FeedbackHandler :
 /// </summary>
 public sealed record EChartsClickPayload(
     string SeriesName,
-    string Value,
+    object? Value,
     string ComponentType,
     string Name
 );
@@ -159,7 +159,7 @@ public sealed class EChartsClickHandler :
     {
         var message = $"Chart interaction detected: You clicked on '{payload.Name}' ";
         
-        if (!string.IsNullOrEmpty(payload.Value))
+        if (payload.Value is not null)
             message += $"with value {payload.Value}";
         
         if (!string.IsNullOrEmpty(payload.SeriesName))

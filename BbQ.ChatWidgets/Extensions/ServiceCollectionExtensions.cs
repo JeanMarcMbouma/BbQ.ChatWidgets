@@ -94,15 +94,28 @@ public static class ServiceCollectionExtensions
     /// Maps BbQ ChatWidgets API endpoints to the application.
     /// </summary>
     /// <remarks>
-    /// This extension method registers middleware that handles two endpoints:
+    /// This extension method registers middleware that handles three endpoints:
     /// - POST {routePrefix}/message: Send user messages and get AI responses with widgets
     /// - POST {routePrefix}/action: Handle widget-triggered actions
+    /// - POST {routePrefix}/agent: Route through triage agent (if registered) or AgentDelegate
+    /// - POST {routePrefix}/stream/message: Stream responses via Server-Sent Events (SSE)
+    /// - POST {routePrefix}/stream/agent: Stream triage agent responses via Server-Sent Events (SSE)
     /// 
     /// The route prefix is configurable via <see cref="BbQChatOptions.RoutePrefix"/> (default: "/api/chat").
     /// 
     /// Request/Response format:
     /// - Content-Type: application/json
     /// - Serialization: camelCase JSON with custom serialization options
+    /// 
+    /// When a triage agent is registered via dependency injection (e.g., through AddTriageAgentSystem()),
+    /// the /agent endpoint will automatically use it for intelligent request routing. If no triage agent
+    /// is registered, it falls back to the AgentDelegate.
+    /// 
+    /// Streaming endpoints use Server-Sent Events (SSE) format:
+    /// - Content-Type: text/event-stream
+    /// - Each ChatTurn is sent as a separate event with "data: {json}" format
+    /// - Final event includes complete ChatTurn with all widgets
+    /// - Delta events flag intermediate updates with IsDelta = true
     /// 
     /// Usage:
     /// <code>
@@ -138,6 +151,18 @@ public static class ServiceCollectionExtensions
                 return;
             }
 
+            if (context.Request.Method == HttpMethods.Post && path == $"{prefix}/stream/message")
+            {
+                await HandleStreamMessageRequest(context);
+                return;
+            }
+
+            if (context.Request.Method == HttpMethods.Post && path == $"{prefix}/stream/agent")
+            {
+                await HandleStreamAgentRequest(context);
+                return;
+            }
+
             await next();
         });
 
@@ -146,16 +171,32 @@ public static class ServiceCollectionExtensions
 
     private static async Task HandleAgentRequest(HttpContext context)
     {
+        // Reset stream position for multiple deserializations
+        context.Request.Body.Position = 0;
         var payload = await DeserializeRequest<UserMessageDto>(context);
-        var dto = await DeserializeRequest<Dictionary<string, object>>(context);
+        
+        // Reset stream position again for metadata deserialization
+        context.Request.Body.Position = 0;
+        var metadata = await DeserializeRequest<Dictionary<string, object>>(context) ?? [];
+        
         var chatRequest = new ChatRequest(payload.ThreadId, context.RequestServices)
         {
-            Metadata = dto
+            Metadata = metadata
         };
-        var agentDelegate = context.RequestServices.GetRequiredService<AgentDelegate>();
-        var ct = context.RequestAborted;
-        var turn = await agentDelegate(chatRequest, ct);
-        await turn.Match(result =>
+
+        // Store user message in metadata for triage agent consumption
+        if (!string.IsNullOrWhiteSpace(payload.Message))
+        {
+            InterAgentCommunicationContext.SetUserMessage(chatRequest, payload.Message);
+        }
+
+        // Try to get a registered triage agent first, fall back to AgentDelegate
+        var triageAgent = context.RequestServices.GetService<IAgent>();
+        var outcome = triageAgent != null
+            ? await triageAgent.InvokeAsync(chatRequest, context.RequestAborted)
+            : await GetAgentDelegate(context.RequestServices).Invoke(chatRequest, context.RequestAborted);
+
+        await outcome.Match(result =>
         {
             return WriteJsonResponse(context, result);
         }, error =>
@@ -163,6 +204,93 @@ public static class ServiceCollectionExtensions
             context.Response.StatusCode = 500;
             return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(new { Error = error }));
         });
+    }
+
+    private static async Task HandleStreamMessageRequest(HttpContext context)
+    {
+        var service = context.RequestServices.GetRequiredService<ChatWidgetService>();
+        var dto = await DeserializeRequest<UserMessageDto>(context);
+        var ct = context.RequestAborted;
+
+        context.Response.ContentType = "text/event-stream";
+        context.Response.Headers.Add("Cache-Control", "no-cache");
+        context.Response.Headers.Add("Connection", "keep-alive");
+
+        await foreach (var turn in service.StreamResponseAsync(dto.Message, dto.ThreadId, ct))
+        {
+            var json = System.Text.Json.JsonSerializer.Serialize(turn, Serialization.Default);
+            await context.Response.WriteAsync($"data: {json}\n\n");
+            await context.Response.Body.FlushAsync(ct);
+        }
+    }
+
+    private static async Task HandleStreamAgentRequest(HttpContext context)
+    {
+        context.Request.Body.Position = 0;
+        var payload = await DeserializeRequest<UserMessageDto>(context);
+        
+        context.Request.Body.Position = 0;
+        var metadata = await DeserializeRequest<Dictionary<string, object>>(context) ?? [];
+        
+        var chatRequest = new ChatRequest(payload.ThreadId, context.RequestServices)
+        {
+            Metadata = metadata
+        };
+
+        if (!string.IsNullOrWhiteSpace(payload.Message))
+        {
+            InterAgentCommunicationContext.SetUserMessage(chatRequest, payload.Message);
+        }
+
+        context.Response.ContentType = "text/event-stream";
+        context.Response.Headers.Add("Cache-Control", "no-cache");
+        context.Response.Headers.Add("Connection", "keep-alive");
+
+        var triageAgent = context.RequestServices.GetService<IAgent>();
+        var ct = context.RequestAborted;
+
+        if (triageAgent != null)
+        {
+            var outcome = await triageAgent.InvokeAsync(chatRequest, ct);
+            await outcome.Match(async result =>
+            {
+                var json = System.Text.Json.JsonSerializer.Serialize(result, Serialization.Default);
+                await context.Response.WriteAsync($"data: {json}\n\n");
+                await context.Response.Body.FlushAsync(ct);
+                return Task.CompletedTask;
+            }, async error =>
+            {
+                context.Response.StatusCode = 500;
+                var errorJson = System.Text.Json.JsonSerializer.Serialize(new { Error = error });
+                await context.Response.WriteAsync($"data: {errorJson}\n\n");
+                await context.Response.Body.FlushAsync(ct);
+                return Task.CompletedTask;
+            });
+        }
+        else
+        {
+            var agentDelegate = GetAgentDelegate(context.RequestServices);
+            var outcome = await agentDelegate(chatRequest, ct);
+            await outcome.Match(async result =>
+            {
+                var json = System.Text.Json.JsonSerializer.Serialize(result, Serialization.Default);
+                await context.Response.WriteAsync($"data: {json}\n\n");
+                await context.Response.Body.FlushAsync(ct);
+                return Task.CompletedTask;
+            }, async error =>
+            {
+                context.Response.StatusCode = 500;
+                var errorJson = System.Text.Json.JsonSerializer.Serialize(new { Error = error });
+                await context.Response.WriteAsync($"data: {errorJson}\n\n");
+                await context.Response.Body.FlushAsync(ct);
+                return Task.CompletedTask;
+            });
+        }
+    }
+
+    private static AgentDelegate GetAgentDelegate(IServiceProvider serviceProvider)
+    {
+        return serviceProvider.GetRequiredService<AgentDelegate>();
     }
 
     /// <summary>

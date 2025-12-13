@@ -1,0 +1,620 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver
+  commentId: T:BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver
+  id: DefaultWidgetActionHandlerResolver
+  parent: BbQ.ChatWidgets.Services
+  children:
+  - BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.#ctor
+  - BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.RegisterHandler(System.String,System.Type)
+  - BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.ResolveHandler(System.String,System.IServiceProvider)
+  langs:
+  - csharp
+  - vb
+  name: DefaultWidgetActionHandlerResolver
+  nameWithType: DefaultWidgetActionHandlerResolver
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver
+  type: Class
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Services/WidgetActionHandlerResolver.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Services
+  summary: Default implementation of <xref href="BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver" data-throw-if-not-resolved="false"></xref>.
+  remarks: >-
+    This resolver maintains a mapping from action names to handler types. When an action is triggered,
+
+    the resolver looks up the corresponding handler type and resolves an instance from the service provider.
+
+
+    The resolver:
+
+    - Stores action-to-handler type mappings
+
+    - Resolves handler instances from the service provider
+
+    - Handles resolution failures gracefully by returning null
+  example: []
+  syntax:
+    content: 'public sealed class DefaultWidgetActionHandlerResolver : IWidgetActionHandlerResolver'
+    content.vb: Public NotInheritable Class DefaultWidgetActionHandlerResolver Implements IWidgetActionHandlerResolver
+  inheritance:
+  - System.Object
+  implements:
+  - BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+  inheritedMembers:
+  - System.Object.GetType
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.ResolveHandler(System.String,System.IServiceProvider)
+  commentId: M:BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.ResolveHandler(System.String,System.IServiceProvider)
+  id: ResolveHandler(System.String,System.IServiceProvider)
+  parent: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver
+  langs:
+  - csharp
+  - vb
+  name: ResolveHandler(string, IServiceProvider)
+  nameWithType: DefaultWidgetActionHandlerResolver.ResolveHandler(string, IServiceProvider)
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.ResolveHandler(string, System.IServiceProvider)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Services/WidgetActionHandlerResolver.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Services
+  summary: Resolves a handler instance for a specific widget action.
+  remarks: >-
+    This method:
+
+    1. Looks up the handler type for the action name
+
+    2. Uses the service provider to create an instance
+
+    3. Returns null if the action is not registered or resolution fails
+
+
+    Failures are handled gracefully, allowing the caller to handle missing handlers appropriately.
+  example: []
+  syntax:
+    content: public object? ResolveHandler(string actionName, IServiceProvider serviceProvider)
+    parameters:
+    - id: actionName
+      type: System.String
+      description: The name of the action.
+    - id: serviceProvider
+      type: System.IServiceProvider
+      description: The dependency injection container for resolving the handler.
+    return:
+      type: System.Object
+      description: An instance of the handler, or null if not registered or resolution failed.
+    content.vb: Public Function ResolveHandler(actionName As String, serviceProvider As IServiceProvider) As Object
+  overload: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.ResolveHandler*
+  implements:
+  - BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.ResolveHandler(System.String,System.IServiceProvider)
+  nameWithType.vb: DefaultWidgetActionHandlerResolver.ResolveHandler(String, IServiceProvider)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.ResolveHandler(String, System.IServiceProvider)
+  name.vb: ResolveHandler(String, IServiceProvider)
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.RegisterHandler(System.String,System.Type)
+  commentId: M:BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.RegisterHandler(System.String,System.Type)
+  id: RegisterHandler(System.String,System.Type)
+  parent: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver
+  langs:
+  - csharp
+  - vb
+  name: RegisterHandler(string, Type)
+  nameWithType: DefaultWidgetActionHandlerResolver.RegisterHandler(string, Type)
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.RegisterHandler(string, System.Type)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Services/WidgetActionHandlerResolver.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Services
+  summary: Registers a handler type for a specific widget action.
+  remarks: >-
+    Maps an action name to its corresponding handler type. The handler will be instantiated
+
+    from the service provider when the action is triggered. Each action can have only one
+
+    handler; subsequent registrations with the same action name will override the previous mapping.
+  example: []
+  syntax:
+    content: public void RegisterHandler(string actionName, Type handlerType)
+    parameters:
+    - id: actionName
+      type: System.String
+      description: The unique name of the action.
+    - id: handlerType
+      type: System.Type
+      description: The CLR type of the handler — typically implements <code>IActionWidgetActionHandler{TWidgetAction, T}</code>.
+    content.vb: Public Sub RegisterHandler(actionName As String, handlerType As Type)
+  overload: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.RegisterHandler*
+  exceptions:
+  - type: System.ArgumentException
+    commentId: T:System.ArgumentException
+    description: Thrown if actionName is null, empty, or whitespace.
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if handlerType is null.
+  implements:
+  - BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.RegisterHandler(System.String,System.Type)
+  nameWithType.vb: DefaultWidgetActionHandlerResolver.RegisterHandler(String, Type)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.RegisterHandler(String, System.Type)
+  name.vb: RegisterHandler(String, Type)
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.#ctor
+  commentId: M:BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.#ctor
+  id: '#ctor'
+  parent: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver
+  langs:
+  - csharp
+  - vb
+  name: DefaultWidgetActionHandlerResolver()
+  nameWithType: DefaultWidgetActionHandlerResolver.DefaultWidgetActionHandlerResolver()
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.DefaultWidgetActionHandlerResolver()
+  type: Constructor
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Services/WidgetActionHandlerResolver.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Services
+  syntax:
+    content: public DefaultWidgetActionHandlerResolver()
+    content.vb: Public Sub New()
+  overload: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.#ctor*
+  nameWithType.vb: DefaultWidgetActionHandlerResolver.New()
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.New()
+  name.vb: New()
+references:
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html
+  name: IWidgetActionHandlerResolver
+  nameWithType: IWidgetActionHandlerResolver
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+- uid: BbQ.ChatWidgets.Services
+  commentId: N:BbQ.ChatWidgets.Services
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Services
+  nameWithType: BbQ.ChatWidgets.Services
+  fullName: BbQ.ChatWidgets.Services
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Services
+    name: Services
+    isExternal: true
+    href: BbQ.ChatWidgets.Services.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Services
+    name: Services
+    isExternal: true
+    href: BbQ.ChatWidgets.Services.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: BbQ.ChatWidgets.Abstractions
+  commentId: N:BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Abstractions
+  nameWithType: BbQ.ChatWidgets.Abstractions
+  fullName: BbQ.ChatWidgets.Abstractions
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.ResolveHandler*
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.ResolveHandler
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.html#BbQ_ChatWidgets_Services_DefaultWidgetActionHandlerResolver_ResolveHandler_System_String_System_IServiceProvider_
+  name: ResolveHandler
+  nameWithType: DefaultWidgetActionHandlerResolver.ResolveHandler
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.ResolveHandler
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.ResolveHandler(System.String,System.IServiceProvider)
+  commentId: M:BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.ResolveHandler(System.String,System.IServiceProvider)
+  parent: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html#BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_ResolveHandler_System_String_System_IServiceProvider_
+  name: ResolveHandler(string, IServiceProvider)
+  nameWithType: IWidgetActionHandlerResolver.ResolveHandler(string, IServiceProvider)
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.ResolveHandler(string, System.IServiceProvider)
+  nameWithType.vb: IWidgetActionHandlerResolver.ResolveHandler(String, IServiceProvider)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.ResolveHandler(String, System.IServiceProvider)
+  name.vb: ResolveHandler(String, IServiceProvider)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.ResolveHandler(System.String,System.IServiceProvider)
+    name: ResolveHandler
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html#BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_ResolveHandler_System_String_System_IServiceProvider_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.IServiceProvider
+    name: IServiceProvider
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iserviceprovider
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.ResolveHandler(System.String,System.IServiceProvider)
+    name: ResolveHandler
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html#BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_ResolveHandler_System_String_System_IServiceProvider_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.IServiceProvider
+    name: IServiceProvider
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iserviceprovider
+  - name: )
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.IServiceProvider
+  commentId: T:System.IServiceProvider
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iserviceprovider
+  name: IServiceProvider
+  nameWithType: IServiceProvider
+  fullName: System.IServiceProvider
+- uid: System.ArgumentException
+  commentId: T:System.ArgumentException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentexception
+  name: ArgumentException
+  nameWithType: ArgumentException
+  fullName: System.ArgumentException
+- uid: System.ArgumentNullException
+  commentId: T:System.ArgumentNullException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentnullexception
+  name: ArgumentNullException
+  nameWithType: ArgumentNullException
+  fullName: System.ArgumentNullException
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.RegisterHandler*
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.RegisterHandler
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.html#BbQ_ChatWidgets_Services_DefaultWidgetActionHandlerResolver_RegisterHandler_System_String_System_Type_
+  name: RegisterHandler
+  nameWithType: DefaultWidgetActionHandlerResolver.RegisterHandler
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.RegisterHandler
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.RegisterHandler(System.String,System.Type)
+  commentId: M:BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.RegisterHandler(System.String,System.Type)
+  parent: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html#BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_RegisterHandler_System_String_System_Type_
+  name: RegisterHandler(string, Type)
+  nameWithType: IWidgetActionHandlerResolver.RegisterHandler(string, Type)
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.RegisterHandler(string, System.Type)
+  nameWithType.vb: IWidgetActionHandlerResolver.RegisterHandler(String, Type)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.RegisterHandler(String, System.Type)
+  name.vb: RegisterHandler(String, Type)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.RegisterHandler(System.String,System.Type)
+    name: RegisterHandler
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html#BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_RegisterHandler_System_String_System_Type_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.RegisterHandler(System.String,System.Type)
+    name: RegisterHandler
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html#BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_RegisterHandler_System_String_System_Type_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Type
+    name: Type
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.type
+  - name: )
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.#ctor*
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.#ctor
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.html#BbQ_ChatWidgets_Services_DefaultWidgetActionHandlerResolver__ctor
+  name: DefaultWidgetActionHandlerResolver
+  nameWithType: DefaultWidgetActionHandlerResolver.DefaultWidgetActionHandlerResolver
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.DefaultWidgetActionHandlerResolver
+  nameWithType.vb: DefaultWidgetActionHandlerResolver.New
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.New
+  name.vb: New

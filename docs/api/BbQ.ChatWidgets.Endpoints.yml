@@ -1,0 +1,71 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Endpoints
+  commentId: N:BbQ.ChatWidgets.Endpoints
+  id: BbQ.ChatWidgets.Endpoints
+  children:
+  - BbQ.ChatWidgets.Endpoints.UserMessageDto
+  - BbQ.ChatWidgets.Endpoints.WidgetActionDto
+  langs:
+  - csharp
+  - vb
+  name: BbQ.ChatWidgets.Endpoints
+  nameWithType: BbQ.ChatWidgets.Endpoints
+  fullName: BbQ.ChatWidgets.Endpoints
+  type: Namespace
+  assemblies:
+  - BbQ.ChatWidgets
+references:
+- uid: BbQ.ChatWidgets.Endpoints.UserMessageDto
+  commentId: T:BbQ.ChatWidgets.Endpoints.UserMessageDto
+  parent: BbQ.ChatWidgets.Endpoints
+  isExternal: true
+  href: BbQ.ChatWidgets.Endpoints.UserMessageDto.html
+  name: UserMessageDto
+  nameWithType: UserMessageDto
+  fullName: BbQ.ChatWidgets.Endpoints.UserMessageDto
+- uid: BbQ.ChatWidgets.Endpoints.WidgetActionDto
+  commentId: T:BbQ.ChatWidgets.Endpoints.WidgetActionDto
+  parent: BbQ.ChatWidgets.Endpoints
+  isExternal: true
+  href: BbQ.ChatWidgets.Endpoints.WidgetActionDto.html
+  name: WidgetActionDto
+  nameWithType: WidgetActionDto
+  fullName: BbQ.ChatWidgets.Endpoints.WidgetActionDto
+- uid: BbQ.ChatWidgets.Endpoints
+  commentId: N:BbQ.ChatWidgets.Endpoints
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Endpoints
+  nameWithType: BbQ.ChatWidgets.Endpoints
+  fullName: BbQ.ChatWidgets.Endpoints
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Endpoints
+    name: Endpoints
+    isExternal: true
+    href: BbQ.ChatWidgets.Endpoints.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Endpoints
+    name: Endpoints
+    isExternal: true
+    href: BbQ.ChatWidgets.Endpoints.html

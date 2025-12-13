@@ -1,0 +1,670 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext
+  commentId: T:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext
+  id: InterAgentCommunicationContext
+  parent: BbQ.ChatWidgets.Agents
+  children:
+  - BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.#ctor
+  - BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetClassification``1(BbQ.ChatWidgets.Agents.ChatRequest)
+  - BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetPreviousResult(BbQ.ChatWidgets.Agents.ChatRequest)
+  - BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetRoutedAgent(BbQ.ChatWidgets.Agents.ChatRequest)
+  - BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetUserMessage(BbQ.ChatWidgets.Agents.ChatRequest)
+  - BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetClassification``1(BbQ.ChatWidgets.Agents.ChatRequest,``0)
+  - BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetPreviousResult(BbQ.ChatWidgets.Agents.ChatRequest,System.Object)
+  - BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetRoutedAgent(BbQ.ChatWidgets.Agents.ChatRequest,System.String)
+  - BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetUserMessage(BbQ.ChatWidgets.Agents.ChatRequest,System.String)
+  langs:
+  - csharp
+  - vb
+  name: InterAgentCommunicationContext
+  nameWithType: InterAgentCommunicationContext
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext
+  type: Class
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/InterAgentCommunicationContext.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  summary: Context for facilitating communication between agents in the pipeline.
+  remarks: >-
+    This class provides a structured way for agents to share information
+
+    through the ChatRequest metadata. It encapsulates the classification
+
+    results, routing decisions, and previous agent outputs.
+  example: []
+  syntax:
+    content: public sealed class InterAgentCommunicationContext
+    content.vb: Public NotInheritable Class InterAgentCommunicationContext
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.GetType
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetClassification``1(BbQ.ChatWidgets.Agents.ChatRequest,``0)
+  commentId: M:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetClassification``1(BbQ.ChatWidgets.Agents.ChatRequest,``0)
+  id: SetClassification``1(BbQ.ChatWidgets.Agents.ChatRequest,``0)
+  parent: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext
+  langs:
+  - csharp
+  - vb
+  name: SetClassification<TCategory>(ChatRequest, TCategory)
+  nameWithType: InterAgentCommunicationContext.SetClassification<TCategory>(ChatRequest, TCategory)
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetClassification<TCategory>(BbQ.ChatWidgets.Agents.ChatRequest, TCategory)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/InterAgentCommunicationContext.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  summary: Sets the classification result in the request metadata.
+  example: []
+  syntax:
+    content: 'public static void SetClassification<TCategory>(ChatRequest request, TCategory category) where TCategory : Enum'
+    parameters:
+    - id: request
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+      description: The chat request.
+    - id: category
+      type: '{TCategory}'
+      description: The classification category.
+    typeParameters:
+    - id: TCategory
+      description: The enum type of the classification.
+    content.vb: Public Shared Sub SetClassification(Of TCategory As [Enum])(request As ChatRequest, category As TCategory)
+  overload: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetClassification*
+  nameWithType.vb: InterAgentCommunicationContext.SetClassification(Of TCategory)(ChatRequest, TCategory)
+  fullName.vb: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetClassification(Of TCategory)(BbQ.ChatWidgets.Agents.ChatRequest, TCategory)
+  name.vb: SetClassification(Of TCategory)(ChatRequest, TCategory)
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetClassification``1(BbQ.ChatWidgets.Agents.ChatRequest)
+  commentId: M:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetClassification``1(BbQ.ChatWidgets.Agents.ChatRequest)
+  id: GetClassification``1(BbQ.ChatWidgets.Agents.ChatRequest)
+  parent: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext
+  langs:
+  - csharp
+  - vb
+  name: GetClassification<TCategory>(ChatRequest)
+  nameWithType: InterAgentCommunicationContext.GetClassification<TCategory>(ChatRequest)
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetClassification<TCategory>(BbQ.ChatWidgets.Agents.ChatRequest)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/InterAgentCommunicationContext.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  summary: Gets the classification result from the request metadata.
+  example: []
+  syntax:
+    content: 'public static TCategory? GetClassification<TCategory>(ChatRequest request) where TCategory : Enum'
+    parameters:
+    - id: request
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+      description: The chat request.
+    typeParameters:
+    - id: TCategory
+      description: The enum type of the classification.
+    return:
+      type: '{TCategory}'
+      description: The classification category, or null if not set.
+    content.vb: Public Shared Function GetClassification(Of TCategory As [Enum])(request As ChatRequest) As TCategory
+  overload: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetClassification*
+  nameWithType.vb: InterAgentCommunicationContext.GetClassification(Of TCategory)(ChatRequest)
+  fullName.vb: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetClassification(Of TCategory)(BbQ.ChatWidgets.Agents.ChatRequest)
+  name.vb: GetClassification(Of TCategory)(ChatRequest)
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetUserMessage(BbQ.ChatWidgets.Agents.ChatRequest,System.String)
+  commentId: M:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetUserMessage(BbQ.ChatWidgets.Agents.ChatRequest,System.String)
+  id: SetUserMessage(BbQ.ChatWidgets.Agents.ChatRequest,System.String)
+  parent: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext
+  langs:
+  - csharp
+  - vb
+  name: SetUserMessage(ChatRequest, string)
+  nameWithType: InterAgentCommunicationContext.SetUserMessage(ChatRequest, string)
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetUserMessage(BbQ.ChatWidgets.Agents.ChatRequest, string)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/InterAgentCommunicationContext.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  summary: Sets the user message in the request metadata.
+  example: []
+  syntax:
+    content: public static void SetUserMessage(ChatRequest request, string message)
+    parameters:
+    - id: request
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+      description: The chat request.
+    - id: message
+      type: System.String
+      description: The user message.
+    content.vb: Public Shared Sub SetUserMessage(request As ChatRequest, message As String)
+  overload: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetUserMessage*
+  nameWithType.vb: InterAgentCommunicationContext.SetUserMessage(ChatRequest, String)
+  fullName.vb: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetUserMessage(BbQ.ChatWidgets.Agents.ChatRequest, String)
+  name.vb: SetUserMessage(ChatRequest, String)
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetUserMessage(BbQ.ChatWidgets.Agents.ChatRequest)
+  commentId: M:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetUserMessage(BbQ.ChatWidgets.Agents.ChatRequest)
+  id: GetUserMessage(BbQ.ChatWidgets.Agents.ChatRequest)
+  parent: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext
+  langs:
+  - csharp
+  - vb
+  name: GetUserMessage(ChatRequest)
+  nameWithType: InterAgentCommunicationContext.GetUserMessage(ChatRequest)
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetUserMessage(BbQ.ChatWidgets.Agents.ChatRequest)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/InterAgentCommunicationContext.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  summary: Gets the user message from the request metadata.
+  example: []
+  syntax:
+    content: public static string? GetUserMessage(ChatRequest request)
+    parameters:
+    - id: request
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+      description: The chat request.
+    return:
+      type: System.String
+      description: The user message, or null if not set.
+    content.vb: Public Shared Function GetUserMessage(request As ChatRequest) As String
+  overload: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetUserMessage*
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetRoutedAgent(BbQ.ChatWidgets.Agents.ChatRequest,System.String)
+  commentId: M:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetRoutedAgent(BbQ.ChatWidgets.Agents.ChatRequest,System.String)
+  id: SetRoutedAgent(BbQ.ChatWidgets.Agents.ChatRequest,System.String)
+  parent: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext
+  langs:
+  - csharp
+  - vb
+  name: SetRoutedAgent(ChatRequest, string)
+  nameWithType: InterAgentCommunicationContext.SetRoutedAgent(ChatRequest, string)
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetRoutedAgent(BbQ.ChatWidgets.Agents.ChatRequest, string)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/InterAgentCommunicationContext.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  summary: Sets the routed agent name in the request metadata.
+  example: []
+  syntax:
+    content: public static void SetRoutedAgent(ChatRequest request, string agentName)
+    parameters:
+    - id: request
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+      description: The chat request.
+    - id: agentName
+      type: System.String
+      description: The name of the routed agent.
+    content.vb: Public Shared Sub SetRoutedAgent(request As ChatRequest, agentName As String)
+  overload: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetRoutedAgent*
+  nameWithType.vb: InterAgentCommunicationContext.SetRoutedAgent(ChatRequest, String)
+  fullName.vb: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetRoutedAgent(BbQ.ChatWidgets.Agents.ChatRequest, String)
+  name.vb: SetRoutedAgent(ChatRequest, String)
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetRoutedAgent(BbQ.ChatWidgets.Agents.ChatRequest)
+  commentId: M:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetRoutedAgent(BbQ.ChatWidgets.Agents.ChatRequest)
+  id: GetRoutedAgent(BbQ.ChatWidgets.Agents.ChatRequest)
+  parent: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext
+  langs:
+  - csharp
+  - vb
+  name: GetRoutedAgent(ChatRequest)
+  nameWithType: InterAgentCommunicationContext.GetRoutedAgent(ChatRequest)
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetRoutedAgent(BbQ.ChatWidgets.Agents.ChatRequest)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/InterAgentCommunicationContext.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  summary: Gets the routed agent name from the request metadata.
+  example: []
+  syntax:
+    content: public static string? GetRoutedAgent(ChatRequest request)
+    parameters:
+    - id: request
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+      description: The chat request.
+    return:
+      type: System.String
+      description: The routed agent name, or null if not set.
+    content.vb: Public Shared Function GetRoutedAgent(request As ChatRequest) As String
+  overload: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetRoutedAgent*
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetPreviousResult(BbQ.ChatWidgets.Agents.ChatRequest,System.Object)
+  commentId: M:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetPreviousResult(BbQ.ChatWidgets.Agents.ChatRequest,System.Object)
+  id: SetPreviousResult(BbQ.ChatWidgets.Agents.ChatRequest,System.Object)
+  parent: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext
+  langs:
+  - csharp
+  - vb
+  name: SetPreviousResult(ChatRequest, object)
+  nameWithType: InterAgentCommunicationContext.SetPreviousResult(ChatRequest, object)
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetPreviousResult(BbQ.ChatWidgets.Agents.ChatRequest, object)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/InterAgentCommunicationContext.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  summary: Sets the previous agent's result for inter-agent communication.
+  example: []
+  syntax:
+    content: public static void SetPreviousResult(ChatRequest request, object result)
+    parameters:
+    - id: request
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+      description: The chat request.
+    - id: result
+      type: System.Object
+      description: The result from a previous agent.
+    content.vb: Public Shared Sub SetPreviousResult(request As ChatRequest, result As Object)
+  overload: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetPreviousResult*
+  nameWithType.vb: InterAgentCommunicationContext.SetPreviousResult(ChatRequest, Object)
+  fullName.vb: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetPreviousResult(BbQ.ChatWidgets.Agents.ChatRequest, Object)
+  name.vb: SetPreviousResult(ChatRequest, Object)
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetPreviousResult(BbQ.ChatWidgets.Agents.ChatRequest)
+  commentId: M:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetPreviousResult(BbQ.ChatWidgets.Agents.ChatRequest)
+  id: GetPreviousResult(BbQ.ChatWidgets.Agents.ChatRequest)
+  parent: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext
+  langs:
+  - csharp
+  - vb
+  name: GetPreviousResult(ChatRequest)
+  nameWithType: InterAgentCommunicationContext.GetPreviousResult(ChatRequest)
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetPreviousResult(BbQ.ChatWidgets.Agents.ChatRequest)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/InterAgentCommunicationContext.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  summary: Gets the previous agent's result from the request metadata.
+  example: []
+  syntax:
+    content: public static object? GetPreviousResult(ChatRequest request)
+    parameters:
+    - id: request
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+      description: The chat request.
+    return:
+      type: System.Object
+      description: The previous agent result, or null if not set.
+    content.vb: Public Shared Function GetPreviousResult(request As ChatRequest) As Object
+  overload: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetPreviousResult*
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.#ctor
+  commentId: M:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.#ctor
+  id: '#ctor'
+  parent: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext
+  langs:
+  - csharp
+  - vb
+  name: InterAgentCommunicationContext()
+  nameWithType: InterAgentCommunicationContext.InterAgentCommunicationContext()
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.InterAgentCommunicationContext()
+  type: Constructor
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/InterAgentCommunicationContext.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  syntax:
+    content: public InterAgentCommunicationContext()
+    content.vb: Public Sub New()
+  overload: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.#ctor*
+  nameWithType.vb: InterAgentCommunicationContext.New()
+  fullName.vb: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.New()
+  name.vb: New()
+references:
+- uid: BbQ.ChatWidgets.Agents
+  commentId: N:BbQ.ChatWidgets.Agents
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Agents
+  nameWithType: BbQ.ChatWidgets.Agents
+  fullName: BbQ.ChatWidgets.Agents
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetClassification*
+  commentId: Overload:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetClassification
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html#BbQ_ChatWidgets_Agents_InterAgentCommunicationContext_SetClassification__1_BbQ_ChatWidgets_Agents_ChatRequest___0_
+  name: SetClassification
+  nameWithType: InterAgentCommunicationContext.SetClassification
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetClassification
+- uid: BbQ.ChatWidgets.Agents.ChatRequest
+  commentId: T:BbQ.ChatWidgets.Agents.ChatRequest
+  parent: BbQ.ChatWidgets.Agents
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.ChatRequest.html
+  name: ChatRequest
+  nameWithType: ChatRequest
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest
+- uid: '{TCategory}'
+  commentId: '!:TCategory'
+  definition: TCategory
+  name: TCategory
+  nameWithType: TCategory
+  fullName: TCategory
+- uid: TCategory
+  name: TCategory
+  nameWithType: TCategory
+  fullName: TCategory
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetClassification*
+  commentId: Overload:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetClassification
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html#BbQ_ChatWidgets_Agents_InterAgentCommunicationContext_GetClassification__1_BbQ_ChatWidgets_Agents_ChatRequest_
+  name: GetClassification
+  nameWithType: InterAgentCommunicationContext.GetClassification
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetClassification
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetUserMessage*
+  commentId: Overload:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetUserMessage
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html#BbQ_ChatWidgets_Agents_InterAgentCommunicationContext_SetUserMessage_BbQ_ChatWidgets_Agents_ChatRequest_System_String_
+  name: SetUserMessage
+  nameWithType: InterAgentCommunicationContext.SetUserMessage
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetUserMessage
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetUserMessage*
+  commentId: Overload:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetUserMessage
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html#BbQ_ChatWidgets_Agents_InterAgentCommunicationContext_GetUserMessage_BbQ_ChatWidgets_Agents_ChatRequest_
+  name: GetUserMessage
+  nameWithType: InterAgentCommunicationContext.GetUserMessage
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetUserMessage
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetRoutedAgent*
+  commentId: Overload:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetRoutedAgent
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html#BbQ_ChatWidgets_Agents_InterAgentCommunicationContext_SetRoutedAgent_BbQ_ChatWidgets_Agents_ChatRequest_System_String_
+  name: SetRoutedAgent
+  nameWithType: InterAgentCommunicationContext.SetRoutedAgent
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetRoutedAgent
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetRoutedAgent*
+  commentId: Overload:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetRoutedAgent
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html#BbQ_ChatWidgets_Agents_InterAgentCommunicationContext_GetRoutedAgent_BbQ_ChatWidgets_Agents_ChatRequest_
+  name: GetRoutedAgent
+  nameWithType: InterAgentCommunicationContext.GetRoutedAgent
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetRoutedAgent
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetPreviousResult*
+  commentId: Overload:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetPreviousResult
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html#BbQ_ChatWidgets_Agents_InterAgentCommunicationContext_SetPreviousResult_BbQ_ChatWidgets_Agents_ChatRequest_System_Object_
+  name: SetPreviousResult
+  nameWithType: InterAgentCommunicationContext.SetPreviousResult
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetPreviousResult
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetPreviousResult*
+  commentId: Overload:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetPreviousResult
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html#BbQ_ChatWidgets_Agents_InterAgentCommunicationContext_GetPreviousResult_BbQ_ChatWidgets_Agents_ChatRequest_
+  name: GetPreviousResult
+  nameWithType: InterAgentCommunicationContext.GetPreviousResult
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetPreviousResult
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.#ctor*
+  commentId: Overload:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.#ctor
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html#BbQ_ChatWidgets_Agents_InterAgentCommunicationContext__ctor
+  name: InterAgentCommunicationContext
+  nameWithType: InterAgentCommunicationContext.InterAgentCommunicationContext
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.InterAgentCommunicationContext
+  nameWithType.vb: InterAgentCommunicationContext.New
+  fullName.vb: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.New
+  name.vb: New

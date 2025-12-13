@@ -1,0 +1,368 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry
+  commentId: T:BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry
+  id: IAgentRegistry
+  parent: BbQ.ChatWidgets.Agents.Abstractions
+  children:
+  - BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetAgent(System.String)
+  - BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetRegisteredAgents
+  - BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.HasAgent(System.String)
+  - BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register(System.String,BbQ.ChatWidgets.Agents.Abstractions.IAgent)
+  langs:
+  - csharp
+  - vb
+  name: IAgentRegistry
+  nameWithType: IAgentRegistry
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry
+  type: Interface
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/Abstractions/IAgentRegistry.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents.Abstractions
+  summary: Registry for managing and routing to specialized agents.
+  remarks: >-
+    The agent registry maintains a collection of named agents that can be
+
+    invoked based on routing decisions from the triage agent or classifier.
+
+    This enables modular agent composition and dynamic agent selection.
+  example: []
+  syntax:
+    content: public interface IAgentRegistry
+    content.vb: Public Interface IAgentRegistry
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register(System.String,BbQ.ChatWidgets.Agents.Abstractions.IAgent)
+  commentId: M:BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register(System.String,BbQ.ChatWidgets.Agents.Abstractions.IAgent)
+  id: Register(System.String,BbQ.ChatWidgets.Agents.Abstractions.IAgent)
+  parent: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry
+  langs:
+  - csharp
+  - vb
+  name: Register(string, IAgent)
+  nameWithType: IAgentRegistry.Register(string, IAgent)
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register(string, BbQ.ChatWidgets.Agents.Abstractions.IAgent)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/Abstractions/IAgentRegistry.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents.Abstractions
+  summary: Registers an agent with a given name.
+  example: []
+  syntax:
+    content: void Register(string name, IAgent agent)
+    parameters:
+    - id: name
+      type: System.String
+      description: The unique identifier for the agent.
+    - id: agent
+      type: BbQ.ChatWidgets.Agents.Abstractions.IAgent
+      description: The agent instance to register.
+    content.vb: Sub Register(name As String, agent As IAgent)
+  overload: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register*
+  nameWithType.vb: IAgentRegistry.Register(String, IAgent)
+  fullName.vb: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register(String, BbQ.ChatWidgets.Agents.Abstractions.IAgent)
+  name.vb: Register(String, IAgent)
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetAgent(System.String)
+  commentId: M:BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetAgent(System.String)
+  id: GetAgent(System.String)
+  parent: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry
+  langs:
+  - csharp
+  - vb
+  name: GetAgent(string)
+  nameWithType: IAgentRegistry.GetAgent(string)
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetAgent(string)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/Abstractions/IAgentRegistry.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents.Abstractions
+  summary: Retrieves an agent by name.
+  example: []
+  syntax:
+    content: IAgent? GetAgent(string name)
+    parameters:
+    - id: name
+      type: System.String
+      description: The agent name to retrieve.
+    return:
+      type: BbQ.ChatWidgets.Agents.Abstractions.IAgent
+      description: The agent instance, or null if not found.
+    content.vb: Function GetAgent(name As String) As IAgent
+  overload: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetAgent*
+  nameWithType.vb: IAgentRegistry.GetAgent(String)
+  fullName.vb: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetAgent(String)
+  name.vb: GetAgent(String)
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetRegisteredAgents
+  commentId: M:BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetRegisteredAgents
+  id: GetRegisteredAgents
+  parent: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry
+  langs:
+  - csharp
+  - vb
+  name: GetRegisteredAgents()
+  nameWithType: IAgentRegistry.GetRegisteredAgents()
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetRegisteredAgents()
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/Abstractions/IAgentRegistry.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents.Abstractions
+  summary: Gets all registered agent names.
+  example: []
+  syntax:
+    content: IEnumerable<string> GetRegisteredAgents()
+    return:
+      type: System.Collections.Generic.IEnumerable{System.String}
+      description: A collection of registered agent names.
+    content.vb: Function GetRegisteredAgents() As IEnumerable(Of String)
+  overload: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetRegisteredAgents*
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.HasAgent(System.String)
+  commentId: M:BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.HasAgent(System.String)
+  id: HasAgent(System.String)
+  parent: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry
+  langs:
+  - csharp
+  - vb
+  name: HasAgent(string)
+  nameWithType: IAgentRegistry.HasAgent(string)
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.HasAgent(string)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/Abstractions/IAgentRegistry.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents.Abstractions
+  summary: Checks if an agent is registered.
+  example: []
+  syntax:
+    content: bool HasAgent(string name)
+    parameters:
+    - id: name
+      type: System.String
+      description: The agent name to check.
+    return:
+      type: System.Boolean
+      description: True if the agent is registered; otherwise, false.
+    content.vb: Function HasAgent(name As String) As Boolean
+  overload: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.HasAgent*
+  nameWithType.vb: IAgentRegistry.HasAgent(String)
+  fullName.vb: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.HasAgent(String)
+  name.vb: HasAgent(String)
+references:
+- uid: BbQ.ChatWidgets.Agents.Abstractions
+  commentId: N:BbQ.ChatWidgets.Agents.Abstractions
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Agents.Abstractions
+  nameWithType: BbQ.ChatWidgets.Agents.Abstractions
+  fullName: BbQ.ChatWidgets.Agents.Abstractions
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.Abstractions.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.Abstractions.html
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register*
+  commentId: Overload:BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.html#BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_Register_System_String_BbQ_ChatWidgets_Agents_Abstractions_IAgent_
+  name: Register
+  nameWithType: IAgentRegistry.Register
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgent
+  commentId: T:BbQ.ChatWidgets.Agents.Abstractions.IAgent
+  parent: BbQ.ChatWidgets.Agents.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.Abstractions.IAgent.html
+  name: IAgent
+  nameWithType: IAgent
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgent
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetAgent*
+  commentId: Overload:BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetAgent
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.html#BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_GetAgent_System_String_
+  name: GetAgent
+  nameWithType: IAgentRegistry.GetAgent
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetAgent
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetRegisteredAgents*
+  commentId: Overload:BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetRegisteredAgents
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.html#BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_GetRegisteredAgents
+  name: GetRegisteredAgents
+  nameWithType: IAgentRegistry.GetRegisteredAgents
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetRegisteredAgents
+- uid: System.Collections.Generic.IEnumerable{System.String}
+  commentId: T:System.Collections.Generic.IEnumerable{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<string>
+  nameWithType: IEnumerable<string>
+  fullName: System.Collections.Generic.IEnumerable<string>
+  nameWithType.vb: IEnumerable(Of String)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of String)
+  name.vb: IEnumerable(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.HasAgent*
+  commentId: Overload:BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.HasAgent
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.html#BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_HasAgent_System_String_
+  name: HasAgent
+  nameWithType: IAgentRegistry.HasAgent
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.HasAgent
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean

@@ -1,0 +1,24 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Extensions
+  commentId: N:BbQ.ChatWidgets.Extensions
+  id: BbQ.ChatWidgets.Extensions
+  children:
+  - BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions
+  langs:
+  - csharp
+  - vb
+  name: BbQ.ChatWidgets.Extensions
+  nameWithType: BbQ.ChatWidgets.Extensions
+  fullName: BbQ.ChatWidgets.Extensions
+  type: Namespace
+  assemblies:
+  - BbQ.ChatWidgets
+references:
+- uid: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions
+  commentId: T:BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions
+  isExternal: true
+  href: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.html
+  name: ServiceCollectionExtensions
+  nameWithType: ServiceCollectionExtensions
+  fullName: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions

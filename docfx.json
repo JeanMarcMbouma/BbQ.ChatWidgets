@@ -18,15 +18,12 @@
     "resource": [
       {
         "files": [
-          "**/*.*",
-          "!**/*.csproj",
-          "!**/*.dll",
-          "!**/*.xml"
-          ,
-          "!**/node_modules/**",
-          "!js/node_modules/**",
-          "!**/ClientApp/**/node_modules/**",
-          "!Sample/**/node_modules/**"
+          "docs/**",
+          "styles/**",
+          "favicon.ico",
+          "logo.svg",
+          "manifest.json",
+          "search-stopwords.json"
         ]
       }
     ],

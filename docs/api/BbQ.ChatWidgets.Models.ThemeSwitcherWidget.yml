@@ -1,0 +1,1415 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  commentId: T:BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  id: ThemeSwitcherWidget
+  parent: BbQ.ChatWidgets.Models
+  children:
+  - BbQ.ChatWidgets.Models.ThemeSwitcherWidget.#ctor(System.String,System.String,System.Collections.Generic.IReadOnlyList{System.String})
+  - BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Deconstruct(System.String@,System.String@,System.Collections.Generic.IReadOnlyList{System.String}@)
+  - BbQ.ChatWidgets.Models.ThemeSwitcherWidget.EqualityContract
+  - BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  - BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals(BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  - BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals(System.Object)
+  - BbQ.ChatWidgets.Models.ThemeSwitcherWidget.GetHashCode
+  - BbQ.ChatWidgets.Models.ThemeSwitcherWidget.PrintMembers(System.Text.StringBuilder)
+  - BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Purpose
+  - BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Themes
+  - BbQ.ChatWidgets.Models.ThemeSwitcherWidget.ToString
+  - BbQ.ChatWidgets.Models.ThemeSwitcherWidget.op_Equality(BbQ.ChatWidgets.Models.ThemeSwitcherWidget,BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  - BbQ.ChatWidgets.Models.ThemeSwitcherWidget.op_Inequality(BbQ.ChatWidgets.Models.ThemeSwitcherWidget,BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  langs:
+  - csharp
+  - vb
+  name: ThemeSwitcherWidget
+  nameWithType: ThemeSwitcherWidget
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  type: Class
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  summary: A theme switcher widget for selecting between multiple theme options.
+  remarks: >-
+    Theme switcher widgets allow users to select from predefined theme options.
+
+    Common uses:
+
+    - Light/dark mode switching
+
+    - Color scheme selection
+
+    - Application theme customization
+
+
+    The themes are provided as a list of option strings, and the selected theme
+
+    is sent as the payload when the user makes a selection.
+
+
+    Example JSON:
+
+    {"type":"themeswitcher","label":"Choose theme","action":"set_theme","themes":["light","dark","auto"]}
+  example: []
+  syntax:
+    content: 'public sealed record ThemeSwitcherWidget : ChatWidget, IEquatable<ChatWidget>, IEquatable<ThemeSwitcherWidget>'
+    content.vb: Public NotInheritable Class ThemeSwitcherWidget Inherits ChatWidget Implements IEquatable(Of ChatWidget), IEquatable(Of ThemeSwitcherWidget)
+  inheritance:
+  - System.Object
+  - BbQ.ChatWidgets.Models.ChatWidget
+  implements:
+  - System.IEquatable{BbQ.ChatWidgets.Models.ChatWidget}
+  - System.IEquatable{BbQ.ChatWidgets.Models.ThemeSwitcherWidget}
+  inheritedMembers:
+  - BbQ.ChatWidgets.Models.ChatWidget.Deconstruct(System.String@,System.String@)
+  - BbQ.ChatWidgets.Models.ChatWidget.Label
+  - BbQ.ChatWidgets.Models.ChatWidget.Action
+  - System.Object.GetType
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - BbQ.ChatWidgets.Models.ChatWidget.BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema
+  - BbQ.ChatWidgets.Models.ChatWidget.BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.#ctor(System.String,System.String,System.Collections.Generic.IReadOnlyList{System.String})
+  commentId: M:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.#ctor(System.String,System.String,System.Collections.Generic.IReadOnlyList{System.String})
+  id: '#ctor(System.String,System.String,System.Collections.Generic.IReadOnlyList{System.String})'
+  parent: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  langs:
+  - csharp
+  - vb
+  name: ThemeSwitcherWidget(string, string, IReadOnlyList<string>)
+  nameWithType: ThemeSwitcherWidget.ThemeSwitcherWidget(string, string, IReadOnlyList<string>)
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.ThemeSwitcherWidget(string, string, System.Collections.Generic.IReadOnlyList<string>)
+  type: Constructor
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  summary: A theme switcher widget for selecting between multiple theme options.
+  remarks: >-
+    Theme switcher widgets allow users to select from predefined theme options.
+
+    Common uses:
+
+    - Light/dark mode switching
+
+    - Color scheme selection
+
+    - Application theme customization
+
+
+    The themes are provided as a list of option strings, and the selected theme
+
+    is sent as the payload when the user makes a selection.
+
+
+    Example JSON:
+
+    {"type":"themeswitcher","label":"Choose theme","action":"set_theme","themes":["light","dark","auto"]}
+  example: []
+  syntax:
+    content: public ThemeSwitcherWidget(string Label, string Action, IReadOnlyList<string> Themes)
+    parameters:
+    - id: Label
+      type: System.String
+    - id: Action
+      type: System.String
+    - id: Themes
+      type: System.Collections.Generic.IReadOnlyList{System.String}
+    content.vb: Public Sub New(Label As String, Action As String, Themes As IReadOnlyList(Of String))
+  overload: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.#ctor*
+  nameWithType.vb: ThemeSwitcherWidget.New(String, String, IReadOnlyList(Of String))
+  fullName.vb: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.New(String, String, System.Collections.Generic.IReadOnlyList(Of String))
+  name.vb: New(String, String, IReadOnlyList(Of String))
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.ToString
+  commentId: M:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.ToString
+  id: ToString
+  parent: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: ThemeSwitcherWidget.ToString()
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.ToString()
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: BbQ.ChatWidgets.Models.ChatWidget.ToString
+  overload: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.ToString*
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.PrintMembers(System.Text.StringBuilder)
+  commentId: M:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.PrintMembers(System.Text.StringBuilder)
+  id: PrintMembers(System.Text.StringBuilder)
+  parent: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  langs:
+  - csharp
+  - vb
+  name: PrintMembers(StringBuilder)
+  nameWithType: ThemeSwitcherWidget.PrintMembers(StringBuilder)
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.PrintMembers(System.Text.StringBuilder)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: protected override bool PrintMembers(StringBuilder builder)
+    parameters:
+    - id: builder
+      type: System.Text.StringBuilder
+    return:
+      type: System.Boolean
+    content.vb: Protected Overrides Function PrintMembers(builder As StringBuilder) As Boolean
+  overridden: BbQ.ChatWidgets.Models.ChatWidget.PrintMembers(System.Text.StringBuilder)
+  overload: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.PrintMembers*
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.op_Inequality(BbQ.ChatWidgets.Models.ThemeSwitcherWidget,BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  commentId: M:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.op_Inequality(BbQ.ChatWidgets.Models.ThemeSwitcherWidget,BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  id: op_Inequality(BbQ.ChatWidgets.Models.ThemeSwitcherWidget,BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  parent: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  langs:
+  - csharp
+  - vb
+  name: operator !=(ThemeSwitcherWidget?, ThemeSwitcherWidget?)
+  nameWithType: ThemeSwitcherWidget.operator !=(ThemeSwitcherWidget?, ThemeSwitcherWidget?)
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.operator !=(BbQ.ChatWidgets.Models.ThemeSwitcherWidget?, BbQ.ChatWidgets.Models.ThemeSwitcherWidget?)
+  type: Operator
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public static bool operator !=(ThemeSwitcherWidget? left, ThemeSwitcherWidget? right)
+    parameters:
+    - id: left
+      type: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+    - id: right
+      type: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Operator <>(left As ThemeSwitcherWidget, right As ThemeSwitcherWidget) As Boolean
+  overload: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.op_Inequality*
+  nameWithType.vb: ThemeSwitcherWidget.<>(ThemeSwitcherWidget, ThemeSwitcherWidget)
+  fullName.vb: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.<>(BbQ.ChatWidgets.Models.ThemeSwitcherWidget, BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  name.vb: <>(ThemeSwitcherWidget, ThemeSwitcherWidget)
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.op_Equality(BbQ.ChatWidgets.Models.ThemeSwitcherWidget,BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  commentId: M:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.op_Equality(BbQ.ChatWidgets.Models.ThemeSwitcherWidget,BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  id: op_Equality(BbQ.ChatWidgets.Models.ThemeSwitcherWidget,BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  parent: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  langs:
+  - csharp
+  - vb
+  name: operator ==(ThemeSwitcherWidget?, ThemeSwitcherWidget?)
+  nameWithType: ThemeSwitcherWidget.operator ==(ThemeSwitcherWidget?, ThemeSwitcherWidget?)
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.operator ==(BbQ.ChatWidgets.Models.ThemeSwitcherWidget?, BbQ.ChatWidgets.Models.ThemeSwitcherWidget?)
+  type: Operator
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public static bool operator ==(ThemeSwitcherWidget? left, ThemeSwitcherWidget? right)
+    parameters:
+    - id: left
+      type: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+    - id: right
+      type: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Operator =(left As ThemeSwitcherWidget, right As ThemeSwitcherWidget) As Boolean
+  overload: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.op_Equality*
+  nameWithType.vb: ThemeSwitcherWidget.=(ThemeSwitcherWidget, ThemeSwitcherWidget)
+  fullName.vb: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.=(BbQ.ChatWidgets.Models.ThemeSwitcherWidget, BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  name.vb: =(ThemeSwitcherWidget, ThemeSwitcherWidget)
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.GetHashCode
+  commentId: M:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.GetHashCode
+  id: GetHashCode
+  parent: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  langs:
+  - csharp
+  - vb
+  name: GetHashCode()
+  nameWithType: ThemeSwitcherWidget.GetHashCode()
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.GetHashCode()
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public override int GetHashCode()
+    return:
+      type: System.Int32
+    content.vb: Public Overrides Function GetHashCode() As Integer
+  overridden: BbQ.ChatWidgets.Models.ChatWidget.GetHashCode
+  overload: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.GetHashCode*
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals(System.Object)
+  commentId: M:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals(System.Object)
+  id: Equals(System.Object)
+  parent: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  langs:
+  - csharp
+  - vb
+  name: Equals(object?)
+  nameWithType: ThemeSwitcherWidget.Equals(object?)
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals(object?)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public override bool Equals(object? obj)
+    parameters:
+    - id: obj
+      type: System.Object
+    return:
+      type: System.Boolean
+    content.vb: Public Overrides Function Equals(obj As Object) As Boolean
+  overridden: BbQ.ChatWidgets.Models.ChatWidget.Equals(System.Object)
+  overload: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals*
+  nameWithType.vb: ThemeSwitcherWidget.Equals(Object)
+  fullName.vb: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals(Object)
+  name.vb: Equals(Object)
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  commentId: M:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  id: Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  parent: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  langs:
+  - csharp
+  - vb
+  name: Equals(ChatWidget?)
+  nameWithType: ThemeSwitcherWidget.Equals(ChatWidget?)
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget?)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public override sealed bool Equals(ChatWidget? other)
+    parameters:
+    - id: other
+      type: BbQ.ChatWidgets.Models.ChatWidget
+    return:
+      type: System.Boolean
+    content.vb: Public NotOverridable Overrides Function Equals(other As ChatWidget) As Boolean
+  overridden: BbQ.ChatWidgets.Models.ChatWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  overload: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals*
+  nameWithType.vb: ThemeSwitcherWidget.Equals(ChatWidget)
+  fullName.vb: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  name.vb: Equals(ChatWidget)
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals(BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  commentId: M:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals(BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  id: Equals(BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  parent: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  langs:
+  - csharp
+  - vb
+  name: Equals(ThemeSwitcherWidget?)
+  nameWithType: ThemeSwitcherWidget.Equals(ThemeSwitcherWidget?)
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals(BbQ.ChatWidgets.Models.ThemeSwitcherWidget?)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public bool Equals(ThemeSwitcherWidget? other)
+    parameters:
+    - id: other
+      type: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+    return:
+      type: System.Boolean
+    content.vb: Public Function Equals(other As ThemeSwitcherWidget) As Boolean
+  overload: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals*
+  implements:
+  - System.IEquatable{BbQ.ChatWidgets.Models.ThemeSwitcherWidget}.Equals(BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  nameWithType.vb: ThemeSwitcherWidget.Equals(ThemeSwitcherWidget)
+  fullName.vb: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals(BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  name.vb: Equals(ThemeSwitcherWidget)
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Deconstruct(System.String@,System.String@,System.Collections.Generic.IReadOnlyList{System.String}@)
+  commentId: M:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Deconstruct(System.String@,System.String@,System.Collections.Generic.IReadOnlyList{System.String}@)
+  id: Deconstruct(System.String@,System.String@,System.Collections.Generic.IReadOnlyList{System.String}@)
+  parent: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  langs:
+  - csharp
+  - vb
+  name: Deconstruct(out string, out string, out IReadOnlyList<string>)
+  nameWithType: ThemeSwitcherWidget.Deconstruct(out string, out string, out IReadOnlyList<string>)
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Deconstruct(out string, out string, out System.Collections.Generic.IReadOnlyList<string>)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public void Deconstruct(out string Label, out string Action, out IReadOnlyList<string> Themes)
+    parameters:
+    - id: Label
+      type: System.String
+    - id: Action
+      type: System.String
+    - id: Themes
+      type: System.Collections.Generic.IReadOnlyList{System.String}
+    content.vb: Public Sub Deconstruct(Label As String, Action As String, Themes As IReadOnlyList(Of String))
+  overload: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Deconstruct*
+  nameWithType.vb: ThemeSwitcherWidget.Deconstruct(String, String, IReadOnlyList(Of String))
+  fullName.vb: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Deconstruct(String, String, System.Collections.Generic.IReadOnlyList(Of String))
+  name.vb: Deconstruct(String, String, IReadOnlyList(Of String))
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.EqualityContract
+  commentId: P:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.EqualityContract
+  id: EqualityContract
+  parent: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  langs:
+  - csharp
+  - vb
+  name: EqualityContract
+  nameWithType: ThemeSwitcherWidget.EqualityContract
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.EqualityContract
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: protected override Type EqualityContract { get; }
+    parameters: []
+    return:
+      type: System.Type
+    content.vb: Protected Overrides ReadOnly Property EqualityContract As Type
+  overridden: BbQ.ChatWidgets.Models.ChatWidget.EqualityContract
+  overload: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.EqualityContract*
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Themes
+  commentId: P:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Themes
+  id: Themes
+  parent: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  langs:
+  - csharp
+  - vb
+  name: Themes
+  nameWithType: ThemeSwitcherWidget.Themes
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Themes
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public IReadOnlyList<string> Themes { get; init; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{System.String}
+    content.vb: Public Property Themes As IReadOnlyList(Of String)
+  overload: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Themes*
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Purpose
+  commentId: P:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Purpose
+  id: Purpose
+  parent: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  langs:
+  - csharp
+  - vb
+  name: Purpose
+  nameWithType: ThemeSwitcherWidget.Purpose
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Purpose
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public override string Purpose { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Overrides ReadOnly Property Purpose As String
+  overridden: BbQ.ChatWidgets.Models.ChatWidget.Purpose
+  overload: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Purpose*
+references:
+- uid: BbQ.ChatWidgets.Models
+  commentId: N:BbQ.ChatWidgets.Models
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Models
+  nameWithType: BbQ.ChatWidgets.Models
+  fullName: BbQ.ChatWidgets.Models
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Models
+    name: Models
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Models
+    name: Models
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: BbQ.ChatWidgets.Models.ChatWidget
+  commentId: T:BbQ.ChatWidgets.Models.ChatWidget
+  parent: BbQ.ChatWidgets.Models
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html
+  name: ChatWidget
+  nameWithType: ChatWidget
+  fullName: BbQ.ChatWidgets.Models.ChatWidget
+- uid: System.IEquatable{BbQ.ChatWidgets.Models.ChatWidget}
+  commentId: T:System.IEquatable{BbQ.ChatWidgets.Models.ChatWidget}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<ChatWidget>
+  nameWithType: IEquatable<ChatWidget>
+  fullName: System.IEquatable<BbQ.ChatWidgets.Models.ChatWidget>
+  nameWithType.vb: IEquatable(Of ChatWidget)
+  fullName.vb: System.IEquatable(Of BbQ.ChatWidgets.Models.ChatWidget)
+  name.vb: IEquatable(Of ChatWidget)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+- uid: System.IEquatable{BbQ.ChatWidgets.Models.ThemeSwitcherWidget}
+  commentId: T:System.IEquatable{BbQ.ChatWidgets.Models.ThemeSwitcherWidget}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<ThemeSwitcherWidget>
+  nameWithType: IEquatable<ThemeSwitcherWidget>
+  fullName: System.IEquatable<BbQ.ChatWidgets.Models.ThemeSwitcherWidget>
+  nameWithType.vb: IEquatable(Of ThemeSwitcherWidget)
+  fullName.vb: System.IEquatable(Of BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  name.vb: IEquatable(Of ThemeSwitcherWidget)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+    name: ThemeSwitcherWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+    name: ThemeSwitcherWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatWidget.Deconstruct(System.String@,System.String@)
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidget.Deconstruct(System.String@,System.String@)
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Deconstruct_System_String__System_String__
+  name: Deconstruct(out string, out string)
+  nameWithType: ChatWidget.Deconstruct(out string, out string)
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.Deconstruct(out string, out string)
+  nameWithType.vb: ChatWidget.Deconstruct(String, String)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatWidget.Deconstruct(String, String)
+  name.vb: Deconstruct(String, String)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.Deconstruct(System.String@,System.String@)
+    name: Deconstruct
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Deconstruct_System_String__System_String__
+  - name: (
+  - name: out
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.Deconstruct(System.String@,System.String@)
+    name: Deconstruct
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Deconstruct_System_String__System_String__
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatWidget.Label
+  commentId: P:BbQ.ChatWidgets.Models.ChatWidget.Label
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Label
+  name: Label
+  nameWithType: ChatWidget.Label
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.Label
+- uid: BbQ.ChatWidgets.Models.ChatWidget.Action
+  commentId: P:BbQ.ChatWidgets.Models.ChatWidget.Action
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Action
+  name: Action
+  nameWithType: ChatWidget.Action
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.Action
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatWidget.BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+  parent: BbQ.ChatWidgets.Models.ChatWidgetExtensions
+  definition: BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+  href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_GetSchema_BbQ_ChatWidgets_Models_ChatWidget_
+  name: GetSchema(ChatWidget)
+  nameWithType: ChatWidgetExtensions.GetSchema(ChatWidget)
+  fullName: BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+    name: GetSchema
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_GetSchema_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+    name: GetSchema
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_GetSchema_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatWidget.BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+  parent: BbQ.ChatWidgets.Models.ChatWidgetExtensions
+  definition: BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+  href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_ToJson_BbQ_ChatWidgets_Models_ChatWidget_
+  name: ToJson(ChatWidget)
+  nameWithType: ChatWidgetExtensions.ToJson(ChatWidget)
+  fullName: BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+    name: ToJson
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_ToJson_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+    name: ToJson
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_ToJson_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_GetSchema_BbQ_ChatWidgets_Models_ChatWidget_
+  name: GetSchema(ChatWidget)
+  nameWithType: ChatWidgetExtensions.GetSchema(ChatWidget)
+  fullName: BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+    name: GetSchema
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_GetSchema_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+    name: GetSchema
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_GetSchema_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions
+  commentId: T:BbQ.ChatWidgets.Models.ChatWidgetExtensions
+  parent: BbQ.ChatWidgets.Models
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html
+  name: ChatWidgetExtensions
+  nameWithType: ChatWidgetExtensions
+  fullName: BbQ.ChatWidgets.Models.ChatWidgetExtensions
+- uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_ToJson_BbQ_ChatWidgets_Models_ChatWidget_
+  name: ToJson(ChatWidget)
+  nameWithType: ChatWidgetExtensions.ToJson(ChatWidget)
+  fullName: BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+    name: ToJson
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_ToJson_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+    name: ToJson
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_ToJson_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.#ctor*
+  commentId: Overload:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.#ctor
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html#BbQ_ChatWidgets_Models_ThemeSwitcherWidget__ctor_System_String_System_String_System_Collections_Generic_IReadOnlyList_System_String__
+  name: ThemeSwitcherWidget
+  nameWithType: ThemeSwitcherWidget.ThemeSwitcherWidget
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.ThemeSwitcherWidget
+  nameWithType.vb: ThemeSwitcherWidget.New
+  fullName.vb: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Collections.Generic.IReadOnlyList{System.String}
+  commentId: T:System.Collections.Generic.IReadOnlyList{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<string>
+  nameWithType: IReadOnlyList<string>
+  fullName: System.Collections.Generic.IReadOnlyList<string>
+  nameWithType.vb: IReadOnlyList(Of String)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of String)
+  name.vb: IReadOnlyList(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyList`1
+  commentId: T:System.Collections.Generic.IReadOnlyList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<T>
+  nameWithType: IReadOnlyList<T>
+  fullName: System.Collections.Generic.IReadOnlyList<T>
+  nameWithType.vb: IReadOnlyList(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
+  name.vb: IReadOnlyList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: BbQ.ChatWidgets.Models.ChatWidget.ToString
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidget.ToString
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_ToString
+  name: ToString()
+  nameWithType: ChatWidget.ToString()
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.ToString()
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.ToString
+    name: ToString
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_ToString
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.ToString
+    name: ToString
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_ToString
+  - name: (
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.ToString*
+  commentId: Overload:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.ToString
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html#BbQ_ChatWidgets_Models_ThemeSwitcherWidget_ToString
+  name: ToString
+  nameWithType: ThemeSwitcherWidget.ToString
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.ToString
+- uid: BbQ.ChatWidgets.Models.ChatWidget.PrintMembers(System.Text.StringBuilder)
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidget.PrintMembers(System.Text.StringBuilder)
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_PrintMembers_System_Text_StringBuilder_
+  name: PrintMembers(StringBuilder)
+  nameWithType: ChatWidget.PrintMembers(StringBuilder)
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.PrintMembers(System.Text.StringBuilder)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.PrintMembers(System.Text.StringBuilder)
+    name: PrintMembers
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_PrintMembers_System_Text_StringBuilder_
+  - name: (
+  - uid: System.Text.StringBuilder
+    name: StringBuilder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.stringbuilder
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.PrintMembers(System.Text.StringBuilder)
+    name: PrintMembers
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_PrintMembers_System_Text_StringBuilder_
+  - name: (
+  - uid: System.Text.StringBuilder
+    name: StringBuilder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.stringbuilder
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.PrintMembers*
+  commentId: Overload:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.PrintMembers
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html#BbQ_ChatWidgets_Models_ThemeSwitcherWidget_PrintMembers_System_Text_StringBuilder_
+  name: PrintMembers
+  nameWithType: ThemeSwitcherWidget.PrintMembers
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.PrintMembers
+- uid: System.Text.StringBuilder
+  commentId: T:System.Text.StringBuilder
+  parent: System.Text
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.text.stringbuilder
+  name: StringBuilder
+  nameWithType: StringBuilder
+  fullName: System.Text.StringBuilder
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.Text
+  commentId: N:System.Text
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Text
+  nameWithType: System.Text
+  fullName: System.Text
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.op_Inequality*
+  commentId: Overload:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.op_Inequality
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html#BbQ_ChatWidgets_Models_ThemeSwitcherWidget_op_Inequality_BbQ_ChatWidgets_Models_ThemeSwitcherWidget_BbQ_ChatWidgets_Models_ThemeSwitcherWidget_
+  name: operator !=
+  nameWithType: ThemeSwitcherWidget.operator !=
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.operator !=
+  nameWithType.vb: ThemeSwitcherWidget.<>
+  fullName.vb: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.<>
+  name.vb: <>
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.op_Inequality*
+    name: '!='
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html#BbQ_ChatWidgets_Models_ThemeSwitcherWidget_op_Inequality_BbQ_ChatWidgets_Models_ThemeSwitcherWidget_BbQ_ChatWidgets_Models_ThemeSwitcherWidget_
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  commentId: T:BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+  parent: BbQ.ChatWidgets.Models
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html
+  name: ThemeSwitcherWidget
+  nameWithType: ThemeSwitcherWidget
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.op_Equality*
+  commentId: Overload:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.op_Equality
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html#BbQ_ChatWidgets_Models_ThemeSwitcherWidget_op_Equality_BbQ_ChatWidgets_Models_ThemeSwitcherWidget_BbQ_ChatWidgets_Models_ThemeSwitcherWidget_
+  name: operator ==
+  nameWithType: ThemeSwitcherWidget.operator ==
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.operator ==
+  nameWithType.vb: ThemeSwitcherWidget.=
+  fullName.vb: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.=
+  name.vb: =
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.op_Equality*
+    name: ==
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html#BbQ_ChatWidgets_Models_ThemeSwitcherWidget_op_Equality_BbQ_ChatWidgets_Models_ThemeSwitcherWidget_BbQ_ChatWidgets_Models_ThemeSwitcherWidget_
+- uid: BbQ.ChatWidgets.Models.ChatWidget.GetHashCode
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidget.GetHashCode
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_GetHashCode
+  name: GetHashCode()
+  nameWithType: ChatWidget.GetHashCode()
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.GetHashCode()
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_GetHashCode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_GetHashCode
+  - name: (
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.GetHashCode*
+  commentId: Overload:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.GetHashCode
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html#BbQ_ChatWidgets_Models_ThemeSwitcherWidget_GetHashCode
+  name: GetHashCode
+  nameWithType: ThemeSwitcherWidget.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.GetHashCode
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: BbQ.ChatWidgets.Models.ChatWidget.Equals(System.Object)
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidget.Equals(System.Object)
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Equals_System_Object_
+  name: Equals(object)
+  nameWithType: ChatWidget.Equals(object)
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.Equals(object)
+  nameWithType.vb: ChatWidget.Equals(Object)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatWidget.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Equals_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Equals_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals*
+  commentId: Overload:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html#BbQ_ChatWidgets_Models_ThemeSwitcherWidget_Equals_System_Object_
+  name: Equals
+  nameWithType: ThemeSwitcherWidget.Equals
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Equals
+- uid: BbQ.ChatWidgets.Models.ChatWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Equals_BbQ_ChatWidgets_Models_ChatWidget_
+  name: Equals(ChatWidget)
+  nameWithType: ChatWidget.Equals(ChatWidget)
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+    name: Equals
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Equals_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+    name: Equals
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Equals_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+- uid: System.IEquatable{BbQ.ChatWidgets.Models.ThemeSwitcherWidget}.Equals(BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  commentId: M:System.IEquatable{BbQ.ChatWidgets.Models.ThemeSwitcherWidget}.Equals(BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  parent: System.IEquatable{BbQ.ChatWidgets.Models.ThemeSwitcherWidget}
+  definition: System.IEquatable`1.Equals(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(ThemeSwitcherWidget)
+  nameWithType: IEquatable<ThemeSwitcherWidget>.Equals(ThemeSwitcherWidget)
+  fullName: System.IEquatable<BbQ.ChatWidgets.Models.ThemeSwitcherWidget>.Equals(BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  nameWithType.vb: IEquatable(Of ThemeSwitcherWidget).Equals(ThemeSwitcherWidget)
+  fullName.vb: System.IEquatable(Of BbQ.ChatWidgets.Models.ThemeSwitcherWidget).Equals(BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+  spec.csharp:
+  - uid: System.IEquatable{BbQ.ChatWidgets.Models.ThemeSwitcherWidget}.Equals(BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+    name: ThemeSwitcherWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable{BbQ.ChatWidgets.Models.ThemeSwitcherWidget}.Equals(BbQ.ChatWidgets.Models.ThemeSwitcherWidget)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+    name: ThemeSwitcherWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html
+  - name: )
+- uid: System.IEquatable`1.Equals(`0)
+  commentId: M:System.IEquatable`1.Equals(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(T)
+  nameWithType: IEquatable<T>.Equals(T)
+  fullName: System.IEquatable<T>.Equals(T)
+  nameWithType.vb: IEquatable(Of T).Equals(T)
+  fullName.vb: System.IEquatable(Of T).Equals(T)
+  spec.csharp:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Deconstruct*
+  commentId: Overload:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Deconstruct
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html#BbQ_ChatWidgets_Models_ThemeSwitcherWidget_Deconstruct_System_String__System_String__System_Collections_Generic_IReadOnlyList_System_String___
+  name: Deconstruct
+  nameWithType: ThemeSwitcherWidget.Deconstruct
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Deconstruct
+- uid: BbQ.ChatWidgets.Models.ChatWidget.EqualityContract
+  commentId: P:BbQ.ChatWidgets.Models.ChatWidget.EqualityContract
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_EqualityContract
+  name: EqualityContract
+  nameWithType: ChatWidget.EqualityContract
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.EqualityContract
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.EqualityContract*
+  commentId: Overload:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.EqualityContract
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html#BbQ_ChatWidgets_Models_ThemeSwitcherWidget_EqualityContract
+  name: EqualityContract
+  nameWithType: ThemeSwitcherWidget.EqualityContract
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.EqualityContract
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Themes*
+  commentId: Overload:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Themes
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html#BbQ_ChatWidgets_Models_ThemeSwitcherWidget_Themes
+  name: Themes
+  nameWithType: ThemeSwitcherWidget.Themes
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Themes
+- uid: BbQ.ChatWidgets.Models.ChatWidget.Purpose
+  commentId: P:BbQ.ChatWidgets.Models.ChatWidget.Purpose
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Purpose
+  name: Purpose
+  nameWithType: ChatWidget.Purpose
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.Purpose
+- uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Purpose*
+  commentId: Overload:BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Purpose
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html#BbQ_ChatWidgets_Models_ThemeSwitcherWidget_Purpose
+  name: Purpose
+  nameWithType: ThemeSwitcherWidget.Purpose
+  fullName: BbQ.ChatWidgets.Models.ThemeSwitcherWidget.Purpose

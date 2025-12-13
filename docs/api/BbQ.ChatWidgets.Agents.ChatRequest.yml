@@ -1,0 +1,1143 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Agents.ChatRequest
+  commentId: T:BbQ.ChatWidgets.Agents.ChatRequest
+  id: ChatRequest
+  parent: BbQ.ChatWidgets.Agents
+  children:
+  - BbQ.ChatWidgets.Agents.ChatRequest.#ctor(BbQ.ChatWidgets.Agents.ChatRequest)
+  - BbQ.ChatWidgets.Agents.ChatRequest.#ctor(System.String,System.IServiceProvider)
+  - BbQ.ChatWidgets.Agents.ChatRequest.Deconstruct(System.String@,System.IServiceProvider@)
+  - BbQ.ChatWidgets.Agents.ChatRequest.EqualityContract
+  - BbQ.ChatWidgets.Agents.ChatRequest.Equals(BbQ.ChatWidgets.Agents.ChatRequest)
+  - BbQ.ChatWidgets.Agents.ChatRequest.Equals(System.Object)
+  - BbQ.ChatWidgets.Agents.ChatRequest.GetHashCode
+  - BbQ.ChatWidgets.Agents.ChatRequest.Metadata
+  - BbQ.ChatWidgets.Agents.ChatRequest.PrintMembers(System.Text.StringBuilder)
+  - BbQ.ChatWidgets.Agents.ChatRequest.RequestServices
+  - BbQ.ChatWidgets.Agents.ChatRequest.ThreadId
+  - BbQ.ChatWidgets.Agents.ChatRequest.ToString
+  - BbQ.ChatWidgets.Agents.ChatRequest.op_Equality(BbQ.ChatWidgets.Agents.ChatRequest,BbQ.ChatWidgets.Agents.ChatRequest)
+  - BbQ.ChatWidgets.Agents.ChatRequest.op_Inequality(BbQ.ChatWidgets.Agents.ChatRequest,BbQ.ChatWidgets.Agents.ChatRequest)
+  langs:
+  - csharp
+  - vb
+  name: ChatRequest
+  nameWithType: ChatRequest
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest
+  type: Class
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/ChatRequest.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  summary: Represents a chat request for agent processing.
+  remarks: >-
+    This record encapsulates the request context for chat operations, including
+
+    thread identification, service provider access, and optional metadata.
+
+    Used internally by the agent pipeline for request routing and handling.
+  example: []
+  syntax:
+    content: 'public record ChatRequest : IEquatable<ChatRequest>'
+    content.vb: Public Class ChatRequest Implements IEquatable(Of ChatRequest)
+  inheritance:
+  - System.Object
+  implements:
+  - System.IEquatable{BbQ.ChatWidgets.Agents.ChatRequest}
+  inheritedMembers:
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.#ctor(System.String,System.IServiceProvider)
+  commentId: M:BbQ.ChatWidgets.Agents.ChatRequest.#ctor(System.String,System.IServiceProvider)
+  id: '#ctor(System.String,System.IServiceProvider)'
+  parent: BbQ.ChatWidgets.Agents.ChatRequest
+  langs:
+  - csharp
+  - vb
+  name: ChatRequest(string?, IServiceProvider)
+  nameWithType: ChatRequest.ChatRequest(string?, IServiceProvider)
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.ChatRequest(string?, System.IServiceProvider)
+  type: Constructor
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/ChatRequest.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  summary: Represents a chat request for agent processing.
+  remarks: >-
+    This record encapsulates the request context for chat operations, including
+
+    thread identification, service provider access, and optional metadata.
+
+    Used internally by the agent pipeline for request routing and handling.
+  example: []
+  syntax:
+    content: public ChatRequest(string? ThreadId, IServiceProvider RequestServices)
+    parameters:
+    - id: ThreadId
+      type: System.String
+    - id: RequestServices
+      type: System.IServiceProvider
+    content.vb: Public Sub New(ThreadId As String, RequestServices As IServiceProvider)
+  overload: BbQ.ChatWidgets.Agents.ChatRequest.#ctor*
+  nameWithType.vb: ChatRequest.New(String, IServiceProvider)
+  fullName.vb: BbQ.ChatWidgets.Agents.ChatRequest.New(String, System.IServiceProvider)
+  name.vb: New(String, IServiceProvider)
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.ToString
+  commentId: M:BbQ.ChatWidgets.Agents.ChatRequest.ToString
+  id: ToString
+  parent: BbQ.ChatWidgets.Agents.ChatRequest
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: ChatRequest.ToString()
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.ToString()
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/ChatRequest.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: System.Object.ToString
+  overload: BbQ.ChatWidgets.Agents.ChatRequest.ToString*
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.PrintMembers(System.Text.StringBuilder)
+  commentId: M:BbQ.ChatWidgets.Agents.ChatRequest.PrintMembers(System.Text.StringBuilder)
+  id: PrintMembers(System.Text.StringBuilder)
+  parent: BbQ.ChatWidgets.Agents.ChatRequest
+  langs:
+  - csharp
+  - vb
+  name: PrintMembers(StringBuilder)
+  nameWithType: ChatRequest.PrintMembers(StringBuilder)
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.PrintMembers(System.Text.StringBuilder)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/ChatRequest.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  syntax:
+    content: protected virtual bool PrintMembers(StringBuilder builder)
+    parameters:
+    - id: builder
+      type: System.Text.StringBuilder
+    return:
+      type: System.Boolean
+    content.vb: Protected Overridable Function PrintMembers(builder As StringBuilder) As Boolean
+  overload: BbQ.ChatWidgets.Agents.ChatRequest.PrintMembers*
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.op_Inequality(BbQ.ChatWidgets.Agents.ChatRequest,BbQ.ChatWidgets.Agents.ChatRequest)
+  commentId: M:BbQ.ChatWidgets.Agents.ChatRequest.op_Inequality(BbQ.ChatWidgets.Agents.ChatRequest,BbQ.ChatWidgets.Agents.ChatRequest)
+  id: op_Inequality(BbQ.ChatWidgets.Agents.ChatRequest,BbQ.ChatWidgets.Agents.ChatRequest)
+  parent: BbQ.ChatWidgets.Agents.ChatRequest
+  langs:
+  - csharp
+  - vb
+  name: operator !=(ChatRequest?, ChatRequest?)
+  nameWithType: ChatRequest.operator !=(ChatRequest?, ChatRequest?)
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.operator !=(BbQ.ChatWidgets.Agents.ChatRequest?, BbQ.ChatWidgets.Agents.ChatRequest?)
+  type: Operator
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/ChatRequest.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  syntax:
+    content: public static bool operator !=(ChatRequest? left, ChatRequest? right)
+    parameters:
+    - id: left
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+    - id: right
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Operator <>(left As ChatRequest, right As ChatRequest) As Boolean
+  overload: BbQ.ChatWidgets.Agents.ChatRequest.op_Inequality*
+  nameWithType.vb: ChatRequest.<>(ChatRequest, ChatRequest)
+  fullName.vb: BbQ.ChatWidgets.Agents.ChatRequest.<>(BbQ.ChatWidgets.Agents.ChatRequest, BbQ.ChatWidgets.Agents.ChatRequest)
+  name.vb: <>(ChatRequest, ChatRequest)
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.op_Equality(BbQ.ChatWidgets.Agents.ChatRequest,BbQ.ChatWidgets.Agents.ChatRequest)
+  commentId: M:BbQ.ChatWidgets.Agents.ChatRequest.op_Equality(BbQ.ChatWidgets.Agents.ChatRequest,BbQ.ChatWidgets.Agents.ChatRequest)
+  id: op_Equality(BbQ.ChatWidgets.Agents.ChatRequest,BbQ.ChatWidgets.Agents.ChatRequest)
+  parent: BbQ.ChatWidgets.Agents.ChatRequest
+  langs:
+  - csharp
+  - vb
+  name: operator ==(ChatRequest?, ChatRequest?)
+  nameWithType: ChatRequest.operator ==(ChatRequest?, ChatRequest?)
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.operator ==(BbQ.ChatWidgets.Agents.ChatRequest?, BbQ.ChatWidgets.Agents.ChatRequest?)
+  type: Operator
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/ChatRequest.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  syntax:
+    content: public static bool operator ==(ChatRequest? left, ChatRequest? right)
+    parameters:
+    - id: left
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+    - id: right
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Operator =(left As ChatRequest, right As ChatRequest) As Boolean
+  overload: BbQ.ChatWidgets.Agents.ChatRequest.op_Equality*
+  nameWithType.vb: ChatRequest.=(ChatRequest, ChatRequest)
+  fullName.vb: BbQ.ChatWidgets.Agents.ChatRequest.=(BbQ.ChatWidgets.Agents.ChatRequest, BbQ.ChatWidgets.Agents.ChatRequest)
+  name.vb: =(ChatRequest, ChatRequest)
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.GetHashCode
+  commentId: M:BbQ.ChatWidgets.Agents.ChatRequest.GetHashCode
+  id: GetHashCode
+  parent: BbQ.ChatWidgets.Agents.ChatRequest
+  langs:
+  - csharp
+  - vb
+  name: GetHashCode()
+  nameWithType: ChatRequest.GetHashCode()
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.GetHashCode()
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/ChatRequest.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  example: []
+  syntax:
+    content: public override int GetHashCode()
+    return:
+      type: System.Int32
+    content.vb: Public Overrides Function GetHashCode() As Integer
+  overridden: System.Object.GetHashCode
+  overload: BbQ.ChatWidgets.Agents.ChatRequest.GetHashCode*
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.Equals(System.Object)
+  commentId: M:BbQ.ChatWidgets.Agents.ChatRequest.Equals(System.Object)
+  id: Equals(System.Object)
+  parent: BbQ.ChatWidgets.Agents.ChatRequest
+  langs:
+  - csharp
+  - vb
+  name: Equals(object?)
+  nameWithType: ChatRequest.Equals(object?)
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.Equals(object?)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/ChatRequest.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  example: []
+  syntax:
+    content: public override bool Equals(object? obj)
+    parameters:
+    - id: obj
+      type: System.Object
+    return:
+      type: System.Boolean
+    content.vb: Public Overrides Function Equals(obj As Object) As Boolean
+  overridden: System.Object.Equals(System.Object)
+  overload: BbQ.ChatWidgets.Agents.ChatRequest.Equals*
+  nameWithType.vb: ChatRequest.Equals(Object)
+  fullName.vb: BbQ.ChatWidgets.Agents.ChatRequest.Equals(Object)
+  name.vb: Equals(Object)
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.Equals(BbQ.ChatWidgets.Agents.ChatRequest)
+  commentId: M:BbQ.ChatWidgets.Agents.ChatRequest.Equals(BbQ.ChatWidgets.Agents.ChatRequest)
+  id: Equals(BbQ.ChatWidgets.Agents.ChatRequest)
+  parent: BbQ.ChatWidgets.Agents.ChatRequest
+  langs:
+  - csharp
+  - vb
+  name: Equals(ChatRequest?)
+  nameWithType: ChatRequest.Equals(ChatRequest?)
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.Equals(BbQ.ChatWidgets.Agents.ChatRequest?)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/ChatRequest.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  example: []
+  syntax:
+    content: public virtual bool Equals(ChatRequest? other)
+    parameters:
+    - id: other
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+    return:
+      type: System.Boolean
+    content.vb: Public Overridable Function Equals(other As ChatRequest) As Boolean
+  overload: BbQ.ChatWidgets.Agents.ChatRequest.Equals*
+  implements:
+  - System.IEquatable{BbQ.ChatWidgets.Agents.ChatRequest}.Equals(BbQ.ChatWidgets.Agents.ChatRequest)
+  nameWithType.vb: ChatRequest.Equals(ChatRequest)
+  fullName.vb: BbQ.ChatWidgets.Agents.ChatRequest.Equals(BbQ.ChatWidgets.Agents.ChatRequest)
+  name.vb: Equals(ChatRequest)
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.#ctor(BbQ.ChatWidgets.Agents.ChatRequest)
+  commentId: M:BbQ.ChatWidgets.Agents.ChatRequest.#ctor(BbQ.ChatWidgets.Agents.ChatRequest)
+  id: '#ctor(BbQ.ChatWidgets.Agents.ChatRequest)'
+  parent: BbQ.ChatWidgets.Agents.ChatRequest
+  langs:
+  - csharp
+  - vb
+  name: ChatRequest(ChatRequest)
+  nameWithType: ChatRequest.ChatRequest(ChatRequest)
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.ChatRequest(BbQ.ChatWidgets.Agents.ChatRequest)
+  type: Constructor
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/ChatRequest.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  syntax:
+    content: protected ChatRequest(ChatRequest original)
+    parameters:
+    - id: original
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+    content.vb: Protected Sub New(original As ChatRequest)
+  overload: BbQ.ChatWidgets.Agents.ChatRequest.#ctor*
+  nameWithType.vb: ChatRequest.New(ChatRequest)
+  fullName.vb: BbQ.ChatWidgets.Agents.ChatRequest.New(BbQ.ChatWidgets.Agents.ChatRequest)
+  name.vb: New(ChatRequest)
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.Deconstruct(System.String@,System.IServiceProvider@)
+  commentId: M:BbQ.ChatWidgets.Agents.ChatRequest.Deconstruct(System.String@,System.IServiceProvider@)
+  id: Deconstruct(System.String@,System.IServiceProvider@)
+  parent: BbQ.ChatWidgets.Agents.ChatRequest
+  langs:
+  - csharp
+  - vb
+  name: Deconstruct(out string?, out IServiceProvider)
+  nameWithType: ChatRequest.Deconstruct(out string?, out IServiceProvider)
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.Deconstruct(out string?, out System.IServiceProvider)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/ChatRequest.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  syntax:
+    content: public void Deconstruct(out string? ThreadId, out IServiceProvider RequestServices)
+    parameters:
+    - id: ThreadId
+      type: System.String
+    - id: RequestServices
+      type: System.IServiceProvider
+    content.vb: Public Sub Deconstruct(ThreadId As String, RequestServices As IServiceProvider)
+  overload: BbQ.ChatWidgets.Agents.ChatRequest.Deconstruct*
+  nameWithType.vb: ChatRequest.Deconstruct(String, IServiceProvider)
+  fullName.vb: BbQ.ChatWidgets.Agents.ChatRequest.Deconstruct(String, System.IServiceProvider)
+  name.vb: Deconstruct(String, IServiceProvider)
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.EqualityContract
+  commentId: P:BbQ.ChatWidgets.Agents.ChatRequest.EqualityContract
+  id: EqualityContract
+  parent: BbQ.ChatWidgets.Agents.ChatRequest
+  langs:
+  - csharp
+  - vb
+  name: EqualityContract
+  nameWithType: ChatRequest.EqualityContract
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.EqualityContract
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/ChatRequest.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  syntax:
+    content: protected virtual Type EqualityContract { get; }
+    parameters: []
+    return:
+      type: System.Type
+    content.vb: Protected Overridable ReadOnly Property EqualityContract As Type
+  overload: BbQ.ChatWidgets.Agents.ChatRequest.EqualityContract*
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.ThreadId
+  commentId: P:BbQ.ChatWidgets.Agents.ChatRequest.ThreadId
+  id: ThreadId
+  parent: BbQ.ChatWidgets.Agents.ChatRequest
+  langs:
+  - csharp
+  - vb
+  name: ThreadId
+  nameWithType: ChatRequest.ThreadId
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.ThreadId
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/ChatRequest.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  syntax:
+    content: public string? ThreadId { get; init; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ThreadId As String
+  overload: BbQ.ChatWidgets.Agents.ChatRequest.ThreadId*
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.RequestServices
+  commentId: P:BbQ.ChatWidgets.Agents.ChatRequest.RequestServices
+  id: RequestServices
+  parent: BbQ.ChatWidgets.Agents.ChatRequest
+  langs:
+  - csharp
+  - vb
+  name: RequestServices
+  nameWithType: ChatRequest.RequestServices
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.RequestServices
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/ChatRequest.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  syntax:
+    content: public IServiceProvider RequestServices { get; init; }
+    parameters: []
+    return:
+      type: System.IServiceProvider
+    content.vb: Public Property RequestServices As IServiceProvider
+  overload: BbQ.ChatWidgets.Agents.ChatRequest.RequestServices*
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.Metadata
+  commentId: P:BbQ.ChatWidgets.Agents.ChatRequest.Metadata
+  id: Metadata
+  parent: BbQ.ChatWidgets.Agents.ChatRequest
+  langs:
+  - csharp
+  - vb
+  name: Metadata
+  nameWithType: ChatRequest.Metadata
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.Metadata
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Agents/ChatRequest.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents
+  summary: Optional metadata dictionary for passing additional context or configuration.
+  example: []
+  syntax:
+    content: public Dictionary<string, object> Metadata { get; init; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.Dictionary{System.String,System.Object}
+    content.vb: Public Property Metadata As Dictionary(Of String, Object)
+  overload: BbQ.ChatWidgets.Agents.ChatRequest.Metadata*
+references:
+- uid: BbQ.ChatWidgets.Agents
+  commentId: N:BbQ.ChatWidgets.Agents
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Agents
+  nameWithType: BbQ.ChatWidgets.Agents
+  fullName: BbQ.ChatWidgets.Agents
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.IEquatable{BbQ.ChatWidgets.Agents.ChatRequest}
+  commentId: T:System.IEquatable{BbQ.ChatWidgets.Agents.ChatRequest}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<ChatRequest>
+  nameWithType: IEquatable<ChatRequest>
+  fullName: System.IEquatable<BbQ.ChatWidgets.Agents.ChatRequest>
+  nameWithType.vb: IEquatable(Of ChatRequest)
+  fullName.vb: System.IEquatable(Of BbQ.ChatWidgets.Agents.ChatRequest)
+  name.vb: IEquatable(Of ChatRequest)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: BbQ.ChatWidgets.Agents.ChatRequest
+    name: ChatRequest
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.ChatRequest.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.ChatWidgets.Agents.ChatRequest
+    name: ChatRequest
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.ChatRequest.html
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.#ctor*
+  commentId: Overload:BbQ.ChatWidgets.Agents.ChatRequest.#ctor
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.ChatRequest.html#BbQ_ChatWidgets_Agents_ChatRequest__ctor_System_String_System_IServiceProvider_
+  name: ChatRequest
+  nameWithType: ChatRequest.ChatRequest
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.ChatRequest
+  nameWithType.vb: ChatRequest.New
+  fullName.vb: BbQ.ChatWidgets.Agents.ChatRequest.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.IServiceProvider
+  commentId: T:System.IServiceProvider
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iserviceprovider
+  name: IServiceProvider
+  nameWithType: IServiceProvider
+  fullName: System.IServiceProvider
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.ToString*
+  commentId: Overload:BbQ.ChatWidgets.Agents.ChatRequest.ToString
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.ChatRequest.html#BbQ_ChatWidgets_Agents_ChatRequest_ToString
+  name: ToString
+  nameWithType: ChatRequest.ToString
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.ToString
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.PrintMembers*
+  commentId: Overload:BbQ.ChatWidgets.Agents.ChatRequest.PrintMembers
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.ChatRequest.html#BbQ_ChatWidgets_Agents_ChatRequest_PrintMembers_System_Text_StringBuilder_
+  name: PrintMembers
+  nameWithType: ChatRequest.PrintMembers
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.PrintMembers
+- uid: System.Text.StringBuilder
+  commentId: T:System.Text.StringBuilder
+  parent: System.Text
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.text.stringbuilder
+  name: StringBuilder
+  nameWithType: StringBuilder
+  fullName: System.Text.StringBuilder
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.Text
+  commentId: N:System.Text
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Text
+  nameWithType: System.Text
+  fullName: System.Text
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.op_Inequality*
+  commentId: Overload:BbQ.ChatWidgets.Agents.ChatRequest.op_Inequality
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.ChatRequest.html#BbQ_ChatWidgets_Agents_ChatRequest_op_Inequality_BbQ_ChatWidgets_Agents_ChatRequest_BbQ_ChatWidgets_Agents_ChatRequest_
+  name: operator !=
+  nameWithType: ChatRequest.operator !=
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.operator !=
+  nameWithType.vb: ChatRequest.<>
+  fullName.vb: BbQ.ChatWidgets.Agents.ChatRequest.<>
+  name.vb: <>
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: BbQ.ChatWidgets.Agents.ChatRequest.op_Inequality*
+    name: '!='
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.ChatRequest.html#BbQ_ChatWidgets_Agents_ChatRequest_op_Inequality_BbQ_ChatWidgets_Agents_ChatRequest_BbQ_ChatWidgets_Agents_ChatRequest_
+- uid: BbQ.ChatWidgets.Agents.ChatRequest
+  commentId: T:BbQ.ChatWidgets.Agents.ChatRequest
+  parent: BbQ.ChatWidgets.Agents
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.ChatRequest.html
+  name: ChatRequest
+  nameWithType: ChatRequest
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.op_Equality*
+  commentId: Overload:BbQ.ChatWidgets.Agents.ChatRequest.op_Equality
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.ChatRequest.html#BbQ_ChatWidgets_Agents_ChatRequest_op_Equality_BbQ_ChatWidgets_Agents_ChatRequest_BbQ_ChatWidgets_Agents_ChatRequest_
+  name: operator ==
+  nameWithType: ChatRequest.operator ==
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.operator ==
+  nameWithType.vb: ChatRequest.=
+  fullName.vb: BbQ.ChatWidgets.Agents.ChatRequest.=
+  name.vb: =
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: BbQ.ChatWidgets.Agents.ChatRequest.op_Equality*
+    name: ==
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.ChatRequest.html#BbQ_ChatWidgets_Agents_ChatRequest_op_Equality_BbQ_ChatWidgets_Agents_ChatRequest_BbQ_ChatWidgets_Agents_ChatRequest_
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.GetHashCode*
+  commentId: Overload:BbQ.ChatWidgets.Agents.ChatRequest.GetHashCode
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.ChatRequest.html#BbQ_ChatWidgets_Agents_ChatRequest_GetHashCode
+  name: GetHashCode
+  nameWithType: ChatRequest.GetHashCode
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.GetHashCode
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.Equals*
+  commentId: Overload:BbQ.ChatWidgets.Agents.ChatRequest.Equals
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.ChatRequest.html#BbQ_ChatWidgets_Agents_ChatRequest_Equals_System_Object_
+  name: Equals
+  nameWithType: ChatRequest.Equals
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.Equals
+- uid: System.IEquatable{BbQ.ChatWidgets.Agents.ChatRequest}.Equals(BbQ.ChatWidgets.Agents.ChatRequest)
+  commentId: M:System.IEquatable{BbQ.ChatWidgets.Agents.ChatRequest}.Equals(BbQ.ChatWidgets.Agents.ChatRequest)
+  parent: System.IEquatable{BbQ.ChatWidgets.Agents.ChatRequest}
+  definition: System.IEquatable`1.Equals(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(ChatRequest)
+  nameWithType: IEquatable<ChatRequest>.Equals(ChatRequest)
+  fullName: System.IEquatable<BbQ.ChatWidgets.Agents.ChatRequest>.Equals(BbQ.ChatWidgets.Agents.ChatRequest)
+  nameWithType.vb: IEquatable(Of ChatRequest).Equals(ChatRequest)
+  fullName.vb: System.IEquatable(Of BbQ.ChatWidgets.Agents.ChatRequest).Equals(BbQ.ChatWidgets.Agents.ChatRequest)
+  spec.csharp:
+  - uid: System.IEquatable{BbQ.ChatWidgets.Agents.ChatRequest}.Equals(BbQ.ChatWidgets.Agents.ChatRequest)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: BbQ.ChatWidgets.Agents.ChatRequest
+    name: ChatRequest
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.ChatRequest.html
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable{BbQ.ChatWidgets.Agents.ChatRequest}.Equals(BbQ.ChatWidgets.Agents.ChatRequest)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: BbQ.ChatWidgets.Agents.ChatRequest
+    name: ChatRequest
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.ChatRequest.html
+  - name: )
+- uid: System.IEquatable`1.Equals(`0)
+  commentId: M:System.IEquatable`1.Equals(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(T)
+  nameWithType: IEquatable<T>.Equals(T)
+  fullName: System.IEquatable<T>.Equals(T)
+  nameWithType.vb: IEquatable(Of T).Equals(T)
+  fullName.vb: System.IEquatable(Of T).Equals(T)
+  spec.csharp:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.Deconstruct*
+  commentId: Overload:BbQ.ChatWidgets.Agents.ChatRequest.Deconstruct
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.ChatRequest.html#BbQ_ChatWidgets_Agents_ChatRequest_Deconstruct_System_String__System_IServiceProvider__
+  name: Deconstruct
+  nameWithType: ChatRequest.Deconstruct
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.Deconstruct
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.EqualityContract*
+  commentId: Overload:BbQ.ChatWidgets.Agents.ChatRequest.EqualityContract
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.ChatRequest.html#BbQ_ChatWidgets_Agents_ChatRequest_EqualityContract
+  name: EqualityContract
+  nameWithType: ChatRequest.EqualityContract
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.EqualityContract
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.ThreadId*
+  commentId: Overload:BbQ.ChatWidgets.Agents.ChatRequest.ThreadId
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.ChatRequest.html#BbQ_ChatWidgets_Agents_ChatRequest_ThreadId
+  name: ThreadId
+  nameWithType: ChatRequest.ThreadId
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.ThreadId
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.RequestServices*
+  commentId: Overload:BbQ.ChatWidgets.Agents.ChatRequest.RequestServices
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.ChatRequest.html#BbQ_ChatWidgets_Agents_ChatRequest_RequestServices
+  name: RequestServices
+  nameWithType: ChatRequest.RequestServices
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.RequestServices
+- uid: BbQ.ChatWidgets.Agents.ChatRequest.Metadata*
+  commentId: Overload:BbQ.ChatWidgets.Agents.ChatRequest.Metadata
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.ChatRequest.html#BbQ_ChatWidgets_Agents_ChatRequest_Metadata
+  name: Metadata
+  nameWithType: ChatRequest.Metadata
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest.Metadata
+- uid: System.Collections.Generic.Dictionary{System.String,System.Object}
+  commentId: T:System.Collections.Generic.Dictionary{System.String,System.Object}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<string, object>
+  nameWithType: Dictionary<string, object>
+  fullName: System.Collections.Generic.Dictionary<string, object>
+  nameWithType.vb: Dictionary(Of String, Object)
+  fullName.vb: System.Collections.Generic.Dictionary(Of String, Object)
+  name.vb: Dictionary(Of String, Object)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Collections.Generic.Dictionary`2
+  commentId: T:System.Collections.Generic.Dictionary`2
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  name: Dictionary<TKey, TValue>
+  nameWithType: Dictionary<TKey, TValue>
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
+  nameWithType.vb: Dictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
+  name.vb: Dictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: <
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TKey
+  - name: ','
+  - name: " "
+  - name: TValue
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

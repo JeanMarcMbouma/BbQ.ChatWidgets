@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class StreamChatTurn | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class StreamChatTurn | BbQ.ChatWidgets ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn">
+
+
+
+  <h1 id="BbQ_ChatWidgets_Models_StreamChatTurn" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn" class="text-break">Class StreamChatTurn</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a></div>
+    <div class="level2"><span class="xref">StreamChatTurn</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a>&gt;</div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.StreamChatTurn.html">StreamChatTurn</a>&gt;</div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Deconstruct_Microsoft_Extensions_AI_ChatRole__System_String__System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatWidget___System_String__">ChatTurn.Deconstruct(out ChatRole, out string, out IReadOnlyList&lt;ChatWidget&gt;, out string)</a>
+    </div>
+    <div>
+      <a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Role">ChatTurn.Role</a>
+    </div>
+    <div>
+      <a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Content">ChatTurn.Content</a>
+    </div>
+    <div>
+      <a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Widgets">ChatTurn.Widgets</a>
+    </div>
+    <div>
+      <a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_ThreadId">ChatTurn.ThreadId</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="BbQ.html">BbQ</a>.<a class="xref" href="BbQ.ChatWidgets.html">ChatWidgets</a>.<a class="xref" href="BbQ.ChatWidgets.Models.html">Models</a></h6>
+  <h6><strong>Assembly</strong>: BbQ.ChatWidgets.dll</h6>
+  <h5 id="BbQ_ChatWidgets_Models_StreamChatTurn_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public record StreamChatTurn : ChatTurn, IEquatable&lt;ChatTurn&gt;, IEquatable&lt;StreamChatTurn&gt;</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="BbQ_ChatWidgets_Models_StreamChatTurn__ctor_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.#ctor*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn__ctor_BbQ_ChatWidgets_Models_StreamChatTurn_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.#ctor(BbQ.ChatWidgets.Models.StreamChatTurn)">StreamChatTurn(StreamChatTurn)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected StreamChatTurn(StreamChatTurn original)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.StreamChatTurn.html">StreamChatTurn</a></td>
+        <td><span class="parametername">original</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="BbQ_ChatWidgets_Models_StreamChatTurn__ctor_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.#ctor*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn__ctor_Microsoft_Extensions_AI_ChatRole_System_String_System_String_System_Boolean_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.#ctor(Microsoft.Extensions.AI.ChatRole,System.String,System.String,System.Boolean)">StreamChatTurn(ChatRole, string, string, bool)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StreamChatTurn(ChatRole Role, string Content, string ThreadId, bool IsDelta = false)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ChatRole</span></td>
+        <td><span class="parametername">Role</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">Content</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">ThreadId</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">IsDelta</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="BbQ_ChatWidgets_Models_StreamChatTurn_EqualityContract_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.EqualityContract*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_EqualityContract" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.EqualityContract">EqualityContract</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Type EqualityContract { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_EqualityContract">ChatTurn.EqualityContract</a></div>
+  <a id="BbQ_ChatWidgets_Models_StreamChatTurn_IsDelta_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.IsDelta*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_IsDelta" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.IsDelta">IsDelta</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsDelta { get; init; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="BbQ_ChatWidgets_Models_StreamChatTurn_Deconstruct_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.Deconstruct*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_Deconstruct_Microsoft_Extensions_AI_ChatRole__System_String__System_String__System_Boolean__" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.Deconstruct(Microsoft.Extensions.AI.ChatRole@,System.String@,System.String@,System.Boolean@)">Deconstruct(out ChatRole, out string, out string, out bool)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Deconstruct(out ChatRole Role, out string Content, out string ThreadId, out bool IsDelta)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ChatRole</span></td>
+        <td><span class="parametername">Role</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">Content</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">ThreadId</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">IsDelta</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="BbQ_ChatWidgets_Models_StreamChatTurn_Equals_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.Equals*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_Equals_BbQ_ChatWidgets_Models_ChatTurn_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn)">Equals(ChatTurn?)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override sealed bool Equals(ChatTurn? other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a></td>
+        <td><span class="parametername">other</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Equals_BbQ_ChatWidgets_Models_ChatTurn_">ChatTurn.Equals(ChatTurn?)</a></div>
+  <a id="BbQ_ChatWidgets_Models_StreamChatTurn_Equals_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.Equals*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_Equals_BbQ_ChatWidgets_Models_StreamChatTurn_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.Equals(BbQ.ChatWidgets.Models.StreamChatTurn)">Equals(StreamChatTurn?)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool Equals(StreamChatTurn? other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.StreamChatTurn.html">StreamChatTurn</a></td>
+        <td><span class="parametername">other</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="BbQ_ChatWidgets_Models_StreamChatTurn_Equals_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.Equals*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_Equals_System_Object_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.Equals(System.Object)">Equals(object?)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object? obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">obj</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Equals_System_Object_">ChatTurn.Equals(object?)</a></div>
+  <a id="BbQ_ChatWidgets_Models_StreamChatTurn_GetHashCode_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.GetHashCode*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_GetHashCode" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.GetHashCode">GetHashCode()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_GetHashCode">ChatTurn.GetHashCode()</a></div>
+  <a id="BbQ_ChatWidgets_Models_StreamChatTurn_PrintMembers_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.PrintMembers*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_PrintMembers_System_Text_StringBuilder_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.PrintMembers(System.Text.StringBuilder)">PrintMembers(StringBuilder)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool PrintMembers(StringBuilder builder)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a></td>
+        <td><span class="parametername">builder</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_PrintMembers_System_Text_StringBuilder_">ChatTurn.PrintMembers(StringBuilder)</a></div>
+  <a id="BbQ_ChatWidgets_Models_StreamChatTurn_ToString_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.ToString*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_ToString" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.ToString">ToString()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_ToString">ChatTurn.ToString()</a></div>
+  <h3 id="operators">Operators
+</h3>
+  <a id="BbQ_ChatWidgets_Models_StreamChatTurn_op_Equality_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.op_Equality*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_op_Equality_BbQ_ChatWidgets_Models_StreamChatTurn_BbQ_ChatWidgets_Models_StreamChatTurn_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.op_Equality(BbQ.ChatWidgets.Models.StreamChatTurn,BbQ.ChatWidgets.Models.StreamChatTurn)">operator ==(StreamChatTurn?, StreamChatTurn?)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(StreamChatTurn? left, StreamChatTurn? right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.StreamChatTurn.html">StreamChatTurn</a></td>
+        <td><span class="parametername">left</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.StreamChatTurn.html">StreamChatTurn</a></td>
+        <td><span class="parametername">right</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="BbQ_ChatWidgets_Models_StreamChatTurn_op_Inequality_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.op_Inequality*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_op_Inequality_BbQ_ChatWidgets_Models_StreamChatTurn_BbQ_ChatWidgets_Models_StreamChatTurn_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.op_Inequality(BbQ.ChatWidgets.Models.StreamChatTurn,BbQ.ChatWidgets.Models.StreamChatTurn)">operator !=(StreamChatTurn?, StreamChatTurn?)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(StreamChatTurn? left, StreamChatTurn? right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.StreamChatTurn.html">StreamChatTurn</a></td>
+        <td><span class="parametername">left</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.StreamChatTurn.html">StreamChatTurn</a></td>
+        <td><span class="parametername">right</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable&lt;T&gt;</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

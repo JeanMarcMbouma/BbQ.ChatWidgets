@@ -1,0 +1,197 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetAction`1
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetAction`1
+  id: IWidgetAction`1
+  parent: BbQ.ChatWidgets.Abstractions
+  children:
+  - BbQ.ChatWidgets.Abstractions.IWidgetAction`1.Description
+  - BbQ.ChatWidgets.Abstractions.IWidgetAction`1.Name
+  - BbQ.ChatWidgets.Abstractions.IWidgetAction`1.PayloadSchema
+  langs:
+  - csharp
+  - vb
+  name: IWidgetAction<T>
+  nameWithType: IWidgetAction<T>
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetAction<T>
+  type: Interface
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Abstractions/IWidgetAction.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Abstractions
+  summary: Represents a widget action with a typed payload.
+  example: []
+  syntax:
+    content: public interface IWidgetAction<T>
+    typeParameters:
+    - id: T
+      description: The type of the action payload.
+    content.vb: Public Interface IWidgetAction(Of T)
+  nameWithType.vb: IWidgetAction(Of T)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IWidgetAction(Of T)
+  name.vb: IWidgetAction(Of T)
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetAction`1.Name
+  commentId: P:BbQ.ChatWidgets.Abstractions.IWidgetAction`1.Name
+  id: Name
+  parent: BbQ.ChatWidgets.Abstractions.IWidgetAction`1
+  langs:
+  - csharp
+  - vb
+  name: Name
+  nameWithType: IWidgetAction<T>.Name
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetAction<T>.Name
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Abstractions/IWidgetAction.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Abstractions
+  summary: Gets the unique name of the action (e.g., "submit_form").
+  example: []
+  syntax:
+    content: string Name { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: ReadOnly Property Name As String
+  overload: BbQ.ChatWidgets.Abstractions.IWidgetAction`1.Name*
+  nameWithType.vb: IWidgetAction(Of T).Name
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IWidgetAction(Of T).Name
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetAction`1.Description
+  commentId: P:BbQ.ChatWidgets.Abstractions.IWidgetAction`1.Description
+  id: Description
+  parent: BbQ.ChatWidgets.Abstractions.IWidgetAction`1
+  langs:
+  - csharp
+  - vb
+  name: Description
+  nameWithType: IWidgetAction<T>.Description
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetAction<T>.Description
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Abstractions/IWidgetAction.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Abstractions
+  summary: Gets a human-readable description of the action for LLM instructions.
+  example: []
+  syntax:
+    content: string Description { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: ReadOnly Property Description As String
+  overload: BbQ.ChatWidgets.Abstractions.IWidgetAction`1.Description*
+  nameWithType.vb: IWidgetAction(Of T).Description
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IWidgetAction(Of T).Description
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetAction`1.PayloadSchema
+  commentId: P:BbQ.ChatWidgets.Abstractions.IWidgetAction`1.PayloadSchema
+  id: PayloadSchema
+  parent: BbQ.ChatWidgets.Abstractions.IWidgetAction`1
+  langs:
+  - csharp
+  - vb
+  name: PayloadSchema
+  nameWithType: IWidgetAction<T>.PayloadSchema
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetAction<T>.PayloadSchema
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Abstractions/IWidgetAction.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Abstractions
+  summary: Gets the JSON schema for the payload type, used for LLM awareness.
+  example: []
+  syntax:
+    content: string PayloadSchema { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: ReadOnly Property PayloadSchema As String
+  overload: BbQ.ChatWidgets.Abstractions.IWidgetAction`1.PayloadSchema*
+  nameWithType.vb: IWidgetAction(Of T).PayloadSchema
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IWidgetAction(Of T).PayloadSchema
+references:
+- uid: BbQ.ChatWidgets.Abstractions
+  commentId: N:BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Abstractions
+  nameWithType: BbQ.ChatWidgets.Abstractions
+  fullName: BbQ.ChatWidgets.Abstractions
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetAction`1.Name*
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IWidgetAction`1.Name
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetAction-1.html#BbQ_ChatWidgets_Abstractions_IWidgetAction_1_Name
+  name: Name
+  nameWithType: IWidgetAction<T>.Name
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetAction<T>.Name
+  nameWithType.vb: IWidgetAction(Of T).Name
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IWidgetAction(Of T).Name
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetAction`1.Description*
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IWidgetAction`1.Description
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetAction-1.html#BbQ_ChatWidgets_Abstractions_IWidgetAction_1_Description
+  name: Description
+  nameWithType: IWidgetAction<T>.Description
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetAction<T>.Description
+  nameWithType.vb: IWidgetAction(Of T).Description
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IWidgetAction(Of T).Description
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetAction`1.PayloadSchema*
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IWidgetAction`1.PayloadSchema
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetAction-1.html#BbQ_ChatWidgets_Abstractions_IWidgetAction_1_PayloadSchema
+  name: PayloadSchema
+  nameWithType: IWidgetAction<T>.PayloadSchema
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetAction<T>.PayloadSchema
+  nameWithType.vb: IWidgetAction(Of T).PayloadSchema
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IWidgetAction(Of T).PayloadSchema

@@ -1,0 +1,245 @@
+### YamlMime:TableOfContent
+items:
+- uid: BbQ.ChatWidgets.Abstractions
+  name: BbQ.ChatWidgets.Abstractions
+  type: Namespace
+  items:
+  - uid: BbQ.ChatWidgets.Abstractions.IAIInstructionProvider
+    name: IAIInstructionProvider
+    type: Interface
+  - uid: BbQ.ChatWidgets.Abstractions.IAIToolsProvider
+    name: IAIToolsProvider
+    type: Interface
+  - uid: BbQ.ChatWidgets.Abstractions.IActionWidgetActionHandler`2
+    name: IActionWidgetActionHandler<TWidgetAction, T>
+    type: Interface
+  - uid: BbQ.ChatWidgets.Abstractions.IRecyclableWidget
+    name: IRecyclableWidget
+    type: Interface
+  - uid: BbQ.ChatWidgets.Abstractions.IThreadService
+    name: IThreadService
+    type: Interface
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+    name: IWidgetActionHandlerResolver
+    type: Interface
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata
+    name: IWidgetActionMetadata
+    type: Interface
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+    name: IWidgetActionRegistry
+    type: Interface
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetAction`1
+    name: IWidgetAction<T>
+    type: Interface
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetHintParser
+    name: IWidgetHintParser
+    type: Interface
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer
+    name: IWidgetHintSanitizer
+    type: Interface
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetLocalizer
+    name: IWidgetLocalizer
+    type: Interface
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetRegistry
+    name: IWidgetRegistry
+    type: Interface
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider
+    name: IWidgetToolsProvider
+    type: Interface
+- uid: BbQ.ChatWidgets.Agents
+  name: BbQ.ChatWidgets.Agents
+  type: Namespace
+  items:
+  - uid: BbQ.ChatWidgets.Agents.AgentPipelineBuilder
+    name: AgentPipelineBuilder
+    type: Class
+  - uid: BbQ.ChatWidgets.Agents.AgentRegistry
+    name: AgentRegistry
+    type: Class
+  - uid: BbQ.ChatWidgets.Agents.ChatRequest
+    name: ChatRequest
+    type: Class
+  - uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext
+    name: InterAgentCommunicationContext
+    type: Class
+  - uid: BbQ.ChatWidgets.Agents.TriageAgent`1
+    name: TriageAgent<TCategory>
+    type: Class
+- uid: BbQ.ChatWidgets.Agents.Abstractions
+  name: BbQ.ChatWidgets.Agents.Abstractions
+  type: Namespace
+  items:
+  - uid: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate
+    name: AgentDelegate
+    type: Delegate
+  - uid: BbQ.ChatWidgets.Agents.Abstractions.IAgent
+    name: IAgent
+    type: Interface
+  - uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentMiddleware
+    name: IAgentMiddleware
+    type: Interface
+  - uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry
+    name: IAgentRegistry
+    type: Interface
+  - uid: BbQ.ChatWidgets.Agents.Abstractions.IClassifier`1
+    name: IClassifier<TCategory>
+    type: Interface
+- uid: BbQ.ChatWidgets.Agents.Extensions
+  name: BbQ.ChatWidgets.Agents.Extensions
+  type: Namespace
+  items:
+  - uid: BbQ.ChatWidgets.Agents.Extensions.AgentPipelineExtensions
+    name: AgentPipelineExtensions
+    type: Class
+- uid: BbQ.ChatWidgets.Agents.Middleware
+  name: BbQ.ChatWidgets.Agents.Middleware
+  type: Namespace
+  items:
+  - uid: BbQ.ChatWidgets.Agents.Middleware.TriageMiddleware
+    name: TriageMiddleware
+    type: Class
+- uid: BbQ.ChatWidgets.Endpoints
+  name: BbQ.ChatWidgets.Endpoints
+  type: Namespace
+  items:
+  - uid: BbQ.ChatWidgets.Endpoints.UserMessageDto
+    name: UserMessageDto
+    type: Class
+  - uid: BbQ.ChatWidgets.Endpoints.WidgetActionDto
+    name: WidgetActionDto
+    type: Class
+- uid: BbQ.ChatWidgets.Exceptions
+  name: BbQ.ChatWidgets.Exceptions
+  type: Namespace
+  items:
+  - uid: BbQ.ChatWidgets.Exceptions.ThreadNotFoundException
+    name: ThreadNotFoundException
+    type: Class
+- uid: BbQ.ChatWidgets.Extensions
+  name: BbQ.ChatWidgets.Extensions
+  type: Namespace
+  items:
+  - uid: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions
+    name: ServiceCollectionExtensions
+    type: Class
+- uid: BbQ.ChatWidgets.Models
+  name: BbQ.ChatWidgets.Models
+  type: Namespace
+  items:
+  - uid: BbQ.ChatWidgets.Models.ButtonWidget
+    name: ButtonWidget
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.CardWidget
+    name: CardWidget
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.ChatMessageExtensions
+    name: ChatMessageExtensions
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.ChatMessages
+    name: ChatMessages
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.ChatTurn
+    name: ChatTurn
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetConverter
+    name: ChatWidgetConverter
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions
+    name: ChatWidgetExtensions
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.DatePickerWidget
+    name: DatePickerWidget
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.DropdownWidget
+    name: DropdownWidget
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.FileUploadWidget
+    name: FileUploadWidget
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.FormAction
+    name: FormAction
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.FormField
+    name: FormField
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.FormWidget
+    name: FormWidget
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.InputWidget
+    name: InputWidget
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.MultiSelectWidget
+    name: MultiSelectWidget
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.ProgressBarWidget
+    name: ProgressBarWidget
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.Serialization
+    name: Serialization
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.SliderWidget
+    name: SliderWidget
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.StreamChatTurn
+    name: StreamChatTurn
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.TextAreaWidget
+    name: TextAreaWidget
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.ThemeSwitcherWidget
+    name: ThemeSwitcherWidget
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.ToggleWidget
+    name: ToggleWidget
+    type: Class
+  - uid: BbQ.ChatWidgets.Models.WidgetTool
+    name: WidgetTool
+    type: Class
+- uid: BbQ.ChatWidgets.Renderers
+  name: BbQ.ChatWidgets.Renderers
+  type: Namespace
+  items:
+  - uid: BbQ.ChatWidgets.Renderers.SsrWidgetRenderer
+    name: SsrWidgetRenderer
+    type: Class
+- uid: BbQ.ChatWidgets.Services
+  name: BbQ.ChatWidgets.Services
+  type: Namespace
+  items:
+  - uid: BbQ.ChatWidgets.Services.ChatWidgetService
+    name: ChatWidgetService
+    type: Class
+  - uid: BbQ.ChatWidgets.Services.DefaultAIToolsProvider
+    name: DefaultAIToolsProvider
+    type: Class
+  - uid: BbQ.ChatWidgets.Services.DefaultThreadService
+    name: DefaultThreadService
+    type: Class
+  - uid: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver
+    name: DefaultWidgetActionHandlerResolver
+    type: Class
+  - uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry
+    name: DefaultWidgetActionRegistry
+    type: Class
+  - uid: BbQ.ChatWidgets.Services.DefaultWidgetHintParser
+    name: DefaultWidgetHintParser
+    type: Class
+  - uid: BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider
+    name: DefaultWidgetToolsProvider
+    type: Class
+  - uid: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions
+    name: WidgetActionHandlerExtensions
+    type: Class
+  - uid: BbQ.ChatWidgets.Services.WidgetActionMetadata
+    name: WidgetActionMetadata
+    type: Class
+  - uid: BbQ.ChatWidgets.Services.WidgetRegistry
+    name: WidgetRegistry
+    type: Class
+  - uid: BbQ.ChatWidgets.Services.WidgetRegistryExtensions
+    name: WidgetRegistryExtensions
+    type: Class
+memberLayout: SamePage

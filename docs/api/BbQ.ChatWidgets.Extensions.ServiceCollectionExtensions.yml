@@ -1,0 +1,767 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions
+  commentId: T:BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions
+  id: ServiceCollectionExtensions
+  parent: BbQ.ChatWidgets.Extensions
+  children:
+  - BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddBbQChatWidgets(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{BbQChatOptions})
+  - BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.MapBbQChatEndpoints(Microsoft.AspNetCore.Builder.IApplicationBuilder)
+  langs:
+  - csharp
+  - vb
+  name: ServiceCollectionExtensions
+  nameWithType: ServiceCollectionExtensions
+  fullName: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions
+  type: Class
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Extensions/ServiceCollectionExtensions.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Extensions
+  summary: Extension methods for registering and configuring BbQ ChatWidgets services.
+  example: []
+  syntax:
+    content: public static class ServiceCollectionExtensions
+    content.vb: Public Module ServiceCollectionExtensions
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+- uid: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddBbQChatWidgets(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{BbQChatOptions})
+  commentId: M:BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddBbQChatWidgets(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{BbQChatOptions})
+  id: AddBbQChatWidgets(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{BbQChatOptions})
+  isExtensionMethod: true
+  parent: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions
+  langs:
+  - csharp
+  - vb
+  name: AddBbQChatWidgets(IServiceCollection, Action<BbQChatOptions>?)
+  nameWithType: ServiceCollectionExtensions.AddBbQChatWidgets(IServiceCollection, Action<BbQChatOptions>?)
+  fullName: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddBbQChatWidgets(Microsoft.Extensions.DependencyInjection.IServiceCollection, System.Action<BbQChatOptions>?)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Extensions/ServiceCollectionExtensions.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Extensions
+  summary: Registers BbQ ChatWidgets services in the dependency injection container.
+  remarks: >-
+    This extension method configures all necessary services for chat widget functionality:
+
+    - <xref href="BbQChatOptions" data-throw-if-not-resolved="false"></xref>: Configuration options
+
+    - <xref href="BbQ.ChatWidgets.Services.WidgetRegistry" data-throw-if-not-resolved="false"></xref>: Widget type registry
+
+    - <xref href="BbQ.ChatWidgets.Services.ChatWidgetService" data-throw-if-not-resolved="false"></xref>: Main service orchestrator
+
+    - <xref href="BbQ.ChatWidgets.Abstractions.IWidgetHintParser" data-throw-if-not-resolved="false"></xref>: Widget hint parser
+
+    - <xref href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider" data-throw-if-not-resolved="false"></xref>: Widget tools provider
+
+    - <xref href="BbQ.ChatWidgets.Abstractions.IChatWidgetRenderer" data-throw-if-not-resolved="false"></xref>: Widget HTML renderer
+
+    - <xref href="BbQ.ChatWidgets.Abstractions.IThreadService" data-throw-if-not-resolved="false"></xref>: Thread/conversation management
+
+    - <xref href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry" data-throw-if-not-resolved="false"></xref>: Action metadata registry
+
+    - <xref href="BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver" data-throw-if-not-resolved="false"></xref>: Handler resolution service
+
+    - <xref href="Microsoft.Extensions.AI.IChatClient" data-throw-if-not-resolved="false"></xref>: Chat client (if factory provided)
+
+
+    Usage:
+
+    <pre><code class="lang-csharp">services.AddBbQChatWidgets(options =&gt; {
+        options.RoutePrefix = "/api/chat";
+        options.ChatClientFactory = sp =&gt; new MyCustomChatClient();
+    });</code></pre>
+  example: []
+  syntax:
+    content: public static IServiceCollection AddBbQChatWidgets(this IServiceCollection services, Action<BbQChatOptions>? configure = null)
+    parameters:
+    - id: services
+      type: Microsoft.Extensions.DependencyInjection.IServiceCollection
+      description: The service collection to register services with.
+    - id: configure
+      type: System.Action{BbQChatOptions}
+      description: Optional configuration action for <xref href="BbQChatOptions" data-throw-if-not-resolved="false"></xref>.
+    return:
+      type: Microsoft.Extensions.DependencyInjection.IServiceCollection
+      description: The service collection for method chaining.
+    content.vb: Public Shared Function AddBbQChatWidgets(services As IServiceCollection, configure As Action(Of BbQChatOptions) = Nothing) As IServiceCollection
+  overload: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddBbQChatWidgets*
+  nameWithType.vb: ServiceCollectionExtensions.AddBbQChatWidgets(IServiceCollection, Action(Of BbQChatOptions))
+  fullName.vb: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddBbQChatWidgets(Microsoft.Extensions.DependencyInjection.IServiceCollection, System.Action(Of BbQChatOptions))
+  name.vb: AddBbQChatWidgets(IServiceCollection, Action(Of BbQChatOptions))
+- uid: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.MapBbQChatEndpoints(Microsoft.AspNetCore.Builder.IApplicationBuilder)
+  commentId: M:BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.MapBbQChatEndpoints(Microsoft.AspNetCore.Builder.IApplicationBuilder)
+  id: MapBbQChatEndpoints(Microsoft.AspNetCore.Builder.IApplicationBuilder)
+  isExtensionMethod: true
+  parent: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions
+  langs:
+  - csharp
+  - vb
+  name: MapBbQChatEndpoints(IApplicationBuilder)
+  nameWithType: ServiceCollectionExtensions.MapBbQChatEndpoints(IApplicationBuilder)
+  fullName: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.MapBbQChatEndpoints(Microsoft.AspNetCore.Builder.IApplicationBuilder)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Extensions/ServiceCollectionExtensions.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Extensions
+  summary: Maps BbQ ChatWidgets API endpoints to the application.
+  remarks: >-
+    This extension method registers middleware that handles three endpoints:
+
+    - POST {routePrefix}/message: Send user messages and get AI responses with widgets
+
+    - POST {routePrefix}/action: Handle widget-triggered actions
+
+    - POST {routePrefix}/agent: Route through triage agent (if registered) or AgentDelegate
+
+    - POST {routePrefix}/stream/message: Stream responses via Server-Sent Events (SSE)
+
+    - POST {routePrefix}/stream/agent: Stream triage agent responses via Server-Sent Events (SSE)
+
+
+    The route prefix is configurable via <xref href="BbQChatOptions.RoutePrefix" data-throw-if-not-resolved="false"></xref> (default: "/api/chat").
+
+
+    Request/Response format:
+
+    - Content-Type: application/json
+
+    - Serialization: camelCase JSON with custom serialization options
+
+
+    When a triage agent is registered via dependency injection (e.g., through AddTriageAgentSystem()),
+
+    the /agent endpoint will automatically use it for intelligent request routing. If no triage agent
+
+    is registered, it falls back to the AgentDelegate.
+
+
+    Streaming endpoints use Server-Sent Events (SSE) format:
+
+    - Content-Type: text/event-stream
+
+    - Each ChatTurn is sent as a separate event with "data: {json}" format
+
+    - Final event includes complete ChatTurn with all widgets
+
+    - Delta events flag intermediate updates with IsDelta = true
+
+
+    Usage:
+
+    <pre><code class="lang-csharp">app.MapBbQChatEndpoints();</code></pre>
+  example: []
+  syntax:
+    content: public static IApplicationBuilder MapBbQChatEndpoints(this IApplicationBuilder app)
+    parameters:
+    - id: app
+      type: Microsoft.AspNetCore.Builder.IApplicationBuilder
+      description: The application builder to map endpoints to.
+    return:
+      type: Microsoft.AspNetCore.Builder.IApplicationBuilder
+      description: The application builder for method chaining.
+    content.vb: Public Shared Function MapBbQChatEndpoints(app As IApplicationBuilder) As IApplicationBuilder
+  overload: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.MapBbQChatEndpoints*
+references:
+- uid: BbQ.ChatWidgets.Extensions
+  commentId: N:BbQ.ChatWidgets.Extensions
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Extensions
+  nameWithType: BbQ.ChatWidgets.Extensions
+  fullName: BbQ.ChatWidgets.Extensions
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Extensions
+    name: Extensions
+    isExternal: true
+    href: BbQ.ChatWidgets.Extensions.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Extensions
+    name: Extensions
+    isExternal: true
+    href: BbQ.ChatWidgets.Extensions.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: BbQChatOptions
+  commentId: T:BbQChatOptions
+  isExternal: true
+  href: BbQChatOptions.html
+  name: BbQChatOptions
+  nameWithType: BbQChatOptions
+  fullName: BbQChatOptions
+- uid: BbQ.ChatWidgets.Services.WidgetRegistry
+  commentId: T:BbQ.ChatWidgets.Services.WidgetRegistry
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.WidgetRegistry.html
+  name: WidgetRegistry
+  nameWithType: WidgetRegistry
+  fullName: BbQ.ChatWidgets.Services.WidgetRegistry
+- uid: BbQ.ChatWidgets.Services.ChatWidgetService
+  commentId: T:BbQ.ChatWidgets.Services.ChatWidgetService
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.ChatWidgetService.html
+  name: ChatWidgetService
+  nameWithType: ChatWidgetService
+  fullName: BbQ.ChatWidgets.Services.ChatWidgetService
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetHintParser
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetHintParser
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetHintParser.html
+  name: IWidgetHintParser
+  nameWithType: IWidgetHintParser
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetHintParser
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.html
+  name: IWidgetToolsProvider
+  nameWithType: IWidgetToolsProvider
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider
+- uid: BbQ.ChatWidgets.Abstractions.IChatWidgetRenderer
+  commentId: T:BbQ.ChatWidgets.Abstractions.IChatWidgetRenderer
+  isExternal: true
+  name: IChatWidgetRenderer
+  nameWithType: IChatWidgetRenderer
+  fullName: BbQ.ChatWidgets.Abstractions.IChatWidgetRenderer
+- uid: BbQ.ChatWidgets.Abstractions.IThreadService
+  commentId: T:BbQ.ChatWidgets.Abstractions.IThreadService
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IThreadService.html
+  name: IThreadService
+  nameWithType: IThreadService
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadService
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html
+  name: IWidgetActionRegistry
+  nameWithType: IWidgetActionRegistry
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html
+  name: IWidgetActionHandlerResolver
+  nameWithType: IWidgetActionHandlerResolver
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+- uid: Microsoft.Extensions.AI.IChatClient
+  commentId: T:Microsoft.Extensions.AI.IChatClient
+  parent: Microsoft.Extensions.AI
+  isExternal: true
+  name: IChatClient
+  nameWithType: IChatClient
+  fullName: Microsoft.Extensions.AI.IChatClient
+- uid: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddBbQChatWidgets*
+  commentId: Overload:BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddBbQChatWidgets
+  isExternal: true
+  href: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.html#BbQ_ChatWidgets_Extensions_ServiceCollectionExtensions_AddBbQChatWidgets_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_BbQChatOptions__
+  name: AddBbQChatWidgets
+  nameWithType: ServiceCollectionExtensions.AddBbQChatWidgets
+  fullName: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddBbQChatWidgets
+- uid: Microsoft.Extensions.DependencyInjection.IServiceCollection
+  commentId: T:Microsoft.Extensions.DependencyInjection.IServiceCollection
+  parent: Microsoft.Extensions.DependencyInjection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection
+  name: IServiceCollection
+  nameWithType: IServiceCollection
+  fullName: Microsoft.Extensions.DependencyInjection.IServiceCollection
+- uid: System.Action{BbQChatOptions}
+  commentId: T:System.Action{BbQChatOptions}
+  parent: System
+  definition: System.Action`1
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<BbQChatOptions>
+  nameWithType: Action<BbQChatOptions>
+  fullName: System.Action<BbQChatOptions>
+  nameWithType.vb: Action(Of BbQChatOptions)
+  fullName.vb: System.Action(Of BbQChatOptions)
+  name.vb: Action(Of BbQChatOptions)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - uid: BbQChatOptions
+    name: BbQChatOptions
+    isExternal: true
+    href: BbQChatOptions.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQChatOptions
+    name: BbQChatOptions
+    isExternal: true
+    href: BbQChatOptions.html
+  - name: )
+- uid: BbQ.ChatWidgets.Abstractions
+  commentId: N:BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Abstractions
+  nameWithType: BbQ.ChatWidgets.Abstractions
+  fullName: BbQ.ChatWidgets.Abstractions
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html
+- uid: Microsoft.Extensions.AI
+  commentId: N:Microsoft.Extensions.AI
+  isExternal: true
+  name: Microsoft.Extensions.AI
+  nameWithType: Microsoft.Extensions.AI
+  fullName: Microsoft.Extensions.AI
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+  - name: .
+  - uid: Microsoft.Extensions.AI
+    name: AI
+    isExternal: true
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+  - name: .
+  - uid: Microsoft.Extensions.AI
+    name: AI
+    isExternal: true
+- uid: Microsoft.Extensions.DependencyInjection
+  commentId: N:Microsoft.Extensions.DependencyInjection
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft
+  name: Microsoft.Extensions.DependencyInjection
+  nameWithType: Microsoft.Extensions.DependencyInjection
+  fullName: Microsoft.Extensions.DependencyInjection
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.DependencyInjection
+    name: DependencyInjection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions
+  - name: .
+  - uid: Microsoft.Extensions.DependencyInjection
+    name: DependencyInjection
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.action-1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.action-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: BbQChatOptions.RoutePrefix
+  commentId: P:BbQChatOptions.RoutePrefix
+  isExternal: true
+  href: BbQChatOptions.html#BbQChatOptions_RoutePrefix
+  name: RoutePrefix
+  nameWithType: BbQChatOptions.RoutePrefix
+  fullName: BbQChatOptions.RoutePrefix
+- uid: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.MapBbQChatEndpoints*
+  commentId: Overload:BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.MapBbQChatEndpoints
+  isExternal: true
+  href: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.html#BbQ_ChatWidgets_Extensions_ServiceCollectionExtensions_MapBbQChatEndpoints_Microsoft_AspNetCore_Builder_IApplicationBuilder_
+  name: MapBbQChatEndpoints
+  nameWithType: ServiceCollectionExtensions.MapBbQChatEndpoints
+  fullName: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.MapBbQChatEndpoints
+- uid: Microsoft.AspNetCore.Builder.IApplicationBuilder
+  commentId: T:Microsoft.AspNetCore.Builder.IApplicationBuilder
+  parent: Microsoft.AspNetCore.Builder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.builder.iapplicationbuilder
+  name: IApplicationBuilder
+  nameWithType: IApplicationBuilder
+  fullName: Microsoft.AspNetCore.Builder.IApplicationBuilder
+- uid: Microsoft.AspNetCore.Builder
+  commentId: N:Microsoft.AspNetCore.Builder
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/microsoft
+  name: Microsoft.AspNetCore.Builder
+  nameWithType: Microsoft.AspNetCore.Builder
+  fullName: Microsoft.AspNetCore.Builder
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.AspNetCore
+    name: AspNetCore
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore
+  - name: .
+  - uid: Microsoft.AspNetCore.Builder
+    name: Builder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.builder
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft
+  - name: .
+  - uid: Microsoft.AspNetCore
+    name: AspNetCore
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore
+  - name: .
+  - uid: Microsoft.AspNetCore.Builder
+    name: Builder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.builder

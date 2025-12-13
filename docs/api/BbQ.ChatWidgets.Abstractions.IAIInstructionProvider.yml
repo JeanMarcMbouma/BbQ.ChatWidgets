@@ -1,0 +1,178 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Abstractions.IAIInstructionProvider
+  commentId: T:BbQ.ChatWidgets.Abstractions.IAIInstructionProvider
+  id: IAIInstructionProvider
+  parent: BbQ.ChatWidgets.Abstractions
+  children:
+  - BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.GetInstructions
+  langs:
+  - csharp
+  - vb
+  name: IAIInstructionProvider
+  nameWithType: IAIInstructionProvider
+  fullName: BbQ.ChatWidgets.Abstractions.IAIInstructionProvider
+  type: Interface
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Abstractions/IAIInstructionProvider.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Abstractions
+  summary: Provides system instructions for the AI chat client.
+  remarks: >-
+    System instructions guide the behavior of the AI model by:
+
+    - Defining the AI's role and personality
+
+    - Explaining available tools and widgets
+
+    - Providing guidelines for response generation
+
+    - Specifying constraints or requirements
+
+
+    Implementations can provide static instructions, dynamic instructions based on context,
+
+    or instructions that change based on configuration.
+
+
+    The default implementation generates instructions that:
+
+    - Describe all available widgets
+
+    - List registered actions
+
+    - Provide widget formatting guidelines
+
+    - Explain best practices for widget usage
+
+
+    Example custom implementation:
+
+    <pre><code class="lang-csharp">public class CustomInstructionProvider : IAIInstructionProvider
+
+    {
+        public string? GetInstructions()
+        {
+            return @"You are a helpful customer service assistant.
+                    You have access to order management tools and can create widgets
+                    for order status, refunds, and shipment tracking.
+                    Always be professional and helpful.";
+        }
+    }</code></pre>
+  example: []
+  syntax:
+    content: public interface IAIInstructionProvider
+    content.vb: Public Interface IAIInstructionProvider
+- uid: BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.GetInstructions
+  commentId: M:BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.GetInstructions
+  id: GetInstructions
+  parent: BbQ.ChatWidgets.Abstractions.IAIInstructionProvider
+  langs:
+  - csharp
+  - vb
+  name: GetInstructions()
+  nameWithType: IAIInstructionProvider.GetInstructions()
+  fullName: BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.GetInstructions()
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/b12dcb9a5f5cf5939347cd41ad11adf98b3cbd6b/BbQ.ChatWidgets/Abstractions/IAIInstructionProvider.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Abstractions
+  summary: Gets the system instructions for the AI chat client.
+  remarks: >-
+    This method is called before sending messages to the AI, allowing the instructions
+
+    to be dynamic based on current state. The instructions are passed to the chat client
+
+    in the ChatOptions.Instructions property.
+
+
+    The instruction string can include:
+
+    - Role description
+
+    - Tool and widget documentation
+
+    - Guidelines and constraints
+
+    - Examples of desired behavior
+
+    - Format specifications for responses
+
+
+    Returning null or empty string means no special instructions are provided,
+
+    and the AI client will use its default behavior.
+  example: []
+  syntax:
+    content: string? GetInstructions()
+    return:
+      type: System.String
+      description: System instructions for the AI, or null if none are needed.
+    content.vb: Function GetInstructions() As String
+  overload: BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.GetInstructions*
+references:
+- uid: BbQ.ChatWidgets.Abstractions
+  commentId: N:BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Abstractions
+  nameWithType: BbQ.ChatWidgets.Abstractions
+  fullName: BbQ.ChatWidgets.Abstractions
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html
+- uid: BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.GetInstructions*
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.GetInstructions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.html#BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_GetInstructions
+  name: GetInstructions
+  nameWithType: IAIInstructionProvider.GetInstructions
+  fullName: BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.GetInstructions
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System

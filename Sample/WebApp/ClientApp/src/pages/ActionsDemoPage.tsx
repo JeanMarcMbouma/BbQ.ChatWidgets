@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { ChatMessage } from '../types';
 import '../styles/ActionsDemoPage.css';
+import { WidgetRenderer } from '../components/WidgetRenderer';
 
 interface ActionsDemoPageProps {
   onBack: () => void;
@@ -162,11 +163,13 @@ export function ActionsDemoPage({ onBack }: ActionsDemoPageProps) {
                     <p>{msg.content}</p>
                     {msg.widgets && msg.widgets.length > 0 && (
                       <div className="widgets">
-                        {msg.widgets.map((widget, i) => (
-                          <div key={i} className="widget-item">
-                            <code>{JSON.stringify(widget, null, 2)}</code>
-                          </div>
-                        ))}
+                        <WidgetRenderer
+                          widgets={msg.widgets}
+                          onWidgetAction={(actionName, payload) => {
+                            // forward widget events to the page-level handler
+                            handleAction(actionName, payload as Record<string, any>);
+                          }}
+                        />
                       </div>
                     )}
                   </div>

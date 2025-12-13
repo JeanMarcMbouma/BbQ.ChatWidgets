@@ -40,9 +40,19 @@ if (Test-Path "js") {
     Push-Location js
     Write-Host "Installing JS dependencies (including TypeDoc)..."
     npm install
+    if ($LASTEXITCODE -ne 0) {
+      Pop-Location
+      Write-Error "npm install failed"
+      exit $LASTEXITCODE
+    }
     
     Write-Host "Generating JS docs using local TypeDoc installation..."
     npm run docs:js
+    if ($LASTEXITCODE -ne 0) {
+      Pop-Location
+      Write-Error "TypeDoc generation failed"
+      exit $LASTEXITCODE
+    }
 
     Pop-Location
   }

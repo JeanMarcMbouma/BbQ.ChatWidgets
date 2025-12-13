@@ -72,7 +72,7 @@ services.AddScoped<FeedbackHandler>();
 services.AddScoped<EChartsClickHandler>();
 
 // Register triage-aware chat service
-services.AddScoped<TriageAwareChatService>();
+//services.AddScoped<TriageAwareChatService>();
 
 // Add CORS for React frontend
 services.AddCors(options =>

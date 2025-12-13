@@ -133,19 +133,19 @@ export function WidgetsDemoPage({ onBack }: WidgetsDemoPageProps) {
               onClick={() => setSelectedWidget(widget)}
             >
               <div className="widget-icon">
-                {widget.type === 'button' && '??'}
-                {widget.type === 'input' && '??'}
-                {widget.type === 'textarea' && '??'}
-                {widget.type === 'dropdown' && '??'}
-                {widget.type === 'slider' && '???'}
-                {widget.type === 'toggle' && '??'}
-                {widget.type === 'card' && '??'}
-                {widget.type === 'datepicker' && '??'}
-                {widget.type === 'multiselect' && '?'}
-                {widget.type === 'fileupload' && '??'}
-                {widget.type === 'progressbar' && '??'}
-                {widget.type === 'themeswitcher' && '??'}
-                {widget.type === 'form' && '??'}
+                {widget.type === 'button' && '🔘'}
+                {widget.type === 'input' && '📝'}
+                {widget.type === 'textarea' && '📄'}
+                {widget.type === 'dropdown' && '📋'}
+                {widget.type === 'slider' && '🎚️'}
+                {widget.type === 'toggle' && '🔲'}
+                {widget.type === 'card' && '🎴'}
+                {widget.type === 'datepicker' && '📅'}
+                {widget.type === 'multiselect' && '☑️'}
+                {widget.type === 'fileupload' && '📂'}
+                {widget.type === 'progressbar' && '📊'}
+                {widget.type === 'themeswitcher' && '🎨'}
+                {widget.type === 'form' && '📋'}
               </div>
               <h3>{widget.name}</h3>
               <p>{widget.description}</p>
@@ -167,11 +167,11 @@ export function WidgetsDemoPage({ onBack }: WidgetsDemoPageProps) {
               <div className="widget-features">
                 <h3>Features</h3>
                 <ul>
-                  <li>? Server-side rendering compatible</li>
-                  <li>? Full accessibility support</li>
-                  <li>? Mobile responsive</li>
-                  <li>? Event-driven actions</li>
-                  <li>? XSS-safe HTML escaping</li>
+                  <li>✓ Server-side rendering compatible</li>
+                  <li>✓ Full accessibility support</li>
+                  <li>✓ Mobile responsive</li>
+                  <li>✓ Event-driven actions</li>
+                  <li>✓ XSS-safe HTML escaping</li>
                 </ul>
               </div>
 
@@ -185,7 +185,7 @@ export function WidgetsDemoPage({ onBack }: WidgetsDemoPageProps) {
             </div>
           ) : (
             <div className="no-selection">
-              <p>?? Select a widget to see details</p>
+              <p>👈 Select a widget to see details</p>
             </div>
           )}
         </div>
@@ -198,18 +198,18 @@ export function WidgetsDemoPage({ onBack }: WidgetsDemoPageProps) {
           All widgets are:
         </p>
         <ul>
-          <li>? Type-safe (defined as TypeScript interfaces)</li>
-          <li>? Server-rendered (SSR compatible)</li>
-          <li>? Action-driven (trigger API calls)</li>
-          <li>? Composable (combine multiple widgets)</li>
-          <li>? Extensible (create custom widgets)</li>
+          <li>✓ Type-safe (defined as TypeScript interfaces)</li>
+          <li>✓ Server-rendered (SSR compatible)</li>
+          <li>✓ Action-driven (trigger API calls)</li>
+          <li>✓ Composable (combine multiple widgets)</li>
+          <li>✓ Extensible (create custom widgets)</li>
         </ul>
 
         <div className="widget-categories">
           <h4>Widget Categories</h4>
           <div className="categories-grid">
             <div className="category">
-              <h5>?? Input Widgets</h5>
+              <h5>⌨️ Input Widgets</h5>
               <ul>
                 <li>Input (text)</li>
                 <li>TextArea (multi-line)</li>
@@ -218,7 +218,7 @@ export function WidgetsDemoPage({ onBack }: WidgetsDemoPageProps) {
               </ul>
             </div>
             <div className="category">
-              <h5>?? Selection Widgets</h5>
+              <h5>☑️ Selection Widgets</h5>
               <ul>
                 <li>Button (single action)</li>
                 <li>Dropdown (single select)</li>
@@ -227,7 +227,7 @@ export function WidgetsDemoPage({ onBack }: WidgetsDemoPageProps) {
               </ul>
             </div>
             <div className="category">
-              <h5>?? Display Widgets</h5>
+              <h5>📊 Display Widgets</h5>
               <ul>
                 <li>Card (rich content)</li>
                 <li>ProgressBar (progress)</li>
@@ -236,7 +236,7 @@ export function WidgetsDemoPage({ onBack }: WidgetsDemoPageProps) {
               </ul>
             </div>
             <div className="category">
-              <h5>?? Complex Widgets</h5>
+              <h5>🔧 Complex Widgets</h5>
               <ul>
                 <li>Form (multiple fields)</li>
                 <li>ECharts (charts)</li>

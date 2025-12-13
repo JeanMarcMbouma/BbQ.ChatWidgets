@@ -132,11 +132,12 @@ public sealed class ChatWidgetService(
         var chatWidgets = new List<ChatWidget>();
         await foreach(var responseUpdate in chat.GetStreamingResponseAsync(messages.ToAIMessages(), chatOptions, cancellationToken))
         {
-            var (content, widgets) = widgetHintParser.Parse(responseUpdate.Text);
-            responseText = responseUpdate.Text;
+            responseText += responseUpdate.Text;
+            var (content, widgets) = widgetHintParser.Parse(responseText);
+            responseText = content.Trim();
             if(widgets != null  && widgets.Count > 0)
                 chatWidgets.AddRange(widgets);
-            yield return new StreamChatTurn(ChatRole.Assistant, responseText, threadId, IsDelta: true);
+            yield return new StreamChatTurn(ChatRole.Assistant, content, threadId, IsDelta: true);
         }
 
         messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.Assistant, responseText, chatWidgets, threadId));

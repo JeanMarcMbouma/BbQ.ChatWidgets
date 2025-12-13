@@ -1,3 +1,4 @@
+using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Agents;
 using BbQ.ChatWidgets.Agents.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
@@ -51,6 +52,7 @@ public static class WebAppTriageSetup
         {
             var classifier = sp.GetRequiredService<IClassifier<UserIntent>>();
             var registry = sp.GetRequiredService<IAgentRegistry>();
+            var threadService = sp.GetService<IThreadService>();
 
             // Define routing mapping from classification to agent name
             Func<UserIntent, string?> routingMapping = classification => classification switch
@@ -67,8 +69,9 @@ public static class WebAppTriageSetup
                 classifier,
                 registry,
                 routingMapping,
-                fallbackAgentName: "help-agent"
-            );
+                fallbackAgentName: "help-agent",
+                threadService: threadService
+            ) as IAgent;
         });
 
         return services;

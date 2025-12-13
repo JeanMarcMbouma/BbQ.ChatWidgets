@@ -192,11 +192,11 @@ export function TriageAgentPage({ onBack }: TriageAgentPageProps) {
         <div className="agent-routing">
           <h4>Agent Routing</h4>
           <ul>
-            <li><strong>HelpRequest</strong> ? help-agent (Support)</li>
-            <li><strong>DataQuery</strong> ? data-query-agent (Information)</li>
-            <li><strong>ActionRequest</strong> ? action-agent (Operations)</li>
-            <li><strong>Feedback</strong> ? feedback-agent (Feedback)</li>
-            <li><strong>Unknown</strong> ? help-agent (Fallback)</li>
+            <li><strong>HelpRequest</strong> → help-agent (Support)</li>
+            <li><strong>DataQuery</strong> → data-query-agent (Information)</li>
+            <li><strong>ActionRequest</strong> → action-agent (Operations)</li>
+            <li><strong>Feedback</strong> → feedback-agent (Feedback)</li>
+            <li><strong>Unknown</strong> → help-agent (Fallback)</li>
           </ul>
         </div>
 

@@ -1,6 +1,7 @@
 using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Agents.Abstractions;
 using BbQ.Outcome;
+using BbQ.ChatWidgets.Abstractions;
 
 namespace BbQ.ChatWidgets.Agents;
 
@@ -26,6 +27,7 @@ public sealed class TriageAgent<TCategory> : IAgent
     private readonly Func<TCategory, string?> _routingMapping;
     private readonly string? _fallbackAgentName;
     private readonly IAgent? _fallbackAgent;
+    private readonly IThreadService? _threadService;
 
     /// <summary>
     /// Initializes a new instance of the TriageAgent.
@@ -40,13 +42,15 @@ public sealed class TriageAgent<TCategory> : IAgent
         IAgentRegistry agentRegistry,
         Func<TCategory, string?> routingMapping,
         string? fallbackAgentName = null,
-        IAgent? fallbackAgent = null)
+        IAgent? fallbackAgent = null,
+        IThreadService? threadService = null)
     {
         _classifier = classifier ?? throw new ArgumentNullException(nameof(classifier));
         _agentRegistry = agentRegistry ?? throw new ArgumentNullException(nameof(agentRegistry));
         _routingMapping = routingMapping ?? throw new ArgumentNullException(nameof(routingMapping));
         _fallbackAgentName = fallbackAgentName;
         _fallbackAgent = fallbackAgent;
+        _threadService = threadService;
     }
 
     public async Task<Outcome<ChatTurn>> InvokeAsync(ChatRequest request, CancellationToken cancellationToken)
@@ -78,7 +82,9 @@ public sealed class TriageAgent<TCategory> : IAgent
 
             // Store routing information for diagnostics
             InterAgentCommunicationContext.SetRoutedAgent(request, agentName ?? "unknown");
-
+            if (_threadService is not null)
+                if (request.ThreadId is null || !_threadService.ThreadExists(request.ThreadId))
+                    request = request with { ThreadId = _threadService.CreateThread() };
             // Invoke the routed agent
             return await targetAgent.InvokeAsync(request, cancellationToken);
         }

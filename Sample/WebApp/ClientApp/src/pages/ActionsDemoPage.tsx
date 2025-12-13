@@ -187,31 +187,31 @@ export function ActionsDemoPage({ onBack }: ActionsDemoPageProps) {
                 className="action-button confirm"
                 onClick={handleSampleActions.confirmAction}
               >
-                ? Confirm Action
+                ✓ Confirm Action
               </button>
               <button
                 className="action-button cancel"
                 onClick={handleSampleActions.cancelAction}
               >
-                ? Cancel Action
+                ✕ Cancel Action
               </button>
               <button
                 className="action-button form"
                 onClick={handleSampleActions.submitForm}
               >
-                ?? Submit Form
+                📝 Submit Form
               </button>
               <button
                 className="action-button select"
                 onClick={handleSampleActions.selectOption}
               >
-                ?? Select Option
+                🎯 Select Option
               </button>
               <button
                 className="action-button feedback"
                 onClick={handleSampleActions.sendFeedback}
               >
-                ? Send Feedback
+                💬 Send Feedback
               </button>
             </div>
 
@@ -287,17 +287,17 @@ export function ActionsDemoPage({ onBack }: ActionsDemoPageProps) {
               <div className="step-number">1</div>
               <div className="step-text">User clicks widget</div>
             </div>
-            <span className="arrow">?</span>
+            <span className="arrow">→</span>
             <div className="step">
               <div className="step-number">2</div>
               <div className="step-text">POST /api/chat/action</div>
             </div>
-            <span className="arrow">?</span>
+            <span className="arrow">→</span>
             <div className="step">
               <div className="step-number">3</div>
               <div className="step-text">Handler processes</div>
             </div>
-            <span className="arrow">?</span>
+            <span className="arrow">→</span>
             <div className="step">
               <div className="step-number">4</div>
               <div className="step-text">Response received</div>

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
+using System.Text.Json;
 
 namespace BbQ.ChatWidgets.Extensions;
 
@@ -172,13 +173,13 @@ public static class ServiceCollectionExtensions
     private static async Task HandleAgentRequest(HttpContext context)
     {
         // Reset stream position for multiple deserializations
-        context.Request.Body.Position = 0;
-        var payload = await DeserializeRequest<UserMessageDto>(context);
-        
-        // Reset stream position again for metadata deserialization
-        context.Request.Body.Position = 0;
         var metadata = await DeserializeRequest<Dictionary<string, object>>(context) ?? [];
-        
+        var serialization = JsonSerializer.Serialize(metadata, Serialization.Default);
+        var payload = JsonSerializer.Deserialize<UserMessageDto>(serialization, Serialization.Default)
+            ?? throw new InvalidOperationException("Failed to deserialize request payload.");
+
+        // Reset stream position again for metadata deserialization
+
         var chatRequest = new ChatRequest(payload.ThreadId, context.RequestServices)
         {
             Metadata = metadata
@@ -226,12 +227,11 @@ public static class ServiceCollectionExtensions
 
     private static async Task HandleStreamAgentRequest(HttpContext context)
     {
-        context.Request.Body.Position = 0;
-        var payload = await DeserializeRequest<UserMessageDto>(context);
-        
-        context.Request.Body.Position = 0;
         var metadata = await DeserializeRequest<Dictionary<string, object>>(context) ?? [];
-        
+        var serialization = JsonSerializer.Serialize(metadata, Serialization.Default);
+        var payload = JsonSerializer.Deserialize<UserMessageDto>(serialization, Serialization.Default)
+                        ?? throw new InvalidOperationException("Failed to deserialize request payload.");
+
         var chatRequest = new ChatRequest(payload.ThreadId, context.RequestServices)
         {
             Metadata = metadata

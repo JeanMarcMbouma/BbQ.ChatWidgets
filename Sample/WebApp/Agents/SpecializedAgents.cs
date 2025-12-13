@@ -16,12 +16,13 @@ public sealed class HelpAgent : IAgent
         var userMessage = InterAgentCommunicationContext.GetUserMessage(request);
         var classification = InterAgentCommunicationContext.GetClassification<UserIntent>(request);
 
-        var response = new ChatTurn(
+        var response = new SampleChatTurn(
             ChatRole.Assistant,
             $"I'm here to help! You asked: '{userMessage}' (classified as {classification}). " +
             "Please let me know what specific assistance you need.",
             [],
-            request.ThreadId ?? "unknown"
+            request.ThreadId ?? "unknown",
+            Helpers.GetMetadata(request, classification)
         );
 
         return Task.FromResult(Outcome<ChatTurn>.From(response));
@@ -38,12 +39,13 @@ public sealed class DataQueryAgent : IAgent
         var userMessage = InterAgentCommunicationContext.GetUserMessage(request);
         var classification = InterAgentCommunicationContext.GetClassification<UserIntent>(request);
 
-        var response = new ChatTurn(
+        var response = new SampleChatTurn(
             ChatRole.Assistant,
             $"I found your data query: '{userMessage}' (classified as {classification}). " +
             "Here's the information you requested...",
             [],
-            request.ThreadId ?? "unknown"
+            request.ThreadId ?? "unknown",
+            Helpers.GetMetadata(request, classification)
         );
 
         return Task.FromResult(Outcome<ChatTurn>.From(response));
@@ -60,7 +62,7 @@ public sealed class ActionAgent : IAgent
         var userMessage = InterAgentCommunicationContext.GetUserMessage(request);
         var classification = InterAgentCommunicationContext.GetClassification<UserIntent>(request);
 
-        var response = new ChatTurn(
+        var response = new SampleChatTurn(
             ChatRole.Assistant,
             $"I'm processing your action request: '{userMessage}' (classified as {classification}). " +
             "Please confirm to proceed with this action.",
@@ -75,7 +77,8 @@ public sealed class ActionAgent : IAgent
                     Action: "cancel_action"
                 )
             },
-            request.ThreadId ?? "unknown"
+            request.ThreadId ?? "unknown",
+            Helpers.GetMetadata(request, classification)
         );
 
         return Task.FromResult(Outcome<ChatTurn>.From(response));
@@ -92,7 +95,7 @@ public sealed class FeedbackAgent : IAgent
         var userMessage = InterAgentCommunicationContext.GetUserMessage(request);
         var classification = InterAgentCommunicationContext.GetClassification<UserIntent>(request);
 
-        var response = new ChatTurn(
+        var response = new SampleChatTurn(
             ChatRole.Assistant,
             $"Thank you for your feedback: '{userMessage}' (classified as {classification}). " +
             "We appreciate your input and will use it to improve our service.",
@@ -103,9 +106,27 @@ public sealed class FeedbackAgent : IAgent
                     Action: "submit_feedback"
                 )
             },
-            request.ThreadId ?? "unknown"
+            request.ThreadId ?? "unknown",
+            Helpers.GetMetadata(request, classification)
         );
 
         return Task.FromResult(Outcome<ChatTurn>.From(response));
+    }
+
+}
+
+public sealed record SampleChatTurn(ChatRole Role, string Message, IReadOnlyList<ChatWidget> Widgets, string ThreadId, Dictionary<string, object> Metadata) : 
+        ChatTurn(Role, Message, Widgets, ThreadId);
+
+static class Helpers
+{
+
+    public static Dictionary<string, object> GetMetadata(ChatRequest request, UserIntent classification)
+    {
+        return new Dictionary<string, object>
+        {
+            ["classification"] = Enum.GetName(classification)!,
+            ["routedAgent"] = InterAgentCommunicationContext.GetRoutedAgent(request)!
+        };
     }
 }

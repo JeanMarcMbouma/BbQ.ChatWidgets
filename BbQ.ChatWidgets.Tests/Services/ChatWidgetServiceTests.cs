@@ -14,6 +14,7 @@ public class ChatWidgetServiceTests
 {
     private readonly MockChatClient mockChat = new();
     private readonly Mock<IWidgetHintParser> mockWidgetHintParser = new();
+    private readonly Mock<IWidgetHintSanitizer> mockWidgetHintSanitizer = new();
     private readonly Mock<IWidgetToolsProvider> mockToolsProvider = new();
     private readonly Mock<IAIToolsProvider> mockAIToolsProvider = new();
     private readonly Mock<IThreadService> mockThreadService = new();
@@ -28,6 +29,7 @@ public class ChatWidgetServiceTests
         chatWidgetService = new ChatWidgetService(
             mockChat,
             mockWidgetHintParser.Object,
+            mockWidgetHintSanitizer.Object,
             mockToolsProvider.Object,
             mockAIToolsProvider.Object,
             mockThreadService.Object,

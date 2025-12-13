@@ -56,6 +56,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IChatWidgetRenderer, Renderers.SsrWidgetRenderer>();
         services.AddSingleton<IThreadService, DefaultThreadService>();
         services.AddSingleton<IWidgetHintParser, DefaultWidgetHintParser>();
+        services.AddSingleton<IWidgetHintSanitizer, DefaultWidgetHintParser>();
         
         // Register action registry and handler resolver
         services.AddSingleton<IWidgetActionRegistry, DefaultWidgetActionRegistry>();

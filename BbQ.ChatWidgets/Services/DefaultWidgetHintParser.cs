@@ -1,4 +1,4 @@
-using BbQ.ChatWidgets.Abstractions;
+﻿using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Models;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -20,7 +20,7 @@ namespace BbQ.ChatWidgets.Services;
 /// - ToggleWidget: Checkbox toggle for boolean values
 /// - FileUploadWidget: File upload input with optional file type restrictions
 /// </remarks>
-public sealed class DefaultWidgetHintParser : IWidgetHintParser
+public sealed class DefaultWidgetHintParser : IWidgetHintParser, IWidgetHintSanitizer
 {
     private const string WidgetMarkerStart = "<widget>";
     private const string WidgetMarkerEnd = "</widget>";
@@ -117,5 +117,25 @@ public sealed class DefaultWidgetHintParser : IWidgetHintParser
     private static string RemoveWidgetMarkers(string rawModelOutput)
     {
         return WidgetBlockRegex.Replace(rawModelOutput, string.Empty).Trim();
+    }
+
+    /// <summary>
+    /// Sanitizes content by removing incomplete or malformed widget markup.
+    /// Useful for cleaning up streaming responses that may contain partial widget syntax.
+    /// </summary>
+    /// <param name="content">The content to sanitize.</param>
+    /// <returns>The cleaned content with all incomplete widget markers removed.</returns>
+    public string Sanitize(string content)
+    {
+        ArgumentNullException.ThrowIfNull(content);
+
+        // Remove complete widget blocks
+        var cleaned = WidgetBlockRegex.Replace(content, string.Empty);
+
+        // Remove incomplete widget markup by finding <widget> tags that don't have a closing </widget>
+        // Match sequences that start with <widget> and continue until we hit end of string or a complete </widget>
+        cleaned = Regex.Replace(cleaned, $@"{Regex.Escape(WidgetMarkerStart)}(?:(?!{Regex.Escape(WidgetMarkerEnd)}).)*$", "⏳", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+
+        return cleaned.Trim();
     }
 }

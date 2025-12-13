@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { ChatMessage } from '../types';
+import { WidgetRenderer } from '../components/WidgetRenderer';
 import '../styles/TriageAgentPage.css';
 
 interface TriageAgentPageProps {
@@ -114,11 +115,7 @@ export function TriageAgentPage({ onBack }: TriageAgentPageProps) {
                 <p>{msg.content}</p>
                 {msg.widgets && msg.widgets.length > 0 && (
                   <div className="widgets">
-                    {msg.widgets.map((widget, i) => (
-                      <div key={i} className="widget-item">
-                        <pre>{JSON.stringify(widget, null, 2)}</pre>
-                      </div>
-                    ))}
+                    <WidgetRenderer widgets={msg.widgets} />
                   </div>
                 )}
               </div>

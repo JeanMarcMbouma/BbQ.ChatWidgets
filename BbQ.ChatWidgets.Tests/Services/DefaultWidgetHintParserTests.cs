@@ -1,4 +1,4 @@
-using Xunit;
+﻿using Xunit;
 using BbQ.ChatWidgets.Services;
 using BbQ.ChatWidgets.Models;
 
@@ -192,5 +192,86 @@ public class DefaultWidgetHintParserTests
     {
         // Act & Assert
         Assert.Throws<ArgumentNullException>(() => _parser.Parse(null!));
+    }
+
+    [Fact]
+    public void Sanitize_RemovesCompleteWidgets()
+    {
+        // Arrange
+        var input = "Before <widget>{\"type\":\"button\",\"label\":\"Click\",\"action\":\"click\"}</widget> After";
+
+        // Act
+        var result = _parser.Sanitize(input);
+
+        // Assert
+        Assert.DoesNotContain("<widget>", result);
+        Assert.DoesNotContain("</widget>", result);
+        Assert.Contains("Before", result);
+        Assert.Contains("After", result);
+    }
+
+    [Fact]
+    public void Sanitize_RemovesIncompleteWidgets()
+    {
+        // Arrange
+        var input = "Some text <widget>{\"type\":\"button\",\"label\":\"incomplete";
+
+        // Act
+        var result = _parser.Sanitize(input);
+
+        // Assert
+        Assert.DoesNotContain("<widget>", result);
+        Assert.Equal("Some text ⏳", result);
+    }
+
+    [Fact]
+    public void Sanitize_RemovesMultipleIncompleteWidgets()
+    {
+        // Arrange
+        var input = "Text <widget>{incomplete1 and <widget>{incomplete2";
+
+        // Act
+        var result = _parser.Sanitize(input);
+
+        // Assert
+        Assert.DoesNotContain("<widget>", result);
+        Assert.Equal("Text ⏳", result);
+    }
+
+    [Fact]
+    public void Sanitize_RemovesMixedCompleteAndIncompleteWidgets()
+    {
+        // Arrange
+        var input = "Start <widget>{\"type\":\"button\",\"label\":\"Complete\",\"action\":\"test\"}</widget> Middle <widget>{incomplete text";
+
+        // Act
+        var result = _parser.Sanitize(input);
+
+        // Assert
+        Assert.DoesNotContain("<widget>", result);
+        Assert.Contains("Start", result);
+        Assert.Contains("Middle", result);
+        Assert.DoesNotContain("Complete", result);
+        Assert.DoesNotContain("incomplete", result);
+    }
+
+    [Fact]
+    public void Sanitize_NoWidgets_ReturnsOriginalContent()
+    {
+        // Arrange
+        var input = "This is just plain text";
+
+        // Act
+        var result = _parser.Sanitize(input);
+
+        // Assert
+        Assert.Equal(input, result);
+    }
+
+    [Fact]
+    public void Sanitize_NullInput_ThrowsException()
+    {
+        // Act & Assert
+        Assert.Throws<ArgumentNullException>(() => _parser.Sanitize(null!));
     }
 }

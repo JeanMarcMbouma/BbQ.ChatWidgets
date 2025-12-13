@@ -21,6 +21,7 @@ namespace BbQ.ChatWidgets.Services;
 /// The service integrates with:
 /// - <see cref="IChatClient"/> for AI responses
 /// - <see cref="IWidgetHintParser"/> for parsing widget definitions from AI responses
+/// - <see cref="IWidgetHintSanitizer"/> for sanitizing incomplete widget markup
 /// - <see cref="IWidgetToolsProvider"/> for exposing widget capabilities
 /// - <see cref="IAIToolsProvider"/> for additional AI tools
 /// - <see cref="IThreadService"/> for conversation management
@@ -31,6 +32,7 @@ namespace BbQ.ChatWidgets.Services;
 public sealed class ChatWidgetService(
     IChatClient chat,
     IWidgetHintParser widgetHintParser,
+    IWidgetHintSanitizer widgetHintSanitizer,
     IWidgetToolsProvider widgetToolsProvider,
     IAIToolsProvider aiToolsProvider,
     IThreadService threadService,
@@ -137,7 +139,7 @@ public sealed class ChatWidgetService(
             responseText = content.Trim();
             if(widgets != null  && widgets.Count > 0)
                 chatWidgets.AddRange(widgets);
-            yield return new StreamChatTurn(ChatRole.Assistant, content, threadId, IsDelta: true);
+            yield return new StreamChatTurn(ChatRole.Assistant, widgetHintSanitizer.Sanitize(content), threadId, IsDelta: true);
         }
 
         messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.Assistant, responseText, chatWidgets, threadId));

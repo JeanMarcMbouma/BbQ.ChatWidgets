@@ -420,3 +420,20 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+README_STREAMING.md
+README_TRIAGE_IMPLEMENTATION.md
+SAMPLE_IMPLEMENTATION_COMPLETE.md
+STREAMING_INDEX.md
+TRIAGE_INDEX.md
+BbQ.ChatWidgets/docs/STREAMING_IMPLEMENTATION.md
+BbQ.ChatWidgets/docs/TRIAGE_ARCHITECTURE.md
+BbQ.ChatWidgets/docs/TRIAGE_IMPLEMENTATION_SUMMARY.md
+BbQ.ChatWidgets/docs/guides/STREAMING_ENDPOINTS.md
+BbQ.ChatWidgets/docs/guides/STREAMING_QUICKSTART.md
+BbQ.ChatWidgets/docs/guides/TRIAGE_AGENT_QUICKSTART.md
+BbQ.ChatWidgets/docs/guides/TRIAGE_AGENT.md
+docs/*.md
+docs/**/*.md
+Sample/**/*.md
+js/**/*.md
+Sample/WebApp/wwwroot/assets/*.js

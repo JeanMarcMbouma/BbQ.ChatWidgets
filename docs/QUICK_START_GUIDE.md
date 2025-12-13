@@ -1,3 +1,4 @@
+This quick start guide has been consolidated into `docs/GETTING_STARTED.md` and `docs/INDEX.md`.
 # Documentation Organization - Visual Guide
 
 This visual guide summarizes how the documentation is organized and where different users should look.

@@ -1,3 +1,4 @@
+Documentation standards have been consolidated into `docs/contributing/README.md`.
 # Documentation Standards
 
 Guidelines for writing documentation for BbQ.ChatWidgets.

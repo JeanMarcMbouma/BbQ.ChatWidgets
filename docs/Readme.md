@@ -1,3 +1,4 @@
+This file has been consolidated. Use `docs/INDEX.md` and the top-level `README.md` for current documentation.
 # BbQ.ChatWidgets
 
 BbQ.ChatWidgets is a framework-agnostic widget library for AI chat UIs, built on Microsoft.Extensions.AI.

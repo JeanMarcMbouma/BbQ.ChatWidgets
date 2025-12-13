@@ -1,3 +1,6 @@
+This document has been consolidated into the new documentation structure.
+
+Please refer to `docs/INDEX.md` and `README.md` for the updated documentation.
 # Implementation Complete ?
 
 ## Triage Agent & Classifier Router System - Full Delivery

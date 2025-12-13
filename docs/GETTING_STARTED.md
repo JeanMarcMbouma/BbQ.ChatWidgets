@@ -1,3 +1,26 @@
+# Getting Started (5 minutes)
+
+1. Install the package
+
+```powershell
+dotnet add package BbQ.ChatWidgets
+```
+
+2. Register services in `Program.cs` (example)
+
+```csharp
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddBbQChatWidgets(options => {
+    options.ChatClientFactory = sp => /* provide IChatClient */;
+});
+var app = builder.Build();
+app.MapBbQChatEndpoints();
+app.Run();
+```
+
+3. Send a message and handle actions via `POST /api/chat/message` and `POST /api/chat/action`.
+
+For detailed examples see `docs/examples/` and the `Sample/WebApp` project.
 # Getting Started with BbQ.ChatWidgets
 
 Get up and running with BbQ.ChatWidgets in **5 minutes**!

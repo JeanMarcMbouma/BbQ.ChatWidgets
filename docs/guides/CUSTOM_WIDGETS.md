@@ -1,3 +1,4 @@
+Custom widget guide consolidated into `docs/guides/README.md` and `docs/examples/`.
 # Custom Widgets Guide
 
 Learn how to create custom widget types for your specific needs.

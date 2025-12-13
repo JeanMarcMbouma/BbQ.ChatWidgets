@@ -1,3 +1,6 @@
+This document has been consolidated into the new documentation structure.
+
+Please refer to `docs/INDEX.md` and `README.md` for the updated documentation.
 # Streaming Endpoints - Complete Index
 
 ## ?? Documentation Files

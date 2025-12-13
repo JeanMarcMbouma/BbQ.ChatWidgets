@@ -1,5 +1,8 @@
 # Examples
 
+Practical copy-paste examples demonstrating library usage. Keep short runnable snippets and link to the `Sample/WebApp` project for full implementations.
+# Examples
+
 This folder contains complete, working code examples for BbQ.ChatWidgets.
 
 ## Available Examples

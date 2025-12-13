@@ -1,3 +1,4 @@
+This basic setup example has been consolidated into `docs/GETTING_STARTED.md` and `docs/examples/README.md`.
 # Basic Setup Example
 
 A minimal, working example to get BbQ.ChatWidgets running in 10 minutes.

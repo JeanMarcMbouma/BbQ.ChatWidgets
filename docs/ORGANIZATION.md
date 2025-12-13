@@ -1,3 +1,4 @@
+This organizational document has been consolidated into `docs/MANAGEMENT.md` and `docs/INDEX.md`.
 # Documentation Organization Summary
 
 ## What Changed

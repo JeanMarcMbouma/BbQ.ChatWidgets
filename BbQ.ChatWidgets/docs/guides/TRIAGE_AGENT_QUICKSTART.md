@@ -1,3 +1,4 @@
+This quickstart has been consolidated into the main `docs/examples/` and `docs/guides/` folders. See `../../../docs/INDEX.md`.
 # Triage Agent Quick Start
 
 Get up and running with the triage agent system in 5 minutes.

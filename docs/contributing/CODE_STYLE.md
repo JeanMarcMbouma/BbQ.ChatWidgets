@@ -1,3 +1,4 @@
+Code style guidance has been consolidated into `docs/contributing/README.md`.
 # Code Style Guide
 
 Coding standards and conventions for BbQ.ChatWidgets.

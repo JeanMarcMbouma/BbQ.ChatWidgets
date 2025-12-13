@@ -1,4 +1,7 @@
-﻿# ThemeSwitcherWidget Quick Reference
+﻿This document has been consolidated into the new documentation structure.
+
+Refer to `docs/guides/` and `docs/USAGE.md` for theming quick reference information.
+# ThemeSwitcherWidget Quick Reference
 
 ## Creation
 

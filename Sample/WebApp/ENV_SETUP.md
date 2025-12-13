@@ -1,3 +1,4 @@
+This environment setup guidance has been consolidated into `docs/GETTING_STARTED.md`.
 # Environment Variables Guide
 
 ## Development Setup

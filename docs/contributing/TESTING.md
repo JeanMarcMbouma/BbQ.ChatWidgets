@@ -1,3 +1,4 @@
+Testing guidance has been consolidated into `docs/contributing/README.md`.
 # Testing Guidelines
 
 How to write tests for BbQ.ChatWidgets.

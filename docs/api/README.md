@@ -1,5 +1,16 @@
 # API Reference
 
+This folder will contain generated API documentation (public types, services, models). It is generated from the `BbQ.ChatWidgets` project XML docs using DocFX.
+
+To regenerate:
+
+```powershell
+dotnet build BbQ.ChatWidgets/BbQ.ChatWidgets.csproj -c Release
+docfx metadata docfx.json
+docfx build docfx.json
+```
+# API Reference
+
 Complete documentation of all BbQ.ChatWidgets APIs.
 
 ## Services

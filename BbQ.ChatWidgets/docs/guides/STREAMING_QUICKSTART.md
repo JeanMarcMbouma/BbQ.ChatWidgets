@@ -1,3 +1,4 @@
+This quickstart has been consolidated into the main documentation. See `../../../docs/GETTING_STARTED.md` and `../../../docs/INDEX.md`.
 # Streaming Endpoints Quick Start
 
 Get started with real-time streaming chat in 5 minutes.

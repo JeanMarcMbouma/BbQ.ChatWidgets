@@ -1,3 +1,4 @@
+This javascript implementation note has been consolidated into `docs/examples/` and `docs/USAGE.md`.
 # ChatTurn Types Added to JS Library
 
 ## Summary

@@ -1,4 +1,5 @@
-﻿# Quick Reference
+﻿This quick reference has been consolidated into `docs/USAGE.md` and `docs/INDEX.md`.
+# Quick Reference
 
 Find the documentation you need in seconds.
 

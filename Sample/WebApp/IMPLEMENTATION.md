@@ -1,3 +1,6 @@
+This sample project documentation has been consolidated into `docs/examples/`.
+
+See `docs/INDEX.md` for links to up-to-date examples and runnable samples.
 # Sample/WebApp Implementation Summary
 
 ## ✅ Project Structure Created

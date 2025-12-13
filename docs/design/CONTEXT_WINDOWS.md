@@ -1,3 +1,4 @@
+This design decision doc has been consolidated into `docs/design/README.md`.
 # Context Windows Design Decision
 
 ## Problem

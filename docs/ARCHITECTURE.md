@@ -1,3 +1,8 @@
+# Architecture
+
+High-level architecture and core components (ChatWidgetService, ThreadService, WidgetHintParser, WidgetToolsProvider, ChatClient). For full design rationale and patterns see `docs/design/`.
+
+Diagram and data flow should be kept concise here; deep dives live in the design docs.
 # Architecture Guide
 
 This guide explains how BbQ.ChatWidgets is designed and how its components interact.

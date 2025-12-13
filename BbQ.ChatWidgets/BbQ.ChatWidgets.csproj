@@ -6,6 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>bin\\$(Configuration)\\$(TargetFramework)\\BbQ.ChatWidgets.xml</DocumentationFile>
     <PackageId>BbQ.ChatWidgets</PackageId>
     <Authors>Jean Marc Mbouma</Authors>
     <Description>Framework-agnostic widgets for AI chat UIs, powered by Microsoft.Extensions.AI.</Description>

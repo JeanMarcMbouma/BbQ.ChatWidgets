@@ -1,3 +1,4 @@
+This quickstart has been consolidated into `docs/GETTING_STARTED.md` and `docs/examples/`.
 # Quick Start Guide
 
 ## 5-Minute Setup

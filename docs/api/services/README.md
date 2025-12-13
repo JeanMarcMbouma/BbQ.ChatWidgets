@@ -1,3 +1,6 @@
+This API services documentation has been consolidated into the generated API docs. Run the API doc pipeline to regenerate.
+
+See `docs/api/README.md` for instructions.
 # Services API
 
 Documentation for core service classes.

@@ -1,3 +1,4 @@
+This example has been consolidated into `docs/examples/README.md` and the `Sample/WebApp` project.
 # Custom Implementation Example
 
 A complete production-ready implementation with all features.

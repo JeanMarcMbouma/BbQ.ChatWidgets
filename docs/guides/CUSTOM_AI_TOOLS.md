@@ -1,3 +1,4 @@
+Custom AI tools guide consolidated into `docs/guides/README.md` and `docs/USAGE.md`.
 # Custom AI Tools Guide
 
 Learn how to add custom AI tools that your assistant can use.

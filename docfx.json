@@ -1,0 +1,26 @@
+{
+  "metadata": [
+    {
+      "src": [
+        { "files": ["BbQ.ChatWidgets/BbQ.ChatWidgets.csproj"] }
+      ],
+      "dest": "api",
+      "properties": {
+        "TargetFramework": "net8.0"
+      }
+    }
+  ],
+  "build": {
+    "content": [
+      { "files": ["README.md", "docs/**.md"] },
+      { "files": ["api/**.yml"] }
+    ],
+    "resource": [
+      { "files": ["docs/**/**"] }
+    ],
+    "dest": "docs_site",
+    "globalMetadata": {
+      "_appTitle": "BbQ.ChatWidgets"
+    }
+  }
+}

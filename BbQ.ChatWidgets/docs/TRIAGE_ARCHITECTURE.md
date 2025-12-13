@@ -1,3 +1,4 @@
+This document has been consolidated into the repository-level documentation. See `../docs/INDEX.md` and `../../docs/ARCHITECTURE.md` for the updated architecture guides.
 # Triage Agent Implementation - Complete Architecture
 
 ## System Diagram

@@ -1,3 +1,4 @@
+This repository reorganization has been completed. Primary docs now live under `docs/` and `README.md`.
 # Documentation Reorganization - Complete ✅
 
 ## Summary

@@ -1,5 +1,10 @@
 # Guides
 
+How-to guides for common tasks: installation, custom widgets, custom AI tools, custom action handlers, configuration and deployment.
+
+Create per-topic guides in this folder (e.g., `CUSTOM_WIDGETS.md`, `CUSTOM_AI_TOOLS.md`).
+# Guides
+
 This folder contains practical how-to guides for using and extending BbQ.ChatWidgets.
 
 ## Available Guides

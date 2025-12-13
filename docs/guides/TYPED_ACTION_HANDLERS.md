@@ -1,3 +1,4 @@
+This guide has been consolidated into `docs/guides/README.md` and `docs/USAGE.md`.
 # Typed Action Handlers Guide
 
 Learn how to create and register strongly-typed action handlers using `IWidgetAction<T>` and `IActionWidgetActionHandler<TWidgetAction, T>`.

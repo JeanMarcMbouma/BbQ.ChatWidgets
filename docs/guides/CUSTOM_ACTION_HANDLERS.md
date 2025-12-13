@@ -1,4 +1,5 @@
-﻿# Custom Action Handlers Guide
+﻿Custom action handlers guide consolidated into `docs/guides/README.md` and `docs/USAGE.md`.
+# Custom Action Handlers Guide
 
 Learn how to handle widget interactions and custom actions using both the legacy `IWidgetActionHandler` approach and the new typed handler system.
 

@@ -1,3 +1,4 @@
+This advanced configuration example has been consolidated into `docs/examples/README.md` and `docs/USAGE.md`.
 # Advanced Configuration Example
 
 This example shows advanced features including custom widgets, AI tools, and action handlers.

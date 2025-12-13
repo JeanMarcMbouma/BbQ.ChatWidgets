@@ -1,5 +1,25 @@
 # BbQ.ChatWidgets
 
+Professional documentation has been consolidated into the `docs/` folder. This repository provides a framework-agnostic widget library for building interactive AI chat UIs.
+
+Quick links:
+
+- Getting started: `docs/GETTING_STARTED.md`
+- Architecture: `docs/ARCHITECTURE.md`
+- API Reference: `docs/api/README.md`
+- Contributing: `CONTRIBUTING.md`
+
+To build API documentation (requires DocFX):
+
+```powershell
+dotnet build BbQ.ChatWidgets/BbQ.ChatWidgets.csproj -c Release
+docfx metadata docfx.json
+docfx build docfx.json
+```
+
+If you need the previous markdown content, it has been backed up on the `docs-backup-20251213` branch.
+# BbQ.ChatWidgets
+
 BbQ.ChatWidgets is a framework-agnostic widget library for AI chat UIs, built on Microsoft.Extensions.AI.
 
 **Requirements:** Node >= 20, .NET SDK >= 8.0 (use nvm/nvm-windows and official .NET SDK installers).

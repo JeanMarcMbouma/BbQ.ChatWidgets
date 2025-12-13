@@ -1,4 +1,7 @@
-﻿# Widget Types Overview - Complete Catalog
+﻿This document has been consolidated into the new documentation structure.
+
+Please refer to `docs/guides/` and `docs/USAGE.md` for widget contracts and examples.
+# Widget Types Overview - Complete Catalog
 
 ## All Widget Types (9 Total)
 

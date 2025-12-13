@@ -1,3 +1,4 @@
+Development setup has been consolidated into `docs/contributing/README.md`.
 # Development Setup Guide
 
 How to set up your development environment for contributing to BbQ.ChatWidgets.

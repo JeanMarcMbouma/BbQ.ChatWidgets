@@ -1,3 +1,4 @@
+This design decision doc has been consolidated into `docs/design/README.md`.
 # Serialization Design Decision
 
 ## Problem

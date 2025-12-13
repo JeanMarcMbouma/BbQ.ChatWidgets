@@ -1,3 +1,6 @@
+# Design
+
+Design decisions, patterns, and rationale. Includes JSON polymorphism approach, thread management, context windows and serialization details.
 # Design Decisions
 
 This folder contains documentation about architectural decisions and design patterns used in BbQ.ChatWidgets.

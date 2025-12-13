@@ -1,3 +1,4 @@
+This file manifest has been consolidated into the project's `Sample/WebApp` folder documentation and `docs/examples/`.
 # File Manifest - Sample/WebApp Project
 
 ## Backend Files

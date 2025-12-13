@@ -1,3 +1,6 @@
+This document has been consolidated into the new documentation structure.
+
+Please refer to `docs/guides/` and `docs/INDEX.md` for guidance on widgets and theming.
 # ThemeSwitcherWidget
 
 ## Overview
@@ -6,10 +9,10 @@ The `ThemeSwitcherWidget` is a new interactive widget that enables users to sele
 
 ## Use Cases
 
-- **Light/Dark Mode Toggle** — Switch between light, dark, and auto (system preference) themes
-- **Color Scheme Selection** — Allow users to choose from multiple predefined color schemes
-- **Application Theming** — Customize application appearance without page reload
-- **Accessibility Options** — Provide contrast or visual adjustment options
+- **Light/Dark Mode Toggle** ï¿½ Switch between light, dark, and auto (system preference) themes
+- **Color Scheme Selection** ï¿½ Allow users to choose from multiple predefined color schemes
+- **Application Theming** ï¿½ Customize application appearance without page reload
+- **Accessibility Options** ï¿½ Provide contrast or visual adjustment options
 
 ## Basic Usage
 
@@ -292,10 +295,10 @@ if (deserialized is ThemeSwitcherWidget ts)
 ## Server-Side Rendering Details
 
 The `SsrWidgetRenderer` generates:
-- **Semantic HTML** — Standard `<select>` element with accessibility attributes
-- **Data Attributes** — `data-action`, `data-widget-id`, `data-widget-type` for client-side binding
-- **ARIA Labels** — Proper `aria-labelledby` for screen readers
-- **Escaped Content** — All user-provided strings are HTML-escaped to prevent XSS
+- **Semantic HTML** ï¿½ Standard `<select>` element with accessibility attributes
+- **Data Attributes** ï¿½ `data-action`, `data-widget-id`, `data-widget-type` for client-side binding
+- **ARIA Labels** ï¿½ Proper `aria-labelledby` for screen readers
+- **Escaped Content** ï¿½ All user-provided strings are HTML-escaped to prevent XSS
 
 ## Accessibility
 
@@ -332,12 +335,12 @@ public void RenderWidget_WithThemeSwitcherWidget_GeneratesSelectHtml()
 
 ## Best Practices
 
-1. **Use Predefined Themes** — Provide a fixed list of theme options
-2. **Persist Selection** — Store the user's theme preference in localStorage or database
-3. **Sanitize HTML** — Always sanitize the rendered HTML on the client before displaying
-4. **Handle Selection** — Implement a backend handler to process theme selection
-5. **Provide Feedback** — Show visual feedback when the theme changes
-6. **Test Accessibility** — Verify the widget works with screen readers
+1. **Use Predefined Themes** ï¿½ Provide a fixed list of theme options
+2. **Persist Selection** ï¿½ Store the user's theme preference in localStorage or database
+3. **Sanitize HTML** ï¿½ Always sanitize the rendered HTML on the client before displaying
+4. **Handle Selection** ï¿½ Implement a backend handler to process theme selection
+5. **Provide Feedback** ï¿½ Show visual feedback when the theme changes
+6. **Test Accessibility** ï¿½ Verify the widget works with screen readers
 
 ## Example: Complete Theme Switching Flow
 

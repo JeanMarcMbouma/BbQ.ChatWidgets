@@ -1,3 +1,4 @@
+This streaming implementation doc has been consolidated into the top-level documentation. See `../../docs/INDEX.md` and `../../docs/ARCHITECTURE.md`.
 # Streaming Endpoints Implementation Summary
 
 ## ? What Was Added

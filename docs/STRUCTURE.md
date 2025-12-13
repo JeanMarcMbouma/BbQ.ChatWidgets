@@ -1,4 +1,5 @@
-﻿# Documentation Structure Overview
+﻿This structural document has been consolidated into `docs/INDEX.md` and `docs/MANAGEMENT.md`.
+# Documentation Structure Overview
 
 ## Project Root
 ```

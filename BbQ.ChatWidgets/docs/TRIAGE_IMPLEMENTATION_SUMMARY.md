@@ -1,3 +1,4 @@
+This implementation summary has been consolidated into `docs/examples/` and the main `docs/` folder. See `../../docs/INDEX.md`.
 # Triage Agent & Classifier Router Implementation Summary
 
 ## ? Complete Implementation

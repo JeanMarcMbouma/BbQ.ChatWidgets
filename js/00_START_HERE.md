@@ -1,4 +1,5 @@
-﻿# 🎊 NPM Package Creation - Final Summary
+﻿This starting guide was consolidated into `docs/GETTING_STARTED.md` and `docs/examples/`.
+# 🎊 NPM Package Creation - Final Summary
 
 ## ✅ Complete! 
 

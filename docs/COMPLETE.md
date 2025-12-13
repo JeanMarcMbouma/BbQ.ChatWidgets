@@ -1,3 +1,4 @@
+This document has been consolidated. Use `docs/INDEX.md` for current documentation locations.
 # Documentation Status
 
 Documentation status: Last reviewed: 2025-12-10 — living documentation; update this date when APIs or features change.

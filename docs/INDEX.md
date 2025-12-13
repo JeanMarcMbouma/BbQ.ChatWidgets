@@ -1,5 +1,17 @@
 # Documentation Index
 
+This folder contains professional, consolidated documentation for BbQ.ChatWidgets.
+
+- `GETTING_STARTED.md` — Quick 5-minute setup and examples
+- `ARCHITECTURE.md` — System overview and design decisions
+- `USAGE.md` — API patterns and typical usage
+- `api/` — Generated API reference
+- `guides/` — How-to guides (custom widgets, integrations)
+- `contributing/` — Developer and contributor guidance
+
+Use the top-level `README.md` for quick commands to build the API docs (DocFX).
+# Documentation Index
+
 Welcome to the BbQ.ChatWidgets documentation. This is your entry point to all available resources.
 
 ## 🚀 Getting Started

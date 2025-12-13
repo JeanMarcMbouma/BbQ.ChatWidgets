@@ -1,3 +1,6 @@
+# Contributing Docs
+
+Detailed contributor guidelines, code style, testing and documentation standards. Maintain these docs to keep onboarding friction low for new contributors.
 # Contributing Guides
 
 Documentation for developers who want to contribute to BbQ.ChatWidgets.

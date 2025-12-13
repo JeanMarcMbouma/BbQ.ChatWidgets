@@ -1,3 +1,10 @@
+# Documentation Management
+
+Guidelines for maintaining the documentation: style, link checks, doc generation and release process.
+
+- Use `docfx` to regenerate API docs.
+- Run a link-checker in CI on `docs_site` output.
+- Keep examples in `docs/examples/` and sync with `Sample/WebApp`.
 # Documentation Management Guide
 
 This guide explains how to manage, update, and maintain the consolidated BbQ.ChatWidgets documentation.

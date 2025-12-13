@@ -1,3 +1,4 @@
+This endpoints guide has been consolidated into `../../../docs/USAGE.md` and `../../../docs/ARCHITECTURE.md`.
 # Streaming Endpoints Guide
 
 Real-time chat responses using Server-Sent Events (SSE) for progressively delivered AI responses with widgets.

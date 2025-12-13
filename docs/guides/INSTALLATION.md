@@ -1,3 +1,4 @@
+Installation instructions have been consolidated into `docs/GETTING_STARTED.md` and `docs/guides/README.md`.
 # Installation Guide
 
 Complete step-by-step guide to install and set up BbQ.ChatWidgets in your project.

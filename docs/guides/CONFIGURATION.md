@@ -1,3 +1,4 @@
+Configuration content has been consolidated into `docs/USAGE.md` and `docs/guides/README.md`.
 # Configuration Guide
 
 Complete reference for all BbQ.ChatWidgets configuration options.

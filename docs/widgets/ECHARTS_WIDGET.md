@@ -1,3 +1,6 @@
+This widget documentation has been consolidated into the new documentation structure.
+
+See `docs/guides/` for examples and guidance on custom widgets.
 # ECharts Widget (concise)
 
 Overview: The server-side renderer outputs an inert container element that holds chart data and an action identifier. The client (React) initializes the ECharts instance at runtime.

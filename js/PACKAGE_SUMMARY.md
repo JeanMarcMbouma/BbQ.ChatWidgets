@@ -1,4 +1,7 @@
-﻿# @bbq-chat/widgets - NPM Package Summary
+﻿This document has been consolidated into the new documentation structure.
+
+Please refer to `docs/INDEX.md` and `README.md` for the updated documentation.
+# @bbq-chat/widgets - NPM Package Summary
 
 ## Overview
 

@@ -1,3 +1,4 @@
+This guide has been consolidated into the main `docs/guides/` folder. See `../../../docs/INDEX.md` for guides and examples.
 # Triage Agent & Classifier Router System
 
 ## Overview

@@ -25,7 +25,7 @@ if (-not (Get-Command docfx -ErrorAction SilentlyContinue)) {
 
 # Generate API metadata from compiled assembly (safer when source has compile warnings)
 Write-Host "Generating DocFX metadata from assembly..."
-docfx metadata docfx_assembly.json
+docfx metadata docfx.json
 
 Write-Host "Building .NET docs site into ./docs/..."
 # Build into the `docs` folder so final site lives under repository `docs/` for GitHub Pages or similar

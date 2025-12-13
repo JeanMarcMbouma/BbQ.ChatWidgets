@@ -9,7 +9,7 @@ namespace BbQ.ChatWidgets.Services;
 /// In-memory implementation of <see cref="IThreadService"/>.
 /// </summary>
 /// <remarks>
-/// This implementation stores all conversation threads in memory using a <see cref="ConcurrentDictionary"/>.
+/// This implementation stores all conversation threads in memory using a <see cref="System.Collections.Concurrent.ConcurrentDictionary{TKey,TValue}"/>.
 /// It is suitable for:
 /// - Development and testing
 /// - Single-server deployments with acceptable memory usage
@@ -44,7 +44,7 @@ public sealed class DefaultThreadService : IThreadService
     /// <param name="threadId">The conversation thread identifier.</param>
     /// <param name="chatTurn">The message turn to append to the thread.</param>
     /// <returns>The updated <see cref="ChatMessages"/> with the new turn included.</returns>
-    /// <exception cref="ThreadNotFoundException">Thrown if the thread does not exist.</exception>
+    /// <exception cref="BbQ.ChatWidgets.Exceptions.ThreadNotFoundException">Thrown if the thread does not exist.</exception>
     public ChatMessages AppendMessageToThread(string threadId, ChatTurn chatTurn)
     {
         if (_threads.TryGetValue(threadId, out var chatMessage))
@@ -105,7 +105,7 @@ public sealed class DefaultThreadService : IThreadService
     /// </remarks>
     /// <param name="threadId">The conversation thread identifier.</param>
     /// <returns>A <see cref="ChatMessages"/> object containing all turns in the thread.</returns>
-    /// <exception cref="ThreadNotFoundException">Thrown if the thread does not exist.</exception>
+    /// <exception cref="BbQ.ChatWidgets.Exceptions.ThreadNotFoundException">Thrown if the thread does not exist.</exception>
     public ChatMessages GetMessage(string threadId)
     {
         if (_threads.TryGetValue(threadId, out var chatMessage))

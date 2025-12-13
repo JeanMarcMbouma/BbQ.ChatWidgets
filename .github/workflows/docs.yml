@@ -39,7 +39,7 @@ jobs:
         run: dotnet build BbQ.ChatWidgets/BbQ.ChatWidgets.csproj -c Release
 
       - name: Generate DocFX metadata (assembly)
-        run: docfx metadata docfx_assembly.json
+        run: docfx metadata docfx.json
 
       - name: Build DocFX site
         run: docfx build docfx.json -o docs

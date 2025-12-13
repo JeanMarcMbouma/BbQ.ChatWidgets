@@ -1,4 +1,12 @@
 {
+  "metadata": [
+    {
+      "src": [
+        { "files": ["BbQ.ChatWidgets/bin/Release/net8.0/BbQ.ChatWidgets.dll", "BbQ.ChatWidgets/bin/Release/net8.0/BbQ.ChatWidgets.xml"] }
+      ],
+      "dest": "api"
+    }
+  ],
   "build": {
     "content": [
       {

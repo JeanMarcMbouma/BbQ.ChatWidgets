@@ -31,9 +31,7 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Install DocFX
-        run: |
-          dotnet tool install --global docfx.console --version 2.78.4
-          echo "::add-path::$HOME/.dotnet/tools"
+        run: dotnet tool install --global docfx
 
       - name: Build .NET project (Release)
         run: dotnet build BbQ.ChatWidgets/BbQ.ChatWidgets.csproj -c Release

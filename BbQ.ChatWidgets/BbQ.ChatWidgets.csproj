@@ -20,6 +20,7 @@
     <PackageProjectUrl>https://github.com/JeanMarcMbouma/BbQ.ChatWidgets</PackageProjectUrl>
     <PackageTags>chat;widgets;ai;ui;aspnetcore;chat-ui;interactive-widgets</PackageTags>
     <Version>1.0.0</Version>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,5 +39,8 @@
   </ItemGroup>
 
   <!-- Include documentation in NuGet package -->
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
 
 </Project>

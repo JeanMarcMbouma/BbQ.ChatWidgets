@@ -38,9 +38,21 @@ if (Test-Path "js") {
   }
   else {
     Push-Location js
-    Write-Host "Generating JS docs using npx typedoc (no local node_modules will be installed)"
-    # Use npx with --yes to avoid prompting; this uses the network cache without creating local node_modules
-    npx --yes typedoc --out ../docs/js "src" --tsconfig tsconfig.json --options typedoc.json
+    Write-Host "Installing JS dependencies (including TypeDoc)..."
+    npm install
+    if ($LASTEXITCODE -ne 0) {
+      Pop-Location
+      Write-Error "npm install failed"
+      exit $LASTEXITCODE
+    }
+    
+    Write-Host "Generating JS docs using local TypeDoc installation..."
+    npm run docs:js
+    if ($LASTEXITCODE -ne 0) {
+      Pop-Location
+      Write-Error "TypeDoc generation failed"
+      exit $LASTEXITCODE
+    }
 
     Pop-Location
   }

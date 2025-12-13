@@ -16,7 +16,7 @@ export const SCENARIOS: ScenarioConfig[] = [
       'Thread context',
       'Simple implementation'
     ],
-    icon: '??'
+    icon: '💬'
   },
   {
     id: ScenarioType.StreamingChat,
@@ -29,7 +29,7 @@ export const SCENARIOS: ScenarioConfig[] = [
       'Lower latency perception',
       'Server-Sent Events'
     ],
-    icon: '?'
+    icon: '⚡'
   },
   {
     id: ScenarioType.TriageAgent,
@@ -42,7 +42,7 @@ export const SCENARIOS: ScenarioConfig[] = [
       'Smart routing',
       'Agent-to-agent communication'
     ],
-    icon: '??'
+    icon: '🎯'
   },
   {
     id: ScenarioType.WidgetsDemo,
@@ -55,7 +55,7 @@ export const SCENARIOS: ScenarioConfig[] = [
       'Rich content',
       'Form handling'
     ],
-    icon: '??'
+    icon: '🧩'
   },
   {
     id: ScenarioType.ActionsDemo,
@@ -68,7 +68,7 @@ export const SCENARIOS: ScenarioConfig[] = [
       'Action handlers',
       'Context preservation'
     ],
-    icon: '??'
+    icon: '🎬'
   }
 ];
 

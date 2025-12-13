@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { ChatMessage } from '../types';
 import '../styles/StreamingChat.css';
 
@@ -14,15 +14,14 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
   const [threadId, setThreadId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const eventSourceRef = useRef<EventSource | null>(null);
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, currentContent]);
+  }, [messages, currentContent, scrollToBottom]);
 
   const handleStreamMessage = async (text: string) => {
     if (!text.trim()) return;
@@ -40,11 +39,6 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
     setIsStreaming(true);
     setCurrentContent('');
     setError(null);
-
-    // Close any existing connection
-    if (eventSourceRef.current) {
-      eventSourceRef.current.close();
-    }
 
     try {
       const response = await fetch('/api/chat/stream/message', {
@@ -129,11 +123,11 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
   return (
     <div className="page streaming-chat-page">
       <div className="page-header">
-        <button className="back-button" onClick={onBack}>? Back</button>
-        <h1>? Streaming Chat</h1>
+        <button className="back-button" onClick={onBack}>← Back</button>
+        <h1>⚡ Streaming Chat</h1>
         <div className="thread-info">
           {threadId && <span className="thread-id">Thread: {threadId.slice(0, 8)}...</span>}
-          {isStreaming && <span className="streaming-badge">?? Streaming...</span>}
+          {isStreaming && <span className="streaming-badge">📡 Streaming...</span>}
         </div>
       </div>
 
@@ -160,7 +154,7 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
             <div className="message assistant streaming">
               <div className="message-content">
                 <p className="streaming-text">{currentContent || 'Connecting...'}</p>
-                <span className="cursor">?</span>
+                <span className="cursor">|</span>
               </div>
             </div>
           )}

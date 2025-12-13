@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { ChatMessage } from '../types';
 import '../styles/TriageAgentPage.css';
 
@@ -20,13 +20,13 @@ export function TriageAgentPage({ onBack }: TriageAgentPageProps) {
   const [classification, setClassification] = useState<Classification | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, classification]);
+  }, [messages, classification, scrollToBottom]);
 
   const handleSendMessage = async (text: string) => {
     if (!text.trim()) return;
@@ -99,8 +99,8 @@ export function TriageAgentPage({ onBack }: TriageAgentPageProps) {
   return (
     <div className="page triage-agent-page">
       <div className="page-header">
-        <button className="back-button" onClick={onBack}>? Back</button>
-        <h1>?? Triage Agent</h1>
+        <button className="back-button" onClick={onBack}>← Back</button>
+        <h1>🎯 Triage Agent</h1>
         <div className="thread-info">
           {threadId && <span className="thread-id">Thread: {threadId.slice(0, 8)}...</span>}
         </div>

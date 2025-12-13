@@ -1,4 +1,3 @@
-import React from 'react';
 import { ScenarioType, ScenarioConfig } from '../types';
 import { SCENARIOS } from '../config/scenarios';
 import '../styles/HomePage.css';
@@ -11,7 +10,7 @@ export function HomePage({ onSelectScenario }: HomePageProps) {
   return (
     <div className="home-page">
       <div className="header">
-        <h1>?? BbQ.ChatWidgets Sample</h1>
+        <h1>💬 BbQ.ChatWidgets Sample</h1>
         <p className="tagline">Explore all supported chat scenarios</p>
       </div>
 
@@ -24,28 +23,28 @@ export function HomePage({ onSelectScenario }: HomePageProps) {
 
         <div className="features">
           <div className="feature">
-            <span className="icon">??</span>
+            <span className="icon">🧩</span>
             <div>
               <h3>13+ Widgets</h3>
               <p>Interactive UI components (buttons, forms, sliders, etc.)</p>
             </div>
           </div>
           <div className="feature">
-            <span className="icon">??</span>
+            <span className="icon">🎯</span>
             <div>
               <h3>Triage Agents</h3>
               <p>AI-powered intent classification and routing</p>
             </div>
           </div>
           <div className="feature">
-            <span className="icon">?</span>
+            <span className="icon">⚡</span>
             <div>
               <h3>Real-time Streaming</h3>
               <p>Server-Sent Events for progressive response delivery</p>
             </div>
           </div>
           <div className="feature">
-            <span className="icon">??</span>
+            <span className="icon">🔒</span>
             <div>
               <h3>Type-Safe</h3>
               <p>Full TypeScript support with automatic serialization</p>
@@ -72,34 +71,34 @@ export function HomePage({ onSelectScenario }: HomePageProps) {
       </div>
 
       <div className="documentation-section">
-        <h2>?? Documentation</h2>
+        <h2>📚 Documentation</h2>
         <div className="docs-grid">
           <div className="doc-card">
             <h3>Getting Started</h3>
             <p>Learn the basics of BbQ.ChatWidgets in 5 minutes</p>
             <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets" target="_blank" rel="noreferrer">
-              View Guide ?
+              View Guide →
             </a>
           </div>
           <div className="doc-card">
             <h3>API Reference</h3>
             <p>Complete API documentation for all endpoints</p>
             <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/wiki" target="_blank" rel="noreferrer">
-              View API ?
+              View API →
             </a>
           </div>
           <div className="doc-card">
             <h3>Widget Catalog</h3>
             <p>All available widgets with examples</p>
             <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets" target="_blank" rel="noreferrer">
-              Browse Widgets ?
+              Browse Widgets →
             </a>
           </div>
           <div className="doc-card">
             <h3>Source Code</h3>
             <p>Open-source on GitHub</p>
             <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets" target="_blank" rel="noreferrer">
-              GitHub Repo ?
+              GitHub Repo →
             </a>
           </div>
         </div>
@@ -120,10 +119,10 @@ function ScenarioCard({ scenario, onSelect }: ScenarioCardProps) {
       <h3>{scenario.name}</h3>
       <p className="description">{scenario.description}</p>
       <div className="features-list">
-        <h4>Features:</h4>
+        <h4>FEATURES:</h4>
         <ul>
           {scenario.features.map((feature, i) => (
-            <li key={i}>? {feature}</li>
+            <li key={i}>✓ {feature}</li>
           ))}
         </ul>
       </div>
@@ -131,7 +130,7 @@ function ScenarioCard({ scenario, onSelect }: ScenarioCardProps) {
         <code>{scenario.endpoint}</code>
       </div>
       <button className="explore-button" onClick={onSelect}>
-        Explore ?
+        Explore →
       </button>
     </div>
   );

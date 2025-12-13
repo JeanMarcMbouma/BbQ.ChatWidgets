@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { ChatMessage } from '../types';
 import '../styles/BasicChat.css';
 
@@ -14,13 +14,13 @@ export function BasicChatPage({ onBack }: BasicChatPageProps) {
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, scrollToBottom]);
 
   const handleSendMessage = async (text: string) => {
     if (!text.trim()) return;
@@ -79,8 +79,8 @@ export function BasicChatPage({ onBack }: BasicChatPageProps) {
   return (
     <div className="page basic-chat-page">
       <div className="page-header">
-        <button className="back-button" onClick={onBack}>? Back</button>
-        <h1>?? Basic Chat</h1>
+        <button className="back-button" onClick={onBack}>← Back</button>
+        <h1>💬 Basic Chat</h1>
         <div className="thread-info">
           {threadId && <span className="thread-id">Thread: {threadId.slice(0, 8)}...</span>}
         </div>

@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { useChat } from './hooks/useChat';
-import { ChatWindow } from './components/ChatWindow';
 import { ScenarioType } from './types';
 import { HomePage } from './pages/HomePage';
 import { BasicChatPage } from './pages/BasicChatPage';
@@ -12,7 +10,6 @@ import './styles/App.css';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<ScenarioType | null>(null);
-  const chat = useChat('/api/chat');
 
   const handleBack = () => {
     setCurrentPage(null);

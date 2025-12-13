@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../styles/WidgetsDemoPage.css';
 
 interface WidgetsDemoPageProps {
@@ -119,8 +119,8 @@ export function WidgetsDemoPage({ onBack }: WidgetsDemoPageProps) {
   return (
     <div className="page widgets-demo-page">
       <div className="page-header">
-        <button className="back-button" onClick={onBack}>? Back</button>
-        <h1>?? Widgets Demo</h1>
+        <button className="back-button" onClick={onBack}>← Back</button>
+        <h1>🧩 Widgets Demo</h1>
         <p className="subtitle">Explore all 13+ available widgets</p>
       </div>
 

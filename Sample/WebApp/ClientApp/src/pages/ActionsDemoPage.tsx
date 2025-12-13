@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { ChatMessage } from '../types';
 import '../styles/ActionsDemoPage.css';
 
@@ -20,13 +20,13 @@ export function ActionsDemoPage({ onBack }: ActionsDemoPageProps) {
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, actions]);
+  }, [messages, actions, scrollToBottom]);
 
   // Initialize with a greeting message that has action widgets
   useEffect(() => {
@@ -144,8 +144,8 @@ export function ActionsDemoPage({ onBack }: ActionsDemoPageProps) {
   return (
     <div className="page actions-demo-page">
       <div className="page-header">
-        <button className="back-button" onClick={onBack}>? Back</button>
-        <h1>?? Actions Demo</h1>
+        <button className="back-button" onClick={onBack}>← Back</button>
+        <h1>🎬 Actions Demo</h1>
         <div className="thread-info">
           {threadId && <span className="thread-id">Thread: {threadId.slice(0, 8)}...</span>}
         </div>
@@ -250,19 +250,19 @@ export function ActionsDemoPage({ onBack }: ActionsDemoPageProps) {
           <ul>
             <li>
               <strong>Confirmation Actions</strong> - Confirm or cancel operations
-              <code>{{ action: 'confirm_action', payload: {{ confirmed: true }} }}</code>
+              <code>{`{ action: 'confirm_action', payload: { confirmed: true } }`}</code>
             </li>
             <li>
               <strong>Form Submissions</strong> - Submit form data
-              <code>{{ action: 'submit_form', payload: {{ name: 'John', email: 'john@example.com' }} }}</code>
+              <code>{`{ action: 'submit_form', payload: { name: 'John', email: 'john@example.com' } }`}</code>
             </li>
             <li>
               <strong>Selection Actions</strong> - Select from options
-              <code>{{ action: 'select_option', payload: {{ option: 'Option 2' }} }}</code>
+              <code>{`{ action: 'select_option', payload: { option: 'Option 2' } }`}</code>
             </li>
             <li>
               <strong>Feedback Actions</strong> - Collect user feedback
-              <code>{{ action: 'send_feedback', payload: {{ rating: 5, message: 'Great!' }} }}</code>
+              <code>{`{ action: 'send_feedback', payload: { rating: 5, message: 'Great!' } }`}</code>
             </li>
           </ul>
         </div>

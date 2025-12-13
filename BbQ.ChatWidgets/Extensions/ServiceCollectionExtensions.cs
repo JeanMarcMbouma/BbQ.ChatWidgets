@@ -148,7 +148,10 @@ public static class ServiceCollectionExtensions
     {
         var payload = await DeserializeRequest<UserMessageDto>(context);
         var dto = await DeserializeRequest<Dictionary<string, object>>(context);
-        var chatRequest = new ChatRequest(payload.ThreadId, context.RequestServices, dto);
+        var chatRequest = new ChatRequest(payload.ThreadId, context.RequestServices)
+        {
+            Metadata = dto
+        };
         var agentDelegate = context.RequestServices.GetRequiredService<AgentDelegate>();
         var ct = context.RequestAborted;
         var turn = await agentDelegate(chatRequest, ct);

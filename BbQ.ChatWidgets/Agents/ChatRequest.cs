@@ -17,9 +17,11 @@ public record ChatRequest(
     /// <summary>
     /// The service provider for accessing registered services and dependencies.
     /// </summary>
-    IServiceProvider RequestServices, 
-    
+    IServiceProvider RequestServices
+    )
+{
     /// <summary>
     /// Optional metadata dictionary for passing additional context or configuration.
     /// </summary>
-    Dictionary<string, object>? Metadata = null);
+    public Dictionary<string, object> Metadata { get; init; } = [];
+};

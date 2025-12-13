@@ -128,8 +128,7 @@ internal class Program
             var data = await agentDelegate(new ChatRequest(
                 
                 ThreadId: conversationManager.CurrentThreadId,
-                RequestServices: serviceProvider,
-                Metadata: []
+                RequestServices: serviceProvider
             ), CancellationToken.None);
 
             // Main chat loop

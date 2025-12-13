@@ -50,7 +50,7 @@ public sealed class DataQueryAgent : IAgent
             ChatRole.Assistant,
             $"I found your data query: '{userMessage}' (classified as {classification}). " +
             "Here's the information you requested...",
-            Array.Empty<ChatWidget>(),
+            [],
             request.ThreadId ?? "unknown"
         );
 

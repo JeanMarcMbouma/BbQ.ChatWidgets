@@ -12,6 +12,7 @@ using BbQ.ChatWidgets.Agents.Extensions;
 using BbQ.Outcome;
 using BbQ.ChatWidgets.Agents.Abstractions;
 using BbQ.ChatWidgets.Agents;
+using BbQ.ChatWidgets.Sample.Agents;
 
 /// <summary>
 /// BbQ.ChatWidgets Console Sample Application
@@ -22,6 +23,8 @@ using BbQ.ChatWidgets.Agents;
 /// - Multi-turn conversation management
 /// - Interactive widget handling
 /// - Typed action handlers with IWidgetAction<T>
+/// - Triage agent with intent classification and agent routing
+/// - Agent-to-agent communication through metadata
 /// </summary>
 
 internal class Program
@@ -35,8 +38,9 @@ internal class Program
     /// 2. Sets up the dependency injection container with logging
     /// 3. Creates and configures an OpenAI chat client
     /// 4. Registers BbQ.ChatWidgets services and custom services
-    /// 5. Registers typed action handlers
-    /// 6. Runs the interactive chat loop
+    /// 5. Registers the triage agent system with specialized routing agents
+    /// 6. Registers typed action handlers
+    /// 7. Runs the interactive chat loop with agent-based routing
     /// 
     /// The application demonstrates:
     /// - Using OpenAI chat client with BbQ.ChatWidgets
@@ -44,6 +48,7 @@ internal class Program
     /// - Multi-turn conversation management
     /// - Interactive widget handling
     /// - Typed action handlers with IWidgetAction<T>
+    /// - Triage agent classification and routing
     /// </remarks>
     /// <param name="args">Command-line arguments (currently unused).</param>
     /// <returns>A task that represents the asynchronous main operation.</returns>
@@ -77,17 +82,14 @@ internal class Program
                 bbqOptions.RoutePrefix = "/api/chat";
                 bbqOptions.ChatClientFactory = sp => client;
             })
+            // Register triage agent system with classifier and specialized agents
+            .AddTriageAgentSystem()
             // Register custom services
             .AddSingleton<ChatService>()
             .AddSingleton<ConversationManager>()
             // Register typed action handlers
             .AddScoped<GreetingHandler>()
             .AddScoped<FeedbackHandler>()
-            .AddScoped<IAgent, ChatAgent>()
-            .AddAgentPipeline(pipeline =>
-            {
-                pipeline.Use<ChatAgentMiddleware>();
-            })
             .BuildServiceProvider();
 
         // Get logger
@@ -95,6 +97,7 @@ internal class Program
 
         logger.LogInformation("=== BbQ.ChatWidgets Console Sample ===");
         logger.LogInformation("OpenAI Chat Application with Widget Support");
+        logger.LogInformation("Triage Agent System: Enabled");
         logger.LogInformation("");
 
         try
@@ -116,23 +119,35 @@ internal class Program
             logger.LogInformation($"  - {feedbackAction.Name}: {feedbackAction.Description}");
             logger.LogInformation("");
 
+            // Display triage agent system info
+            var agentRegistry = serviceProvider.GetRequiredService<IAgentRegistry>();
+            logger.LogInformation("Registered specialized agents:");
+            foreach (var agentName in agentRegistry.GetRegisteredAgents())
+            {
+                logger.LogInformation($"  - {agentName}");
+            }
+            logger.LogInformation("");
+
+            // Display user intents
+            logger.LogInformation("User intent categories (for automatic routing):");
+            logger.LogInformation($"  - {UserIntent.HelpRequest}: Routed to help-agent");
+            logger.LogInformation($"  - {UserIntent.DataQuery}: Routed to data-query-agent");
+            logger.LogInformation($"  - {UserIntent.ActionRequest}: Routed to action-agent");
+            logger.LogInformation($"  - {UserIntent.Feedback}: Routed to feedback-agent");
+            logger.LogInformation($"  - {UserIntent.Unknown}: Routed to help-agent (fallback)");
+            logger.LogInformation("");
+
             // Get services
             var chatService = serviceProvider.GetRequiredService<ChatService>();
             var conversationManager = serviceProvider.GetRequiredService<ConversationManager>();
+            var triageAgent = serviceProvider.GetRequiredService<TriageAgent<UserIntent>>();
 
-            logger.LogInformation("Chat application started. Type 'exit' to quit.");
+            logger.LogInformation("Chat application started with triage agent routing. Type 'exit' to quit.");
+            logger.LogInformation("Your messages will be automatically classified and routed to appropriate agents.");
             logger.LogInformation("");
 
-            var agentDelegate = serviceProvider.GetRequiredService<AgentDelegate>();
-
-            var data = await agentDelegate(new ChatRequest(
-                
-                ThreadId: conversationManager.CurrentThreadId,
-                RequestServices: serviceProvider
-            ), CancellationToken.None);
-
-            // Main chat loop
-            await RunInteractiveChat(chatService, conversationManager, logger);
+            // Main chat loop with triage agent
+            await RunInteractiveChat(chatService, conversationManager, triageAgent, logger, serviceProvider);
         }
         catch (Exception ex)
         {
@@ -141,27 +156,33 @@ internal class Program
         }
 
         /// <summary>
-        /// Runs the interactive chat loop for the console application.
+        /// Runs the interactive chat loop for the console application with triage routing.
         /// </summary>
         /// <remarks>
         /// This method manages the main conversation loop, allowing users to:
-        /// - Send messages and receive AI responses with interactive widgets
+        /// - Send messages that are classified and routed to specialized agents
         /// - View conversation history with the "history" command
         /// - Clear the conversation with the "clear" command
+        /// - View classification details with the "debug" command
         /// - Exit the application with the "exit" command
         /// 
         /// The method continuously prompts for user input and displays:
-        /// - AI responses with formatted text
+        /// - Classification results
+        /// - Routed agent information
+        /// - Agent-specific responses with formatted text
         /// - Available widgets in the response
-        /// - Error messages if communication with OpenAI fails
+        /// - Error messages if communication fails
         /// </remarks>
         /// <param name="chatService">The chat service for processing user messages.</param>
         /// <param name="conversationManager">The conversation manager for maintaining history.</param>
+        /// <param name="triageAgent">The triage agent for classification and routing.</param>
         /// <param name="logger">The logger for logging operations and errors.</param>
         static async Task RunInteractiveChat(
             ChatService chatService,
             ConversationManager conversationManager,
-            ILogger logger)
+            TriageAgent<UserIntent> triageAgent,
+            ILogger logger,
+            IServiceProvider serviceProvider)
         {
             while (true)
             {
@@ -190,11 +211,29 @@ internal class Program
                     continue;
                 }
 
+                if (userInput.Equals("debug", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Display debug information
+                    var request = new ChatRequest(
+                        ThreadId: conversationManager.CurrentThreadId,
+                        RequestServices: serviceProvider
+                    );
+
+                    var classification = InterAgentCommunicationContext.GetClassification<UserIntent>(request);
+                    var routedAgent = InterAgentCommunicationContext.GetRoutedAgent(request);
+
+                    Console.WriteLine($"\nDebug Info for Thread {conversationManager.CurrentThreadId}:");
+                    Console.WriteLine($"  Classified Intent: {classification}");
+                    Console.WriteLine($"  Routed Agent: {routedAgent}");
+                    Console.WriteLine($"  Registered Agents: {string.Join(", ", logger)}");
+                    continue;
+                }
+
                 try
                 {
-                    // Send message to chat service
-                    logger.LogInformation("Assistant: Processing...");
-                    var response = await chatService.SendMessageAsync(userInput);
+                    // Send message through triage agent for classification and routing
+                    logger.LogInformation("Assistant: Processing through triage agent...");
+                    var response = await chatService.SendMessageWithTriageAsync(userInput, triageAgent);
 
                     // Display response
                     Console.WriteLine($"Assistant: {response.Content}");
@@ -206,7 +245,7 @@ internal class Program
                         for (int i = 0; i < response.Widgets.Count; i++)
                         {
                             var widget = response.Widgets[i];
-                            Console.WriteLine($"  {i + 1}. {widget.Type}: {widget.Label}");
+                            Console.WriteLine($"  {i + 1}. {widget.GetType().Name.Replace("Widget", "").ToLower()}: {widget.Label}");
                         }
                     }
 
@@ -231,17 +270,20 @@ internal class Program
 namespace BbQ.ChatWidgets.Sample
 {
     /// <summary>
-    /// Service for handling chat interactions with AI integration.
+    /// Service for handling chat interactions with AI integration and triage routing.
     /// </summary>
     /// <remarks>
     /// This service acts as a bridge between the console application and the ChatWidgetService,
     /// managing the current conversation thread and delegating message processing to the
     /// ChatWidgetService for AI response generation with widget support.
+    /// 
+    /// It also integrates with the triage agent system for intent classification and routing.
     /// </remarks>
     public class ChatService
     {
         private readonly ChatWidgetService _widgetService;
         private readonly ConversationManager _conversationManager;
+        private readonly IServiceProvider _serviceProvider;
         private readonly ILogger _logger;
         private string? _currentThreadId;
 
@@ -250,15 +292,79 @@ namespace BbQ.ChatWidgets.Sample
         /// </summary>
         /// <param name="widgetService">The chat widget service for processing messages.</param>
         /// <param name="conversationManager">The conversation manager for maintaining message history.</param>
+        /// <param name="serviceProvider">The service provider for resolving dependencies.</param>
         /// <param name="loggerFactory">The logger factory for creating a logger instance.</param>
         public ChatService(
             ChatWidgetService widgetService,
             ConversationManager conversationManager,
+            IServiceProvider serviceProvider,
             ILoggerFactory loggerFactory)
         {
             _widgetService = widgetService;
             _conversationManager = conversationManager;
+            _serviceProvider = serviceProvider;
             _logger = loggerFactory.CreateLogger<ChatService>();
+        }
+
+        /// <summary>
+        /// Sends a message through the triage agent for classification and routing.
+        /// </summary>
+        /// <remarks>
+        /// This method:
+        /// 1. Initializes a conversation thread on the first call
+        /// 2. Creates a chat request with the user message in metadata
+        /// 3. Invokes the triage agent for classification and routing
+        /// 4. Returns the response from the appropriate specialized agent
+        /// 
+        /// The triage agent handles:
+        /// - Classifying the user message intent
+        /// - Selecting the appropriate specialized agent
+        /// - Routing through the agent pipeline
+        /// - Agent-to-agent communication through metadata
+        /// </remarks>
+        /// <param name="userMessage">The user's message to classify and route.</param>
+        /// <param name="triageAgent">The triage agent for classification and routing.</param>
+        /// <returns>
+        /// A task that completes with a <see cref="ChatTurn"/> containing the routed agent's response.
+        /// </returns>
+        public async Task<ChatTurn> SendMessageWithTriageAsync(
+            string userMessage,
+            TriageAgent<UserIntent> triageAgent)
+        {
+            // Initialize thread on first message
+            _currentThreadId ??= Guid.NewGuid().ToString();
+
+            // Add user message to local history
+            _conversationManager.AddUserMessage(userMessage);
+
+            // Create request with user message in metadata for triage agent
+            var request = new ChatRequest(
+                ThreadId: _currentThreadId,
+                RequestServices: _serviceProvider
+            )
+            {
+                Metadata = new Dictionary<string, object> { { "UserMessage", userMessage } }
+            };
+
+            _logger.LogDebug("Sending message through triage agent for classification and routing");
+
+            // Invoke triage agent for classification and routing
+            var outcome = await triageAgent.InvokeAsync(request, CancellationToken.None);
+
+            return outcome.Match(
+                success => {
+                    var classification = InterAgentCommunicationContext.GetClassification<UserIntent>(request);
+                    var routedAgent = InterAgentCommunicationContext.GetRoutedAgent(request);
+
+                    _logger.LogInformation($"Message classified as: {classification}, routed to: {routedAgent}");
+
+                    return success;
+                },
+                failure =>
+                {
+                    _logger.LogError($"Triage routing failed: {outcome.GetError<string>()!.Description}");
+                    throw new InvalidOperationException($"Triage routing failed: {outcome.GetError<string>()!.Description}");
+                });
         }
 
         /// <summary>
@@ -404,30 +510,6 @@ namespace BbQ.ChatWidgets.Sample
                 }
             }
             Console.WriteLine("\n===========================\n");
-        }
-    }
-
-    public class ChatAgent : IAgent
-    {
-        public Task<Outcome<ChatTurn>> InvokeAsync(ChatRequest request, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(Outcome<ChatTurn>.From(new ChatTurn(
-                Role: ChatRole.Assistant,
-                Content: "Hello from ChatAgent!",
-                Widgets: null,
-                ThreadId: request.ThreadId
-            )));
-        }
-    }
-
-    public class ChatAgentMiddleware : IAgentMiddleware
-    {
-        public async Task<Outcome<ChatTurn>> InvokeAsync(ChatRequest request, AgentDelegate next, CancellationToken cancellationToken)
-        {
-            // Pre-processing logic can be added here
-            var result = await next(request, cancellationToken);
-            // Post-processing logic can be added here
-            return result;
         }
     }
 }

@@ -317,3 +317,96 @@
     padding: 20px;
   }
 }
+
+/* Beautiful Clock Widget Styles */
+@keyframes clockFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes clockPulse {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+  }
+  50% {
+    box-shadow: 0 4px 25px rgba(102, 126, 234, 0.2);
+  }
+}
+
+@keyframes timeTickIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bbq-widget.bbq-clock {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  padding: 24px;
+  color: white;
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.15);
+  animation: clockFadeIn 0.6s ease-out, clockPulse 3s ease-in-out infinite 0.6s;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bbq-widget.bbq-clock::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.1), transparent);
+  pointer-events: none;
+}
+
+.bbq-clock-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.bbq-clock-display {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.bbq-clock-time {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-variant-numeric: tabular-nums;
+  animation: timeTickIn 0.4s ease-out;
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bbq-clock-iso {
+  font-size: 13px;
+  opacity: 0.85;
+  font-family: 'Monaco', 'Courier New', monospace;
+  letter-spacing: 0.3px;
+  animation: timeTickIn 0.4s ease-out 0.1s both;
+}

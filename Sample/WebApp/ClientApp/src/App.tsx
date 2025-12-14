@@ -6,6 +6,8 @@ import { StreamingChatPage } from './pages/StreamingChatPage';
 import { TriageAgentPage } from './pages/TriageAgentPage';
 import { WidgetsDemoPage } from './pages/WidgetsDemoPage';
 import { ActionsDemoPage } from './pages/ActionsDemoPage';
+import { SseWidgetsPage } from './pages/SseWidgetsPage';
+import { SseClockPage } from './pages/SseClockPage';
 import './styles/App.css';
 
 function App() {
@@ -38,6 +40,14 @@ function App() {
 
   if (currentPage === ScenarioType.WidgetsDemo) {
     return <WidgetsDemoPage onBack={handleBack} />;
+  }
+
+  if (currentPage === ScenarioType.SseWidgets) {
+    return <SseWidgetsPage onBack={handleBack} />;
+  }
+
+  if (currentPage === ScenarioType.SseClock) {
+    return <SseClockPage onBack={handleBack} />;
   }
 
   if (currentPage === ScenarioType.ActionsDemo) {

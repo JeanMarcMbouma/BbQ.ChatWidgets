@@ -70,6 +70,32 @@ export const SCENARIOS: ScenarioConfig[] = [
     ],
     icon: '🎬'
   }
+  ,{
+    id: ScenarioType.SseWidgets,
+    name: 'SSE Widget Updates',
+    description: 'Demonstrates server-sent events updating widgets in real-time.',
+    endpoint: '/api/chat/widgets/streams/{streamId}/events',
+    features: [
+      'Server-Sent Events',
+      'Targeted widget updates',
+      'DOM replacement',
+      'Live demo'
+    ],
+    icon: '📡'
+  }
+  ,{
+    id: ScenarioType.SseClock,
+    name: 'SSE Clock',
+    description: 'A live clock powered by server-sent events (SSE).',
+    endpoint: '/api/chat/widgets/streams/{streamId}/events',
+    features: [
+      'Server-Sent Events',
+      'Periodic updates',
+      'Minimal example',
+      'Auto-refresh'
+    ],
+    icon: '⏰'
+  }
 ];
 
 export function getScenario(id: ScenarioType): ScenarioConfig | undefined {

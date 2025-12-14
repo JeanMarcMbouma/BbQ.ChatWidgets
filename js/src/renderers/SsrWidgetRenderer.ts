@@ -4,26 +4,53 @@ import { ChatWidget } from '../models/ChatWidget';
  * Interface for widget renderers
  */
 export interface IWidgetRenderer {
-  /**
-   * Framework name (e.g., "SSR", "React", "Vue")
-   */
   framework: string;
-
-  /**
-   * Render a widget to HTML string
-   */
   renderWidget(widget: ChatWidget): string;
+}
+
+export type RenderFn = (widget: any, ctx: SsrWidgetRenderer) => string;
+
+export interface SsrRendererOptions {
+  /**
+   * Per-widget-type render overrides. Key is widget.type.
+   */
+  renderers?: Partial<Record<string, RenderFn>>;
+  /**
+   * Custom HTML escape function
+   */
+  escape?: (value?: string) => string;
+  /**
+   * Custom ID generation function
+   */
+  generateId?: (action: string) => string;
 }
 
 /**
  * Server-side rendering (SSR) widget renderer
  * Generates framework-agnostic HTML suitable for hydration
+ * Accepts optional overrides so consumers can customize rendering behaviour
  */
 export class SsrWidgetRenderer implements IWidgetRenderer {
   readonly framework = 'SSR';
+  private overrides: SsrRendererOptions['renderers'] | undefined;
+  private customEscape?: (value?: string) => string;
+  private customGenerateId?: (action: string) => string;
+
+  constructor(options?: SsrRendererOptions) {
+    this.overrides = options?.renderers;
+    this.customEscape = options?.escape;
+    this.customGenerateId = options?.generateId;
+  }
 
   renderWidget(widget: ChatWidget): string {
-    switch (widget.type) {
+    const type = widget.type;
+
+    // If a custom renderer is provided for this type, call it
+    if (this.overrides && this.overrides[type]) {
+      return (this.overrides[type] as RenderFn)(widget, this);
+    }
+
+    switch (type) {
       case 'button':
         return this.renderButton(widget as any);
       case 'card':
@@ -80,7 +107,9 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     if (widget.imageUrl) {
       const imageUrl = this.escape(widget.imageUrl);
       const imageAlt = this.escape(widget.title);
-      html += `<img class="bbq-card-image" src="${imageUrl}" alt="${imageAlt}" loading="lazy" />`;
+      // Inline styles ensure the image never exceeds the card bounds even if consumer CSS is missing
+      const imgStyle = 'display:block;max-width:100%;height:auto;object-fit:cover;max-height:200px;border-radius:6px;margin-bottom:12px;';
+      html += `<img class="bbq-card-image" src="${imageUrl}" alt="${imageAlt}" loading="lazy" style="${imgStyle}" />`;
     }
 
     html += `<button class="bbq-card-action bbq-button" data-action="${action}" type="button">${label}</button></div>`;
@@ -346,6 +375,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
    * Escape HTML content to prevent XSS attacks
    */
   private escape(value: string | undefined): string {
+    if (this.customEscape) return this.customEscape(value);
     if (!value) return '';
     const map: Record<string, string> = {
       '&': '&amp;',
@@ -361,6 +391,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
    * Generate unique ID from action string
    */
   private generateId(action: string): string {
+    if (this.customGenerateId) return this.customGenerateId(action);
     return `bbq-${this.escape(action).replace(/\s+/g, '-').toLowerCase()}`;
   }
 }

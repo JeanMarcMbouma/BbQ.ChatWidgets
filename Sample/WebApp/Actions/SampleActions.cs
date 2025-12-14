@@ -176,3 +176,51 @@ public sealed class EChartsClickHandler :
     }
 }
 
+/// <summary>
+/// Payload for a clock widget action (currently empty as clock is for display only).
+/// </summary>
+public sealed record ClockPayload();
+
+/// <summary>
+/// Action definition for clock tick events.
+/// Demonstrates SSE widget integration where the server pushes updates.
+/// </summary>
+public sealed class ClockTickAction : IWidgetAction<ClockPayload>
+{
+    public string Name => "clock_tick";
+
+    public string Description =>
+        "Displays a server-side clock that receives time updates via Server-Sent Events (SSE). " +
+        "The widget automatically subscribes to the server stream and updates in real-time.";
+
+    public string PayloadSchema =>
+        JsonSerializer.Serialize(new
+        {
+            streamId = "string (optional, stream ID for SSE updates - defaults to 'default-stream')"
+        });
+}
+
+/// <summary>
+/// Handler for clock widget actions.
+/// This handler is called when a user interacts with the clock widget.
+/// </summary>
+public sealed class ClockTickHandler :
+    IActionWidgetActionHandler<ClockTickAction, ClockPayload>
+{
+    public async Task<ChatTurn> HandleActionAsync(
+        ClockPayload payload,
+        string threadId,
+        IServiceProvider serviceProvider)
+    {
+        // Clock widget primarily displays SSE updates pushed from server
+        // This handler serves as the action endpoint if user clicks the widget
+        return new ChatTurn(
+            ChatRole.Assistant,
+            "The clock is displaying real-time updates from the server via Server-Sent Events. " +
+            "The widget will continue to receive time updates as long as the connection is active.",
+            Array.Empty<ChatWidget>(),
+            threadId
+        );
+    }
+}
+

@@ -60,6 +60,9 @@ services.AddBbQChatWidgets(bbqOptions =>
         // Additional custom widget registrations can go here
         // e.g., registry.Register(new CustomWidget(...));
         registry.Register(new EChartsWidget("Sales Chart", "on_chart_click", "bar", "{\"xAxis\": {\"type\": \"category\", \"data\": [\"Jan\", \"Feb\", \"Mar\"]}, \"yAxis\": {\"type\": \"value\"}, \"series\": [{\"data\": [100, 200, 150], \"type\": \"bar\"}]}"));
+        // Register a server-side Clock widget template used by the SSE demo.
+        // Specify a stream ID so the widget knows which SSE stream to subscribe to on the client.
+        registry.Register(new BbQ.ChatWidgets.Sample.WebApp.Models.ClockWidget("Server Clock", "clock_tick", null, "default-stream"), "clock");
     };
 });
 
@@ -73,6 +76,9 @@ services.AddScoped<EChartsClickHandler>();
 
 // Register triage-aware chat service
 //services.AddScoped<TriageAwareChatService>();
+
+// Register sample clock publisher for SSE demo
+services.AddSingleton<ClockPublisher>();
 
 // Add CORS for React frontend
 services.AddCors(options =>
@@ -110,6 +116,10 @@ actionRegistry.RegisterHandler<FeedbackAction, FeedbackPayload, FeedbackHandler>
 var echartsClickAction = new EChartsClickAction();
 actionRegistry.RegisterHandler<EChartsClickAction, EChartsClickPayload, EChartsClickHandler>(handlerResolver, echartsClickAction);
 
+// Register clock tick action (demonstrates SSE widget integration)
+var clockTickAction = new ClockTickAction();
+actionRegistry.RegisterHandler<ClockTickAction, ClockPayload, ClockTickHandler>(handlerResolver, clockTickAction);
+
 // Log startup information
 var logger = app.Services.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");
 logger.LogInformation("=== BbQ.ChatWidgets Web API Sample ===");
@@ -136,6 +146,23 @@ logger.LogInformation("  - Unknown ? help-agent (fallback)");
 
 // Map BbQ.ChatWidgets endpoints
 app.MapBbQChatEndpoints();
+
+// Sample endpoints to start/stop a server-side clock that publishes to SSE streams
+app.MapPost("/sample/clock/{streamId}/start", async (string streamId, ClockPublisher clock, ILoggerFactory lf) =>
+{
+    var logger = lf.CreateLogger("ClockPublisher");
+    logger.LogInformation("Starting clock for {streamId}", streamId);
+    await clock.StartAsync(streamId);
+    return Results.Ok();
+});
+
+app.MapPost("/sample/clock/{streamId}/stop", async (string streamId, ClockPublisher clock, ILoggerFactory lf) =>
+{
+    var logger = lf.CreateLogger("ClockPublisher");
+    logger.LogInformation("Stopping clock for {streamId}", streamId);
+    await clock.StopAsync(streamId);
+    return Results.Ok();
+});
 
 // Fallback to index.html for SPA routing
 app.MapFallbackToFile("index.html");

@@ -47,6 +47,10 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Install JS dependencies
+        working-directory: js
+        run: npm ci
+
       - name: Generate JS docs (TypeDoc)
         run: npx --yes typedoc --options js/typedoc.json
 

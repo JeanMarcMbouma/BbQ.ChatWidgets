@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { ChatMessage } from '../types';
+import { WidgetRenderer } from '../components/WidgetRenderer';
 import '../styles/BasicChat.css';
 
 interface BasicChatPageProps {
@@ -93,13 +94,12 @@ export function BasicChatPage({ onBack }: BasicChatPageProps) {
               <div className="message-content">
                 <p>{msg.content}</p>
                 {msg.widgets && msg.widgets.length > 0 && (
-                  <div className="widgets">
-                    {msg.widgets.map((widget, i) => (
-                      <div key={i} className="widget-item">
-                        <pre>{JSON.stringify(widget, null, 2)}</pre>
-                      </div>
-                    ))}
-                  </div>
+                  <WidgetRenderer 
+                    widgets={msg.widgets}
+                    onWidgetAction={(actionName, payload) => {
+                      console.log(`Widget action: ${actionName}`, payload);
+                    }}
+                  />
                 )}
               </div>
               <span className="timestamp">{msg.timestamp.toLocaleTimeString()}</span>

@@ -22,7 +22,9 @@ export enum ScenarioType {
   StreamingChat = 'streaming',
   TriageAgent = 'triage',
   WidgetsDemo = 'widgets',
-  ActionsDemo = 'actions'
+  ActionsDemo = 'actions',
+  SseWidgets = 'sse-widgets',
+  SseClock = 'sse-clock'
 }
 
 export interface ScenarioConfig {

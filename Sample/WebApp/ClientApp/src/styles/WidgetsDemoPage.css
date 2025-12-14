@@ -262,3 +262,127 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* SSE demo - ensure high-contrast text inside the demo panels */
+.widgets-demo-page.sse-demo .sse-widget-area,
+.widgets-demo-page.sse-demo .sse-event-log,
+.widgets-demo-page.sse-demo-clock .sse-widget-area,
+.widgets-demo-page.sse-demo-clock .sse-clock-widget {
+  color: #111 !important;
+}
+
+.widgets-demo-page .sse-clock-widget {
+  font-size: 36px;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #111;
+  line-height: 1.2;
+  min-height: 48px;
+}
+/* Improve legibility: stronger weight, remove text-shadow, and force antialiased rendering */
+.widgets-demo-page .sse-clock-widget{
+  font-weight:700;
+  text-shadow: none !important;
+  opacity: 1 !important;
+  -webkit-font-smoothing: antialiased;
+  transform: translateZ(0);
+}
+
+.widgets-demo-page .sse-event-log {
+  background: #ffffff;
+  color: #111;
+}
+
+.widgets-demo-page .sse-clock-widget .sse-clock-main{
+  font-size:64px;
+  font-weight:800;
+  letter-spacing:1px;
+  color:#111;
+}
+.widgets-demo-page .sse-clock-widget .sse-clock-sub{
+  margin-top:8px;
+  font-size:14px;
+  color:#666;
+}
+
+.widgets-demo-page .sse-widget-area h3,
+.widgets-demo-page .sse-event-log h3 {
+  color: #333;
+  font-weight: 700;
+}
+
+/* Centered demo container for SSE pages */
+.sse-demo-container{
+  max-width:1100px;
+  margin:20px auto;
+  padding:20px;
+  display:grid;
+  grid-template-columns: 1fr 340px;
+  gap:20px;
+  align-items:start;
+}
+
+.sse-left{min-width:0}
+.sse-right{width:340px}
+
+.sse-panel{background:#fff;padding:18px;border-radius:10px;border:1px solid #eee;box-shadow:0 6px 18px rgba(0,0,0,0.03)}
+.sse-widget-area .sse-panel{padding:18px}
+
+.sse-controls{display:flex;gap:12px;align-items:center}
+.sse-controls input{padding:8px;border-radius:6px;border:1px solid #ddd;font-family:inherit}
+.sse-button-group{display:flex;gap:12px;margin-left:8px}
+.sse-button-group button{background:#111;color:#fff;border-radius:8px;border:none;padding:8px 14px;cursor:pointer}
+.sse-button-group button:hover{opacity:0.95}
+
+.sse-event-log{height:360px;overflow:auto;padding:12px;border-radius:8px;border:1px solid #eee;background:#fff}
+.sse-log-entry{font-size:13px;margin-bottom:8px;color:#111}
+
+/* small tweak for clock variant */
+.sse-demo-clock .sse-demo-container{grid-template-columns: 1fr 1fr; gap: 20px;}
+.sse-demo-clock .sse-left{flex: 1;}
+.sse-demo-clock .sse-right{display:block; flex: 1;}
+
+.sse-info-box {
+  background: #f0f7ff;
+  border-left: 4px solid #0066cc;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  color: #222;
+}
+
+.sse-info-box h3 {
+  margin-top: 0;
+  color: #003d99;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sse-info-box ul {
+  margin: 8px 0;
+  padding-left: 20px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.sse-info-box li {
+  margin-bottom: 6px;
+}
+
+.sse-info-box strong {
+  color: #003d99;
+  font-weight: 600;
+}
+
+.sse-clock-widget .sse-clock-status {
+  font-size: 12px;
+  color: #666;
+  margin-top: 8px;
+  text-align: center;
+  font-weight: 500;
+}

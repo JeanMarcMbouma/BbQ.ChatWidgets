@@ -80,6 +80,9 @@ public static class ServiceCollectionExtensions
         else
             services.AddSingleton<IWidgetToolsProvider, DefaultWidgetToolsProvider>();
 
+        // Register Widget SSE service for server-side widget streams
+        services.AddSingleton<Abstractions.IWidgetSseService, Services.WidgetSseService>();
+
         services.AddSingleton<IWidgetRegistry>(sp =>
         {
             var registry = sp.GetRequiredService<WidgetRegistry>();
@@ -162,6 +165,20 @@ public static class ServiceCollectionExtensions
             if (context.Request.Method == HttpMethods.Post && path == $"{prefix}/stream/agent")
             {
                 await HandleStreamAgentRequest(context);
+                return;
+            }
+
+            // Widget SSE subscription: GET {prefix}/widgets/streams/{streamId}/events
+            if (context.Request.Method == HttpMethods.Get && path.StartsWith($"{prefix}/widgets/streams/") && path.EndsWith("/events"))
+            {
+                await HandleWidgetStreamSubscribe(context, prefix);
+                return;
+            }
+
+            // Widget SSE publish: POST {prefix}/widgets/streams/{streamId}/events
+            if (context.Request.Method == HttpMethods.Post && path.StartsWith($"{prefix}/widgets/streams/") && path.EndsWith("/events"))
+            {
+                await HandleWidgetStreamPublish(context, prefix);
                 return;
             }
 
@@ -330,6 +347,55 @@ public static class ServiceCollectionExtensions
 
         var turn = await service.HandleActionAsync(dto.Action, dto.Payload ?? [], dto.ThreadId, context.RequestServices, ct);
         await WriteJsonResponse(context, turn);
+    }
+
+    private static async Task HandleWidgetStreamSubscribe(HttpContext context, string prefix)
+    {
+        var svc = context.RequestServices.GetRequiredService<Abstractions.IWidgetSseService>();
+
+        // path: {prefix}/widgets/streams/{streamId}/events
+        var segments = context.Request.Path.Value?.Split('/', StringSplitOptions.RemoveEmptyEntries) ?? [];
+        // find streamId at last-1 position
+        if (segments.Length < 4)
+        {
+            context.Response.StatusCode = 400;
+            await context.Response.WriteAsync("Invalid stream path");
+            return;
+        }
+
+        var streamId = segments[^2];
+        await svc.SubscribeAsync(streamId, context, context.RequestAborted);
+    }
+
+    private static async Task HandleWidgetStreamPublish(HttpContext context, string prefix)
+    {
+        var svc = context.RequestServices.GetRequiredService<Abstractions.IWidgetSseService>();
+
+        var segments = context.Request.Path.Value?.Split('/', StringSplitOptions.RemoveEmptyEntries) ?? [];
+        if (segments.Length < 4)
+        {
+            context.Response.StatusCode = 400;
+            await context.Response.WriteAsync("Invalid stream path");
+            return;
+        }
+
+        var streamId = segments[^2];
+
+        using var reader = new System.IO.StreamReader(context.Request.Body);
+        var body = await reader.ReadToEndAsync();
+        if (string.IsNullOrWhiteSpace(body))
+        {
+            context.Response.StatusCode = 400;
+            await context.Response.WriteAsync("Empty payload");
+            return;
+        }
+
+        // Accept arbitrary JSON message and forward
+        var obj = System.Text.Json.JsonSerializer.Deserialize<object>(body, Serialization.Default);
+        await svc.PublishAsync(streamId, obj ?? new { });
+
+        context.Response.StatusCode = 202;
+        await context.Response.WriteAsync("Published");
     }
 
     /// <summary>

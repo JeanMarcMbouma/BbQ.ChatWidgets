@@ -4,6 +4,8 @@ import type { ChatWidget } from '@bbq/chatwidgets';
 import * as echarts from 'echarts';
 import { EChartsWidget } from '../widgets/EChartsWidget';
 import { renderECharts } from '../widgets/echartsRenderer';
+import { ClockWidget } from '../widgets/ClockWidget';
+import { renderClock } from '../widgets/clockRenderer';
 
 // Make echarts available globally for inline scripts in rendered HTML
 declare global {
@@ -26,6 +28,19 @@ customWidgetRegistry.registerFactory('echarts', (obj: any) => {
       obj.action || '',
       obj.chartType || 'bar',
       obj.jsonData || '{}'
+    );
+  }
+  return null;
+});
+
+// Register clock widget factory
+customWidgetRegistry.registerFactory('clock', (obj: any) => {
+  if (obj.type === 'clock') {
+    return new ClockWidget(
+      obj.label || 'Clock',
+      obj.action || 'clock_tick',
+      obj.timezone,
+      obj.streamId
     );
   }
   return null;
@@ -56,6 +71,14 @@ export const WidgetRenderer: React.FC<WidgetRendererProps> = ({
     
     // Attach ECharts click handlers
     attachEChartsHandlers(containerRef.current, actionHandler);
+
+    // Initialize clock widgets with SSE subscriptions
+    initializeClockWidgets(containerRef.current);
+
+    // Cleanup function to close all SSE streams when component unmounts or widgets change
+    return () => {
+      closeAllClockStreams(containerRef.current);
+    };
   }, [onWidgetAction, widgets]);
 
   if (!widgets || widgets.length === 0) {
@@ -92,6 +115,20 @@ export const WidgetRenderer: React.FC<WidgetRendererProps> = ({
         if (widget.type === 'echarts') {
           const echartsWidget = widget as EChartsWidget;
           const html = renderECharts(echartsWidget);
+          const widgetId = `${widget.type}-${widget.action}-${index}`;
+          return (
+            <div
+              key={widgetId}
+              className="widget"
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
+          );
+        }
+
+        // Handle clock widget rendering
+        if (widget.type === 'clock') {
+          const clockWidget = widget as ClockWidget;
+          const html = renderClock(clockWidget);
           const widgetId = `${widget.type}-${widget.action}-${index}`;
           return (
             <div
@@ -195,5 +232,78 @@ function attachEChartsHandlers(
     };
     
     attachClickHandler();
+  });
+}
+
+/**
+ * Initialize clock widgets with SSE subscriptions driven by widget metadata.
+ * 
+ * Each clock widget can specify:
+ * - data-stream-id: the SSE stream to subscribe to (defaults to 'default-stream')
+ * - data-auto-start: if 'true', automatically start the server clock (POST to /sample/clock/{streamId}/start)
+ */
+function initializeClockWidgets(container: HTMLElement) {
+  const clockWidgets = container.querySelectorAll('[data-widget-type="clock"]');
+  
+  clockWidgets.forEach((widget) => {
+    const streamId = widget.getAttribute('data-stream-id') || 'default-stream';
+    const autoStart = widget.getAttribute('data-auto-start') === 'true';
+    
+    // If auto-start is enabled, trigger the server clock
+    if (autoStart) {
+      fetch(`/sample/clock/${encodeURIComponent(streamId)}/start`, { method: 'POST' }).catch(() => {
+        // Ignore errors; clock may already be running or endpoint unavailable
+      });
+    }
+    
+    // Subscribe to SSE stream and update the clock widget
+    const url = `/api/chat/widgets/streams/${encodeURIComponent(streamId)}/events`;
+    const eventSource = new EventSource(url);
+    
+    eventSource.onmessage = (ev) => {
+      try {
+        const data = JSON.parse(ev.data);
+        
+        // Update the clock display if data matches this widget's ID
+        if (data && data.widgetId === 'clock') {
+          const timeDisplay = widget.querySelector('[data-field="timeLocal"]') as HTMLElement;
+          const isoDisplay = widget.querySelector('[data-field="time"]') as HTMLElement;
+          
+          if (timeDisplay && data.timeLocal) {
+            timeDisplay.textContent = String(data.timeLocal);
+          }
+          if (isoDisplay && data.time) {
+            isoDisplay.textContent = String(data.time);
+          }
+        }
+      } catch {
+        // Ignore parse errors
+      }
+    };
+    
+    eventSource.onerror = () => {
+      eventSource.close();
+    };
+    
+    // Store reference for cleanup if needed
+    (widget as any).__eventSource = eventSource;
+  });
+}
+
+/**
+ * Close all active SSE streams for clock widgets.
+ * This prevents memory leaks and stops server polling when widgets are destroyed.
+ */
+function closeAllClockStreams(container: HTMLElement | null) {
+  if (!container) return;
+  
+  const clockWidgets = container.querySelectorAll('[data-widget-type="clock"]');
+  
+  clockWidgets.forEach((widget) => {
+    const eventSource = (widget as any).__eventSource as EventSource | undefined;
+    if (eventSource) {
+      eventSource.close();
+      (widget as any).__eventSource = undefined;
+    }
   });
 }

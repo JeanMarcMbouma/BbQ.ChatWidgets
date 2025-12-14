@@ -56,7 +56,7 @@ public sealed class DefaultWidgetActionHandlerResolver : IWidgetActionHandlerRes
     /// handler; subsequent registrations with the same action name will override the previous mapping.
     /// </remarks>
     /// <param name="actionName">The unique name of the action.</param>
-    /// <param name="handlerType">The CLR type of the handler, typically implementing <see cref="IActionWidgetActionHandler{,}"/>.</param>
+    /// <param name="handlerType">The CLR type of the handler — typically implements <c>IActionWidgetActionHandler{TWidgetAction, T}</c>.</param>
     /// <exception cref="ArgumentException">Thrown if actionName is null, empty, or whitespace.</exception>
     /// <exception cref="ArgumentNullException">Thrown if handlerType is null.</exception>
     public void RegisterHandler(string actionName, Type handlerType)
@@ -96,9 +96,9 @@ public static class WidgetActionHandlerExtensions
         /// );
         /// </code>
         /// </remarks>
-        /// <typeparam name="TAction">The action type implementing <see cref="IWidgetAction{T}"/>.</typeparam>
+        /// <typeparam name="TAction">The action type implementing <c>IWidgetAction{T}</c>.</typeparam>
         /// <typeparam name="TPayload">The payload type for this action.</typeparam>
-        /// <typeparam name="THandler">The handler type implementing <see cref="IActionWidgetActionHandler{TWidgetAction, T}"/>.</typeparam>
+        /// <typeparam name="THandler">The handler type implementing <c>IActionWidgetActionHandler{TWidgetAction, T}</c>.</typeparam>
         /// <param name="registry">The action registry where action metadata will be registered.</param>
         /// <param name="resolver">The handler resolver where the handler type will be registered.</param>
         /// <param name="action">An instance of the action containing metadata (name, description, schema).</param>

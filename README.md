@@ -1,5 +1,84 @@
 # BbQ.ChatWidgets
 
+>A compact library of UI chat widgets and helpers for server and client integrations.
+
+This repository contains two distributable packages:
+
+- NuGet: `BbQ.ChatWidgets` — the .NET library (API, services, renderers).
+- npm: `@bbq-chat/widgets` — the JavaScript/TypeScript client library (widgets, types).
+
+Installation
+
+NuGet (C#)
+
+```powershell
+dotnet add [YOUR_PROJECT] package BbQ.ChatWidgets
+```
+
+npm (JS/TS)
+
+```bash
+npm install @bbq-chat/widgets
+# or
+yarn add @bbq-chat/widgets
+```
+
+Quick usage
+
+C# (basic)
+
+```csharp
+using BbQ.ChatWidgets;
+
+// Example: register services in an ASP.NET Core app
+services.AddBbQChatWidgets(options => {
+  // configure options
+});
+```
+
+JavaScript / TypeScript (basic)
+
+```js
+import { WidgetRegistry } from '@bbq-chat/widgets';
+
+const registry = new WidgetRegistry();
+// register or render widgets
+```
+
+Documentation
+
+Generated API and user docs are published to the project's GitHub Pages site and are available under the repository `docs/` folder when built. See the `docs/` folder and `.github/workflows/docs.yml` for how docs are produced.
+
+Packaging notes
+
+- The root `README.md` is intentionally small and intended to ship inside NuGet and npm packages as the package README. Keep it compact — use the repository `docs/` for full reference and guides.
+- The repository also contains the full DocFX and TypeDoc configuration used to build the site.
+
+License
+
+See the `LICENSE` file in the repository root for license details.
+# BbQ.ChatWidgets
+
+Professional documentation has been consolidated into the `docs/` folder. This repository provides a framework-agnostic widget library for building interactive AI chat UIs.
+
+Quick links:
+
+- Getting started: `docs/GETTING_STARTED.md`
+- Architecture: `docs/ARCHITECTURE.md`
+- API Reference: `docs/api/README.md`
+- Contributing: `CONTRIBUTING.md`
+
+To build API documentation (requires DocFX):
+
+```powershell
+dotnet build BbQ.ChatWidgets/BbQ.ChatWidgets.csproj -c Release
+docfx metadata docfx.json
+docfx build docfx.json
+```
+
+If you need the previous markdown content, it has been backed up on the `docs-backup-20251213` branch.
+# BbQ.ChatWidgets
+
 BbQ.ChatWidgets is a framework-agnostic widget library for AI chat UIs, built on Microsoft.Extensions.AI.
 
 **Requirements:** Node >= 20, .NET SDK >= 8.0 (use nvm/nvm-windows and official .NET SDK installers).

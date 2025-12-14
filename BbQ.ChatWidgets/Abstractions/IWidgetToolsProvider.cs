@@ -7,7 +7,7 @@ namespace BbQ.ChatWidgets.Abstractions;
 /// </summary>
 /// <remarks>
 /// This interface provides a way for chat clients to discover what widgets are available
-/// and how to use them. The tools are passed to AI models via <see cref="ChatOptions.Tools"/>
+/// and how to use them. The tools are passed to AI models via the library configuration (for example, <see cref="BbQChatOptions.WidgetToolsProviderFactory"/>)
 /// to enable the model to understand and use widgets.
 /// 
 /// Each tool includes:

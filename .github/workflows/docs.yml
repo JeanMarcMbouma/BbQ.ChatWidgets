@@ -1,0 +1,64 @@
+name: Build and Publish Docs
+
+on:
+  push:
+    branches:
+      - docs-rewrite
+      - main
+
+concurrency:
+  group: docs-build
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install DocFX
+        run: dotnet tool install --global docfx --version 2.78.4
+
+      - name: Build .NET project (Release)
+        run: dotnet build BbQ.ChatWidgets/BbQ.ChatWidgets.csproj -c Release
+
+      - name: Generate DocFX metadata (assembly)
+        run: docfx metadata docfx.json
+
+      - name: Build DocFX site
+        run: docfx build docfx.json -o docs
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install JS dependencies
+        working-directory: js
+        run: npm ci
+
+      - name: Generate JS docs (TypeDoc)
+        run: npx --yes typedoc --options js/typedoc.json
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          publish_dir: ./docs
+          publish_branch: gh-pages
+          allow_empty_commit: false
+          keep_files: false
+          github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -81,7 +81,7 @@ public sealed class UserIntentClassifier : IClassifier<UserIntent>
 
             var options = new ChatOptions { ToolMode = ChatToolMode.None };
             var response = await _chatClient.GetResponseAsync(
-                [new Microsoft.Extensions.AI.ChatMessage(Microsoft.Extensions.AI.ChatRole.User, prompt)],
+                [new ChatMessage(ChatRole.User, prompt)],
                 options,
                 ct);
 

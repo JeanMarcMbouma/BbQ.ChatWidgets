@@ -462,12 +462,12 @@ namespace BbQ.ChatWidgets.Sample
         /// suitable for passing to the chat client.
         /// </remarks>
         /// <returns>
-        /// An enumerable of <see cref="Microsoft.Extensions.AI.ChatMessage"/> representing
+        /// An enumerable of <see cref="ChatMessage"/> representing
         /// all conversation turns.
         /// </returns>
-        public IEnumerable<Microsoft.Extensions.AI.ChatMessage> GetMessages()
+        public IEnumerable<ChatMessage> GetMessages()
         {
-            return _turns.Select(turn => new Microsoft.Extensions.AI.ChatMessage(turn.Role, turn.Content));
+            return _turns.Select(turn => new ChatMessage(turn.Role, turn.Content));
         }
 
         /// <summary>

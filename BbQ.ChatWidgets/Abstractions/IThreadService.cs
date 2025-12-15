@@ -55,7 +55,7 @@ public interface IThreadService
     /// <param name="threadId">The thread identifier.</param>
     /// <param name="chatTurn">The message to append to the thread.</param>
     /// <returns>The updated <see cref="ChatMessages"/> containing all turns including the newly appended one.</returns>
-    /// <exception cref="BbQ.ChatWidgets.Exceptions.ThreadNotFoundException">Thrown if the thread does not exist.</exception>
+    /// <exception cref="Exceptions.ThreadNotFoundException">Thrown if the thread does not exist.</exception>
     ChatMessages AppendMessageToThread(string threadId, ChatTurn chatTurn);
 
     /// <summary>
@@ -67,6 +67,6 @@ public interface IThreadService
     /// </remarks>
     /// <param name="threadId">The thread identifier.</param>
     /// <returns>A <see cref="ChatMessages"/> object containing all turns in the thread.</returns>
-    /// <exception cref="BbQ.ChatWidgets.Exceptions.ThreadNotFoundException">Thrown if the thread does not exist.</exception>
+    /// <exception cref="Exceptions.ThreadNotFoundException">Thrown if the thread does not exist.</exception>
     ChatMessages GetMessage(string threadId);
 }

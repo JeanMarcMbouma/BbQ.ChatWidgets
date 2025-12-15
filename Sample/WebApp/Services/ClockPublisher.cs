@@ -11,15 +11,17 @@ namespace BbQ.ChatWidgets.Sample.WebApp.Services;
 public class ClockPublisher
 {
     private readonly IWidgetSseService _sse;
+    private readonly IStreamPayloadValidator _validator;
     private readonly ConcurrentDictionary<string, CancellationTokenSource> _running = new();
 
     /// <summary>
     /// Creates a new <see cref="ClockPublisher"/>.
     /// </summary>
     /// <param name="sse">The <see cref="IWidgetSseService"/> used to publish events.</param>
-    public ClockPublisher(IWidgetSseService sse)
+    public ClockPublisher(IWidgetSseService sse, IStreamPayloadValidator validator)
     {
         _sse = sse;
+        _validator = validator; 
     }
 
     /// <summary>
@@ -49,7 +51,7 @@ public class ClockPublisher
                     var payload = new { widgetId = "clock", time = timeIso, timeLocal };
                     try
                     {
-                        await _sse.PublishAsync(streamId, payload);
+                        await _sse.PublishAsync(streamId, payload, _validator);
                     }
                     catch
                     {

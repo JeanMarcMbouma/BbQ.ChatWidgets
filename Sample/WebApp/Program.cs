@@ -62,7 +62,7 @@ services.AddBbQChatWidgets(bbqOptions =>
         registry.Register(new EChartsWidget("Sales Chart", "on_chart_click", "bar", "{\"xAxis\": {\"type\": \"category\", \"data\": [\"Jan\", \"Feb\", \"Mar\"]}, \"yAxis\": {\"type\": \"value\"}, \"series\": [{\"data\": [100, 200, 150], \"type\": \"bar\"}]}"));
         // Register a server-side Clock widget template used by the SSE demo.
         // Specify a stream ID so the widget knows which SSE stream to subscribe to on the client.
-        registry.Register(new BbQ.ChatWidgets.Sample.WebApp.Models.ClockWidget("Server Clock", "clock_tick", null, "default-stream"), "clock");
+        registry.Register(new ClockWidget("Server Clock", "clock_tick", null, "default-stream"), "clock");
     };
 });
 

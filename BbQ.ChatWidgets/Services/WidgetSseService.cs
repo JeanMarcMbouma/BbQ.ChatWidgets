@@ -112,10 +112,12 @@ public sealed class WidgetSseService : IWidgetSseService
             // Take a snapshot to avoid issues if bag is modified
             var writers = bag.ToList();
             
-            // Identify writers that failed synchronous write and need async fallback
+            // Attempt synchronous write on all writers and collect those that fail.
+            // Note: TryWrite has side effects - it actually writes when successful.
+            // Writers where TryWrite succeeds are excluded; only failed writers are collected.
             var failedWriters = writers.Where(w => !w.TryWrite(json)).ToList();
             
-            // Handle failed writes asynchronously
+            // Handle failed writes asynchronously as fallback
             foreach (var w in failedWriters)
             {
                 _ = Task.Run(async () =>

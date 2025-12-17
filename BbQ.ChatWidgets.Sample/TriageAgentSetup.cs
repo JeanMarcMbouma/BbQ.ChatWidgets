@@ -42,10 +42,10 @@ public static class TriageAgentSetup
             var registry = new AgentRegistry();
 
             // Register specialized agents
-            registry.Register("help-agent", new HelpAgent());
-            registry.Register("data-query-agent", new DataQueryAgent());
-            registry.Register("action-agent", new ActionAgent());
-            registry.Register("feedback-agent", new FeedbackAgent());
+            registry.Register("""help-agent""", new HelpAgent());
+            registry.Register("""data-query-agent""", new DataQueryAgent());
+            registry.Register("""action-agent""", new ActionAgent());
+            registry.Register("""feedback-agent""", new FeedbackAgent());
 
             return registry;
         });
@@ -62,13 +62,13 @@ public static class TriageAgentSetup
                 // Routing mapping from intent to agent name
                 category => category switch
                 {
-                    UserIntent.HelpRequest => "help-agent",
-                    UserIntent.DataQuery => "data-query-agent",
-                    UserIntent.ActionRequest => "action-agent",
-                    UserIntent.Feedback => "feedback-agent",
+                    UserIntent.HelpRequest => """help-agent""",
+                    UserIntent.DataQuery => """data-query-agent""",
+                    UserIntent.ActionRequest => """action-agent""",
+                    UserIntent.Feedback => """feedback-agent""",
                     _ => null // Falls back to fallback agent
                 },
-                fallbackAgentName: "help-agent"
+                fallbackAgentName: """help-agent"""
             );
         });
 

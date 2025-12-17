@@ -52,6 +52,7 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton(options);
         services.AddSingleton<WidgetRegistry>();
+        services.AddSingleton<WidgetActionRegistry>();
         services.AddScoped<ChatWidgetService>();
         services.AddSingleton<IChatWidgetRenderer, Renderers.SsrWidgetRenderer>();
         services.AddSingleton<IThreadService, DefaultThreadService>();
@@ -59,7 +60,6 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IWidgetHintSanitizer, DefaultWidgetHintParser>();
         
         // Register action registry and handler resolver
-        services.AddSingleton<IWidgetActionRegistry, DefaultWidgetActionRegistry>();
         services.AddSingleton<IWidgetActionHandlerResolver, DefaultWidgetActionHandlerResolver>();
 
         if (options.ChatClientFactory is not null)
@@ -89,6 +89,13 @@ public static class ServiceCollectionExtensions
             var registry = sp.GetRequiredService<WidgetRegistry>();
             options.WidgetRegistryConfigurator?.Invoke(registry);
             Serialization.SetCustomWidgetRegistry(registry);
+            return registry;
+        });
+
+        services.AddSingleton<IWidgetActionRegistry>(sp =>
+        {
+            var registry = sp.GetRequiredService<WidgetActionRegistry>();
+            options.WidgetActionRegistryFactory?.Invoke(sp, registry);
             return registry;
         });
 

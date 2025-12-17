@@ -18,16 +18,16 @@ public sealed record GreetingPayload(
 /// </summary>
 public sealed class GreetingAction : IWidgetAction<GreetingPayload>
 {
-    public string Name => "greet";
+    public string Name => """greet""";
 
     public string Description => 
-        "Sends a greeting with a name and optional message.";
+        """Sends a greeting with a name and optional message.""";
 
     public string PayloadSchema =>
         JsonSerializer.Serialize(new
         {
-            name = "string (required, the person's name)",
-            message = "string (optional, custom message)"
+            name = """string (required, the person's name)""",
+            message = """string (optional, custom message)"""
         });
 }
 
@@ -43,17 +43,17 @@ public sealed class GreetingHandler :
         IServiceProvider serviceProvider)
     {
         // Type-safe access to payload
-        var greeting = $"Hello, {payload.Name}!";
+        var greeting = $"""Hello, {payload.Name}!""";
 
         if (!string.IsNullOrEmpty(payload.Message))
-            greeting += $" {payload.Message}";
+            greeting += $""" {payload.Message}""";
 
         return new ChatTurn(
             ChatRole.Assistant,
             greeting,
             new[]
             {
-                new ButtonWidget("Say Goodbye", "farewell")
+                new ButtonWidget("""Say Goodbye""", """farewell""")
             },
             threadId
         );
@@ -73,16 +73,16 @@ public sealed record FeedbackPayload(
 /// </summary>
 public sealed class FeedbackAction : IWidgetAction<FeedbackPayload>
 {
-    public string Name => "submit_feedback";
+    public string Name => """submit_feedback""";
 
     public string Description =>
-        "Submits user feedback with a rating and optional comments.";
+        """Submits user feedback with a rating and optional comments.""";
 
     public string PayloadSchema =>
         JsonSerializer.Serialize(new
         {
-            rating = "number (1-5, required)",
-            comments = "string (optional, max 500 chars)"
+            rating = """number (1-5, required)""",
+            comments = """string (optional, max 500 chars)"""
         });
 }
 
@@ -99,7 +99,7 @@ public sealed class FeedbackHandler :
     {
         // Type-safe access to payload
         var stars = new string('⭐', payload.Rating);
-        var message = $"Thank you for your feedback! {stars}";
+        var message = $"""Thank you for your feedback! {stars}""";
 
         if (!string.IsNullOrEmpty(payload.Comments))
             message += $"\n\nYour comment: {payload.Comments}";

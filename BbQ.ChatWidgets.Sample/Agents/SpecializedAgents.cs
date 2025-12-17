@@ -22,10 +22,10 @@ public sealed class HelpAgent : IAgent
 
         var response = new ChatTurn(
             ChatRole.Assistant,
-            $"I'm here to help! You asked: '{userMessage}' (classified as {classification}). " +
-            "Please let me know what specific assistance you need.",
+            $"""I'm here to help! You asked: '{userMessage}' (classified as {classification}). """ +
+            """Please let me know what specific assistance you need.""",
             [],
-            request.ThreadId ?? "unknown"
+            request.ThreadId ?? """unknown"""
         );
 
         return Task.FromResult(Outcome<ChatTurn>.From(response));
@@ -48,10 +48,10 @@ public sealed class DataQueryAgent : IAgent
 
         var response = new ChatTurn(
             ChatRole.Assistant,
-            $"I found your data query: '{userMessage}' (classified as {classification}). " +
-            "Here's the information you requested...",
+            $"""I found your data query: '{userMessage}' (classified as {classification}). """ +
+            """Here's the information you requested...""",
             [],
-            request.ThreadId ?? "unknown"
+            request.ThreadId ?? """unknown"""
         );
 
         return Task.FromResult(Outcome<ChatTurn>.From(response));
@@ -74,20 +74,20 @@ public sealed class ActionAgent : IAgent
 
         var response = new ChatTurn(
             ChatRole.Assistant,
-            $"I'm processing your action request: '{userMessage}' (classified as {classification}). " +
-            "Please confirm to proceed with this action.",
+            $"""I'm processing your action request: '{userMessage}' (classified as {classification}). """ +
+            """Please confirm to proceed with this action.""",
             new[]
             {
                 new ButtonWidget(
-                    Label: "Confirm",
-                    Action: "confirm_action"
+                    Label: """Confirm""",
+                    Action: """confirm_action"""
                 ),
                 new ButtonWidget(
-                    Label: "Cancel",
-                    Action: "cancel_action"
+                    Label: """Cancel""",
+                    Action: """cancel_action"""
                 )
             },
-            request.ThreadId ?? "unknown"
+            request.ThreadId ?? """unknown"""
         );
 
         return Task.FromResult(Outcome<ChatTurn>.From(response));
@@ -110,16 +110,16 @@ public sealed class FeedbackAgent : IAgent
 
         var response = new ChatTurn(
             ChatRole.Assistant,
-            $"Thank you for your feedback: '{userMessage}' (classified as {classification}). " +
-            "We appreciate your input and will use it to improve our service.",
+            $"""Thank you for your feedback: '{userMessage}' (classified as {classification}). """ +
+            """We appreciate your input and will use it to improve our service.""",
             new[]
             {
                 new ButtonWidget(
-                    Label: "Submit Feedback",
-                    Action: "submit_feedback"
+                    Label: """Submit Feedback""",
+                    Action: """submit_feedback"""
                 )
             },
-            request.ThreadId ?? "unknown"
+            request.ThreadId ?? """unknown"""
         );
 
         return Task.FromResult(Outcome<ChatTurn>.From(response));

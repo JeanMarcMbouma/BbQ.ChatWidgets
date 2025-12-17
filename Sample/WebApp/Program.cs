@@ -64,6 +64,23 @@ services.AddBbQChatWidgets(bbqOptions =>
         // Specify a stream ID so the widget knows which SSE stream to subscribe to on the client.
         registry.Register(new ClockWidget("Server Clock", "clock_tick", null, "default-stream"), "clock");
     };
+    bbqOptions.WidgetActionRegistryFactory = (sp, actionRegistry) =>
+    {
+
+        var handlerResolver = sp.GetRequiredService<IWidgetActionHandlerResolver>();
+
+        // Register greeting action
+        actionRegistry.RegisterHandler<GreetingAction, GreetingPayload, GreetingHandler>(handlerResolver);
+
+        // Register feedback action
+        actionRegistry.RegisterHandler<FeedbackAction, FeedbackPayload, FeedbackHandler>(handlerResolver);
+
+        // Register ECharts click action (demonstrates custom widget integration)
+        actionRegistry.RegisterHandler<EChartsClickAction, EChartsClickPayload, EChartsClickHandler>(handlerResolver);
+
+        // Register clock tick action (demonstrates SSE widget integration)
+        actionRegistry.RegisterHandler<ClockTickAction, ClockPayload, ClockTickHandler>(handlerResolver);
+    };
 });
 
 // Register triage agent system with specialized agents
@@ -99,26 +116,6 @@ app.UseRouting();
 app.UseCors();
 app.UseDefaultFiles();
 app.UseStaticFiles();
-
-// Register typed action handlers with the registry
-var actionRegistry = app.Services.GetRequiredService<IWidgetActionRegistry>();
-var handlerResolver = app.Services.GetRequiredService<IWidgetActionHandlerResolver>();
-
-// Register greeting action
-var greetingAction = new GreetingAction();
-actionRegistry.RegisterHandler<GreetingAction, GreetingPayload, GreetingHandler>(handlerResolver, greetingAction);
-
-// Register feedback action
-var feedbackAction = new FeedbackAction();
-actionRegistry.RegisterHandler<FeedbackAction, FeedbackPayload, FeedbackHandler>(handlerResolver, feedbackAction);
-
-// Register ECharts click action (demonstrates custom widget integration)
-var echartsClickAction = new EChartsClickAction();
-actionRegistry.RegisterHandler<EChartsClickAction, EChartsClickPayload, EChartsClickHandler>(handlerResolver, echartsClickAction);
-
-// Register clock tick action (demonstrates SSE widget integration)
-var clockTickAction = new ClockTickAction();
-actionRegistry.RegisterHandler<ClockTickAction, ClockPayload, ClockTickHandler>(handlerResolver, clockTickAction);
 
 // Log startup information
 var logger = app.Services.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");

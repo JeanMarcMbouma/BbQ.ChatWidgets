@@ -99,15 +99,13 @@ public static class WidgetActionHandlerExtensions
         /// <typeparam name="TAction">The action type implementing <c>IWidgetAction{T}</c>.</typeparam>
         /// <typeparam name="TPayload">The payload type for this action.</typeparam>
         /// <typeparam name="THandler">The handler type implementing <c>IActionWidgetActionHandler{TWidgetAction, T}</c>.</typeparam>
-        /// <param name="registry">The action registry where action metadata will be registered.</param>
         /// <param name="resolver">The handler resolver where the handler type will be registered.</param>
-        /// <param name="action">An instance of the action containing metadata (name, description, schema).</param>
         public void RegisterHandler<TAction, TPayload, THandler>(
-            IWidgetActionHandlerResolver resolver,
-            TAction action)
-            where TAction : IWidgetAction<TPayload>
+            IWidgetActionHandlerResolver resolver)
+            where TAction : IWidgetAction<TPayload>, new()
             where THandler : IActionWidgetActionHandler<TAction, TPayload>
         {
+            var action = new TAction();
             var metadata = new WidgetActionMetadata(
                 action.Name,
                 action.Description,

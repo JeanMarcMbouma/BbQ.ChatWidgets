@@ -68,7 +68,7 @@ internal class Program
             .AddSingleton(configuration);
 
         IChatClient openaiClient =
-            new OpenAI.Chat.ChatClient(configuration["OpenAI:ModelId"] ?? "gpt-4o-mini", configuration["OpenAI:ApiKey"])
+            new OpenAI.Chat.ChatClient(configuration["""OpenAI:ModelId"""] ?? """gpt-4o-mini""", configuration["""OpenAI:ApiKey"""])
             .AsIChatClient();
         IChatClient client = new ChatClientBuilder(openaiClient)
             .UseFunctionInvocation()
@@ -78,8 +78,17 @@ internal class Program
         var serviceProvider = services
             .AddBbQChatWidgets(bbqOptions =>
             {
-                bbqOptions.RoutePrefix = "/api/chat";
+                bbqOptions.RoutePrefix = """/api/chat""";
                 bbqOptions.ChatClientFactory = sp => client;
+                bbqOptions.WidgetActionRegistryFactory = (sp, registry, handlerResolver) =>
+                {
+                    // Register greeting action
+                    registry.RegisterHandler<GreetingAction, GreetingPayload, GreetingHandler>(handlerResolver);
+
+                    // Register feedback action
+                    registry.RegisterHandler<FeedbackAction, FeedbackPayload, FeedbackHandler>(handlerResolver);
+
+                };
             })
             // Register triage agent system with classifier and specialized agents
             .AddTriageAgentSystem()
@@ -92,48 +101,41 @@ internal class Program
             .BuildServiceProvider();
 
         // Get logger
-        var logger = serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("Program");
+        var logger = serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger("""Program""");
 
-        logger.LogInformation("=== BbQ.ChatWidgets Console Sample ===");
-        logger.LogInformation("OpenAI Chat Application with Widget Support");
-        logger.LogInformation("Triage Agent System: Enabled");
+        logger.LogInformation("""=== BbQ.ChatWidgets Console Sample ===""");
+        logger.LogInformation("""OpenAI Chat Application with Widget Support""");
+        logger.LogInformation("""Triage Agent System: Enabled""");
         logger.LogInformation("");
 
         try
         {
             // Register typed actions with the registry
             var actionRegistry = serviceProvider.GetRequiredService<IWidgetActionRegistry>();
-            var handlerResolver = serviceProvider.GetRequiredService<IWidgetActionHandlerResolver>();
 
-            // Register greeting action
-            var greetingAction = new GreetingAction();
-            actionRegistry.RegisterHandler<GreetingAction, GreetingPayload, GreetingHandler>(handlerResolver, greetingAction);
-
-            // Register feedback action
-            var feedbackAction = new FeedbackAction();
-            actionRegistry.RegisterHandler<FeedbackAction, FeedbackPayload, FeedbackHandler>(handlerResolver, feedbackAction);
-
-            logger.LogInformation("Registered typed action handlers:");
-            logger.LogInformation($"  - {greetingAction.Name}: {greetingAction.Description}");
-            logger.LogInformation($"  - {feedbackAction.Name}: {feedbackAction.Description}");
+            logger.LogInformation("""Registered typed action handlers:""");
+            var greetingAction = actionRegistry.GetAction("""greet""")!;
+            var feedbackAction = actionRegistry.GetAction("""submit_feedback""")!;
+            logger.LogInformation($"""  - {greetingAction.Name}: {greetingAction.Description}""");
+            logger.LogInformation($"""  - {feedbackAction.Name}: {feedbackAction.Description}""");
             logger.LogInformation("");
 
             // Display triage agent system info
             var agentRegistry = serviceProvider.GetRequiredService<IAgentRegistry>();
-            logger.LogInformation("Registered specialized agents:");
+            logger.LogInformation("""Registered specialized agents:""");
             foreach (var agentName in agentRegistry.GetRegisteredAgents())
             {
-                logger.LogInformation($"  - {agentName}");
+                logger.LogInformation($"""  - {agentName}""");
             }
             logger.LogInformation("");
 
             // Display user intents
-            logger.LogInformation("User intent categories (for automatic routing):");
-            logger.LogInformation($"  - {UserIntent.HelpRequest}: Routed to help-agent");
-            logger.LogInformation($"  - {UserIntent.DataQuery}: Routed to data-query-agent");
-            logger.LogInformation($"  - {UserIntent.ActionRequest}: Routed to action-agent");
-            logger.LogInformation($"  - {UserIntent.Feedback}: Routed to feedback-agent");
-            logger.LogInformation($"  - {UserIntent.Unknown}: Routed to help-agent (fallback)");
+            logger.LogInformation("""User intent categories (for automatic routing):""");
+            logger.LogInformation($"""  - {UserIntent.HelpRequest}: Routed to help-agent""");
+            logger.LogInformation($"""  - {UserIntent.DataQuery}: Routed to data-query-agent""");
+            logger.LogInformation($"""  - {UserIntent.ActionRequest}: Routed to action-agent""");
+            logger.LogInformation($"""  - {UserIntent.Feedback}: Routed to feedback-agent""");
+            logger.LogInformation($"""  - {UserIntent.Unknown}: Routed to help-agent (fallback)""");
             logger.LogInformation("");
 
             // Get services
@@ -141,8 +143,8 @@ internal class Program
             var conversationManager = serviceProvider.GetRequiredService<ConversationManager>();
             var triageAgent = serviceProvider.GetRequiredService<TriageAgent<UserIntent>>();
 
-            logger.LogInformation("Chat application started with triage agent routing. Type 'exit' to quit.");
-            logger.LogInformation("Your messages will be automatically classified and routed to appropriate agents.");
+            logger.LogInformation("""Chat application started with triage agent routing. Type 'exit' to quit.""");
+            logger.LogInformation("""Your messages will be automatically classified and routed to appropriate agents.""");
             logger.LogInformation("");
 
             // Main chat loop with triage agent
@@ -150,7 +152,7 @@ internal class Program
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "An error occurred");
+            logger.LogError(ex, """An error occurred""");
             Environment.Exit(1);
         }
 
@@ -191,26 +193,26 @@ internal class Program
                 if (string.IsNullOrWhiteSpace(userInput))
                     continue;
 
-                if (userInput.Equals("exit", StringComparison.OrdinalIgnoreCase))
+                if (userInput.Equals("""exit""", StringComparison.OrdinalIgnoreCase))
                 {
-                    logger.LogInformation("Goodbye!");
+                    logger.LogInformation("""Goodbye!""");
                     break;
                 }
 
-                if (userInput.Equals("clear", StringComparison.OrdinalIgnoreCase))
+                if (userInput.Equals("""clear""", StringComparison.OrdinalIgnoreCase))
                 {
                     conversationManager.ClearHistory();
-                    logger.LogInformation("Conversation history cleared.");
+                    logger.LogInformation("""Conversation history cleared.""");
                     continue;
                 }
 
-                if (userInput.Equals("history", StringComparison.OrdinalIgnoreCase))
+                if (userInput.Equals("""history""", StringComparison.OrdinalIgnoreCase))
                 {
                     conversationManager.PrintHistory();
                     continue;
                 }
 
-                if (userInput.Equals("debug", StringComparison.OrdinalIgnoreCase))
+                if (userInput.Equals("""debug""", StringComparison.OrdinalIgnoreCase))
                 {
                     // Display debug information
                     var request = new ChatRequest(
@@ -222,29 +224,29 @@ internal class Program
                     var routedAgent = InterAgentCommunicationContext.GetRoutedAgent(request);
 
                     Console.WriteLine($"\nDebug Info for Thread {conversationManager.CurrentThreadId}:");
-                    Console.WriteLine($"  Classified Intent: {classification}");
-                    Console.WriteLine($"  Routed Agent: {routedAgent}");
-                    Console.WriteLine($"  Registered Agents: {string.Join(", ", logger)}");
+                    Console.WriteLine($"""  Classified Intent: {classification}""");
+                    Console.WriteLine($"""  Routed Agent: {routedAgent}""");
+                    Console.WriteLine($"""  Registered Agents: {string.Join(", ", logger)}""");
                     continue;
                 }
 
                 try
                 {
                     // Send message through triage agent for classification and routing
-                    logger.LogInformation("Assistant: Processing through triage agent...");
+                    logger.LogInformation("""Assistant: Processing through triage agent...""");
                     var response = await chatService.SendMessageWithTriageAsync(userInput, triageAgent);
 
                     // Display response
-                    Console.WriteLine($"Assistant: {response.Content}");
+                    Console.WriteLine($"""Assistant: {response.Content}""");
 
                     // Display any widgets
                     if (response.Widgets?.Count > 0)
                     {
-                        Console.WriteLine($"[{response.Widgets.Count} widget(s) available]");
+                        Console.WriteLine($"""[{response.Widgets.Count} widget(s) available]""");
                         for (int i = 0; i < response.Widgets.Count; i++)
                         {
                             var widget = response.Widgets[i];
-                            Console.WriteLine($"  {i + 1}. {widget.GetType().Name.Replace("Widget", "").ToLower()}: {widget.Label}");
+                            Console.WriteLine($"""  {i + 1}. {widget.GetType().Name.Replace("Widget", "").ToLower()}: {widget.Label}""");
                         }
                     }
 
@@ -253,13 +255,13 @@ internal class Program
                 }
                 catch (HttpRequestException ex)
                 {
-                    logger.LogError($"OpenAI API error: {ex.Message}");
-                    Console.WriteLine("Error communicating with OpenAI API.");
+                    logger.LogError($"""OpenAI API error: {ex.Message}""");
+                    Console.WriteLine("""Error communicating with OpenAI API.""");
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError(ex, "An unexpected error occurred");
-                    Console.WriteLine($"Error: {ex.Message}");
+                    logger.LogError(ex, """An unexpected error occurred""");
+                    Console.WriteLine($"""Error: {ex.Message}""");
                 }
             }
         }
@@ -342,10 +344,10 @@ namespace BbQ.ChatWidgets.Sample
                 RequestServices: _serviceProvider
             )
             {
-                Metadata = new Dictionary<string, object> { { "UserMessage", userMessage } }
+                Metadata = new Dictionary<string, object> { { """UserMessage""", userMessage } }
             };
 
-            _logger.LogDebug("Sending message through triage agent for classification and routing");
+            _logger.LogDebug("""Sending message through triage agent for classification and routing""");
 
             // Invoke triage agent for classification and routing
             var outcome = await triageAgent.InvokeAsync(request, CancellationToken.None);
@@ -355,14 +357,14 @@ namespace BbQ.ChatWidgets.Sample
                     var classification = InterAgentCommunicationContext.GetClassification<UserIntent>(request);
                     var routedAgent = InterAgentCommunicationContext.GetRoutedAgent(request);
 
-                    _logger.LogInformation($"Message classified as: {classification}, routed to: {routedAgent}");
+                    _logger.LogInformation($"""Message classified as: {classification}, routed to: {routedAgent}""");
 
                     return success;
                 },
                 failure =>
                 {
-                    _logger.LogError($"Triage routing failed: {outcome.GetError<string>()!.Description}");
-                    throw new InvalidOperationException($"Triage routing failed: {outcome.GetError<string>()!.Description}");
+                    _logger.LogError($"""Triage routing failed: {outcome.GetError<string>()!.Description}""");
+                    throw new InvalidOperationException($"""Triage routing failed: {outcome.GetError<string>()!.Description}""");
                 });
         }
 
@@ -401,7 +403,7 @@ namespace BbQ.ChatWidgets.Sample
             // - Providing widget tools to the AI model
             // - Parsing widget markers from the response
             // - Managing conversation threading
-            _logger.LogDebug($"Sending message to OpenAI with widget support");
+            _logger.LogDebug($"""Sending message to OpenAI with widget support""");
             var response = await _widgetService.RespondAsync(userMessage, _currentThreadId);
 
             return response;
@@ -462,12 +464,12 @@ namespace BbQ.ChatWidgets.Sample
         /// suitable for passing to the chat client.
         /// </remarks>
         /// <returns>
-        /// An enumerable of <see cref="Microsoft.Extensions.AI.ChatMessage"/> representing
+        /// An enumerable of <see cref="ChatMessage"/> representing
         /// all conversation turns.
         /// </returns>
-        public IEnumerable<Microsoft.Extensions.AI.ChatMessage> GetMessages()
+        public IEnumerable<ChatMessage> GetMessages()
         {
-            return _turns.Select(turn => new Microsoft.Extensions.AI.ChatMessage(turn.Role, turn.Content));
+            return _turns.Select(turn => new ChatMessage(turn.Role, turn.Content));
         }
 
         /// <summary>
@@ -494,18 +496,18 @@ namespace BbQ.ChatWidgets.Sample
         {
             if (_turns.Count == 0)
             {
-                Console.WriteLine("No conversation history.");
+                Console.WriteLine("""No conversation history.""");
                 return;
             }
 
             Console.WriteLine("\n=== Conversation History ===");
             foreach (var turn in _turns)
             {
-                var role = turn.Role == ChatRole.User ? "You" : "Assistant";
+                var role = turn.Role == ChatRole.User ? """You""" : """Assistant""";
                 Console.WriteLine($"\n{role}: {turn.Content}");
                 if (turn.Widgets?.Count > 0)
                 {
-                    Console.WriteLine($"  [{turn.Widgets.Count} widget(s)]");
+                    Console.WriteLine($"""  [{turn.Widgets.Count} widget(s)]""");
                 }
             }
             Console.WriteLine("\n===========================\n");

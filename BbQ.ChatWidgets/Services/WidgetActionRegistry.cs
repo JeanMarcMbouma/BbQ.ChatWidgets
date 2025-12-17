@@ -15,7 +15,7 @@ namespace BbQ.ChatWidgets.Services;
 /// The implementation is thread-safe through dictionary operations on the concurrent collection.
 /// Actions are looked up by name, making name uniqueness essential.
 /// </remarks>
-public sealed class DefaultWidgetActionRegistry : IWidgetActionRegistry
+public sealed class WidgetActionRegistry : IWidgetActionRegistry
 {
     private readonly Dictionary<string, IWidgetActionMetadata> _actions = [];
 

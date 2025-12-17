@@ -129,5 +129,19 @@ public sealed class BbQChatOptions
     public Func<IServiceProvider, IWidgetToolsProvider>? WidgetToolsProviderFactory { get; set; }
 
 
+    /// <summary>
+    /// Configures the widget registry for the chat options.
+    /// </summary>
+    /// <remarks>
+    /// This action allows customizing the widget registry during the chat options configuration.
+    /// </remarks>
     public Action<IWidgetRegistry>? WidgetRegistryConfigurator { get; set; }
+
+    /// <summary>
+    /// Configures the widget action registry for the chat options.
+    /// </summary>
+    /// <remarks>
+    /// This action allows customizing the widget action registry during the chat options configuration.
+    /// </remarks>
+    public Action<IServiceProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver>? WidgetActionRegistryFactory { get; set; }
 }

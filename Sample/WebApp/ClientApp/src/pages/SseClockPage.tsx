@@ -38,7 +38,7 @@ export function SseClockPage({ onBack }: Props) {
     es.onmessage = (ev) => {
       try {
         const data = JSON.parse(ev.data);
-        if (data && data.widgetId === 'clock-widget') {
+        if (data && data.widgetId === 'clock') {
           // Prefer structured time fields if provided
           if (data.timeLocal) {
             setTimeLocal(String(data.timeLocal));

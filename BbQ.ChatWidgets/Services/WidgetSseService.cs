@@ -17,6 +17,9 @@ public sealed class WidgetSseService : IWidgetSseService
 {
     // streamId -> list of writers (one per connected client)
     private readonly ConcurrentDictionary<string, ConcurrentBag<ChannelWriter<string>>> _streams = new();
+    
+    // Lock for coordinating bag removals to prevent race conditions
+    private readonly ReaderWriterLockSlim _streamsLock = new();
 
     /// <summary>
     /// Subscribes the current HTTP context to the specified <paramref name="streamId"/>.
@@ -58,12 +61,30 @@ public sealed class WidgetSseService : IWidgetSseService
         }
         finally
         {
-            // remove the writer from bag (ConcurrentBag has no Remove; recreate bag)
-            if (_streams.TryGetValue(streamId, out var existing))
+            // Atomically remove the writer from the bag
+            _streamsLock.EnterWriteLock();
+            try
             {
-                var newBag = new ConcurrentBag<ChannelWriter<string>>(existing.Where(w => w != writer));
-                _streams[streamId] = newBag;
+                if (_streams.TryGetValue(streamId, out var existing))
+                {
+                    var newBag = new ConcurrentBag<ChannelWriter<string>>(existing.Where(w => w != writer));
+                    
+                    // Clean up empty streams to prevent memory leaks
+                    if (newBag.Count == 0)
+                    {
+                        _streams.TryRemove(streamId, out _);
+                    }
+                    else
+                    {
+                        _streams[streamId] = newBag;
+                    }
+                }
             }
+            finally
+            {
+                _streamsLock.ExitWriteLock();
+            }
+            
             try { writer.TryComplete(); } catch { }
         }
     }
@@ -76,27 +97,71 @@ public sealed class WidgetSseService : IWidgetSseService
     /// <param name="streamId">Logical identifier for the event stream.</param>
     /// <param name="message">The message payload to publish (will be serialized to JSON).</param>
     /// <returns>A completed <see cref="Task"/> when the publish requests have been queued.</returns>
-    public Task PublishAsync(string streamId, object message)
+    private Task PublishAsync(string streamId, object message)
     {
         var json = JsonSerializer.Serialize(message, Serialization.Default);
 
-        var bag = _streams.GetOrAdd(streamId, _ => new ConcurrentBag<ChannelWriter<string>>());
-        foreach (var w in bag)
+        _streamsLock.EnterReadLock();
+        try
         {
-            // best-effort write
-            _ = Task.Run(async () =>
+            if (!_streams.TryGetValue(streamId, out var bag))
             {
-                try
+                return Task.CompletedTask;
+            }
+
+            // Take a snapshot to avoid issues if bag is modified
+            var writers = bag.ToList();
+            
+            foreach (var w in writers)
+            {
+                // best-effort write - attempt to write synchronously
+                if (!w.TryWrite(json))
                 {
-                    await w.WriteAsync(json);
+                    // If synchronous write fails, attempt asynchronously
+                    _ = Task.Run(async () =>
+                    {
+                        try
+                        {
+                            await w.WriteAsync(json);
+                        }
+                        catch
+                        {
+                            // ignore - subscriber is unresponsive
+                        }
+                    });
                 }
-                catch
-                {
-                    // ignore
-                }
-            });
+            }
+        }
+        finally
+        {
+            _streamsLock.ExitReadLock();
         }
 
         return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Publishes a JSON-serializable <paramref name="message"/> to the named stream with payload validation.
+    /// The message will be validated against configured rules before being sent to subscribers.
+    /// </summary>
+    /// <param name="streamId">Logical identifier for the event stream.</param>
+    /// <param name="message">The message payload to publish (will be serialized to JSON).</param>
+    /// <param name="validator">The payload validator to use for validation.</param>
+    /// <param name="publisherId">Optional: Identifier for the publisher (used for rate limiting).</param>
+    /// <returns>A completed <see cref="Task"/> when the publish requests have been queued.</returns>
+    /// <exception cref="PayloadValidationException">Thrown if payload validation fails.</exception>
+    /// <exception cref="PublishRateLimitExceededException">Thrown if publish rate limit is exceeded.</exception>
+    public async Task PublishAsync(string streamId, object message, IStreamPayloadValidator validator, string? publisherId = null)
+    {
+        ArgumentNullException.ThrowIfNull(validator);
+        
+        // Validate payload before publishing
+        await validator.ValidateAsync(streamId, message);
+        
+        // Check publish frequency limits
+        await validator.ValidatePublishFrequencyAsync(streamId, publisherId);
+
+        // Publish after validation passes
+        await PublishAsync(streamId, message);
     }
 }

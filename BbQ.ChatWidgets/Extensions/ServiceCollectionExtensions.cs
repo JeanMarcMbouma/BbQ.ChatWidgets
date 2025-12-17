@@ -52,6 +52,7 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton(options);
         services.AddSingleton<WidgetRegistry>();
+        services.AddSingleton<WidgetActionRegistry>();
         services.AddScoped<ChatWidgetService>();
         services.AddSingleton<IChatWidgetRenderer, Renderers.SsrWidgetRenderer>();
         services.AddSingleton<IThreadService, DefaultThreadService>();
@@ -59,7 +60,6 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IWidgetHintSanitizer, DefaultWidgetHintParser>();
         
         // Register action registry and handler resolver
-        services.AddSingleton<IWidgetActionRegistry, DefaultWidgetActionRegistry>();
         services.AddSingleton<IWidgetActionHandlerResolver, DefaultWidgetActionHandlerResolver>();
 
         if (options.ChatClientFactory is not null)
@@ -81,13 +81,22 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IWidgetToolsProvider, DefaultWidgetToolsProvider>();
 
         // Register Widget SSE service for server-side widget streams
-        services.AddSingleton<Abstractions.IWidgetSseService, Services.WidgetSseService>();
+        services.AddSingleton<IWidgetSseService, WidgetSseService>();
+        services.AddSingleton<IStreamPayloadValidator, DefaultStreamPayloadValidator>();
 
         services.AddSingleton<IWidgetRegistry>(sp =>
         {
             var registry = sp.GetRequiredService<WidgetRegistry>();
             options.WidgetRegistryConfigurator?.Invoke(registry);
             Serialization.SetCustomWidgetRegistry(registry);
+            return registry;
+        });
+
+        services.AddSingleton<IWidgetActionRegistry>(sp =>
+        {
+            var registry = sp.GetRequiredService<WidgetActionRegistry>();
+            var handlerResolver = sp.GetRequiredService<IWidgetActionHandlerResolver>();
+            options.WidgetActionRegistryFactory?.Invoke(sp, registry, handlerResolver);
             return registry;
         });
 
@@ -162,12 +171,6 @@ public static class ServiceCollectionExtensions
                 return;
             }
 
-            if (context.Request.Method == HttpMethods.Post && path == $"{prefix}/stream/agent")
-            {
-                await HandleStreamAgentRequest(context);
-                return;
-            }
-
             // Widget SSE subscription: GET {prefix}/widgets/streams/{streamId}/events
             if (context.Request.Method == HttpMethods.Get && path.StartsWith($"{prefix}/widgets/streams/") && path.EndsWith("/events"))
             {
@@ -221,7 +224,7 @@ public static class ServiceCollectionExtensions
         }, error =>
         {
             context.Response.StatusCode = 500;
-            return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(new { Error = error }));
+            return context.Response.WriteAsync(JsonSerializer.Serialize(new { Error = error }));
         });
     }
 
@@ -237,72 +240,9 @@ public static class ServiceCollectionExtensions
 
         await foreach (var turn in service.StreamResponseAsync(dto.Message, dto.ThreadId, ct))
         {
-            var json = System.Text.Json.JsonSerializer.Serialize(turn, Serialization.Default);
+            var json = JsonSerializer.Serialize(turn, Serialization.Default);
             await context.Response.WriteAsync($"data: {json}\n\n");
             await context.Response.Body.FlushAsync(ct);
-        }
-    }
-
-    private static async Task HandleStreamAgentRequest(HttpContext context)
-    {
-        var metadata = await DeserializeRequest<Dictionary<string, object>>(context) ?? [];
-        var serialization = JsonSerializer.Serialize(metadata, Serialization.Default);
-        var payload = JsonSerializer.Deserialize<UserMessageDto>(serialization, Serialization.Default)
-                        ?? throw new InvalidOperationException("Failed to deserialize request payload.");
-
-        var chatRequest = new ChatRequest(payload.ThreadId, context.RequestServices)
-        {
-            Metadata = metadata
-        };
-
-        if (!string.IsNullOrWhiteSpace(payload.Message))
-        {
-            InterAgentCommunicationContext.SetUserMessage(chatRequest, payload.Message);
-        }
-
-        context.Response.ContentType = "text/event-stream";
-        context.Response.Headers.Add("Cache-Control", "no-cache");
-        context.Response.Headers.Add("Connection", "keep-alive");
-
-        var triageAgent = context.RequestServices.GetService<IAgent>();
-        var ct = context.RequestAborted;
-
-        if (triageAgent != null)
-        {
-            var outcome = await triageAgent.InvokeAsync(chatRequest, ct);
-            await outcome.Match(async result =>
-            {
-                var json = System.Text.Json.JsonSerializer.Serialize(result, Serialization.Default);
-                await context.Response.WriteAsync($"data: {json}\n\n");
-                await context.Response.Body.FlushAsync(ct);
-                return Task.CompletedTask;
-            }, async error =>
-            {
-                context.Response.StatusCode = 500;
-                var errorJson = System.Text.Json.JsonSerializer.Serialize(new { Error = error });
-                await context.Response.WriteAsync($"data: {errorJson}\n\n");
-                await context.Response.Body.FlushAsync(ct);
-                return Task.CompletedTask;
-            });
-        }
-        else
-        {
-            var agentDelegate = GetAgentDelegate(context.RequestServices);
-            var outcome = await agentDelegate(chatRequest, ct);
-            await outcome.Match(async result =>
-            {
-                var json = System.Text.Json.JsonSerializer.Serialize(result, Serialization.Default);
-                await context.Response.WriteAsync($"data: {json}\n\n");
-                await context.Response.Body.FlushAsync(ct);
-                return Task.CompletedTask;
-            }, async error =>
-            {
-                context.Response.StatusCode = 500;
-                var errorJson = System.Text.Json.JsonSerializer.Serialize(new { Error = error });
-                await context.Response.WriteAsync($"data: {errorJson}\n\n");
-                await context.Response.Body.FlushAsync(ct);
-                return Task.CompletedTask;
-            });
         }
     }
 
@@ -351,7 +291,7 @@ public static class ServiceCollectionExtensions
 
     private static async Task HandleWidgetStreamSubscribe(HttpContext context, string prefix)
     {
-        var svc = context.RequestServices.GetRequiredService<Abstractions.IWidgetSseService>();
+        var svc = context.RequestServices.GetRequiredService<IWidgetSseService>();
 
         // path: {prefix}/widgets/streams/{streamId}/events
         var segments = context.Request.Path.Value?.Split('/', StringSplitOptions.RemoveEmptyEntries) ?? [];
@@ -369,7 +309,8 @@ public static class ServiceCollectionExtensions
 
     private static async Task HandleWidgetStreamPublish(HttpContext context, string prefix)
     {
-        var svc = context.RequestServices.GetRequiredService<Abstractions.IWidgetSseService>();
+        var svc = context.RequestServices.GetRequiredService<IWidgetSseService>();
+        var validation = context.RequestServices.GetRequiredService<IStreamPayloadValidator>();
 
         var segments = context.Request.Path.Value?.Split('/', StringSplitOptions.RemoveEmptyEntries) ?? [];
         if (segments.Length < 4)
@@ -381,7 +322,7 @@ public static class ServiceCollectionExtensions
 
         var streamId = segments[^2];
 
-        using var reader = new System.IO.StreamReader(context.Request.Body);
+        using var reader = new StreamReader(context.Request.Body);
         var body = await reader.ReadToEndAsync();
         if (string.IsNullOrWhiteSpace(body))
         {
@@ -391,8 +332,8 @@ public static class ServiceCollectionExtensions
         }
 
         // Accept arbitrary JSON message and forward
-        var obj = System.Text.Json.JsonSerializer.Deserialize<object>(body, Serialization.Default);
-        await svc.PublishAsync(streamId, obj ?? new { });
+        var obj = JsonSerializer.Deserialize<object>(body, Serialization.Default);
+        await svc.PublishAsync(streamId, obj ?? new {}, validation);
 
         context.Response.StatusCode = 202;
         await context.Response.WriteAsync("Published");
@@ -409,9 +350,9 @@ public static class ServiceCollectionExtensions
     /// </exception>
     private static async Task<T> DeserializeRequest<T>(HttpContext context)
     {
-        using var reader = new System.IO.StreamReader(context.Request.Body);
+        using var reader = new StreamReader(context.Request.Body);
         var body = await reader.ReadToEndAsync();
-        return System.Text.Json.JsonSerializer.Deserialize<T>(body, Serialization.Default) ?? throw new InvalidOperationException("Failed to deserialize request");
+        return JsonSerializer.Deserialize<T>(body, Serialization.Default) ?? throw new InvalidOperationException("Failed to deserialize request");
     }
 
     /// <summary>
@@ -422,7 +363,7 @@ public static class ServiceCollectionExtensions
     private static async Task WriteJsonResponse(HttpContext context, object data)
     {
         context.Response.ContentType = "application/json";
-        var json = System.Text.Json.JsonSerializer.Serialize(data, Serialization.Default);
+        var json = JsonSerializer.Serialize(data, Serialization.Default);
         await context.Response.WriteAsync(json);
     }
 }

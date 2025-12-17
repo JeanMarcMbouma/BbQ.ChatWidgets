@@ -72,13 +72,101 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="basic-setup-example">Basic Setup Example</h1>
 
-<ul>
-<li>Register <code>BbQ.ChatWidgets</code> services</li>
-<li>Call the <code>/api/chat/message</code> endpoint</li>
-<li>Render buttons or cards from the JavaScript client</li>
-</ul>
-<p>Request shape (matches <code>UserMessageDto</code>):</p>
-<pre><code class="lang-json">{ &quot;message&quot;: &quot;Hello&quot;, &quot;threadId&quot;: &quot;optional-thread-id&quot; }
+<p>This example demonstrates the minimal configuration required to get a chat interface with widgets up and running.</p>
+<h2 id="1-server-side-programcs">1. Server-Side (<code>Program.cs</code>)</h2>
+<pre><code class="lang-csharp">using Microsoft.Extensions.AI;
+using BbQ.ChatWidgets.Extensions;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Configure OpenAI (or any other provider)
+IChatClient chatClient = new ChatClientBuilder(
+    new OpenAI.Chat.ChatClient(&quot;gpt-4o-mini&quot;, builder.Configuration[&quot;OpenAI:ApiKey&quot;]).AsIChatClient()
+).UseFunctionInvocation().Build();
+
+// Register BbQ services
+builder.Services.AddBbQChatWidgets(options =&gt;
+{
+    options.ChatClientFactory = _ =&gt; chatClient;
+});
+
+var app = builder.Build();
+
+// Map endpoints
+app.MapBbQChatEndpoints();
+
+app.Run();
+</code></pre>
+<h2 id="2-client-side-html--javascript">2. Client-Side (HTML + JavaScript)</h2>
+<pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;BbQ Chat&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/themes/bbq-chat-light.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;chat-container&quot;&gt;
+        &lt;div id=&quot;messages&quot;&gt;&lt;/div&gt;
+        &lt;input type=&quot;text&quot; id=&quot;user-input&quot; placeholder=&quot;Type a message...&quot;&gt;
+        &lt;button onclick=&quot;send()&quot;&gt;Send&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;script type=&quot;module&quot;&gt;
+        import { WidgetManager } from 'https://esm.sh/@bbq-chat/widgets';
+
+        const manager = new WidgetManager();
+        const messagesDiv = document.getElementById('messages');
+
+        window.send = async () =&gt; {
+            const input = document.getElementById('user-input');
+            const text = input.value;
+            input.value = '';
+
+            // 1. Send message to server
+            const response = await fetch('/api/chat/message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: text })
+            });
+
+            const turn = await response.json();
+
+            // 2. Display text response
+            const msgEl = document.createElement('div');
+            msgEl.textContent = turn.content;
+            messagesDiv.appendChild(msgEl);
+
+            // 3. Render widgets
+            turn.widgets.forEach(widget =&gt; {
+                manager.render(widget, messagesDiv);
+            });
+        };
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="requestresponse-shape">Request/Response Shape</h2>
+<h3 id="request-post-apichatmessage">Request (<code>POST /api/chat/message</code>)</h3>
+<pre><code class="lang-json">{
+  &quot;message&quot;: &quot;Show me a button&quot;,
+  &quot;threadId&quot;: &quot;optional-session-id&quot;
+}
+</code></pre>
+<h3 id="response-chatturn">Response (<code>ChatTurn</code>)</h3>
+<pre><code class="lang-json">{
+  &quot;role&quot;: &quot;assistant&quot;,
+  &quot;content&quot;: &quot;Here is a button for you:&quot;,
+  &quot;widgets&quot;: [
+    {
+      &quot;type&quot;: &quot;button&quot;,
+      &quot;data&quot;: {
+        &quot;label&quot;: &quot;Click Me&quot;,
+        &quot;action&quot;: &quot;my_action&quot;
+      }
+    }
+  ],
+  &quot;threadId&quot;: &quot;optional-session-id&quot;
+}
 </code></pre>
 
 </article>

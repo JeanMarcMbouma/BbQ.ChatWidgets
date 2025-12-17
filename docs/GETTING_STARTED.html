@@ -72,47 +72,91 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="getting-started">Getting Started</h1>
 
-<p>This quick guide walks you through the minimum steps to wire up BbQ.ChatWidgets in your application.</p>
-<h2 id="1-install-the-net-package">1. Install the .NET package</h2>
+<p>This guide walks you through the steps to integrate BbQ.ChatWidgets into your application, covering both the .NET backend and the JavaScript frontend.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li><strong>.NET 8 SDK</strong> or later.</li>
+<li><strong>Node.js 20</strong> or later (for the frontend components).</li>
+<li>An API key for an AI provider (e.g., OpenAI, Azure OpenAI) supported by <code>Microsoft.Extensions.AI</code>.</li>
+</ul>
+<h2 id="1-backend-setup-net">1. Backend Setup (.NET)</h2>
+<h3 id="install-the-package">Install the Package</h3>
+<p>Add the BbQ.ChatWidgets NuGet package to your ASP.NET Core project:</p>
 <pre><code class="lang-powershell">dotnet add package BbQ.ChatWidgets
 </code></pre>
-<h2 id="2-register-the-services">2. Register the services</h2>
-<p>Add the shared services and endpoint mappings inside your <code>Program.cs</code>:</p>
+<h3 id="register-services-and-endpoints">Register Services and Endpoints</h3>
+<p>In your <code>Program.cs</code>, configure the chat client and register the BbQ services. It is crucial to use <code>ChatClientBuilder</code> with <code>.UseFunctionInvocation()</code> to allow the LLM to use the widget tools.</p>
 <pre><code class="lang-csharp">using Microsoft.Extensions.AI;
 using BbQ.ChatWidgets.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Build an IChatClient and enable function invocation so widgets/tools work.
-IChatClient openaiClient =
-  new OpenAI.Chat.ChatClient(modelId: &quot;gpt-4o-mini&quot;, apiKey: &quot;your-api-key&quot;)
-    .AsIChatClient();
+// 1. Configure your underlying AI service
+IChatClient openaiClient = new OpenAI.Chat.ChatClient(
+    modelId: &quot;gpt-4o-mini&quot;, 
+    apiKey: builder.Configuration[&quot;OpenAI:ApiKey&quot;]
+).AsIChatClient();
 
+// 2. Wrap it with function invocation support
 IChatClient chatClient = new ChatClientBuilder(openaiClient)
-  .UseFunctionInvocation()
-  .Build();
+    .UseFunctionInvocation()
+    .Build();
 
+// 3. Register BbQ ChatWidgets
 builder.Services.AddBbQChatWidgets(options =&gt;
 {
-  options.ChatClientFactory = _ =&gt; chatClient;
+    options.ChatClientFactory = _ =&gt; chatClient;
 });
 
 var app = builder.Build();
+
+// 4. Map the API endpoints (/api/chat/message, /api/chat/action, etc.)
 app.MapBbQChatEndpoints();
+
 app.Run();
 </code></pre>
-<h2 id="3-send-a-message-from-javascript">3. Send a message from JavaScript</h2>
-<pre><code class="lang-javascript">const response = await fetch('/api/chat/message', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    threadId: null,
-    message: 'Show me a theme switcher example'
-  })
+<h2 id="2-frontend-setup-javascripttypescript">2. Frontend Setup (JavaScript/TypeScript)</h2>
+<h3 id="install-the-package-1">Install the Package</h3>
+<p>Install the <code>@bbq-chat/widgets</code> npm package:</p>
+<pre><code class="lang-bash">npm install @bbq-chat/widgets
+</code></pre>
+<h3 id="basic-usage">Basic Usage</h3>
+<p>In your frontend application, you can now interact with the backend endpoints. Here is a simple example using <code>fetch</code>:</p>
+<pre><code class="lang-javascript">async function sendMessage(text) {
+    const response = await fetch('/api/chat/message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            message: text,
+            threadId: &quot;user-session-123&quot; // Optional: for conversation history
+        })
+    });
+
+    const turn = await response.json();
+    console.log(&quot;AI Response:&quot;, turn.content);
+    console.log(&quot;Widgets to render:&quot;, turn.widgets);
+}
+</code></pre>
+<h2 id="3-rendering-widgets">3. Rendering Widgets</h2>
+<p>To render the widgets returned by the server, use the <code>WidgetManager</code> from the npm package.</p>
+<pre><code class="lang-javascript">import { WidgetManager } from '@bbq-chat/widgets';
+
+// Initialize the manager
+const manager = new WidgetManager();
+
+// Render widgets into a container
+const container = document.getElementById('chat-widgets');
+turn.widgets.forEach(widget =&gt; {
+    manager.render(widget, container);
 });
 </code></pre>
-<h2 id="4-explore-the-rest-of-the-docs">4. Explore the rest of the docs</h2>
-<p>See the other sections for architecture, custom widgets, and how to extend the platform.</p>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li><strong><a href="ARCHITECTURE.html">Architecture Overview</a></strong>: Learn about the internal flow and major components.</li>
+<li><strong><a href="widgets/WIDGET_TYPES.html">Widget Catalog</a></strong>: See all available built-in widgets.</li>
+<li><strong><a href="guides/CUSTOM_WIDGETS.html">Custom Widgets</a></strong>: Learn how to build your own interactive components.</li>
+<li><strong><a href="guides/CUSTOM_ACTION_HANDLERS.html">Action Handlers</a></strong>: Handle user interactions with widgets on the server.</li>
+</ul>
 
 </article>
           </div>

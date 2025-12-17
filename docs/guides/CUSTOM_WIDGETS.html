@@ -72,22 +72,72 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="custom-widgets-guide">Custom Widgets Guide</h1>
 
-<p>On the server, register widget <em>template instances</em> so the library can:</p>
-<ul>
-<li>describe widgets to the LLM (tools + schemas)</li>
-<li>parse <code>&lt;widget&gt;{...}&lt;/widget&gt;</code> hints</li>
-<li>serialize/deserialize widget payloads consistently</li>
-</ul>
-<p>Registering a custom widget template (server-side):</p>
+<p>Creating custom widgets allows you to extend the chat interface with specialized UI components tailored to your application's needs. This guide covers the end-to-end process of creating and registering a custom widget.</p>
+<h2 id="1-server-side-implementation-net">1. Server-Side Implementation (.NET)</h2>
+<p>A widget on the server is a class that implements the <code>IChatWidget</code> interface (or inherits from <code>ChatWidget</code>). It defines the data structure that will be sent to the client and described to the LLM.</p>
+<h3 id="create-the-widget-class">Create the Widget Class</h3>
+<pre><code class="lang-csharp">using BbQ.ChatWidgets.Models;
+
+public class WeatherWidget : ChatWidget
+{
+    public string City { get; set; }
+    public double Temperature { get; set; }
+    public string Condition { get; set; }
+
+    public WeatherWidget(string city, double temp, string condition) 
+        : base(&quot;weather&quot;) // &quot;weather&quot; is the unique type identifier
+    {
+        City = city;
+        Temperature = temp;
+        Condition = condition;
+    }
+}
+</code></pre>
+<h3 id="register-the-widget-template">Register the Widget Template</h3>
+<p>You must register an instance of your widget as a &quot;template&quot; in the <code>WidgetRegistry</code>. This template is used to generate the tool definition for the LLM.</p>
 <pre><code class="lang-csharp">builder.Services.AddBbQChatWidgets(options =&gt;
 {
-	options.WidgetRegistryConfigurator = registry =&gt;
-	{
-		registry.Register(new MyCustomWidget(&quot;Label&quot;, &quot;my_action&quot;), &quot;mycustom&quot;);
-	};
+    options.WidgetRegistryConfigurator = registry =&gt;
+    {
+        // Register a template instance
+        registry.Register(new WeatherWidget(&quot;London&quot;, 20, &quot;Sunny&quot;), &quot;weather&quot;);
+    };
 });
 </code></pre>
-<p>On the client, register a factory/renderer for your custom <code>type</code> using the JS custom widget registry.</p>
+<h2 id="2-client-side-implementation-javascripttypescript">2. Client-Side Implementation (JavaScript/TypeScript)</h2>
+<p>On the client, you need to tell the <code>WidgetManager</code> how to render the &quot;weather&quot; widget type.</p>
+<h3 id="create-a-renderer">Create a Renderer</h3>
+<p>A renderer is a function (or a component in frameworks like React) that takes the widget data and returns a DOM element or JSX.</p>
+<pre><code class="lang-javascript">// Vanilla JS Example
+function renderWeatherWidget(widget, container) {
+    const el = document.createElement('div');
+    el.className = 'weather-widget';
+    el.innerHTML = `
+        &lt;h3&gt;Weather in ${widget.data.city}&lt;/h3&gt;
+        &lt;p&gt;${widget.data.temperature}°C - ${widget.data.condition}&lt;/p&gt;
+    `;
+    container.appendChild(el);
+}
+</code></pre>
+<h3 id="register-the-renderer">Register the Renderer</h3>
+<pre><code class="lang-javascript">import { WidgetManager } from '@bbq-chat/widgets';
+
+const manager = new WidgetManager();
+
+// Register the renderer for the &quot;weather&quot; type
+manager.registerRenderer('weather', renderWeatherWidget);
+</code></pre>
+<h2 id="3-llm-interaction">3. LLM Interaction</h2>
+<p>Once registered, the LLM will automatically see the <code>weather</code> widget as an available tool. It can &quot;call&quot; this tool by including a widget hint in its response:</p>
+<pre><code class="lang-xml">&lt;widget type=&quot;weather&quot; city=&quot;Paris&quot; temperature=&quot;22&quot; condition=&quot;Cloudy&quot; /&gt;
+</code></pre>
+<p>The <code>ChatWidgetService</code> will parse this hint, instantiate your <code>WeatherWidget</code> class, and include it in the <code>ChatTurn</code> sent to the client.</p>
+<h2 id="best-practices">Best Practices</h2>
+<ul>
+<li><strong>Keep Data Simple</strong>: Only send the data necessary for rendering.</li>
+<li><strong>Use Descriptive Names</strong>: Choose clear type identifiers and property names to help the LLM understand the widget's purpose.</li>
+<li><strong>Handle Actions</strong>: If your widget is interactive (e.g., has buttons), see the <a href="CUSTOM_ACTION_HANDLERS.html">Action Handlers Guide</a> to learn how to handle user input on the server.</li>
+</ul>
 
 </article>
           </div>

@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Custom AI Tools | BbQ.ChatWidgets </title>
+      <title>Custom AI Tools Guide | BbQ.ChatWidgets </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Custom AI Tools | BbQ.ChatWidgets ">
+      <meta name="title" content="Custom AI Tools Guide | BbQ.ChatWidgets ">
     
     
       <link rel="shortcut icon" href="../favicon.ico">
@@ -70,17 +70,61 @@
         <div class="article row grid">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="custom-ai-tools">Custom AI Tools</h1>
+<h1 id="custom-ai-tools-guide">Custom AI Tools Guide</h1>
 
-<p>Implement <code>IAIToolsProvider</code> to expose additional AI-callable tools to the model.</p>
-<p>The default provider includes a single helper tool: <code>retry_tool</code>.
-To add your own tools, provide <code>BbQChatOptions.ToolProviderFactory</code>:</p>
-<pre><code class="lang-csharp">builder.Services.AddBbQChatWidgets(options =&gt;
+<p>While BbQ.ChatWidgets automatically provides tools for managing widgets, you may want to expose additional capabilities to the LLM, such as fetching data from an external API or performing complex calculations. This is done by implementing the <code>IAIToolsProvider</code> interface.</p>
+<h2 id="the-iaitoolsprovider-interface">The <code>IAIToolsProvider</code> Interface</h2>
+<p>The interface has a single method that returns a list of <code>AITool</code> objects.</p>
+<pre><code class="lang-csharp">public interface IAIToolsProvider
 {
-	options.ToolProviderFactory = sp =&gt; new MyToolsProvider(/* deps */);
+    IEnumerable&lt;AITool&gt; GetTools();
+}
+</code></pre>
+<h2 id="implementing-a-custom-provider">Implementing a Custom Provider</h2>
+<p>You can use the <code>AIFunctionFactory</code> from <code>Microsoft.Extensions.AI</code> to easily create tools from C# methods.</p>
+<pre><code class="lang-csharp">using Microsoft.Extensions.AI;
+
+public class MyToolsProvider : IAIToolsProvider
+{
+    private readonly IWeatherService _weatherService;
+
+    public MyToolsProvider(IWeatherService weatherService)
+    {
+        _weatherService = weatherService;
+    }
+
+    public IEnumerable&lt;AITool&gt; GetTools()
+    {
+        // Expose a C# method as an AI tool
+        yield return AIFunctionFactory.Create(
+            (string city) =&gt; _weatherService.GetWeather(city),
+            &quot;get_weather&quot;,
+            &quot;Gets the current weather for a city&quot;
+        );
+    }
+}
+</code></pre>
+<h2 id="registering-the-provider">Registering the Provider</h2>
+<p>Register your custom provider using the <code>ToolProviderFactory</code> option in <code>AddBbQChatWidgets</code>.</p>
+<pre><code class="lang-csharp">builder.Services.AddScoped&lt;IWeatherService, WeatherService&gt;();
+
+builder.Services.AddBbQChatWidgets(options =&gt;
+{
+    options.ToolProviderFactory = sp =&gt; 
+        new MyToolsProvider(sp.GetRequiredService&lt;IWeatherService&gt;());
 });
 </code></pre>
-<p>Your provider returns <code>IReadOnlyList&lt;AITool&gt;</code> (typically built with <code>AIFunctionFactory</code>).</p>
+<h2 id="the-default-provider">The Default Provider</h2>
+<p>If you don't provide a custom <code>ToolProviderFactory</code>, the library uses <code>DefaultAIToolsProvider</code>, which includes a <code>retry_tool</code>. This tool is used by the LLM to signal that it needs to retry a previous operation with different parameters.</p>
+<p>If you want to <em>keep</em> the default tools while adding your own, you can resolve the <code>DefaultAIToolsProvider</code> (if registered) or simply include the <code>retry_tool</code> in your own provider.</p>
+<h2 id="how-the-llm-uses-tools">How the LLM Uses Tools</h2>
+<p>When the <code>ChatWidgetService</code> calls the <code>IChatClient</code>, it includes all tools returned by your provider. The LLM can then choose to call these tools as part of its response generation. The <code>ChatWidgetService</code> handles the execution of these tool calls and feeds the results back to the LLM.</p>
+<h2 id="best-practices">Best Practices</h2>
+<ul>
+<li><strong>Provide Clear Descriptions</strong>: The LLM relies on the tool and parameter descriptions to understand when and how to use a tool.</li>
+<li><strong>Keep Tools Idempotent</strong>: Ideally, tools should not have side effects that could cause issues if called multiple times (e.g., during a retry).</li>
+<li><strong>Handle Errors Gracefully</strong>: Ensure your tool methods handle exceptions and return meaningful error messages that the LLM can understand.</li>
+</ul>
 
 </article>
           </div>

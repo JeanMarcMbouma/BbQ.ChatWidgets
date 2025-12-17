@@ -72,32 +72,132 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="quick-reference">Quick Reference</h1>
 
+<p>This page provides a concise summary of the most common endpoints, types, and configuration options in BbQ.ChatWidgets.</p>
+<h2 id="api-endpoints">API Endpoints</h2>
+<p>All endpoints are prefixed with the <code>RoutePrefix</code> (default: <code>/api/chat</code>).</p>
 <table>
 <thead>
 <tr>
-<th>Topic</th>
+<th>Endpoint</th>
+<th>Method</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>API endpoints</strong></td>
-<td><code>POST /api/chat/{message,action,agent,stream/message}</code> and <code>GET|POST /api/chat/widgets/streams/{streamId}/events</code></td>
+<td><code>/message</code></td>
+<td><code>POST</code></td>
+<td>Send a user message and get a <code>ChatTurn</code> response.</td>
 </tr>
 <tr>
-<td><strong>Widgets</strong></td>
-<td>button, card, input, dropdown, slider, toggle, fileupload, datepicker, multiselect, progressbar, themeswitcher, form, textarea</td>
+<td><code>/action</code></td>
+<td><code>POST</code></td>
+<td>Execute a widget action (e.g., button click, form submit).</td>
 </tr>
 <tr>
-<td><strong>Customization</strong></td>
-<td>Use <code>BbQChatOptions.WidgetRegistryConfigurator</code> to register widgets and <code>BbQChatOptions.WidgetActionRegistryFactory</code> + <code>RegisterHandler&lt;TAction,TPayload,THandler&gt;()</code> to register actions</td>
+<td><code>/agent</code></td>
+<td><code>POST</code></td>
+<td>Route a message through the Triage Agent system.</td>
 </tr>
 <tr>
-<td><strong>Docs</strong></td>
-<td>See <code>guides/</code>, <code>examples/</code>, <code>design/</code>, and the full <code>[API Reference](api/README.md)</code></td>
+<td><code>/stream/message</code></td>
+<td><code>POST</code></td>
+<td>Stream a <code>ChatTurn</code> response via Server-Sent Events (SSE).</td>
+</tr>
+<tr>
+<td><code>/widgets/streams/{id}/events</code></td>
+<td><code>GET</code></td>
+<td>Subscribe to server-pushed widget updates (SSE).</td>
+</tr>
+<tr>
+<td><code>/widgets/streams/{id}/events</code></td>
+<td><code>POST</code></td>
+<td>Publish a server-pushed widget update.</td>
 </tr>
 </tbody>
 </table>
+<h2 id="core-types">Core Types</h2>
+<h3 id="chatturn">ChatTurn</h3>
+<p>The standard response object for chat interactions.</p>
+<ul>
+<li><code>Role</code>: The role of the message sender (usually &quot;assistant&quot;).</li>
+<li><code>Content</code>: The text content of the response.</li>
+<li><code>Widgets</code>: A list of <code>ChatWidget</code> objects to be rendered.</li>
+<li><code>ThreadId</code>: The unique identifier for the conversation thread.</li>
+</ul>
+<h3 id="chatwidget">ChatWidget</h3>
+<p>Metadata for a single UI component.</p>
+<ul>
+<li><code>Type</code>: The unique identifier for the widget type (e.g., &quot;button&quot;, &quot;form&quot;).</li>
+<li><code>Data</code>: A dictionary of properties specific to that widget type.</li>
+</ul>
+<h2 id="built-in-widgets">Built-in Widgets</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>button</code></td>
+<td>A simple clickable button that triggers an action.</td>
+</tr>
+<tr>
+<td><code>card</code></td>
+<td>A container for text, images, and other widgets.</td>
+</tr>
+<tr>
+<td><code>input</code></td>
+<td>A single-line text input field.</td>
+</tr>
+<tr>
+<td><code>dropdown</code></td>
+<td>A selectable list of options.</td>
+</tr>
+<tr>
+<td><code>slider</code></td>
+<td>A numeric range selector.</td>
+</tr>
+<tr>
+<td><code>toggle</code></td>
+<td>A boolean switch.</td>
+</tr>
+<tr>
+<td><code>fileupload</code></td>
+<td>A component for uploading files.</td>
+</tr>
+<tr>
+<td><code>datepicker</code></td>
+<td>A date selection component.</td>
+</tr>
+<tr>
+<td><code>multiselect</code></td>
+<td>A component for selecting multiple options from a list.</td>
+</tr>
+<tr>
+<td><code>progressbar</code></td>
+<td>A visual indicator of progress.</td>
+</tr>
+<tr>
+<td><code>form</code></td>
+<td>A container for grouping input-like widgets.</td>
+</tr>
+<tr>
+<td><code>textarea</code></td>
+<td>A multi-line text input field.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-configuration">Common Configuration</h2>
+<pre><code class="lang-csharp">builder.Services.AddBbQChatWidgets(options =&gt; {
+    options.RoutePrefix = &quot;/api/chat&quot;; // Change the base API path
+    options.ChatClientFactory = sp =&gt; ...; // Provide the IChatClient
+    options.WidgetRegistryConfigurator = reg =&gt; ...; // Register custom widgets
+    options.WidgetActionRegistryFactory = (sp, reg, res) =&gt; ...; // Register action handlers
+});
+</code></pre>
 
 </article>
           </div>

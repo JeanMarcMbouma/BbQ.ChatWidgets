@@ -72,33 +72,93 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="configuration-guide">Configuration Guide</h1>
 
-<p>Override default options through <code>BbQChatOptions</code> when calling <code>AddBbQChatWidgets(...)</code>.</p>
-<p>Common options that match the library + samples:</p>
-<ul>
-<li><code>RoutePrefix</code> (default: <code>/api/chat</code>)</li>
-<li><code>ChatClientFactory</code> (required unless you register <code>IChatClient</code> yourself)</li>
-<li><code>WidgetRegistryConfigurator</code> (register built-in/custom widget templates)</li>
-<li><code>WidgetActionRegistryFactory</code> (register actions + handlers)</li>
-<li><code>ToolProviderFactory</code> / <code>AIInstructionProviderFactory</code> / <code>WidgetToolsProviderFactory</code> (advanced extension points)</li>
-</ul>
-<p>Minimal example (matches the WebApp sample pattern):</p>
-<pre><code class="lang-csharp">using Microsoft.Extensions.AI;
-using BbQ.ChatWidgets.Extensions;
-
-IChatClient openaiClient = new OpenAI.Chat.ChatClient(&quot;gpt-4o-mini&quot;, &quot;your-api-key&quot;).AsIChatClient();
-IChatClient chatClient = new ChatClientBuilder(openaiClient).UseFunctionInvocation().Build();
-
-builder.Services.AddBbQChatWidgets(options =&gt;
+<p>BbQ.ChatWidgets is highly configurable via the <code>BbQChatOptions</code> class. This guide details the available options and how to use them to tailor the library to your needs.</p>
+<h2 id="basic-configuration">Basic Configuration</h2>
+<p>You configure the library when calling <code>AddBbQChatWidgets</code> in your <code>Program.cs</code>:</p>
+<pre><code class="lang-csharp">builder.Services.AddBbQChatWidgets(options =&gt;
 {
-	options.RoutePrefix = &quot;/api/chat&quot;;
-	options.ChatClientFactory = _ =&gt; chatClient;
-
-	// options.WidgetRegistryConfigurator = registry =&gt; registry.Register(new MyCustomWidget(...), &quot;mycustom&quot;);
-	// options.WidgetActionRegistryFactory = (sp, registry, resolver) =&gt; registry.RegisterHandler&lt;MyAction, MyPayload, MyHandler&gt;(resolver);
+    options.RoutePrefix = &quot;/api/chat&quot;;
+    options.ChatClientFactory = sp =&gt; sp.GetRequiredService&lt;IChatClient&gt;();
 });
-
-app.MapBbQChatEndpoints();
 </code></pre>
+<h3 id="available-options">Available Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RoutePrefix</code></td>
+<td><code>string</code></td>
+<td>The base path for all BbQ API endpoints. Default is <code>/api/chat</code>.</td>
+</tr>
+<tr>
+<td><code>ChatClientFactory</code></td>
+<td><code>Func&lt;IServiceProvider, IChatClient&gt;</code></td>
+<td>A factory function that returns the <code>IChatClient</code> to be used for chat completions.</td>
+</tr>
+<tr>
+<td><code>WidgetRegistryConfigurator</code></td>
+<td><code>Action&lt;WidgetRegistry&gt;</code></td>
+<td>A callback to register custom widget templates in the <code>WidgetRegistry</code>.</td>
+</tr>
+<tr>
+<td><code>WidgetActionRegistryFactory</code></td>
+<td><code>Action&lt;IServiceProvider, WidgetActionRegistry, IWidgetActionHandlerResolver&gt;</code></td>
+<td>A callback to register custom action handlers.</td>
+</tr>
+<tr>
+<td><code>ToolProviderFactory</code></td>
+<td><code>Func&lt;IServiceProvider, IAIToolsProvider&gt;</code></td>
+<td>A factory to provide a custom <code>IAIToolsProvider</code>.</td>
+</tr>
+<tr>
+<td><code>AIInstructionProviderFactory</code></td>
+<td><code>Func&lt;IServiceProvider, IAIInstructionProvider&gt;</code></td>
+<td>A factory to provide a custom <code>IAIInstructionProvider</code>.</td>
+</tr>
+<tr>
+<td><code>WidgetToolsProviderFactory</code></td>
+<td><code>Func&lt;IServiceProvider, IWidgetToolsProvider&gt;</code></td>
+<td>A factory to provide a custom <code>IWidgetToolsProvider</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="advanced-configuration">Advanced Configuration</h2>
+<h3 id="customizing-ai-instructions">Customizing AI Instructions</h3>
+<p>The <code>IAIInstructionProvider</code> is responsible for generating the system prompt that guides the LLM. You can provide a custom implementation to change how the LLM perceives widgets or to add your own global rules.</p>
+<pre><code class="lang-csharp">public class MyCustomInstructionProvider : IAIInstructionProvider
+{
+    public string GetSystemInstructions() 
+    {
+        return &quot;You are a helpful assistant. You can use widgets to help the user...&quot;;
+    }
+}
+
+// Registration
+options.AIInstructionProviderFactory = sp =&gt; new MyCustomInstructionProvider();
+</code></pre>
+<h3 id="customizing-ai-tools">Customizing AI Tools</h3>
+<p>By default, the library provides a <code>get_widget_tools</code> function to the LLM. You can add your own tools by implementing <code>IAIToolsProvider</code>.</p>
+<pre><code class="lang-csharp">public class MyToolsProvider : IAIToolsProvider
+{
+    public IEnumerable&lt;AITool&gt; GetTools()
+    {
+        yield return new AIFunction(&quot;get_weather&quot;, &quot;Gets the weather&quot;, ...);
+    }
+}
+
+// Registration
+options.ToolProviderFactory = sp =&gt; new MyToolsProvider();
+</code></pre>
+<h3 id="custom-serialization">Custom Serialization</h3>
+<p>BbQ.ChatWidgets uses a default JSON serialization profile (camelCase). If you need to customize how widgets or actions are serialized, you can interact with the <code>Serialization</code> utility class, although this is rarely necessary for most use cases.</p>
+<h2 id="dependency-injection">Dependency Injection</h2>
+<p>Most factories receive an <code>IServiceProvider</code>, allowing you to resolve other services from your application's DI container (e.g., database contexts, configuration, or other AI services).</p>
 
 </article>
           </div>

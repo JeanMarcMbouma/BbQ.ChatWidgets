@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Custom Action Handlers | BbQ.ChatWidgets </title>
+      <title>Action Handlers Guide | BbQ.ChatWidgets </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Custom Action Handlers | BbQ.ChatWidgets ">
+      <meta name="title" content="Action Handlers Guide | BbQ.ChatWidgets ">
     
     
       <link rel="shortcut icon" href="../favicon.ico">
@@ -70,27 +70,85 @@
         <div class="article row grid">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-<h1 id="custom-action-handlers">Custom Action Handlers</h1>
+<h1 id="action-handlers-guide">Action Handlers Guide</h1>
 
-<p>Actions are triggered by widgets (buttons, forms, custom widgets) and handled via the <code>/action</code> endpoint.</p>
-<p>The library pattern is:</p>
+<p>Action handlers are the backbone of interactivity in BbQ.ChatWidgets. They allow your server to respond to user interactions with widgets, such as clicking a button, submitting a form, or selecting an item from a dropdown.</p>
+<h2 id="how-actions-work">How Actions Work</h2>
 <ol>
-<li>Define an action implementing <code>IWidgetAction&lt;TPayload&gt;</code> (must have a parameterless constructor).</li>
-<li>Implement a handler implementing <code>IActionWidgetActionHandler&lt;TAction, TPayload&gt;</code>.</li>
-<li>Register the pair using the <code>RegisterHandler&lt;TAction,TPayload,THandler&gt;()</code> extension on <code>IWidgetActionRegistry</code>.</li>
+<li><strong>Trigger</strong>: A user interacts with a widget in the frontend.</li>
+<li><strong>Dispatch</strong>: The frontend sends a <code>POST</code> request to <code>/api/chat/action</code> containing the action name and a payload.</li>
+<li><strong>Resolution</strong>: The <code>ChatWidgetService</code> uses the <code>IWidgetActionHandlerResolver</code> to find the registered handler for that action.</li>
+<li><strong>Execution</strong>: The handler's <code>HandleAsync</code> method is called with the deserialized payload and the current conversation context.</li>
+<li><strong>Response</strong>: The handler returns a <code>ChatTurn</code>, which is appended to the conversation thread and sent back to the client.</li>
 </ol>
-<p>Example registration (matches the WebApp sample):</p>
-<pre><code class="lang-csharp">builder.Services.AddBbQChatWidgets(options =&gt;
+<h2 id="implementing-an-action-handler">Implementing an Action Handler</h2>
+<p>To implement a custom action, you need three components: a payload class, an action class, and a handler class.</p>
+<h3 id="1-define-the-payload">1. Define the Payload</h3>
+<p>The payload is a simple DTO that represents the data sent from the client.</p>
+<pre><code class="lang-csharp">public class FeedbackPayload
 {
-	options.WidgetActionRegistryFactory = (sp, actionRegistry, handlerResolver) =&gt;
-	{
-		actionRegistry.RegisterHandler&lt;MyAction, MyPayload, MyHandler&gt;(handlerResolver);
-	};
-});
-
-builder.Services.AddScoped&lt;MyHandler&gt;();
+    public int Rating { get; set; }
+    public string Comments { get; set; }
+}
 </code></pre>
-<p>Handlers return a <code>ChatTurn</code> so the server can append the result to the same thread.</p>
+<h3 id="2-define-the-action">2. Define the Action</h3>
+<p>The action class identifies the action and links it to the payload type. It must implement <code>IWidgetAction&lt;TPayload&gt;</code>.</p>
+<pre><code class="lang-csharp">using BbQ.ChatWidgets.Abstractions;
+
+public class SubmitFeedbackAction : IWidgetAction&lt;FeedbackPayload&gt;
+{
+    public string ActionName =&gt; &quot;submit_feedback&quot;;
+}
+</code></pre>
+<h3 id="3-implement-the-handler">3. Implement the Handler</h3>
+<p>The handler contains the logic to be executed when the action is triggered. It must implement <code>IActionWidgetActionHandler&lt;TAction, TPayload&gt;</code>.</p>
+<pre><code class="lang-csharp">using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Models;
+
+public class FeedbackHandler : IActionWidgetActionHandler&lt;SubmitFeedbackAction, FeedbackPayload&gt;
+{
+    public async Task&lt;ChatTurn&gt; HandleAsync(
+        SubmitFeedbackAction action, 
+        FeedbackPayload payload, 
+        ChatRequest context, 
+        CancellationToken ct)
+    {
+        // Perform logic (e.g., save to database)
+        Console.WriteLine($&quot;Received rating {payload.Rating}: {payload.Comments}&quot;);
+
+        // Return a response to the user
+        return new ChatTurn(
+            ChatRole.Assistant, 
+            &quot;Thank you for your feedback!&quot;, 
+            context.ThreadId
+        );
+    }
+}
+</code></pre>
+<h2 id="registering-the-handler">Registering the Handler</h2>
+<p>Register the handler and its metadata in your <code>Program.cs</code> using the <code>WidgetActionRegistryFactory</code> option.</p>
+<pre><code class="lang-csharp">builder.Services.AddScoped&lt;FeedbackHandler&gt;();
+
+builder.Services.AddBbQChatWidgets(options =&gt;
+{
+    options.WidgetActionRegistryFactory = (sp, registry, resolver) =&gt;
+    {
+        // Register the handler and its metadata
+        registry.RegisterHandler&lt;SubmitFeedbackAction, FeedbackPayload, FeedbackHandler&gt;(resolver);
+    };
+});
+</code></pre>
+<h2 id="using-actions-in-widgets">Using Actions in Widgets</h2>
+<p>When creating a widget, you specify the action name it should trigger.</p>
+<pre><code class="lang-csharp">var button = new ButtonWidget(&quot;Submit Feedback&quot;, &quot;submit_feedback&quot;);
+</code></pre>
+<p>When the user clicks this button, the frontend will send the <code>submit_feedback</code> action to the server, which will then be routed to your <code>FeedbackHandler</code>.</p>
+<h2 id="best-practices">Best Practices</h2>
+<ul>
+<li><strong>Keep Handlers Focused</strong>: Each handler should perform one specific task.</li>
+<li><strong>Return Meaningful Responses</strong>: Use the returned <code>ChatTurn</code> to provide feedback to the user or to present the next set of widgets.</li>
+<li><strong>Use Dependency Injection</strong>: Resolve your services (like database contexts) via the handler's constructor.</li>
+</ul>
 
 </article>
           </div>

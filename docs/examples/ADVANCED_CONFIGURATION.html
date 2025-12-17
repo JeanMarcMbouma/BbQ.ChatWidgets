@@ -72,13 +72,48 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="advanced-configuration-example">Advanced Configuration Example</h1>
 
-<p>Showcases how to customize the widget registry and register typed action handlers.</p>
-<p>Key extension points:</p>
-<ul>
-<li><code>BbQChatOptions.WidgetRegistryConfigurator</code></li>
-<li><code>BbQChatOptions.WidgetActionRegistryFactory</code></li>
-<li><code>BbQChatOptions.RoutePrefix</code></li>
-</ul>
+<p>This example shows how to use the various extension points in <code>BbQChatOptions</code> to customize the library's behavior, including registering custom widgets and action handlers.</p>
+<h2 id="server-side-configuration">Server-Side Configuration</h2>
+<pre><code class="lang-csharp">using BbQ.ChatWidgets.Extensions;
+using BbQ.ChatWidgets.Models;
+
+builder.Services.AddBbQChatWidgets(options =&gt;
+{
+    // 1. Change the API route prefix
+    options.RoutePrefix = &quot;/api/v1/chat&quot;;
+
+    // 2. Provide the chat client
+    options.ChatClientFactory = sp =&gt; sp.GetRequiredService&lt;IChatClient&gt;();
+
+    // 3. Register custom widget templates
+    options.WidgetRegistryConfigurator = registry =&gt;
+    {
+        registry.Register(new MyCustomWidget(&quot;Default Label&quot;), &quot;custom_type&quot;);
+    };
+
+    // 4. Register custom action handlers
+    options.WidgetActionRegistryFactory = (sp, registry, resolver) =&gt;
+    {
+        // Register a typed handler
+        registry.RegisterHandler&lt;MyAction, MyPayload, MyHandler&gt;(resolver);
+    };
+
+    // 5. Customize AI instructions
+    options.AIInstructionProviderFactory = sp =&gt; new MyCustomInstructionProvider();
+});
+
+// Don't forget to register your handlers in DI
+builder.Services.AddScoped&lt;MyHandler&gt;();
+</code></pre>
+<h2 id="key-extension-points-explained">Key Extension Points Explained</h2>
+<h3 id="widgetregistryconfigurator"><code>WidgetRegistryConfigurator</code></h3>
+<p>This is where you tell the library about your custom widgets. By registering a template instance, the library can automatically generate the tool definition for the LLM, ensuring it knows how to &quot;call&quot; your widget.</p>
+<h3 id="widgetactionregistryfactory"><code>WidgetActionRegistryFactory</code></h3>
+<p>This is where you map widget actions (sent from the client) to server-side handlers. Using <code>RegisterHandler</code> ensures that the library can correctly deserialize the incoming payload and route it to the right class.</p>
+<h3 id="routeprefix"><code>RoutePrefix</code></h3>
+<p>Useful if you need to avoid collisions with other APIs in your application or if you want to version your chat API.</p>
+<h3 id="aiinstructionproviderfactory"><code>AIInstructionProviderFactory</code></h3>
+<p>Allows you to completely override the system prompt sent to the LLM. This is useful for adding global constraints, changing the &quot;personality&quot; of the assistant, or providing additional context about your application's domain.</p>
 
 </article>
           </div>

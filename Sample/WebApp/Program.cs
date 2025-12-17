@@ -63,6 +63,8 @@ services.AddBbQChatWidgets(bbqOptions =>
         // Register a server-side Clock widget template used by the SSE demo.
         // Specify a stream ID so the widget knows which SSE stream to subscribe to on the client.
         registry.Register(new ClockWidget("Server Clock", "clock_tick", null, "default-stream"), "clock");
+        // Register a server-side Weather widget template used for SSE weather updates demo.
+        registry.Register(new WeatherWidget("Weather", "weather_update", "London", "weather-stream"), "weather");
     };
     bbqOptions.WidgetActionRegistryFactory = (sp, actionRegistry, handlerResolver) =>
     {
@@ -78,6 +80,9 @@ services.AddBbQChatWidgets(bbqOptions =>
 
         // Register clock tick action (demonstrates SSE widget integration)
         actionRegistry.RegisterHandler<ClockTickAction, ClockPayload, ClockTickHandler>(handlerResolver);
+
+        // Register weather update action (demonstrates SSE widget integration)
+        actionRegistry.RegisterHandler<WeatherUpdateAction, WeatherPayload, WeatherUpdateHandler>(handlerResolver);
     };
 });
 
@@ -88,12 +93,17 @@ services.AddWebAppTriageAgents();
 services.AddScoped<GreetingHandler>();
 services.AddScoped<FeedbackHandler>();
 services.AddScoped<EChartsClickHandler>();
+services.AddScoped<ClockTickHandler>();
+services.AddScoped<WeatherUpdateHandler>();
 
 // Register triage-aware chat service
 //services.AddScoped<TriageAwareChatService>();
 
 // Register sample clock publisher for SSE demo
 services.AddSingleton<ClockPublisher>();
+
+// Register sample weather publisher for SSE demo
+services.AddSingleton<WeatherPublisher>();
 
 // Add CORS for React frontend
 services.AddCors(options =>
@@ -156,6 +166,23 @@ app.MapPost("/sample/clock/{streamId}/stop", async (string streamId, ClockPublis
     var logger = lf.CreateLogger("ClockPublisher");
     logger.LogInformation("Stopping clock for {streamId}", streamId);
     await clock.StopAsync(streamId);
+    return Results.Ok();
+});
+
+// Sample endpoints to start/stop weather publisher that publishes to SSE streams
+app.MapPost("/sample/weather/{streamId}/start", async (string streamId, string? city, WeatherPublisher weather, ILoggerFactory lf) =>
+{
+    var logger = lf.CreateLogger("WeatherPublisher");
+    logger.LogInformation("Starting weather publisher for {streamId}, city={city}", streamId, city ?? "London");
+    await weather.StartAsync(streamId, city ?? "London");
+    return Results.Ok();
+});
+
+app.MapPost("/sample/weather/{streamId}/stop", async (string streamId, WeatherPublisher weather, ILoggerFactory lf) =>
+{
+    var logger = lf.CreateLogger("WeatherPublisher");
+    logger.LogInformation("Stopping weather publisher for {streamId}", streamId);
+    await weather.StopAsync(streamId);
     return Results.Ok();
 });
 

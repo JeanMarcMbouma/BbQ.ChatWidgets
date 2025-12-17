@@ -6,6 +6,8 @@ import { EChartsWidget } from '../widgets/EChartsWidget';
 import { renderECharts } from '../widgets/echartsRenderer';
 import { ClockWidget } from '../widgets/ClockWidget';
 import { renderClock } from '../widgets/clockRenderer';
+import { WeatherWidget } from '../widgets/WeatherWidget';
+import { renderWeather } from '../widgets/weatherRenderer';
 
 // Make echarts available globally for inline scripts in rendered HTML
 declare global {
@@ -46,6 +48,19 @@ customWidgetRegistry.registerFactory('clock', (obj: any) => {
   return null;
 });
 
+// Register weather widget factory
+customWidgetRegistry.registerFactory('weather', (obj: any) => {
+  if (obj.type === 'weather') {
+    return new WeatherWidget(
+      obj.label || 'Weather',
+      obj.action || 'weather_update',
+      obj.city,
+      obj.streamId
+    );
+  }
+  return null;
+});
+
 export const WidgetRenderer: React.FC<WidgetRendererProps> = ({
   widgets,
   onWidgetAction,
@@ -75,9 +90,13 @@ export const WidgetRenderer: React.FC<WidgetRendererProps> = ({
     // Initialize clock widgets with SSE subscriptions
     initializeClockWidgets(containerRef.current);
 
+    // Initialize weather widgets with SSE subscriptions
+    initializeWeatherWidgets(containerRef.current);
+
     // Cleanup function to close all SSE streams when component unmounts or widgets change
     return () => {
       closeAllClockStreams(containerRef.current);
+      closeAllWeatherStreams(containerRef.current);
     };
   }, [onWidgetAction, widgets]);
 
@@ -129,6 +148,20 @@ export const WidgetRenderer: React.FC<WidgetRendererProps> = ({
         if (widget.type === 'clock') {
           const clockWidget = widget as ClockWidget;
           const html = renderClock(clockWidget);
+          const widgetId = `${widget.type}-${widget.action}-${index}`;
+          return (
+            <div
+              key={widgetId}
+              className="widget"
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
+          );
+        }
+
+        // Handle weather widget rendering
+        if (widget.type === 'weather') {
+          const weatherWidget = widget as WeatherWidget;
+          const html = renderWeather(weatherWidget);
           const widgetId = `${widget.type}-${widget.action}-${index}`;
           return (
             <div
@@ -300,6 +333,102 @@ function closeAllClockStreams(container: HTMLElement | null) {
   const clockWidgets = container.querySelectorAll('[data-widget-type="clock"]');
   
   clockWidgets.forEach((widget) => {
+    const eventSource = (widget as any).__eventSource as EventSource | undefined;
+    if (eventSource) {
+      eventSource.close();
+      (widget as any).__eventSource = undefined;
+    }
+  });
+}
+/**
+ * Initialize weather widgets with SSE subscriptions driven by widget metadata.
+ * 
+ * Each weather widget can specify:
+ * - data-stream-id: the SSE stream to subscribe to (defaults to 'weather-stream')
+ * - data-city: the city for weather data (defaults to 'London')
+ * - data-auto-start: if 'true', automatically start the weather publisher (POST to /sample/weather/{streamId}/start)
+ */
+function initializeWeatherWidgets(container: HTMLElement) {
+  const weatherWidgets = container.querySelectorAll('[data-widget-type="weather"]');
+  
+  weatherWidgets.forEach((widget) => {
+    const streamId = widget.getAttribute('data-stream-id') || 'weather-stream';
+    const city = widget.getAttribute('data-city') || 'London';
+    const autoStart = widget.getAttribute('data-auto-start') === 'true';
+    
+    // If auto-start is enabled, trigger the server weather publisher
+    if (autoStart) {
+      const params = new URLSearchParams({ city });
+      fetch(`/sample/weather/${encodeURIComponent(streamId)}/start?${params}`, { method: 'POST' }).catch(() => {
+        // Ignore errors; weather publisher may already be running or endpoint unavailable
+      });
+    }
+    
+    // Subscribe to SSE stream and update the weather widget
+    const url = `/api/chat/widgets/streams/${encodeURIComponent(streamId)}/events`;
+    const eventSource = new EventSource(url);
+    
+    eventSource.onmessage = (ev) => {
+      try {
+        const data = JSON.parse(ev.data);
+        
+        // Update the weather display if data matches this widget's ID
+        if (data && data.widgetId === 'weather') {
+          const cityDisplay = widget.querySelector('[data-field="city"]') as HTMLElement;
+          const conditionDisplay = widget.querySelector('[data-field="condition"]') as HTMLElement;
+          const tempDisplay = widget.querySelector('[data-field="temperature"]') as HTMLElement;
+          const humidityDisplay = widget.querySelector('[data-field="humidity"]') as HTMLElement;
+          const windSpeedDisplay = widget.querySelector('[data-field="windSpeed"]') as HTMLElement;
+          const windDirDisplay = widget.querySelector('[data-field="windDirection"]') as HTMLElement;
+          const timestampDisplay = widget.querySelector('[data-field="timestamp"]') as HTMLElement;
+          
+          if (cityDisplay && data.city) {
+            cityDisplay.textContent = String(data.city);
+          }
+          if (conditionDisplay && data.condition) {
+            conditionDisplay.textContent = String(data.condition);
+          }
+          if (tempDisplay && data.temperature) {
+            tempDisplay.textContent = `${String(data.temperature)}°C`;
+          }
+          if (humidityDisplay && data.humidity) {
+            humidityDisplay.textContent = `${String(data.humidity)}%`;
+          }
+          if (windSpeedDisplay && data.windSpeed) {
+            windSpeedDisplay.textContent = `${String(data.windSpeed)} km/h`;
+          }
+          if (windDirDisplay && data.windDirection) {
+            windDirDisplay.textContent = String(data.windDirection);
+          }
+          if (timestampDisplay && data.timestamp) {
+            const date = new Date(data.timestamp);
+            timestampDisplay.textContent = date.toLocaleTimeString();
+          }
+        }
+      } catch {
+        // Ignore parse errors
+      }
+    };
+    
+    eventSource.onerror = () => {
+      eventSource.close();
+    };
+    
+    // Store reference for cleanup if needed
+    (widget as any).__eventSource = eventSource;
+  });
+}
+
+/**
+ * Close all active SSE streams for weather widgets.
+ * This prevents memory leaks and stops server polling when widgets are destroyed.
+ */
+function closeAllWeatherStreams(container: HTMLElement | null) {
+  if (!container) return;
+  
+  const weatherWidgets = container.querySelectorAll('[data-widget-type="weather"]');
+  
+  weatherWidgets.forEach((widget) => {
     const eventSource = (widget as any).__eventSource as EventSource | undefined;
     if (eventSource) {
       eventSource.close();

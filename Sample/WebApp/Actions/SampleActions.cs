@@ -224,3 +224,52 @@ public sealed class ClockTickHandler :
     }
 }
 
+/// <summary>
+/// Payload for weather widget updates.
+/// </summary>
+public sealed record WeatherPayload();
+
+/// <summary>
+/// Action definition for weather widget events.
+/// Demonstrates SSE widget integration for weather data updates.
+/// </summary>
+public sealed class WeatherUpdateAction : IWidgetAction<WeatherPayload>
+{
+    public string Name => "weather_update";
+
+    public string Description =>
+        "Displays real-time weather data pushed via Server-Sent Events (SSE). " +
+        "The widget automatically subscribes to the server stream and receives weather updates.";
+
+    public string PayloadSchema =>
+        JsonSerializer.Serialize(new
+        {
+            streamId = "string (optional, stream ID for SSE updates)",
+            city = "string (optional, city name - defaults to 'London')"
+        });
+}
+
+/// <summary>
+/// Handler for weather widget actions.
+/// This handler is called when a user interacts with the weather widget.
+/// </summary>
+public sealed class WeatherUpdateHandler :
+    IActionWidgetActionHandler<WeatherUpdateAction, WeatherPayload>
+{
+    public async Task<ChatTurn> HandleActionAsync(
+        WeatherPayload payload,
+        string threadId,
+        IServiceProvider serviceProvider)
+    {
+        // Weather widget primarily displays SSE updates pushed from server
+        // This handler serves as the action endpoint if user clicks the widget
+        return new ChatTurn(
+            ChatRole.Assistant,
+            "The weather widget is displaying real-time weather data from the server via Server-Sent Events. " +
+            "The widget will continue to receive weather updates as long as the connection is active.",
+            Array.Empty<ChatWidget>(),
+            threadId
+        );
+    }
+}
+

@@ -1,0 +1,49 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+
+<div class="bbq-widget bbq-multiselect-widget">
+    <label class="bbq-multiselect-label">@Widget?.Label</label>
+    <div class="bbq-multiselect-container">
+        @if (Widget?.Options != null)
+        {
+            @foreach (var option in Widget.Options)
+            {
+                <label class="bbq-multiselect-option">
+                    <input 
+                        type="checkbox" 
+                        value="@option"
+                        @onchange="@((ChangeEventArgs e) => HandleToggle(option, (bool)e.Value!))" />
+                    <span>@option</span>
+                </label>
+            }
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public MultiSelectWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    private HashSet<string> selectedValues = new();
+
+    private async Task HandleToggle(string value, bool isChecked)
+    {
+        if (isChecked)
+        {
+            selectedValues.Add(value);
+        }
+        else
+        {
+            selectedValues.Remove(value);
+        }
+
+        if (Widget != null)
+        {
+            var payload = new { values = selectedValues.ToList() };
+            await OnAction.InvokeAsync((Widget.Action, payload));
+        }
+    }
+}

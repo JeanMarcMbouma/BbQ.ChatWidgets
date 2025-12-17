@@ -1,0 +1,60 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+
+@switch (Field?.Type?.ToLower())
+{
+    case "text":
+    case "email":
+    case "number":
+        <div class="bbq-form-field">
+            <label class="bbq-form-field-label">@Field.Label</label>
+            <input 
+                type="@Field.Type" 
+                class="bbq-form-field-input"
+                placeholder="@Field.Label"
+                @onchange="HandleChange" />
+        </div>
+        break;
+    
+    case "dropdown":
+        <div class="bbq-form-field">
+            <label class="bbq-form-field-label">@Field.Label</label>
+            <select class="bbq-form-field-select" @onchange="HandleChange">
+                <option value="">-- Select --</option>
+            </select>
+        </div>
+        break;
+    
+    case "toggle":
+        <div class="bbq-form-field">
+            <label class="bbq-form-field-checkbox">
+                <input type="checkbox" @onchange="HandleChange" />
+                <span>@Field.Label</span>
+            </label>
+        </div>
+        break;
+    
+    default:
+        <div class="bbq-form-field">
+            <label class="bbq-form-field-label">@Field.Label</label>
+            <input type="text" class="bbq-form-field-input" placeholder="@Field.Label" @onchange="HandleChange" />
+        </div>
+        break;
+}
+
+@code {
+    [Parameter]
+    public FormField? Field { get; set; }
+
+    [Parameter]
+    public EventCallback<(string, object?)> OnValueChanged { get; set; }
+
+    private async Task HandleChange(ChangeEventArgs e)
+    {
+        var value = e.Value;
+        if (Field != null)
+        {
+            await OnValueChanged.InvokeAsync((Field.Name, value));
+        }
+    }
+}

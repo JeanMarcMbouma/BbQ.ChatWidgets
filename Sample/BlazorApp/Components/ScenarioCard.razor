@@ -1,0 +1,70 @@
+<div class="scenario-card">
+    <div class="card-icon">@Icon</div>
+    <h3>@Title</h3>
+    <p>@Description</p>
+    <button class="btn btn-primary" @onclick="async () => await OnClick.InvokeAsync()">Explore →</button>
+</div>
+
+@code {
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? Description { get; set; }
+
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+}
+
+<style>
+.scenario-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.scenario-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+}
+
+.scenario-card h3 {
+    margin: 12px 0;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.scenario-card p {
+    margin: 12px 0 16px;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.scenario-card .btn {
+    width: 100%;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background: #0366d6;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s ease;
+}
+
+.scenario-card .btn:hover {
+    background: #0256c0;
+}
+</style>

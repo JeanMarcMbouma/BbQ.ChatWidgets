@@ -1,0 +1,48 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+
+<div class="bbq-widget bbq-slider-widget">
+    <label class="bbq-slider-label">@Widget?.Label</label>
+    <div class="bbq-slider-container">
+        <input 
+            type="range" 
+            class="bbq-slider-input"
+            min="@(Widget?.Min ?? 0)"
+            max="@(Widget?.Max ?? 100)"
+            step="@(Widget?.Step ?? 1)"
+            value="@sliderValue"
+            @onchange="HandleChange" />
+        <span class="bbq-slider-value">@sliderValue</span>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public SliderWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    private int sliderValue = 0;
+
+    protected override void OnParametersSet()
+    {
+        if (Widget?.Default.HasValue == true)
+        {
+            sliderValue = Widget.Default.Value;
+        }
+    }
+
+    private async Task HandleChange(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int value))
+        {
+            sliderValue = value;
+            if (Widget != null)
+            {
+                var payload = new { value = sliderValue };
+                await OnAction.InvokeAsync((Widget.Action, payload));
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+@using BbQ.ChatWidgets.Sample.Shared
+@using Microsoft.AspNetCore.Components
+
+<div class="widget echarts-widget" data-widget-type="echarts" data-action="@Widget.Action" data-chart-data="@Widget.JsonData">
+    <div class="echarts-container" style="width: 100%; height: 300px; border: 1px solid #ddd; border-radius: 4px;"></div>
+</div>
+
+@code {
+    [Parameter]
+    public EChartsWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+}
+
+<style>
+.echarts-widget {
+    margin: 10px 0;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+
+.echarts-container {
+    background: white;
+}
+</style>

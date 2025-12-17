@@ -1,0 +1,34 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+
+<div class="bbq-widget bbq-dropdown-widget">
+    <label class="bbq-dropdown-label">@Widget?.Label</label>
+    <select class="bbq-dropdown" @onchange="HandleChange">
+        <option value="">-- Select --</option>
+        @if (Widget?.Options != null)
+        {
+            @foreach (var option in Widget.Options)
+            {
+                <option value="@option">@option</option>
+            }
+        }
+    </select>
+</div>
+
+@code {
+    [Parameter]
+    public DropdownWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    private async Task HandleChange(ChangeEventArgs e)
+    {
+        var selectedValue = e.Value?.ToString() ?? string.Empty;
+        if (Widget != null && !string.IsNullOrEmpty(selectedValue))
+        {
+            var payload = new { value = selectedValue };
+            await OnAction.InvokeAsync((Widget.Action, payload));
+        }
+    }
+}

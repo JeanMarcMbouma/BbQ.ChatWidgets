@@ -1,0 +1,35 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+
+<div class="bbq-widget bbq-card-widget">
+    <div class="bbq-card">
+        @if (!string.IsNullOrEmpty(Widget?.ImageUrl))
+        {
+            <img src="@Widget.ImageUrl" alt="@Widget.Title" class="bbq-card-image" />
+        }
+        <div class="bbq-card-content">
+            <h3 class="bbq-card-title">@Widget?.Title</h3>
+            @if (!string.IsNullOrEmpty(Widget?.Description))
+            {
+                <p class="bbq-card-description">@Widget.Description</p>
+            }
+        </div>
+        <button class="bbq-card-button" @onclick="HandleClick">@Widget?.Label</button>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public CardWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    private async Task HandleClick()
+    {
+        if (Widget != null)
+        {
+            await OnAction.InvokeAsync((Widget.Action, null));
+        }
+    }
+}

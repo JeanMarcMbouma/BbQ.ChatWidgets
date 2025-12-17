@@ -1,7 +1,10 @@
 <Solution>
   <Project Path="BbQ.ChatWidgets/BbQ.ChatWidgets.csproj" />
+  <Project Path="BbQ.ChatWidgets.Blazor/BbQ.ChatWidgets.Blazor.csproj" />
   <Folder Name="/samples/">
     <Project Path="Sample/WebApp/WebApp.csproj" />
+    <Project Path="BbQ.ChatWidgets.Sample.Shared/BbQ.ChatWidgets.Sample.Shared.csproj" />
+    <Project Path="Sample/BlazorApp/BlazorApp.csproj" />
   </Folder>
   <Project Path="BbQ.ChatWidgets.Sample/BbQ.ChatWidgets.Sample.csproj" />
   <Project Path="BbQ.ChatWidgets.Tests/BbQ.ChatWidgets.Tests.csproj" />

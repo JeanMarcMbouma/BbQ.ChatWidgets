@@ -1,0 +1,284 @@
+@rendermode @(new InteractiveServerRenderMode())
+@page "/basic-chat"
+@using BbQ.ChatWidgets.Models
+@using Microsoft.Extensions.AI
+@using Microsoft.AspNetCore.Components.Web
+@using System.Text.Json
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+
+<PageTitle>Basic Chat - BbQ Chat Widgets</PageTitle>
+
+<div class="chat-container">
+    <div class="chat-header">
+        <button class="btn-back" @onclick="GoBack">← Back</button>
+        <div class="header-content">
+            <h1>💬 Basic Chat</h1>
+            <p>Have a conversation with AI responses</p>
+        </div>
+        <div class="thread-info">
+            <small>Thread ID: @threadId</small>
+        </div>
+    </div>
+
+    <CustomChatContainer ChatTurns="chatTurns" IsLoading="isLoading" OnAction="@(EventCallback.Factory.Create<(string Action, object? Payload)>(this, HandleWidgetAction))" />
+
+    <div class="chat-input-section">
+        <div class="input-group">
+            <textarea 
+                @bind="userInput"
+                @bind:event="oninput"
+                placeholder="Type your message..."
+                @onkeyup="HandleKeyUp"
+                disabled="@isLoading"
+                rows="3"></textarea>
+            <button 
+                class="btn btn-send" 
+                @onclick="SendMessage"
+                disabled="@(isLoading || string.IsNullOrWhiteSpace(userInput))">
+                @if (isLoading) { <span>Sending...</span> } else { <span>Send</span> }
+            </button>
+        </div>
+        @if (!string.IsNullOrEmpty(error))
+        {
+            <div class="error-message">@error</div>
+        }
+    </div>
+</div>
+
+<style>
+    .chat-container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background-color: #f5f5f5;
+    }
+
+    .chat-header {
+        padding: 1rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-back {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+    .btn-back:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .header-content {
+        flex: 1;
+    }
+
+    .header-content h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .header-content p {
+        margin: 0.25rem 0 0 0;
+        opacity: 0.9;
+        font-size: 0.9rem;
+    }
+
+    .thread-info {
+        opacity: 0.8;
+        font-size: 0.85rem;
+    }
+
+    .chat-input-section {
+        padding: 1.5rem;
+        background-color: white;
+        border-top: 1px solid #e0e0e0;
+    }
+
+    .input-group {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-end;
+    }
+
+    .input-group textarea {
+        flex: 1;
+        padding: 0.75rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 1rem;
+        resize: none;
+        min-height: 60px;
+    }
+
+    .input-group textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .btn-send {
+        padding: 0.75rem 1.5rem;
+        background-color: #667eea;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+    }
+
+    .btn-send:hover:not(:disabled) {
+        background-color: #5568d3;
+        transform: translateY(-1px);
+    }
+
+    .btn-send:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    .error-message {
+        margin-top: 0.75rem;
+        padding: 0.75rem;
+        background-color: #fee;
+        color: #c33;
+        border-radius: 4px;
+        border-left: 3px solid #c33;
+    }
+</style>
+
+@code {
+    private string userInput = "";
+    private string error = "";
+    private bool isLoading = false;
+    private List<ChatTurn> chatTurns = new();
+    private string threadId = Guid.NewGuid().ToString();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Initialize with welcome message
+        chatTurns.Add(new ChatTurn(
+            ChatRole.Assistant,
+            "Hello! I'm here to help. Feel free to ask me anything or interact with the widgets."
+        ));
+    }
+
+    private async Task SendMessage()
+    {
+        if (string.IsNullOrWhiteSpace(userInput))
+            return;
+
+        try
+        {
+            error = "";
+            isLoading = true;
+            StateHasChanged();
+
+            // Add user message to chat
+            chatTurns.Add(new ChatTurn(ChatRole.User, userInput));
+            var messageToSend = userInput;
+            userInput = "";
+            StateHasChanged();
+
+            // Send to backend
+            var baseUri = NavigationManager.BaseUri.TrimEnd('/');
+            var response = await HttpClient.PostAsJsonAsync(
+                $"{baseUri}/api/chat/message", 
+                new
+                {
+                    threadId,
+                    message = messageToSend
+                }
+            );
+
+            if (response.IsSuccessStatusCode)
+            {
+                var json = await response.Content.ReadAsStringAsync();
+                var result = JsonSerializer.Deserialize<ChatTurn>(json, BbQ.ChatWidgets.Models.Serialization.Default);
+                
+                // Add assistant response with widgets if any
+                if (result?.Widgets != null && result.Widgets.Count > 0)
+                {
+                    chatTurns.Add(new ChatTurn(
+                        ChatRole.Assistant,
+                        result.Content ?? "",
+                        result.Widgets
+                    ));
+                }
+                else
+                {
+                    chatTurns.Add(new ChatTurn(
+                        ChatRole.Assistant,
+                        result?.Content ?? "I didn't understand that. Could you rephrase?"
+                    ));
+                }
+                threadId = result?.ThreadId ?? threadId;
+            }
+            else
+            {
+                error = $"Error: {response.StatusCode} - {response.ReasonPhrase}";
+            }
+        }
+        catch (Exception ex)
+        {
+            error = $"Error sending message: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task HandleWidgetAction((string Action, object? Payload) args)
+    {
+        var (action, payload) = args;
+        var payloadText = payload != null ? System.Text.Json.JsonSerializer.Serialize(payload) : "No data";
+        chatTurns.Add(new ChatTurn(
+            ChatRole.User,
+            $"**Action triggered:** `{action}`"
+        ));
+        StateHasChanged();
+
+        // TODO: Handle specific action in backend if needed
+        await Task.Delay(500);
+        chatTurns.Add(new ChatTurn(
+            ChatRole.Assistant,
+            $"Got it! I processed your action '{action}'."
+        ));
+        StateHasChanged();
+    }
+
+    private async Task HandleKeyUp(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter" && !args.ShiftKey)
+        {
+            await SendMessage();
+        }
+    }
+
+    private void GoBack()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+
+    public class ChatMessage
+    {
+        public string? Content { get; set; }
+        public List<ChatWidget>? Widgets { get; set; } = new();
+    }
+}

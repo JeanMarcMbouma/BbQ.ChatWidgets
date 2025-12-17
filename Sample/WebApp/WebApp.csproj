@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\BbQ.ChatWidgets\BbQ.ChatWidgets.csproj" />
+    <ProjectReference Include="..\..\BbQ.ChatWidgets.Sample.Shared\BbQ.ChatWidgets.Sample.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

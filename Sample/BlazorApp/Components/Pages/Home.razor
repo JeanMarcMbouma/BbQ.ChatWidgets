@@ -1,0 +1,282 @@
+@rendermode @(new InteractiveServerRenderMode())
+@page "/"
+@using BbQ.ChatWidgets.Models
+@using BbQ.ChatWidgets.Blazor.Components
+@using Microsoft.Extensions.AI
+@using Microsoft.AspNetCore.Components.Web
+@inject NavigationManager NavigationManager
+
+<PageTitle>BbQ Chat Widgets - Blazor Sample</PageTitle>
+
+<div class="home-page">
+    <div class="header">
+        <h1>💬 BbQ.ChatWidgets Blazor Sample</h1>
+        <p class="tagline">Explore all supported chat scenarios</p>
+    </div>
+
+    <div class="intro-section">
+        <h2>Welcome to BbQ.ChatWidgets</h2>
+        <p>
+            A powerful library for building interactive chat applications with widgets, real-time streaming,
+            and advanced AI interactions. This Blazor sample demonstrates feature parity with the React implementation.
+        </p>
+
+        <div class="features">
+            <div class="feature">
+                <span class="icon">🧩</span>
+                <div>
+                    <h3>13+ Widgets</h3>
+                    <p>Interactive UI components (buttons, forms, sliders, etc.)</p>
+                </div>
+            </div>
+            <div class="feature">
+                <span class="icon">⚡</span>
+                <div>
+                    <h3>Real-time Chat</h3>
+                    <p>Full conversation history with widget support</p>
+                </div>
+            </div>
+            <div class="feature">
+                <span class="icon">🎯</span>
+                <div>
+                    <h3>Multi-Scenario</h3>
+                    <p>Widget demo, basic chat, streaming responses</p>
+                </div>
+            </div>
+            <div class="feature">
+                <span class="icon">🔒</span>
+                <div>
+                    <h3>Type-Safe</h3>
+                    <p>Full C# integration with automatic serialization</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scenarios-section">
+        <h2>Explore Scenarios</h2>
+        <p class="section-intro">
+            Each scenario demonstrates a different aspect of BbQ.ChatWidgets functionality.
+        </p>
+
+        <div class="scenarios-grid">
+            <ScenarioCard 
+                Title="Widget Showcase" 
+                Description="See all available widgets in action"
+                Icon="●"
+                OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("widgets")))" />
+            
+            <ScenarioCard 
+                Title="Basic Chat" 
+                Description="Simple conversation with AI responses"
+                Icon="✓"
+                OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("basic")))" />
+            
+            <ScenarioCard 
+                Title="Streaming Chat" 
+                Description="Real-time streaming responses"
+                Icon="»"
+                OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("streaming")))" />
+            
+            <ScenarioCard 
+                Title="Widget Demo Catalog" 
+                Description="Browse and learn about all widgets"
+                Icon="≡"
+                OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("catalog")))" />
+        </div>
+    </div>
+
+    <div class="documentation-section">
+        <h2>📚 Resources</h2>
+        <div class="docs-grid">
+            <div class="doc-card">
+                <h3>Getting Started</h3>
+                <p>Learn the basics of BbQ.ChatWidgets in 5 minutes</p>
+                <a href="https://github.com" target="_blank">View Guide →</a>
+            </div>
+            <div class="doc-card">
+                <h3>API Reference</h3>
+                <p>Complete API documentation for all endpoints</p>
+                <a href="https://github.com" target="_blank">View API →</a>
+            </div>
+            <div class="doc-card">
+                <h3>Widget Catalog</h3>
+                <p>All available widgets with examples</p>
+                <a href="https://github.com" target="_blank">Browse Widgets →</a>
+            </div>
+            <div class="doc-card">
+                <h3>Source Code</h3>
+                <p>Open-source on GitHub</p>
+                <a href="https://github.com" target="_blank">View Repository →</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .home-page {
+        background-color: #f9f9f9;
+        min-height: 100vh;
+    }
+
+    .header {
+        padding: 3rem 2rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-align: center;
+    }
+
+    .header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
+
+    .tagline {
+        margin: 0.5rem 0 0 0;
+        font-size: 1.1rem;
+        opacity: 0.95;
+    }
+
+    .intro-section {
+        padding: 3rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .intro-section h2 {
+        font-size: 2rem;
+        margin: 0 0 1rem 0;
+        color: #333;
+    }
+
+    .intro-section > p {
+        font-size: 1.1rem;
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+
+    .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+
+    .feature {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .feature .icon {
+        font-size: 2rem;
+        flex-shrink: 0;
+    }
+
+    .feature h3 {
+        margin: 0 0 0.5rem 0;
+        color: #333;
+    }
+
+    .feature p {
+        margin: 0;
+        color: #666;
+        font-size: 0.95rem;
+    }
+
+    .scenarios-section {
+        padding: 3rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .scenarios-section h2 {
+        font-size: 2rem;
+        margin: 0 0 1rem 0;
+        color: #333;
+    }
+
+    .section-intro {
+        font-size: 1rem;
+        color: #666;
+        margin-bottom: 2rem;
+    }
+
+    .scenarios-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .documentation-section {
+        padding: 3rem 2rem;
+        background-color: white;
+        border-top: 1px solid #e0e0e0;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .documentation-section h2 {
+        font-size: 1.8rem;
+        margin: 0 0 2rem 0;
+        color: #333;
+    }
+
+    .docs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .doc-card {
+        background: #f5f5f5;
+        border-radius: 8px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .doc-card:hover {
+        background: #e8e8e8;
+        transform: translateY(-2px);
+    }
+
+    .doc-card h3 {
+        margin: 0 0 0.5rem 0;
+        color: #333;
+    }
+
+    .doc-card p {
+        margin: 0 0 1rem 0;
+        color: #666;
+        font-size: 0.95rem;
+    }
+
+    .doc-card a {
+        color: #0366d6;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s ease;
+    }
+
+    .doc-card a:hover {
+        color: #0256c0;
+    }
+</style>
+
+@code {
+    private void SelectScenario(string scenario)
+    {
+        Console.WriteLine($"SelectScenario called with: {scenario}");
+        var url = scenario switch
+        {
+            "widgets" => "/widget-showcase",
+            "basic" => "/basic-chat",
+            "streaming" => "/streaming-chat",
+            "catalog" => "/widget-catalog",
+            _ => "/"
+        };
+        Console.WriteLine($"Navigating to: {url}");
+        NavigationManager.NavigateTo(url);
+    }
+}

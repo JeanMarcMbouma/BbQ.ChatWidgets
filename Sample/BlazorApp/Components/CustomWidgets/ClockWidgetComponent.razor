@@ -1,0 +1,53 @@
+@using BbQ.ChatWidgets.Sample.Shared
+@using Microsoft.AspNetCore.Components
+
+<div class="widget clock-widget" data-widget-type="clock" data-action="@Widget.Action" data-stream-id="@Widget.StreamId" data-auto-start="true">
+    <div class="clock-display">
+        <div class="clock-label">@Widget.Label</div>
+        <div class="clock-time" id="clock-time-@ClockId">--:--:--</div>
+        <div class="clock-timezone">@(string.IsNullOrEmpty(Widget.TimeZone) ? "UTC" : Widget.TimeZone)</div>
+    </div>
+</div>
+
+@code {
+    private string ClockId => System.Guid.NewGuid().ToString().Substring(0, 8);
+
+    [Parameter]
+    public ClockWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+}
+
+<style>
+.clock-widget {
+    margin: 10px 0;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.clock-label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    opacity: 0.9;
+}
+
+.clock-time {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+    margin: 10px 0;
+}
+
+.clock-timezone {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-top: 8px;
+}
+</style>

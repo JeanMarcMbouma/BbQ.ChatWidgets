@@ -1,0 +1,44 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Forms
+
+<div class="bbq-widget bbq-fileupload-widget">
+    <label class="bbq-fileupload-label">@Widget?.Label</label>
+    <input 
+        type="file" 
+        class="bbq-fileupload-input"
+        accept="@(Widget?.Accept ?? string.Empty)"
+        @onchange="HandleFileSelect" />
+</div>
+
+@code {
+    [Parameter]
+    public FileUploadWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    private async Task HandleFileSelect(InputFileChangeEventArgs e)
+    {
+        if (Widget != null && e.File != null)
+        {
+            var fileName = e.File.Name;
+            var fileSize = e.File.Size;
+            
+            // Check max file size if specified
+            if (Widget.MaxBytes.HasValue && fileSize > Widget.MaxBytes.Value)
+            {
+                // File too large - could show error to user
+                return;
+            }
+
+            var payload = new 
+            { 
+                fileName = fileName,
+                fileSize = fileSize,
+                lastModified = e.File.LastModified
+            };
+            await OnAction.InvokeAsync((Widget.Action, payload));
+        }
+    }
+}

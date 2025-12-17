@@ -1,0 +1,157 @@
+@rendermode @(new InteractiveServerRenderMode())
+@page "/widget-showcase"
+@using BbQ.ChatWidgets.Models
+@using Microsoft.Extensions.AI
+@using Microsoft.AspNetCore.Components.Web
+@inject NavigationManager NavigationManager
+
+<PageTitle>Widget Showcase - BbQ Chat Widgets</PageTitle>
+
+<div class="showcase-container">
+    <div class="showcase-header">
+        <button class="btn-back" @onclick="GoBack">← Back</button>
+        <div>
+            <h1>🧩 Widget Showcase</h1>
+            <p>Explore all available interactive widgets</p>
+        </div>
+    </div>
+
+    <div class="showcase-content">
+        <CustomChatContainer ChatTurns="chatTurns" IsLoading="false" OnAction="HandleWidgetAction" />
+    </div>
+</div>
+
+<style>
+    .showcase-container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background-color: #f5f5f5;
+    }
+
+    .showcase-header {
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-back {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+    }
+
+    .btn-back:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .showcase-header h1 {
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: 600;
+    }
+
+    .showcase-header p {
+        margin: 0.25rem 0 0 0;
+        opacity: 0.9;
+        font-size: 0.95rem;
+    }
+
+    .showcase-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 2rem;
+    }
+</style>
+
+@code {
+    private List<ChatTurn> chatTurns = new();
+
+    protected override void OnInitialized()
+    {
+        // Welcome message
+        chatTurns.Add(new ChatTurn(
+            ChatRole.Assistant,
+            "Welcome to the Widget Showcase! Below you'll see all available interactive widgets in action."
+        ));
+
+        // Create demo widgets
+        var widgets = new List<ChatWidget>
+        {
+            new ButtonWidget("Click Me!", "button_demo"),
+            new CardWidget("Sample Card", "card_demo", "Card Title", "This is a sample card widget with description", "https://via.placeholder.com/300x200"),
+            new InputWidget("Name Input", "input_demo", "Enter your name", 50),
+            new TextAreaWidget("Multi-line Input", "textarea_demo", "Enter longer text here", 5),
+            new DropdownWidget("Select Option", "dropdown_demo", new[] { "Option 1", "Option 2", "Option 3", "Option 4" }),
+            new SliderWidget("Value Slider", "slider_demo", 0, 100, 1, 50),
+            new ToggleWidget("Enable Feature", "toggle_demo", false),
+            new DatePickerWidget("Pick a Date", "date_demo"),
+            new MultiSelectWidget("Select Multiple", "multiselect_demo", new[] { "Red", "Green", "Blue", "Yellow" }),
+            new ProgressBarWidget("Progress", "progress_demo", 75, 100),
+        };
+
+        chatTurns.Add(new ChatTurn(
+            ChatRole.Assistant,
+            "Here are all the available widgets:",
+            widgets
+        ));
+
+        // Form widget example
+        var formFields = new List<FormField>
+        {
+            new FormField("name", "Name", "Input", true, "Enter your name"),
+            new FormField("email", "Email", "Input", true, "Enter your email"),
+            new FormField("preference", "Preference", "Dropdown", false, null),
+        };
+
+        var formActions = new List<FormAction>
+        {
+            new FormAction("submit", "Submit"),
+            new FormAction("cancel", "Cancel"),
+        };
+
+        var formWidget = new FormWidget("Contact Form", "contact_form", formFields, formActions);
+
+        chatTurns.Add(new ChatTurn(
+            ChatRole.Assistant,
+            "And here's an example form widget:",
+            new List<ChatWidget> { formWidget }
+        ));
+    }
+
+    private async Task HandleWidgetAction((string Action, object? Payload) args)
+    {
+        var (action, payload) = args;
+        var payloadText = payload != null ? System.Text.Json.JsonSerializer.Serialize(payload) : "No data";
+        
+        chatTurns.Add(new ChatTurn(
+            ChatRole.User,
+            $"Triggered: **{action}** → `{payloadText}`"
+        ));
+
+        StateHasChanged();
+
+        await Task.Delay(500);
+        chatTurns.Add(new ChatTurn(
+            ChatRole.Assistant,
+            $"Nice! You triggered the '{action}' action. Try other widgets to see them in action."
+        ));
+
+        StateHasChanged();
+    }
+
+    private void GoBack()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}

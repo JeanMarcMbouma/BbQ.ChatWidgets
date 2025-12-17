@@ -1,0 +1,31 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+
+<div class="bbq-widget bbq-datepicker-widget">
+    <label class="bbq-datepicker-label">@Widget?.Label</label>
+    <input 
+        type="date" 
+        class="bbq-datepicker-input"
+        @bind="dateValue"
+        @onchange="HandleChange" />
+</div>
+
+@code {
+    [Parameter]
+    public DatePickerWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    private string dateValue = string.Empty;
+
+    private async Task HandleChange(ChangeEventArgs e)
+    {
+        dateValue = e.Value?.ToString() ?? string.Empty;
+        if (Widget != null && !string.IsNullOrEmpty(dateValue))
+        {
+            var payload = new { value = dateValue };
+            await OnAction.InvokeAsync((Widget.Action, payload));
+        }
+    }
+}

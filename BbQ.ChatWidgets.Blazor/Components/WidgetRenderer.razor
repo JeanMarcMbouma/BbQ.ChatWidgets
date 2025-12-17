@@ -1,0 +1,60 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+
+<div class="bbq-widget-renderer">
+    @if (Widget != null)
+    {
+        @switch (Widget.GetType().Name)
+        {
+            case nameof(ButtonWidget):
+                <ButtonWidgetComponent Widget="(ButtonWidget)Widget" OnAction="OnAction" />
+                break;
+            case nameof(CardWidget):
+                <CardWidgetComponent Widget="(CardWidget)Widget" OnAction="OnAction" />
+                break;
+            case nameof(InputWidget):
+                <InputWidgetComponent Widget="(InputWidget)Widget" OnAction="OnAction" />
+                break;
+            case nameof(TextAreaWidget):
+                <TextAreaWidgetComponent Widget="(TextAreaWidget)Widget" OnAction="OnAction" />
+                break;
+            case nameof(DropdownWidget):
+                <DropdownWidgetComponent Widget="(DropdownWidget)Widget" OnAction="OnAction" />
+                break;
+            case nameof(SliderWidget):
+                <SliderWidgetComponent Widget="(SliderWidget)Widget" OnAction="OnAction" />
+                break;
+            case nameof(ToggleWidget):
+                <ToggleWidgetComponent Widget="(ToggleWidget)Widget" OnAction="OnAction" />
+                break;
+            case nameof(FileUploadWidget):
+                <FileUploadWidgetComponent Widget="(FileUploadWidget)Widget" OnAction="OnAction" />
+                break;
+            case nameof(DatePickerWidget):
+                <DatePickerWidgetComponent Widget="(DatePickerWidget)Widget" OnAction="OnAction" />
+                break;
+            case nameof(MultiSelectWidget):
+                <MultiSelectWidgetComponent Widget="(MultiSelectWidget)Widget" OnAction="OnAction" />
+                break;
+            case nameof(ProgressBarWidget):
+                <ProgressBarWidgetComponent Widget="(ProgressBarWidget)Widget" />
+                break;
+            case nameof(FormWidget):
+                <FormWidgetComponent Widget="(FormWidget)Widget" OnAction="OnAction" />
+                break;
+            default:
+                <div class="bbq-widget-unknown">
+                    <p>Unknown widget type: @Widget.GetType().Name</p>
+                </div>
+                break;
+        }
+    }
+</div>
+
+@code {
+    [Parameter]
+    public ChatWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+}

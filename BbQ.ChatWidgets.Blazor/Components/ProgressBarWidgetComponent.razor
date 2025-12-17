@@ -1,0 +1,24 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+
+<div class="bbq-widget bbq-progressbar-widget">
+    <label class="bbq-progressbar-label">@Widget?.Label</label>
+    <div class="bbq-progressbar-container">
+        <div class="bbq-progressbar" style="width: @GetPercentage()%">
+            <span class="bbq-progressbar-text">@GetPercentage()%</span>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public ProgressBarWidget? Widget { get; set; }
+
+    private int GetPercentage()
+    {
+        if (Widget?.Max == 0) return 0;
+        
+        var percentage = ((double)Widget.Value / Widget.Max) * 100;
+        return Math.Min(100, Math.Max(0, (int)percentage));
+    }
+}

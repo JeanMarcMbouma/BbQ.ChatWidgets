@@ -1,0 +1,101 @@
+@using BbQ.ChatWidgets.Sample.Shared
+@using Microsoft.AspNetCore.Components
+
+<div class="widget weather-widget" data-widget-type="weather" data-action="@Widget.Action" data-stream-id="@Widget.StreamId">
+    <div class="weather-display">
+        <div class="weather-label">@Widget.Label</div>
+        <div class="weather-city" id="weather-city-@WeatherId">@Widget.City</div>
+        <div class="weather-info">
+            <div class="weather-condition" id="weather-condition-@WeatherId">--</div>
+            <div class="weather-temp" id="weather-temp-@WeatherId">--°C</div>
+        </div>
+        <div class="weather-details">
+            <div class="detail-item">
+                <span class="detail-label">Humidity</span>
+                <span class="detail-value" id="weather-humidity-@WeatherId">--%</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Wind</span>
+                <span class="detail-value" id="weather-wind-@WeatherId">-- m/s</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string WeatherId => System.Guid.NewGuid().ToString().Substring(0, 8);
+
+    [Parameter]
+    public WeatherWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+}
+
+<style>
+.weather-widget {
+    margin: 10px 0;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.weather-display {
+    text-align: center;
+}
+
+.weather-label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    opacity: 0.9;
+}
+
+.weather-city {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.weather-info {
+    margin: 15px 0;
+}
+
+.weather-condition {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.weather-temp {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.weather-details {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detail-label {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-bottom: 3px;
+}
+
+.detail-value {
+    font-size: 14px;
+    font-weight: 600;
+}
+</style>

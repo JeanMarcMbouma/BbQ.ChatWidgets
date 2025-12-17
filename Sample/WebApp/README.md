@@ -1,4 +1,4 @@
-This sample project documentation has been consolidated into the top-level `docs/examples/` and the `Sample/WebApp` project. See `docs/INDEX.md` for links.
+This sample project documentation has been consolidated into the top-level `docs_src/examples/` and the `Sample/WebApp` project. See `docs_src/index.md` for links.
 # BbQ.ChatWidgets Web API Sample
 
 This is a full-stack React + .NET sample application demonstrating how to use **BbQ.ChatWidgets** with OpenAI integration.

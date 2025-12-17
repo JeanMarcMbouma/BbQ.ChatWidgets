@@ -13,11 +13,25 @@ dotnet add package BbQ.ChatWidgets
 Add the shared services and endpoint mappings inside your `Program.cs`:
 
 ```csharp
+using Microsoft.Extensions.AI;
+using BbQ.ChatWidgets.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Build an IChatClient and enable function invocation so widgets/tools work.
+IChatClient openaiClient =
+  new OpenAI.Chat.ChatClient(modelId: "gpt-4o-mini", apiKey: "your-api-key")
+    .AsIChatClient();
+
+IChatClient chatClient = new ChatClientBuilder(openaiClient)
+  .UseFunctionInvocation()
+  .Build();
+
 builder.Services.AddBbQChatWidgets(options =>
 {
-    options.ChatClientFactory = sp => new OpenAI.Chat.ChatClient("your-api-key").AsIChatClient();
+  options.ChatClientFactory = _ => chatClient;
 });
+
 var app = builder.Build();
 app.MapBbQChatEndpoints();
 app.Run();
@@ -31,7 +45,7 @@ const response = await fetch('/api/chat/message', {
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     threadId: null,
-    input: 'Show me a theme switcher example'
+    message: 'Show me a theme switcher example'
   })
 });
 ```

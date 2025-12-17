@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Interface IWidgetToolsProvider | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Interface IWidgetToolsProvider | BbQ.ChatWidgets ">
+    
+    <meta name="description" content="Defines the contract for providing AI tool definitions for all available widget types.">
+      <link rel="shortcut icon" href="favicon.ico">
+      <link rel="stylesheet" href="styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="styles/docfx.css">
+      <link rel="stylesheet" href="styles/main.css">
+      <meta property="docfx:navrel" content="toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="index.html">
+                <img id="logo" class="svg" src="logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider">
+
+
+
+  <h1 id="BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider" class="text-break">Interface IWidgetToolsProvider</h1>
+  <div class="markdown level0 summary"><p>Defines the contract for providing AI tool definitions for all available widget types.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="BbQ.html">BbQ</a>.<a class="xref" href="BbQ.ChatWidgets.html">ChatWidgets</a>.<a class="xref" href="BbQ.ChatWidgets.Abstractions.html">Abstractions</a></h6>
+  <h6><strong>Assembly</strong>: BbQ.ChatWidgets.dll</h6>
+  <h5 id="BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IWidgetToolsProvider</code></pre>
+  </div>
+  <h5 id="BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>This interface provides a way for chat clients to discover what widgets are available
+and how to use them. The tools are passed to AI models via the library configuration (for example, <a class="xref" href="BbQChatOptions.html#BbQChatOptions_WidgetToolsProviderFactory">WidgetToolsProviderFactory</a>)
+to enable the model to understand and use widgets.</p>
+<p>Each tool includes:</p>
+<ul>
+<li><code>Name</code>: The widget type identifier (e.g., &quot;button&quot;, &quot;card&quot;, &quot;dropdown&quot;)</li>
+<li><code>Description</code>: Human-readable description of the widget</li>
+<li><code>Schema</code>: JSON schema describing the widget's parameters</li>
+</ul>
+<p>By providing these tools to the AI, the model can:</p>
+<ul>
+<li>Understand what widgets are available</li>
+<li>Know the required and optional parameters for each widget</li>
+<li>Generate proper JSON for widget embedding</li>
+<li>Embed widgets appropriately in responses</li>
+</ul>
+</div>
+  <h3 id="methods">Methods
+</h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IWidgetToolsProvider.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_GetTools_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.GetTools*"></a>
+  <h4 id="BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_GetTools" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.GetTools">GetTools()</h4>
+  <div class="markdown level1 summary"><p>Gets all available widget tools that the AI model can use.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IReadOnlyList&lt;WidgetTool&gt; GetTools()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.WidgetTool.html">WidgetTool</a>&gt;</td>
+        <td><p>A read-only list of <a class="xref" href="BbQ.ChatWidgets.Models.WidgetTool.html">WidgetTool</a> instances available for use.
+The list should not be null but may be empty if no tools are available.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_GetTools_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Tools are typically cached after the first call for performance.
+Each tool represents a widget type with its schema and description.</p>
+<p>The returned tools should include all widget types the system supports:</p>
+<ul>
+<li>Button</li>
+<li>Card</li>
+<li>Input</li>
+<li>Dropdown</li>
+<li>Slider</li>
+<li>Toggle</li>
+<li>FileUpload</li>
+</ul>
+<p>Implementations may:</p>
+<ul>
+<li>Return a fixed set of tools</li>
+<li>Dynamically generate tools from a registry</li>
+<li>Filter tools based on configuration</li>
+<li>Cache results for performance</li>
+</ul>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IWidgetToolsProvider.cs" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+- name: Home
+  href: index.md
+- name: Getting Started
+  href: GETTING_STARTED.md
+- name: Architecture
+  href: ARCHITECTURE.md
+- name: Quick Reference
+  href: QUICK_REFERENCE.md
+- name: Guides
+  href: guides/README.md
+- name: Examples
+  href: examples/README.md
+- name: Design
+  href: design/README.md
+- name: Widgets
+  href: widgets/README.md
+- name: Contributing
+  href: contributing/README.md
+- name: API
+  href: api/README.md

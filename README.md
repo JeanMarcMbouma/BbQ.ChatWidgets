@@ -1,5 +1,68 @@
 # BbQ.ChatWidgets
 
+A compact library of UI chat widgets and helpers for server and client integrations.
+
+This repository ships two distributable packages:
+
+- NuGet: `BbQ.ChatWidgets` (the .NET library: services, renderers, endpoints)
+- npm: `@bbq-chat/widgets` (the JS/TS client library)
+
+## Quick start (ASP.NET Core)
+
+```csharp
+using BbQ.ChatWidgets;
+
+builder.Services.AddBbQChatWidgets(options =>
+{
+    // configure options (chat client, tools, widgets, etc.)
+});
+
+app.MapBbQChatEndpoints();
+```
+
+## Install
+
+NuGet:
+
+```powershell
+dotnet add [YOUR_PROJECT] package BbQ.ChatWidgets
+```
+
+npm:
+
+```bash
+npm install @bbq-chat/widgets
+```
+
+## Documentation
+
+- Documentation sources: [docs_src/index.md](docs_src/index.md)
+- Contributing guide: [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md)
+
+Build the docs locally (requires DocFX):
+
+```powershell
+./docs/generate-docs.ps1
+```
+
+Or run DocFX directly:
+
+```powershell
+dotnet build BbQ.ChatWidgets/BbQ.ChatWidgets.csproj -c Release
+docfx metadata docfx.json
+docfx build docfx.json -o docs
+```
+
+## Tests
+
+- .NET: `dotnet test`
+- JS/TS: `npm test` (run from `js/`)
+
+## License
+
+See `LICENSE`.
+# BbQ.ChatWidgets
+
 >A compact library of UI chat widgets and helpers for server and client integrations.
 
 This repository contains two distributable packages:
@@ -63,9 +126,9 @@ Professional documentation has been consolidated into the `docs/` folder. This r
 
 Quick links:
 
-- Getting started: `docs/GETTING_STARTED.md`
-- Architecture: `docs/ARCHITECTURE.md`
-- API Reference: `docs/api/README.md`
+- Getting started: `docs_src/GETTING_STARTED.md`
+- Architecture: `docs_src/ARCHITECTURE.md`
+- API Reference: `docs_src/api/README.md`
 - Contributing: `CONTRIBUTING.md`
 
 To build API documentation (requires DocFX):
@@ -98,7 +161,10 @@ BbQ.ChatWidgets is a framework-agnostic widget library for AI chat UIs, built on
 ```csharp
 builder.Services.AddBbQChatWidgets(options =>
 {
-    options.ChatClientFactory = sp => new OpenAIChatClient("API_KEY");
+    // Build an IChatClient and enable function invocation so widgets/tools work.
+    IChatClient openaiClient = new OpenAI.Chat.ChatClient("gpt-4o-mini", "API_KEY").AsIChatClient();
+    IChatClient chatClient = new ChatClientBuilder(openaiClient).UseFunctionInvocation().Build();
+    options.ChatClientFactory = _ => chatClient;
 });
 app.MapBbQChatEndpoints();
 ```
@@ -107,24 +173,30 @@ app.MapBbQChatEndpoints();
 
 Complete documentation is available in the `/docs` folder:
 
-- **[Getting Started](docs/GETTING_STARTED.md)** - Get up and running in 5 minutes
-- **[Master Index](docs/INDEX.md)** - Navigation hub for all documentation
-- **[Architecture Guide](docs/ARCHITECTURE.md)** - Understand how it works
-- **[Quick Reference](docs/QUICK_REFERENCE.md)** - Find what you need quickly
+- **[Getting Started](docs_src/GETTING_STARTED.md)** - Get up and running in 5 minutes
+- **[Master Index](docs_src/index.md)** - Navigation hub for all documentation
+- **[Architecture Guide](docs_src/ARCHITECTURE.md)** - Understand how it works
+- **[Quick Reference](docs_src/QUICK_REFERENCE.md)** - Find what you need quickly
 
 ## Key Concepts
 
-### Core Widgets (7 Types)
+### Built-in Widgets
 
 | Widget | Purpose | Example |
 |--------|---------|---------|
 | **Button** | Click actions | Confirm, Cancel, Submit |
 | **Card** | Rich content display | Product cards, results |
-| **Input** | Text input | Forms, queries |
-| **Dropdown** | Selection lists | Options, choices |
-| **Slider** | Range selection | Volume, rating |
-| **Toggle** | Boolean switches | Settings, flags |
-| **File Upload** | File handling | Document upload |
+| **Input** | Single-line text input | Inside forms |
+| **TextArea** | Multi-line text input | Inside forms |
+| **Dropdown** | Selection list | Inside forms |
+| **MultiSelect** | Multi-choice list | Inside forms |
+| **Slider** | Range selection | Inside forms |
+| **Toggle** | Boolean switch | Inside forms |
+| **DatePicker** | Date selection | Inside forms |
+| **File Upload** | File handling | Inside forms |
+| **Form** | Groups input widgets | Submit/cancel |
+| **Progress Bar** | Progress display | Loading/status |
+| **Theme Switcher** | Theme selection | Light/Dark |
 
 ### Architecture Components
 
@@ -185,22 +257,22 @@ console.log('Widgets:', data.widgets);
 ## Learning Paths
 
 ### — For Users
-1. [Getting Started](docs/GETTING_STARTED.md) (5 min)
-2. [Installation Guide](docs/guides/INSTALLATION.md)
-3. [Examples](docs/examples/)
-4. [API Reference](docs/api/)
+1. [Getting Started](docs_src/GETTING_STARTED.md) (5 min)
+2. [Installation Guide](docs_src/guides/INSTALLATION.md)
+3. [Examples](docs_src/examples/README.md)
+4. [API Reference](docs_src/api/README.md)
 
 ### — For Developers
-1. [Architecture Guide](docs/ARCHITECTURE.md)
-2. [Custom Widgets](docs/guides/CUSTOM_WIDGETS.md)
-3. [Custom AI Tools](docs/guides/CUSTOM_AI_TOOLS.md)
-4. [API Reference](docs/api/)
+1. [Architecture Guide](docs_src/ARCHITECTURE.md)
+2. [Custom Widgets](docs_src/guides/CUSTOM_WIDGETS.md)
+3. [Custom AI Tools](docs_src/guides/CUSTOM_AI_TOOLS.md)
+4. [API Reference](docs_src/api/README.md)
 
 ### — For Contributors
-1. [Development Setup](docs/contributing/DEVELOPMENT.md)
-2. [Code Style](docs/contributing/CODE_STYLE.md)
-3. [Testing Guide](docs/contributing/TESTING.md)
-4. [Documentation Standards](docs/contributing/DOCUMENTATION.md)
+1. [Development Setup](docs_src/contributing/DEVELOPMENT.md)
+2. [Code Style](docs_src/contributing/CODE_STYLE.md)
+3. [Testing Guide](docs_src/contributing/TESTING.md)
+4. [Documentation Standards](docs_src/contributing/DOCUMENTATION.md)
 
 ## Resources
 
@@ -219,6 +291,6 @@ We welcome contributions! See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for gui
 
 ---
 
-**Ready to get started?** [Getting Started Guide](docs/GETTING_STARTED.md)
+**Ready to get started?** [Getting Started Guide](docs_src/GETTING_STARTED.md)
 
-**Need help?** [Documentation Index](docs/INDEX.md)
+**Need help?** [Documentation Index](docs_src/index.md)

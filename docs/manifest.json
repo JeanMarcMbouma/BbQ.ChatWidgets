@@ -1,0 +1,1508 @@
+{
+  "source_base_path": "C:/Users/jm/source/repos/BbQ.ChatWidgets",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": ".github/CONTRIBUTING.md",
+      "output": {
+        ".html": {
+          "relative_path": ".github/CONTRIBUTING.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "README.md",
+      "output": {
+        ".html": {
+          "relative_path": "README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IAIInstructionProvider",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.yml\" sourcestartlinenumber=\"1\">Provides system instructions for the AI chat client.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IAIToolsProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IAIToolsProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IAIToolsProvider",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IAIToolsProvider.yml\" sourcestartlinenumber=\"1\">Provides custom AI tools that can be used by the chat client.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IActionWidgetActionHandler-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IActionWidgetActionHandler-2.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IActionWidgetActionHandler<TWidgetAction, T>",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IActionWidgetActionHandler-2.yml\" sourcestartlinenumber=\"1\">Handles a specific widget action with type-safe payload processing.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IRecyclableWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IRecyclableWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IRecyclableWidget",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IRecyclableWidget.yml\" sourcestartlinenumber=\"1\">Interface for widgets that need to perform cleanup or resource deallocation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IThreadService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IThreadService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IThreadService",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IThreadService.yml\" sourcestartlinenumber=\"1\">Defines the contract for managing conversation threads and message history.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IWidgetAction-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IWidgetAction-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IWidgetAction<T>",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IWidgetAction-1.yml\" sourcestartlinenumber=\"1\">Represents a widget action with a typed payload.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.yml\" sourcestartlinenumber=\"1\">Handler registry for managing action handler resolution.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata.yml\" sourcestartlinenumber=\"1\">Metadata for a widget action.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.yml\" sourcestartlinenumber=\"1\">Registry for managing widget actions and their handlers.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IWidgetHintParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IWidgetHintParser.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IWidgetHintParser",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IWidgetHintParser.yml\" sourcestartlinenumber=\"1\">Defines the contract for parsing widget hints from raw AI model output.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.yml\" sourcestartlinenumber=\"1\">Defines the contract for sanitizing content containing incomplete or malformed widget markup.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IWidgetLocalizer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IWidgetLocalizer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IWidgetLocalizer",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IWidgetLocalizer.yml\" sourcestartlinenumber=\"1\">Provides localization support for widget text and labels.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IWidgetRegistry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IWidgetRegistry.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IWidgetRegistry",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IWidgetRegistry.yml\" sourcestartlinenumber=\"1\">Central registry for widget instances and their tools.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IWidgetSseService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IWidgetSseService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IWidgetSseService",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.yml\" sourcestartlinenumber=\"1\">Defines the contract for providing AI tool definitions for all available widget types.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.yml\" sourcestartlinenumber=\"1\">Delegate for handling chat requests in the agent pipeline.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.Abstractions.IAgent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.Abstractions.IAgent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.Abstractions.IAgent",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.Abstractions.IAgent.yml\" sourcestartlinenumber=\"1\">Represents an agent that processes chat requests and returns outcomes.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.Abstractions.IAgentMiddleware.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.Abstractions.IAgentMiddleware.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.Abstractions.IAgentMiddleware",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.Abstractions.IAgentMiddleware.yml\" sourcestartlinenumber=\"1\">Interface for middleware components in the agent pipeline.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.yml\" sourcestartlinenumber=\"1\">Registry for managing and routing to specialized agents.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.Abstractions.IClassifier-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.Abstractions.IClassifier-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.Abstractions.IClassifier<TCategory>",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.Abstractions.IClassifier-1.yml\" sourcestartlinenumber=\"1\">Interface for classifying input into predefined categories.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.Abstractions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.Abstractions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.Abstractions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.AgentPipelineBuilder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.AgentPipelineBuilder.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.AgentPipelineBuilder",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.AgentRegistry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.AgentRegistry.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.AgentRegistry",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.AgentRegistry.yml\" sourcestartlinenumber=\"1\">Default implementation of the agent registry.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.ChatRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.ChatRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.ChatRequest",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.ChatRequest.yml\" sourcestartlinenumber=\"1\">Represents a chat request for agent processing.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.Extensions.AgentPipelineExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.Extensions.AgentPipelineExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.Extensions.AgentPipelineExtensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.Extensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.Extensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.InterAgentCommunicationContext",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.yml\" sourcestartlinenumber=\"1\">Context for facilitating communication between agents in the pipeline.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.Middleware.TriageMiddleware.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.Middleware.TriageMiddleware.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.Middleware.TriageMiddleware",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.Middleware.TriageMiddleware.yml\" sourcestartlinenumber=\"1\">Middleware that enforces agent classification and routing.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.Middleware.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.Middleware.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.Middleware",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.TriageAgent-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.TriageAgent-1.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.TriageAgent<TCategory>",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.TriageAgent-1.yml\" sourcestartlinenumber=\"1\">Triage agent that classifies requests and routes to appropriate handlers.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Endpoints.UserMessageDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Endpoints.UserMessageDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Endpoints.UserMessageDto",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Endpoints.UserMessageDto.yml\" sourcestartlinenumber=\"1\">Data transfer object for user message requests.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Endpoints.WidgetActionDto.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Endpoints.WidgetActionDto.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Endpoints.WidgetActionDto",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Endpoints.WidgetActionDto.yml\" sourcestartlinenumber=\"1\">Data transfer object for widget action requests.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Endpoints.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Endpoints.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Endpoints",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Exceptions.ThreadNotFoundException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Exceptions.ThreadNotFoundException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Exceptions.ThreadNotFoundException",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Exceptions.ThreadNotFoundException.yml\" sourcestartlinenumber=\"1\">Thrown when a conversation thread with the specified ID is not found.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Exceptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Exceptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Exceptions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for registering and configuring BbQ ChatWidgets services.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Extensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Extensions",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ButtonWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ButtonWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ButtonWidget",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ButtonWidget.yml\" sourcestartlinenumber=\"1\">A simple button widget that triggers an action when clicked.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.CardWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.CardWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.CardWidget",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.CardWidget.yml\" sourcestartlinenumber=\"1\">A card widget that displays rich content including title, description, and optional image.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ChatMessageExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ChatMessageExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ChatMessageExtensions",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ChatMessageExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for converting <xref href=\"BbQ.ChatWidgets.Models.ChatMessages\" data-throw-if-not-resolved=\"false\"></xref> to AI framework formats.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ChatMessages.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ChatMessages.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ChatMessages",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ChatMessages.yml\" sourcestartlinenumber=\"1\">Represents a complete chat message history for a conversation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ChatTurn.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ChatTurn.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ChatTurn",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ChatTurn.yml\" sourcestartlinenumber=\"1\">Represents a single turn in a chat conversation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ChatWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ChatWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ChatWidget",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ChatWidget.yml\" sourcestartlinenumber=\"1\">Base class for all interactive chat widgets.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ChatWidgetConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ChatWidgetConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ChatWidgetConverter",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ChatWidgetConverter.yml\" sourcestartlinenumber=\"1\">Custom JSON converter for ChatWidget that handles both built-in and custom widgets.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ChatWidgetExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ChatWidgetExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ChatWidgetExtensions",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ChatWidgetExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for <xref href=\"BbQ.ChatWidgets.Models.ChatWidget\" data-throw-if-not-resolved=\"false\"></xref> instances.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.DatePickerWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.DatePickerWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.DatePickerWidget",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.DatePickerWidget.yml\" sourcestartlinenumber=\"1\">A date picker widget for selecting a date.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.DropdownWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.DropdownWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.DropdownWidget",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.DropdownWidget.yml\" sourcestartlinenumber=\"1\">A dropdown widget for selecting from multiple predefined options.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.FileUploadWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.FileUploadWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.FileUploadWidget",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.FileUploadWidget.yml\" sourcestartlinenumber=\"1\">A file upload widget for selecting and uploading files.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.FormAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.FormAction.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.FormAction",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.FormField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.FormField.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.FormField",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.FormWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.FormWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.FormWidget",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.InputWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.InputWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.InputWidget",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.InputWidget.yml\" sourcestartlinenumber=\"1\">An input widget for collecting short text from the user.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.MultiSelectWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.MultiSelectWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.MultiSelectWidget",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.MultiSelectWidget.yml\" sourcestartlinenumber=\"1\">A multi-select widget for selecting multiple options from a list.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ProgressBarWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ProgressBarWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ProgressBarWidget",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ProgressBarWidget.yml\" sourcestartlinenumber=\"1\">A progress bar widget for displaying progress of a task.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.Serialization.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.Serialization.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.Serialization",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.Serialization.yml\" sourcestartlinenumber=\"1\">Provides centralized JSON serialization configuration for BbQ ChatWidgets.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.SliderWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.SliderWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.SliderWidget",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.SliderWidget.yml\" sourcestartlinenumber=\"1\">A slider widget for selecting a numeric value from a range.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.StreamChatTurn.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.StreamChatTurn.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.StreamChatTurn",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.TextAreaWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.TextAreaWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.TextAreaWidget",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.TextAreaWidget.yml\" sourcestartlinenumber=\"1\">A textarea widget for multi-line text input.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ThemeSwitcherWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ThemeSwitcherWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ThemeSwitcherWidget",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ThemeSwitcherWidget.yml\" sourcestartlinenumber=\"1\">A theme switcher widget for selecting between multiple theme options.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ToggleWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ToggleWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ToggleWidget",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ToggleWidget.yml\" sourcestartlinenumber=\"1\">A toggle widget for boolean (yes/no, on/off) selection.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.WidgetTool.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.WidgetTool.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.WidgetTool",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.WidgetTool.yml\" sourcestartlinenumber=\"1\">Wraps a <xref href=\"BbQ.ChatWidgets.Models.ChatWidget\" data-throw-if-not-resolved=\"false\"></xref> as an <xref href=\"Microsoft.Extensions.AI.AITool\" data-throw-if-not-resolved=\"false\"></xref> for use by language models.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Renderers.SsrWidgetRenderer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Renderers.SsrWidgetRenderer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Renderers.SsrWidgetRenderer",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Renderers.SsrWidgetRenderer.yml\" sourcestartlinenumber=\"1\">Server-side rendering (SSR) implementation of <xref href=\"BbQ.ChatWidgets.Abstractions.IChatWidgetRenderer\" data-throw-if-not-resolved=\"false\"></xref>\noptimized for Angular and React hydration.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Renderers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Renderers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Renderers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.ChatWidgetService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.ChatWidgetService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.ChatWidgetService",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.ChatWidgetService.yml\" sourcestartlinenumber=\"1\">Orchestrates chat widget interactions by managing message processing, widget tool availability,\nand conversation threading.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.DefaultAIToolsProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.DefaultAIToolsProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.DefaultAIToolsProvider",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.DefaultAIToolsProvider.yml\" sourcestartlinenumber=\"1\">Provides default AI tools for the chat widget system.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.DefaultThreadService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.DefaultThreadService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.DefaultThreadService",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.DefaultThreadService.yml\" sourcestartlinenumber=\"1\">In-memory implementation of <xref href=\"BbQ.ChatWidgets.Abstractions.IThreadService\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.yml\" sourcestartlinenumber=\"1\">Default implementation of <xref href=\"BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.yml\" sourcestartlinenumber=\"1\">Default in-memory implementation of <xref href=\"BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.DefaultWidgetHintParser.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.DefaultWidgetHintParser.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.DefaultWidgetHintParser",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.DefaultWidgetHintParser.yml\" sourcestartlinenumber=\"1\">Default implementation of <xref href=\"BbQ.ChatWidgets.Abstractions.IWidgetHintParser\" data-throw-if-not-resolved=\"false\"></xref> that extracts widget definitions\nfrom AI model output using XML-style markers.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider.yml\" sourcestartlinenumber=\"1\">Default implementation of <xref href=\"BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider\" data-throw-if-not-resolved=\"false\"></xref> that provides AI tools\nfor all available widget instances registered in the widget registry.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for registering typed action handlers.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.WidgetActionMetadata.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.WidgetActionMetadata.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.WidgetActionMetadata",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.WidgetActionMetadata.yml\" sourcestartlinenumber=\"1\">Default implementation of <xref href=\"BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.WidgetRegistry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.WidgetRegistry.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.WidgetRegistry",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.WidgetRegistry.yml\" sourcestartlinenumber=\"1\">Central registry for widget instances.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.WidgetRegistryExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.WidgetRegistryExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.WidgetRegistryExtensions",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.WidgetRegistryExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for convenient widget registration.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.WidgetSseService.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.WidgetSseService.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.WidgetSseService",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.WidgetSseService.yml\" sourcestartlinenumber=\"1\">Service that manages Server-Sent Events (SSE) subscriptions and publishing\nfor named widget streams. Each connected client receives JSON payloads as\nSSE <code sourcefile=\"api/BbQ.ChatWidgets.Services.WidgetSseService.yml\" sourcestartlinenumber=\"3\">data:</code> messages.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services",
+      "Summary": null
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/ARCHITECTURE.md",
+      "output": {
+        ".html": {
+          "relative_path": "ARCHITECTURE.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/COMPLETE.md",
+      "output": {
+        ".html": {
+          "relative_path": "COMPLETE.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/GETTING_STARTED.md",
+      "output": {
+        ".html": {
+          "relative_path": "GETTING_STARTED.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/QUICK_REFERENCE.md",
+      "output": {
+        ".html": {
+          "relative_path": "QUICK_REFERENCE.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/api/README.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/api/abstractions/README.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/abstractions/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/api/extensions/README.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/extensions/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/api/models/README.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/models/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/api/services/README.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/services/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/contributing/CODE_STYLE.md",
+      "output": {
+        ".html": {
+          "relative_path": "contributing/CODE_STYLE.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/contributing/DEVELOPMENT.md",
+      "output": {
+        ".html": {
+          "relative_path": "contributing/DEVELOPMENT.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/contributing/DOCUMENTATION.md",
+      "output": {
+        ".html": {
+          "relative_path": "contributing/DOCUMENTATION.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/contributing/README.md",
+      "output": {
+        ".html": {
+          "relative_path": "contributing/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/contributing/TESTING.md",
+      "output": {
+        ".html": {
+          "relative_path": "contributing/TESTING.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/design/CONTEXT_WINDOWS.md",
+      "output": {
+        ".html": {
+          "relative_path": "design/CONTEXT_WINDOWS.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/design/POLYMORPHISM.md",
+      "output": {
+        ".html": {
+          "relative_path": "design/POLYMORPHISM.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/design/README.md",
+      "output": {
+        ".html": {
+          "relative_path": "design/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/design/SERIALIZATION.md",
+      "output": {
+        ".html": {
+          "relative_path": "design/SERIALIZATION.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/design/THREAD_MANAGEMENT.md",
+      "output": {
+        ".html": {
+          "relative_path": "design/THREAD_MANAGEMENT.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/examples/ADVANCED_CONFIGURATION.md",
+      "output": {
+        ".html": {
+          "relative_path": "examples/ADVANCED_CONFIGURATION.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/examples/BASIC_SETUP.md",
+      "output": {
+        ".html": {
+          "relative_path": "examples/BASIC_SETUP.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/examples/CUSTOM_IMPLEMENTATION.md",
+      "output": {
+        ".html": {
+          "relative_path": "examples/CUSTOM_IMPLEMENTATION.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/examples/README.md",
+      "output": {
+        ".html": {
+          "relative_path": "examples/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/guides/CONFIGURATION.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/CONFIGURATION.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/guides/CUSTOM_ACTION_HANDLERS.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/CUSTOM_ACTION_HANDLERS.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/guides/CUSTOM_AI_TOOLS.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/CUSTOM_AI_TOOLS.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/guides/CUSTOM_WIDGETS.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/CUSTOM_WIDGETS.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/guides/INSTALLATION.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/INSTALLATION.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/guides/README.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/guides/TYPED_ACTION_HANDLERS.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/TYPED_ACTION_HANDLERS.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs_src/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/widgets/README.md",
+      "output": {
+        ".html": {
+          "relative_path": "widgets/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/widgets/THEME_SWITCHER_QUICK_REFERENCE.md",
+      "output": {
+        ".html": {
+          "relative_path": "widgets/THEME_SWITCHER_QUICK_REFERENCE.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/widgets/THEME_SWITCHER_WIDGET.md",
+      "output": {
+        ".html": {
+          "relative_path": "widgets/THEME_SWITCHER_WIDGET.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/widgets/WIDGET_TYPES.md",
+      "output": {
+        ".html": {
+          "relative_path": "widgets/WIDGET_TYPES.html"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

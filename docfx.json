@@ -1,0 +1,53 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "BbQ.ChatWidgets/bin/Release/net8.0/BbQ.ChatWidgets.dll"
+          ]
+        }
+      ],
+      "dest": "api"
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "src": "docs_src",
+        "files": [
+          "**/*.md",
+          "toc.yml"
+        ]
+      },
+      {
+        "src": "api",
+        "files": [
+          "**/*.yml"
+        ],
+        "exclude": [
+          "toc.yml"
+        ]
+      },
+      {
+        "files": [
+          "README.md",
+          ".github/CONTRIBUTING.md"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "src": "docs_src",
+        "files": [
+          "**/images/**",
+          "**/assets/**"
+        ]
+      }
+    ],
+    "globalMetadata": {
+      "_appTitle": "BbQ.ChatWidgets",
+      "_enableSearch": true
+    }
+  }
+}

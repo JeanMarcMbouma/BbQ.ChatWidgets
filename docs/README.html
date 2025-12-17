@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>BbQ.ChatWidgets | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="BbQ.ChatWidgets | BbQ.ChatWidgets ">
+    
+    
+      <link rel="shortcut icon" href="favicon.ico">
+      <link rel="stylesheet" href="styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="styles/docfx.css">
+      <link rel="stylesheet" href="styles/main.css">
+      <meta property="docfx:navrel" content="toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="index.html">
+                <img id="logo" class="svg" src="logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="bbqchatwidgets">BbQ.ChatWidgets</h1>
+
+<p>A compact library of UI chat widgets and helpers for server and client integrations.</p>
+<p>This repository ships two distributable packages:</p>
+<ul>
+<li>NuGet: <code>BbQ.ChatWidgets</code> (the .NET library: services, renderers, endpoints)</li>
+<li>npm: <code>@bbq-chat/widgets</code> (the JS/TS client library)</li>
+</ul>
+<h2 id="quick-start-aspnet-core">Quick start (ASP.NET Core)</h2>
+<pre><code class="lang-csharp">using BbQ.ChatWidgets;
+
+builder.Services.AddBbQChatWidgets(options =&gt;
+{
+    // configure options (chat client, tools, widgets, etc.)
+});
+
+app.MapBbQChatEndpoints();
+</code></pre>
+<h2 id="install">Install</h2>
+<p>NuGet:</p>
+<pre><code class="lang-powershell">dotnet add [YOUR_PROJECT] package BbQ.ChatWidgets
+</code></pre>
+<p>npm:</p>
+<pre><code class="lang-bash">npm install @bbq-chat/widgets
+</code></pre>
+<h2 id="documentation">Documentation</h2>
+<ul>
+<li>Documentation sources: <a href="index.html">docs_src/index.md</a></li>
+<li>Contributing guide: <a href=".github/CONTRIBUTING.html">.github/CONTRIBUTING.md</a></li>
+</ul>
+<p>Build the docs locally (requires DocFX):</p>
+<pre><code class="lang-powershell">./docs/generate-docs.ps1
+</code></pre>
+<p>Or run DocFX directly:</p>
+<pre><code class="lang-powershell">dotnet build BbQ.ChatWidgets/BbQ.ChatWidgets.csproj -c Release
+docfx metadata docfx.json
+docfx build docfx.json -o docs
+</code></pre>
+<h2 id="tests">Tests</h2>
+<ul>
+<li>.NET: <code>dotnet test</code></li>
+<li>JS/TS: <code>npm test</code> (run from <code>js/</code>)</li>
+</ul>
+<h2 id="license">License</h2>
+<p>See <code>LICENSE</code>.</p>
+<h1 id="bbqchatwidgets-1">BbQ.ChatWidgets</h1>
+<blockquote>
+<p>A compact library of UI chat widgets and helpers for server and client integrations.</p>
+</blockquote>
+<p>This repository contains two distributable packages:</p>
+<ul>
+<li>NuGet: <code>BbQ.ChatWidgets</code> — the .NET library (API, services, renderers).</li>
+<li>npm: <code>@bbq-chat/widgets</code> — the JavaScript/TypeScript client library (widgets, types).</li>
+</ul>
+<p>Installation</p>
+<p>NuGet (C#)</p>
+<pre><code class="lang-powershell">dotnet add [YOUR_PROJECT] package BbQ.ChatWidgets
+</code></pre>
+<p>npm (JS/TS)</p>
+<pre><code class="lang-bash">npm install @bbq-chat/widgets
+# or
+yarn add @bbq-chat/widgets
+</code></pre>
+<p>Quick usage</p>
+<p>C# (basic)</p>
+<pre><code class="lang-csharp">using BbQ.ChatWidgets;
+
+// Example: register services in an ASP.NET Core app
+services.AddBbQChatWidgets(options =&gt; {
+  // configure options
+});
+</code></pre>
+<p>JavaScript / TypeScript (basic)</p>
+<pre><code class="lang-js">import { WidgetRegistry } from '@bbq-chat/widgets';
+
+const registry = new WidgetRegistry();
+// register or render widgets
+</code></pre>
+<p>Documentation</p>
+<p>Generated API and user docs are published to the project's GitHub Pages site and are available under the repository <code>docs/</code> folder when built. See the <code>docs/</code> folder and <code>.github/workflows/docs.yml</code> for how docs are produced.</p>
+<p>Packaging notes</p>
+<ul>
+<li>The root <code>README.md</code> is intentionally small and intended to ship inside NuGet and npm packages as the package README. Keep it compact — use the repository <code>docs/</code> for full reference and guides.</li>
+<li>The repository also contains the full DocFX and TypeDoc configuration used to build the site.</li>
+</ul>
+<p>License</p>
+<p>See the <code>LICENSE</code> file in the repository root for license details.</p>
+<h1 id="bbqchatwidgets-2">BbQ.ChatWidgets</h1>
+<p>Professional documentation has been consolidated into the <code>docs/</code> folder. This repository provides a framework-agnostic widget library for building interactive AI chat UIs.</p>
+<p>Quick links:</p>
+<ul>
+<li>Getting started: <code>docs_src/GETTING_STARTED.md</code></li>
+<li>Architecture: <code>docs_src/ARCHITECTURE.md</code></li>
+<li>API Reference: <code>docs_src/api/README.md</code></li>
+<li>Contributing: <code>CONTRIBUTING.md</code></li>
+</ul>
+<p>To build API documentation (requires DocFX):</p>
+<pre><code class="lang-powershell">dotnet build BbQ.ChatWidgets/BbQ.ChatWidgets.csproj -c Release
+docfx metadata docfx.json
+docfx build docfx.json
+</code></pre>
+<p>If you need the previous markdown content, it has been backed up on the <code>docs-backup-20251213</code> branch.</p>
+<h1 id="bbqchatwidgets-3">BbQ.ChatWidgets</h1>
+<p>BbQ.ChatWidgets is a framework-agnostic widget library for AI chat UIs, built on Microsoft.Extensions.AI.</p>
+<p><strong>Requirements:</strong> Node &gt;= 20, .NET SDK &gt;= 8.0 (use nvm/nvm-windows and official .NET SDK installers).</p>
+<p><strong>Run tests (quick):</strong> .NET: <code>dotnet test</code> (repo root or specific project). JavaScript: <code>npm test</code> in <code>Sample/WebApp/ClientApp</code> (adds vitest script).</p>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>JSON contract for widgets</strong> - Define UI widgets in JSON</li>
+<li><strong>Minimal API endpoints</strong> - Quick setup with automatic endpoints</li>
+<li><strong>JavaScript client with auto-binding</strong> - Frontend-agnostic widget rendering</li>
+<li><strong>LLM tool integration</strong> - Seamless AI model integration</li>
+<li><strong>Localization + theming</strong> - Full i18n and theme support</li>
+</ul>
+<h2 id="quick-start">Quick Start</h2>
+<pre><code class="lang-csharp">builder.Services.AddBbQChatWidgets(options =&gt;
+{
+    // Build an IChatClient and enable function invocation so widgets/tools work.
+    IChatClient openaiClient = new OpenAI.Chat.ChatClient(&quot;gpt-4o-mini&quot;, &quot;API_KEY&quot;).AsIChatClient();
+    IChatClient chatClient = new ChatClientBuilder(openaiClient).UseFunctionInvocation().Build();
+    options.ChatClientFactory = _ =&gt; chatClient;
+});
+app.MapBbQChatEndpoints();
+</code></pre>
+<h2 id="documentation-1">Documentation</h2>
+<p>Complete documentation is available in the <code>/docs</code> folder:</p>
+<ul>
+<li><strong><a href="GETTING_STARTED.html">Getting Started</a></strong> - Get up and running in 5 minutes</li>
+<li><strong><a href="index.html">Master Index</a></strong> - Navigation hub for all documentation</li>
+<li><strong><a href="ARCHITECTURE.html">Architecture Guide</a></strong> - Understand how it works</li>
+<li><strong><a href="QUICK_REFERENCE.html">Quick Reference</a></strong> - Find what you need quickly</li>
+</ul>
+<h2 id="key-concepts">Key Concepts</h2>
+<h3 id="built-in-widgets">Built-in Widgets</h3>
+<table>
+<thead>
+<tr>
+<th>Widget</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Button</strong></td>
+<td>Click actions</td>
+<td>Confirm, Cancel, Submit</td>
+</tr>
+<tr>
+<td><strong>Card</strong></td>
+<td>Rich content display</td>
+<td>Product cards, results</td>
+</tr>
+<tr>
+<td><strong>Input</strong></td>
+<td>Single-line text input</td>
+<td>Inside forms</td>
+</tr>
+<tr>
+<td><strong>TextArea</strong></td>
+<td>Multi-line text input</td>
+<td>Inside forms</td>
+</tr>
+<tr>
+<td><strong>Dropdown</strong></td>
+<td>Selection list</td>
+<td>Inside forms</td>
+</tr>
+<tr>
+<td><strong>MultiSelect</strong></td>
+<td>Multi-choice list</td>
+<td>Inside forms</td>
+</tr>
+<tr>
+<td><strong>Slider</strong></td>
+<td>Range selection</td>
+<td>Inside forms</td>
+</tr>
+<tr>
+<td><strong>Toggle</strong></td>
+<td>Boolean switch</td>
+<td>Inside forms</td>
+</tr>
+<tr>
+<td><strong>DatePicker</strong></td>
+<td>Date selection</td>
+<td>Inside forms</td>
+</tr>
+<tr>
+<td><strong>File Upload</strong></td>
+<td>File handling</td>
+<td>Inside forms</td>
+</tr>
+<tr>
+<td><strong>Form</strong></td>
+<td>Groups input widgets</td>
+<td>Submit/cancel</td>
+</tr>
+<tr>
+<td><strong>Progress Bar</strong></td>
+<td>Progress display</td>
+<td>Loading/status</td>
+</tr>
+<tr>
+<td><strong>Theme Switcher</strong></td>
+<td>Theme selection</td>
+<td>Light/Dark</td>
+</tr>
+</tbody>
+</table>
+<h3 id="architecture-components">Architecture Components</h3>
+<pre><code>User -&gt; ASP.NET Core App -&gt; ChatWidgetService
+                |
+            ChatClient (OpenAI, Claude, etc.)
+            + WidgetToolsProvider
+            + ThreadService
+            + WidgetHintParser
+</code></pre>
+<h2 id="installation">Installation</h2>
+<pre><code class="lang-bash">dotnet add package BbQ.ChatWidgets
+</code></pre>
+<h2 id="usage-example">Usage Example</h2>
+<pre><code class="lang-csharp">// Register services in Program.cs
+var builder = WebApplication.CreateBuilder(args);
+
+var openaiClient = new OpenAI.Chat.ChatClient(
+    modelId: &quot;gpt-4o-mini&quot;,
+    apiKey: &quot;your-api-key&quot;
+).AsIChatClient();
+
+builder.Services.AddBbQChatWidgets(options =&gt;
+{
+    options.ChatClientFactory = sp =&gt; openaiClient;
+});
+
+var app = builder.Build();
+app.MapBbQChatEndpoints();
+app.Run();
+</code></pre>
+<p>Then call from frontend:</p>
+<pre><code class="lang-javascript">// Send message
+const response = await fetch('/api/chat/message', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        message: &quot;What can you help me with?&quot;,
+        threadId: null
+    })
+});
+
+const data = await response.json();
+console.log('Response:', data.content);
+console.log('Widgets:', data.widgets);
+</code></pre>
+<h2 id="learning-paths">Learning Paths</h2>
+<h3 id="-for-users">— For Users</h3>
+<ol>
+<li><a href="GETTING_STARTED.html">Getting Started</a> (5 min)</li>
+<li><a href="guides/INSTALLATION.html">Installation Guide</a></li>
+<li><a href="examples/README.html">Examples</a></li>
+<li><a href="api/README.html">API Reference</a></li>
+</ol>
+<h3 id="-for-developers">— For Developers</h3>
+<ol>
+<li><a href="ARCHITECTURE.html">Architecture Guide</a></li>
+<li><a href="guides/CUSTOM_WIDGETS.html">Custom Widgets</a></li>
+<li><a href="guides/CUSTOM_AI_TOOLS.html">Custom AI Tools</a></li>
+<li><a href="api/README.html">API Reference</a></li>
+</ol>
+<h3 id="-for-contributors">— For Contributors</h3>
+<ol>
+<li><a href="contributing/DEVELOPMENT.html">Development Setup</a></li>
+<li><a href="contributing/CODE_STYLE.html">Code Style</a></li>
+<li><a href="contributing/TESTING.html">Testing Guide</a></li>
+<li><a href="contributing/DOCUMENTATION.html">Documentation Standards</a></li>
+</ol>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><strong>GitHub</strong>: <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets">BbQ.ChatWidgets</a></li>
+<li><strong>NuGet</strong>: <a href="https://www.nuget.org/packages/BbQ.ChatWidgets/">BbQ.ChatWidgets</a></li>
+<li><strong>Issues</strong>: <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/issues">GitHub Issues</a></li>
+<li><strong>Discussions</strong>: <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/discussions">GitHub Discussions</a></li>
+</ul>
+<h2 id="license-1">License</h2>
+<p>MIT License - See LICENSE file in root</p>
+<h2 id="contributing">Contributing</h2>
+<p>We welcome contributions! See <a href=".github/CONTRIBUTING.html">CONTRIBUTING.md</a> for guidelines.</p>
+<hr>
+<p><strong>Ready to get started?</strong> <a href="GETTING_STARTED.html">Getting Started Guide</a></p>
+<p><strong>Need help?</strong> <a href="index.html">Documentation Index</a></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/README.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>

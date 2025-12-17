@@ -1,3 +1,11 @@
 # Typed Action Handlers
 
-Use strongly typed `IWidgetActionMetadata` implementations when you expect structured payloads. Register them with the resolver so handlers can be resolved by name.
+Use strongly typed payloads by implementing `IWidgetAction<TPayload>` and a matching `IActionWidgetActionHandler<TAction,TPayload>`.
+
+This is the pattern used by the samples (e.g., `GreetingAction : IWidgetAction<GreetingPayload>`).
+
+Register via:
+
+```csharp
+actionRegistry.RegisterHandler<GreetingAction, GreetingPayload, GreetingHandler>(handlerResolver);
+```

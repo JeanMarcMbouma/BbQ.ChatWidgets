@@ -1,6 +1,10 @@
+---
+title: BbQ.ChatWidgets Documentation
+---
+
 # Documentation Index
 
-Welcome to the BbQ.ChatWidgets documentation hub. This site consolidates high-level guidance, deep-dive architecture notes, and generated API reference for both the .NET SDK and JavaScript client.
+Welcome to the BbQ.ChatWidgets documentation hub.
 
 ## Navigation
 
@@ -13,3 +17,4 @@ Welcome to the BbQ.ChatWidgets documentation hub. This site consolidates high-le
 - [Contributing](contributing/README.md)
 - [API Reference](api/README.md)
 - [Quick Reference](QUICK_REFERENCE.md)
+

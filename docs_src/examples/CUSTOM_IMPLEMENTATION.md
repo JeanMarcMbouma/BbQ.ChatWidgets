@@ -1,3 +1,6 @@
 # Custom Implementation Example
 
-Illustrates combining streaming responses, SSE, and custom widgets to power a full conversational UI experience.
+Illustrates combining streaming endpoints and server-pushed widget updates:
+
+- `POST /api/chat/stream/message` (SSE stream of chat turns)
+- `GET|POST /api/chat/widgets/streams/{streamId}/events` (widget SSE subscribe/publish)

@@ -143,5 +143,5 @@ public sealed class BbQChatOptions
     /// <remarks>
     /// This action allows customizing the widget action registry during the chat options configuration.
     /// </remarks>
-    public Action<IServiceProvider, IWidgetActionRegistry>? WidgetActionRegistryFactory { get; set; }
+    public Action<IServiceProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver>? WidgetActionRegistryFactory { get; set; }
 }

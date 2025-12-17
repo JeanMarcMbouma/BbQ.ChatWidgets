@@ -80,10 +80,8 @@ internal class Program
             {
                 bbqOptions.RoutePrefix = """/api/chat""";
                 bbqOptions.ChatClientFactory = sp => client;
-                bbqOptions.WidgetActionRegistryFactory = (sp, registry) =>
+                bbqOptions.WidgetActionRegistryFactory = (sp, registry, handlerResolver) =>
                 {
-                    var handlerResolver = sp.GetRequiredService<IWidgetActionHandlerResolver>();
-
                     // Register greeting action
                     registry.RegisterHandler<GreetingAction, GreetingPayload, GreetingHandler>(handlerResolver);
 

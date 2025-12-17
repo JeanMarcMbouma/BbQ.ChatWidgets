@@ -95,7 +95,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IWidgetActionRegistry>(sp =>
         {
             var registry = sp.GetRequiredService<WidgetActionRegistry>();
-            options.WidgetActionRegistryFactory?.Invoke(sp, registry);
+            var handlerResolver = sp.GetRequiredService<IWidgetActionHandlerResolver>();
+            options.WidgetActionRegistryFactory?.Invoke(sp, registry, handlerResolver);
             return registry;
         });
 

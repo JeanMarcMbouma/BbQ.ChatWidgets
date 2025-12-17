@@ -64,10 +64,8 @@ services.AddBbQChatWidgets(bbqOptions =>
         // Specify a stream ID so the widget knows which SSE stream to subscribe to on the client.
         registry.Register(new ClockWidget("Server Clock", "clock_tick", null, "default-stream"), "clock");
     };
-    bbqOptions.WidgetActionRegistryFactory = (sp, actionRegistry) =>
+    bbqOptions.WidgetActionRegistryFactory = (sp, actionRegistry, handlerResolver) =>
     {
-
-        var handlerResolver = sp.GetRequiredService<IWidgetActionHandlerResolver>();
 
         // Register greeting action
         actionRegistry.RegisterHandler<GreetingAction, GreetingPayload, GreetingHandler>(handlerResolver);

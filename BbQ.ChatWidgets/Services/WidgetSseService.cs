@@ -112,24 +112,23 @@ public sealed class WidgetSseService : IWidgetSseService
             // Take a snapshot to avoid issues if bag is modified
             var writers = bag.ToList();
             
-            foreach (var w in writers)
+            // Identify writers that failed synchronous write and need async fallback
+            var failedWriters = writers.Where(w => !w.TryWrite(json)).ToList();
+            
+            // Handle failed writes asynchronously
+            foreach (var w in failedWriters)
             {
-                // best-effort write - attempt to write synchronously
-                if (!w.TryWrite(json))
+                _ = Task.Run(async () =>
                 {
-                    // If synchronous write fails, attempt asynchronously
-                    _ = Task.Run(async () =>
+                    try
                     {
-                        try
-                        {
-                            await w.WriteAsync(json);
-                        }
-                        catch
-                        {
-                            // ignore - subscriber is unresponsive
-                        }
-                    });
-                }
+                        await w.WriteAsync(json);
+                    }
+                    catch
+                    {
+                        // ignore - subscriber is unresponsive
+                    }
+                });
             }
         }
         finally

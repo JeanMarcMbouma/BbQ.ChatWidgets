@@ -3,11 +3,14 @@
 
 <div class="bbq-widget bbq-datepicker-widget">
     <label class="bbq-datepicker-label">@Widget?.Label</label>
-    <input 
-        type="date" 
-        class="bbq-datepicker-input"
-        @bind="dateValue"
-        @onchange="HandleChange" />
+    <input type="date"
+           class="bbq-datepicker-input"
+           @bind:get="dateValue"
+           @bind:set="HandleChange"
+           min="@minDate"
+           max="@maxDate"
+           @bind:event="oninput" 
+           @bind:format="dd-MMM-yyyy"/>
 </div>
 
 @code {
@@ -17,15 +20,32 @@
     [Parameter]
     public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
 
-    private string dateValue = string.Empty;
+    private DateTime? dateValue = null;
+    private DateTime? minDate = null;
+    private DateTime? maxDate = null;
 
-    private async Task HandleChange(ChangeEventArgs e)
+    private async Task HandleChange(DateTime? e)
     {
-        dateValue = e.Value?.ToString() ?? string.Empty;
-        if (Widget != null && !string.IsNullOrEmpty(dateValue))
+        dateValue = e;
+        if (Widget != null && dateValue.HasValue)
         {
             var payload = new { value = dateValue };
             await OnAction.InvokeAsync((Widget.Action, payload));
+        }
+    }
+
+    override protected void OnParametersSet()
+    {
+        if (Widget != null)
+        {
+            if(!string.IsNullOrEmpty(Widget.MinDate) && DateTime.TryParse(Widget.MinDate, out var min))
+            {
+                minDate = min;
+            }
+            if(!string.IsNullOrEmpty(Widget.MaxDate) && DateTime.TryParse(Widget.MaxDate, out var max))
+            {
+                maxDate = max;
+            }
         }
     }
 }

@@ -200,8 +200,12 @@
             // Send to backend for streaming
             var baseUri = NavigationManager.BaseUri.TrimEnd('/');
             var response = await HttpClient.PostAsJsonAsync(
-                $"{baseUri}/api/chat/stream/message?threadId={threadId}&message={Uri.EscapeDataString(messageToSend)}", 
-                new { }
+                $"{baseUri}/api/chat/stream/message",
+                new
+                {
+                    threadId,
+                    message = messageToSend
+                }
             );
 
             if (response.IsSuccessStatusCode)
@@ -244,11 +248,11 @@
                     
                     try
                     {
-                        var delta = System.Text.Json.JsonSerializer.Deserialize<StreamChatTurn>(jsonData);
+                        var delta = System.Text.Json.JsonSerializer.Deserialize<StreamChatTurn>(jsonData, BbQ.ChatWidgets.Models.Serialization.Default);
                         
                         if (delta?.Content != null)
                         {
-                            accumulator += delta.Content;
+                            accumulator = delta.Content;
                             // Update the streaming turn's content
                             var updatedTurn = new ChatTurn(
                                 streamingTurn.Role,

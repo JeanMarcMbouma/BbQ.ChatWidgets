@@ -4,11 +4,9 @@
 
 <div class="bbq-widget bbq-fileupload-widget">
     <label class="bbq-fileupload-label">@Widget?.Label</label>
-    <input 
-        type="file" 
-        class="bbq-fileupload-input"
-        accept="@(Widget?.Accept ?? string.Empty)"
-        @onchange="HandleFileSelect" />
+    <InputFile OnChange="@HandleFileSelect" type="file"
+               class="bbq-fileupload-input"
+               accept="@(Widget?.Accept ?? string.Empty)" />
 </div>
 
 @code {

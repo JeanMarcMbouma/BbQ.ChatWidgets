@@ -404,6 +404,58 @@ input[type="file"].bbq-file {
     font-weight: 500;
 }
 
+/* Theme Switcher Widget */
+.bbq-theme-switcher-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.bbq-theme-switcher-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.bbq-theme-switcher-option {
+    flex: 1;
+    min-width: 80px;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    background-color: white;
+    color: #1f2937;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+    letter-spacing: 0.3px;
+}
+
+.bbq-theme-switcher-option:hover {
+    border-color: #9ca3af;
+    background-color: #f9fafb;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bbq-theme-switcher-option.active {
+    background-color: #1f2937;
+    color: white;
+    border-color: #1f2937;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.bbq-theme-switcher-option:focus-visible {
+    outline: 2px solid #1f2937;
+    outline-offset: 2px;
+}
+
 /* Responsive Styles */
 @media (max-width: 768px) {
     .bbq-widget {
@@ -442,6 +494,24 @@ input[type="file"].bbq-file {
 
     .bbq-form-button {
         width: 100%;
+    }
+}
+
+@media (max-width: 640px) {
+    .bbq-button,
+    button.bbq-button {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .bbq-card {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    .bbq-theme-switcher-option {
+        flex: 0 1 calc(50% - 4px);
+        min-width: unset;
     }
 }
 
@@ -625,19 +695,6 @@ input[type="file"].bbq-file {
     opacity: 0.5;
     cursor: not-allowed;
     transform: none;
-}
-
-@media (max-width: 640px) {
-    .bbq-button,
-    button.bbq-button {
-        padding: 10px 12px;
-        font-size: 13px;
-    }
-
-    .bbq-card {
-        padding: 12px;
-        margin-bottom: 12px;
-    }
 }
 
 /* Accessibility */

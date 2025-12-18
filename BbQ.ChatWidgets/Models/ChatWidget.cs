@@ -29,7 +29,14 @@ public abstract record ChatWidget(
     /// </summary>
     string Action)
 {
-    [JsonIgnore]
+
+    /// <summary>
+    /// Describes the purpose and usage of this widget.
+    /// </summary>
+    /// <remarks>
+    /// This property provides a brief description of the widget's functionality and intended use cases.
+    /// </remarks>
+    [JsonIgnore] 
     public abstract string Purpose { get; }
 }
 
@@ -533,6 +540,21 @@ public sealed record ProgressBarWidget(
         """;
 }
 
+/// <summary>
+/// Represents a composite form widget used to collect structured input from users, including multiple fields and
+/// associated actions such as submit and cancel.
+/// </summary>
+/// <remarks>Use the FormWidget when you need to gather multiple pieces of structured data from a user in a single
+/// interaction. Each form must define its fields and include both submit and cancel actions to ensure proper handling
+/// of user input. The widget supports various field types and validation options, allowing for flexible form
+/// design.</remarks>
+/// <param name="Title">The title displayed at the top of the form. Cannot be null.</param>
+/// <param name="Action">The identifier for the form's primary action, typically used to distinguish the form submission event. Cannot be
+/// null.</param>
+/// <param name="Fields">A read-only list of form fields that define the structure and input elements of the form. Each field specifies its
+/// name, label, type, and optional validation rules. Cannot be null or empty.</param>
+/// <param name="Actions">A read-only list of actions available for the form, such as submit and cancel. Must include at least both a submit
+/// and a cancel action. Cannot be null or contain fewer than two actions.</param>
 public record FormWidget(
     string Title,
     string Action,
@@ -591,6 +613,16 @@ public record FormWidget(
         """;
 }
 
+/// <summary>
+/// Represents a field definition for a form, including metadata such as name, label, type, and validation requirements.
+/// </summary>
+/// <param name="Name">The unique identifier for the form field. Used to reference the field in form data and processing.</param>
+/// <param name="Label">The display label for the form field, shown to users in the form UI.</param>
+/// <param name="Type">The type of widget or input control to use for the field, such as 'text', 'checkbox', or other supported types.</param>
+/// <param name="Required">A value indicating whether the field is required for form submission. Set to <see langword="true"/> if the field
+/// must be provided; otherwise, <see langword="false"/>.</param>
+/// <param name="ValidationHint">An optional hint or message to assist users in providing valid input for the field. Can be <see langword="null"/> if
+/// no hint is provided.</param>
 public record FormField(
     string Name,
     string Label,
@@ -599,6 +631,12 @@ public record FormField(
     string? ValidationHint = null
 );
 
+/// <summary>
+/// Represents an action that can be performed on a form, such as submitting or canceling.
+/// </summary>
+/// <param name="Type">The type of action to perform. Common values include "submit" and "cancel". This value determines the behavior
+/// associated with the form action.</param>
+/// <param name="Label">The display label for the action, typically shown on a button or user interface element.</param>
 public record FormAction(
     string Type,          // "submit" or "cancel"
     string Label

@@ -551,6 +551,63 @@ input[type="file"].bbq-file {
     transform: none;
 }
 
+/* Theme Switcher Widget */
+.bbq-theme-switcher-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+.bbq-theme-switcher-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.bbq-theme-switcher-option {
+    flex: 1;
+    min-width: 80px;
+    padding: 8px 12px;
+    border: 2px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: white;
+    color: #2c3e50;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+}
+
+.bbq-theme-switcher-option:hover {
+    border-color: #94a3b8;
+    background-color: #f8fafc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bbq-theme-switcher-option.active {
+    background-color: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.bbq-theme-switcher-option:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* Responsive Theme Switcher */
+@media (max-width: 640px) {
+    .bbq-theme-switcher-option {
+        flex: 0 1 calc(50% - 4px);
+        min-width: unset;
+    }
+}
+
 /* Responsive Styles */
 @media (max-width: 640px) {
     .bbq-widget {

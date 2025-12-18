@@ -1,13 +1,22 @@
-@using BbQ.ChatWidgets.Sample.Shared
+﻿@using BbQ.ChatWidgets.Sample.Shared
 @using Microsoft.AspNetCore.Components
+@using Microsoft.JSInterop
+@implements IAsyncDisposable
+@inject IJSRuntime JS
 
-<div class="widget weather-widget" data-widget-type="weather" data-action="@Widget.Action" data-stream-id="@Widget.StreamId">
+<div class="widget weather-widget" 
+     data-widget-type="weather" 
+     data-action="@Widget?.Action" 
+     data-stream-id="@(Widget?.StreamId ?? "weather-stream")" 
+     data-city="@(Widget?.City ?? "London")"
+     data-auto-start="true"
+     @ref="widgetElement">
     <div class="weather-display">
-        <div class="weather-label">@Widget.Label</div>
-        <div class="weather-city" id="weather-city-@WeatherId">@Widget.City</div>
+        <div class="weather-label">@Widget?.Label</div>
+        <div class="weather-city" id="weather-city-@WeatherId">--</div>
         <div class="weather-info">
-            <div class="weather-condition" id="weather-condition-@WeatherId">--</div>
-            <div class="weather-temp" id="weather-temp-@WeatherId">--°C</div>
+            <div class="weather-condition" id="weather-condition-@WeatherId">Loading...</div>
+            <div class="weather-temp" id="weather-temp-@WeatherId">--&#176;C</div>
         </div>
         <div class="weather-details">
             <div class="detail-item">
@@ -16,20 +25,140 @@
             </div>
             <div class="detail-item">
                 <span class="detail-label">Wind</span>
-                <span class="detail-value" id="weather-wind-@WeatherId">-- m/s</span>
+                <span class="detail-value" id="weather-wind-@WeatherId">--</span>
             </div>
         </div>
+        @if (IsConnected)
+        {
+            <div class="weather-status">● Live</div>
+        }
     </div>
 </div>
 
 @code {
-    private string WeatherId => System.Guid.NewGuid().ToString().Substring(0, 8);
+    private string WeatherId { get; set; } = System.Guid.NewGuid().ToString().Substring(0, 8);
+    private ElementReference widgetElement;
+    private IJSObjectReference? sseModule;
+    private bool IsConnected { get; set; }
 
     [Parameter]
     public WeatherWidget? Widget { get; set; }
 
     [Parameter]
     public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && Widget?.StreamId is not null)
+        {
+            try
+            {
+                Console.WriteLine($"[Weather] Initializing widget - ID: {WeatherId}, Stream: {Widget.StreamId}, City: {Widget.City ?? "London"}");
+                
+                // Load the JavaScript module for SSE handling
+                sseModule = await JS.InvokeAsync<IJSObjectReference>(
+                    "import", "./js/weather-widget.js");
+                
+                Console.WriteLine($"[Weather] SSE module loaded");
+                
+                // FIRST: Initialize the weather widget with SSE subscription (BEFORE starting the server)
+                // This ensures the EventSource is listening before the server starts publishing
+                await sseModule.InvokeVoidAsync(
+                    "initializeWeatherWidget",
+                    WeatherId,
+                    Widget.StreamId,
+                    Widget.City ?? "London",
+                    DotNetObjectReference.Create(this));
+                
+                Console.WriteLine($"[Weather] SSE subscription initialized");
+                
+                // SECOND: Give the EventSource a moment to establish the connection
+                await Task.Delay(100);
+                
+                // THIRD: Now trigger the server weather publisher to start publishing
+                if (Widget?.StreamId is not null)
+                {
+                    try
+                    {
+                        Console.WriteLine($"[Weather] Starting server weather publisher for stream: {Widget.StreamId}");
+                        
+                        var fetchModule = await JS.InvokeAsync<IJSObjectReference>(
+                            "import", "./js/fetch-helper.js");
+						
+                        var url = $"/sample/weather/{Uri.EscapeDataString(Widget.StreamId)}/start";
+                        if (!string.IsNullOrEmpty(Widget.City))
+                        {
+                            url += $"?city={Uri.EscapeDataString(Widget.City)}";
+                        }
+                        
+                        await fetchModule.InvokeVoidAsync("fetchPost", url);
+                        
+                        Console.WriteLine($"[Weather] Server weather publisher start request sent");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"[Weather] Error starting server weather publisher: {ex.Message}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"[Weather] Failed to initialize weather widget: {ex.Message}");
+                Console.Error.WriteLine($"[Weather] Stack trace: {ex.StackTrace}");
+            }
+        }
+        
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// Called from JavaScript when the SSE connection is established
+    /// </summary>
+    [JSInvokable]
+    public async Task OnConnectionEstablished()
+    {
+        Console.WriteLine($"[Weather] Connection established - ID: {WeatherId}");
+        IsConnected = true;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary>
+    /// Called from JavaScript when the SSE connection is lost
+    /// </summary>
+    [JSInvokable]
+    public async Task OnConnectionClosed()
+    {
+        Console.WriteLine($"[Weather] Connection closed - ID: {WeatherId}");
+        IsConnected = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary>
+    /// Called from JavaScript when weather data is received via SSE
+    /// </summary>
+    [JSInvokable]
+    public async Task OnWeatherUpdate(string city, string condition, int temperature, int humidity, string windDirection, int windSpeed)
+    {
+        Console.WriteLine($"[Weather] Weather update received - City: {city}, Condition: {condition}, Temp: {temperature}°C");
+        await Task.CompletedTask;
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (sseModule is not null)
+        {
+            try
+            {
+                // Close the SSE connection when component is disposed
+                await sseModule.InvokeVoidAsync("closeWeatherStream", WeatherId);
+            }
+            catch { }
+            finally
+            {
+                await sseModule.DisposeAsync();
+            }
+        }
+    }
 }
 
 <style>
@@ -40,10 +169,19 @@
     border-radius: 8px;
     color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.weather-widget:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .weather-display {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .weather-label {
@@ -57,6 +195,8 @@
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 10px;
+    min-height: 25px;
+    transition: opacity 0.2s ease;
 }
 
 .weather-info {
@@ -67,11 +207,15 @@
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 5px;
+    min-height: 20px;
+    transition: opacity 0.2s ease;
 }
 
 .weather-temp {
     font-size: 28px;
     font-weight: 700;
+    min-height: 35px;
+    transition: opacity 0.2s ease;
 }
 
 .weather-details {
@@ -97,5 +241,25 @@
 .detail-value {
     font-size: 14px;
     font-weight: 600;
+    min-height: 20px;
+    transition: opacity 0.2s ease;
+}
+
+.weather-status {
+    font-size: 11px;
+    opacity: 0.7;
+    margin-top: 6px;
+    letter-spacing: 1px;
+    animation: pulse-animation 1s infinite;
+}
+
+@@-webkit-keyframes pulse-animation {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+@@keyframes pulse-animation {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
 }
 </style>

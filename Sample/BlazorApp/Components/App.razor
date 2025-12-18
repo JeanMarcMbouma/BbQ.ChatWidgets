@@ -19,11 +19,18 @@
     <Routes />
     <script src="_framework/blazor.web.js"></script>
     <script type="module">
-        import { initializeTheme } from '_content/BbQ.ChatWidgets.Blazor/js/theme-switcher.js';
+        import { applyThemeClass, initializeTheme } from '/js/theme-interop.js';
+        import { switchTheme } from './_content/BbQ.ChatWidgets.Blazor/js/theme-switcher.js';
+        
+        // Expose functions globally for Blazor interop
+        window.applyThemeClass = applyThemeClass;
+        window.switchTheme = switchTheme;
         
         // Wait for page to be fully ready before initializing theme
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initializeTheme);
+            document.addEventListener('DOMContentLoaded', () => {
+                initializeTheme();
+            });
         } else {
             initializeTheme();
         }

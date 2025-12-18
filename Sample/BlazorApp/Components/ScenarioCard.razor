@@ -21,12 +21,13 @@
 
 <style>
 .scenario-card {
-    background: white;
+    background: var(--color-bg-secondary);
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     text-align: center;
+    border: 1px solid var(--color-border-light);
 }
 
 .scenario-card:hover {
@@ -41,13 +42,13 @@
 
 .scenario-card h3 {
     margin: 12px 0;
-    color: #333;
+    color: var(--color-text-primary);
     font-size: 1.2rem;
 }
 
 .scenario-card p {
     margin: 12px 0 16px;
-    color: #666;
+    color: var(--color-text-secondary);
     font-size: 0.95rem;
     line-height: 1.5;
 }
@@ -57,7 +58,7 @@
     padding: 8px 16px;
     border: none;
     border-radius: 4px;
-    background: #0366d6;
+    background: var(--color-accent);
     color: white;
     cursor: pointer;
     font-weight: 500;
@@ -65,6 +66,6 @@
 }
 
 .scenario-card .btn:hover {
-    background: #0256c0;
+    background: var(--color-accent-hover);
 }
 </style>

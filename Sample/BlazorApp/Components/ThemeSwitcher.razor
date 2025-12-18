@@ -46,6 +46,16 @@
         await ThemeService.SetThemeAsync(newTheme);
         CurrentTheme = newTheme;
 
+        // Apply theme class to document root
+        try
+        {
+            await JS.InvokeVoidAsync("updateThemeClasses", newTheme);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Failed to apply theme class: {ex.Message}");
+        }
+
         // Switch the CSS file dynamically
         if (module is not null)
         {
@@ -104,46 +114,33 @@
         align-items: center;
         gap: 8px;
         padding: 8px 12px;
-        background-color: #f5f5f5;
+        background-color: var(--color-bg-secondary);
         border-radius: 4px;
     }
 
     .theme-switcher label {
         font-weight: 500;
-        color: #333;
+        color: var(--color-text-primary);
         margin: 0;
     }
 
     .theme-switcher select {
         padding: 6px 8px;
-        border: 1px solid #ddd;
+        border: 1px solid var(--color-border);
         border-radius: 4px;
-        background-color: white;
+        background-color: var(--color-input-bg);
+        color: var(--color-text-primary);
         cursor: pointer;
         font-size: 14px;
     }
 
     .theme-switcher select:hover {
-        border-color: #999;
+        border-color: var(--color-accent);
     }
 
     .theme-switcher select:focus {
         outline: none;
-        border-color: #0066cc;
-        box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
-    }
-
-    :global(.theme-dark) .theme-switcher {
-        background-color: #1e293b;
-    }
-
-    :global(.theme-dark) .theme-switcher label {
-        color: #e2e8f0;
-    }
-
-    :global(.theme-dark) .theme-switcher select {
-        background-color: #0f172a;
-        color: #e2e8f0;
-        border-color: #475569;
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 3px var(--color-focus-ring);
     }
 </style>

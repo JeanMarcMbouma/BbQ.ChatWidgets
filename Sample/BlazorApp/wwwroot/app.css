@@ -4,11 +4,75 @@
     box-sizing: border-box;
 }
 
+/* Light Theme (Default) */
+:root {
+    --color-bg-primary: #f5f5f5;
+    --color-bg-secondary: #ffffff;
+    --color-text-primary: #333333;
+    --color-text-secondary: #666666;
+    --color-border: #dddddd;
+    --color-border-light: #e0e0e0;
+    --color-accent: #667eea;
+    --color-accent-hover: #5568d3;
+    --color-accent-gradient: linear-gradient(135deg, #667eea, #764ba2);
+    --color-message-user-bg: linear-gradient(135deg, #667eea, #764ba2);
+    --color-message-assistant-bg: #f5f5f5;
+    --color-header-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --color-card-bg: #f5f5f5;
+    --color-card-hover-bg: #e8e8e8;
+    --color-input-bg: #ffffff;
+    --color-input-border: #dddddd;
+    --color-focus-ring: rgba(102, 126, 234, 0.1);
+}
+
+/* Dark Theme */
+:global(.theme-dark) {
+    --color-bg-primary: #0f172a;
+    --color-bg-secondary: #1e293b;
+    --color-text-primary: #f1f5f9;
+    --color-text-secondary: #cbd5e1;
+    --color-border: #334155;
+    --color-border-light: #475569;
+    --color-accent: #8b5cf6;
+    --color-accent-hover: #a78bfa;
+    --color-accent-gradient: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    --color-message-user-bg: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    --color-message-assistant-bg: #1e293b;
+    --color-header-gradient: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    --color-card-bg: #334155;
+    --color-card-hover-bg: #475569;
+    --color-input-bg: #0f172a;
+    --color-input-border: #475569;
+    --color-focus-ring: rgba(139, 92, 246, 0.2);
+}
+
+/* Corporate Theme */
+:global(.theme-corporate) {
+    --color-bg-primary: #f9fafb;
+    --color-bg-secondary: #ffffff;
+    --color-text-primary: #1f2937;
+    --color-text-secondary: #6b7280;
+    --color-border: #d1d5db;
+    --color-border-light: #e5e7eb;
+    --color-accent: #1f2937;
+    --color-accent-hover: #111827;
+    --color-accent-gradient: linear-gradient(135deg, #1f2937, #111827);
+    --color-message-user-bg: linear-gradient(135deg, #1f2937, #111827);
+    --color-message-assistant-bg: #f3f4f6;
+    --color-header-gradient: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    --color-card-bg: #f9fafb;
+    --color-card-hover-bg: #f3f4f6;
+    --color-input-bg: #ffffff;
+    --color-input-border: #d1d5db;
+    --color-focus-ring: rgba(31, 41, 55, 0.1);
+}
+
 html, body {
     height: 100%;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {
@@ -28,7 +92,7 @@ body {
 
 .bbq-button {
     padding: 0.5rem 1rem;
-    background-color: #667eea;
+    background-color: var(--color-accent);
     color: white;
     border: none;
     border-radius: 0.375rem;
@@ -39,7 +103,7 @@ body {
 }
 
 .bbq-button:hover {
-    background-color: #5568d3;
+    background-color: var(--color-accent-hover);
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 }
@@ -49,7 +113,7 @@ body {
 }
 
 .bbq-card {
-    background: white;
+    background: var(--color-bg-secondary);
     border-radius: 0.5rem;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -75,11 +139,11 @@ body {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #333;
+    color: var(--color-text-primary);
 }
 
 .bbq-card-description {
-    color: #666;
+    color: var(--color-text-secondary);
     font-size: 0.95rem;
     margin-bottom: 1rem;
 }
@@ -87,7 +151,7 @@ body {
 .bbq-card-button {
     width: 100%;
     padding: 0.75rem;
-    background-color: #667eea;
+    background-color: var(--color-accent);
     color: white;
     border: none;
     border-radius: 0.375rem;
@@ -97,7 +161,7 @@ body {
 }
 
 .bbq-card-button:hover {
-    background-color: #5568d3;
+    background-color: var(--color-accent-hover);
 }
 
 .bbq-input,
@@ -105,10 +169,12 @@ body {
 .bbq-dropdown {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-input-border);
     border-radius: 0.375rem;
     font-size: 1rem;
     font-family: inherit;
+    background-color: var(--color-input-bg);
+    color: var(--color-text-primary);
     transition: border-color 0.2s ease;
 }
 
@@ -116,8 +182,8 @@ body {
 .bbq-textarea:focus,
 .bbq-dropdown:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
 }
 
 .bbq-input-label,
@@ -126,7 +192,7 @@ body {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
-    color: #333;
+    color: var(--color-text-primary);
 }
 
 .bbq-slider-container {
@@ -143,7 +209,7 @@ body {
     min-width: 3rem;
     text-align: right;
     font-weight: 600;
-    color: #667eea;
+    color: var(--color-accent);
 }
 
 .bbq-toggle-label {
@@ -163,7 +229,7 @@ body {
 .bbq-toggle-slider {
     width: 2.5rem;
     height: 1.25rem;
-    background-color: #ddd;
+    background-color: var(--color-border);
     border-radius: 0.625rem;
     position: relative;
     transition: background-color 0.3s ease;
@@ -174,7 +240,7 @@ body {
     position: absolute;
     width: 1.15rem;
     height: 1.15rem;
-    background-color: white;
+    background-color: var(--color-bg-secondary);
     border-radius: 50%;
     top: 0.05rem;
     left: 0.05rem;
@@ -182,7 +248,7 @@ body {
 }
 
 .bbq-toggle-input:checked + .bbq-toggle-slider {
-    background-color: #667eea;
+    background-color: var(--color-accent);
 }
 
 .bbq-toggle-input:checked + .bbq-toggle-slider::after {
@@ -191,14 +257,14 @@ body {
 
 .bbq-progressbar-container {
     width: 100%;
-    background-color: #e0e0e0;
+    background-color: var(--color-border);
     border-radius: 0.375rem;
     overflow: hidden;
     height: 2rem;
 }
 
 .bbq-progressbar {
-    background: linear-gradient(90deg, #667eea, #764ba2);
+    background: var(--color-accent-gradient);
     height: 100%;
     display: flex;
     align-items: center;
@@ -210,7 +276,7 @@ body {
 }
 
 .bbq-form {
-    background: white;
+    background: var(--color-bg-secondary);
     border-radius: 0.5rem;
     padding: 1.5rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -220,7 +286,7 @@ body {
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
-    color: #333;
+    color: var(--color-text-primary);
 }
 
 .bbq-form-fields {
@@ -239,14 +305,16 @@ body {
     display: block;
     width: 100%;
     padding: 1rem;
-    border: 2px dashed #ddd;
+    border: 2px dashed var(--color-input-border);
     border-radius: 0.375rem;
     cursor: pointer;
     transition: border-color 0.2s ease;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
 }
 
 .bbq-fileupload-input:hover {
-    border-color: #667eea;
+    border-color: var(--color-accent);
 }
 
 .bbq-multiselect-container {
@@ -261,6 +329,7 @@ body {
     gap: 0.75rem;
     cursor: pointer;
     user-select: none;
+    color: var(--color-text-primary);
 }
 
 .bbq-multiselect-option input[type="checkbox"] {
@@ -270,8 +339,10 @@ body {
 .bbq-datepicker-input {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--color-input-border);
     border-radius: 0.375rem;
+    background-color: var(--color-input-bg);
+    color: var(--color-text-primary);
 }
 
 /* Chat Container Styles */
@@ -279,7 +350,7 @@ body {
     display: flex;
     flex-direction: column;
     flex: 1;
-    background: white;
+    background: var(--color-bg-secondary);
 }
 
 .bbq-chat-messages {
@@ -312,7 +383,7 @@ body {
 
 .bbq-message-user {
     align-self: flex-end;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: var(--color-message-user-bg);
     color: white;
     border-radius: 0.75rem 0.75rem 0 0.75rem;
     padding: 0.75rem 1rem;
@@ -320,7 +391,8 @@ body {
 
 .bbq-message-assistant {
     align-self: flex-start;
-    background-color: #f5f5f5;
+    background-color: var(--color-message-assistant-bg);
+    color: var(--color-text-primary);
     border-radius: 0.75rem 0.75rem 0.75rem 0;
     padding: 0.75rem 1rem;
 }
@@ -343,15 +415,15 @@ body {
     justify-content: center;
     gap: 0.75rem;
     padding: 1rem;
-    color: #666;
+    color: var(--color-text-secondary);
     font-size: 0.95rem;
 }
 
 .bbq-spinner {
     width: 24px;
     height: 24px;
-    border: 3px solid #f3f3f3;
-    border-top: 3px solid #667eea;
+    border: 3px solid var(--color-border);
+    border-top: 3px solid var(--color-accent);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -359,4 +431,177 @@ body {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/* Home Page Styles */
+.home-page {
+    background-color: var(--color-bg-primary);
+    min-height: 100vh;
+}
+
+.header {
+    padding: 3rem 2rem;
+    background: var(--color-header-gradient);
+    color: white;
+    text-align: center;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.tagline {
+    margin: 0.5rem 0 0 0;
+    font-size: 1.1rem;
+    opacity: 0.95;
+}
+
+.intro-section {
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 2rem auto;
+    background-color: var(--color-bg-secondary);
+    border-radius: 8px;
+}
+
+.intro-section h2 {
+    font-size: 2rem;
+    margin: 0 0 1rem 0;
+    color: var(--color-text-primary);
+}
+
+.intro-section > p {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.feature {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.feature .icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.feature h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--color-text-primary);
+}
+
+.feature p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+}
+
+.scenarios-section {
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+}
+
+.scenarios-section h2 {
+    font-size: 2rem;
+    margin: 0 0 1rem 0;
+    color: var(--color-text-primary);
+}
+
+.section-intro {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 2rem;
+}
+
+.scenarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.documentation-section {
+    padding: 3rem 2rem;
+    background-color: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border-light);
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.documentation-section h2 {
+    font-size: 1.8rem;
+    margin: 0 0 2rem 0;
+    color: var(--color-text-primary);
+}
+
+.docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.doc-card {
+    background: var(--color-card-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    border: 1px solid var(--color-border-light);
+}
+
+.doc-card:hover {
+    background: var(--color-card-hover-bg);
+    transform: translateY(-2px);
+}
+
+.doc-card h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--color-text-primary);
+}
+
+.doc-card p {
+    margin: 0 0 1rem 0;
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+}
+
+.doc-card a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.doc-card a:hover {
+    color: var(--color-accent-hover);
+}
+
+/* Theme Transition */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.bbq-widget,
+.bbq-button,
+.bbq-card,
+.bbq-input,
+.bbq-textarea,
+.bbq-dropdown,
+.bbq-toggle-slider,
+.bbq-progressbar-container,
+.bbq-form,
+.bbq-chat-container,
+.bbq-spinner,
+.doc-card {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }

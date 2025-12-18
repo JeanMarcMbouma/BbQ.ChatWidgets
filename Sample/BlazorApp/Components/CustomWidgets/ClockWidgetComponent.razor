@@ -1,0 +1,208 @@
+﻿@using BbQ.ChatWidgets.Sample.Shared
+@using Microsoft.AspNetCore.Components
+@using Microsoft.JSInterop
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+<div class="widget clock-widget" 
+     data-widget-type="clock" 
+     data-action="@Widget?.Action" 
+     data-stream-id="@(Widget?.StreamId ?? "default-stream")" 
+     data-auto-start="true"
+     @ref="widgetElement">
+    <div class="clock-display">
+        <div class="clock-label">@Widget?.Label</div>
+        <div class="clock-time" id="clock-time-@ClockId">--:--:--</div>
+        <div class="clock-timezone">@(string.IsNullOrEmpty(Widget?.TimeZone) ? "UTC" : Widget.TimeZone)</div>
+        @if (IsConnected)
+        {
+            <div class="clock-status">● Live</div>
+        }
+    </div>
+</div>
+
+@code {
+    private string ClockId { get; set; } = System.Guid.NewGuid().ToString().Substring(0, 8);
+    private ElementReference widgetElement;
+    private IJSObjectReference? sseModule;
+    private bool IsConnected { get; set; }
+
+    [Parameter]
+    public ClockWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && Widget?.StreamId is not null)
+        {
+            try
+            {
+                Console.WriteLine($"[Clock] Initializing widget - ID: {ClockId}, Stream: {Widget.StreamId}");
+                
+                // Load the JavaScript module for SSE handling
+                sseModule = await JS.InvokeAsync<IJSObjectReference>(
+                    "import", "./js/clock-widget.js");
+                
+                Console.WriteLine($"[Clock] SSE module loaded");
+                
+                // FIRST: Initialize the clock widget with SSE subscription (BEFORE starting the server)
+                // This ensures the EventSource is listening before the server starts publishing
+                await sseModule.InvokeVoidAsync(
+                    "initializeClockWidget",
+                    ClockId,
+                    Widget.StreamId,
+                    DotNetObjectReference.Create(this));
+                
+                Console.WriteLine($"[Clock] SSE subscription initialized");
+                
+                // SECOND: Give the EventSource a moment to establish the connection
+                await Task.Delay(100);
+                
+                // THIRD: Now trigger the server clock to start publishing
+                if (Widget?.StreamId is not null)
+                {
+                    try
+                    {
+                        Console.WriteLine($"[Clock] Starting server clock for stream: {Widget.StreamId}");
+                        
+                        var fetchModule = await JS.InvokeAsync<IJSObjectReference>(
+                            "import", "./js/fetch-helper.js");
+                        
+                        await fetchModule.InvokeVoidAsync(
+                            "fetchPost",
+                            $"/sample/clock/{Uri.EscapeDataString(Widget.StreamId)}/start");
+                        
+                        Console.WriteLine($"[Clock] Server clock start request sent");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"[Clock] Error starting server clock: {ex.Message}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"[Clock] Failed to initialize clock widget: {ex.Message}");
+                Console.Error.WriteLine($"[Clock] Stack trace: {ex.StackTrace}");
+            }
+        }
+        
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    /// <summary>
+    /// Called from JavaScript when the SSE connection is established
+    /// </summary>
+    [JSInvokable]
+    public async Task OnConnectionEstablished()
+    {
+        Console.WriteLine($"[Clock] Connection established - ID: {ClockId}");
+        IsConnected = true;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary>
+    /// Called from JavaScript when the SSE connection is lost
+    /// </summary>
+    [JSInvokable]
+    public async Task OnConnectionClosed()
+    {
+        Console.WriteLine($"[Clock] Connection closed - ID: {ClockId}");
+        IsConnected = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary>
+    /// Called from JavaScript when time data is received via SSE
+    /// </summary>
+    [JSInvokable]
+    public async Task OnTimeUpdate(string timeLocal, string timeIso)
+    {
+        Console.WriteLine($"[Clock] Time update received - Local: {timeLocal}, ISO: {timeIso}");
+        await Task.CompletedTask;
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (sseModule is not null)
+        {
+            try
+            {
+                // Close the SSE connection when component is disposed
+                await sseModule.InvokeVoidAsync("closeClockStream", ClockId);
+            }
+            catch { }
+            finally
+            {
+                await sseModule.DisposeAsync();
+            }
+        }
+    }
+}
+
+<style>
+.clock-widget {
+    margin: 10px 0;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.clock-widget:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.clock-display {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.clock-label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    opacity: 0.9;
+}
+
+.clock-time {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+    margin: 10px 0;
+    min-height: 40px;
+    transition: opacity 0.2s ease;
+}
+
+.clock-timezone {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-top: 8px;
+}
+
+.clock-status {
+    font-size: 11px;
+    opacity: 0.7;
+    margin-top: 6px;
+    letter-spacing: 1px;
+    animation: pulse-animation 1s infinite;
+}
+
+@@-webkit-keyframes pulse-animation {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+@@keyframes pulse-animation {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+</style>

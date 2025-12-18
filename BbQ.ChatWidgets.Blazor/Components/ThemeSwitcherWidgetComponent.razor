@@ -1,0 +1,95 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+<div class="bbq-widget bbq-theme-switcher-widget">
+    <label class="bbq-theme-switcher-label">@Widget?.Label</label>
+    <div class="bbq-theme-switcher-options">
+        @if (Widget?.Themes != null)
+        {
+            @foreach (var theme in Widget.Themes)
+            {
+                <button 
+                    class="bbq-theme-switcher-option @(selectedTheme == theme ? "active" : "")"
+                    @onclick="() => HandleThemeChange(theme)"
+                    title="@theme">
+                    @theme
+                </button>
+            }
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public ThemeSwitcherWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    private string selectedTheme = "light";
+    private IJSObjectReference? module;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>(
+                "import", "./_content/BbQ.ChatWidgets.Blazor/js/theme-switcher.js");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Failed to load theme switcher module: {ex.Message}");
+        }
+        
+        // Get the current theme from localStorage
+        try
+        {
+            selectedTheme = await JS.InvokeAsync<string?>("localStorage.getItem", "bbq-theme") ?? "light";
+        }
+        catch
+        {
+            selectedTheme = "light";
+        }
+    }
+
+    private async Task HandleThemeChange(string theme)
+    {
+        selectedTheme = theme;
+        
+        if (module is not null)
+        {
+            try
+            {
+                await module.InvokeVoidAsync("switchTheme", theme);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to switch theme: {ex.Message}");
+            }
+        }
+
+        if (Widget != null)
+        {
+            var payload = new { value = theme };
+            await OnAction.InvokeAsync((Widget.Action, payload));
+        }
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            try
+            {
+                await module.DisposeAsync();
+            }
+            catch
+            {
+                // Ignore disposal errors
+            }
+        }
+    }
+}

@@ -1,0 +1,69 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+
+<div class="bbq-widget bbq-form-widget">
+    <div class="bbq-form">
+        @if (!string.IsNullOrEmpty(Widget?.Title))
+        {
+            <h3 class="bbq-form-title">@Widget.Title</h3>
+        }
+        
+        <div class="bbq-form-fields">
+            @if (Widget?.Fields != null)
+            {
+                @foreach (var field in Widget.Fields)
+                {
+                    <FormFieldComponent Field="field" OnValueChanged="HandleFieldValueChanged" />
+                }
+            }
+        </div>
+
+        <div class="bbq-form-actions">
+            @if (Widget?.Actions != null)
+            {
+                @foreach (var action in Widget.Actions)
+                {
+                    <button class="bbq-button bbq-form-action-@action.Type" @onclick="@(async () => await HandleActionClick(action.Type))">
+                        @action.Label
+                    </button>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public FormWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    private Dictionary<string, object?> formData = new();
+
+    private EventCallback<(string, object?)> CreateFieldCallback()
+    {
+        return EventCallback.Factory.Create<(string, object?)>(this, args =>
+        {
+            formData[args.Item1] = args.Item2;
+        });
+    }
+
+    private void HandleFieldValueChanged((string fieldName, object? value) args)
+    {
+        formData[args.fieldName] = args.value;
+    }
+
+    private async Task HandleActionClick(string actionType)
+    {
+        var actionName = actionType switch
+        {
+            "submit" => Widget?.Action ?? "form_submit",
+            "cancel" => "form_cancel",
+            _ => "form_action"
+        };
+        
+        var payload = new { formData = formData };
+        await OnAction.InvokeAsync((actionName, payload));
+    }
+}

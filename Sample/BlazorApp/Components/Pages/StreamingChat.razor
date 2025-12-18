@@ -1,0 +1,314 @@
+@rendermode @(new InteractiveServerRenderMode())
+@page "/streaming-chat"
+@using BbQ.ChatWidgets.Models
+@using Microsoft.Extensions.AI
+@using Microsoft.AspNetCore.Components.Web
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+
+<PageTitle>Streaming Chat - BbQ Chat Widgets</PageTitle>
+
+<div class="chat-container">
+    <div class="chat-header">
+        <button class="btn-back" @onclick="GoBack">← Back</button>
+        <div class="header-content">
+            <h1>⚡ Streaming Chat</h1>
+            <p>Real-time streaming responses</p>
+        </div>
+        <div class="thread-info">
+            <small>Thread ID: @threadId</small>
+        </div>
+    </div>
+
+    <CustomChatContainer ChatTurns="chatTurns" IsLoading="isStreaming" OnAction="HandleWidgetAction" />
+
+    <div class="chat-input-section">
+        <div class="input-group">
+            <textarea 
+                @bind="userInput" 
+                placeholder="Type your message..."
+                @bind:event="oninput"
+                @onkeyup="HandleKeyUp"
+                disabled="@isStreaming"
+                rows="3"></textarea>
+            <button 
+                class="btn btn-send" 
+                @onclick="SendStreamingMessage"
+                disabled="@(isStreaming || string.IsNullOrWhiteSpace(userInput))">
+                @if (isStreaming) { <span>Streaming...</span> } else { <span>Send</span> }
+            </button>
+        </div>
+        @if (!string.IsNullOrEmpty(error))
+        {
+            <div class="error-message">@error</div>
+        }
+    </div>
+</div>
+
+<style>
+    .chat-container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background-color: var(--color-bg-primary);
+    }
+
+    .chat-header {
+        padding: 1rem;
+        background: var(--color-header-gradient);
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-back {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+    .btn-back:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .header-content {
+        flex: 1;
+    }
+
+    .header-content h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .header-content p {
+        margin: 0.25rem 0 0 0;
+        opacity: 0.9;
+        font-size: 0.9rem;
+    }
+
+    .thread-info {
+        opacity: 0.8;
+        font-size: 0.85rem;
+    }
+
+    .chat-input-section {
+        padding: 1.5rem;
+        background-color: var(--color-bg-secondary);
+        border-top: 1px solid var(--color-border-light);
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .input-group {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-end;
+    }
+
+    .input-group textarea {
+        flex: 1;
+        padding: 0.75rem;
+        border: 1px solid var(--color-input-border);
+        border-radius: 4px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 1rem;
+        resize: none;
+        min-height: 60px;
+        background-color: var(--color-input-bg);
+        color: var(--color-text-primary);
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .input-group textarea:focus {
+        outline: none;
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 3px var(--color-focus-ring);
+    }
+
+    .btn-send {
+        padding: 0.75rem 1.5rem;
+        background-color: var(--color-accent);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+    }
+
+    .btn-send:hover:not(:disabled) {
+        background-color: var(--color-accent-hover);
+        transform: translateY(-1px);
+    }
+
+    .btn-send:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    .error-message {
+        margin-top: 0.75rem;
+        padding: 0.75rem;
+        background-color: #fee;
+        color: #c33;
+        border-radius: 4px;
+        border-left: 3px solid #c33;
+    }
+</style>
+
+@code {
+    private string userInput = "";
+    private string error = "";
+    private bool isStreaming = false;
+    private List<ChatTurn> chatTurns = new();
+    private string threadId = Guid.NewGuid().ToString();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Initialize with welcome message
+        chatTurns.Add(new ChatTurn(
+            ChatRole.Assistant,
+            "Welcome to streaming chat! Responses will stream in real-time."
+        ));
+    }
+
+    private async Task SendStreamingMessage()
+    {
+        if (string.IsNullOrWhiteSpace(userInput))
+            return;
+
+        try
+        {
+            error = "";
+            isStreaming = true;
+            StateHasChanged();
+
+            // Add user message to chat
+            chatTurns.Add(new ChatTurn(ChatRole.User, userInput));
+            var messageToSend = userInput;
+            userInput = "";
+            StateHasChanged();
+
+            // Add placeholder for streaming response
+            var streamingTurn = new ChatTurn(ChatRole.Assistant, "");
+            chatTurns.Add(streamingTurn);
+
+            // Send to backend for streaming
+            var baseUri = NavigationManager.BaseUri.TrimEnd('/');
+            var response = await HttpClient.PostAsJsonAsync(
+                $"{baseUri}/api/chat/stream/message",
+                new
+                {
+                    threadId,
+                    message = messageToSend
+                }
+            );
+
+            if (response.IsSuccessStatusCode)
+            {
+                await HandleStreamingResponse(response, streamingTurn);
+            }
+            else
+            {
+                error = $"Error: {response.StatusCode} - {response.ReasonPhrase}";
+                chatTurns.RemoveAt(chatTurns.Count - 1);
+            }
+        }
+        catch (Exception ex)
+        {
+            error = $"Error sending message: {ex.Message}";
+        }
+        finally
+        {
+            isStreaming = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task HandleStreamingResponse(HttpResponseMessage response, ChatTurn streamingTurn)
+    {
+        try
+        {
+            using var content = await response.Content.ReadAsStreamAsync();
+            using var reader = new StreamReader(content);
+
+            var accumulator = "";
+            string? line;
+
+            while ((line = await reader.ReadLineAsync()) != null)
+            {
+                // Parse SSE format: "data: {json}"
+                if (line.StartsWith("data: "))
+                {
+                    var jsonData = line.Substring(6);
+                    
+                    try
+                    {
+                        var delta = System.Text.Json.JsonSerializer.Deserialize<StreamChatTurn>(jsonData, BbQ.ChatWidgets.Models.Serialization.Default);
+                        
+                        if (delta?.Content != null)
+                        {
+                            accumulator = delta.Content;
+                            // Update the streaming turn's content
+                            var updatedTurn = new ChatTurn(
+                                streamingTurn.Role,
+                                accumulator,
+                                delta.Widgets
+                            );
+                            chatTurns[chatTurns.Count - 1] = updatedTurn;
+                            StateHasChanged();
+                        }
+                    }
+                    catch
+                    {
+                        // Handle JSON parse errors
+                    }
+                }
+
+                await Task.Delay(10); // Small delay to allow UI updates
+            }
+        }
+        catch (Exception ex)
+        {
+            error = $"Error reading stream: {ex.Message}";
+        }
+    }
+
+    private async Task HandleWidgetAction((string Action, object? Payload) args)
+    {
+        var (action, payload) = args;
+        chatTurns.Add(new ChatTurn(
+            ChatRole.User,
+            $"**Action triggered:** `{action}`"
+        ));
+        StateHasChanged();
+
+        await Task.Delay(500);
+        chatTurns.Add(new ChatTurn(
+            ChatRole.Assistant,
+            $"Got it! I processed your action '{action}'."
+        ));
+        StateHasChanged();
+    }
+
+    private async Task HandleKeyUp(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter" && !args.ShiftKey)
+        {
+            await SendStreamingMessage();
+        }
+    }
+
+    private void GoBack()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}

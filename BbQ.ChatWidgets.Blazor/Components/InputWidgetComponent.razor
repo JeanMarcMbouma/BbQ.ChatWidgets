@@ -1,0 +1,34 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+
+<div class="bbq-widget bbq-input-widget">
+    <label class="bbq-input-label">@Widget?.Label</label>
+    <input 
+        type="text" 
+        class="bbq-input" 
+        placeholder="@(Widget?.Placeholder ?? string.Empty)"
+        maxlength="@(Widget?.MaxLength ?? int.MaxValue)"
+        @bind="inputValue"
+        @bind:event="oninput"
+        @onchange="HandleChange" />
+</div>
+
+@code {
+    [Parameter]
+    public InputWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    private string inputValue = string.Empty;
+
+    private async Task HandleChange(ChangeEventArgs e)
+    {
+        inputValue = e.Value?.ToString() ?? string.Empty;
+        if (Widget != null)
+        {
+            var payload = new { value = inputValue };
+            await OnAction.InvokeAsync((Widget.Action, payload));
+        }
+    }
+}

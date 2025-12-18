@@ -1,0 +1,133 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+
+<div class="bbq-chat-container">
+    <div class="bbq-chat-messages">
+        @if (ChatTurns != null)
+        {
+            @foreach (var turn in ChatTurns)
+            {
+                <div class="bbq-chat-message bbq-message-@turn.Role.ToString().ToLower()">
+                    <div class="bbq-message-content">
+                        @((MarkupString)turn.Content)
+                    </div>
+                    
+                    @if (turn.Widgets != null && turn.Widgets.Count > 0)
+                    {
+                        <div class="bbq-message-widgets">
+                            @foreach (var widget in turn.Widgets)
+                            {
+                                <CustomWidgetRenderer Widget="widget" OnAction="HandleWidgetAction" />
+                            }
+                        </div>
+                    }
+                </div>
+            }
+        }
+    </div>
+
+    @if (IsLoading)
+    {
+        <div class="bbq-chat-loading">
+            <span class="bbq-spinner"></span>
+            <span>Loading...</span>
+        </div>
+    }
+</div>
+
+<style>
+    .bbq-chat-container {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        background-color: var(--color-bg-primary);
+    }
+
+    .bbq-chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .bbq-chat-message {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .bbq-message-assistant {
+        align-items: flex-start;
+    }
+
+    .bbq-message-user {
+        align-items: flex-end;
+    }
+
+    .bbq-message-content {
+        background: var(--color-bg-secondary);
+        padding: 12px 16px;
+        border-radius: 8px;
+        word-wrap: break-word;
+        max-width: 80%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        color: var(--color-text-primary);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .bbq-message-user .bbq-message-content {
+        background: var(--color-message-user-bg);
+        color: white;
+    }
+
+    .bbq-message-widgets {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .bbq-message-user .bbq-message-widgets {
+        align-items: flex-end;
+    }
+
+    .bbq-chat-loading {
+        padding: 20px;
+        text-align: center;
+        color: var(--color-text-secondary);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        transition: color 0.3s ease;
+    }
+
+    .bbq-spinner {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid var(--color-border);
+        border-top: 2px solid var(--color-accent);
+        border-radius: 50%;
+        transition: border-color 0.3s ease;
+    }
+</style>
+
+@code {
+    [Parameter]
+    public List<ChatTurn>? ChatTurns { get; set; }
+
+    [Parameter]
+    public bool IsLoading { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    private async Task HandleWidgetAction((string Action, object? Payload) args)
+    {
+        await OnAction.InvokeAsync(args);
+    }
+}

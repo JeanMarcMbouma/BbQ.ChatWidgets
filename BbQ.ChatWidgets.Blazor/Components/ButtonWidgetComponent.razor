@@ -1,0 +1,24 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+
+<div class="bbq-widget bbq-button-widget">
+    <button class="bbq-button" @onclick="HandleClick">
+        @Widget?.Label
+    </button>
+</div>
+
+@code {
+    [Parameter]
+    public ButtonWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    private async Task HandleClick()
+    {
+        if (Widget != null)
+        {
+            await OnAction.InvokeAsync((Widget.Action, null));
+        }
+    }
+}

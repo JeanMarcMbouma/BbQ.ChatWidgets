@@ -1,0 +1,51 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+
+<div class="bbq-widget bbq-datepicker-widget">
+    <label class="bbq-input-label">@Widget?.Label</label>
+    <input type="date"
+           class="bbq-input"
+           @bind:get="dateValue"
+           @bind:set="HandleChange"
+           min="@minDate"
+           max="@maxDate"
+           @bind:event="oninput" 
+           @bind:format="dd-MMM-yyyy"/>
+</div>
+
+@code {
+    [Parameter]
+    public DatePickerWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    private DateTime? dateValue = null;
+    private DateTime? minDate = null;
+    private DateTime? maxDate = null;
+
+    private async Task HandleChange(DateTime? e)
+    {
+        dateValue = e;
+        if (Widget != null && dateValue.HasValue)
+        {
+            var payload = new { value = dateValue };
+            await OnAction.InvokeAsync((Widget.Action, payload));
+        }
+    }
+
+    override protected void OnParametersSet()
+    {
+        if (Widget != null)
+        {
+            if(!string.IsNullOrEmpty(Widget.MinDate) && DateTime.TryParse(Widget.MinDate, out var min))
+            {
+                minDate = min;
+            }
+            if(!string.IsNullOrEmpty(Widget.MaxDate) && DateTime.TryParse(Widget.MaxDate, out var max))
+            {
+                maxDate = max;
+            }
+        }
+    }
+}

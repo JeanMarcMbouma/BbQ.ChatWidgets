@@ -1,0 +1,33 @@
+@using BbQ.ChatWidgets.Models
+@using BbQ.ChatWidgets.Sample.Shared
+@using Microsoft.AspNetCore.Components
+
+<div class="sample-widget-renderer">
+    @if (Widget != null)
+    {
+        @if (Widget is EChartsWidget echartsWidget)
+        {
+            <EChartsWidgetComponent Widget="echartsWidget" OnAction="OnAction" />
+        }
+        else if (Widget is ClockWidget clockWidget)
+        {
+            <ClockWidgetComponent Widget="clockWidget" OnAction="OnAction" />
+        }
+        else if (Widget is WeatherWidget weatherWidget)
+        {
+            <WeatherWidgetComponent Widget="weatherWidget" OnAction="OnAction" />
+        }
+        else
+        {
+            <BbQ.ChatWidgets.Blazor.Components.WidgetRenderer Widget="Widget" OnAction="OnAction" />
+        }
+    }
+</div>
+
+@code {
+    [Parameter]
+    public ChatWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+}

@@ -1,0 +1,37 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+
+<div class="bbq-widget bbq-toggle-widget">
+    <label class="bbq-toggle">
+        <input 
+            type="checkbox" 
+            checked="@toggleValue"
+            @onchange="HandleChange" />
+        <span>@Widget?.Label</span>
+    </label>
+</div>
+
+@code {
+    [Parameter]
+    public ToggleWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    private bool toggleValue = false;
+
+    protected override void OnParametersSet()
+    {
+        toggleValue = Widget?.DefaultValue ?? false;
+    }
+
+    private async Task HandleChange(ChangeEventArgs e)
+    {
+        toggleValue = e.Value is bool b ? b : bool.Parse(e.Value?.ToString() ?? "false");
+        if (Widget != null)
+        {
+            var payload = new { value = toggleValue };
+            await OnAction.InvokeAsync((Widget.Action, payload));
+        }
+    }
+}

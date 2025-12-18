@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <Version>1.0.0</Version>
+        <Description>Blazor components library for BbQ Chat Widgets - provides reusable UI components for rendering interactive chat widgets in Blazor applications</Description>
+        <Authors>BbQ Team</Authors>
+        <PackageTags>blazor;chat;widgets;ui;components</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="../BbQ.ChatWidgets/BbQ.ChatWidgets.csproj" />
+    </ItemGroup>
+
+</Project>

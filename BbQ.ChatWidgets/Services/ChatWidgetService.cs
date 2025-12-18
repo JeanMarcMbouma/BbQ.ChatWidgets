@@ -105,6 +105,33 @@ public sealed class ChatWidgetService(
     }
 
     
+    /// <summary>
+    /// Streams the AI assistant's response to a user message, yielding incremental <see cref="ChatTurn"/> deltas as content is generated.
+    /// </summary>
+    /// <remarks>
+    /// This method:
+    /// 1. Validates or creates a conversation thread
+    /// 2. Appends the user message to the thread history
+    /// 3. Retrieves available widget tools from the tools provider
+    /// 4. Sends the message to the AI chat client with widget tools enabled
+    /// 5. Streams the AI response as it is generated, parsing widgets and content on the fly
+    /// 6. Yields <see cref="ChatTurn"/> deltas for each update, and a final turn when complete
+    /// 
+    /// The AI model receives widget tool definitions allowing it to embed interactive widgets
+    /// in its responses using the <c>&lt;widget&gt;...&lt;/widget&gt;</c> format.
+    /// </remarks>
+    /// <param name="userMessage">The message from the user to send to the AI.</param>
+    /// <param name="threadId">
+    /// The conversation thread ID. If null or non-existent, a new thread is created.
+    /// </param>
+    /// <param name="cancellationToken">Cancellation token to cancel the async operation.</param>
+    /// <returns>
+    /// An async stream of <see cref="ChatTurn"/> objects representing incremental assistant responses,
+    /// with the final turn containing the complete response and any parsed widgets.
+    /// </returns>
+    /// <exception cref="OperationCanceledException">
+    /// Thrown if the operation is cancelled via the cancellation token.
+    /// </exception>
     public async IAsyncEnumerable<ChatTurn> StreamResponseAsync(string userMessage, string? threadId, [EnumeratorCancellation]CancellationToken cancellationToken = default)
     {
         if (threadId == null || !threadService.ThreadExists(threadId))

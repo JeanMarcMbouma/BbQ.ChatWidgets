@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>1dd19de5-a740-4c00-8755-9dcb018ce455</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.AI.OpenAI" Version="10.0.1-preview.1.25571.5" />
+    </ItemGroup>    
+
+    <ItemGroup>
+        <ProjectReference Include="../../BbQ.ChatWidgets/BbQ.ChatWidgets.csproj" />
+        <ProjectReference Include="../../BbQ.ChatWidgets.Blazor/BbQ.ChatWidgets.Blazor.csproj" />
+        <ProjectReference Include="../../BbQ.ChatWidgets.Sample.Shared/BbQ.ChatWidgets.Sample.Shared.csproj" />
+    </ItemGroup>
+
+</Project>

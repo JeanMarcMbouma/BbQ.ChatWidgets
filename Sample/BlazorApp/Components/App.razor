@@ -10,10 +10,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/" />
     <HeadOutlet />
+    <!-- BbQ Chat Widgets Theme - Load light theme by default -->
+    <!-- The ID must be 'bbq-theme-link' for the JavaScript theme switcher to work -->
+    <link rel="stylesheet" id="bbq-theme-link" href="_content/BbQ.ChatWidgets.Blazor/themes/bbq-chat-light.css" />
     <link rel="stylesheet" href="app.css" />
 </head>
 <body>
     <Routes />
     <script src="_framework/blazor.web.js"></script>
+    <script type="module">
+        import { initializeTheme } from '_content/BbQ.ChatWidgets.Blazor/js/theme-switcher.js';
+        
+        // Wait for page to be fully ready before initializing theme
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeTheme);
+        } else {
+            initializeTheme();
+        }
+    </script>
 </body>
 </html>

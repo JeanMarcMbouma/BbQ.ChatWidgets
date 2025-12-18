@@ -2,10 +2,10 @@
 @using Microsoft.AspNetCore.Components
 @using Microsoft.AspNetCore.Components.Forms
 
-<div class="bbq-widget bbq-fileupload-widget">
-    <label class="bbq-fileupload-label">@Widget?.Label</label>
-    <InputFile OnChange="@HandleFileSelect" type="file"
-               class="bbq-fileupload-input"
+<div class="bbq-widget bbq-file-widget">
+    <label class="bbq-file-label">@Widget?.Label</label>
+    <InputFile OnChange="@HandleFileSelect" 
+               class="bbq-file"
                accept="@(Widget?.Accept ?? string.Empty)" />
 </div>
 

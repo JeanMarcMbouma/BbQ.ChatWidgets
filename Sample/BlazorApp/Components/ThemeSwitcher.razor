@@ -1,0 +1,149 @@
+@using Microsoft.JSInterop
+@using BbQ.ChatWidgets.Blazor.Services
+@inject IThemeService ThemeService
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+<div class="theme-switcher">
+    <label for="theme-select">Theme:</label>
+    <select id="theme-select" @onchange="OnThemeChanged" value="CurrentTheme">
+        @foreach (var theme in AvailableThemes)
+        {
+            <option value="@theme">@(char.ToUpper(theme[0]) + theme.Substring(1))</option>
+        }
+    </select>
+</div>
+
+@code {
+    private IReadOnlyList<string> AvailableThemes { get; set; } = [];
+    private string CurrentTheme { get; set; } = "light";
+    private IJSObjectReference? module;
+
+    protected override async Task OnInitializedAsync()
+    {
+        AvailableThemes = ThemeService.AvailableThemes;
+        CurrentTheme = ThemeService.CurrentTheme;
+        
+        // Load the JS interop module for theme switching
+        try
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>("import", "./_content/BbQ.ChatWidgets.Blazor/js/theme-switcher.js");
+        }
+        catch (Exception ex)
+        {
+            // Log error but don't fail - theme switching is optional
+            Console.WriteLine($"Failed to load theme switcher module: {ex.Message}");
+        }
+    }
+
+    private async Task OnThemeChanged(ChangeEventArgs e)
+    {
+        var newTheme = e.Value?.ToString() ?? "light";
+        
+        if (string.IsNullOrEmpty(newTheme))
+            return;
+
+        await ThemeService.SetThemeAsync(newTheme);
+        CurrentTheme = newTheme;
+
+        // Switch the CSS file dynamically
+        if (module is not null)
+        {
+            try
+            {
+                await module.InvokeVoidAsync("switchTheme", newTheme);
+                
+                // Force a brief delay to allow CSS to load, then trigger browser repaint
+                await Task.Delay(100);
+                
+                // Use JS to force a repaint of all widgets
+                try
+                {
+                    await JS.InvokeVoidAsync("eval", @"
+                        // Force browser to recalculate styles
+                        document.body.offsetHeight;
+                        
+                        // Dispatch custom event that widgets can listen to
+                        window.dispatchEvent(new CustomEvent('bbq-theme-changed', { detail: { theme: '" + newTheme + @"' } }));
+                    ");
+                }
+                catch
+                {
+                    // Silently fail - styling will still work even if forced repaint fails
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to switch theme: {ex.Message}");
+            }
+        }
+
+        // Force component re-render to update any bound properties
+        StateHasChanged();
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            try
+            {
+                await module.DisposeAsync();
+            }
+            catch
+            {
+                // Ignore disposal errors
+            }
+        }
+    }
+}
+
+<style>
+    .theme-switcher {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+    }
+
+    .theme-switcher label {
+        font-weight: 500;
+        color: #333;
+        margin: 0;
+    }
+
+    .theme-switcher select {
+        padding: 6px 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: white;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .theme-switcher select:hover {
+        border-color: #999;
+    }
+
+    .theme-switcher select:focus {
+        outline: none;
+        border-color: #0066cc;
+        box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+    }
+
+    :global(.theme-dark) .theme-switcher {
+        background-color: #1e293b;
+    }
+
+    :global(.theme-dark) .theme-switcher label {
+        color: #e2e8f0;
+    }
+
+    :global(.theme-dark) .theme-switcher select {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        border-color: #475569;
+    }
+</style>

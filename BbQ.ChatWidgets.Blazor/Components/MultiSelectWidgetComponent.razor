@@ -2,13 +2,13 @@
 @using Microsoft.AspNetCore.Components
 
 <div class="bbq-widget bbq-multiselect-widget">
-    <label class="bbq-multiselect-label">@Widget?.Label</label>
-    <div class="bbq-multiselect-container">
+    <label class="bbq-dropdown-label">@Widget?.Label</label>
+    <div class="bbq-form-field">
         @if (Widget?.Options != null)
         {
             @foreach (var option in Widget.Options)
             {
-                <label class="bbq-multiselect-option">
+                <label class="bbq-toggle">
                     <input 
                         type="checkbox" 
                         value="@option"

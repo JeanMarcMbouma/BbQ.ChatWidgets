@@ -5,16 +5,14 @@
     <div class="bbq-card">
         @if (!string.IsNullOrEmpty(Widget?.ImageUrl))
         {
-            <img src="@Widget.ImageUrl" alt="@Widget.Title" class="bbq-card-image" />
+            <img src="@Widget.ImageUrl" alt="@Widget.Title" />
         }
-        <div class="bbq-card-content">
-            <h3 class="bbq-card-title">@Widget?.Title</h3>
-            @if (!string.IsNullOrEmpty(Widget?.Description))
-            {
-                <p class="bbq-card-description">@Widget.Description</p>
-            }
-        </div>
-        <button class="bbq-card-button" @onclick="HandleClick">@Widget?.Label</button>
+        <h3>@Widget?.Title</h3>
+        @if (!string.IsNullOrEmpty(Widget?.Description))
+        {
+            <p>@Widget.Description</p>
+        }
+        <button class="bbq-button" @onclick="HandleClick">@Widget?.Label</button>
     </div>
 </div>
 

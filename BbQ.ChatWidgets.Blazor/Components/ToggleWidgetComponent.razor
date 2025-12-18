@@ -2,14 +2,12 @@
 @using Microsoft.AspNetCore.Components
 
 <div class="bbq-widget bbq-toggle-widget">
-    <label class="bbq-toggle-label">
+    <label class="bbq-toggle">
         <input 
             type="checkbox" 
-            class="bbq-toggle-input"
             checked="@toggleValue"
             @onchange="HandleChange" />
-        <span class="bbq-toggle-slider"></span>
-        <span class="bbq-toggle-text">@Widget?.Label</span>
+        <span>@Widget?.Label</span>
     </label>
 </div>
 

@@ -1,6 +1,9 @@
 @inherits LayoutComponentBase
 
 <div class="page">
+    <div class="theme-controls">
+        <ThemeSwitcher />
+    </div>
     @Body
 </div>
 
@@ -9,5 +12,18 @@
         position: relative;
         display: flex;
         flex-direction: column;
+    }
+
+    .theme-controls {
+        padding: 12px;
+        background-color: #f9fafb;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    :global(.theme-dark) .theme-controls {
+        background-color: #0f172a;
+        border-bottom-color: #334155;
     }
 </style>

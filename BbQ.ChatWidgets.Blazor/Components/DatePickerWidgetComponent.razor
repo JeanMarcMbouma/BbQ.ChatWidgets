@@ -2,9 +2,9 @@
 @using Microsoft.AspNetCore.Components
 
 <div class="bbq-widget bbq-datepicker-widget">
-    <label class="bbq-datepicker-label">@Widget?.Label</label>
+    <label class="bbq-input-label">@Widget?.Label</label>
     <input type="date"
-           class="bbq-datepicker-input"
+           class="bbq-input"
            @bind:get="dateValue"
            @bind:set="HandleChange"
            min="@minDate"

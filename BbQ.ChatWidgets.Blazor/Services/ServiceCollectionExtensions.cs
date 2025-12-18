@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using BbQ.ChatWidgets.Blazor.Services;
 
 namespace BbQ.ChatWidgets.Blazor;
 
@@ -14,8 +15,25 @@ public static class ServiceCollectionExtensions
     /// <returns>The service collection for chaining.</returns>
     public static IServiceCollection AddBbQChatWidgetsBlazor(this IServiceCollection services)
     {
-        // Blazor components are automatically registered, so this extension
-        // is primarily for future extensibility and consistency with other platforms
+        // Register the theme service
+        services.AddScoped<IThemeService, DefaultThemeService>();
+
+        return services;
+    }
+
+    /// <summary>
+    /// Adds BbQ Chat Widgets Blazor components with a custom theme service factory.
+    /// </summary>
+    /// <param name="services">The service collection to add services to.</param>
+    /// <param name="themeServiceFactory">Factory function to create a custom theme service.</param>
+    /// <returns>The service collection for chaining.</returns>
+    public static IServiceCollection AddBbQChatWidgetsBlazor(
+        this IServiceCollection services,
+        Func<IServiceProvider, IThemeService> themeServiceFactory)
+    {
+        // Register the custom theme service
+        services.AddScoped(themeServiceFactory);
+
         return services;
     }
 }

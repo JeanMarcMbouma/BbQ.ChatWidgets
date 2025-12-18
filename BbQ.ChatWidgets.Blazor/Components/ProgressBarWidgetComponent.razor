@@ -2,10 +2,10 @@
 @using Microsoft.AspNetCore.Components
 
 <div class="bbq-widget bbq-progressbar-widget">
-    <label class="bbq-progressbar-label">@Widget?.Label</label>
-    <div class="bbq-progressbar-container">
-        <div class="bbq-progressbar" style="width: @GetPercentage()%">
-            <span class="bbq-progressbar-text">@GetPercentage()%</span>
+    <label class="bbq-dropdown-label">@Widget?.Label</label>
+    <div style="width: 100%; background-color: #e5e7eb; border-radius: 4px; overflow: hidden; height: 24px;">
+        <div style="width: @GetPercentage()%; background: linear-gradient(90deg, #3b82f6, #2563eb); height: 100%; display: flex; align-items: center; justify-content: center; transition: width 0.3s ease; color: white; font-size: 12px; font-weight: 500;">
+            @GetPercentage()%
         </div>
     </div>
 </div>

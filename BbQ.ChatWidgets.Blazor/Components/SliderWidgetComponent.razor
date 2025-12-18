@@ -3,17 +3,14 @@
 
 <div class="bbq-widget bbq-slider-widget">
     <label class="bbq-slider-label">@Widget?.Label</label>
-    <div class="bbq-slider-container">
-        <input 
-            type="range" 
-            class="bbq-slider-input"
-            min="@(Widget?.Min ?? 0)"
-            max="@(Widget?.Max ?? 100)"
-            step="@(Widget?.Step ?? 1)"
-            value="@sliderValue"
-            @onchange="HandleChange" />
-        <span class="bbq-slider-value">@sliderValue</span>
-    </div>
+    <input 
+        type="range" 
+        class="bbq-slider"
+        min="@(Widget?.Min ?? 0)"
+        max="@(Widget?.Max ?? 100)"
+        step="@(Widget?.Step ?? 1)"
+        value="@sliderValue"
+        @onchange="HandleChange" />
 </div>
 
 @code {

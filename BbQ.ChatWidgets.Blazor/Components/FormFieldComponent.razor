@@ -10,7 +10,7 @@
             <label class="bbq-form-field-label">@Field.Label</label>
             <input 
                 type="@Field.Type" 
-                class="bbq-form-field-input"
+                class="bbq-form-input"
                 placeholder="@Field.Label"
                 @onchange="HandleChange" />
         </div>
@@ -19,7 +19,7 @@
     case "dropdown":
         <div class="bbq-form-field">
             <label class="bbq-form-field-label">@Field.Label</label>
-            <select class="bbq-form-field-select" @onchange="HandleChange">
+            <select class="bbq-form-select" @onchange="HandleChange">
                 <option value="">-- Select --</option>
             </select>
         </div>
@@ -27,7 +27,7 @@
     
     case "toggle":
         <div class="bbq-form-field">
-            <label class="bbq-form-field-checkbox">
+            <label class="bbq-form-checkbox">
                 <input type="checkbox" @onchange="HandleChange" />
                 <span>@Field.Label</span>
             </label>
@@ -37,7 +37,7 @@
     default:
         <div class="bbq-form-field">
             <label class="bbq-form-field-label">@Field.Label</label>
-            <input type="text" class="bbq-form-field-input" placeholder="@Field.Label" @onchange="HandleChange" />
+            <input type="text" class="bbq-form-input" placeholder="@Field.Label" @onchange="HandleChange" />
         </div>
         break;
 }

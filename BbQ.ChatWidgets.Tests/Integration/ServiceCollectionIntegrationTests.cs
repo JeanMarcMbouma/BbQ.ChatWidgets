@@ -122,7 +122,7 @@ public class ServiceCollectionIntegrationTests
         var instances = registry.GetInstances();
 
         // Assert
-        Assert.Equal(13, instances.Count());
+        Assert.Equal(15, instances.Count());
         
         var types = instances.Select(w => w.GetType()).Distinct().ToList();
         Assert.Contains(typeof(ButtonWidget), types);

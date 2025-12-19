@@ -4,7 +4,6 @@ using BbQ.ChatWidgets.Extensions;
 using BbQ.ChatWidgets.Sample.Shared;
 using BbQ.ChatWidgets.Sample.Shared.Agents;
 using BbQ.ChatWidgets.Sample.Shared.Services;
-using BbQ.ChatWidgets.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,7 +49,7 @@ services.AddBbQChatWidgets(bbqOptions =>
         // Register custom ECharts widget
         registry.Register(new EChartsWidget("Sales Chart", "on_chart_click", "bar", "{\"xAxis\": {\"type\": \"category\", \"data\": [\"Jan\", \"Feb\", \"Mar\"]}, \"yAxis\": {\"type\": \"value\"}, \"series\": [{\"data\": [100, 200, 150], \"type\": \"bar\"}]}"));
         // Register a server-side Clock widget template used by the SSE demo.
-        registry.Register(new ClockWidget("Server Clock", "clock_tick", null, "default-stream"), "clock");
+        registry.Register(new ClockWidget("Server Clock", "clock_tick", "UTC", "default-stream"), "clock");
         // Register a server-side Weather widget template used for SSE weather updates demo.
         registry.Register(new WeatherWidget("Weather", "weather_update", "London", "weather-stream"), "weather");
     };

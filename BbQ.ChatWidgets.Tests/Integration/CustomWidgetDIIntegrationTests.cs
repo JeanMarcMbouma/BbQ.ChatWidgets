@@ -2,7 +2,6 @@ using System.Text.Json;
 using Xunit;
 using Microsoft.Extensions.DependencyInjection;
 using BbQ.ChatWidgets.Models;
-using BbQ.ChatWidgets.Services;
 using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Extensions;
 

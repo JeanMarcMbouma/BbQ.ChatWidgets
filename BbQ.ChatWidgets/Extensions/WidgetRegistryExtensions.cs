@@ -1,7 +1,7 @@
 using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Models;
 
-namespace BbQ.ChatWidgets.Services;
+namespace BbQ.ChatWidgets.Extensions;
 
 /// <summary>
 /// Extension methods for convenient widget registration.

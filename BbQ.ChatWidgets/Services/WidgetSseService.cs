@@ -4,7 +4,6 @@ using System.Collections.Concurrent;
 using System.Text.Json;
 using System.Threading.Channels;
 using BbQ.ChatWidgets.Models;
-using System.Linq;
 
 namespace BbQ.ChatWidgets.Services;
 

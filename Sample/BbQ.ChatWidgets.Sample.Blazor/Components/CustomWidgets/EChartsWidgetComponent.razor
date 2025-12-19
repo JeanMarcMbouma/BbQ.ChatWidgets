@@ -7,7 +7,7 @@
 
 @code {
     [Parameter]
-    public EChartsWidget? Widget { get; set; }
+    public required EChartsWidget Widget { get; set; }
 
     [Parameter]
     public EventCallback<(string Action, object? Payload)> OnAction { get; set; }

@@ -1,22 +1,36 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <Version>1.0.0</Version>
-        <Description>Blazor components library for BbQ Chat Widgets - provides reusable UI components for rendering interactive chat widgets in Blazor applications</Description>
-        <Authors>BbQ Team</Authors>
-        <PackageTags>blazor;chat;widgets;ui;components</PackageTags>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Blazor components library for BbQ Chat Widgets - provides reusable UI components for rendering interactive chat widgets in Blazor applications</Description>
+    <PackageId>BbQ.ChatWidgets.Blazor</PackageId>
+    <Authors>Jean Marc Mbouma</Authors>
+    <RepositoryUrl>https://github.com/JeanMarcMbouma/BbQ.ChatWidgets</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/JeanMarcMbouma/BbQ.ChatWidgets</PackageProjectUrl>
+    <PackageTags>chat;widgets;ai;ui;aspnetcore;chat-ui;interactive-widgets;blazor</PackageTags>
+    <Version>1.0.0</Version>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="../BbQ.ChatWidgets/BbQ.ChatWidgets.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../BbQ.ChatWidgets/BbQ.ChatWidgets.csproj" />
+  </ItemGroup>
 
+
+  <!-- Include documentation in NuGet package -->
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
 </Project>

@@ -13,9 +13,9 @@
     </ItemGroup>    
 
     <ItemGroup>
-        <ProjectReference Include="../../BbQ.ChatWidgets/BbQ.ChatWidgets.csproj" />
-        <ProjectReference Include="../../BbQ.ChatWidgets.Blazor/BbQ.ChatWidgets.Blazor.csproj" />
-        <ProjectReference Include="../../BbQ.ChatWidgets.Sample.Shared/BbQ.ChatWidgets.Sample.Shared.csproj" />
+        <ProjectReference Include="..\..\BbQ.ChatWidgets.Blazor\BbQ.ChatWidgets.Blazor.csproj" />
+        <ProjectReference Include="..\..\BbQ.ChatWidgets\BbQ.ChatWidgets.csproj" />
+        <ProjectReference Include="..\BbQ.ChatWidgets.Sample.Shared\BbQ.ChatWidgets.Sample.Shared.csproj" />
     </ItemGroup>
 
 </Project>

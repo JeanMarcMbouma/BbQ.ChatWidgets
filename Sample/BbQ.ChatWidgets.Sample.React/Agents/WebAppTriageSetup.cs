@@ -1,7 +1,6 @@
 using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Agents;
 using BbQ.ChatWidgets.Agents.Abstractions;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace BbQ.ChatWidgets.Sample.WebApp.Agents;
 

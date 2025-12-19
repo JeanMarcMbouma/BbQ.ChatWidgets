@@ -1,7 +1,7 @@
 @using BbQ.ChatWidgets.Models
 @using Microsoft.AspNetCore.Components
 
-@switch (Field?.Type?.ToLower())
+@switch (Field.Type.ToLower())
 {
     case "text":
     case "email":
@@ -44,7 +44,7 @@
 
 @code {
     [Parameter]
-    public FormField? Field { get; set; }
+    public required FormField Field { get; set; }
 
     [Parameter]
     public EventCallback<(string, object?)> OnValueChanged { get; set; }

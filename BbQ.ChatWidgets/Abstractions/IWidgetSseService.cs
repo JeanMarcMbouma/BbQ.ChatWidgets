@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace BbQ.ChatWidgets.Abstractions
 {
+    /// <summary>
+    /// Service for managing Server-Sent Events (SSE) for widget updates.
+    /// </summary>
     public interface IWidgetSseService
     {
         /// <summary>

@@ -34,7 +34,6 @@ public interface IActionWidgetActionHandler<TWidgetAction, T> where TWidgetActio
     /// <summary>
     /// Handles the specified action asynchronously.
     /// </summary>
-    /// <param name="action">The action instance.</param>
     /// <param name="payload">The typed payload.</param>
     /// <param name="threadId">The conversation thread ID.</param>
     /// <param name="serviceProvider">Service provider for dependency injection.</param>

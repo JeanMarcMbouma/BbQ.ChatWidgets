@@ -1,6 +1,5 @@
 using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Agents;
-using Microsoft.Extensions.Logging;
 
 namespace BbQ.ChatWidgets.Sample.WebApp.Services;
 

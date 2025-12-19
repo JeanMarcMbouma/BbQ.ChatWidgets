@@ -1,7 +1,5 @@
-using BbQ.ChatWidgets.Agents;
 using BbQ.ChatWidgets.Agents.Abstractions;
 using Microsoft.Extensions.AI;
-using Microsoft.Extensions.Logging;
 
 namespace BbQ.ChatWidgets.Sample.WebApp.Agents;
 

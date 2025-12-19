@@ -30,6 +30,10 @@ public sealed class TriageMiddleware(IAgent triageAgent) : IAgentMiddleware
 {
     private readonly IAgent _triageAgent = triageAgent ?? throw new ArgumentNullException(nameof(triageAgent));
 
+
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
     public Task<Outcome<ChatTurn>> InvokeAsync(ChatRequest request, AgentDelegate next, CancellationToken cancellationToken)
     {
         // Delegate to the triage agent, which will route to the appropriate handler

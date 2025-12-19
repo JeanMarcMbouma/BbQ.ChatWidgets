@@ -1,13 +1,24 @@
 using Microsoft.Extensions.AI;
-using BbQ.ChatWidgets.Blazor;
 using BbQ.ChatWidgets.Extensions;
 using BbQ.ChatWidgets.Sample.Shared;
+using BbQ.ChatWidgets.Services;
+using BbQ.ChatWidgets.Agents.Abstractions;
 using BbQ.ChatWidgets.Sample.Shared.Agents;
 using BbQ.ChatWidgets.Sample.Shared.Services;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Web;
-using BbQ.ChatWidgets.Services;
 
+/// <summary>
+/// BbQ.ChatWidgets Web API Sample Application
+/// 
+/// This sample demonstrates:
+/// - Using OpenAI chat client with BbQ.ChatWidgets
+/// - ASP.NET Core Web API with chat endpoints
+/// - React frontend consuming the chat API
+/// - Widget-based interactive UI
+/// - Typed action handlers with IWidgetAction<T>
+/// - Triage agent with intent classification and agent routing
+/// - Agent-to-agent communication through metadata
+/// </summary>
+/// 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.UseDefaultServiceProvider(options =>
@@ -15,14 +26,9 @@ builder.WebHost.UseDefaultServiceProvider(options =>
     options.ValidateScopes = false;
     options.ValidateOnBuild = true;
 });
-
-// Add services to the container.
+// Add services to the container
 var configuration = builder.Configuration;
 var services = builder.Services;
-
-services
-    .AddRazorComponents()
-    .AddInteractiveServerComponents();
 
 // Configure OpenAI chat client factory
 var openaiModelId = configuration["OpenAI:ModelId"] ?? "gpt-4o-mini";
@@ -49,15 +55,18 @@ services.AddBbQChatWidgets(bbqOptions =>
     bbqOptions.ChatClientFactory = sp => chatClient;
     bbqOptions.WidgetRegistryConfigurator = registry =>
     {
-        // Register custom ECharts widget
+        // Additional custom widget registrations can go here
+        // e.g., registry.Register(new CustomWidget(...));
         registry.Register(new EChartsWidget("Sales Chart", "on_chart_click", "bar", "{\"xAxis\": {\"type\": \"category\", \"data\": [\"Jan\", \"Feb\", \"Mar\"]}, \"yAxis\": {\"type\": \"value\"}, \"series\": [{\"data\": [100, 200, 150], \"type\": \"bar\"}]}"));
         // Register a server-side Clock widget template used by the SSE demo.
-        registry.Register(new ClockWidget("Server Clock", "clock_tick", null, "default-stream"), "clock");
+        // Specify a stream ID so the widget knows which SSE stream to subscribe to on the client.
+        registry.Register(new ClockWidget("Server Clock", "clock_tick", "UTC", "default-stream"), "clock");
         // Register a server-side Weather widget template used for SSE weather updates demo.
         registry.Register(new WeatherWidget("Weather", "weather_update", "London", "weather-stream"), "weather");
     };
     bbqOptions.WidgetActionRegistryFactory = (sp, actionRegistry, handlerResolver) =>
     {
+
         // Register greeting action
         actionRegistry.RegisterHandler<GreetingAction, GreetingPayload, GreetingHandler>(handlerResolver);
 
@@ -75,8 +84,6 @@ services.AddBbQChatWidgets(bbqOptions =>
     };
 });
 
-services.AddBbQChatWidgetsBlazor();
-
 // Register triage agent system with specialized agents
 services.AddSharedTriageAgents();
 
@@ -87,31 +94,62 @@ services.AddScoped<EChartsClickHandler>();
 services.AddScoped<ClockTickHandler>();
 services.AddScoped<WeatherUpdateHandler>();
 
+// Register triage-aware chat service
+//services.AddScoped<TriageAwareChatService>();
+
 // Register sample clock publisher for SSE demo
 services.AddSingleton<ClockPublisher>();
 
 // Register sample weather publisher for SSE demo
 services.AddSingleton<WeatherPublisher>();
 
-// Register HttpClient for API communication
-services.AddHttpClient();
+// Add CORS for React frontend
+services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+// Configure the HTTP request pipeline
+app.UseRouting();
+app.UseCors();
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+// Log startup information
+var logger = app.Services.GetRequiredService<ILoggerFactory>().CreateLogger("Startup");
+logger.LogInformation("=== BbQ.ChatWidgets Web API Sample ===");
+logger.LogInformation("Chat API available at POST /api/chat/message");
+logger.LogInformation("Widget actions available at POST /api/chat/action");
+logger.LogInformation("React frontend served from wwwroot/");
+logger.LogInformation("");
+logger.LogInformation("Triage Agent System: Enabled");
+
+// Log registered agents
+var agentRegistry = app.Services.GetRequiredService<IAgentRegistry>();
+logger.LogInformation("Registered specialized agents:");
+foreach (var agentName in agentRegistry.GetRegisteredAgents())
 {
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    logger.LogInformation($"  - {agentName}");
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseAntiforgery();
+logger.LogInformation("User intent categories:");
+logger.LogInformation("  - HelpRequest ? help-agent");
+logger.LogInformation("  - DataQuery ? data-query-agent");
+logger.LogInformation("  - ActionRequest ? action-agent");
+logger.LogInformation("  - Feedback ? feedback-agent");
+logger.LogInformation("  - Unknown ? help-agent (fallback)");
 
-// Map BbQ Chat Widget endpoints
+// Map BbQ.ChatWidgets endpoints
 app.MapBbQChatEndpoints();
+
 // Sample endpoints to start/stop a server-side clock that publishes to SSE streams
 app.MapPost("/sample/clock/{streamId}/start", async (string streamId, ClockPublisher clock, ILoggerFactory lf) =>
 {
@@ -145,7 +183,8 @@ app.MapPost("/sample/weather/{streamId}/stop", async (string streamId, WeatherPu
     await weather.StopAsync(streamId);
     return Results.Ok();
 });
-app.MapRazorComponents<BlazorApp.Components.App>()
-    .AddInteractiveServerRenderMode();
+
+// Fallback to index.html for SPA routing
+app.MapFallbackToFile("index.html");
 
 app.Run();

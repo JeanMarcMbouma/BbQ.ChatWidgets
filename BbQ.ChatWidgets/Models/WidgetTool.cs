@@ -18,9 +18,6 @@ namespace BbQ.ChatWidgets.Models
     /// - <c>Schema</c>: JSON schema for the widget type
     /// </remarks>
     public sealed class WidgetTool(
-        /// <summary>
-        /// The widget that this tool represents.
-        /// </summary>
         ChatWidget widget) : AITool
     {
         /// <summary>

@@ -2,9 +2,14 @@
 
 namespace BbQ.ChatWidgets.Models;
 
+
 /// <summary>
 /// Represents a single turn in a chat conversation.
 /// </summary>
+/// <param name="ThreadId">The conversation thread ID this turn belongs to.</param>
+/// <param name="Content">The text content of this turn's message.</param>
+/// <param name="Role">The role of the message sender (User or Assistant).</param>
+/// <param name="Widgets">Optional interactive widgets embedded in this turn's content.</param>
 /// <remarks>
 /// A chat turn encapsulates a message in the conversation, either from the user or the assistant.
 /// It includes:
@@ -16,45 +21,23 @@ namespace BbQ.ChatWidgets.Models;
 /// Chat turns are immutable records that form the history of a conversation thread.
 /// </remarks>
 public record ChatTurn(
-    /// <summary>
-    /// The role of the message sender (User or Assistant).
-    /// </summary>
     ChatRole Role,
-    
-    /// <summary>
-    /// The text content of this turn's message.
-    /// </summary>
     string Content,
-    
-    /// <summary>
-    /// Optional interactive widgets embedded in this turn's content.
-    /// </summary>
     IReadOnlyList<ChatWidget>? Widgets = null,
-    
-    /// <summary>
-    /// The conversation thread ID this turn belongs to.
-    /// </summary>
     string ThreadId = ""
 );
 
 
+/// <summary>
+/// Represents a single turn in a chat conversation with an additional delta flag.
+/// </summary>
+/// <param name="Role">The role of the message sender (User or Assistant).</param>
+/// <param name="Content">The text content of this turn's message.</param>
+/// <param name="ThreadId">The conversation thread ID this turn belongs to.</param>
+/// <param name="IsDelta">Indicates whether the response is a delta (partial update) or a complete message.</param>
+/// <inheritdoc cref="ChatTurn"/>
 public record StreamChatTurn(
-    /// <summary>
-    /// The role of the message sender (User or Assistant).
-    /// </summary>
     ChatRole Role,
-
-    /// <summary>
-    /// The text content of this turn's message.
-    /// </summary>
     string Content,
-
-    /// <summary>
-    /// The conversation thread ID this turn belongs to.
-    /// </summary>
     string ThreadId,
-
-    ///<summary>
-    /// The flag indicating whether a response is a delta
-    /// </summary>
     bool IsDelta = false) :  ChatTurn(Role, Content, [], ThreadId);

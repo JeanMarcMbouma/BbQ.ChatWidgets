@@ -6,7 +6,7 @@ using Microsoft.Extensions.AI;
 /// </summary>
 /// <remarks>
 /// This class holds all configuration settings for the BbQ ChatWidgets library.
-/// It's registered as a singleton and passed to the <see cref="ServiceCollectionExtensions.AddBbQChatWidgets"/>
+/// It's registered as a singleton and passed to the <see cref="BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddBbQChatWidgets"/>
 /// extension method via an optional configuration action.
 /// </remarks>
 public sealed class BbQChatOptions
@@ -33,7 +33,7 @@ public sealed class BbQChatOptions
     /// </summary>
     /// <remarks>
     /// This factory is called to create the chat client used for generating AI responses.
-    /// If not provided, no default chat client is registered, and <see cref="ChatWidgetService"/>
+    /// If not provided, no default chat client is registered, and <see cref="BbQ.ChatWidgets.Services.ChatWidgetService"/>
     /// will fail if <see cref="IChatClient"/> is not otherwise available.
     /// 
     /// The factory receives the <see cref="IServiceProvider"/> allowing access to other

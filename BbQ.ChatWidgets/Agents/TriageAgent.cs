@@ -37,6 +37,7 @@ public sealed class TriageAgent<TCategory> : IAgent
     /// <param name="routingMapping">Function to map category to agent name.</param>
     /// <param name="fallbackAgentName">Optional name of the fallback agent if routing fails.</param>
     /// <param name="fallbackAgent">Optional fallback agent if routing fails.</param>
+    /// <param name="threadService">Optional thread service for managing conversation threads.</param>
     public TriageAgent(
         IClassifier<TCategory> classifier,
         IAgentRegistry agentRegistry,
@@ -53,6 +54,9 @@ public sealed class TriageAgent<TCategory> : IAgent
         _threadService = threadService;
     }
 
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
     public async Task<Outcome<ChatTurn>> InvokeAsync(ChatRequest request, CancellationToken cancellationToken)
     {
         try

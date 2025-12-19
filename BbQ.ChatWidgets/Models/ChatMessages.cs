@@ -3,15 +3,12 @@
 /// <summary>
 /// Represents a complete chat message history for a conversation.
 /// </summary>
+/// <param name="Turns">The sequence of chat turns in this conversation.</param>
 /// <remarks>
 /// A chat message encapsulates the full history of turns in a conversation.
 /// It provides a sequence of chat turns that can be converted to AI framework formats.
 /// </remarks>
-public record ChatMessages(
-    /// <summary>
-    /// The sequence of turns (messages) in this chat conversation.
-    /// </summary>
-    IReadOnlyList<ChatTurn> Turns);
+public record ChatMessages(IReadOnlyList<ChatTurn> Turns);
 
 /// <summary>
 /// Extension methods for converting <see cref="ChatMessages"/> to AI framework formats.
@@ -54,14 +51,12 @@ public static class ChatMessageExtensions
         /// Performance:
         /// Uses TakeLast() for efficient memory usage, processing only necessary turns.
         /// </remarks>
-        /// <param name="chatMessage">The chat message history to convert.</param>
         /// <returns>
         /// A read-only list of <see cref="Microsoft.Extensions.AI.ChatMessage"/> objects
         /// suitable for sending to an AI chat client. Returns an empty list if the input
         /// is null or contains no turns.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        /// Thrown if <paramref name="chatMessage"/> is null.
         /// </exception>
         public IReadOnlyList<Microsoft.Extensions.AI.ChatMessage> ToAIMessages()
         {
@@ -97,14 +92,12 @@ public static class ChatMessageExtensions
         /// The actual number of turns included will be the minimum of the requested size
         /// and the available turns in the conversation.
         /// </remarks>
-        /// <param name="chatMessage">The chat message history to convert.</param>
         /// <param name="maxTurns">The maximum number of turns to include in the context window.</param>
         /// <returns>
         /// A read-only list of <see cref="Microsoft.Extensions.AI.ChatMessage"/> objects
         /// limited to the specified context window size.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        /// Thrown if <paramref name="chatMessage"/> is null.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown if <paramref name="maxTurns"/> is less than 1.

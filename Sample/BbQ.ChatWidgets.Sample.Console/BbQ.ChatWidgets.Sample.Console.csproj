@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BbQ.ChatWidgets\BbQ.ChatWidgets.csproj" />
+    <ProjectReference Include="..\..\BbQ.ChatWidgets\BbQ.ChatWidgets.csproj" />
   </ItemGroup>
 
   <ItemGroup>

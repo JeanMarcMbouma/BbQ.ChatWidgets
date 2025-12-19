@@ -7,6 +7,8 @@ namespace BbQ.ChatWidgets.Models;
 /// <summary>
 /// Base class for all interactive chat widgets.
 /// </summary>
+/// <param name="Action">The action identifier triggered when the user interacts with the widget.</param>
+/// <param name="Label">The display label for the widget.</param>
 /// <remarks>
 /// Widgets are interactive UI elements that can be embedded in AI chat responses.
 /// This base class defines common properties that all widgets must have:
@@ -18,15 +20,7 @@ namespace BbQ.ChatWidgets.Models;
 /// The class uses a custom JSON converter to automatically deserialize to the correct type.
 /// </remarks>
 public abstract record ChatWidget(
-
-    /// <summary>
-    /// The label or text displayed to the user for this widget.
-    /// </summary>
     string Label,
-
-    /// <summary>
-    /// The action identifier triggered when the user interacts with this widget.
-    /// </summary>
     string Action)
 {
 
@@ -51,17 +45,13 @@ public abstract record ChatWidget(
 /// {"type":"button","label":"Submit","action":"submit"}
 /// </remarks>
 public sealed record ButtonWidget(
-    /// <summary>
-    /// The text displayed on the button.
-    /// </summary>
     string Label,
-
-    /// <summary>
-    /// The action identifier triggered when the button is clicked.
-    /// </summary>
     string Action)
     : ChatWidget(Label, Action)
 {
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public override string Purpose => """
            **Button Widget** - For calling actions
            Format: <widget>{"type":"button","label":"ACTION_LABEL","action":"action_id"}</widget>
@@ -84,32 +74,16 @@ public sealed record ButtonWidget(
 /// {"type":"card","label":"View Details","action":"view","title":"Product Name","description":"Description","imageUrl":"https://..."}
 /// </remarks>
 public sealed record CardWidget(
-    /// <summary>
-    /// The label for the card's action button.
-    /// </summary>
     string Label,
-
-    /// <summary>
-    /// The action identifier triggered when the card is activated.
-    /// </summary>
     string Action,
-
-    /// <summary>
-    /// The title displayed at the top of the card.
-    /// </summary>
     string Title,
-
-    /// <summary>
-    /// Optional descriptive text displayed below the title.
-    /// </summary>
     string? Description = null,
-
-    /// <summary>
-    /// Optional URL for an image displayed in the card.
-    /// </summary>
     string? ImageUrl = null)
     : ChatWidget(Label, Action)
 {
+    /// <summary>
+    ///<inheritdoc/>
+    /// </summary>
     public override string Purpose => """
            **Card Widget** - For displaying rich content
            Format: <widget>{"type":"card","label":"ACTION_LABEL","action":"action_id","title":"TITLE","description":"DESCRIPTION","imageUrl":"URL"}</widget>
@@ -130,29 +104,18 @@ public sealed record CardWidget(
 /// {"type":"input","label":"Enter name","action":"input","placeholder":"Full name","maxLength":100}
 /// </remarks>
 public sealed record InputWidget(
-    /// <summary>
-    /// The label for the input field.
-    /// </summary>
     string Label,
-
-    /// <summary>
-    /// The action identifier triggered when the user submits the input.
-    /// </summary>
     string Action,
-
-    /// <summary>
-    /// Optional placeholder text shown when the input is empty.
-    /// </summary>
     string? Placeholder = null,
-
-    /// <summary>
-    /// Optional maximum number of characters allowed in the input.
-    /// </summary>
     int? MaxLength = null)
     : ChatWidget(Label, Action)
 {
+
+    /// <summary>
+    ///<inheritdoc/>
+    /// </summary>
     public override string Purpose => """
-           **Input Widget** - For text input
+           **Input Widget** - For single line text input
            Format: <widget>{"type":"input","label":"LABEL","action":"action_id","placeholder":"PLACEHOLDER","maxLength":100}</widget>
            Use when: You need the user to enter text (name, email, etc.)
         """;
@@ -172,32 +135,17 @@ public sealed record InputWidget(
 /// {"type":"textarea","label":"Enter message","action":"input","placeholder":"Your message here","maxLength":500,"rows":5}
 /// </remarks>
 public sealed record TextAreaWidget(
-    /// <summary>
-    /// The label for the textarea field.
-    /// </summary>
     string Label,
-
-    /// <summary>
-    /// The action identifier triggered when the user submits the textarea.
-    /// </summary>
     string Action,
-
-    /// <summary>
-    /// Optional placeholder text shown when the textarea is empty.
-    /// </summary>
     string? Placeholder = null,
-
-    /// <summary>
-    /// Optional maximum number of characters allowed in the textarea.
-    /// </summary>
     int? MaxLength = null,
-
-    /// <summary>
-    /// Optional number of rows to display for the textarea.
-    /// </summary>
     int? Rows = null)
     : ChatWidget(Label, Action)
 {
+
+    /// <summary>
+    ///<inheritdoc/>
+    /// </summary>
     public override string Purpose => """
            **TextArea Widget** - For multi-line text input
            Format: <widget>{"type":"textarea","label":"LABEL","action":"action_id","placeholder":"PLACEHOLDER","maxLength":500,"rows":5}</widget>
@@ -219,22 +167,15 @@ public sealed record TextAreaWidget(
 /// {"type":"dropdown","label":"Select size","action":"select_size","options":["Small","Medium","Large"]}
 /// </remarks>
 public sealed record DropdownWidget(
-    /// <summary>
-    /// The label for the dropdown.
-    /// </summary>
     string Label,
-
-    /// <summary>
-    /// The action identifier triggered when an option is selected.
-    /// </summary>
     string Action,
-
-    /// <summary>
-    /// The list of options available for selection.
-    /// </summary>
     IReadOnlyList<string> Options)
     : ChatWidget(Label, Action)
 {
+
+    /// <summary>
+    ///<inheritdoc/>
+    /// </summary>
     public override string Purpose => """
            **Dropdown Widget** - For selecting from options
            Format: <widget>{"type":"dropdown","label":"LABEL","action":"action_id","options":["OPTION1","OPTION2","OPTION3"]}</widget>
@@ -257,37 +198,18 @@ public sealed record DropdownWidget(
 /// {"type":"slider","label":"Volume","action":"set_volume","min":0,"max":100,"step":5,"default":50}
 /// </remarks>
 public sealed record SliderWidget(
-    /// <summary>
-    /// The label for the slider.
-    /// </summary>
     string Label,
-
-    /// <summary>
-    /// The action identifier triggered when the slider value changes.
-    /// </summary>
     string Action,
-
-    /// <summary>
-    /// The minimum value of the range.
-    /// </summary>
     int Min,
-
-    /// <summary>
-    /// The maximum value of the range.
-    /// </summary>
     int Max,
-
-    /// <summary>
-    /// The increment between values (step size).
-    /// </summary>
     int Step,
-
-    /// <summary>
-    /// Optional default value. If not specified, defaults to the minimum value.
-    /// </summary>
     int? Default = null)
     : ChatWidget(Label, Action)
 {
+
+    /// <summary>
+    ///<inheritdoc/>
+    /// </summary>
     public override string Purpose => """
            **Slider Widget** - For numeric selection
            Format: <widget>{"type":"slider","label":"LABEL","action":"action_id","min":0,"max":100,"step":5,"default":50}</widget>
@@ -309,22 +231,15 @@ public sealed record SliderWidget(
 /// {"type":"toggle","label":"Enable notifications","action":"toggle_notifications","defaultValue":false}
 /// </remarks>
 public sealed record ToggleWidget(
-    /// <summary>
-    /// The label for the toggle.
-    /// </summary>
     string Label,
-
-    /// <summary>
-    /// The action identifier triggered when the toggle state changes.
-    /// </summary>
     string Action,
-
-    /// <summary>
-    /// The initial state of the toggle (true = checked/enabled, false = unchecked/disabled).
-    /// </summary>
     bool DefaultValue)
     : ChatWidget(Label, Action)
 {
+
+    /// <summary>
+    ///<inheritdoc/>
+    /// </summary>
     public override string Purpose => """
            **Toggle Widget** - For boolean selection
            Format: <widget>{"type":"toggle","label":"LABEL","action":"action_id","defaultValue":false}</widget>
@@ -345,28 +260,16 @@ public sealed record ToggleWidget(
 /// {"type":"fileupload","label":"Upload document","action":"upload","accept":".pdf,.docx","maxBytes":5000000}
 /// </remarks>
 public sealed record FileUploadWidget(
-    /// <summary>
-    /// The label for the file upload input.
-    /// </summary>
     string Label,
-
-    /// <summary>
-    /// The action identifier triggered when a file is selected for upload.
-    /// </summary>
     string Action,
-
-    /// <summary>
-    /// Optional file type filter (e.g., ".pdf,.docx" or "image/*").
-    /// Corresponds to the HTML accept attribute.
-    /// </summary>
     string? Accept = null,
-
-    /// <summary>
-    /// Optional maximum file size in bytes. The system should enforce this limit.
-    /// </summary>
     long? MaxBytes = null)
     : ChatWidget(Label, Action)
 {
+
+    /// <summary>
+    ///<inheritdoc/>
+    /// </summary>
     public override string Purpose => """
            **FileUpload Widget** - For file uploads
            Format: <widget>{"type":"fileupload","label":"LABEL","action":"action_id","accept":".pdf,.doc","maxBytes":5000000}</widget>
@@ -391,22 +294,15 @@ public sealed record FileUploadWidget(
 /// {"type":"themeswitcher","label":"Choose theme","action":"set_theme","themes":["light","dark","auto"]}
 /// </remarks>
 public sealed record ThemeSwitcherWidget(
-    /// <summary>
-    /// The label for the theme switcher.
-    /// </summary>
     string Label,
-
-    /// <summary>
-    /// The action identifier triggered when a theme is selected.
-    /// </summary>
     string Action,
-
-    /// <summary>
-    /// The list of available theme options.
-    /// </summary>
     IReadOnlyList<string> Themes)
     : ChatWidget(Label, Action)
 {
+
+    /// <summary>
+    ///<inheritdoc/>
+    /// </summary>
     public override string Purpose => """
            **ThemeSwitcher Widget** - For switching themes
            Format: <widget>{"type":"themeswitcher","label":"LABEL","action":"action_id","themes":["light","dark","system"]}</widget>
@@ -429,27 +325,16 @@ public sealed record ThemeSwitcherWidget(
 /// {"type":"datepicker","label":"Select date","action":"pick_date","minDate":"2024-01-01","maxDate":"2024-12-31"}
 /// </remarks>
 public sealed record DatePickerWidget(
-    /// <summary>
-    /// The label for the date picker.
-    /// </summary>
     string Label,
-
-    /// <summary>
-    /// The action identifier triggered when a date is selected.
-    /// </summary>
     string Action,
-
-    /// <summary>
-    /// Optional minimum date in YYYY-MM-DD format.
-    /// </summary>
     string? MinDate = null,
-
-    /// <summary>
-    /// Optional maximum date in YYYY-MM-DD format.
-    /// </summary>
     string? MaxDate = null)
     : ChatWidget(Label, Action)
 {
+
+    /// <summary>
+    ///<inheritdoc/>
+    /// </summary>
     public override string Purpose => """
            **DatePicker Widget** - For selecting dates
            Format: <widget>{"type":"datepicker","label":"LABEL","action":"action_id","minDate":"YYYY-MM-DD","maxDate":"YYYY-MM-DD"}</widget>
@@ -472,22 +357,15 @@ public sealed record DatePickerWidget(
 /// {"type":"multiselect","label":"Select items","action":"select_items","options":["Option1","Option2","Option3"]}
 /// </remarks>
 public sealed record MultiSelectWidget(
-    /// <summary>
-    /// The label for the multi-select widget.
-    /// </summary>
     string Label,
-
-    /// <summary>
-    /// The action identifier triggered when selections change.
-    /// </summary>
     string Action,
-
-    /// <summary>
-    /// The list of options available for selection.
-    /// </summary>
     IReadOnlyList<string> Options)
     : ChatWidget(Label, Action)
 {
+
+    /// <summary>
+    ///<inheritdoc/>
+    /// </summary>
     public override string Purpose => """
            **MultiSelect Widget** - For selecting multiple options
            Format: <widget>{"type":"multiselect","label":"LABEL","action":"action_id","options":["OPTION1","OPTION2","OPTION3"]}</widget>
@@ -512,27 +390,16 @@ public sealed record MultiSelectWidget(
 /// {"type":"progressbar","label":"Upload progress","action":"upload_progress","value":65,"max":100}
 /// </remarks>
 public sealed record ProgressBarWidget(
-    /// <summary>
-    /// The label for the progress bar.
-    /// </summary>
     string Label,
-
-    /// <summary>
-    /// The action identifier or event name for progress tracking.
-    /// </summary>
     string Action,
-
-    /// <summary>
-    /// The current progress value.
-    /// </summary>
     int Value,
-
-    /// <summary>
-    /// The maximum value (represents 100% completion).
-    /// </summary>
     int Max)
     : ChatWidget(Label, Action)
 {
+
+    /// <summary>
+    ///<inheritdoc/>
+    /// </summary>
     public override string Purpose => """
            **ProgressBar Widget** - For showing progress
            Format: <widget>{"type":"progressbar","label":"LABEL","action":"action_id","value":50,"max":100}</widget>
@@ -562,6 +429,10 @@ public record FormWidget(
     IReadOnlyList<FormAction> Actions
 ) : ChatWidget("form", Action)
 {
+
+    /// <summary>
+    ///<inheritdoc/>
+    /// </summary>
     public override string Purpose => """
            **Form Widget** - For collecting structured input
            Format: <widget>{"type":"form","title":"TITLE","action":"action_id","fields":[...],"actions":[...]}</widget>
@@ -626,7 +497,7 @@ public record FormWidget(
 public record FormField(
     string Name,
     string Label,
-    string Type,          // supports widget types
+    string Type, 
     bool Required,
     string? ValidationHint = null
 );
@@ -638,7 +509,7 @@ public record FormField(
 /// associated with the form action.</param>
 /// <param name="Label">The display label for the action, typically shown on a button or user interface element.</param>
 public record FormAction(
-    string Type,          // "submit" or "cancel"
+    string Type,  
     string Label
 );
 

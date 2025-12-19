@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Components
 
 <div class="bbq-widget bbq-progressbar-widget">
-    <label class="bbq-dropdown-label">@Widget?.Label</label>
+    <label class="bbq-dropdown-label">@Widget.Label</label>
     <div style="width: 100%; background-color: #e5e7eb; border-radius: 4px; overflow: hidden; height: 24px;">
         <div style="width: @GetPercentage()%; background: linear-gradient(90deg, #3b82f6, #2563eb); height: 100%; display: flex; align-items: center; justify-content: center; transition: width 0.3s ease; color: white; font-size: 12px; font-weight: 500;">
             @GetPercentage()%
@@ -12,11 +12,11 @@
 
 @code {
     [Parameter]
-    public ProgressBarWidget? Widget { get; set; }
+    public required ProgressBarWidget Widget { get; set; }
 
     private int GetPercentage()
     {
-        if (Widget?.Max == 0) return 0;
+        if (Widget.Max == 0) return 0;
         
         var percentage = ((double)Widget.Value / Widget.Max) * 100;
         return Math.Min(100, Math.Max(0, (int)percentage));

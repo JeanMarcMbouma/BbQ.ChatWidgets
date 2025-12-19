@@ -17,12 +17,25 @@ public sealed class ChatWidgetConverter(IWidgetRegistry widgetRegistry) : JsonCo
 {
     private static readonly ConcurrentDictionary<string, JsonSerializerOptions> _serializerOptionsCache = new();
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="typeToConvert"></param>
+    /// <returns></returns>
     public override bool CanConvert(Type typeToConvert)
     {
         // Handle ChatWidget and all derived types
         return typeof(ChatWidget).IsAssignableFrom(typeToConvert);
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="reader"></param>
+    /// <param name="typeToConvert"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    /// <exception cref="JsonException"></exception>
     public override ChatWidget? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         if (reader.TokenType != JsonTokenType.StartObject)
@@ -71,6 +84,12 @@ public sealed class ChatWidgetConverter(IWidgetRegistry widgetRegistry) : JsonCo
         return widget;
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="writer"></param>
+    /// <param name="value"></param>
+    /// <param name="options"></param>
     public override void Write(Utf8JsonWriter writer, ChatWidget value, JsonSerializerOptions options)
     {
         // Create options without this converter to avoid recursion

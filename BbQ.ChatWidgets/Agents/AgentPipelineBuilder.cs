@@ -3,11 +3,22 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BbQ.ChatWidgets.Agents;
 
-public class AgentPipelineBuilder
+/// <summary>
+/// Builder for constructing an agent middleware pipeline.
+/// </summary> 
+public sealed class AgentPipelineBuilder
 {
     private readonly IList<Func<AgentDelegate, AgentDelegate>> _components =
         [];
 
+    /// <summary>
+    /// Adds a middleware component to the pipeline.
+    /// </summary>
+    /// <typeparam name="TMiddleware">The type of the middleware.</typeparam>
+    /// <returns>The updated pipeline builder.</returns>
+    /// <remarks>
+    /// This method adds a middleware component to the pipeline.
+    /// </remarks>
     public AgentPipelineBuilder Use<TMiddleware>() where TMiddleware : IAgentMiddleware
     {
         _components.Add(next =>

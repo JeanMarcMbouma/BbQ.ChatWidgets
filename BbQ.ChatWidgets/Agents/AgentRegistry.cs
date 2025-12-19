@@ -14,6 +14,9 @@ public sealed class AgentRegistry : IAgentRegistry
 {
     private readonly Dictionary<string, IAgent> _agents = [];
 
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
     public void Register(string name, IAgent agent)
     {
         if (string.IsNullOrWhiteSpace(name))
@@ -25,17 +28,29 @@ public sealed class AgentRegistry : IAgentRegistry
         _agents[name] = agent;
     }
 
+
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
     public IAgent? GetAgent(string name)
     {
         _agents.TryGetValue(name, out var agent);
         return agent;
     }
 
+
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
     public IEnumerable<string> GetRegisteredAgents()
     {
         return _agents.Keys.AsEnumerable();
     }
 
+
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
     public bool HasAgent(string name)
     {
         return _agents.ContainsKey(name);

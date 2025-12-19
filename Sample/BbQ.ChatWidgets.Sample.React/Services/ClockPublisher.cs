@@ -1,6 +1,5 @@
 using System.Collections.Concurrent;
 using BbQ.ChatWidgets.Abstractions;
-using System.Text.Json;
 
 namespace BbQ.ChatWidgets.Sample.WebApp.Services;
 

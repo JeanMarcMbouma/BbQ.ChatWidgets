@@ -72,6 +72,8 @@ namespace BbQ.ChatWidgets.Renderers
             MultiSelectWidget ms => RenderMultiSelect(ms),
             ProgressBarWidget pb => RenderProgressBar(pb),
             FormWidget form => RenderForm(form),
+            ImageWidget img => RenderImage(img),
+            ImageCollectionWidget gallery => RenderImageCollection(gallery),
             _ => RenderUnsupported(widget)
         };
 
@@ -488,6 +490,58 @@ namespace BbQ.ChatWidgets.Renderers
             html += "</fieldset>";
             html += "</div>";
 
+            return html;
+        }
+
+        private static string RenderImage(ImageWidget img)
+        {
+            var label = Escape(img.Label);
+            var action = Escape(img.Action);
+            var id = GenerateId(img.Action);
+            var imageUrl = Escape(img.ImageUrl);
+            var alt = Escape(img.Alt ?? img.Label);
+
+            var width = img.Width is not null ? $" width=\"{img.Width}\"" : "";
+            var height = img.Height is not null ? $" height=\"{img.Height}\"" : "";
+
+            var html = $@"<figure class=""bbq-widget bbq-image"" data-widget-id=""{id}"" data-widget-type=""image"" data-action=""{action}"">";
+            html += $"<img class=\"bbq-image-img\" src=\"{imageUrl}\" alt=\"{alt}\" loading=\"lazy\"{width}{height} />";
+
+            // Use label as caption only if it adds value beyond the alt text
+            if (!string.IsNullOrWhiteSpace(label) && !string.Equals(label, alt, StringComparison.Ordinal))
+            {
+                html += $"<figcaption class=\"bbq-image-caption\">{label}</figcaption>";
+            }
+
+            html += "</figure>";
+            return html;
+        }
+
+        private static string RenderImageCollection(ImageCollectionWidget gallery)
+        {
+            var action = Escape(gallery.Action);
+            var id = GenerateId(gallery.Action);
+
+            var html = $@"<div class=""bbq-widget bbq-image-collection"" data-widget-id=""{id}"" data-widget-type=""imagecollection"" data-action=""{action}"">";
+
+            foreach (var item in gallery.Images)
+            {
+                var imageUrl = Escape(item.ImageUrl);
+                var alt = Escape(item.Alt ?? "");
+                var itemAction = Escape(item.Action ?? gallery.Action);
+                var width = item.Width is not null ? $" width=\"{item.Width}\"" : "";
+                var height = item.Height is not null ? $" height=\"{item.Height}\"" : "";
+
+                html += $@"<div class=""bbq-image-collection-item"">";
+                html += $"<img class=\"bbq-image-img\" src=\"{imageUrl}\" alt=\"{alt}\" loading=\"lazy\" data-action=\"{itemAction}\"{width}{height} />";
+                if (!string.IsNullOrWhiteSpace(alt))
+                {
+                    html += $"<div class=\"bbq-image-caption\">{alt}</div>";
+                }
+                html += "</div>";
+            }
+
+            html += "</div>";
             return html;
         }
 

@@ -9,57 +9,64 @@ import { renderClock } from '../widgets/clockRenderer';
 import { WeatherWidget } from '../widgets/WeatherWidget';
 import { renderWeather } from '../widgets/weatherRenderer';
 
-// Make echarts available globally for inline scripts in rendered HTML
 declare global {
   interface Window {
     echarts: typeof echarts;
   }
 }
-window.echarts = echarts;
 
 interface WidgetRendererProps {
   widgets: ChatWidget[] | null | undefined;
   onWidgetAction?: (actionName: string, payload: unknown) => void;
 }
 
-// Register custom ECharts widget with factory function for proper deserialization
-customWidgetRegistry.registerFactory('echarts', (obj: any) => {
-  if (obj.type === 'echarts') {
-    return new EChartsWidget(
-      obj.label || '',
-      obj.action || '',
-      obj.chartType || 'bar',
-      obj.jsonData || '{}'
-    );
-  }
-  return null;
-});
+let customRegistrationsDone = false;
+function ensureCustomRegistrations() {
+  if (customRegistrationsDone) return;
+  customRegistrationsDone = true;
 
-// Register clock widget factory
-customWidgetRegistry.registerFactory('clock', (obj: any) => {
-  if (obj.type === 'clock') {
-    return new ClockWidget(
-      obj.label || 'Clock',
-      obj.action || 'clock_tick',
-      obj.timezone,
-      obj.streamId
-    );
-  }
-  return null;
-});
+  // Make echarts available globally for inline scripts in rendered HTML
+  window.echarts = echarts;
 
-// Register weather widget factory
-customWidgetRegistry.registerFactory('weather', (obj: any) => {
-  if (obj.type === 'weather') {
-    return new WeatherWidget(
-      obj.label || 'Weather',
-      obj.action || 'weather_update',
-      obj.city,
-      obj.streamId
-    );
-  }
-  return null;
-});
+  // Register custom ECharts widget with factory function for proper deserialization
+  customWidgetRegistry.registerFactory('echarts', (obj: any) => {
+    if (obj.type === 'echarts') {
+      return new EChartsWidget(
+        obj.label || '',
+        obj.action || '',
+        obj.chartType || 'bar',
+        obj.jsonData || '{}'
+      );
+    }
+    return null;
+  });
+
+  // Register clock widget factory
+  customWidgetRegistry.registerFactory('clock', (obj: any) => {
+    if (obj.type === 'clock') {
+      return new ClockWidget(
+        obj.label || 'Clock',
+        obj.action || 'clock_tick',
+        obj.timezone,
+        obj.streamId
+      );
+    }
+    return null;
+  });
+
+  // Register weather widget factory
+  customWidgetRegistry.registerFactory('weather', (obj: any) => {
+    if (obj.type === 'weather') {
+      return new WeatherWidget(
+        obj.label || 'Weather',
+        obj.action || 'weather_update',
+        obj.city,
+        obj.streamId
+      );
+    }
+    return null;
+  });
+}
 
 export const WidgetRenderer: React.FC<WidgetRendererProps> = ({
   widgets,
@@ -68,6 +75,8 @@ export const WidgetRenderer: React.FC<WidgetRendererProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    ensureCustomRegistrations();
+
     if (!containerRef.current || !onWidgetAction) return;
 
     // Create a custom action handler that calls onWidgetAction

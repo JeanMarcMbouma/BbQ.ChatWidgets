@@ -32,11 +32,6 @@
   </ItemGroup>
 
   <!-- Include CSS themes in NuGet package -->
-  <ItemGroup>
-    <None Include="themes\bbq-chat-light.css" Pack="true" PackagePath="contentFiles\any\any\themes\" />
-    <None Include="themes\bbq-chat-dark.css" Pack="true" PackagePath="contentFiles\any\any\themes\" />
-    <None Include="themes\bbq-chat-corporate.css" Pack="true" PackagePath="contentFiles\any\any\themes\" />
-  </ItemGroup>
 
   <!-- Include documentation in NuGet package -->
   <ItemGroup>

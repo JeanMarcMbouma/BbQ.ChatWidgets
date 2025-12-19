@@ -116,16 +116,16 @@
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/WidgetActionHandlerResolver.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Services/WidgetActionHandlerResolver.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Services_WidgetActionHandlerExtensions_RegisterHandler_" data-uid="BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler*"></a>
-  <h4 id="BbQ_ChatWidgets_Services_WidgetActionHandlerExtensions_RegisterHandler__3_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver___0_" data-uid="BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,``0)">RegisterHandler&lt;TAction, TPayload, THandler&gt;(IWidgetActionRegistry, IWidgetActionHandlerResolver, TAction)</h4>
+  <h4 id="BbQ_ChatWidgets_Services_WidgetActionHandlerExtensions_RegisterHandler__3_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_" data-uid="BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)">RegisterHandler&lt;TAction, TPayload, THandler&gt;(IWidgetActionRegistry, IWidgetActionHandlerResolver)</h4>
   <div class="markdown level1 summary"><p>Registers a typed action handler with both the action registry and handler resolver.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void RegisterHandler&lt;TAction, TPayload, THandler&gt;(this IWidgetActionRegistry registry, IWidgetActionHandlerResolver resolver, TAction action) where TAction : notnull, IWidgetAction&lt;TPayload&gt; where TPayload : notnull where THandler : notnull, IActionWidgetActionHandler&lt;TAction, TPayload&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public static void RegisterHandler&lt;TAction, TPayload, THandler&gt;(this IWidgetActionRegistry registry, IWidgetActionHandlerResolver resolver) where TAction : notnull, IWidgetAction&lt;TPayload&gt;, new() where TPayload : notnull where THandler : notnull, IActionWidgetActionHandler&lt;TAction, TPayload&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -140,19 +140,12 @@
       <tr>
         <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html">IWidgetActionRegistry</a></td>
         <td><span class="parametername">registry</span></td>
-        <td><p>The action registry where action metadata will be registered.</p>
-</td>
+        <td></td>
       </tr>
       <tr>
         <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html">IWidgetActionHandlerResolver</a></td>
         <td><span class="parametername">resolver</span></td>
         <td><p>The handler resolver where the handler type will be registered.</p>
-</td>
-      </tr>
-      <tr>
-        <td><span class="xref">TAction</span></td>
-        <td><span class="parametername">action</span></td>
-        <td><p>An instance of the action containing metadata (name, description, schema).</p>
 </td>
       </tr>
     </tbody>
@@ -183,7 +176,7 @@
       </tr>
     </tbody>
   </table>
-  <h5 id="BbQ_ChatWidgets_Services_WidgetActionHandlerExtensions_RegisterHandler__3_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver___0__remarks">Remarks</h5>
+  <h5 id="BbQ_ChatWidgets_Services_WidgetActionHandlerExtensions_RegisterHandler__3_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>This extension method provides a convenient API for registering actions with their handlers in a type-safe manner.
 It:</p>
 <ol>
@@ -206,7 +199,7 @@ It:</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/WidgetActionHandlerResolver.cs" class="contribution-link">View Source</a>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Services/WidgetActionHandlerResolver.cs" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

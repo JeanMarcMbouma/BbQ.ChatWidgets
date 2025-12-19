@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width">
       <meta name="title" content="Interface IWidgetSseService | BbQ.ChatWidgets ">
     
-    
+    <meta name="description" content="Service for managing Server-Sent Events (SSE) for widget updates.">
       <link rel="shortcut icon" href="favicon.ico">
       <link rel="stylesheet" href="styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="styles/docfx.css">
@@ -74,7 +74,8 @@
 
 
   <h1 id="BbQ_ChatWidgets_Abstractions_IWidgetSseService" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetSseService" class="text-break">Interface IWidgetSseService</h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Service for managing Server-Sent Events (SSE) for widget updates.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <h6><strong>Namespace</strong>: <a class="xref" href="BbQ.html">BbQ</a>.<a class="xref" href="BbQ.ChatWidgets.html">ChatWidgets</a>.<a class="xref" href="BbQ.ChatWidgets.Abstractions.html">Abstractions</a></h6>
   <h6><strong>Assembly</strong>: BbQ.ChatWidgets.dll</h6>
@@ -86,17 +87,16 @@
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IWidgetSseService.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Abstractions/IWidgetSseService.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Abstractions_IWidgetSseService_PublishAsync_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetSseService.PublishAsync*"></a>
-  <h4 id="BbQ_ChatWidgets_Abstractions_IWidgetSseService_PublishAsync_System_String_System_Object_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetSseService.PublishAsync(System.String,System.Object)">PublishAsync(string, object)</h4>
-  <div class="markdown level1 summary"><p>Publish a JSON-serializable message to a named stream. If the stream has no
-subscribers it will be created implicitly.</p>
+  <h4 id="BbQ_ChatWidgets_Abstractions_IWidgetSseService_PublishAsync_System_String_System_Object_BbQ_ChatWidgets_Abstractions_IStreamPayloadValidator_System_String_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetSseService.PublishAsync(System.String,System.Object,BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator,System.String)">PublishAsync(string, object, IStreamPayloadValidator, string?)</h4>
+  <div class="markdown level1 summary"><p>Publish a JSON-serializable message to a named stream with payload validation.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">Task PublishAsync(string streamId, object message)</code></pre>
+    <pre><code class="lang-csharp hljs">Task PublishAsync(string streamId, object message, IStreamPayloadValidator validator, string? publisherId = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -111,12 +111,26 @@ subscribers it will be created implicitly.</p>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td><span class="parametername">streamId</span></td>
-        <td></td>
+        <td><p>The stream identifier.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
         <td><span class="parametername">message</span></td>
-        <td></td>
+        <td><p>The message object to publish.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.html">IStreamPayloadValidator</a></td>
+        <td><span class="parametername">validator</span></td>
+        <td><p>The payload validator to use for validation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">publisherId</span></td>
+        <td><p>Optional: Identifier for the publisher (used for rate limiting).</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -135,9 +149,39 @@ subscribers it will be created implicitly.</p>
       </tr>
     </tbody>
   </table>
+  <h5 id="BbQ_ChatWidgets_Abstractions_IWidgetSseService_PublishAsync_System_String_System_Object_BbQ_ChatWidgets_Abstractions_IStreamPayloadValidator_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method validates the payload against configured rules before publishing.
+Use this overload to protect against DoS attacks via:</p>
+<ul>
+<li>Large payload attacks (size limits)</li>
+<li>Rapid-fire publish attacks (rate limiting)</li>
+<li>Custom content validation</li>
+</ul>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.PayloadValidationException.html">PayloadValidationException</a></td>
+        <td><p>Thrown if payload validation fails.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.html">PublishRateLimitExceededException</a></td>
+        <td><p>Thrown if publish rate limit is exceeded.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IWidgetSseService.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Abstractions/IWidgetSseService.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Abstractions_IWidgetSseService_SubscribeAsync_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetSseService.SubscribeAsync*"></a>
   <h4 id="BbQ_ChatWidgets_Abstractions_IWidgetSseService_SubscribeAsync_System_String_Microsoft_AspNetCore_Http_HttpContext_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetSseService.SubscribeAsync(System.String,Microsoft.AspNetCore.Http.HttpContext,System.Threading.CancellationToken)">SubscribeAsync(string, HttpContext, CancellationToken)</h4>
@@ -200,7 +244,7 @@ when the connection is closed.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IWidgetSseService.cs" class="contribution-link">View Source</a>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Abstractions/IWidgetSseService.cs" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

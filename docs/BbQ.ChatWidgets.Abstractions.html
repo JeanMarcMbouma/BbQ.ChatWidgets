@@ -75,6 +75,18 @@
   <div class="markdown level0 summary"></div>
   <div class="markdown level0 conceptual"></div>
   <div class="markdown level0 remarks"></div>
+    <h3 id="classes">
+Classes
+</h3>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Abstractions.PayloadValidationException.html">PayloadValidationException</a></h4>
+      <section><p>Exception thrown when a payload fails validation.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.html">PublishRateLimitExceededException</a></h4>
+      <section><p>Exception thrown when a publisher exceeds the allowed publish rate.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Abstractions.StreamValidationRules.html">StreamValidationRules</a></h4>
+      <section><p>Defines validation rules for a specific stream to prevent DoS attacks.</p>
+</section>
     <h3 id="interfaces">
 Interfaces
 </h3>
@@ -89,6 +101,10 @@ Interfaces
 </section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Abstractions.IRecyclableWidget.html">IRecyclableWidget</a></h4>
       <section><p>Interface for widgets that need to perform cleanup or resource deallocation.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.html">IStreamPayloadValidator</a></h4>
+      <section><p>Defines validation criteria for SSE stream payloads to prevent Denial-of-Service (DoS) attacks.
+Implementations must validate payload size, frequency, and content to ensure fair resource usage.</p>
 </section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Abstractions.IThreadService.html">IThreadService</a></h4>
       <section><p>Defines the contract for managing conversation threads and message history.</p>
@@ -118,9 +134,16 @@ Interfaces
       <section><p>Central registry for widget instances and their tools.</p>
 </section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetSseService.html">IWidgetSseService</a></h4>
-      <section></section>
+      <section><p>Service for managing Server-Sent Events (SSE) for widget updates.</p>
+</section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.html">IWidgetToolsProvider</a></h4>
       <section><p>Defines the contract for providing AI tool definitions for all available widget types.</p>
+</section>
+    <h3 id="enums">
+Enums
+</h3>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Abstractions.PayloadValidationReason.html">PayloadValidationReason</a></h4>
+      <section><p>Specifies the reason a payload failed validation.</p>
 </section>
 
 

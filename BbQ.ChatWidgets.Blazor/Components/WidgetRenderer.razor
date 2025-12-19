@@ -45,6 +45,12 @@
             case nameof(FormWidget):
                 <FormWidgetComponent Widget="(FormWidget)Widget" OnAction="OnAction" />
                 break;
+            case nameof(ImageWidget):
+                <ImageWidgetComponent Widget="(ImageWidget)Widget" OnAction="OnAction" />
+                break;
+            case nameof(ImageCollectionWidget):
+                <ImageCollectionWidgetComponent Widget="(ImageCollectionWidget)Widget" OnAction="OnAction" />
+                break;
             default:
                 <div class="bbq-widget-unknown">
                     <p>Unknown widget type: @Widget.GetType().Name</p>

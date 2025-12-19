@@ -1,0 +1,39 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+
+<div class="bbq-widget bbq-image-widget">
+    @if (Widget != null)
+    {
+        <figure class="bbq-image-figure">
+            <img class="bbq-image"
+                 src="@Widget.ImageUrl"
+                 alt="@(Widget.Alt ?? string.Empty)"
+                 width="@(Widget.Width)"
+                 height="@(Widget.Height)"
+                 loading="lazy"
+                 @onclick="HandleClick"
+                 style="cursor: pointer; max-width: 100%; height: auto;" />
+            @if (!string.IsNullOrWhiteSpace(Widget.Alt))
+            {
+                <figcaption class="bbq-image-caption">@Widget.Alt</figcaption>
+            }
+        </figure>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public ImageWidget? Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    private async Task HandleClick()
+    {
+        if (Widget == null)
+            return;
+
+        var payload = new { imageUrl = Widget.ImageUrl };
+        await OnAction.InvokeAsync((Widget.Action, payload));
+    }
+}

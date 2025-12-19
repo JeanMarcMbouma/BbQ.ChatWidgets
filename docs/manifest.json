@@ -88,6 +88,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.yml\" sourcestartlinenumber=\"1\">Defines validation criteria for SSE stream payloads to prevent Denial-of-Service (DoS) attacks.\nImplementations must validate payload size, frequency, and content to ensure fair resource usage.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IThreadService.yml",
       "output": {
         ".html": {
@@ -224,7 +238,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Abstractions.IWidgetSseService",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IWidgetSseService.yml\" sourcestartlinenumber=\"1\">Service for managing Server-Sent Events (SSE) for widget updates.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -239,6 +253,62 @@
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider",
       "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.yml\" sourcestartlinenumber=\"1\">Defines the contract for providing AI tool definitions for all available widget types.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.PayloadValidationException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.PayloadValidationException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.PayloadValidationException",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.PayloadValidationException.yml\" sourcestartlinenumber=\"1\">Exception thrown when a payload fails validation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.PayloadValidationReason.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.PayloadValidationReason.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.PayloadValidationReason",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.PayloadValidationReason.yml\" sourcestartlinenumber=\"1\">Specifies the reason a payload failed validation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.yml\" sourcestartlinenumber=\"1\">Exception thrown when a publisher exceeds the allowed publish rate.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.StreamValidationRules.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.StreamValidationRules.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.StreamValidationRules",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.StreamValidationRules.yml\" sourcestartlinenumber=\"1\">Defines validation rules for a specific stream to prevent DoS attacks.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -350,7 +420,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Agents.AgentPipelineBuilder",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.AgentPipelineBuilder.yml\" sourcestartlinenumber=\"1\">Builder for constructing an agent middleware pipeline.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -392,7 +462,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Agents.Extensions.AgentPipelineExtensions",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.Extensions.AgentPipelineExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for registering agent pipelines in the service collection.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -742,7 +812,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Models.FormAction",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.FormAction.yml\" sourcestartlinenumber=\"1\">Represents an action that can be performed on a form, such as submitting or canceling.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -756,7 +826,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Models.FormField",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.FormField.yml\" sourcestartlinenumber=\"1\">Represents a field definition for a form, including metadata such as name, label, type, and validation requirements.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -770,7 +840,49 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Models.FormWidget",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.FormWidget.yml\" sourcestartlinenumber=\"1\">Represents a composite form widget used to collect structured input from users, including multiple fields and\nassociated actions such as submit and cancel.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ImageCollectionWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ImageCollectionWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ImageCollectionWidget",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ImageCollectionWidget.yml\" sourcestartlinenumber=\"1\">Displays a collection of images (gallery).</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ImageItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ImageItem.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ImageItem",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ImageItem.yml\" sourcestartlinenumber=\"1\">An image item for use inside an <xref href=\"BbQ.ChatWidgets.Models.ImageCollectionWidget\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ImageWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ImageWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ImageWidget",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ImageWidget.yml\" sourcestartlinenumber=\"1\">Displays a single image.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -854,7 +966,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Models.StreamChatTurn",
-      "Summary": null
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.StreamChatTurn.yml\" sourcestartlinenumber=\"1\">Represents a single turn in a chat conversation with an additional delta flag.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -984,6 +1096,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.yml\" sourcestartlinenumber=\"1\">Default implementation of <xref href=\"BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator\" data-throw-if-not-resolved=\"false\"></xref> that enforces payload size\nand publish rate limits to prevent Denial-of-Service attacks.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Services.DefaultThreadService.yml",
       "output": {
         ".html": {
@@ -1079,6 +1205,20 @@
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Services.WidgetActionMetadata",
       "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.WidgetActionMetadata.yml\" sourcestartlinenumber=\"1\">Default implementation of <xref href=\"BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.WidgetActionRegistry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.WidgetActionRegistry.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.WidgetActionRegistry",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.WidgetActionRegistry.yml\" sourcestartlinenumber=\"1\">Default in-memory implementation of <xref href=\"BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",

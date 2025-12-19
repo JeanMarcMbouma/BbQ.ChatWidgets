@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width">
       <meta name="title" content="Class StreamChatTurn | BbQ.ChatWidgets ">
     
-    
+    <meta name="description" content="Represents a single turn in a chat conversation with an additional delta flag.">
       <link rel="shortcut icon" href="favicon.ico">
       <link rel="stylesheet" href="styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="styles/docfx.css">
@@ -74,7 +74,8 @@
 
 
   <h1 id="BbQ_ChatWidgets_Models_StreamChatTurn" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn" class="text-break">Class StreamChatTurn</h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Represents a single turn in a chat conversation with an additional delta flag.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
@@ -123,11 +124,22 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public record StreamChatTurn : ChatTurn, IEquatable&lt;ChatTurn&gt;, IEquatable&lt;StreamChatTurn&gt;</code></pre>
   </div>
+  <h5 id="BbQ_ChatWidgets_Models_StreamChatTurn_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>A chat turn encapsulates a message in the conversation, either from the user or the assistant.
+It includes:</p>
+<ul>
+<li>The role (who sent the message: User or Assistant)</li>
+<li>The content (the text of the message)</li>
+<li>Optional widgets (interactive UI elements embedded in the response)</li>
+<li>The thread ID (for tracking multi-turn conversations)</li>
+</ul>
+<p>Chat turns are immutable records that form the history of a conversation thread.</p>
+</div>
   <h3 id="constructors">Constructors
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_StreamChatTurn__ctor_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.#ctor*"></a>
   <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn__ctor_BbQ_ChatWidgets_Models_StreamChatTurn_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.#ctor(BbQ.ChatWidgets.Models.StreamChatTurn)">StreamChatTurn(StreamChatTurn)</h4>
@@ -156,11 +168,12 @@
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_StreamChatTurn__ctor_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.#ctor*"></a>
   <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn__ctor_Microsoft_Extensions_AI_ChatRole_System_String_System_String_System_Boolean_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.#ctor(Microsoft.Extensions.AI.ChatRole,System.String,System.String,System.Boolean)">StreamChatTurn(ChatRole, string, string, bool)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Represents a single turn in a chat conversation with an additional delta flag.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
@@ -179,30 +192,45 @@
       <tr>
         <td><span class="xref">ChatRole</span></td>
         <td><span class="parametername">Role</span></td>
-        <td></td>
+        <td><p>The role of the message sender (User or Assistant).</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td><span class="parametername">Content</span></td>
-        <td></td>
+        <td><p>The text content of this turn's message.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td><span class="parametername">ThreadId</span></td>
-        <td></td>
+        <td><p>The conversation thread ID this turn belongs to.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
         <td><span class="parametername">IsDelta</span></td>
-        <td></td>
+        <td><p>Indicates whether the response is a delta (partial update) or a complete message.</p>
+</td>
       </tr>
     </tbody>
   </table>
+  <h5 id="BbQ_ChatWidgets_Models_StreamChatTurn__ctor_Microsoft_Extensions_AI_ChatRole_System_String_System_String_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>A chat turn encapsulates a message in the conversation, either from the user or the assistant.
+It includes:</p>
+<ul>
+<li>The role (who sent the message: User or Assistant)</li>
+<li>The content (the text of the message)</li>
+<li>Optional widgets (interactive UI elements embedded in the response)</li>
+<li>The thread ID (for tracking multi-turn conversations)</li>
+</ul>
+<p>Chat turns are immutable records that form the history of a conversation thread.</p>
+</div>
   <h3 id="properties">Properties
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_StreamChatTurn_EqualityContract_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.EqualityContract*"></a>
   <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_EqualityContract" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.EqualityContract">EqualityContract</h4>
@@ -231,11 +259,12 @@
   <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_EqualityContract">ChatTurn.EqualityContract</a></div>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_StreamChatTurn_IsDelta_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.IsDelta*"></a>
   <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_IsDelta" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.IsDelta">IsDelta</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Indicates whether the response is a delta (partial update) or a complete message.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
@@ -260,7 +289,7 @@
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_StreamChatTurn_Deconstruct_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.Deconstruct*"></a>
   <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_Deconstruct_Microsoft_Extensions_AI_ChatRole__System_String__System_String__System_Boolean__" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.Deconstruct(Microsoft.Extensions.AI.ChatRole@,System.String@,System.String@,System.Boolean@)">Deconstruct(out ChatRole, out string, out string, out bool)</h4>
@@ -304,7 +333,7 @@
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_StreamChatTurn_Equals_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.Equals*"></a>
   <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_Equals_BbQ_ChatWidgets_Models_ChatTurn_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn)">Equals(ChatTurn?)</h4>
@@ -350,7 +379,7 @@
   <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Equals_BbQ_ChatWidgets_Models_ChatTurn_">ChatTurn.Equals(ChatTurn?)</a></div>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_StreamChatTurn_Equals_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.Equals*"></a>
   <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_Equals_BbQ_ChatWidgets_Models_StreamChatTurn_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.Equals(BbQ.ChatWidgets.Models.StreamChatTurn)">Equals(StreamChatTurn?)</h4>
@@ -394,7 +423,7 @@
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_StreamChatTurn_Equals_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.Equals*"></a>
   <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_Equals_System_Object_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.Equals(System.Object)">Equals(object?)</h4>
@@ -440,7 +469,7 @@
   <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Equals_System_Object_">ChatTurn.Equals(object?)</a></div>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_StreamChatTurn_GetHashCode_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.GetHashCode*"></a>
   <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_GetHashCode" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.GetHashCode">GetHashCode()</h4>
@@ -469,7 +498,7 @@
   <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_GetHashCode">ChatTurn.GetHashCode()</a></div>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_StreamChatTurn_PrintMembers_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.PrintMembers*"></a>
   <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_PrintMembers_System_Text_StringBuilder_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.PrintMembers(System.Text.StringBuilder)">PrintMembers(StringBuilder)</h4>
@@ -515,7 +544,7 @@
   <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_PrintMembers_System_Text_StringBuilder_">ChatTurn.PrintMembers(StringBuilder)</a></div>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_StreamChatTurn_ToString_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.ToString*"></a>
   <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_ToString" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.ToString">ToString()</h4>
@@ -546,7 +575,7 @@
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_StreamChatTurn_op_Equality_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.op_Equality*"></a>
   <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_op_Equality_BbQ_ChatWidgets_Models_StreamChatTurn_BbQ_ChatWidgets_Models_StreamChatTurn_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.op_Equality(BbQ.ChatWidgets.Models.StreamChatTurn,BbQ.ChatWidgets.Models.StreamChatTurn)">operator ==(StreamChatTurn?, StreamChatTurn?)</h4>
@@ -595,7 +624,7 @@
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatTurn.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_StreamChatTurn_op_Inequality_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.op_Inequality*"></a>
   <h4 id="BbQ_ChatWidgets_Models_StreamChatTurn_op_Inequality_BbQ_ChatWidgets_Models_StreamChatTurn_BbQ_ChatWidgets_Models_StreamChatTurn_" data-uid="BbQ.ChatWidgets.Models.StreamChatTurn.op_Inequality(BbQ.ChatWidgets.Models.StreamChatTurn,BbQ.ChatWidgets.Models.StreamChatTurn)">operator !=(StreamChatTurn?, StreamChatTurn?)</h4>
@@ -658,7 +687,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatTurn.cs" class="contribution-link">View Source</a>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatTurn.cs" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

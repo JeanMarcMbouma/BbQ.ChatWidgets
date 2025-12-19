@@ -347,7 +347,9 @@ public class SsrWidgetRendererTests
             new ThemeSwitcherWidget("Test", "test", ["theme1", "theme2"]),
             new DatePickerWidget("Test", "test"),
             new MultiSelectWidget("Test", "test", ["A", "B"]),
-            new ProgressBarWidget("Test", "test", 50, 100)
+            new ProgressBarWidget("Test", "test", 50, 100),
+            new ImageWidget("Test", "test", "https://example.com/a.jpg"),
+            new ImageCollectionWidget("Test", "test", [new ImageItem("https://example.com/a.jpg")])
         };
 
         // Act & Assert

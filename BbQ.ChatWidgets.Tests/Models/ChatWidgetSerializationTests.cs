@@ -254,4 +254,58 @@ public class ChatWidgetSerializationTests
         Assert.IsType<DropdownWidget>(deserialized[1]);
         Assert.IsType<ToggleWidget>(deserialized[2]);
     }
+
+    [Fact]
+    public void ImageWidget_SerializesWithImageUrl()
+    {
+        // Arrange
+        var widget = new ImageWidget(
+            Label: "Open",
+            Action: "open_image",
+            ImageUrl: "https://example.com/a.jpg",
+            Alt: "Example",
+            Width: 320,
+            Height: 180);
+
+        var json = widget.ToJson();
+
+        // Act
+        var deserialized = ChatWidget.FromJson(json);
+
+        // Assert
+        Assert.NotNull(deserialized);
+        Assert.IsType<ImageWidget>(deserialized);
+        var image = (ImageWidget)deserialized;
+        Assert.Equal("https://example.com/a.jpg", image.ImageUrl);
+        Assert.Equal("Example", image.Alt);
+        Assert.Equal(320, image.Width);
+        Assert.Equal(180, image.Height);
+        Assert.Equal("image", image.Type);
+    }
+
+    [Fact]
+    public void ImageCollectionWidget_SerializesWithImages()
+    {
+        // Arrange
+        var widget = new ImageCollectionWidget(
+            Label: "Gallery",
+            Action: "open_gallery",
+            Images: [
+                new ImageItem("https://example.com/1.jpg", Alt: "One", Action: "open_1"),
+                new ImageItem("https://example.com/2.jpg", Alt: "Two")
+            ]);
+
+        var json = widget.ToJson();
+
+        // Act
+        var deserialized = ChatWidget.FromJson(json);
+
+        // Assert
+        Assert.NotNull(deserialized);
+        Assert.IsType<ImageCollectionWidget>(deserialized);
+        var gallery = (ImageCollectionWidget)deserialized;
+        Assert.Equal(2, gallery.Images.Count);
+        Assert.Equal("open_1", gallery.Images[0].Action);
+        Assert.Equal("imagecollection", gallery.Type);
+    }
 }

@@ -135,7 +135,7 @@ and conversation threading.</p>
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Services_ChatWidgetService__ctor_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.#ctor*"></a>
   <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)">ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver)</h4>
@@ -229,7 +229,7 @@ and conversation threading.</p>
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Services_ChatWidgetService_HandleActionAsync_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.HandleActionAsync*"></a>
   <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService_HandleActionAsync_System_String_System_Collections_Generic_IReadOnlyDictionary_System_String_System_Object__System_String_System_IServiceProvider_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.HandleActionAsync(System.String,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.IServiceProvider,System.Threading.CancellationToken)">HandleActionAsync(string, IReadOnlyDictionary&lt;string, object?&gt;, string, IServiceProvider, CancellationToken)</h4>
@@ -334,7 +334,7 @@ It:</p>
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Services_ChatWidgetService_RespondAsync_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync*"></a>
   <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService_RespondAsync_System_String_System_String_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync(System.String,System.String,System.Threading.CancellationToken)">RespondAsync(string, string?, CancellationToken)</h4>
@@ -427,11 +427,12 @@ in its responses using the <code>&lt;widget&gt;...&lt;/widget&gt;</code> format.
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Services_ChatWidgetService_StreamResponseAsync_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync*"></a>
   <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService_StreamResponseAsync_System_String_System_String_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync(System.String,System.String,System.Threading.CancellationToken)">StreamResponseAsync(string, string?, CancellationToken)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Streams the AI assistant's response to a user message, yielding incremental <a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a> deltas as content is generated.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
@@ -450,17 +451,20 @@ in its responses using the <code>&lt;widget&gt;...&lt;/widget&gt;</code> format.
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td><span class="parametername">userMessage</span></td>
-        <td></td>
+        <td><p>The message from the user to send to the AI.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td><span class="parametername">threadId</span></td>
-        <td></td>
+        <td><p>The conversation thread ID. If null or non-existent, a new thread is created.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
         <td><span class="parametername">cancellationToken</span></td>
-        <td></td>
+        <td><p>Cancellation token to cancel the async operation.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -475,7 +479,38 @@ in its responses using the <code>&lt;widget&gt;...&lt;/widget&gt;</code> format.
     <tbody>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a>&gt;</td>
-        <td></td>
+        <td><p>An async stream of <a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a> objects representing incremental assistant responses,
+with the final turn containing the complete response and any parsed widgets.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="BbQ_ChatWidgets_Services_ChatWidgetService_StreamResponseAsync_System_String_System_String_System_Threading_CancellationToken__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method:</p>
+<ol>
+<li>Validates or creates a conversation thread</li>
+<li>Appends the user message to the thread history</li>
+<li>Retrieves available widget tools from the tools provider</li>
+<li>Sends the message to the AI chat client with widget tools enabled</li>
+<li>Streams the AI response as it is generated, parsing widgets and content on the fly</li>
+<li>Yields <a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a> deltas for each update, and a final turn when complete</li>
+</ol>
+<p>The AI model receives widget tool definitions allowing it to embed interactive widgets
+in its responses using the <code>&lt;widget&gt;...&lt;/widget&gt;</code> format.</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></td>
+        <td><p>Thrown if the operation is cancelled via the cancellation token.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -488,7 +523,7 @@ in its responses using the <code>&lt;widget&gt;...&lt;/widget&gt;</code> format.
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/ChatWidgetService.cs" class="contribution-link">View Source</a>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Services/ChatWidgetService.cs" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

@@ -100,6 +100,32 @@ public class ChatWidgetTypePropertyTests
     }
 
     [Fact]
+    public void ImageWidget_HasCorrectType()
+    {
+        // Arrange
+        var widget = new ImageWidget("Open", "open", "https://example.com/a.jpg");
+
+        // Act
+        var type = widget.Type;
+
+        // Assert
+        Assert.Equal("image", type);
+    }
+
+    [Fact]
+    public void ImageCollectionWidget_HasCorrectType()
+    {
+        // Arrange
+        var widget = new ImageCollectionWidget("Gallery", "open", [new ImageItem("https://example.com/a.jpg")]);
+
+        // Act
+        var type = widget.Type;
+
+        // Assert
+        Assert.Equal("imagecollection", type);
+    }
+
+    [Fact]
     public void AllWidgets_HaveLabelProperty()
     {
         // Arrange & Act & Assert

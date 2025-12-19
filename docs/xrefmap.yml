@@ -87,6 +87,57 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Abstractions.IRecyclableWidget.Recycle
   fullName: BbQ.ChatWidgets.Abstractions.IRecyclableWidget.Recycle
   nameWithType: IRecyclableWidget.Recycle
+- uid: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator
+  name: IStreamPayloadValidator
+  href: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.html
+  commentId: T:BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator
+  fullName: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator
+  nameWithType: IStreamPayloadValidator
+- uid: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.GetRules(System.String)
+  name: GetRules(string)
+  href: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.html#BbQ_ChatWidgets_Abstractions_IStreamPayloadValidator_GetRules_System_String_
+  commentId: M:BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.GetRules(System.String)
+  name.vb: GetRules(String)
+  fullName: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.GetRules(string)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.GetRules(String)
+  nameWithType: IStreamPayloadValidator.GetRules(string)
+  nameWithType.vb: IStreamPayloadValidator.GetRules(String)
+- uid: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.GetRules*
+  name: GetRules
+  href: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.html#BbQ_ChatWidgets_Abstractions_IStreamPayloadValidator_GetRules_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.GetRules
+  fullName: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.GetRules
+  nameWithType: IStreamPayloadValidator.GetRules
+- uid: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.ValidateAsync(System.String,System.Object)
+  name: ValidateAsync(string, object)
+  href: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.html#BbQ_ChatWidgets_Abstractions_IStreamPayloadValidator_ValidateAsync_System_String_System_Object_
+  commentId: M:BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.ValidateAsync(System.String,System.Object)
+  name.vb: ValidateAsync(String, Object)
+  fullName: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.ValidateAsync(string, object)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.ValidateAsync(String, Object)
+  nameWithType: IStreamPayloadValidator.ValidateAsync(string, object)
+  nameWithType.vb: IStreamPayloadValidator.ValidateAsync(String, Object)
+- uid: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.ValidateAsync*
+  name: ValidateAsync
+  href: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.html#BbQ_ChatWidgets_Abstractions_IStreamPayloadValidator_ValidateAsync_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.ValidateAsync
+  fullName: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.ValidateAsync
+  nameWithType: IStreamPayloadValidator.ValidateAsync
+- uid: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.ValidatePublishFrequencyAsync(System.String,System.String)
+  name: ValidatePublishFrequencyAsync(string, string?)
+  href: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.html#BbQ_ChatWidgets_Abstractions_IStreamPayloadValidator_ValidatePublishFrequencyAsync_System_String_System_String_
+  commentId: M:BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.ValidatePublishFrequencyAsync(System.String,System.String)
+  name.vb: ValidatePublishFrequencyAsync(String, String)
+  fullName: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.ValidatePublishFrequencyAsync(string, string?)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.ValidatePublishFrequencyAsync(String, String)
+  nameWithType: IStreamPayloadValidator.ValidatePublishFrequencyAsync(string, string?)
+  nameWithType.vb: IStreamPayloadValidator.ValidatePublishFrequencyAsync(String, String)
+- uid: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.ValidatePublishFrequencyAsync*
+  name: ValidatePublishFrequencyAsync
+  href: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.html#BbQ_ChatWidgets_Abstractions_IStreamPayloadValidator_ValidatePublishFrequencyAsync_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.ValidatePublishFrequencyAsync
+  fullName: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.ValidatePublishFrequencyAsync
+  nameWithType: IStreamPayloadValidator.ValidatePublishFrequencyAsync
 - uid: BbQ.ChatWidgets.Abstractions.IThreadService
   name: IThreadService
   href: BbQ.ChatWidgets.Abstractions.IThreadService.html
@@ -522,15 +573,15 @@ references:
   commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetSseService
   fullName: BbQ.ChatWidgets.Abstractions.IWidgetSseService
   nameWithType: IWidgetSseService
-- uid: BbQ.ChatWidgets.Abstractions.IWidgetSseService.PublishAsync(System.String,System.Object)
-  name: PublishAsync(string, object)
-  href: BbQ.ChatWidgets.Abstractions.IWidgetSseService.html#BbQ_ChatWidgets_Abstractions_IWidgetSseService_PublishAsync_System_String_System_Object_
-  commentId: M:BbQ.ChatWidgets.Abstractions.IWidgetSseService.PublishAsync(System.String,System.Object)
-  name.vb: PublishAsync(String, Object)
-  fullName: BbQ.ChatWidgets.Abstractions.IWidgetSseService.PublishAsync(string, object)
-  fullName.vb: BbQ.ChatWidgets.Abstractions.IWidgetSseService.PublishAsync(String, Object)
-  nameWithType: IWidgetSseService.PublishAsync(string, object)
-  nameWithType.vb: IWidgetSseService.PublishAsync(String, Object)
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetSseService.PublishAsync(System.String,System.Object,BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator,System.String)
+  name: PublishAsync(string, object, IStreamPayloadValidator, string?)
+  href: BbQ.ChatWidgets.Abstractions.IWidgetSseService.html#BbQ_ChatWidgets_Abstractions_IWidgetSseService_PublishAsync_System_String_System_Object_BbQ_ChatWidgets_Abstractions_IStreamPayloadValidator_System_String_
+  commentId: M:BbQ.ChatWidgets.Abstractions.IWidgetSseService.PublishAsync(System.String,System.Object,BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator,System.String)
+  name.vb: PublishAsync(String, Object, IStreamPayloadValidator, String)
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetSseService.PublishAsync(string, object, BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator, string?)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IWidgetSseService.PublishAsync(String, Object, BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator, String)
+  nameWithType: IWidgetSseService.PublishAsync(string, object, IStreamPayloadValidator, string?)
+  nameWithType.vb: IWidgetSseService.PublishAsync(String, Object, IStreamPayloadValidator, String)
 - uid: BbQ.ChatWidgets.Abstractions.IWidgetSseService.PublishAsync*
   name: PublishAsync
   href: BbQ.ChatWidgets.Abstractions.IWidgetSseService.html#BbQ_ChatWidgets_Abstractions_IWidgetSseService_PublishAsync_
@@ -570,6 +621,192 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.GetTools
   fullName: BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.GetTools
   nameWithType: IWidgetToolsProvider.GetTools
+- uid: BbQ.ChatWidgets.Abstractions.PayloadValidationException
+  name: PayloadValidationException
+  href: BbQ.ChatWidgets.Abstractions.PayloadValidationException.html
+  commentId: T:BbQ.ChatWidgets.Abstractions.PayloadValidationException
+  fullName: BbQ.ChatWidgets.Abstractions.PayloadValidationException
+  nameWithType: PayloadValidationException
+- uid: BbQ.ChatWidgets.Abstractions.PayloadValidationException.#ctor(System.String,BbQ.ChatWidgets.Abstractions.PayloadValidationReason)
+  name: PayloadValidationException(string, PayloadValidationReason)
+  href: BbQ.ChatWidgets.Abstractions.PayloadValidationException.html#BbQ_ChatWidgets_Abstractions_PayloadValidationException__ctor_System_String_BbQ_ChatWidgets_Abstractions_PayloadValidationReason_
+  commentId: M:BbQ.ChatWidgets.Abstractions.PayloadValidationException.#ctor(System.String,BbQ.ChatWidgets.Abstractions.PayloadValidationReason)
+  name.vb: New(String, PayloadValidationReason)
+  fullName: BbQ.ChatWidgets.Abstractions.PayloadValidationException.PayloadValidationException(string, BbQ.ChatWidgets.Abstractions.PayloadValidationReason)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.PayloadValidationException.New(String, BbQ.ChatWidgets.Abstractions.PayloadValidationReason)
+  nameWithType: PayloadValidationException.PayloadValidationException(string, PayloadValidationReason)
+  nameWithType.vb: PayloadValidationException.New(String, PayloadValidationReason)
+- uid: BbQ.ChatWidgets.Abstractions.PayloadValidationException.#ctor*
+  name: PayloadValidationException
+  href: BbQ.ChatWidgets.Abstractions.PayloadValidationException.html#BbQ_ChatWidgets_Abstractions_PayloadValidationException__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.PayloadValidationException.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Abstractions.PayloadValidationException.PayloadValidationException
+  fullName.vb: BbQ.ChatWidgets.Abstractions.PayloadValidationException.New
+  nameWithType: PayloadValidationException.PayloadValidationException
+  nameWithType.vb: PayloadValidationException.New
+- uid: BbQ.ChatWidgets.Abstractions.PayloadValidationException.Reason
+  name: Reason
+  href: BbQ.ChatWidgets.Abstractions.PayloadValidationException.html#BbQ_ChatWidgets_Abstractions_PayloadValidationException_Reason
+  commentId: P:BbQ.ChatWidgets.Abstractions.PayloadValidationException.Reason
+  fullName: BbQ.ChatWidgets.Abstractions.PayloadValidationException.Reason
+  nameWithType: PayloadValidationException.Reason
+- uid: BbQ.ChatWidgets.Abstractions.PayloadValidationException.Reason*
+  name: Reason
+  href: BbQ.ChatWidgets.Abstractions.PayloadValidationException.html#BbQ_ChatWidgets_Abstractions_PayloadValidationException_Reason_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.PayloadValidationException.Reason
+  fullName: BbQ.ChatWidgets.Abstractions.PayloadValidationException.Reason
+  nameWithType: PayloadValidationException.Reason
+- uid: BbQ.ChatWidgets.Abstractions.PayloadValidationReason
+  name: PayloadValidationReason
+  href: BbQ.ChatWidgets.Abstractions.PayloadValidationReason.html
+  commentId: T:BbQ.ChatWidgets.Abstractions.PayloadValidationReason
+  fullName: BbQ.ChatWidgets.Abstractions.PayloadValidationReason
+  nameWithType: PayloadValidationReason
+- uid: BbQ.ChatWidgets.Abstractions.PayloadValidationReason.ContentValidationFailed
+  name: ContentValidationFailed
+  href: BbQ.ChatWidgets.Abstractions.PayloadValidationReason.html#BbQ_ChatWidgets_Abstractions_PayloadValidationReason_ContentValidationFailed
+  commentId: F:BbQ.ChatWidgets.Abstractions.PayloadValidationReason.ContentValidationFailed
+  fullName: BbQ.ChatWidgets.Abstractions.PayloadValidationReason.ContentValidationFailed
+  nameWithType: PayloadValidationReason.ContentValidationFailed
+- uid: BbQ.ChatWidgets.Abstractions.PayloadValidationReason.Invalid
+  name: Invalid
+  href: BbQ.ChatWidgets.Abstractions.PayloadValidationReason.html#BbQ_ChatWidgets_Abstractions_PayloadValidationReason_Invalid
+  commentId: F:BbQ.ChatWidgets.Abstractions.PayloadValidationReason.Invalid
+  fullName: BbQ.ChatWidgets.Abstractions.PayloadValidationReason.Invalid
+  nameWithType: PayloadValidationReason.Invalid
+- uid: BbQ.ChatWidgets.Abstractions.PayloadValidationReason.InvalidType
+  name: InvalidType
+  href: BbQ.ChatWidgets.Abstractions.PayloadValidationReason.html#BbQ_ChatWidgets_Abstractions_PayloadValidationReason_InvalidType
+  commentId: F:BbQ.ChatWidgets.Abstractions.PayloadValidationReason.InvalidType
+  fullName: BbQ.ChatWidgets.Abstractions.PayloadValidationReason.InvalidType
+  nameWithType: PayloadValidationReason.InvalidType
+- uid: BbQ.ChatWidgets.Abstractions.PayloadValidationReason.PayloadTooLarge
+  name: PayloadTooLarge
+  href: BbQ.ChatWidgets.Abstractions.PayloadValidationReason.html#BbQ_ChatWidgets_Abstractions_PayloadValidationReason_PayloadTooLarge
+  commentId: F:BbQ.ChatWidgets.Abstractions.PayloadValidationReason.PayloadTooLarge
+  fullName: BbQ.ChatWidgets.Abstractions.PayloadValidationReason.PayloadTooLarge
+  nameWithType: PayloadValidationReason.PayloadTooLarge
+- uid: BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException
+  name: PublishRateLimitExceededException
+  href: BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.html
+  commentId: T:BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException
+  fullName: BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException
+  nameWithType: PublishRateLimitExceededException
+- uid: BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.#ctor(System.String,System.Nullable{System.Int32})
+  name: PublishRateLimitExceededException(string, int?)
+  href: BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.html#BbQ_ChatWidgets_Abstractions_PublishRateLimitExceededException__ctor_System_String_System_Nullable_System_Int32__
+  commentId: M:BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.#ctor(System.String,System.Nullable{System.Int32})
+  name.vb: New(String, Integer?)
+  fullName: BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.PublishRateLimitExceededException(string, int?)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.New(String, Integer?)
+  nameWithType: PublishRateLimitExceededException.PublishRateLimitExceededException(string, int?)
+  nameWithType.vb: PublishRateLimitExceededException.New(String, Integer?)
+- uid: BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.#ctor*
+  name: PublishRateLimitExceededException
+  href: BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.html#BbQ_ChatWidgets_Abstractions_PublishRateLimitExceededException__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.PublishRateLimitExceededException
+  fullName.vb: BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.New
+  nameWithType: PublishRateLimitExceededException.PublishRateLimitExceededException
+  nameWithType.vb: PublishRateLimitExceededException.New
+- uid: BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.RetryAfterSeconds
+  name: RetryAfterSeconds
+  href: BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.html#BbQ_ChatWidgets_Abstractions_PublishRateLimitExceededException_RetryAfterSeconds
+  commentId: P:BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.RetryAfterSeconds
+  fullName: BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.RetryAfterSeconds
+  nameWithType: PublishRateLimitExceededException.RetryAfterSeconds
+- uid: BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.RetryAfterSeconds*
+  name: RetryAfterSeconds
+  href: BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.html#BbQ_ChatWidgets_Abstractions_PublishRateLimitExceededException_RetryAfterSeconds_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.RetryAfterSeconds
+  fullName: BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.RetryAfterSeconds
+  nameWithType: PublishRateLimitExceededException.RetryAfterSeconds
+- uid: BbQ.ChatWidgets.Abstractions.StreamValidationRules
+  name: StreamValidationRules
+  href: BbQ.ChatWidgets.Abstractions.StreamValidationRules.html
+  commentId: T:BbQ.ChatWidgets.Abstractions.StreamValidationRules
+  fullName: BbQ.ChatWidgets.Abstractions.StreamValidationRules
+  nameWithType: StreamValidationRules
+- uid: BbQ.ChatWidgets.Abstractions.StreamValidationRules.#ctor
+  name: StreamValidationRules()
+  href: BbQ.ChatWidgets.Abstractions.StreamValidationRules.html#BbQ_ChatWidgets_Abstractions_StreamValidationRules__ctor
+  commentId: M:BbQ.ChatWidgets.Abstractions.StreamValidationRules.#ctor
+  name.vb: New()
+  fullName: BbQ.ChatWidgets.Abstractions.StreamValidationRules.StreamValidationRules()
+  fullName.vb: BbQ.ChatWidgets.Abstractions.StreamValidationRules.New()
+  nameWithType: StreamValidationRules.StreamValidationRules()
+  nameWithType.vb: StreamValidationRules.New()
+- uid: BbQ.ChatWidgets.Abstractions.StreamValidationRules.#ctor*
+  name: StreamValidationRules
+  href: BbQ.ChatWidgets.Abstractions.StreamValidationRules.html#BbQ_ChatWidgets_Abstractions_StreamValidationRules__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.StreamValidationRules.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Abstractions.StreamValidationRules.StreamValidationRules
+  fullName.vb: BbQ.ChatWidgets.Abstractions.StreamValidationRules.New
+  nameWithType: StreamValidationRules.StreamValidationRules
+  nameWithType.vb: StreamValidationRules.New
+- uid: BbQ.ChatWidgets.Abstractions.StreamValidationRules.CustomValidator
+  name: CustomValidator
+  href: BbQ.ChatWidgets.Abstractions.StreamValidationRules.html#BbQ_ChatWidgets_Abstractions_StreamValidationRules_CustomValidator
+  commentId: P:BbQ.ChatWidgets.Abstractions.StreamValidationRules.CustomValidator
+  fullName: BbQ.ChatWidgets.Abstractions.StreamValidationRules.CustomValidator
+  nameWithType: StreamValidationRules.CustomValidator
+- uid: BbQ.ChatWidgets.Abstractions.StreamValidationRules.CustomValidator*
+  name: CustomValidator
+  href: BbQ.ChatWidgets.Abstractions.StreamValidationRules.html#BbQ_ChatWidgets_Abstractions_StreamValidationRules_CustomValidator_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.StreamValidationRules.CustomValidator
+  fullName: BbQ.ChatWidgets.Abstractions.StreamValidationRules.CustomValidator
+  nameWithType: StreamValidationRules.CustomValidator
+- uid: BbQ.ChatWidgets.Abstractions.StreamValidationRules.EnableContentValidation
+  name: EnableContentValidation
+  href: BbQ.ChatWidgets.Abstractions.StreamValidationRules.html#BbQ_ChatWidgets_Abstractions_StreamValidationRules_EnableContentValidation
+  commentId: P:BbQ.ChatWidgets.Abstractions.StreamValidationRules.EnableContentValidation
+  fullName: BbQ.ChatWidgets.Abstractions.StreamValidationRules.EnableContentValidation
+  nameWithType: StreamValidationRules.EnableContentValidation
+- uid: BbQ.ChatWidgets.Abstractions.StreamValidationRules.EnableContentValidation*
+  name: EnableContentValidation
+  href: BbQ.ChatWidgets.Abstractions.StreamValidationRules.html#BbQ_ChatWidgets_Abstractions_StreamValidationRules_EnableContentValidation_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.StreamValidationRules.EnableContentValidation
+  fullName: BbQ.ChatWidgets.Abstractions.StreamValidationRules.EnableContentValidation
+  nameWithType: StreamValidationRules.EnableContentValidation
+- uid: BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxConcurrentSubscribers
+  name: MaxConcurrentSubscribers
+  href: BbQ.ChatWidgets.Abstractions.StreamValidationRules.html#BbQ_ChatWidgets_Abstractions_StreamValidationRules_MaxConcurrentSubscribers
+  commentId: P:BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxConcurrentSubscribers
+  fullName: BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxConcurrentSubscribers
+  nameWithType: StreamValidationRules.MaxConcurrentSubscribers
+- uid: BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxConcurrentSubscribers*
+  name: MaxConcurrentSubscribers
+  href: BbQ.ChatWidgets.Abstractions.StreamValidationRules.html#BbQ_ChatWidgets_Abstractions_StreamValidationRules_MaxConcurrentSubscribers_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxConcurrentSubscribers
+  fullName: BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxConcurrentSubscribers
+  nameWithType: StreamValidationRules.MaxConcurrentSubscribers
+- uid: BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxPayloadSizeBytes
+  name: MaxPayloadSizeBytes
+  href: BbQ.ChatWidgets.Abstractions.StreamValidationRules.html#BbQ_ChatWidgets_Abstractions_StreamValidationRules_MaxPayloadSizeBytes
+  commentId: P:BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxPayloadSizeBytes
+  fullName: BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxPayloadSizeBytes
+  nameWithType: StreamValidationRules.MaxPayloadSizeBytes
+- uid: BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxPayloadSizeBytes*
+  name: MaxPayloadSizeBytes
+  href: BbQ.ChatWidgets.Abstractions.StreamValidationRules.html#BbQ_ChatWidgets_Abstractions_StreamValidationRules_MaxPayloadSizeBytes_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxPayloadSizeBytes
+  fullName: BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxPayloadSizeBytes
+  nameWithType: StreamValidationRules.MaxPayloadSizeBytes
+- uid: BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxPublishesPerMinute
+  name: MaxPublishesPerMinute
+  href: BbQ.ChatWidgets.Abstractions.StreamValidationRules.html#BbQ_ChatWidgets_Abstractions_StreamValidationRules_MaxPublishesPerMinute
+  commentId: P:BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxPublishesPerMinute
+  fullName: BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxPublishesPerMinute
+  nameWithType: StreamValidationRules.MaxPublishesPerMinute
+- uid: BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxPublishesPerMinute*
+  name: MaxPublishesPerMinute
+  href: BbQ.ChatWidgets.Abstractions.StreamValidationRules.html#BbQ_ChatWidgets_Abstractions_StreamValidationRules_MaxPublishesPerMinute_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxPublishesPerMinute
+  fullName: BbQ.ChatWidgets.Abstractions.StreamValidationRules.MaxPublishesPerMinute
+  nameWithType: StreamValidationRules.MaxPublishesPerMinute
 - uid: BbQ.ChatWidgets.Agents
   name: BbQ.ChatWidgets.Agents
   href: BbQ.ChatWidgets.Agents.html
@@ -4008,6 +4245,585 @@ references:
   fullName.vb: BbQ.ChatWidgets.Models.FormWidget.<>
   nameWithType: FormWidget.operator !=
   nameWithType.vb: FormWidget.<>
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget
+  name: ImageCollectionWidget
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html
+  commentId: T:BbQ.ChatWidgets.Models.ImageCollectionWidget
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget
+  nameWithType: ImageCollectionWidget
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.#ctor(System.String,System.String,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ImageItem})
+  name: ImageCollectionWidget(string, string, IReadOnlyList<ImageItem>)
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget__ctor_System_String_System_String_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ImageItem__
+  commentId: M:BbQ.ChatWidgets.Models.ImageCollectionWidget.#ctor(System.String,System.String,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ImageItem})
+  name.vb: New(String, String, IReadOnlyList(Of ImageItem))
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.ImageCollectionWidget(string, string, System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.ImageItem>)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageCollectionWidget.New(String, String, System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.ImageItem))
+  nameWithType: ImageCollectionWidget.ImageCollectionWidget(string, string, IReadOnlyList<ImageItem>)
+  nameWithType.vb: ImageCollectionWidget.New(String, String, IReadOnlyList(Of ImageItem))
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.#ctor*
+  name: ImageCollectionWidget
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageCollectionWidget.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.ImageCollectionWidget
+  fullName.vb: BbQ.ChatWidgets.Models.ImageCollectionWidget.New
+  nameWithType: ImageCollectionWidget.ImageCollectionWidget
+  nameWithType.vb: ImageCollectionWidget.New
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.Deconstruct(System.String@,System.String@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ImageItem}@)
+  name: Deconstruct(out string, out string, out IReadOnlyList<ImageItem>)
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_Deconstruct_System_String__System_String__System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ImageItem___
+  commentId: M:BbQ.ChatWidgets.Models.ImageCollectionWidget.Deconstruct(System.String@,System.String@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ImageItem}@)
+  name.vb: Deconstruct(String, String, IReadOnlyList(Of ImageItem))
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.Deconstruct(out string, out string, out System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.ImageItem>)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageCollectionWidget.Deconstruct(String, String, System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.ImageItem))
+  nameWithType: ImageCollectionWidget.Deconstruct(out string, out string, out IReadOnlyList<ImageItem>)
+  nameWithType.vb: ImageCollectionWidget.Deconstruct(String, String, IReadOnlyList(Of ImageItem))
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageCollectionWidget.Deconstruct
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.Deconstruct
+  nameWithType: ImageCollectionWidget.Deconstruct
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.EqualityContract
+  name: EqualityContract
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_EqualityContract
+  commentId: P:BbQ.ChatWidgets.Models.ImageCollectionWidget.EqualityContract
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.EqualityContract
+  nameWithType: ImageCollectionWidget.EqualityContract
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.EqualityContract*
+  name: EqualityContract
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_EqualityContract_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageCollectionWidget.EqualityContract
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.EqualityContract
+  nameWithType: ImageCollectionWidget.EqualityContract
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  name: Equals(ChatWidget?)
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_Equals_BbQ_ChatWidgets_Models_ChatWidget_
+  commentId: M:BbQ.ChatWidgets.Models.ImageCollectionWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  name.vb: Equals(ChatWidget)
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageCollectionWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  nameWithType: ImageCollectionWidget.Equals(ChatWidget?)
+  nameWithType.vb: ImageCollectionWidget.Equals(ChatWidget)
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.Equals(BbQ.ChatWidgets.Models.ImageCollectionWidget)
+  name: Equals(ImageCollectionWidget?)
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_Equals_BbQ_ChatWidgets_Models_ImageCollectionWidget_
+  commentId: M:BbQ.ChatWidgets.Models.ImageCollectionWidget.Equals(BbQ.ChatWidgets.Models.ImageCollectionWidget)
+  name.vb: Equals(ImageCollectionWidget)
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.Equals(BbQ.ChatWidgets.Models.ImageCollectionWidget?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageCollectionWidget.Equals(BbQ.ChatWidgets.Models.ImageCollectionWidget)
+  nameWithType: ImageCollectionWidget.Equals(ImageCollectionWidget?)
+  nameWithType.vb: ImageCollectionWidget.Equals(ImageCollectionWidget)
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Models.ImageCollectionWidget.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageCollectionWidget.Equals(Object)
+  nameWithType: ImageCollectionWidget.Equals(object?)
+  nameWithType.vb: ImageCollectionWidget.Equals(Object)
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageCollectionWidget.Equals
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.Equals
+  nameWithType: ImageCollectionWidget.Equals
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Models.ImageCollectionWidget.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.GetHashCode()
+  nameWithType: ImageCollectionWidget.GetHashCode()
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageCollectionWidget.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.GetHashCode
+  nameWithType: ImageCollectionWidget.GetHashCode
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.Images
+  name: Images
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_Images
+  commentId: P:BbQ.ChatWidgets.Models.ImageCollectionWidget.Images
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.Images
+  nameWithType: ImageCollectionWidget.Images
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.Images*
+  name: Images
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_Images_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageCollectionWidget.Images
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.Images
+  nameWithType: ImageCollectionWidget.Images
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.PrintMembers(System.Text.StringBuilder)
+  name: PrintMembers(StringBuilder)
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_PrintMembers_System_Text_StringBuilder_
+  commentId: M:BbQ.ChatWidgets.Models.ImageCollectionWidget.PrintMembers(System.Text.StringBuilder)
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.PrintMembers(System.Text.StringBuilder)
+  nameWithType: ImageCollectionWidget.PrintMembers(StringBuilder)
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.PrintMembers*
+  name: PrintMembers
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_PrintMembers_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageCollectionWidget.PrintMembers
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.PrintMembers
+  nameWithType: ImageCollectionWidget.PrintMembers
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.Purpose
+  name: Purpose
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_Purpose
+  commentId: P:BbQ.ChatWidgets.Models.ImageCollectionWidget.Purpose
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.Purpose
+  nameWithType: ImageCollectionWidget.Purpose
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.Purpose*
+  name: Purpose
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_Purpose_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageCollectionWidget.Purpose
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.Purpose
+  nameWithType: ImageCollectionWidget.Purpose
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_ToString
+  commentId: M:BbQ.ChatWidgets.Models.ImageCollectionWidget.ToString
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.ToString()
+  nameWithType: ImageCollectionWidget.ToString()
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageCollectionWidget.ToString
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.ToString
+  nameWithType: ImageCollectionWidget.ToString
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.op_Equality(BbQ.ChatWidgets.Models.ImageCollectionWidget,BbQ.ChatWidgets.Models.ImageCollectionWidget)
+  name: operator ==(ImageCollectionWidget?, ImageCollectionWidget?)
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_op_Equality_BbQ_ChatWidgets_Models_ImageCollectionWidget_BbQ_ChatWidgets_Models_ImageCollectionWidget_
+  commentId: M:BbQ.ChatWidgets.Models.ImageCollectionWidget.op_Equality(BbQ.ChatWidgets.Models.ImageCollectionWidget,BbQ.ChatWidgets.Models.ImageCollectionWidget)
+  name.vb: =(ImageCollectionWidget, ImageCollectionWidget)
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.operator ==(BbQ.ChatWidgets.Models.ImageCollectionWidget?, BbQ.ChatWidgets.Models.ImageCollectionWidget?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageCollectionWidget.=(BbQ.ChatWidgets.Models.ImageCollectionWidget, BbQ.ChatWidgets.Models.ImageCollectionWidget)
+  nameWithType: ImageCollectionWidget.operator ==(ImageCollectionWidget?, ImageCollectionWidget?)
+  nameWithType.vb: ImageCollectionWidget.=(ImageCollectionWidget, ImageCollectionWidget)
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageCollectionWidget.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.operator ==
+  fullName.vb: BbQ.ChatWidgets.Models.ImageCollectionWidget.=
+  nameWithType: ImageCollectionWidget.operator ==
+  nameWithType.vb: ImageCollectionWidget.=
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.op_Inequality(BbQ.ChatWidgets.Models.ImageCollectionWidget,BbQ.ChatWidgets.Models.ImageCollectionWidget)
+  name: operator !=(ImageCollectionWidget?, ImageCollectionWidget?)
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_op_Inequality_BbQ_ChatWidgets_Models_ImageCollectionWidget_BbQ_ChatWidgets_Models_ImageCollectionWidget_
+  commentId: M:BbQ.ChatWidgets.Models.ImageCollectionWidget.op_Inequality(BbQ.ChatWidgets.Models.ImageCollectionWidget,BbQ.ChatWidgets.Models.ImageCollectionWidget)
+  name.vb: <>(ImageCollectionWidget, ImageCollectionWidget)
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.operator !=(BbQ.ChatWidgets.Models.ImageCollectionWidget?, BbQ.ChatWidgets.Models.ImageCollectionWidget?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageCollectionWidget.<>(BbQ.ChatWidgets.Models.ImageCollectionWidget, BbQ.ChatWidgets.Models.ImageCollectionWidget)
+  nameWithType: ImageCollectionWidget.operator !=(ImageCollectionWidget?, ImageCollectionWidget?)
+  nameWithType.vb: ImageCollectionWidget.<>(ImageCollectionWidget, ImageCollectionWidget)
+- uid: BbQ.ChatWidgets.Models.ImageCollectionWidget.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Models.ImageCollectionWidget.html#BbQ_ChatWidgets_Models_ImageCollectionWidget_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageCollectionWidget.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Models.ImageCollectionWidget.operator !=
+  fullName.vb: BbQ.ChatWidgets.Models.ImageCollectionWidget.<>
+  nameWithType: ImageCollectionWidget.operator !=
+  nameWithType.vb: ImageCollectionWidget.<>
+- uid: BbQ.ChatWidgets.Models.ImageItem
+  name: ImageItem
+  href: BbQ.ChatWidgets.Models.ImageItem.html
+  commentId: T:BbQ.ChatWidgets.Models.ImageItem
+  fullName: BbQ.ChatWidgets.Models.ImageItem
+  nameWithType: ImageItem
+- uid: BbQ.ChatWidgets.Models.ImageItem.#ctor(System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name: ImageItem(string, string?, string?, int?, int?)
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem__ctor_System_String_System_String_System_String_System_Nullable_System_Int32__System_Nullable_System_Int32__
+  commentId: M:BbQ.ChatWidgets.Models.ImageItem.#ctor(System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name.vb: New(String, String, String, Integer?, Integer?)
+  fullName: BbQ.ChatWidgets.Models.ImageItem.ImageItem(string, string?, string?, int?, int?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageItem.New(String, String, String, Integer?, Integer?)
+  nameWithType: ImageItem.ImageItem(string, string?, string?, int?, int?)
+  nameWithType.vb: ImageItem.New(String, String, String, Integer?, Integer?)
+- uid: BbQ.ChatWidgets.Models.ImageItem.#ctor*
+  name: ImageItem
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageItem.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Models.ImageItem.ImageItem
+  fullName.vb: BbQ.ChatWidgets.Models.ImageItem.New
+  nameWithType: ImageItem.ImageItem
+  nameWithType.vb: ImageItem.New
+- uid: BbQ.ChatWidgets.Models.ImageItem.Action
+  name: Action
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_Action
+  commentId: P:BbQ.ChatWidgets.Models.ImageItem.Action
+  fullName: BbQ.ChatWidgets.Models.ImageItem.Action
+  nameWithType: ImageItem.Action
+- uid: BbQ.ChatWidgets.Models.ImageItem.Action*
+  name: Action
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_Action_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageItem.Action
+  fullName: BbQ.ChatWidgets.Models.ImageItem.Action
+  nameWithType: ImageItem.Action
+- uid: BbQ.ChatWidgets.Models.ImageItem.Alt
+  name: Alt
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_Alt
+  commentId: P:BbQ.ChatWidgets.Models.ImageItem.Alt
+  fullName: BbQ.ChatWidgets.Models.ImageItem.Alt
+  nameWithType: ImageItem.Alt
+- uid: BbQ.ChatWidgets.Models.ImageItem.Alt*
+  name: Alt
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_Alt_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageItem.Alt
+  fullName: BbQ.ChatWidgets.Models.ImageItem.Alt
+  nameWithType: ImageItem.Alt
+- uid: BbQ.ChatWidgets.Models.ImageItem.Deconstruct(System.String@,System.String@,System.String@,System.Nullable{System.Int32}@,System.Nullable{System.Int32}@)
+  name: Deconstruct(out string, out string?, out string?, out int?, out int?)
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_Deconstruct_System_String__System_String__System_String__System_Nullable_System_Int32___System_Nullable_System_Int32___
+  commentId: M:BbQ.ChatWidgets.Models.ImageItem.Deconstruct(System.String@,System.String@,System.String@,System.Nullable{System.Int32}@,System.Nullable{System.Int32}@)
+  name.vb: Deconstruct(String, String, String, Integer?, Integer?)
+  fullName: BbQ.ChatWidgets.Models.ImageItem.Deconstruct(out string, out string?, out string?, out int?, out int?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageItem.Deconstruct(String, String, String, Integer?, Integer?)
+  nameWithType: ImageItem.Deconstruct(out string, out string?, out string?, out int?, out int?)
+  nameWithType.vb: ImageItem.Deconstruct(String, String, String, Integer?, Integer?)
+- uid: BbQ.ChatWidgets.Models.ImageItem.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageItem.Deconstruct
+  fullName: BbQ.ChatWidgets.Models.ImageItem.Deconstruct
+  nameWithType: ImageItem.Deconstruct
+- uid: BbQ.ChatWidgets.Models.ImageItem.Equals(BbQ.ChatWidgets.Models.ImageItem)
+  name: Equals(ImageItem?)
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_Equals_BbQ_ChatWidgets_Models_ImageItem_
+  commentId: M:BbQ.ChatWidgets.Models.ImageItem.Equals(BbQ.ChatWidgets.Models.ImageItem)
+  name.vb: Equals(ImageItem)
+  fullName: BbQ.ChatWidgets.Models.ImageItem.Equals(BbQ.ChatWidgets.Models.ImageItem?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageItem.Equals(BbQ.ChatWidgets.Models.ImageItem)
+  nameWithType: ImageItem.Equals(ImageItem?)
+  nameWithType.vb: ImageItem.Equals(ImageItem)
+- uid: BbQ.ChatWidgets.Models.ImageItem.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Models.ImageItem.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Models.ImageItem.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageItem.Equals(Object)
+  nameWithType: ImageItem.Equals(object?)
+  nameWithType.vb: ImageItem.Equals(Object)
+- uid: BbQ.ChatWidgets.Models.ImageItem.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageItem.Equals
+  fullName: BbQ.ChatWidgets.Models.ImageItem.Equals
+  nameWithType: ImageItem.Equals
+- uid: BbQ.ChatWidgets.Models.ImageItem.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Models.ImageItem.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ImageItem.GetHashCode()
+  nameWithType: ImageItem.GetHashCode()
+- uid: BbQ.ChatWidgets.Models.ImageItem.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageItem.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ImageItem.GetHashCode
+  nameWithType: ImageItem.GetHashCode
+- uid: BbQ.ChatWidgets.Models.ImageItem.Height
+  name: Height
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_Height
+  commentId: P:BbQ.ChatWidgets.Models.ImageItem.Height
+  fullName: BbQ.ChatWidgets.Models.ImageItem.Height
+  nameWithType: ImageItem.Height
+- uid: BbQ.ChatWidgets.Models.ImageItem.Height*
+  name: Height
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_Height_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageItem.Height
+  fullName: BbQ.ChatWidgets.Models.ImageItem.Height
+  nameWithType: ImageItem.Height
+- uid: BbQ.ChatWidgets.Models.ImageItem.ImageUrl
+  name: ImageUrl
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_ImageUrl
+  commentId: P:BbQ.ChatWidgets.Models.ImageItem.ImageUrl
+  fullName: BbQ.ChatWidgets.Models.ImageItem.ImageUrl
+  nameWithType: ImageItem.ImageUrl
+- uid: BbQ.ChatWidgets.Models.ImageItem.ImageUrl*
+  name: ImageUrl
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_ImageUrl_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageItem.ImageUrl
+  fullName: BbQ.ChatWidgets.Models.ImageItem.ImageUrl
+  nameWithType: ImageItem.ImageUrl
+- uid: BbQ.ChatWidgets.Models.ImageItem.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_ToString
+  commentId: M:BbQ.ChatWidgets.Models.ImageItem.ToString
+  fullName: BbQ.ChatWidgets.Models.ImageItem.ToString()
+  nameWithType: ImageItem.ToString()
+- uid: BbQ.ChatWidgets.Models.ImageItem.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageItem.ToString
+  fullName: BbQ.ChatWidgets.Models.ImageItem.ToString
+  nameWithType: ImageItem.ToString
+- uid: BbQ.ChatWidgets.Models.ImageItem.Width
+  name: Width
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_Width
+  commentId: P:BbQ.ChatWidgets.Models.ImageItem.Width
+  fullName: BbQ.ChatWidgets.Models.ImageItem.Width
+  nameWithType: ImageItem.Width
+- uid: BbQ.ChatWidgets.Models.ImageItem.Width*
+  name: Width
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_Width_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageItem.Width
+  fullName: BbQ.ChatWidgets.Models.ImageItem.Width
+  nameWithType: ImageItem.Width
+- uid: BbQ.ChatWidgets.Models.ImageItem.op_Equality(BbQ.ChatWidgets.Models.ImageItem,BbQ.ChatWidgets.Models.ImageItem)
+  name: operator ==(ImageItem?, ImageItem?)
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_op_Equality_BbQ_ChatWidgets_Models_ImageItem_BbQ_ChatWidgets_Models_ImageItem_
+  commentId: M:BbQ.ChatWidgets.Models.ImageItem.op_Equality(BbQ.ChatWidgets.Models.ImageItem,BbQ.ChatWidgets.Models.ImageItem)
+  name.vb: =(ImageItem, ImageItem)
+  fullName: BbQ.ChatWidgets.Models.ImageItem.operator ==(BbQ.ChatWidgets.Models.ImageItem?, BbQ.ChatWidgets.Models.ImageItem?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageItem.=(BbQ.ChatWidgets.Models.ImageItem, BbQ.ChatWidgets.Models.ImageItem)
+  nameWithType: ImageItem.operator ==(ImageItem?, ImageItem?)
+  nameWithType.vb: ImageItem.=(ImageItem, ImageItem)
+- uid: BbQ.ChatWidgets.Models.ImageItem.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageItem.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Models.ImageItem.operator ==
+  fullName.vb: BbQ.ChatWidgets.Models.ImageItem.=
+  nameWithType: ImageItem.operator ==
+  nameWithType.vb: ImageItem.=
+- uid: BbQ.ChatWidgets.Models.ImageItem.op_Inequality(BbQ.ChatWidgets.Models.ImageItem,BbQ.ChatWidgets.Models.ImageItem)
+  name: operator !=(ImageItem?, ImageItem?)
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_op_Inequality_BbQ_ChatWidgets_Models_ImageItem_BbQ_ChatWidgets_Models_ImageItem_
+  commentId: M:BbQ.ChatWidgets.Models.ImageItem.op_Inequality(BbQ.ChatWidgets.Models.ImageItem,BbQ.ChatWidgets.Models.ImageItem)
+  name.vb: <>(ImageItem, ImageItem)
+  fullName: BbQ.ChatWidgets.Models.ImageItem.operator !=(BbQ.ChatWidgets.Models.ImageItem?, BbQ.ChatWidgets.Models.ImageItem?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageItem.<>(BbQ.ChatWidgets.Models.ImageItem, BbQ.ChatWidgets.Models.ImageItem)
+  nameWithType: ImageItem.operator !=(ImageItem?, ImageItem?)
+  nameWithType.vb: ImageItem.<>(ImageItem, ImageItem)
+- uid: BbQ.ChatWidgets.Models.ImageItem.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Models.ImageItem.html#BbQ_ChatWidgets_Models_ImageItem_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageItem.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Models.ImageItem.operator !=
+  fullName.vb: BbQ.ChatWidgets.Models.ImageItem.<>
+  nameWithType: ImageItem.operator !=
+  nameWithType.vb: ImageItem.<>
+- uid: BbQ.ChatWidgets.Models.ImageWidget
+  name: ImageWidget
+  href: BbQ.ChatWidgets.Models.ImageWidget.html
+  commentId: T:BbQ.ChatWidgets.Models.ImageWidget
+  fullName: BbQ.ChatWidgets.Models.ImageWidget
+  nameWithType: ImageWidget
+- uid: BbQ.ChatWidgets.Models.ImageWidget.#ctor(System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name: ImageWidget(string, string, string, string?, int?, int?)
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget__ctor_System_String_System_String_System_String_System_String_System_Nullable_System_Int32__System_Nullable_System_Int32__
+  commentId: M:BbQ.ChatWidgets.Models.ImageWidget.#ctor(System.String,System.String,System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name.vb: New(String, String, String, String, Integer?, Integer?)
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.ImageWidget(string, string, string, string?, int?, int?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageWidget.New(String, String, String, String, Integer?, Integer?)
+  nameWithType: ImageWidget.ImageWidget(string, string, string, string?, int?, int?)
+  nameWithType.vb: ImageWidget.New(String, String, String, String, Integer?, Integer?)
+- uid: BbQ.ChatWidgets.Models.ImageWidget.#ctor*
+  name: ImageWidget
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageWidget.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.ImageWidget
+  fullName.vb: BbQ.ChatWidgets.Models.ImageWidget.New
+  nameWithType: ImageWidget.ImageWidget
+  nameWithType.vb: ImageWidget.New
+- uid: BbQ.ChatWidgets.Models.ImageWidget.Alt
+  name: Alt
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_Alt
+  commentId: P:BbQ.ChatWidgets.Models.ImageWidget.Alt
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.Alt
+  nameWithType: ImageWidget.Alt
+- uid: BbQ.ChatWidgets.Models.ImageWidget.Alt*
+  name: Alt
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_Alt_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageWidget.Alt
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.Alt
+  nameWithType: ImageWidget.Alt
+- uid: BbQ.ChatWidgets.Models.ImageWidget.Deconstruct(System.String@,System.String@,System.String@,System.String@,System.Nullable{System.Int32}@,System.Nullable{System.Int32}@)
+  name: Deconstruct(out string, out string, out string, out string?, out int?, out int?)
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_Deconstruct_System_String__System_String__System_String__System_String__System_Nullable_System_Int32___System_Nullable_System_Int32___
+  commentId: M:BbQ.ChatWidgets.Models.ImageWidget.Deconstruct(System.String@,System.String@,System.String@,System.String@,System.Nullable{System.Int32}@,System.Nullable{System.Int32}@)
+  name.vb: Deconstruct(String, String, String, String, Integer?, Integer?)
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.Deconstruct(out string, out string, out string, out string?, out int?, out int?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageWidget.Deconstruct(String, String, String, String, Integer?, Integer?)
+  nameWithType: ImageWidget.Deconstruct(out string, out string, out string, out string?, out int?, out int?)
+  nameWithType.vb: ImageWidget.Deconstruct(String, String, String, String, Integer?, Integer?)
+- uid: BbQ.ChatWidgets.Models.ImageWidget.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageWidget.Deconstruct
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.Deconstruct
+  nameWithType: ImageWidget.Deconstruct
+- uid: BbQ.ChatWidgets.Models.ImageWidget.EqualityContract
+  name: EqualityContract
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_EqualityContract
+  commentId: P:BbQ.ChatWidgets.Models.ImageWidget.EqualityContract
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.EqualityContract
+  nameWithType: ImageWidget.EqualityContract
+- uid: BbQ.ChatWidgets.Models.ImageWidget.EqualityContract*
+  name: EqualityContract
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_EqualityContract_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageWidget.EqualityContract
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.EqualityContract
+  nameWithType: ImageWidget.EqualityContract
+- uid: BbQ.ChatWidgets.Models.ImageWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  name: Equals(ChatWidget?)
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_Equals_BbQ_ChatWidgets_Models_ChatWidget_
+  commentId: M:BbQ.ChatWidgets.Models.ImageWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  name.vb: Equals(ChatWidget)
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  nameWithType: ImageWidget.Equals(ChatWidget?)
+  nameWithType.vb: ImageWidget.Equals(ChatWidget)
+- uid: BbQ.ChatWidgets.Models.ImageWidget.Equals(BbQ.ChatWidgets.Models.ImageWidget)
+  name: Equals(ImageWidget?)
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_Equals_BbQ_ChatWidgets_Models_ImageWidget_
+  commentId: M:BbQ.ChatWidgets.Models.ImageWidget.Equals(BbQ.ChatWidgets.Models.ImageWidget)
+  name.vb: Equals(ImageWidget)
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.Equals(BbQ.ChatWidgets.Models.ImageWidget?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageWidget.Equals(BbQ.ChatWidgets.Models.ImageWidget)
+  nameWithType: ImageWidget.Equals(ImageWidget?)
+  nameWithType.vb: ImageWidget.Equals(ImageWidget)
+- uid: BbQ.ChatWidgets.Models.ImageWidget.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Models.ImageWidget.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageWidget.Equals(Object)
+  nameWithType: ImageWidget.Equals(object?)
+  nameWithType.vb: ImageWidget.Equals(Object)
+- uid: BbQ.ChatWidgets.Models.ImageWidget.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageWidget.Equals
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.Equals
+  nameWithType: ImageWidget.Equals
+- uid: BbQ.ChatWidgets.Models.ImageWidget.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Models.ImageWidget.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.GetHashCode()
+  nameWithType: ImageWidget.GetHashCode()
+- uid: BbQ.ChatWidgets.Models.ImageWidget.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageWidget.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.GetHashCode
+  nameWithType: ImageWidget.GetHashCode
+- uid: BbQ.ChatWidgets.Models.ImageWidget.Height
+  name: Height
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_Height
+  commentId: P:BbQ.ChatWidgets.Models.ImageWidget.Height
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.Height
+  nameWithType: ImageWidget.Height
+- uid: BbQ.ChatWidgets.Models.ImageWidget.Height*
+  name: Height
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_Height_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageWidget.Height
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.Height
+  nameWithType: ImageWidget.Height
+- uid: BbQ.ChatWidgets.Models.ImageWidget.ImageUrl
+  name: ImageUrl
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_ImageUrl
+  commentId: P:BbQ.ChatWidgets.Models.ImageWidget.ImageUrl
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.ImageUrl
+  nameWithType: ImageWidget.ImageUrl
+- uid: BbQ.ChatWidgets.Models.ImageWidget.ImageUrl*
+  name: ImageUrl
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_ImageUrl_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageWidget.ImageUrl
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.ImageUrl
+  nameWithType: ImageWidget.ImageUrl
+- uid: BbQ.ChatWidgets.Models.ImageWidget.PrintMembers(System.Text.StringBuilder)
+  name: PrintMembers(StringBuilder)
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_PrintMembers_System_Text_StringBuilder_
+  commentId: M:BbQ.ChatWidgets.Models.ImageWidget.PrintMembers(System.Text.StringBuilder)
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.PrintMembers(System.Text.StringBuilder)
+  nameWithType: ImageWidget.PrintMembers(StringBuilder)
+- uid: BbQ.ChatWidgets.Models.ImageWidget.PrintMembers*
+  name: PrintMembers
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_PrintMembers_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageWidget.PrintMembers
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.PrintMembers
+  nameWithType: ImageWidget.PrintMembers
+- uid: BbQ.ChatWidgets.Models.ImageWidget.Purpose
+  name: Purpose
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_Purpose
+  commentId: P:BbQ.ChatWidgets.Models.ImageWidget.Purpose
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.Purpose
+  nameWithType: ImageWidget.Purpose
+- uid: BbQ.ChatWidgets.Models.ImageWidget.Purpose*
+  name: Purpose
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_Purpose_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageWidget.Purpose
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.Purpose
+  nameWithType: ImageWidget.Purpose
+- uid: BbQ.ChatWidgets.Models.ImageWidget.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_ToString
+  commentId: M:BbQ.ChatWidgets.Models.ImageWidget.ToString
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.ToString()
+  nameWithType: ImageWidget.ToString()
+- uid: BbQ.ChatWidgets.Models.ImageWidget.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageWidget.ToString
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.ToString
+  nameWithType: ImageWidget.ToString
+- uid: BbQ.ChatWidgets.Models.ImageWidget.Width
+  name: Width
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_Width
+  commentId: P:BbQ.ChatWidgets.Models.ImageWidget.Width
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.Width
+  nameWithType: ImageWidget.Width
+- uid: BbQ.ChatWidgets.Models.ImageWidget.Width*
+  name: Width
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_Width_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageWidget.Width
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.Width
+  nameWithType: ImageWidget.Width
+- uid: BbQ.ChatWidgets.Models.ImageWidget.op_Equality(BbQ.ChatWidgets.Models.ImageWidget,BbQ.ChatWidgets.Models.ImageWidget)
+  name: operator ==(ImageWidget?, ImageWidget?)
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_op_Equality_BbQ_ChatWidgets_Models_ImageWidget_BbQ_ChatWidgets_Models_ImageWidget_
+  commentId: M:BbQ.ChatWidgets.Models.ImageWidget.op_Equality(BbQ.ChatWidgets.Models.ImageWidget,BbQ.ChatWidgets.Models.ImageWidget)
+  name.vb: =(ImageWidget, ImageWidget)
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.operator ==(BbQ.ChatWidgets.Models.ImageWidget?, BbQ.ChatWidgets.Models.ImageWidget?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageWidget.=(BbQ.ChatWidgets.Models.ImageWidget, BbQ.ChatWidgets.Models.ImageWidget)
+  nameWithType: ImageWidget.operator ==(ImageWidget?, ImageWidget?)
+  nameWithType.vb: ImageWidget.=(ImageWidget, ImageWidget)
+- uid: BbQ.ChatWidgets.Models.ImageWidget.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageWidget.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.operator ==
+  fullName.vb: BbQ.ChatWidgets.Models.ImageWidget.=
+  nameWithType: ImageWidget.operator ==
+  nameWithType.vb: ImageWidget.=
+- uid: BbQ.ChatWidgets.Models.ImageWidget.op_Inequality(BbQ.ChatWidgets.Models.ImageWidget,BbQ.ChatWidgets.Models.ImageWidget)
+  name: operator !=(ImageWidget?, ImageWidget?)
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_op_Inequality_BbQ_ChatWidgets_Models_ImageWidget_BbQ_ChatWidgets_Models_ImageWidget_
+  commentId: M:BbQ.ChatWidgets.Models.ImageWidget.op_Inequality(BbQ.ChatWidgets.Models.ImageWidget,BbQ.ChatWidgets.Models.ImageWidget)
+  name.vb: <>(ImageWidget, ImageWidget)
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.operator !=(BbQ.ChatWidgets.Models.ImageWidget?, BbQ.ChatWidgets.Models.ImageWidget?)
+  fullName.vb: BbQ.ChatWidgets.Models.ImageWidget.<>(BbQ.ChatWidgets.Models.ImageWidget, BbQ.ChatWidgets.Models.ImageWidget)
+  nameWithType: ImageWidget.operator !=(ImageWidget?, ImageWidget?)
+  nameWithType.vb: ImageWidget.<>(ImageWidget, ImageWidget)
+- uid: BbQ.ChatWidgets.Models.ImageWidget.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Models.ImageWidget.html#BbQ_ChatWidgets_Models_ImageWidget_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ImageWidget.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Models.ImageWidget.operator !=
+  fullName.vb: BbQ.ChatWidgets.Models.ImageWidget.<>
+  nameWithType: ImageWidget.operator !=
+  nameWithType.vb: ImageWidget.<>
 - uid: BbQ.ChatWidgets.Models.InputWidget
   name: InputWidget
   href: BbQ.ChatWidgets.Models.InputWidget.html
@@ -5784,6 +6600,135 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Services.DefaultAIToolsProvider.GetAITools
   fullName: BbQ.ChatWidgets.Services.DefaultAIToolsProvider.GetAITools
   nameWithType: DefaultAIToolsProvider.GetAITools
+- uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator
+  name: DefaultStreamPayloadValidator
+  href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html
+  commentId: T:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator
+  fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator
+  nameWithType: DefaultStreamPayloadValidator
+- uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.#ctor(BbQ.ChatWidgets.Abstractions.StreamValidationRules,System.Collections.Generic.IDictionary{System.String,BbQ.ChatWidgets.Abstractions.StreamValidationRules})
+  name: DefaultStreamPayloadValidator(StreamValidationRules?, IDictionary<string, StreamValidationRules>?)
+  href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html#BbQ_ChatWidgets_Services_DefaultStreamPayloadValidator__ctor_BbQ_ChatWidgets_Abstractions_StreamValidationRules_System_Collections_Generic_IDictionary_System_String_BbQ_ChatWidgets_Abstractions_StreamValidationRules__
+  commentId: M:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.#ctor(BbQ.ChatWidgets.Abstractions.StreamValidationRules,System.Collections.Generic.IDictionary{System.String,BbQ.ChatWidgets.Abstractions.StreamValidationRules})
+  name.vb: New(StreamValidationRules, IDictionary(Of String, StreamValidationRules))
+  fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.DefaultStreamPayloadValidator(BbQ.ChatWidgets.Abstractions.StreamValidationRules?, System.Collections.Generic.IDictionary<string, BbQ.ChatWidgets.Abstractions.StreamValidationRules>?)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.New(BbQ.ChatWidgets.Abstractions.StreamValidationRules, System.Collections.Generic.IDictionary(Of String, BbQ.ChatWidgets.Abstractions.StreamValidationRules))
+  nameWithType: DefaultStreamPayloadValidator.DefaultStreamPayloadValidator(StreamValidationRules?, IDictionary<string, StreamValidationRules>?)
+  nameWithType.vb: DefaultStreamPayloadValidator.New(StreamValidationRules, IDictionary(Of String, StreamValidationRules))
+- uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.#ctor*
+  name: DefaultStreamPayloadValidator
+  href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html#BbQ_ChatWidgets_Services_DefaultStreamPayloadValidator__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.DefaultStreamPayloadValidator
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.New
+  nameWithType: DefaultStreamPayloadValidator.DefaultStreamPayloadValidator
+  nameWithType.vb: DefaultStreamPayloadValidator.New
+- uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.GetActiveSubscriberCount(System.String)
+  name: GetActiveSubscriberCount(string)
+  href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html#BbQ_ChatWidgets_Services_DefaultStreamPayloadValidator_GetActiveSubscriberCount_System_String_
+  commentId: M:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.GetActiveSubscriberCount(System.String)
+  name.vb: GetActiveSubscriberCount(String)
+  fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.GetActiveSubscriberCount(string)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.GetActiveSubscriberCount(String)
+  nameWithType: DefaultStreamPayloadValidator.GetActiveSubscriberCount(string)
+  nameWithType.vb: DefaultStreamPayloadValidator.GetActiveSubscriberCount(String)
+- uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.GetActiveSubscriberCount*
+  name: GetActiveSubscriberCount
+  href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html#BbQ_ChatWidgets_Services_DefaultStreamPayloadValidator_GetActiveSubscriberCount_
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.GetActiveSubscriberCount
+  fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.GetActiveSubscriberCount
+  nameWithType: DefaultStreamPayloadValidator.GetActiveSubscriberCount
+- uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.GetRules(System.String)
+  name: GetRules(string)
+  href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html#BbQ_ChatWidgets_Services_DefaultStreamPayloadValidator_GetRules_System_String_
+  commentId: M:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.GetRules(System.String)
+  name.vb: GetRules(String)
+  fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.GetRules(string)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.GetRules(String)
+  nameWithType: DefaultStreamPayloadValidator.GetRules(string)
+  nameWithType.vb: DefaultStreamPayloadValidator.GetRules(String)
+- uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.GetRules*
+  name: GetRules
+  href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html#BbQ_ChatWidgets_Services_DefaultStreamPayloadValidator_GetRules_
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.GetRules
+  fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.GetRules
+  nameWithType: DefaultStreamPayloadValidator.GetRules
+- uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.RemoveSubscriber(System.String)
+  name: RemoveSubscriber(string)
+  href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html#BbQ_ChatWidgets_Services_DefaultStreamPayloadValidator_RemoveSubscriber_System_String_
+  commentId: M:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.RemoveSubscriber(System.String)
+  name.vb: RemoveSubscriber(String)
+  fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.RemoveSubscriber(string)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.RemoveSubscriber(String)
+  nameWithType: DefaultStreamPayloadValidator.RemoveSubscriber(string)
+  nameWithType.vb: DefaultStreamPayloadValidator.RemoveSubscriber(String)
+- uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.RemoveSubscriber*
+  name: RemoveSubscriber
+  href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html#BbQ_ChatWidgets_Services_DefaultStreamPayloadValidator_RemoveSubscriber_
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.RemoveSubscriber
+  fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.RemoveSubscriber
+  nameWithType: DefaultStreamPayloadValidator.RemoveSubscriber
+- uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.SetStreamRules(System.String,BbQ.ChatWidgets.Abstractions.StreamValidationRules)
+  name: SetStreamRules(string, StreamValidationRules)
+  href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html#BbQ_ChatWidgets_Services_DefaultStreamPayloadValidator_SetStreamRules_System_String_BbQ_ChatWidgets_Abstractions_StreamValidationRules_
+  commentId: M:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.SetStreamRules(System.String,BbQ.ChatWidgets.Abstractions.StreamValidationRules)
+  name.vb: SetStreamRules(String, StreamValidationRules)
+  fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.SetStreamRules(string, BbQ.ChatWidgets.Abstractions.StreamValidationRules)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.SetStreamRules(String, BbQ.ChatWidgets.Abstractions.StreamValidationRules)
+  nameWithType: DefaultStreamPayloadValidator.SetStreamRules(string, StreamValidationRules)
+  nameWithType.vb: DefaultStreamPayloadValidator.SetStreamRules(String, StreamValidationRules)
+- uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.SetStreamRules*
+  name: SetStreamRules
+  href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html#BbQ_ChatWidgets_Services_DefaultStreamPayloadValidator_SetStreamRules_
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.SetStreamRules
+  fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.SetStreamRules
+  nameWithType: DefaultStreamPayloadValidator.SetStreamRules
+- uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.TryAddSubscriber(System.String)
+  name: TryAddSubscriber(string)
+  href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html#BbQ_ChatWidgets_Services_DefaultStreamPayloadValidator_TryAddSubscriber_System_String_
+  commentId: M:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.TryAddSubscriber(System.String)
+  name.vb: TryAddSubscriber(String)
+  fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.TryAddSubscriber(string)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.TryAddSubscriber(String)
+  nameWithType: DefaultStreamPayloadValidator.TryAddSubscriber(string)
+  nameWithType.vb: DefaultStreamPayloadValidator.TryAddSubscriber(String)
+- uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.TryAddSubscriber*
+  name: TryAddSubscriber
+  href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html#BbQ_ChatWidgets_Services_DefaultStreamPayloadValidator_TryAddSubscriber_
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.TryAddSubscriber
+  fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.TryAddSubscriber
+  nameWithType: DefaultStreamPayloadValidator.TryAddSubscriber
+- uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.ValidateAsync(System.String,System.Object)
+  name: ValidateAsync(string, object)
+  href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html#BbQ_ChatWidgets_Services_DefaultStreamPayloadValidator_ValidateAsync_System_String_System_Object_
+  commentId: M:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.ValidateAsync(System.String,System.Object)
+  name.vb: ValidateAsync(String, Object)
+  fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.ValidateAsync(string, object)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.ValidateAsync(String, Object)
+  nameWithType: DefaultStreamPayloadValidator.ValidateAsync(string, object)
+  nameWithType.vb: DefaultStreamPayloadValidator.ValidateAsync(String, Object)
+- uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.ValidateAsync*
+  name: ValidateAsync
+  href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html#BbQ_ChatWidgets_Services_DefaultStreamPayloadValidator_ValidateAsync_
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.ValidateAsync
+  fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.ValidateAsync
+  nameWithType: DefaultStreamPayloadValidator.ValidateAsync
+- uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.ValidatePublishFrequencyAsync(System.String,System.String)
+  name: ValidatePublishFrequencyAsync(string, string?)
+  href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html#BbQ_ChatWidgets_Services_DefaultStreamPayloadValidator_ValidatePublishFrequencyAsync_System_String_System_String_
+  commentId: M:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.ValidatePublishFrequencyAsync(System.String,System.String)
+  name.vb: ValidatePublishFrequencyAsync(String, String)
+  fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.ValidatePublishFrequencyAsync(string, string?)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.ValidatePublishFrequencyAsync(String, String)
+  nameWithType: DefaultStreamPayloadValidator.ValidatePublishFrequencyAsync(string, string?)
+  nameWithType.vb: DefaultStreamPayloadValidator.ValidatePublishFrequencyAsync(String, String)
+- uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.ValidatePublishFrequencyAsync*
+  name: ValidatePublishFrequencyAsync
+  href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html#BbQ_ChatWidgets_Services_DefaultStreamPayloadValidator_ValidatePublishFrequencyAsync_
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.ValidatePublishFrequencyAsync
+  fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.ValidatePublishFrequencyAsync
+  nameWithType: DefaultStreamPayloadValidator.ValidatePublishFrequencyAsync
 - uid: BbQ.ChatWidgets.Services.DefaultThreadService
   name: DefaultThreadService
   href: BbQ.ChatWidgets.Services.DefaultThreadService.html
@@ -6099,15 +7044,15 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler
   fullName: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler
   nameWithType: WidgetActionHandlerExtensions.RegisterHandler
-- uid: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,``0)
-  name: RegisterHandler<TAction, TPayload, THandler>(IWidgetActionRegistry, IWidgetActionHandlerResolver, TAction)
-  href: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.html#BbQ_ChatWidgets_Services_WidgetActionHandlerExtensions_RegisterHandler__3_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver___0_
-  commentId: M:BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,``0)
-  name.vb: RegisterHandler(Of TAction, TPayload, THandler)(IWidgetActionRegistry, IWidgetActionHandlerResolver, TAction)
-  fullName: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler<TAction, TPayload, THandler>(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, TAction)
-  fullName.vb: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler(Of TAction, TPayload, THandler)(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, TAction)
-  nameWithType: WidgetActionHandlerExtensions.RegisterHandler<TAction, TPayload, THandler>(IWidgetActionRegistry, IWidgetActionHandlerResolver, TAction)
-  nameWithType.vb: WidgetActionHandlerExtensions.RegisterHandler(Of TAction, TPayload, THandler)(IWidgetActionRegistry, IWidgetActionHandlerResolver, TAction)
+- uid: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)
+  name: RegisterHandler<TAction, TPayload, THandler>(IWidgetActionRegistry, IWidgetActionHandlerResolver)
+  href: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.html#BbQ_ChatWidgets_Services_WidgetActionHandlerExtensions_RegisterHandler__3_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_
+  commentId: M:BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)
+  name.vb: RegisterHandler(Of TAction, TPayload, THandler)(IWidgetActionRegistry, IWidgetActionHandlerResolver)
+  fullName: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler<TAction, TPayload, THandler>(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)
+  fullName.vb: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler(Of TAction, TPayload, THandler)(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)
+  nameWithType: WidgetActionHandlerExtensions.RegisterHandler<TAction, TPayload, THandler>(IWidgetActionRegistry, IWidgetActionHandlerResolver)
+  nameWithType.vb: WidgetActionHandlerExtensions.RegisterHandler(Of TAction, TPayload, THandler)(IWidgetActionRegistry, IWidgetActionHandlerResolver)
 - uid: BbQ.ChatWidgets.Services.WidgetActionMetadata
   name: WidgetActionMetadata
   href: BbQ.ChatWidgets.Services.WidgetActionMetadata.html
@@ -6180,6 +7125,69 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Services.WidgetActionMetadata.PayloadType
   fullName: BbQ.ChatWidgets.Services.WidgetActionMetadata.PayloadType
   nameWithType: WidgetActionMetadata.PayloadType
+- uid: BbQ.ChatWidgets.Services.WidgetActionRegistry
+  name: WidgetActionRegistry
+  href: BbQ.ChatWidgets.Services.WidgetActionRegistry.html
+  commentId: T:BbQ.ChatWidgets.Services.WidgetActionRegistry
+  fullName: BbQ.ChatWidgets.Services.WidgetActionRegistry
+  nameWithType: WidgetActionRegistry
+- uid: BbQ.ChatWidgets.Services.WidgetActionRegistry.#ctor
+  name: WidgetActionRegistry()
+  href: BbQ.ChatWidgets.Services.WidgetActionRegistry.html#BbQ_ChatWidgets_Services_WidgetActionRegistry__ctor
+  commentId: M:BbQ.ChatWidgets.Services.WidgetActionRegistry.#ctor
+  name.vb: New()
+  fullName: BbQ.ChatWidgets.Services.WidgetActionRegistry.WidgetActionRegistry()
+  fullName.vb: BbQ.ChatWidgets.Services.WidgetActionRegistry.New()
+  nameWithType: WidgetActionRegistry.WidgetActionRegistry()
+  nameWithType.vb: WidgetActionRegistry.New()
+- uid: BbQ.ChatWidgets.Services.WidgetActionRegistry.#ctor*
+  name: WidgetActionRegistry
+  href: BbQ.ChatWidgets.Services.WidgetActionRegistry.html#BbQ_ChatWidgets_Services_WidgetActionRegistry__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Services.WidgetActionRegistry.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Services.WidgetActionRegistry.WidgetActionRegistry
+  fullName.vb: BbQ.ChatWidgets.Services.WidgetActionRegistry.New
+  nameWithType: WidgetActionRegistry.WidgetActionRegistry
+  nameWithType.vb: WidgetActionRegistry.New
+- uid: BbQ.ChatWidgets.Services.WidgetActionRegistry.GetAction(System.String)
+  name: GetAction(string)
+  href: BbQ.ChatWidgets.Services.WidgetActionRegistry.html#BbQ_ChatWidgets_Services_WidgetActionRegistry_GetAction_System_String_
+  commentId: M:BbQ.ChatWidgets.Services.WidgetActionRegistry.GetAction(System.String)
+  name.vb: GetAction(String)
+  fullName: BbQ.ChatWidgets.Services.WidgetActionRegistry.GetAction(string)
+  fullName.vb: BbQ.ChatWidgets.Services.WidgetActionRegistry.GetAction(String)
+  nameWithType: WidgetActionRegistry.GetAction(string)
+  nameWithType.vb: WidgetActionRegistry.GetAction(String)
+- uid: BbQ.ChatWidgets.Services.WidgetActionRegistry.GetAction*
+  name: GetAction
+  href: BbQ.ChatWidgets.Services.WidgetActionRegistry.html#BbQ_ChatWidgets_Services_WidgetActionRegistry_GetAction_
+  commentId: Overload:BbQ.ChatWidgets.Services.WidgetActionRegistry.GetAction
+  fullName: BbQ.ChatWidgets.Services.WidgetActionRegistry.GetAction
+  nameWithType: WidgetActionRegistry.GetAction
+- uid: BbQ.ChatWidgets.Services.WidgetActionRegistry.GetActions
+  name: GetActions()
+  href: BbQ.ChatWidgets.Services.WidgetActionRegistry.html#BbQ_ChatWidgets_Services_WidgetActionRegistry_GetActions
+  commentId: M:BbQ.ChatWidgets.Services.WidgetActionRegistry.GetActions
+  fullName: BbQ.ChatWidgets.Services.WidgetActionRegistry.GetActions()
+  nameWithType: WidgetActionRegistry.GetActions()
+- uid: BbQ.ChatWidgets.Services.WidgetActionRegistry.GetActions*
+  name: GetActions
+  href: BbQ.ChatWidgets.Services.WidgetActionRegistry.html#BbQ_ChatWidgets_Services_WidgetActionRegistry_GetActions_
+  commentId: Overload:BbQ.ChatWidgets.Services.WidgetActionRegistry.GetActions
+  fullName: BbQ.ChatWidgets.Services.WidgetActionRegistry.GetActions
+  nameWithType: WidgetActionRegistry.GetActions
+- uid: BbQ.ChatWidgets.Services.WidgetActionRegistry.RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
+  name: RegisterAction(IWidgetActionMetadata)
+  href: BbQ.ChatWidgets.Services.WidgetActionRegistry.html#BbQ_ChatWidgets_Services_WidgetActionRegistry_RegisterAction_BbQ_ChatWidgets_Abstractions_IWidgetActionMetadata_
+  commentId: M:BbQ.ChatWidgets.Services.WidgetActionRegistry.RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
+  fullName: BbQ.ChatWidgets.Services.WidgetActionRegistry.RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
+  nameWithType: WidgetActionRegistry.RegisterAction(IWidgetActionMetadata)
+- uid: BbQ.ChatWidgets.Services.WidgetActionRegistry.RegisterAction*
+  name: RegisterAction
+  href: BbQ.ChatWidgets.Services.WidgetActionRegistry.html#BbQ_ChatWidgets_Services_WidgetActionRegistry_RegisterAction_
+  commentId: Overload:BbQ.ChatWidgets.Services.WidgetActionRegistry.RegisterAction
+  fullName: BbQ.ChatWidgets.Services.WidgetActionRegistry.RegisterAction
+  nameWithType: WidgetActionRegistry.RegisterAction
 - uid: BbQ.ChatWidgets.Services.WidgetRegistry
   name: WidgetRegistry
   href: BbQ.ChatWidgets.Services.WidgetRegistry.html
@@ -6366,15 +7374,15 @@ references:
   fullName.vb: BbQ.ChatWidgets.Services.WidgetSseService.New
   nameWithType: WidgetSseService.WidgetSseService
   nameWithType.vb: WidgetSseService.New
-- uid: BbQ.ChatWidgets.Services.WidgetSseService.PublishAsync(System.String,System.Object)
-  name: PublishAsync(string, object)
-  href: BbQ.ChatWidgets.Services.WidgetSseService.html#BbQ_ChatWidgets_Services_WidgetSseService_PublishAsync_System_String_System_Object_
-  commentId: M:BbQ.ChatWidgets.Services.WidgetSseService.PublishAsync(System.String,System.Object)
-  name.vb: PublishAsync(String, Object)
-  fullName: BbQ.ChatWidgets.Services.WidgetSseService.PublishAsync(string, object)
-  fullName.vb: BbQ.ChatWidgets.Services.WidgetSseService.PublishAsync(String, Object)
-  nameWithType: WidgetSseService.PublishAsync(string, object)
-  nameWithType.vb: WidgetSseService.PublishAsync(String, Object)
+- uid: BbQ.ChatWidgets.Services.WidgetSseService.PublishAsync(System.String,System.Object,BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator,System.String)
+  name: PublishAsync(string, object, IStreamPayloadValidator, string?)
+  href: BbQ.ChatWidgets.Services.WidgetSseService.html#BbQ_ChatWidgets_Services_WidgetSseService_PublishAsync_System_String_System_Object_BbQ_ChatWidgets_Abstractions_IStreamPayloadValidator_System_String_
+  commentId: M:BbQ.ChatWidgets.Services.WidgetSseService.PublishAsync(System.String,System.Object,BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator,System.String)
+  name.vb: PublishAsync(String, Object, IStreamPayloadValidator, String)
+  fullName: BbQ.ChatWidgets.Services.WidgetSseService.PublishAsync(string, object, BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator, string?)
+  fullName.vb: BbQ.ChatWidgets.Services.WidgetSseService.PublishAsync(String, Object, BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator, String)
+  nameWithType: WidgetSseService.PublishAsync(string, object, IStreamPayloadValidator, string?)
+  nameWithType.vb: WidgetSseService.PublishAsync(String, Object, IStreamPayloadValidator, String)
 - uid: BbQ.ChatWidgets.Services.WidgetSseService.PublishAsync*
   name: PublishAsync
   href: BbQ.ChatWidgets.Services.WidgetSseService.html#BbQ_ChatWidgets_Services_WidgetSseService_PublishAsync_

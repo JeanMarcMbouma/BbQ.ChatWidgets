@@ -1,0 +1,35 @@
+@using BbQ.ChatWidgets.Models
+@using Microsoft.AspNetCore.Components
+
+<div class="bbq-widget bbq-image-collection-widget">
+    <div class="bbq-image-collection-grid">
+        @foreach (var item in Widget.Images)
+        {
+            var action = item.Action ?? Widget.Action;
+            <div class="bbq-image-collection-item" @onclick="(async () => await HandleItemClick(action, item.ImageUrl))">
+                <img class="bbq-image"
+                     src="@item.ImageUrl"
+                     alt="@(item.Alt ?? string.Empty)"
+                     loading="lazy" />
+                @if (!string.IsNullOrWhiteSpace(item.Alt))
+                {
+                    <div class="bbq-image-caption">@item.Alt</div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public required ImageCollectionWidget Widget { get; set; }
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    private async Task HandleItemClick(string action, string imageUrl)
+    {
+        var payload = new { imageUrl };
+        await OnAction.InvokeAsync((action, payload));
+    }
+}

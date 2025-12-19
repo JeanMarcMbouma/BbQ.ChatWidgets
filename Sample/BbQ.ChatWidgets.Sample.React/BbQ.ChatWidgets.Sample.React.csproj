@@ -5,8 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
-    <RootNamespace>BbQ.ChatWidgets.Sample.WebApp</RootNamespace>
-    <AssemblyName>BbQ.ChatWidgets.Sample.WebApp</AssemblyName>
+    <RootNamespace>BbQ.ChatWidgets.Sample.React</RootNamespace>
+    <AssemblyName>BbQ.ChatWidgets.Sample.React</AssemblyName>
     <UserSecretsId>1dd19de5-a740-4c00-8755-9dcb018ce455</UserSecretsId>
     <SpaRoot>ClientApp\</SpaRoot>
   </PropertyGroup>

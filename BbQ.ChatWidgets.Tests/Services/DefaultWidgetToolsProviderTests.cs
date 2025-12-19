@@ -109,14 +109,14 @@ public class DefaultWidgetToolsProviderTests
         var tools = provider.GetTools();
 
         // Assert - verify all registered widgets have tools
-        // The registry is initialized with 11 built-in widgets
-        Assert.Equal(13, tools.Count());
+        Assert.Equal(15, tools.Count());
         
         // Expected widget type IDs
         var expectedWidgetIds = new[] 
         { 
             "button", "card", "input", "dropdown", "slider", "toggle", 
-            "fileupload", "datepicker", "multiselect", "progressbar", "themeswitcher"
+            "fileupload", "datepicker", "multiselect", "progressbar", "themeswitcher",
+            "image", "imagecollection"
         };
         
         var toolNames = tools.Select(t => t.Name).ToHashSet(StringComparer.OrdinalIgnoreCase);

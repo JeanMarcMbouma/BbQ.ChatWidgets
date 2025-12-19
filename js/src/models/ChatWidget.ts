@@ -92,6 +92,23 @@ export abstract class ChatWidget {
           obj.fields || [],
           obj.actions || []
         );
+      case 'image':
+      case 'imagecollection': {
+        // Dynamic import to avoid ESM circular dependency (ImageWidgets imports ChatWidget)
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const mod = require('./ImageWidgets') as typeof import('./ImageWidgets');
+        if (obj.type === 'image') {
+          return new mod.ImageWidget(
+            obj.label,
+            obj.action,
+            obj.imageUrl,
+            obj.alt,
+            obj.width,
+            obj.height
+          );
+        }
+        return new mod.ImageCollectionWidget(obj.label, obj.action, obj.images || []);
+      }
       default:
         return null;
     }

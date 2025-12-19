@@ -1,4 +1,5 @@
 import { ChatWidget } from '../models/ChatWidget';
+import { renderImage, renderImageCollection } from './imageRenderers';
 
 /**
  * Interface for widget renderers
@@ -77,6 +78,10 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
         return this.renderProgressBar(widget as any);
       case 'form':
         return this.renderForm(widget as any);
+      case 'image':
+        return renderImage(widget as any, this);
+      case 'imagecollection':
+        return renderImageCollection(widget as any, this);
       default:
         return this.renderUnsupported(widget);
     }

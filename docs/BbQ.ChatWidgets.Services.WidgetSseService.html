@@ -119,7 +119,7 @@ SSE <code>data:</code> messages.</p>
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/WidgetSseService.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Services/WidgetSseService.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Services_WidgetSseService__ctor_" data-uid="BbQ.ChatWidgets.Services.WidgetSseService.#ctor*"></a>
   <h4 id="BbQ_ChatWidgets_Services_WidgetSseService__ctor" data-uid="BbQ.ChatWidgets.Services.WidgetSseService.#ctor">WidgetSseService()</h4>
@@ -133,18 +133,17 @@ SSE <code>data:</code> messages.</p>
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/WidgetSseService.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Services/WidgetSseService.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Services_WidgetSseService_PublishAsync_" data-uid="BbQ.ChatWidgets.Services.WidgetSseService.PublishAsync*"></a>
-  <h4 id="BbQ_ChatWidgets_Services_WidgetSseService_PublishAsync_System_String_System_Object_" data-uid="BbQ.ChatWidgets.Services.WidgetSseService.PublishAsync(System.String,System.Object)">PublishAsync(string, object)</h4>
-  <div class="markdown level1 summary"><p>Publishes a JSON-serializable <code class="paramref">message</code> to the named stream.
-The message will be serialized and written to all current subscribers in a
-best-effort fashion.</p>
+  <h4 id="BbQ_ChatWidgets_Services_WidgetSseService_PublishAsync_System_String_System_Object_BbQ_ChatWidgets_Abstractions_IStreamPayloadValidator_System_String_" data-uid="BbQ.ChatWidgets.Services.WidgetSseService.PublishAsync(System.String,System.Object,BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator,System.String)">PublishAsync(string, object, IStreamPayloadValidator, string?)</h4>
+  <div class="markdown level1 summary"><p>Publishes a JSON-serializable <code class="paramref">message</code> to the named stream with payload validation.
+The message will be validated against configured rules before being sent to subscribers.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task PublishAsync(string streamId, object message)</code></pre>
+    <pre><code class="lang-csharp hljs">public Task PublishAsync(string streamId, object message, IStreamPayloadValidator validator, string? publisherId = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -168,6 +167,18 @@ best-effort fashion.</p>
         <td><p>The message payload to publish (will be serialized to JSON).</p>
 </td>
       </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.html">IStreamPayloadValidator</a></td>
+        <td><span class="parametername">validator</span></td>
+        <td><p>The payload validator to use for validation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">publisherId</span></td>
+        <td><p>Optional: Identifier for the publisher (used for rate limiting).</p>
+</td>
+      </tr>
     </tbody>
   </table>
   <h5 class="returns">Returns</h5>
@@ -186,9 +197,30 @@ best-effort fashion.</p>
       </tr>
     </tbody>
   </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.PayloadValidationException.html">PayloadValidationException</a></td>
+        <td><p>Thrown if payload validation fails.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.html">PublishRateLimitExceededException</a></td>
+        <td><p>Thrown if publish rate limit is exceeded.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/WidgetSseService.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Services/WidgetSseService.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Services_WidgetSseService_SubscribeAsync_" data-uid="BbQ.ChatWidgets.Services.WidgetSseService.SubscribeAsync*"></a>
   <h4 id="BbQ_ChatWidgets_Services_WidgetSseService_SubscribeAsync_System_String_Microsoft_AspNetCore_Http_HttpContext_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.WidgetSseService.SubscribeAsync(System.String,Microsoft.AspNetCore.Http.HttpContext,System.Threading.CancellationToken)">SubscribeAsync(string, HttpContext, CancellationToken)</h4>
@@ -259,7 +291,7 @@ connection is closed or the provided <code class="paramref">ct</code> is cancell
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/WidgetSseService.cs" class="contribution-link">View Source</a>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Services/WidgetSseService.cs" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

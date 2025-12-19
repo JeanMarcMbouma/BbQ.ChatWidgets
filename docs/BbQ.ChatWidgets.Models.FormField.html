@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width">
       <meta name="title" content="Class FormField | BbQ.ChatWidgets ">
     
-    
+    <meta name="description" content="Represents a field definition for a form, including metadata such as name, label, type, and validation requirements.">
       <link rel="shortcut icon" href="favicon.ico">
       <link rel="stylesheet" href="styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="styles/docfx.css">
@@ -74,7 +74,8 @@
 
 
   <h1 id="BbQ_ChatWidgets_Models_FormField" data-uid="BbQ.ChatWidgets.Models.FormField" class="text-break">Class FormField</h1>
-  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 summary"><p>Represents a field definition for a form, including metadata such as name, label, type, and validation requirements.</p>
+</div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
@@ -110,7 +111,7 @@
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField__ctor_" data-uid="BbQ.ChatWidgets.Models.FormField.#ctor*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField__ctor_BbQ_ChatWidgets_Models_FormField_" data-uid="BbQ.ChatWidgets.Models.FormField.#ctor(BbQ.ChatWidgets.Models.FormField)">FormField(FormField)</h4>
@@ -139,11 +140,12 @@
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField__ctor_" data-uid="BbQ.ChatWidgets.Models.FormField.#ctor*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField__ctor_System_String_System_String_System_String_System_Boolean_System_String_" data-uid="BbQ.ChatWidgets.Models.FormField.#ctor(System.String,System.String,System.String,System.Boolean,System.String)">FormField(string, string, string, bool, string?)</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>Represents a field definition for a form, including metadata such as name, label, type, and validation requirements.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
@@ -162,27 +164,34 @@
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td><span class="parametername">Name</span></td>
-        <td></td>
+        <td><p>The unique identifier for the form field. Used to reference the field in form data and processing.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td><span class="parametername">Label</span></td>
-        <td></td>
+        <td><p>The display label for the form field, shown to users in the form UI.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td><span class="parametername">Type</span></td>
-        <td></td>
+        <td><p>The type of widget or input control to use for the field, such as 'text', 'checkbox', or other supported types.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
         <td><span class="parametername">Required</span></td>
-        <td></td>
+        <td><p>A value indicating whether the field is required for form submission. Set to <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the field
+must be provided; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td><span class="parametername">ValidationHint</span></td>
-        <td></td>
+        <td><p>An optional hint or message to assist users in providing valid input for the field. Can be <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> if
+no hint is provided.</p>
+</td>
       </tr>
     </tbody>
   </table>
@@ -190,7 +199,7 @@
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField_EqualityContract_" data-uid="BbQ.ChatWidgets.Models.FormField.EqualityContract*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField_EqualityContract" data-uid="BbQ.ChatWidgets.Models.FormField.EqualityContract">EqualityContract</h4>
@@ -217,11 +226,12 @@
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField_Label_" data-uid="BbQ.ChatWidgets.Models.FormField.Label*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField_Label" data-uid="BbQ.ChatWidgets.Models.FormField.Label">Label</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The display label for the form field, shown to users in the form UI.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
@@ -244,11 +254,12 @@
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField_Name_" data-uid="BbQ.ChatWidgets.Models.FormField.Name*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField_Name" data-uid="BbQ.ChatWidgets.Models.FormField.Name">Name</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The unique identifier for the form field. Used to reference the field in form data and processing.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
@@ -271,11 +282,13 @@
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField_Required_" data-uid="BbQ.ChatWidgets.Models.FormField.Required*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField_Required" data-uid="BbQ.ChatWidgets.Models.FormField.Required">Required</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>A value indicating whether the field is required for form submission. Set to <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the field
+must be provided; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
@@ -298,11 +311,12 @@
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField_Type_" data-uid="BbQ.ChatWidgets.Models.FormField.Type*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField_Type" data-uid="BbQ.ChatWidgets.Models.FormField.Type">Type</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>The type of widget or input control to use for the field, such as 'text', 'checkbox', or other supported types.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
@@ -325,11 +339,13 @@
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField_ValidationHint_" data-uid="BbQ.ChatWidgets.Models.FormField.ValidationHint*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField_ValidationHint" data-uid="BbQ.ChatWidgets.Models.FormField.ValidationHint">ValidationHint</h4>
-  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 summary"><p>An optional hint or message to assist users in providing valid input for the field. Can be <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> if
+no hint is provided.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
@@ -354,7 +370,7 @@
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField_Deconstruct_" data-uid="BbQ.ChatWidgets.Models.FormField.Deconstruct*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField_Deconstruct_System_String__System_String__System_String__System_Boolean__System_String__" data-uid="BbQ.ChatWidgets.Models.FormField.Deconstruct(System.String@,System.String@,System.String@,System.Boolean@,System.String@)">Deconstruct(out string, out string, out string, out bool, out string?)</h4>
@@ -403,7 +419,7 @@
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField_Equals_" data-uid="BbQ.ChatWidgets.Models.FormField.Equals*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField_Equals_BbQ_ChatWidgets_Models_FormField_" data-uid="BbQ.ChatWidgets.Models.FormField.Equals(BbQ.ChatWidgets.Models.FormField)">Equals(FormField?)</h4>
@@ -447,7 +463,7 @@
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField_Equals_" data-uid="BbQ.ChatWidgets.Models.FormField.Equals*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField_Equals_System_Object_" data-uid="BbQ.ChatWidgets.Models.FormField.Equals(System.Object)">Equals(object?)</h4>
@@ -493,7 +509,7 @@
   <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a></div>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField_GetHashCode_" data-uid="BbQ.ChatWidgets.Models.FormField.GetHashCode*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField_GetHashCode" data-uid="BbQ.ChatWidgets.Models.FormField.GetHashCode">GetHashCode()</h4>
@@ -522,7 +538,7 @@
   <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></div>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField_PrintMembers_" data-uid="BbQ.ChatWidgets.Models.FormField.PrintMembers*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField_PrintMembers_System_Text_StringBuilder_" data-uid="BbQ.ChatWidgets.Models.FormField.PrintMembers(System.Text.StringBuilder)">PrintMembers(StringBuilder)</h4>
@@ -566,7 +582,7 @@
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField_ToString_" data-uid="BbQ.ChatWidgets.Models.FormField.ToString*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField_ToString" data-uid="BbQ.ChatWidgets.Models.FormField.ToString">ToString()</h4>
@@ -597,7 +613,7 @@
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField_op_Equality_" data-uid="BbQ.ChatWidgets.Models.FormField.op_Equality*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField_op_Equality_BbQ_ChatWidgets_Models_FormField_BbQ_ChatWidgets_Models_FormField_" data-uid="BbQ.ChatWidgets.Models.FormField.op_Equality(BbQ.ChatWidgets.Models.FormField,BbQ.ChatWidgets.Models.FormField)">operator ==(FormField?, FormField?)</h4>
@@ -646,7 +662,7 @@
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField_op_Inequality_" data-uid="BbQ.ChatWidgets.Models.FormField.op_Inequality*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField_op_Inequality_BbQ_ChatWidgets_Models_FormField_BbQ_ChatWidgets_Models_FormField_" data-uid="BbQ.ChatWidgets.Models.FormField.op_Inequality(BbQ.ChatWidgets.Models.FormField,BbQ.ChatWidgets.Models.FormField)">operator !=(FormField?, FormField?)</h4>
@@ -706,7 +722,7 @@
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidget.cs" class="contribution-link">View Source</a>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/cb458518aa617dc71f1d227550dd845367e3a154/BbQ.ChatWidgets/Models/ChatWidget.cs" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

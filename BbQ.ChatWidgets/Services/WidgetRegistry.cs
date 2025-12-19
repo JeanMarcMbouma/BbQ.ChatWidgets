@@ -50,6 +50,13 @@ public sealed class WidgetRegistry : IWidgetRegistry
             new FormField("Submit", "submit_button", "button", true)
         ], [new FormAction("submit", "Submit Form"), new FormAction("cancel", "Cancel Form")]));
         Register(new TextAreaWidget("Enter Description", "textarea", "Type here...", Rows: 5, MaxLength: 500));
+
+        Register(new ImageWidget("Open Image", "open_image", "https://via.placeholder.com/640x360", Alt: "Sample image", Width: 640, Height: 360));
+        Register(new ImageCollectionWidget("Image Gallery", "open_gallery",
+        [
+            new ImageItem("https://via.placeholder.com/320x180", Alt: "Image 1"),
+            new ImageItem("https://via.placeholder.com/320x180", Alt: "Image 2")
+        ]));
     }
 
     /// <summary>

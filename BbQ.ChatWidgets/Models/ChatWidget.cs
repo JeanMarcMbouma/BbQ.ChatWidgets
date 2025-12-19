@@ -53,9 +53,16 @@ public sealed record ButtonWidget(
     /// <inheritdoc/>
     /// </summary>
     public override string Purpose => """
-           **Button Widget** - For calling actions
-           Format: <widget>{"type":"button","label":"ACTION_LABEL","action":"action_id"}</widget>
-           Use when: You want the user to trigger an action (submit, delete, approve, etc.)
+           **Button Widget** — Single action with no payload
+
+           Use when:
+           - You want the user to trigger an action immediately (approve, retry, confirm, open, etc.).
+
+           Avoid when:
+           - You need to collect any input; use a `FormWidget` with fields instead.
+
+           JSON:
+           <widget>{"type":"button","label":"ACTION_LABEL","action":"action_id"}</widget>
         """;
 }
 
@@ -85,9 +92,17 @@ public sealed record CardWidget(
     ///<inheritdoc/>
     /// </summary>
     public override string Purpose => """
-           **Card Widget** - For displaying rich content
-           Format: <widget>{"type":"card","label":"ACTION_LABEL","action":"action_id","title":"TITLE","description":"DESCRIPTION","imageUrl":"URL"}</widget>
-           Use when: You need to show featured content, products, or items with descriptions
+           **Card Widget** — Rich preview + click/CTA action
+
+           Use when:
+           - You want to showcase an item (product, recommendation, article, profile) with a title.
+           - You want optional supporting text (`description`) and/or an image (`imageUrl`).
+
+           Notes:
+           - The `action` is triggered when the user interacts with the card / CTA.
+
+           JSON:
+           <widget>{"type":"card","label":"VIEW_DETAILS","action":"view_details","title":"TITLE","description":"OPTIONAL_DESCRIPTION","imageUrl":"https://..."}</widget>
         """;
 }
 
@@ -115,9 +130,16 @@ public sealed record InputWidget(
     ///<inheritdoc/>
     /// </summary>
     public override string Purpose => """
-           **Input Widget** - For single line text input
-           Format: <widget>{"type":"input","label":"LABEL","action":"action_id","placeholder":"PLACEHOLDER","maxLength":100}</widget>
-           Use when: You need the user to enter text (name, email, etc.)
+           **Input Widget** — Single-line text field (MUST be used inside a `FormWidget`)
+           Use when:
+           - You need short text (name, email, search query, ID, etc.).
+           Avoid when:
+           - The input is multi-line; use `TextAreaWidget`.
+           - You need multiple fields; use a single `FormWidget` with multiple fields.
+           JSON (field-style, inside a form):
+           <widget>{"type":"form","title":"...","action":"form_action","fields":[{"name":"fieldName","label":"LABEL","type":"input","required":true,"validationHint":"..."}],"actions":[{"type":"button","label":"Submit"},{"type":"button","label":"Cancel"}]}</widget>
+           If used standalone (not recommended), the widget JSON is:
+           <widget>{"type":"input","label":"LABEL","action":"action_id","placeholder":"PLACEHOLDER","maxLength":100}</widget>
         """;
 }
 
@@ -147,9 +169,15 @@ public sealed record TextAreaWidget(
     ///<inheritdoc/>
     /// </summary>
     public override string Purpose => """
-           **TextArea Widget** - For multi-line text input
-           Format: <widget>{"type":"textarea","label":"LABEL","action":"action_id","placeholder":"PLACEHOLDER","maxLength":500,"rows":5}</widget>
-           Use when: You need the user to enter multiple lines of text (feedback, comments, descriptions, etc.)
+           **TextArea Widget** — Multi-line text field (MUST be used inside a `FormWidget`)
+           Use when:
+           - You need longer/freeform text (feedback, description, comments, notes, biography, etc.).
+           Tips:
+           - Use `rows` to guide visible height.
+           JSON (field-style, inside a form):
+           <widget>{"type":"form","title":"...","action":"form_action","fields":[{"name":"message","label":"Message","type":"textarea","required":true,"validationHint":"..."}],"actions":[{"type":"button","label":"Send"},{"type":"button","label":"Cancel"}]}</widget>
+           If used standalone (not recommended), the widget JSON is:
+           <widget>{"type":"textarea","label":"LABEL","action":"action_id","placeholder":"PLACEHOLDER","maxLength":500,"rows":5}</widget>
         """;
 }
 
@@ -177,9 +205,13 @@ public sealed record DropdownWidget(
     ///<inheritdoc/>
     /// </summary>
     public override string Purpose => """
-           **Dropdown Widget** - For selecting from options
-           Format: <widget>{"type":"dropdown","label":"LABEL","action":"action_id","options":["OPTION1","OPTION2","OPTION3"]}</widget>
-           Use when: There are multiple predefined options to choose from
+           **Dropdown Widget** — Choose exactly one option (MUST be used inside a `FormWidget`)
+           Use when:
+           - The user must pick one value from a predefined list (3+ options).
+           Avoid when:
+           - Multiple selections are allowed; use `MultiSelectWidget`.
+           JSON:
+           <widget>{"type":"dropdown","label":"LABEL","action":"action_id","options":["Option1","Option2","Option3"]}</widget>
         """;
 }
 
@@ -211,9 +243,13 @@ public sealed record SliderWidget(
     ///<inheritdoc/>
     /// </summary>
     public override string Purpose => """
-           **Slider Widget** - For numeric selection
-           Format: <widget>{"type":"slider","label":"LABEL","action":"action_id","min":0,"max":100,"step":5,"default":50}</widget>
-           Use when: You need a value selection from a range
+           **Slider Widget** — Numeric value in a range (MUST be used inside a `FormWidget`)
+           Use when:
+           - You need a bounded numeric input with a clear min/max (volume, rating, percentage).
+           Tips:
+           - Keep `step` meaningful (e.g., 1, 5, 10).
+           JSON:
+           <widget>{"type":"slider","label":"LABEL","action":"action_id","min":0,"max":100,"step":5,"default":50}</widget>
         """;
 }
 
@@ -241,9 +277,11 @@ public sealed record ToggleWidget(
     ///<inheritdoc/>
     /// </summary>
     public override string Purpose => """
-           **Toggle Widget** - For boolean selection
-           Format: <widget>{"type":"toggle","label":"LABEL","action":"action_id","defaultValue":false}</widget>
-           Use when: You need an on/off or yes/no selection
+           **Toggle Widget** — Boolean on/off (MUST be used inside a `FormWidget`)
+           Use when:
+           - A single yes/no or enabled/disabled choice is needed.
+           JSON:
+           <widget>{"type":"toggle","label":"LABEL","action":"action_id","defaultValue":false}</widget>
         """;
 }
 
@@ -271,9 +309,15 @@ public sealed record FileUploadWidget(
     ///<inheritdoc/>
     /// </summary>
     public override string Purpose => """
-           **FileUpload Widget** - For file uploads
-           Format: <widget>{"type":"fileupload","label":"LABEL","action":"action_id","accept":".pdf,.doc","maxBytes":5000000}</widget>
-           Use when: You need the user to upload a file
+           **FileUpload Widget** — Upload one file (MUST be used inside a `FormWidget`)
+
+           Use when:
+           - You need the user to attach a document/image.
+           Tips:
+           - Use `accept` to constrain extensions/MIME types.
+           - Use `maxBytes` to enforce a size limit.
+           JSON:
+           <widget>{"type":"fileupload","label":"LABEL","action":"action_id","accept":".pdf,.doc,.docx","maxBytes":5000000}</widget>
         """;
 }
 
@@ -304,9 +348,11 @@ public sealed record ThemeSwitcherWidget(
     ///<inheritdoc/>
     /// </summary>
     public override string Purpose => """
-           **ThemeSwitcher Widget** - For switching themes
-           Format: <widget>{"type":"themeswitcher","label":"LABEL","action":"action_id","themes":["light","dark","system"]}</widget>
-           Use when: You want the user to select a UI theme
+           **ThemeSwitcher Widget** — Pick one theme option
+           Use when:
+           - You want the user to choose UI theme (light/dark/system/auto) or a named theme.
+           JSON:
+           <widget>{"type":"themeswitcher","label":"LABEL","action":"action_id","themes":["light","dark","system"]}</widget>
         """;
 }
 
@@ -336,9 +382,13 @@ public sealed record DatePickerWidget(
     ///<inheritdoc/>
     /// </summary>
     public override string Purpose => """
-           **DatePicker Widget** - For selecting dates
-           Format: <widget>{"type":"datepicker","label":"LABEL","action":"action_id","minDate":"YYYY-MM-DD","maxDate":"YYYY-MM-DD"}</widget>
-           Use when: You need the user to select a date
+           **DatePicker Widget** — Select a date (MUST be used inside a `FormWidget`)
+           Use when:
+           - You need a specific date (appointment, deadline, birthday) optionally constrained by range.
+           Format:
+           - `minDate` / `maxDate` should be `YYYY-MM-DD`.
+           JSON:
+           <widget>{"type":"datepicker","label":"LABEL","action":"action_id","minDate":"2024-01-01","maxDate":"2024-12-31"}</widget>
         """;
 }
 
@@ -367,9 +417,13 @@ public sealed record MultiSelectWidget(
     ///<inheritdoc/>
     /// </summary>
     public override string Purpose => """
-           **MultiSelect Widget** - For selecting multiple options
-           Format: <widget>{"type":"multiselect","label":"LABEL","action":"action_id","options":["OPTION1","OPTION2","OPTION3"]}</widget>
-           Use when: The user can select multiple options from a list
+           **MultiSelect Widget** — Choose multiple options (MUST be used inside a `FormWidget`)
+           Use when:
+           - The user can select 0..N items from a predefined list (tags, categories, filters).
+           Avoid when:
+           - Exactly one selection is required; use `DropdownWidget`.
+           JSON:
+           <widget>{"type":"multiselect","label":"LABEL","action":"action_id","options":["Option1","Option2","Option3"]}</widget>
         """;
 }
 
@@ -401,27 +455,110 @@ public sealed record ProgressBarWidget(
     ///<inheritdoc/>
     /// </summary>
     public override string Purpose => """
-           **ProgressBar Widget** - For showing progress
-           Format: <widget>{"type":"progressbar","label":"LABEL","action":"action_id","value":50,"max":100}</widget>
-           Use when: You need to display progress for a task
+           **ProgressBar Widget** — Read-only progress indicator
+           Use when:
+           - You want to show progress for a long-running step (upload, processing, multi-step flow).
+           Notes:
+           - This widget typically gets updated by the backend over time (e.g., streaming/SSE).
+           JSON:
+           <widget>{"type":"progressbar","label":"LABEL","action":"action_id","value":50,"max":100}</widget>
         """;
 }
+
+/// <summary>
+/// Displays a single image.
+/// </summary>
+/// <remarks>
+/// Use this widget when you want to show one image inline in a chat response.
+/// For a gallery of images, use <see cref="ImageCollectionWidget"/>.
+/// 
+/// Example JSON:
+/// {"type":"image","label":"Open","action":"open_image","imageUrl":"https://...","alt":"Optional alt","width":320,"height":180}
+/// </remarks>
+public sealed record ImageWidget(
+    string Label,
+    string Action,
+    string ImageUrl,
+    string? Alt = null,
+    int? Width = null,
+    int? Height = null)
+    : ChatWidget(Label, Action)
+{
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public override string Purpose => """
+           **Image Widget** — Display a single image (no input)
+
+           Use when:
+           - You want to show exactly one image inline (diagram, screenshot, product photo).
+
+           Avoid when:
+           - You need a grid/list of images; use `ImageCollectionWidget`.
+           - You need title/description/CTA; use `CardWidget`.
+
+           Notes:
+           - `imageUrl` is required.
+           - `alt` is recommended for accessibility.
+           - `width`/`height` are optional sizing hints.
+           - `action` can be used to open the image or trigger follow-up.
+
+           JSON:
+           <widget>{"type":"image","label":"LABEL","action":"action_id","imageUrl":"https://...","alt":"ALT_TEXT","width":320,"height":180}</widget>
+        """;
+}
+
+/// <summary>
+/// Displays a collection of images (gallery).
+/// </summary>
+/// <remarks>
+/// Use this widget when you want to present multiple images as a grid/gallery.
+/// 
+/// Example JSON:
+/// {"type":"imagecollection","label":"Gallery","action":"open_gallery","images":[{"imageUrl":"https://...","alt":"...","action":"open_1"}]}
+/// </remarks>
+public sealed record ImageCollectionWidget(
+    string Label,
+    string Action,
+    IReadOnlyList<ImageItem> Images)
+    : ChatWidget(Label, Action)
+{
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public override string Purpose => """
+           **ImageCollection Widget** — Display multiple images (gallery)
+
+           Use when:
+           - You want to show 2+ images (product gallery, before/after, photo set, steps).
+
+           Avoid when:
+           - You only have one image; use `ImageWidget`.
+           - You need per-item rich text; use multiple `CardWidget`s.
+
+           Notes:
+           - `images` must contain at least one item.
+           - Each image item can optionally define its own `action`; otherwise the parent `action` is used.
+
+           JSON:
+           <widget>{"type":"imagecollection","label":"LABEL","action":"action_id","images":[{"imageUrl":"https://...","alt":"ALT","action":"item_action","width":320,"height":180}]}</widget>
+        """;
+}
+
+/// <summary>
+/// An image item for use inside an <see cref="ImageCollectionWidget"/>.
+/// </summary>
+public sealed record ImageItem(
+    string ImageUrl,
+    string? Alt = null,
+    string? Action = null,
+    int? Width = null,
+    int? Height = null);
 
 /// <summary>
 /// Represents a composite form widget used to collect structured input from users, including multiple fields and
 /// associated actions such as submit and cancel.
 /// </summary>
-/// <remarks>Use the FormWidget when you need to gather multiple pieces of structured data from a user in a single
-/// interaction. Each form must define its fields and include both submit and cancel actions to ensure proper handling
-/// of user input. The widget supports various field types and validation options, allowing for flexible form
-/// design.</remarks>
-/// <param name="Title">The title displayed at the top of the form. Cannot be null.</param>
-/// <param name="Action">The identifier for the form's primary action, typically used to distinguish the form submission event. Cannot be
-/// null.</param>
-/// <param name="Fields">A read-only list of form fields that define the structure and input elements of the form. Each field specifies its
-/// name, label, type, and optional validation rules. Cannot be null or empty.</param>
-/// <param name="Actions">A read-only list of actions available for the form, such as submit and cancel. Must include at least both a submit
-/// and a cancel action. Cannot be null or contain fewer than two actions.</param>
 public record FormWidget(
     string Title,
     string Action,
@@ -434,53 +571,18 @@ public record FormWidget(
     ///<inheritdoc/>
     /// </summary>
     public override string Purpose => """
-           **Form Widget** - For collecting structured input
-           Format: <widget>{"type":"form","title":"TITLE","action":"action_id","fields":[...],"actions":[...]}</widget>
-           Schema: {
-                  "name": "form",
-                  "description": "Composite form widget with structured fields, nested widgets, validation, and mandatory submit/cancel actions",
-                  "parameters": {
-                    "title": {
-                      "type": "string",
-                      "description": "Title of the form"
-                    },
-                    "fields": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": { "type": "string" },
-                          "label": { "type": "string" },
-                          "type": {
-                            "type": "string",
-                            "description": "Widget type (text, number, email, dropdown, slider, toggle, fileupload, etc.)"
-                          },
-                          "required": { "type": "boolean" },
-                          "validation": {
-                            "type": "string",
-                            "description": "Validation hint or regex"
-                          }
-                        },
-                        "required": ["name", "label", "type"]
-                      }
-                    },
-                    "actions": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "type": { "enum": ["submit", "cancel"] },
-                          "label": { "type": "string" }
-                        },
-                        "required": ["type", "label"]
-                      },
-                      "minItems": 2,
-                      "description": "Every form must include both submit and cancel actions"
-                    }
-                  },
-                  "required": ["title", "fields", "actions"]
-                }
-           Use when: You need to collect multiple pieces of structured data from the user
+           **Form Widget** — Collect multiple fields and submit/cancel as one interaction
+           Use when:
+           - You need ANY input-like widgets (input/textarea/dropdown/slider/toggle/fileupload/datepicker/multiselect).
+           - You need multiple values at once and want a single submit action.
+           Required rules:
+           - Provide `fields` (at least 1).
+           - Provide `actions` INCLUDING BOTH a `submit` and a `cancel`.
+           - Each field must include: `name`, `label`, `type`, `required`.
+           Field `type` values commonly used:
+           - `input`, `textarea`, `dropdown`, `slider`, `toggle`, `fileupload`, `datepicker`, `multiselect`
+           JSON:
+           <widget>{"type":"form","title":"TITLE","action":"action_id","fields":[{"name":"email","label":"Email","type":"input","required":true,"validationHint":"user@domain.com"}],"actions":[{"type":"submit","label":"Submit"},{"type":"cancel","label":"Cancel"}]}</widget>
         """;
 }
 

@@ -199,9 +199,9 @@
             var messageToSend = userInput;
             userInput = "";
             StateHasChanged();
-
+            var baseUri = NavigationManager.BaseUri.TrimEnd('/');
             var response = await HttpClient.PostAsJsonAsync(
-                "/api/chat/message",
+                $"{baseUri}/api/chat/message",
                 new UserMessageRequest(Message: messageToSend, ThreadId: threadId));
 
             if (response.IsSuccessStatusCode)
@@ -253,8 +253,9 @@
                 $"**Action triggered:** `{action}`"));
             StateHasChanged();
 
+            var baseUri = NavigationManager.BaseUri.TrimEnd('/');
             var response = await HttpClient.PostAsJsonAsync(
-                "/api/chat/action",
+                $"{baseUri}/api/chat/action",
                 new ChatActionRequest(Action: action, Payload: payload, ThreadId: threadId));
 
             if (response.IsSuccessStatusCode)

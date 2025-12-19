@@ -79,6 +79,12 @@
                 OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("streaming")))" />
 
             <ScenarioCard 
+                Title="Triage Agent" 
+                Description="Automatic message classification and routing"
+                Icon="🎯"
+                OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("triage")))" />
+
+            <ScenarioCard 
                 Title="SSE Widget Updates" 
                 Description="Subscribe/publish widget updates over SSE"
                 Icon="📡"
@@ -134,6 +140,7 @@
             "widgets" => "/widget-showcase",
             "basic" => "/basic-chat",
             "streaming" => "/streaming-chat",
+            "triage" => "/triage-agent",
             "sse-widgets" => "/sse-widgets",
             "sse-clock" => "/sse-clock",
             "catalog" => "/widget-catalog",

@@ -77,6 +77,18 @@
                 Description="Real-time streaming responses"
                 Icon="»"
                 OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("streaming")))" />
+
+            <ScenarioCard 
+                Title="SSE Widget Updates" 
+                Description="Subscribe/publish widget updates over SSE"
+                Icon="📡"
+                OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("sse-widgets")))" />
+
+            <ScenarioCard 
+                Title="SSE Clock" 
+                Description="Live clock updates pushed from server"
+                Icon="⏰"
+                OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("sse-clock")))" />
             
             <ScenarioCard 
                 Title="Widget Demo Catalog" 
@@ -122,6 +134,8 @@
             "widgets" => "/widget-showcase",
             "basic" => "/basic-chat",
             "streaming" => "/streaming-chat",
+            "sse-widgets" => "/sse-widgets",
+            "sse-clock" => "/sse-clock",
             "catalog" => "/widget-catalog",
             _ => "/"
         };

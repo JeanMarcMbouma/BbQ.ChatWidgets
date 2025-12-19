@@ -1,0 +1,297 @@
+﻿@rendermode @(new InteractiveServerRenderMode())
+@page "/sse-clock"
+@inject NavigationManager NavigationManager
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
+
+<PageTitle>SSE Clock Widget - BbQ Chat Widgets</PageTitle>
+
+<div class="chat-container">
+    <div class="chat-header">
+        <button class="btn-back" @onclick="GoBack">← Back</button>
+        <div class="header-content">
+            <h1>⏰ SSE Clock Widget</h1>
+            <p>Server-Sent Events (SSE) demonstration with a server clock publisher.</p>
+        </div>
+    </div>
+
+    <div class="sse-clock-content">
+        <div class="sse-clock-left">
+            <div class="sse-section">
+                <h3>Stream Configuration</h3>
+                <label class="bbq-input-label">Stream ID</label>
+                <input class="bbq-input" @bind="streamId" disabled="@connected" placeholder="e.g., default-stream" />
+
+                <div class="sse-button-row">
+                    @if (!connected)
+                    {
+                        <button class="bbq-button" @onclick="Connect">Connect</button>
+                    }
+                    else
+                    {
+                        <button class="bbq-button" @onclick="Disconnect">Disconnect</button>
+                    }
+                    <button class="bbq-button" @onclick="StartClock">Start Clock</button>
+                    <button class="bbq-button" @onclick="StopClock">Stop Clock</button>
+                </div>
+            </div>
+
+            <div class="sse-section">
+                <h3>Live Clock Display</h3>
+                <div data-widget-id="clock-widget" class="sse-clock-widget">
+                    <div class="sse-clock-main">@(timeLocal ?? "—")</div>
+                    @if (!string.IsNullOrWhiteSpace(timeIso))
+                    {
+                        <div class="sse-clock-sub">@timeIso</div>
+                    }
+                    <div class="sse-clock-status">@(connected ? "● Connected" : "Not connected")</div>
+                </div>
+            </div>
+        </div>
+
+        <aside class="sse-clock-right">
+            <h3>Event Log</h3>
+            <div class="sse-event-log">
+                @if (logs.Count == 0)
+                {
+                    <div class="sse-log-entry">Events will appear here...</div>
+                }
+                else
+                {
+                    @foreach (var l in logs)
+                    {
+                        <div class="sse-log-entry">@l</div>
+                    }
+                }
+            </div>
+        </aside>
+    </div>
+</div>
+
+<style>
+    .chat-container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background-color: var(--color-bg-primary);
+    }
+
+    .chat-header {
+        padding: 1rem;
+        background: var(--color-header-gradient);
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-back {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+    }
+
+    .btn-back:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .header-content {
+        flex: 1;
+    }
+
+    .header-content h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .header-content p {
+        margin: 0.25rem 0 0 0;
+        opacity: 0.9;
+        font-size: 0.9rem;
+    }
+
+    .sse-clock-content {
+        flex: 1;
+        overflow-y: auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        background-color: var(--color-bg-primary);
+    }
+
+    .sse-clock-left {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .sse-clock-right {
+        background: var(--color-bg-secondary);
+        border: 1px solid var(--color-border-light);
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        transition: background-color 0.3s ease;
+    }
+
+    .sse-section {
+        background: var(--color-bg-secondary);
+        border: 1px solid var(--color-border-light);
+        border-radius: 8px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        transition: background-color 0.3s ease;
+    }
+
+    .sse-section h3 {
+        margin: 0 0 1rem 0;
+        color: var(--color-text-primary);
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .sse-button-row {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+        flex-wrap: wrap;
+    }
+
+    .sse-clock-widget {
+        padding: 1rem;
+        border-radius: 8px;
+        background: var(--color-card-bg);
+        border: 1px solid var(--color-border-light);
+        color: var(--color-text-primary);
+        transition: background-color 0.3s ease;
+        margin-top: 0.5rem;
+        text-align: center;
+    }
+
+    .sse-clock-main {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        color: var(--color-accent);
+    }
+
+    .sse-clock-sub {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        color: var(--color-text-secondary);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .sse-clock-status {
+        font-size: 0.95rem;
+        color: var(--color-text-secondary);
+    }
+
+    .sse-event-log {
+        flex: 1;
+        max-height: 500px;
+        overflow-y: auto;
+        background: var(--color-bg-primary);
+        border: 1px solid var(--color-border-light);
+        border-radius: 8px;
+        padding: 0.75rem;
+        margin-top: 0.5rem;
+    }
+
+    .sse-log-entry {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 0.85rem;
+        padding: 0.25rem 0;
+        color: var(--color-text-secondary);
+        border-bottom: 1px dashed var(--color-border-light);
+    }
+
+    .sse-log-entry:last-child {
+        border-bottom: none;
+    }
+
+    @@media (max-width: 1024px) {
+        .sse-clock-content {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+@code {
+    private string streamId = "default-stream";
+    private bool connected;
+    private string? timeIso;
+    private string? timeLocal;
+    private List<string> logs = new();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("bbqBlazorSseClock.ensure");
+            await JS.InvokeVoidAsync("bbqBlazorSseClock.setDotNetRef", Microsoft.JSInterop.DotNetObjectReference.Create(this));
+        }
+    }
+
+    private void AddLog(string text)
+    {
+        logs.Insert(0, text);
+        if (logs.Count > 30)
+        {
+            logs.RemoveRange(30, logs.Count - 30);
+        }
+    }
+
+    private async Task Connect()
+    {
+        if (connected) return;
+        await JS.InvokeVoidAsync("bbqBlazorSseClock.connect", streamId);
+        connected = true;
+        AddLog($"Connecting to stream: {streamId}");
+    }
+
+    private async Task Disconnect()
+    {
+        await JS.InvokeVoidAsync("bbqBlazorSseClock.disconnect");
+        connected = false;
+        AddLog("Disconnected from stream");
+    }
+
+    private async Task StartClock()
+    {
+        await JS.InvokeVoidAsync("bbqBlazorSseClock.startClock", streamId);
+        AddLog("Starting server clock...");
+    }
+
+    private async Task StopClock()
+    {
+        await JS.InvokeVoidAsync("bbqBlazorSseClock.stopClock", streamId);
+        AddLog("Stopping server clock...");
+    }
+
+    [Microsoft.JSInterop.JSInvokable]
+    public Task OnClockEvent(string? time, string? timeLocalValue)
+    {
+        timeIso = time;
+        timeLocal = timeLocalValue;
+        if (!string.IsNullOrWhiteSpace(timeLocalValue))
+        {
+            AddLog($"Time: {timeLocalValue}");
+        }
+        InvokeAsync(StateHasChanged);
+        return Task.CompletedTask;
+    }
+
+    private void GoBack() => NavigationManager.NavigateTo("/");
+}

@@ -586,22 +586,39 @@ body {
     color: var(--color-accent-hover);
 }
 
-/* Theme Transition */
-body {
-    transition: background-color 0.3s ease, color 0.3s ease;
+/* --- SSE Demo Pages (shared styling) --- */
+.page.widgets-demo-page {
+    padding: 1.5rem 2rem;
+    background-color: var(--color-bg-primary);
+    min-height: calc(100vh - 56px);
 }
 
-.bbq-widget,
-.bbq-button,
-.bbq-card,
-.bbq-input,
-.bbq-textarea,
-.bbq-dropdown,
-.bbq-toggle-slider,
-.bbq-progressbar-container,
-.bbq-form,
-.bbq-chat-container,
-.bbq-spinner,
-.doc-card {
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+.page.widgets-demo-page .page-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.page.widgets-demo-page .page-header h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: var(--color-text-primary);
+}
+
+.page.widgets-demo-page .subtitle {
+    margin: 0.25rem 0 0 0;
+    color: var(--color-text-secondary);
+}
+
+.page.widgets-demo-page .back-button {
+    background: rgba(102, 126, 234, 0.15);
+    border: 1px solid rgba(102, 126, 234, 0.25);
+    color: var(--color-text-primary);
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    margin-top: 0.25rem;
 }

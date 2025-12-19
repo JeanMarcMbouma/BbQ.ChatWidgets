@@ -3,6 +3,8 @@
 @using BbQ.ChatWidgets.Models
 @using Microsoft.Extensions.AI
 @using Microsoft.AspNetCore.Components.Web
+@using BbQ.ChatWidgets.Sample.Blazor.Components.Models
+@using System.Net.Http.Json
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
 
@@ -285,18 +287,52 @@
     private async Task HandleWidgetAction((string Action, object? Payload) args)
     {
         var (action, payload) = args;
-        chatTurns.Add(new ChatTurn(
-            ChatRole.User,
-            $"**Action triggered:** `{action}`"
-        ));
-        StateHasChanged();
 
-        await Task.Delay(500);
-        chatTurns.Add(new ChatTurn(
-            ChatRole.Assistant,
-            $"Got it! I processed your action '{action}'."
-        ));
-        StateHasChanged();
+        if (string.IsNullOrWhiteSpace(threadId))
+        {
+            error = "No active thread.";
+            return;
+        }
+
+        try
+        {
+            error = "";
+            isStreaming = true;
+
+            chatTurns.Add(new ChatTurn(
+                ChatRole.User,
+                $"**Action triggered:** `{action}`"));
+            StateHasChanged();
+
+            var response = await HttpClient.PostAsJsonAsync(
+                "/api/chat/action",
+                new ChatActionRequest(Action: action, Payload: payload, ThreadId: threadId));
+
+            if (response.IsSuccessStatusCode)
+            {
+                var turn = await response.Content.ReadFromJsonAsync<ChatTurn>(BbQ.ChatWidgets.Models.Serialization.Default);
+
+                chatTurns.Add(new ChatTurn(
+                    ChatRole.Assistant,
+                    turn?.Content ?? "",
+                    turn?.Widgets));
+
+                threadId = turn?.ThreadId ?? threadId;
+            }
+            else
+            {
+                error = $"Error: {response.StatusCode} - {response.ReasonPhrase}";
+            }
+        }
+        catch (Exception ex)
+        {
+            error = $"Error sending action: {ex.Message}";
+        }
+        finally
+        {
+            isStreaming = false;
+            StateHasChanged();
+        }
     }
 
     private async Task HandleKeyUp(KeyboardEventArgs args)

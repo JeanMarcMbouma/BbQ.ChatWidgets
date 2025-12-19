@@ -1,8 +1,10 @@
 @rendermode @(new InteractiveServerRenderMode())
 @page "/basic-chat"
 @using BbQ.ChatWidgets.Models
+@using BbQ.ChatWidgets.Sample.Blazor.Components.Models
 @using Microsoft.Extensions.AI
 @using Microsoft.AspNetCore.Components.Web
+@using System.Net.Http.Json
 @using System.Text.Json
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
@@ -198,38 +200,20 @@
             userInput = "";
             StateHasChanged();
 
-            // Send to backend
-            var baseUri = NavigationManager.BaseUri.TrimEnd('/');
             var response = await HttpClient.PostAsJsonAsync(
-                $"{baseUri}/api/chat/message", 
-                new
-                {
-                    threadId,
-                    message = messageToSend
-                }
-            );
+                "/api/chat/message",
+                new UserMessageRequest(Message: messageToSend, ThreadId: threadId));
 
             if (response.IsSuccessStatusCode)
             {
-                var json = await response.Content.ReadAsStringAsync();
-                var result = JsonSerializer.Deserialize<ChatTurn>(json, BbQ.ChatWidgets.Models.Serialization.Default);
-                
-                // Add assistant response with widgets if any
-                if (result?.Widgets != null && result.Widgets.Count > 0)
-                {
-                    chatTurns.Add(new ChatTurn(
-                        ChatRole.Assistant,
-                        result.Content ?? "",
-                        result.Widgets
-                    ));
-                }
-                else
-                {
-                    chatTurns.Add(new ChatTurn(
-                        ChatRole.Assistant,
-                        result?.Content ?? "I didn't understand that. Could you rephrase?"
-                    ));
-                }
+                var result = await response.Content.ReadFromJsonAsync<ChatTurn>(BbQ.ChatWidgets.Models.Serialization.Default);
+
+                // Add assistant response (content + widgets)
+                chatTurns.Add(new ChatTurn(
+                    ChatRole.Assistant,
+                    result?.Content ?? "I didn't understand that. Could you rephrase?",
+                    result?.Widgets));
+
                 threadId = result?.ThreadId ?? threadId;
             }
             else
@@ -251,20 +235,53 @@
     private async Task HandleWidgetAction((string Action, object? Payload) args)
     {
         var (action, payload) = args;
-        var payloadText = payload != null ? System.Text.Json.JsonSerializer.Serialize(payload) : "No data";
-        chatTurns.Add(new ChatTurn(
-            ChatRole.User,
-            $"**Action triggered:** `{action}`"
-        ));
-        StateHasChanged();
 
-        // TODO: Handle specific action in backend if needed
-        await Task.Delay(500);
-        chatTurns.Add(new ChatTurn(
-            ChatRole.Assistant,
-            $"Got it! I processed your action '{action}'."
-        ));
-        StateHasChanged();
+        if (string.IsNullOrWhiteSpace(threadId))
+        {
+            error = "No active thread.";
+            return;
+        }
+
+        try
+        {
+            error = "";
+            isLoading = true;
+
+            // Surface the action in the chat history, like the React demo pages do.
+            chatTurns.Add(new ChatTurn(
+                ChatRole.User,
+                $"**Action triggered:** `{action}`"));
+            StateHasChanged();
+
+            var response = await HttpClient.PostAsJsonAsync(
+                "/api/chat/action",
+                new ChatActionRequest(Action: action, Payload: payload, ThreadId: threadId));
+
+            if (response.IsSuccessStatusCode)
+            {
+                var turn = await response.Content.ReadFromJsonAsync<ChatTurn>(BbQ.ChatWidgets.Models.Serialization.Default);
+
+                chatTurns.Add(new ChatTurn(
+                    ChatRole.Assistant,
+                    turn?.Content ?? "",
+                    turn?.Widgets));
+
+                threadId = turn?.ThreadId ?? threadId;
+            }
+            else
+            {
+                error = $"Error: {response.StatusCode} - {response.ReasonPhrase}";
+            }
+        }
+        catch (Exception ex)
+        {
+            error = $"Error sending action: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+            StateHasChanged();
+        }
     }
 
     private async Task HandleKeyUp(KeyboardEventArgs args)

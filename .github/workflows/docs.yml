@@ -3,7 +3,7 @@ name: Build and Publish Docs
 on:
   push:
     branches:
-      - docs-rewrite
+      - master
       - main
 
 concurrency:

@@ -24,9 +24,6 @@
         "src": "api",
         "files": [
           "**/*.yml"
-        ],
-        "exclude": [
-          "toc.yml"
         ]
       },
       {

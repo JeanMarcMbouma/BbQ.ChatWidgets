@@ -1959,6 +1959,75 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.MapBbQChatEndpoints
   fullName: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.MapBbQChatEndpoints
   nameWithType: ServiceCollectionExtensions.MapBbQChatEndpoints
+- uid: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions
+  name: WidgetActionHandlerExtensions
+  href: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.html
+  commentId: T:BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions
+  fullName: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions
+  nameWithType: WidgetActionHandlerExtensions
+- uid: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.RegisterHandler*
+  name: RegisterHandler
+  href: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.html#BbQ_ChatWidgets_Extensions_WidgetActionHandlerExtensions_RegisterHandler_
+  commentId: Overload:BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.RegisterHandler
+  fullName: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.RegisterHandler
+  nameWithType: WidgetActionHandlerExtensions.RegisterHandler
+- uid: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)
+  name: RegisterHandler<TAction, TPayload, THandler>(IWidgetActionRegistry, IWidgetActionHandlerResolver)
+  href: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.html#BbQ_ChatWidgets_Extensions_WidgetActionHandlerExtensions_RegisterHandler__3_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_
+  commentId: M:BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)
+  name.vb: RegisterHandler(Of TAction, TPayload, THandler)(IWidgetActionRegistry, IWidgetActionHandlerResolver)
+  fullName: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.RegisterHandler<TAction, TPayload, THandler>(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)
+  fullName.vb: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.RegisterHandler(Of TAction, TPayload, THandler)(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)
+  nameWithType: WidgetActionHandlerExtensions.RegisterHandler<TAction, TPayload, THandler>(IWidgetActionRegistry, IWidgetActionHandlerResolver)
+  nameWithType.vb: WidgetActionHandlerExtensions.RegisterHandler(Of TAction, TPayload, THandler)(IWidgetActionRegistry, IWidgetActionHandlerResolver)
+- uid: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions
+  name: WidgetRegistryExtensions
+  href: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.html
+  commentId: T:BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions
+  fullName: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions
+  nameWithType: WidgetRegistryExtensions
+- uid: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.GetSummary(BbQ.ChatWidgets.Abstractions.IWidgetRegistry)
+  name: GetSummary(IWidgetRegistry)
+  href: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.html#BbQ_ChatWidgets_Extensions_WidgetRegistryExtensions_GetSummary_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_
+  commentId: M:BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.GetSummary(BbQ.ChatWidgets.Abstractions.IWidgetRegistry)
+  fullName: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.GetSummary(BbQ.ChatWidgets.Abstractions.IWidgetRegistry)
+  nameWithType: WidgetRegistryExtensions.GetSummary(IWidgetRegistry)
+- uid: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.GetSummary*
+  name: GetSummary
+  href: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.html#BbQ_ChatWidgets_Extensions_WidgetRegistryExtensions_GetSummary_
+  commentId: Overload:BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.GetSummary
+  fullName: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.GetSummary
+  nameWithType: WidgetRegistryExtensions.GetSummary
+- uid: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.RegisterCustom(BbQ.ChatWidgets.Abstractions.IWidgetRegistry,BbQ.ChatWidgets.Models.ChatWidget,System.String)
+  name: RegisterCustom(IWidgetRegistry, ChatWidget, string?)
+  href: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.html#BbQ_ChatWidgets_Extensions_WidgetRegistryExtensions_RegisterCustom_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_BbQ_ChatWidgets_Models_ChatWidget_System_String_
+  commentId: M:BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.RegisterCustom(BbQ.ChatWidgets.Abstractions.IWidgetRegistry,BbQ.ChatWidgets.Models.ChatWidget,System.String)
+  name.vb: RegisterCustom(IWidgetRegistry, ChatWidget, String)
+  fullName: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.RegisterCustom(BbQ.ChatWidgets.Abstractions.IWidgetRegistry, BbQ.ChatWidgets.Models.ChatWidget, string?)
+  fullName.vb: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.RegisterCustom(BbQ.ChatWidgets.Abstractions.IWidgetRegistry, BbQ.ChatWidgets.Models.ChatWidget, String)
+  nameWithType: WidgetRegistryExtensions.RegisterCustom(IWidgetRegistry, ChatWidget, string?)
+  nameWithType.vb: WidgetRegistryExtensions.RegisterCustom(IWidgetRegistry, ChatWidget, String)
+- uid: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.RegisterCustom*
+  name: RegisterCustom
+  href: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.html#BbQ_ChatWidgets_Extensions_WidgetRegistryExtensions_RegisterCustom_
+  commentId: Overload:BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.RegisterCustom
+  fullName: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.RegisterCustom
+  nameWithType: WidgetRegistryExtensions.RegisterCustom
+- uid: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.RegisterMultiple(BbQ.ChatWidgets.Abstractions.IWidgetRegistry,System.Action{BbQ.ChatWidgets.Abstractions.IWidgetRegistry}[])
+  name: RegisterMultiple(IWidgetRegistry, params Action<IWidgetRegistry>[])
+  href: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.html#BbQ_ChatWidgets_Extensions_WidgetRegistryExtensions_RegisterMultiple_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_System_Action_BbQ_ChatWidgets_Abstractions_IWidgetRegistry____
+  commentId: M:BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.RegisterMultiple(BbQ.ChatWidgets.Abstractions.IWidgetRegistry,System.Action{BbQ.ChatWidgets.Abstractions.IWidgetRegistry}[])
+  name.vb: RegisterMultiple(IWidgetRegistry, ParamArray Action(Of IWidgetRegistry)())
+  fullName: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.RegisterMultiple(BbQ.ChatWidgets.Abstractions.IWidgetRegistry, params System.Action<BbQ.ChatWidgets.Abstractions.IWidgetRegistry>[])
+  fullName.vb: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.RegisterMultiple(BbQ.ChatWidgets.Abstractions.IWidgetRegistry, ParamArray System.Action(Of BbQ.ChatWidgets.Abstractions.IWidgetRegistry)())
+  nameWithType: WidgetRegistryExtensions.RegisterMultiple(IWidgetRegistry, params Action<IWidgetRegistry>[])
+  nameWithType.vb: WidgetRegistryExtensions.RegisterMultiple(IWidgetRegistry, ParamArray Action(Of IWidgetRegistry)())
+- uid: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.RegisterMultiple*
+  name: RegisterMultiple
+  href: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.html#BbQ_ChatWidgets_Extensions_WidgetRegistryExtensions_RegisterMultiple_
+  commentId: Overload:BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.RegisterMultiple
+  fullName: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.RegisterMultiple
+  nameWithType: WidgetRegistryExtensions.RegisterMultiple
 - uid: BbQ.ChatWidgets.Models
   name: BbQ.ChatWidgets.Models
   href: BbQ.ChatWidgets.Models.html
@@ -6879,69 +6948,6 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.ResolveHandler
   fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.ResolveHandler
   nameWithType: DefaultWidgetActionHandlerResolver.ResolveHandler
-- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry
-  name: DefaultWidgetActionRegistry
-  href: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.html
-  commentId: T:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry
-  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry
-  nameWithType: DefaultWidgetActionRegistry
-- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.#ctor
-  name: DefaultWidgetActionRegistry()
-  href: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.html#BbQ_ChatWidgets_Services_DefaultWidgetActionRegistry__ctor
-  commentId: M:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.#ctor
-  name.vb: New()
-  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.DefaultWidgetActionRegistry()
-  fullName.vb: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.New()
-  nameWithType: DefaultWidgetActionRegistry.DefaultWidgetActionRegistry()
-  nameWithType.vb: DefaultWidgetActionRegistry.New()
-- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.#ctor*
-  name: DefaultWidgetActionRegistry
-  href: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.html#BbQ_ChatWidgets_Services_DefaultWidgetActionRegistry__ctor_
-  commentId: Overload:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.#ctor
-  name.vb: New
-  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.DefaultWidgetActionRegistry
-  fullName.vb: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.New
-  nameWithType: DefaultWidgetActionRegistry.DefaultWidgetActionRegistry
-  nameWithType.vb: DefaultWidgetActionRegistry.New
-- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetAction(System.String)
-  name: GetAction(string)
-  href: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.html#BbQ_ChatWidgets_Services_DefaultWidgetActionRegistry_GetAction_System_String_
-  commentId: M:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetAction(System.String)
-  name.vb: GetAction(String)
-  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetAction(string)
-  fullName.vb: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetAction(String)
-  nameWithType: DefaultWidgetActionRegistry.GetAction(string)
-  nameWithType.vb: DefaultWidgetActionRegistry.GetAction(String)
-- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetAction*
-  name: GetAction
-  href: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.html#BbQ_ChatWidgets_Services_DefaultWidgetActionRegistry_GetAction_
-  commentId: Overload:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetAction
-  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetAction
-  nameWithType: DefaultWidgetActionRegistry.GetAction
-- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetActions
-  name: GetActions()
-  href: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.html#BbQ_ChatWidgets_Services_DefaultWidgetActionRegistry_GetActions
-  commentId: M:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetActions
-  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetActions()
-  nameWithType: DefaultWidgetActionRegistry.GetActions()
-- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetActions*
-  name: GetActions
-  href: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.html#BbQ_ChatWidgets_Services_DefaultWidgetActionRegistry_GetActions_
-  commentId: Overload:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetActions
-  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetActions
-  nameWithType: DefaultWidgetActionRegistry.GetActions
-- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
-  name: RegisterAction(IWidgetActionMetadata)
-  href: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.html#BbQ_ChatWidgets_Services_DefaultWidgetActionRegistry_RegisterAction_BbQ_ChatWidgets_Abstractions_IWidgetActionMetadata_
-  commentId: M:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
-  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
-  nameWithType: DefaultWidgetActionRegistry.RegisterAction(IWidgetActionMetadata)
-- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.RegisterAction*
-  name: RegisterAction
-  href: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.html#BbQ_ChatWidgets_Services_DefaultWidgetActionRegistry_RegisterAction_
-  commentId: Overload:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.RegisterAction
-  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.RegisterAction
-  nameWithType: DefaultWidgetActionRegistry.RegisterAction
 - uid: BbQ.ChatWidgets.Services.DefaultWidgetHintParser
   name: DefaultWidgetHintParser
   href: BbQ.ChatWidgets.Services.DefaultWidgetHintParser.html
@@ -7032,27 +7038,6 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider.GetTools
   fullName: BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider.GetTools
   nameWithType: DefaultWidgetToolsProvider.GetTools
-- uid: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions
-  name: WidgetActionHandlerExtensions
-  href: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.html
-  commentId: T:BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions
-  fullName: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions
-  nameWithType: WidgetActionHandlerExtensions
-- uid: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler*
-  name: RegisterHandler
-  href: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.html#BbQ_ChatWidgets_Services_WidgetActionHandlerExtensions_RegisterHandler_
-  commentId: Overload:BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler
-  fullName: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler
-  nameWithType: WidgetActionHandlerExtensions.RegisterHandler
-- uid: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)
-  name: RegisterHandler<TAction, TPayload, THandler>(IWidgetActionRegistry, IWidgetActionHandlerResolver)
-  href: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.html#BbQ_ChatWidgets_Services_WidgetActionHandlerExtensions_RegisterHandler__3_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_
-  commentId: M:BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)
-  name.vb: RegisterHandler(Of TAction, TPayload, THandler)(IWidgetActionRegistry, IWidgetActionHandlerResolver)
-  fullName: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler<TAction, TPayload, THandler>(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)
-  fullName.vb: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler(Of TAction, TPayload, THandler)(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)
-  nameWithType: WidgetActionHandlerExtensions.RegisterHandler<TAction, TPayload, THandler>(IWidgetActionRegistry, IWidgetActionHandlerResolver)
-  nameWithType.vb: WidgetActionHandlerExtensions.RegisterHandler(Of TAction, TPayload, THandler)(IWidgetActionRegistry, IWidgetActionHandlerResolver)
 - uid: BbQ.ChatWidgets.Services.WidgetActionMetadata
   name: WidgetActionMetadata
   href: BbQ.ChatWidgets.Services.WidgetActionMetadata.html
@@ -7302,54 +7287,6 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Services.WidgetRegistry.TryGetInstance
   fullName: BbQ.ChatWidgets.Services.WidgetRegistry.TryGetInstance
   nameWithType: WidgetRegistry.TryGetInstance
-- uid: BbQ.ChatWidgets.Services.WidgetRegistryExtensions
-  name: WidgetRegistryExtensions
-  href: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.html
-  commentId: T:BbQ.ChatWidgets.Services.WidgetRegistryExtensions
-  fullName: BbQ.ChatWidgets.Services.WidgetRegistryExtensions
-  nameWithType: WidgetRegistryExtensions
-- uid: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.GetSummary(BbQ.ChatWidgets.Abstractions.IWidgetRegistry)
-  name: GetSummary(IWidgetRegistry)
-  href: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.html#BbQ_ChatWidgets_Services_WidgetRegistryExtensions_GetSummary_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_
-  commentId: M:BbQ.ChatWidgets.Services.WidgetRegistryExtensions.GetSummary(BbQ.ChatWidgets.Abstractions.IWidgetRegistry)
-  fullName: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.GetSummary(BbQ.ChatWidgets.Abstractions.IWidgetRegistry)
-  nameWithType: WidgetRegistryExtensions.GetSummary(IWidgetRegistry)
-- uid: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.GetSummary*
-  name: GetSummary
-  href: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.html#BbQ_ChatWidgets_Services_WidgetRegistryExtensions_GetSummary_
-  commentId: Overload:BbQ.ChatWidgets.Services.WidgetRegistryExtensions.GetSummary
-  fullName: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.GetSummary
-  nameWithType: WidgetRegistryExtensions.GetSummary
-- uid: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterCustom(BbQ.ChatWidgets.Abstractions.IWidgetRegistry,BbQ.ChatWidgets.Models.ChatWidget,System.String)
-  name: RegisterCustom(IWidgetRegistry, ChatWidget, string?)
-  href: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.html#BbQ_ChatWidgets_Services_WidgetRegistryExtensions_RegisterCustom_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_BbQ_ChatWidgets_Models_ChatWidget_System_String_
-  commentId: M:BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterCustom(BbQ.ChatWidgets.Abstractions.IWidgetRegistry,BbQ.ChatWidgets.Models.ChatWidget,System.String)
-  name.vb: RegisterCustom(IWidgetRegistry, ChatWidget, String)
-  fullName: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterCustom(BbQ.ChatWidgets.Abstractions.IWidgetRegistry, BbQ.ChatWidgets.Models.ChatWidget, string?)
-  fullName.vb: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterCustom(BbQ.ChatWidgets.Abstractions.IWidgetRegistry, BbQ.ChatWidgets.Models.ChatWidget, String)
-  nameWithType: WidgetRegistryExtensions.RegisterCustom(IWidgetRegistry, ChatWidget, string?)
-  nameWithType.vb: WidgetRegistryExtensions.RegisterCustom(IWidgetRegistry, ChatWidget, String)
-- uid: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterCustom*
-  name: RegisterCustom
-  href: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.html#BbQ_ChatWidgets_Services_WidgetRegistryExtensions_RegisterCustom_
-  commentId: Overload:BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterCustom
-  fullName: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterCustom
-  nameWithType: WidgetRegistryExtensions.RegisterCustom
-- uid: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterMultiple(BbQ.ChatWidgets.Abstractions.IWidgetRegistry,System.Action{BbQ.ChatWidgets.Abstractions.IWidgetRegistry}[])
-  name: RegisterMultiple(IWidgetRegistry, params Action<IWidgetRegistry>[])
-  href: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.html#BbQ_ChatWidgets_Services_WidgetRegistryExtensions_RegisterMultiple_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_System_Action_BbQ_ChatWidgets_Abstractions_IWidgetRegistry____
-  commentId: M:BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterMultiple(BbQ.ChatWidgets.Abstractions.IWidgetRegistry,System.Action{BbQ.ChatWidgets.Abstractions.IWidgetRegistry}[])
-  name.vb: RegisterMultiple(IWidgetRegistry, ParamArray Action(Of IWidgetRegistry)())
-  fullName: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterMultiple(BbQ.ChatWidgets.Abstractions.IWidgetRegistry, params System.Action<BbQ.ChatWidgets.Abstractions.IWidgetRegistry>[])
-  fullName.vb: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterMultiple(BbQ.ChatWidgets.Abstractions.IWidgetRegistry, ParamArray System.Action(Of BbQ.ChatWidgets.Abstractions.IWidgetRegistry)())
-  nameWithType: WidgetRegistryExtensions.RegisterMultiple(IWidgetRegistry, params Action<IWidgetRegistry>[])
-  nameWithType.vb: WidgetRegistryExtensions.RegisterMultiple(IWidgetRegistry, ParamArray Action(Of IWidgetRegistry)())
-- uid: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterMultiple*
-  name: RegisterMultiple
-  href: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.html#BbQ_ChatWidgets_Services_WidgetRegistryExtensions_RegisterMultiple_
-  commentId: Overload:BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterMultiple
-  fullName: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterMultiple
-  nameWithType: WidgetRegistryExtensions.RegisterMultiple
 - uid: BbQ.ChatWidgets.Services.WidgetSseService
   name: WidgetSseService
   href: BbQ.ChatWidgets.Services.WidgetSseService.html

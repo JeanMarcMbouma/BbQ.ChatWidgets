@@ -17,7 +17,7 @@
       <meta property="docfx:navrel" content="">
       <meta property="docfx:tocrel" content="toc.html">
     
-    
+    <meta property="docfx:rel" content="../">
     
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
@@ -56,6 +56,16 @@
           </div>
         </div>
       </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
       <div role="main" class="container body-content hide-when-search">
 
         <div class="sidenav hide-when-search">
@@ -81,7 +91,7 @@
   </div>
   <div class="implements">
     <h5>Implements</h5>
-    <div><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.yml">IAgent</a></div>
+    <div><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.html">IAgent</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -139,6 +149,10 @@ allowing subsequent agents to access classification results and routing context.
 </div>
   <h3 id="constructors">Constructors
 </h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Agents/TriageAgent.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Agents_TriageAgent_1__ctor_" data-uid="BbQ.ChatWidgets.Agents.TriageAgent`1.#ctor*"></a>
   <h4 id="BbQ_ChatWidgets_Agents_TriageAgent_1__ctor_BbQ_ChatWidgets_Agents_Abstractions_IClassifier__0__BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_System_Func__0_System_String__System_String_BbQ_ChatWidgets_Agents_Abstractions_IAgent_BbQ_ChatWidgets_Abstractions_IThreadService_" data-uid="BbQ.ChatWidgets.Agents.TriageAgent`1.#ctor(BbQ.ChatWidgets.Agents.Abstractions.IClassifier{`0},BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry,System.Func{`0,System.String},System.String,BbQ.ChatWidgets.Agents.Abstractions.IAgent,BbQ.ChatWidgets.Abstractions.IThreadService)">TriageAgent(IClassifier&lt;TCategory&gt;, IAgentRegistry, Func&lt;TCategory, string?&gt;, string?, IAgent?, IThreadService?)</h4>
   <div class="markdown level1 summary"><p>Initializes a new instance of the TriageAgent.</p>
@@ -165,7 +179,7 @@ allowing subsequent agents to access classification results and routing context.
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.yml">IAgentRegistry</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.html">IAgentRegistry</a></td>
         <td><span class="parametername">agentRegistry</span></td>
         <td><p>Registry containing specialized agents.</p>
 </td>
@@ -183,13 +197,13 @@ allowing subsequent agents to access classification results and routing context.
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.yml">IAgent</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.html">IAgent</a></td>
         <td><span class="parametername">fallbackAgent</span></td>
         <td><p>Optional fallback agent if routing fails.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IThreadService.yml">IThreadService</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IThreadService.html">IThreadService</a></td>
         <td><span class="parametername">threadService</span></td>
         <td></td>
       </tr>
@@ -197,6 +211,10 @@ allowing subsequent agents to access classification results and routing context.
   </table>
   <h3 id="methods">Methods
 </h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Agents/TriageAgent.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Agents_TriageAgent_1_InvokeAsync_" data-uid="BbQ.ChatWidgets.Agents.TriageAgent`1.InvokeAsync*"></a>
   <h4 id="BbQ_ChatWidgets_Agents_TriageAgent_1_InvokeAsync_BbQ_ChatWidgets_Agents_ChatRequest_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Agents.TriageAgent`1.InvokeAsync(BbQ.ChatWidgets.Agents.ChatRequest,System.Threading.CancellationToken)">InvokeAsync(ChatRequest, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Invokes the agent to process a chat request.</p>
@@ -217,7 +235,7 @@ allowing subsequent agents to access classification results and routing context.
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Agents.ChatRequest.yml">ChatRequest</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Agents.ChatRequest.html">ChatRequest</a></td>
         <td><span class="parametername">request</span></td>
         <td><p>The chat request to process.</p>
 </td>
@@ -252,7 +270,7 @@ an Outcome that indicates success (with ChatTurn result) or failure (with errors
 </div>
   <h3 id="implements">Implements</h3>
   <div>
-      <a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.yml">IAgent</a>
+      <a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.html">IAgent</a>
   </div>
 
 </article>
@@ -260,6 +278,13 @@ an Outcome that indicates success (with ChatTurn result) or failure (with errors
 
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Agents/TriageAgent.cs" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
                 <h5>In this article</h5>
                 <div></div>

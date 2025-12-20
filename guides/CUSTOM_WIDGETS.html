@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Custom Widgets Guide | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Custom Widgets Guide | BbQ.ChatWidgets ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="custom-widgets-guide">Custom Widgets Guide</h1>
+
+<p>Creating custom widgets allows you to extend the chat interface with specialized UI components tailored to your application's needs. This guide covers the end-to-end process of creating and registering a custom widget.</p>
+<h2 id="1-server-side-implementation-net">1. Server-Side Implementation (.NET)</h2>
+<p>A widget on the server is a class that implements the <code>IChatWidget</code> interface (or inherits from <code>ChatWidget</code>). It defines the data structure that will be sent to the client and described to the LLM.</p>
+<h3 id="create-the-widget-class">Create the Widget Class</h3>
+<pre><code class="lang-csharp">using BbQ.ChatWidgets.Models;
+
+public class WeatherWidget : ChatWidget
+{
+    public string City { get; set; }
+    public double Temperature { get; set; }
+    public string Condition { get; set; }
+
+    public WeatherWidget(string city, double temp, string condition) 
+        : base(&quot;weather&quot;) // &quot;weather&quot; is the unique type identifier
+    {
+        City = city;
+        Temperature = temp;
+        Condition = condition;
+    }
+}
+</code></pre>
+<h3 id="register-the-widget-template">Register the Widget Template</h3>
+<p>You must register an instance of your widget as a &quot;template&quot; in the <code>WidgetRegistry</code>. This template is used to generate the tool definition for the LLM.</p>
+<pre><code class="lang-csharp">builder.Services.AddBbQChatWidgets(options =&gt;
+{
+    options.WidgetRegistryConfigurator = registry =&gt;
+    {
+        // Register a template instance
+        registry.Register(new WeatherWidget(&quot;London&quot;, 20, &quot;Sunny&quot;), &quot;weather&quot;);
+    };
+});
+</code></pre>
+<h2 id="2-client-side-implementation-javascripttypescript">2. Client-Side Implementation (JavaScript/TypeScript)</h2>
+<p>On the client, you need to tell the <code>WidgetManager</code> how to render the &quot;weather&quot; widget type.</p>
+<h3 id="create-a-renderer">Create a Renderer</h3>
+<p>A renderer is a function (or a component in frameworks like React) that takes the widget data and returns a DOM element or JSX.</p>
+<pre><code class="lang-javascript">// Vanilla JS Example
+function renderWeatherWidget(widget, container) {
+    const el = document.createElement('div');
+    el.className = 'weather-widget';
+    el.innerHTML = `
+        &lt;h3&gt;Weather in ${widget.data.city}&lt;/h3&gt;
+        &lt;p&gt;${widget.data.temperature}°C - ${widget.data.condition}&lt;/p&gt;
+    `;
+    container.appendChild(el);
+}
+</code></pre>
+<h3 id="register-the-renderer">Register the Renderer</h3>
+<pre><code class="lang-javascript">import { WidgetManager } from '@bbq-chat/widgets';
+
+const manager = new WidgetManager();
+
+// Register the renderer for the &quot;weather&quot; type
+manager.registerRenderer('weather', renderWeatherWidget);
+</code></pre>
+<h2 id="3-llm-interaction">3. LLM Interaction</h2>
+<p>Once registered, the LLM will automatically see the <code>weather</code> widget as an available tool. It can &quot;call&quot; this tool by including a widget hint in its response:</p>
+<pre><code class="lang-xml">&lt;widget type=&quot;weather&quot; city=&quot;Paris&quot; temperature=&quot;22&quot; condition=&quot;Cloudy&quot; /&gt;
+</code></pre>
+<p>The <code>ChatWidgetService</code> will parse this hint, instantiate your <code>WeatherWidget</code> class, and include it in the <code>ChatTurn</code> sent to the client.</p>
+<h2 id="best-practices">Best Practices</h2>
+<ul>
+<li><strong>Keep Data Simple</strong>: Only send the data necessary for rendering.</li>
+<li><strong>Use Descriptive Names</strong>: Choose clear type identifiers and property names to help the LLM understand the widget's purpose.</li>
+<li><strong>Handle Actions</strong>: If your widget is interactive (e.g., has buttons), see the <a href="CUSTOM_ACTION_HANDLERS.html">Action Handlers Guide</a> to learn how to handle user input on the server.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/guides/CUSTOM_WIDGETS.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -17,7 +17,7 @@
       <meta property="docfx:navrel" content="">
       <meta property="docfx:tocrel" content="toc.html">
     
-    
+    <meta property="docfx:rel" content="../">
     
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
@@ -56,6 +56,16 @@
           </div>
         </div>
       </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
       <div role="main" class="container body-content hide-when-search">
 
         <div class="sidenav hide-when-search">
@@ -118,18 +128,22 @@ and conversation threading.</p>
 <p>The service integrates with:</p>
 <ul>
 <li><span class="xref">Microsoft.Extensions.AI.IChatClient</span> for AI responses</li>
-<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintParser.yml">IWidgetHintParser</a> for parsing widget definitions from AI responses</li>
-<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.yml">IWidgetHintSanitizer</a> for sanitizing incomplete widget markup</li>
-<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.yml">IWidgetToolsProvider</a> for exposing widget capabilities</li>
-<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIToolsProvider.yml">IAIToolsProvider</a> for additional AI tools</li>
-<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IThreadService.yml">IThreadService</a> for conversation management</li>
-<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.yml">IAIInstructionProvider</a> for custom AI instructions</li>
-<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.yml">IWidgetActionRegistry</a> for action metadata</li>
-<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.yml">IWidgetActionHandlerResolver</a> for handler resolution</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintParser.html">IWidgetHintParser</a> for parsing widget definitions from AI responses</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.html">IWidgetHintSanitizer</a> for sanitizing incomplete widget markup</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.html">IWidgetToolsProvider</a> for exposing widget capabilities</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIToolsProvider.html">IAIToolsProvider</a> for additional AI tools</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IThreadService.html">IThreadService</a> for conversation management</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.html">IAIInstructionProvider</a> for custom AI instructions</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html">IWidgetActionRegistry</a> for action metadata</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html">IWidgetActionHandlerResolver</a> for handler resolution</li>
 </ul>
 </div>
   <h3 id="constructors">Constructors
 </h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Services_ChatWidgetService__ctor_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.#ctor*"></a>
   <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)">ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver)</h4>
   <div class="markdown level1 summary"><p>Orchestrates chat widget interactions by managing message processing, widget tool availability,
@@ -156,42 +170,42 @@ and conversation threading.</p>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintParser.yml">IWidgetHintParser</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintParser.html">IWidgetHintParser</a></td>
         <td><span class="parametername">widgetHintParser</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.yml">IWidgetHintSanitizer</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.html">IWidgetHintSanitizer</a></td>
         <td><span class="parametername">widgetHintSanitizer</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.yml">IWidgetToolsProvider</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.html">IWidgetToolsProvider</a></td>
         <td><span class="parametername">widgetToolsProvider</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIToolsProvider.yml">IAIToolsProvider</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIToolsProvider.html">IAIToolsProvider</a></td>
         <td><span class="parametername">aiToolsProvider</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IThreadService.yml">IThreadService</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IThreadService.html">IThreadService</a></td>
         <td><span class="parametername">threadService</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.yml">IAIInstructionProvider</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.html">IAIInstructionProvider</a></td>
         <td><span class="parametername">instructionProvider</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.yml">IWidgetActionRegistry</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html">IWidgetActionRegistry</a></td>
         <td><span class="parametername">actionRegistry</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.yml">IWidgetActionHandlerResolver</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html">IWidgetActionHandlerResolver</a></td>
         <td><span class="parametername">handlerResolver</span></td>
         <td></td>
       </tr>
@@ -208,18 +222,22 @@ and conversation threading.</p>
 <p>The service integrates with:</p>
 <ul>
 <li><span class="xref">Microsoft.Extensions.AI.IChatClient</span> for AI responses</li>
-<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintParser.yml">IWidgetHintParser</a> for parsing widget definitions from AI responses</li>
-<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.yml">IWidgetHintSanitizer</a> for sanitizing incomplete widget markup</li>
-<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.yml">IWidgetToolsProvider</a> for exposing widget capabilities</li>
-<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIToolsProvider.yml">IAIToolsProvider</a> for additional AI tools</li>
-<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IThreadService.yml">IThreadService</a> for conversation management</li>
-<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.yml">IAIInstructionProvider</a> for custom AI instructions</li>
-<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.yml">IWidgetActionRegistry</a> for action metadata</li>
-<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.yml">IWidgetActionHandlerResolver</a> for handler resolution</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintParser.html">IWidgetHintParser</a> for parsing widget definitions from AI responses</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.html">IWidgetHintSanitizer</a> for sanitizing incomplete widget markup</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.html">IWidgetToolsProvider</a> for exposing widget capabilities</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIToolsProvider.html">IAIToolsProvider</a> for additional AI tools</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IThreadService.html">IThreadService</a> for conversation management</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.html">IAIInstructionProvider</a> for custom AI instructions</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html">IWidgetActionRegistry</a> for action metadata</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html">IWidgetActionHandlerResolver</a> for handler resolution</li>
 </ul>
 </div>
   <h3 id="methods">Methods
 </h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Services_ChatWidgetService_HandleActionAsync_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.HandleActionAsync*"></a>
   <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService_HandleActionAsync_System_String_System_Collections_Generic_IReadOnlyDictionary_System_String_System_Object__System_String_System_IServiceProvider_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.HandleActionAsync(System.String,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.IServiceProvider,System.Threading.CancellationToken)">HandleActionAsync(string, IReadOnlyDictionary&lt;string, object?&gt;, string, IServiceProvider, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Processes an action triggered by a widget and generates a response.</p>
@@ -282,7 +300,7 @@ and conversation threading.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a>&gt;</td>
-        <td><p>A task that completes with a <a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.yml">ChatTurn</a> containing the action response
+        <td><p>A task that completes with a <a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a> containing the action response
 with any resulting widgets.</p>
 </td>
       </tr>
@@ -321,6 +339,10 @@ It:</p>
       </tr>
     </tbody>
   </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Services_ChatWidgetService_RespondAsync_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync*"></a>
   <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService_RespondAsync_System_String_System_String_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync(System.String,System.String,System.Threading.CancellationToken)">RespondAsync(string, string?, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Processes a user message and generates an AI response with optional embedded widgets.</p>
@@ -371,7 +393,7 @@ It:</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a>&gt;</td>
-        <td><p>A task that completes with a <a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.yml">ChatTurn</a> containing:</p>
+        <td><p>A task that completes with a <a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a> containing:</p>
 <ul>
 <li>The assistant's response content (with widget markers removed)</li>
 <li>Any parsed widget definitions from the response</li>
@@ -410,6 +432,10 @@ in its responses using the <code>&lt;widget&gt;...&lt;/widget&gt;</code> format.
       </tr>
     </tbody>
   </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Services_ChatWidgetService_StreamResponseAsync_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync*"></a>
   <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService_StreamResponseAsync_System_String_System_String_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync(System.String,System.String,System.Threading.CancellationToken)">StreamResponseAsync(string, string?, CancellationToken)</h4>
   <div class="markdown level1 summary"></div>
@@ -466,6 +492,13 @@ in its responses using the <code>&lt;widget&gt;...&lt;/widget&gt;</code> format.
 
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/ChatWidgetService.cs" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
                 <h5>In this article</h5>
                 <div></div>

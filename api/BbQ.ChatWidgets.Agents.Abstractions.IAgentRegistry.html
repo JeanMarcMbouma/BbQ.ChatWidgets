@@ -17,7 +17,7 @@
       <meta property="docfx:navrel" content="">
       <meta property="docfx:tocrel" content="toc.html">
     
-    
+    <meta property="docfx:rel" content="../">
     
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
@@ -56,6 +56,16 @@
           </div>
         </div>
       </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
       <div role="main" class="container body-content hide-when-search">
 
         <div class="sidenav hide-when-search">
@@ -87,6 +97,10 @@ This enables modular agent composition and dynamic agent selection.</p>
 </div>
   <h3 id="methods">Methods
 </h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Agents/Abstractions/IAgentRegistry.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_GetAgent_" data-uid="BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetAgent*"></a>
   <h4 id="BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_GetAgent_System_String_" data-uid="BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetAgent(System.String)">GetAgent(string)</h4>
   <div class="markdown level1 summary"><p>Retrieves an agent by name.</p>
@@ -124,12 +138,16 @@ This enables modular agent composition and dynamic agent selection.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.yml">IAgent</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.html">IAgent</a></td>
         <td><p>The agent instance, or null if not found.</p>
 </td>
       </tr>
     </tbody>
   </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Agents/Abstractions/IAgentRegistry.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_GetRegisteredAgents_" data-uid="BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetRegisteredAgents*"></a>
   <h4 id="BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_GetRegisteredAgents" data-uid="BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.GetRegisteredAgents">GetRegisteredAgents()</h4>
   <div class="markdown level1 summary"><p>Gets all registered agent names.</p>
@@ -155,6 +173,10 @@ This enables modular agent composition and dynamic agent selection.</p>
       </tr>
     </tbody>
   </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Agents/Abstractions/IAgentRegistry.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_HasAgent_" data-uid="BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.HasAgent*"></a>
   <h4 id="BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_HasAgent_System_String_" data-uid="BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.HasAgent(System.String)">HasAgent(string)</h4>
   <div class="markdown level1 summary"><p>Checks if an agent is registered.</p>
@@ -198,6 +220,10 @@ This enables modular agent composition and dynamic agent selection.</p>
       </tr>
     </tbody>
   </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Agents/Abstractions/IAgentRegistry.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_Register_" data-uid="BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register*"></a>
   <h4 id="BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_Register_System_String_BbQ_ChatWidgets_Agents_Abstractions_IAgent_" data-uid="BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register(System.String,BbQ.ChatWidgets.Agents.Abstractions.IAgent)">Register(string, IAgent)</h4>
   <div class="markdown level1 summary"><p>Registers an agent with a given name.</p>
@@ -224,7 +250,7 @@ This enables modular agent composition and dynamic agent selection.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.yml">IAgent</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.html">IAgent</a></td>
         <td><span class="parametername">agent</span></td>
         <td><p>The agent instance to register.</p>
 </td>
@@ -237,6 +263,13 @@ This enables modular agent composition and dynamic agent selection.</p>
 
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Agents/Abstractions/IAgentRegistry.cs" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
                 <h5>In this article</h5>
                 <div></div>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Strongly Typed Action Payloads | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Strongly Typed Action Payloads | BbQ.ChatWidgets ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="strongly-typed-action-payloads">Strongly Typed Action Payloads</h1>
+
+<p>BbQ.ChatWidgets encourages the use of strongly typed payloads for action handlers. This provides several benefits:</p>
+<ul>
+<li><strong>Type Safety</strong>: Catch errors at compile time rather than runtime.</li>
+<li><strong>Automatic Deserialization</strong>: The library handles the conversion from JSON to your C# classes.</li>
+<li><strong>Better LLM Guidance</strong>: The library uses your payload types to generate JSON schemas, which are then provided to the LLM to help it generate valid action payloads.</li>
+</ul>
+<h2 id="example-complex-form-submission">Example: Complex Form Submission</h2>
+<p>Consider a form with multiple fields. You can define a single payload class to represent the entire form state.</p>
+<h3 id="1-the-payload">1. The Payload</h3>
+<pre><code class="lang-csharp">public class RegistrationPayload
+{
+    public string FullName { get; set; }
+    public string Email { get; set; }
+    public string Plan { get; set; }
+    public bool AcceptTerms { get; set; }
+}
+</code></pre>
+<h3 id="2-the-action">2. The Action</h3>
+<pre><code class="lang-csharp">public class RegisterUserAction : IWidgetAction&lt;RegistrationPayload&gt;
+{
+    public string ActionName =&gt; &quot;register_user&quot;;
+}
+</code></pre>
+<h3 id="3-the-handler">3. The Handler</h3>
+<pre><code class="lang-csharp">public class RegistrationHandler : IActionWidgetActionHandler&lt;RegisterUserAction, RegistrationPayload&gt;
+{
+    public async Task&lt;ChatTurn&gt; HandleAsync(
+        RegisterUserAction action, 
+        RegistrationPayload payload, 
+        ChatRequest context, 
+        CancellationToken ct)
+    {
+        // Logic to register the user...
+        return new ChatTurn(ChatRole.Assistant, $&quot;Welcome, {payload.FullName}!&quot;, context.ThreadId);
+    }
+}
+</code></pre>
+<h2 id="how-the-llm-sees-this">How the LLM Sees This</h2>
+<p>When you register this handler, the <code>DefaultInstructionProvider</code> includes the schema for <code>RegistrationPayload</code> in the system prompt. This tells the LLM exactly what fields are expected when it wants to &quot;call&quot; the <code>register_user</code> action.</p>
+<h2 id="registration-reminder">Registration Reminder</h2>
+<p>Don't forget to register both the handler in DI and the action-handler mapping in the <code>WidgetActionRegistry</code>.</p>
+<pre><code class="lang-csharp">services.AddScoped&lt;RegistrationHandler&gt;();
+
+services.AddBbQChatWidgets(options =&gt; {
+    options.WidgetActionRegistryFactory = (sp, reg, res) =&gt; {
+        reg.RegisterHandler&lt;RegisterUserAction, RegistrationPayload, RegistrationHandler&gt;(res);
+    };
+});
+</code></pre>
+<p>For more details on the general action handling flow, see the <a href="CUSTOM_ACTION_HANDLERS.html">Action Handlers Guide</a>.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/guides/TYPED_ACTION_HANDLERS.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

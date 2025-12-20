@@ -17,7 +17,7 @@
       <meta property="docfx:navrel" content="">
       <meta property="docfx:tocrel" content="toc.html">
     
-    
+    <meta property="docfx:rel" content="../">
     
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
@@ -56,6 +56,16 @@
           </div>
         </div>
       </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
       <div role="main" class="container body-content hide-when-search">
 
         <div class="sidenav hide-when-search">
@@ -71,7 +81,7 @@
 
 
   <h1 id="BbQ_ChatWidgets_Services_DefaultWidgetHintParser" data-uid="BbQ.ChatWidgets.Services.DefaultWidgetHintParser" class="text-break">Class DefaultWidgetHintParser</h1>
-  <div class="markdown level0 summary"><p>Default implementation of <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintParser.yml">IWidgetHintParser</a> that extracts widget definitions
+  <div class="markdown level0 summary"><p>Default implementation of <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintParser.html">IWidgetHintParser</a> that extracts widget definitions
 from AI model output using XML-style markers.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
@@ -82,8 +92,8 @@ from AI model output using XML-style markers.</p>
   </div>
   <div class="implements">
     <h5>Implements</h5>
-    <div><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintParser.yml">IWidgetHintParser</a></div>
-    <div><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.yml">IWidgetHintSanitizer</a></div>
+    <div><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintParser.html">IWidgetHintParser</a></div>
+    <div><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.html">IWidgetHintSanitizer</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -127,6 +137,10 @@ Each widget must be valid JSON that deserializes to one of the supported widget 
 </div>
   <h3 id="constructors">Constructors
 </h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/DefaultWidgetHintParser.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Services_DefaultWidgetHintParser__ctor_" data-uid="BbQ.ChatWidgets.Services.DefaultWidgetHintParser.#ctor*"></a>
   <h4 id="BbQ_ChatWidgets_Services_DefaultWidgetHintParser__ctor" data-uid="BbQ.ChatWidgets.Services.DefaultWidgetHintParser.#ctor">DefaultWidgetHintParser()</h4>
   <div class="markdown level1 summary"></div>
@@ -137,6 +151,10 @@ Each widget must be valid JSON that deserializes to one of the supported widget 
   </div>
   <h3 id="methods">Methods
 </h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/DefaultWidgetHintParser.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Services_DefaultWidgetHintParser_Parse_" data-uid="BbQ.ChatWidgets.Services.DefaultWidgetHintParser.Parse*"></a>
   <h4 id="BbQ_ChatWidgets_Services_DefaultWidgetHintParser_Parse_System_String_" data-uid="BbQ.ChatWidgets.Services.DefaultWidgetHintParser.Parse(System.String)">Parse(string)</h4>
   <div class="markdown level1 summary"><p>Parses the raw model output to extract widget definitions and clean content.</p>
@@ -204,6 +222,10 @@ Output: (&quot;Here's a button:&quot;, [ButtonWidget])</p>
       </tr>
     </tbody>
   </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/DefaultWidgetHintParser.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Services_DefaultWidgetHintParser_Sanitize_" data-uid="BbQ.ChatWidgets.Services.DefaultWidgetHintParser.Sanitize*"></a>
   <h4 id="BbQ_ChatWidgets_Services_DefaultWidgetHintParser_Sanitize_System_String_" data-uid="BbQ.ChatWidgets.Services.DefaultWidgetHintParser.Sanitize(System.String)">Sanitize(string)</h4>
   <div class="markdown level1 summary"><p>Sanitizes content by removing incomplete or malformed widget markup.
@@ -250,10 +272,10 @@ Useful for cleaning up streaming responses that may contain partial widget synta
   </table>
   <h3 id="implements">Implements</h3>
   <div>
-      <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintParser.yml">IWidgetHintParser</a>
+      <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintParser.html">IWidgetHintParser</a>
   </div>
   <div>
-      <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.yml">IWidgetHintSanitizer</a>
+      <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.html">IWidgetHintSanitizer</a>
   </div>
 
 </article>
@@ -261,6 +283,13 @@ Useful for cleaning up streaming responses that may contain partial widget synta
 
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/DefaultWidgetHintParser.cs" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
                 <h5>In this article</h5>
                 <div></div>

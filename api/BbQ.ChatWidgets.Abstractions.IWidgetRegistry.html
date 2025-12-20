@@ -17,7 +17,7 @@
       <meta property="docfx:navrel" content="">
       <meta property="docfx:tocrel" content="toc.html">
     
-    
+    <meta property="docfx:rel" content="../">
     
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
@@ -56,6 +56,16 @@
           </div>
         </div>
       </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
       <div role="main" class="container body-content hide-when-search">
 
         <div class="sidenav hide-when-search">
@@ -95,6 +105,10 @@ becomes the template used to generate AI tools.</p>
 </div>
   <h3 id="methods">Methods
 </h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IWidgetRegistry.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_GetCount_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetCount*"></a>
   <h4 id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_GetCount" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetCount">GetCount()</h4>
   <div class="markdown level1 summary"><p>Gets the number of registered widgets.</p>
@@ -120,6 +134,10 @@ becomes the template used to generate AI tools.</p>
       </tr>
     </tbody>
   </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IWidgetRegistry.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_GetInstance_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetInstance*"></a>
   <h4 id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_GetInstance_System_String_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetInstance(System.String)">GetInstance(string)</h4>
   <div class="markdown level1 summary"><p>Gets the template instance for a specific widget type.</p>
@@ -157,12 +175,16 @@ becomes the template used to generate AI tools.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.yml">ChatWidget</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a></td>
         <td><p>The template instance, or null if not registered.</p>
 </td>
       </tr>
     </tbody>
   </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IWidgetRegistry.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_GetInstances_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetInstances*"></a>
   <h4 id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_GetInstances" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetInstances">GetInstances()</h4>
   <div class="markdown level1 summary"><p>Gets all registered widget instances.</p>
@@ -188,6 +210,10 @@ becomes the template used to generate AI tools.</p>
       </tr>
     </tbody>
   </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IWidgetRegistry.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_IsRegistered_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.IsRegistered*"></a>
   <h4 id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_IsRegistered_System_String_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.IsRegistered(System.String)">IsRegistered(string)</h4>
   <div class="markdown level1 summary"><p>Checks if a widget type is registered.</p>
@@ -231,6 +257,10 @@ becomes the template used to generate AI tools.</p>
       </tr>
     </tbody>
   </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IWidgetRegistry.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_Register_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.Register*"></a>
   <h4 id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_Register_BbQ_ChatWidgets_Models_ChatWidget_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.Register(BbQ.ChatWidgets.Models.ChatWidget)">Register(ChatWidget)</h4>
   <div class="markdown level1 summary"><p>Registers a widget instance as a template for tool generation.</p>
@@ -251,7 +281,7 @@ becomes the template used to generate AI tools.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.yml">ChatWidget</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a></td>
         <td><span class="parametername">instance</span></td>
         <td><p>The widget instance to register as a template.</p>
 </td>
@@ -280,6 +310,10 @@ The type identifier is automatically extracted from the widget instance.</p>
       </tr>
     </tbody>
   </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IWidgetRegistry.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_Register_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.Register*"></a>
   <h4 id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_Register_BbQ_ChatWidgets_Models_ChatWidget_System_String_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.Register(BbQ.ChatWidgets.Models.ChatWidget,System.String)">Register(ChatWidget, string?)</h4>
   <div class="markdown level1 summary"><p>Registers a widget instance with an optional custom type identifier.</p>
@@ -300,7 +334,7 @@ The type identifier is automatically extracted from the widget instance.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.yml">ChatWidget</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a></td>
         <td><span class="parametername">instance</span></td>
         <td><p>The widget instance to register as a template.</p>
 </td>
@@ -334,6 +368,10 @@ under different identifiers.</p>
       </tr>
     </tbody>
   </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IWidgetRegistry.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_TryGetInstance_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.TryGetInstance*"></a>
   <h4 id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_TryGetInstance_System_String_BbQ_ChatWidgets_Models_ChatWidget__" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.TryGetInstance(System.String,BbQ.ChatWidgets.Models.ChatWidget@)">TryGetInstance(string, out ChatWidget?)</h4>
   <div class="markdown level1 summary"><p>Attempts to get the template instance for a widget type.</p>
@@ -360,7 +398,7 @@ under different identifiers.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.yml">ChatWidget</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a></td>
         <td><span class="parametername">instance</span></td>
         <td><p>The template instance, or null if not found.</p>
 </td>
@@ -385,13 +423,13 @@ under different identifiers.</p>
   </table>
   <h3 id="extensionmethods">Extension Methods</h3>
   <div>
-      <a class="xref" href="BbQ.ChatWidgets.Services.WidgetRegistryExtensions.yml#BbQ_ChatWidgets_Services_WidgetRegistryExtensions_GetSummary_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_">WidgetRegistryExtensions.GetSummary(IWidgetRegistry)</a>
+      <a class="xref" href="BbQ.ChatWidgets.Services.WidgetRegistryExtensions.html#BbQ_ChatWidgets_Services_WidgetRegistryExtensions_GetSummary_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_">WidgetRegistryExtensions.GetSummary(IWidgetRegistry)</a>
   </div>
   <div>
-      <a class="xref" href="BbQ.ChatWidgets.Services.WidgetRegistryExtensions.yml#BbQ_ChatWidgets_Services_WidgetRegistryExtensions_RegisterCustom_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_BbQ_ChatWidgets_Models_ChatWidget_System_String_">WidgetRegistryExtensions.RegisterCustom(IWidgetRegistry, ChatWidget, string?)</a>
+      <a class="xref" href="BbQ.ChatWidgets.Services.WidgetRegistryExtensions.html#BbQ_ChatWidgets_Services_WidgetRegistryExtensions_RegisterCustom_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_BbQ_ChatWidgets_Models_ChatWidget_System_String_">WidgetRegistryExtensions.RegisterCustom(IWidgetRegistry, ChatWidget, string?)</a>
   </div>
   <div>
-      <a class="xref" href="BbQ.ChatWidgets.Services.WidgetRegistryExtensions.yml#BbQ_ChatWidgets_Services_WidgetRegistryExtensions_RegisterMultiple_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_System_Action_BbQ_ChatWidgets_Abstractions_IWidgetRegistry____">WidgetRegistryExtensions.RegisterMultiple(IWidgetRegistry, params Action&lt;IWidgetRegistry&gt;[])</a>
+      <a class="xref" href="BbQ.ChatWidgets.Services.WidgetRegistryExtensions.html#BbQ_ChatWidgets_Services_WidgetRegistryExtensions_RegisterMultiple_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_System_Action_BbQ_ChatWidgets_Abstractions_IWidgetRegistry____">WidgetRegistryExtensions.RegisterMultiple(IWidgetRegistry, params Action&lt;IWidgetRegistry&gt;[])</a>
   </div>
 
 </article>
@@ -399,6 +437,13 @@ under different identifiers.</p>
 
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IWidgetRegistry.cs" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
                 <h5>In this article</h5>
                 <div></div>

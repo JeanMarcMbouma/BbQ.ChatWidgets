@@ -17,7 +17,7 @@
       <meta property="docfx:navrel" content="">
       <meta property="docfx:tocrel" content="toc.html">
     
-    
+    <meta property="docfx:rel" content="../">
     
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
@@ -56,6 +56,16 @@
           </div>
         </div>
       </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
       <div role="main" class="container body-content hide-when-search">
 
         <div class="sidenav hide-when-search">
@@ -94,6 +104,10 @@ consider implementing a custom service that persists to a database.</p>
 </div>
   <h3 id="methods">Methods
 </h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IThreadService.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Abstractions_IThreadService_AppendMessageToThread_" data-uid="BbQ.ChatWidgets.Abstractions.IThreadService.AppendMessageToThread*"></a>
   <h4 id="BbQ_ChatWidgets_Abstractions_IThreadService_AppendMessageToThread_System_String_BbQ_ChatWidgets_Models_ChatTurn_" data-uid="BbQ.ChatWidgets.Abstractions.IThreadService.AppendMessageToThread(System.String,BbQ.ChatWidgets.Models.ChatTurn)">AppendMessageToThread(string, ChatTurn)</h4>
   <div class="markdown level1 summary"><p>Appends a message to a conversation thread's history.</p>
@@ -120,7 +134,7 @@ consider implementing a custom service that persists to a database.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.yml">ChatTurn</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a></td>
         <td><span class="parametername">chatTurn</span></td>
         <td><p>The message to append to the thread.</p>
 </td>
@@ -137,8 +151,8 @@ consider implementing a custom service that persists to a database.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatMessages.yml">ChatMessages</a></td>
-        <td><p>The updated <a class="xref" href="BbQ.ChatWidgets.Models.ChatMessages.yml">ChatMessages</a> containing all turns including the newly appended one.</p>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatMessages.html">ChatMessages</a></td>
+        <td><p>The updated <a class="xref" href="BbQ.ChatWidgets.Models.ChatMessages.html">ChatMessages</a> containing all turns including the newly appended one.</p>
 </td>
       </tr>
     </tbody>
@@ -157,12 +171,16 @@ The message is stored with its role (User or Assistant), content, and any embedd
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Exceptions.ThreadNotFoundException.yml">ThreadNotFoundException</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Exceptions.ThreadNotFoundException.html">ThreadNotFoundException</a></td>
         <td><p>Thrown if the thread does not exist.</p>
 </td>
       </tr>
     </tbody>
   </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IThreadService.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Abstractions_IThreadService_CreateThread_" data-uid="BbQ.ChatWidgets.Abstractions.IThreadService.CreateThread*"></a>
   <h4 id="BbQ_ChatWidgets_Abstractions_IThreadService_CreateThread" data-uid="BbQ.ChatWidgets.Abstractions.IThreadService.CreateThread">CreateThread()</h4>
   <div class="markdown level1 summary"><p>Creates a new conversation thread.</p>
@@ -192,6 +210,10 @@ The message is stored with its role (User or Assistant), content, and any embedd
   <div class="markdown level1 remarks"><p>Each thread has a unique identifier that can be used to retrieve and update
 its message history. Threads start empty with no messages.</p>
 </div>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IThreadService.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Abstractions_IThreadService_DeleteThread_" data-uid="BbQ.ChatWidgets.Abstractions.IThreadService.DeleteThread*"></a>
   <h4 id="BbQ_ChatWidgets_Abstractions_IThreadService_DeleteThread_System_String_" data-uid="BbQ.ChatWidgets.Abstractions.IThreadService.DeleteThread(System.String)">DeleteThread(string)</h4>
   <div class="markdown level1 summary"><p>Deletes a conversation thread and all its message history.</p>
@@ -223,6 +245,10 @@ its message history. Threads start empty with no messages.</p>
   <div class="markdown level1 remarks"><p>This operation removes the thread permanently. Once deleted, the thread ID
 can be reused for a new conversation.</p>
 </div>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IThreadService.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Abstractions_IThreadService_GetMessage_" data-uid="BbQ.ChatWidgets.Abstractions.IThreadService.GetMessage*"></a>
   <h4 id="BbQ_ChatWidgets_Abstractions_IThreadService_GetMessage_System_String_" data-uid="BbQ.ChatWidgets.Abstractions.IThreadService.GetMessage(System.String)">GetMessage(string)</h4>
   <div class="markdown level1 summary"><p>Retrieves the complete message history of a conversation thread.</p>
@@ -260,8 +286,8 @@ can be reused for a new conversation.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatMessages.yml">ChatMessages</a></td>
-        <td><p>A <a class="xref" href="BbQ.ChatWidgets.Models.ChatMessages.yml">ChatMessages</a> object containing all turns in the thread.</p>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatMessages.html">ChatMessages</a></td>
+        <td><p>A <a class="xref" href="BbQ.ChatWidgets.Models.ChatMessages.html">ChatMessages</a> object containing all turns in the thread.</p>
 </td>
       </tr>
     </tbody>
@@ -280,12 +306,16 @@ The messages are returned in order of insertion (oldest to newest).</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Exceptions.ThreadNotFoundException.yml">ThreadNotFoundException</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Exceptions.ThreadNotFoundException.html">ThreadNotFoundException</a></td>
         <td><p>Thrown if the thread does not exist.</p>
 </td>
       </tr>
     </tbody>
   </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IThreadService.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Abstractions_IThreadService_ThreadExists_" data-uid="BbQ.ChatWidgets.Abstractions.IThreadService.ThreadExists*"></a>
   <h4 id="BbQ_ChatWidgets_Abstractions_IThreadService_ThreadExists_System_String_" data-uid="BbQ.ChatWidgets.Abstractions.IThreadService.ThreadExists(System.String)">ThreadExists(string)</h4>
   <div class="markdown level1 summary"><p>Checks if a conversation thread exists.</p>
@@ -335,6 +365,13 @@ The messages are returned in order of insertion (oldest to newest).</p>
 
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Abstractions/IThreadService.cs" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
                 <h5>In this article</h5>
                 <div></div>

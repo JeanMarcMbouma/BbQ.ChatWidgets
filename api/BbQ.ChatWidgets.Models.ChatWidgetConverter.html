@@ -17,7 +17,7 @@
       <meta property="docfx:navrel" content="">
       <meta property="docfx:tocrel" content="toc.html">
     
-    
+    <meta property="docfx:rel" content="../">
     
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
@@ -56,6 +56,16 @@
           </div>
         </div>
       </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
       <div role="main" class="container body-content hide-when-search">
 
         <div class="sidenav hide-when-search">
@@ -127,6 +137,10 @@ attributes for built-in types but provides fallback support for custom widgets.<
 </div>
   <h3 id="constructors">Constructors
 </h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidgetConverter.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Models_ChatWidgetConverter__ctor_" data-uid="BbQ.ChatWidgets.Models.ChatWidgetConverter.#ctor*"></a>
   <h4 id="BbQ_ChatWidgets_Models_ChatWidgetConverter__ctor_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_" data-uid="BbQ.ChatWidgets.Models.ChatWidgetConverter.#ctor(BbQ.ChatWidgets.Abstractions.IWidgetRegistry)">ChatWidgetConverter(IWidgetRegistry)</h4>
   <div class="markdown level1 summary"><p>Custom JSON converter for ChatWidget that handles both built-in and custom widgets.</p>
@@ -147,7 +161,7 @@ attributes for built-in types but provides fallback support for custom widgets.<
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.yml">IWidgetRegistry</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.html">IWidgetRegistry</a></td>
         <td><span class="parametername">widgetRegistry</span></td>
         <td></td>
       </tr>
@@ -160,6 +174,10 @@ attributes for built-in types but provides fallback support for custom widgets.<
 </div>
   <h3 id="methods">Methods
 </h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidgetConverter.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Models_ChatWidgetConverter_CanConvert_" data-uid="BbQ.ChatWidgets.Models.ChatWidgetConverter.CanConvert*"></a>
   <h4 id="BbQ_ChatWidgets_Models_ChatWidgetConverter_CanConvert_System_Type_" data-uid="BbQ.ChatWidgets.Models.ChatWidgetConverter.CanConvert(System.Type)">CanConvert(Type)</h4>
   <div class="markdown level1 summary"><p>Determines whether the specified type can be converted.</p>
@@ -205,9 +223,13 @@ attributes for built-in types but provides fallback support for custom widgets.<
   </table>
   <h5 class="overrides">Overrides</h5>
   <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1.canconvert">JsonConverter&lt;ChatWidget&gt;.CanConvert(Type)</a></div>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidgetConverter.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Models_ChatWidgetConverter_Read_" data-uid="BbQ.ChatWidgets.Models.ChatWidgetConverter.Read*"></a>
   <h4 id="BbQ_ChatWidgets_Models_ChatWidgetConverter_Read_System_Text_Json_Utf8JsonReader__System_Type_System_Text_Json_JsonSerializerOptions_" data-uid="BbQ.ChatWidgets.Models.ChatWidgetConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">Read(ref Utf8JsonReader, Type, JsonSerializerOptions)</h4>
-  <div class="markdown level1 summary"><p>Reads and converts the JSON to type <a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.yml">ChatWidget</a>.</p>
+  <div class="markdown level1 summary"><p>Reads and converts the JSON to type <a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a>.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -254,7 +276,7 @@ attributes for built-in types but provides fallback support for custom widgets.<
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.yml">ChatWidget</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a></td>
         <td><p>The converted value.</p>
 </td>
       </tr>
@@ -262,6 +284,10 @@ attributes for built-in types but provides fallback support for custom widgets.<
   </table>
   <h5 class="overrides">Overrides</h5>
   <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonconverter-1.read">JsonConverter&lt;ChatWidget&gt;.Read(ref Utf8JsonReader, Type, JsonSerializerOptions)</a></div>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidgetConverter.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Models_ChatWidgetConverter_Write_" data-uid="BbQ.ChatWidgets.Models.ChatWidgetConverter.Write*"></a>
   <h4 id="BbQ_ChatWidgets_Models_ChatWidgetConverter_Write_System_Text_Json_Utf8JsonWriter_BbQ_ChatWidgets_Models_ChatWidget_System_Text_Json_JsonSerializerOptions_" data-uid="BbQ.ChatWidgets.Models.ChatWidgetConverter.Write(System.Text.Json.Utf8JsonWriter,BbQ.ChatWidgets.Models.ChatWidget,System.Text.Json.JsonSerializerOptions)">Write(Utf8JsonWriter, ChatWidget, JsonSerializerOptions)</h4>
   <div class="markdown level1 summary"><p>Writes a specified value as JSON.</p>
@@ -288,7 +314,7 @@ attributes for built-in types but provides fallback support for custom widgets.<
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.yml">ChatWidget</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a></td>
         <td><span class="parametername">value</span></td>
         <td><p>The value to convert to JSON.</p>
 </td>
@@ -309,6 +335,13 @@ attributes for built-in types but provides fallback support for custom widgets.<
 
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Models/ChatWidgetConverter.cs" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
                 <h5>In this article</h5>
                 <div></div>

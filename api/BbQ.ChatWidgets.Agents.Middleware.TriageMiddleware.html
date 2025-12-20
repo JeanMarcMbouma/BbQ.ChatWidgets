@@ -17,7 +17,7 @@
       <meta property="docfx:navrel" content="">
       <meta property="docfx:tocrel" content="toc.html">
     
-    
+    <meta property="docfx:rel" content="../">
     
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
@@ -56,6 +56,16 @@
           </div>
         </div>
       </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
       <div role="main" class="container body-content hide-when-search">
 
         <div class="sidenav hide-when-search">
@@ -81,7 +91,7 @@
   </div>
   <div class="implements">
     <h5>Implements</h5>
-    <div><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgentMiddleware.yml">IAgentMiddleware</a></div>
+    <div><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgentMiddleware.html">IAgentMiddleware</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -125,6 +135,10 @@ that all requests are classified and routed through the appropriate agent.</p>
 </div>
   <h3 id="constructors">Constructors
 </h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Agents/Middleware/TriageMiddleware.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Agents_Middleware_TriageMiddleware__ctor_" data-uid="BbQ.ChatWidgets.Agents.Middleware.TriageMiddleware.#ctor*"></a>
   <h4 id="BbQ_ChatWidgets_Agents_Middleware_TriageMiddleware__ctor_BbQ_ChatWidgets_Agents_Abstractions_IAgent_" data-uid="BbQ.ChatWidgets.Agents.Middleware.TriageMiddleware.#ctor(BbQ.ChatWidgets.Agents.Abstractions.IAgent)">TriageMiddleware(IAgent)</h4>
   <div class="markdown level1 summary"><p>Middleware that enforces agent classification and routing.</p>
@@ -145,7 +159,7 @@ that all requests are classified and routed through the appropriate agent.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.yml">IAgent</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.html">IAgent</a></td>
         <td><span class="parametername">triageAgent</span></td>
         <td><p>The triage agent to use for routing.</p>
 </td>
@@ -167,6 +181,10 @@ that all requests are classified and routed through the appropriate agent.</p>
 </div>
   <h3 id="methods">Methods
 </h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Agents/Middleware/TriageMiddleware.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Agents_Middleware_TriageMiddleware_InvokeAsync_" data-uid="BbQ.ChatWidgets.Agents.Middleware.TriageMiddleware.InvokeAsync*"></a>
   <h4 id="BbQ_ChatWidgets_Agents_Middleware_TriageMiddleware_InvokeAsync_BbQ_ChatWidgets_Agents_ChatRequest_BbQ_ChatWidgets_Agents_Abstractions_AgentDelegate_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Agents.Middleware.TriageMiddleware.InvokeAsync(BbQ.ChatWidgets.Agents.ChatRequest,BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate,System.Threading.CancellationToken)">InvokeAsync(ChatRequest, AgentDelegate, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Invokes the middleware for the given chat request.</p>
@@ -187,13 +205,13 @@ that all requests are classified and routed through the appropriate agent.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Agents.ChatRequest.yml">ChatRequest</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Agents.ChatRequest.html">ChatRequest</a></td>
         <td><span class="parametername">request</span></td>
         <td><p>The chat request being processed.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.yml">AgentDelegate</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.html">AgentDelegate</a></td>
         <td><span class="parametername">next</span></td>
         <td><p>The next middleware in the pipeline. Call this to continue processing.</p>
 </td>
@@ -235,7 +253,7 @@ the pipeline, but should return an appropriate Outcome.</p>
 </div>
   <h3 id="implements">Implements</h3>
   <div>
-      <a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgentMiddleware.yml">IAgentMiddleware</a>
+      <a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgentMiddleware.html">IAgentMiddleware</a>
   </div>
 
 </article>
@@ -243,6 +261,13 @@ the pipeline, but should return an appropriate Outcome.</p>
 
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Agents/Middleware/TriageMiddleware.cs" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
                 <h5>In this article</h5>
                 <div></div>

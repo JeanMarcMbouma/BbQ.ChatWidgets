@@ -17,7 +17,7 @@
       <meta property="docfx:navrel" content="">
       <meta property="docfx:tocrel" content="toc.html">
     
-    
+    <meta property="docfx:rel" content="../">
     
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
@@ -56,6 +56,16 @@
           </div>
         </div>
       </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
       <div role="main" class="container body-content hide-when-search">
 
         <div class="sidenav hide-when-search">
@@ -111,6 +121,10 @@
   </div>
   <h3 id="methods">Methods
 </h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/WidgetRegistryExtensions.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Services_WidgetRegistryExtensions_GetSummary_" data-uid="BbQ.ChatWidgets.Services.WidgetRegistryExtensions.GetSummary*"></a>
   <h4 id="BbQ_ChatWidgets_Services_WidgetRegistryExtensions_GetSummary_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_" data-uid="BbQ.ChatWidgets.Services.WidgetRegistryExtensions.GetSummary(BbQ.ChatWidgets.Abstractions.IWidgetRegistry)">GetSummary(IWidgetRegistry)</h4>
   <div class="markdown level1 summary"><p>Gets a human-readable summary of all registered widgets.</p>
@@ -131,7 +145,7 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.yml">IWidgetRegistry</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.html">IWidgetRegistry</a></td>
         <td><span class="parametername">registry</span></td>
         <td><p>The widget registry.</p>
 </td>
@@ -154,6 +168,10 @@
       </tr>
     </tbody>
   </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/WidgetRegistryExtensions.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Services_WidgetRegistryExtensions_RegisterCustom_" data-uid="BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterCustom*"></a>
   <h4 id="BbQ_ChatWidgets_Services_WidgetRegistryExtensions_RegisterCustom_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_BbQ_ChatWidgets_Models_ChatWidget_System_String_" data-uid="BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterCustom(BbQ.ChatWidgets.Abstractions.IWidgetRegistry,BbQ.ChatWidgets.Models.ChatWidget,System.String)">RegisterCustom(IWidgetRegistry, ChatWidget, string?)</h4>
   <div class="markdown level1 summary"><p>Registers a custom widget instance with an optional custom type identifier.</p>
@@ -174,13 +192,13 @@
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.yml">IWidgetRegistry</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.html">IWidgetRegistry</a></td>
         <td><span class="parametername">registry</span></td>
         <td><p>The widget registry.</p>
 </td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.yml">ChatWidget</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a></td>
         <td><span class="parametername">instance</span></td>
         <td><p>The widget instance to register as a template.</p>
 </td>
@@ -199,6 +217,10 @@ var customWidget = new MyCustomWidget("Label", "action");
 registry.RegisterCustom(customWidget);  // Uses default type from instance
 registry.RegisterCustom(customWidget, "custom_type");  // Uses custom type ID</code></pre>
 
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/WidgetRegistryExtensions.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Services_WidgetRegistryExtensions_RegisterMultiple_" data-uid="BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterMultiple*"></a>
   <h4 id="BbQ_ChatWidgets_Services_WidgetRegistryExtensions_RegisterMultiple_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_System_Action_BbQ_ChatWidgets_Abstractions_IWidgetRegistry____" data-uid="BbQ.ChatWidgets.Services.WidgetRegistryExtensions.RegisterMultiple(BbQ.ChatWidgets.Abstractions.IWidgetRegistry,System.Action{BbQ.ChatWidgets.Abstractions.IWidgetRegistry}[])">RegisterMultiple(IWidgetRegistry, params Action&lt;IWidgetRegistry&gt;[])</h4>
   <div class="markdown level1 summary"><p>Registers multiple widget instances at once.</p>
@@ -219,7 +241,7 @@ registry.RegisterCustom(customWidget, "custom_type");  // Uses custom type ID</c
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.yml">IWidgetRegistry</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.html">IWidgetRegistry</a></td>
         <td><span class="parametername">registry</span></td>
         <td><p>The widget registry.</p>
 </td>
@@ -246,6 +268,13 @@ registry.RegisterMultiple(
 
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/WidgetRegistryExtensions.cs" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
                 <h5>In this article</h5>
                 <div></div>

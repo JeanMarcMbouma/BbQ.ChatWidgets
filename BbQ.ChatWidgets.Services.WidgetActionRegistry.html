@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class WidgetActionRegistry | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class WidgetActionRegistry | BbQ.ChatWidgets ">
+    
+    <meta name="description" content="Default in-memory implementation of .">
+      <link rel="shortcut icon" href="favicon.ico">
+      <link rel="stylesheet" href="styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="styles/docfx.css">
+      <link rel="stylesheet" href="styles/main.css">
+      <meta property="docfx:navrel" content="toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="index.html">
+                <img id="logo" class="svg" src="logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="BbQ.ChatWidgets.Services.WidgetActionRegistry">
+
+
+
+  <h1 id="BbQ_ChatWidgets_Services_WidgetActionRegistry" data-uid="BbQ.ChatWidgets.Services.WidgetActionRegistry" class="text-break">Class WidgetActionRegistry</h1>
+  <div class="markdown level0 summary"><p>Default in-memory implementation of <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html">IWidgetActionRegistry</a>.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">WidgetActionRegistry</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html">IWidgetActionRegistry</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="BbQ.html">BbQ</a>.<a class="xref" href="BbQ.ChatWidgets.html">ChatWidgets</a>.<a class="xref" href="BbQ.ChatWidgets.Services.html">Services</a></h6>
+  <h6><strong>Assembly</strong>: BbQ.ChatWidgets.dll</h6>
+  <h5 id="BbQ_ChatWidgets_Services_WidgetActionRegistry_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class WidgetActionRegistry : IWidgetActionRegistry</code></pre>
+  </div>
+  <h5 id="BbQ_ChatWidgets_Services_WidgetActionRegistry_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>This registry maintains a dictionary of widget action metadata indexed by action name.
+It provides:</p>
+<ul>
+<li>Registration of action metadata with validation</li>
+<li>Lookup of action metadata by name</li>
+<li>Discovery of all registered actions</li>
+</ul>
+<p>The implementation is thread-safe through dictionary operations on the concurrent collection.
+Actions are looked up by name, making name uniqueness essential.</p>
+</div>
+  <h3 id="constructors">Constructors
+</h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/WidgetActionRegistry.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Services_WidgetActionRegistry__ctor_" data-uid="BbQ.ChatWidgets.Services.WidgetActionRegistry.#ctor*"></a>
+  <h4 id="BbQ_ChatWidgets_Services_WidgetActionRegistry__ctor" data-uid="BbQ.ChatWidgets.Services.WidgetActionRegistry.#ctor">WidgetActionRegistry()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public WidgetActionRegistry()</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/WidgetActionRegistry.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Services_WidgetActionRegistry_GetAction_" data-uid="BbQ.ChatWidgets.Services.WidgetActionRegistry.GetAction*"></a>
+  <h4 id="BbQ_ChatWidgets_Services_WidgetActionRegistry_GetAction_System_String_" data-uid="BbQ.ChatWidgets.Services.WidgetActionRegistry.GetAction(System.String)">GetAction(string)</h4>
+  <div class="markdown level1 summary"><p>Retrieves the metadata for a specific widget action by name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IWidgetActionMetadata? GetAction(string actionName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">actionName</span></td>
+        <td><p>The name of the action to look up.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata.html">IWidgetActionMetadata</a></td>
+        <td><p>The action metadata, or null if not found.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="BbQ_ChatWidgets_Services_WidgetActionRegistry_GetAction_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Used to look up action information (payload type, description, schema) before
+executing the action handler. Returns null if the action is not registered.</p>
+</div>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/WidgetActionRegistry.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Services_WidgetActionRegistry_GetActions_" data-uid="BbQ.ChatWidgets.Services.WidgetActionRegistry.GetActions*"></a>
+  <h4 id="BbQ_ChatWidgets_Services_WidgetActionRegistry_GetActions" data-uid="BbQ.ChatWidgets.Services.WidgetActionRegistry.GetActions">GetActions()</h4>
+  <div class="markdown level1 summary"><p>Gets all registered widget action metadata.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;IWidgetActionMetadata&gt; GetActions()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata.html">IWidgetActionMetadata</a>&gt;</td>
+        <td><p>An enumeration of <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata.html">IWidgetActionMetadata</a> for all registered actions.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="BbQ_ChatWidgets_Services_WidgetActionRegistry_GetActions_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Returns an enumeration of all action metadata that has been registered.
+Useful for discovering available actions or generating documentation.</p>
+</div>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/WidgetActionRegistry.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Services_WidgetActionRegistry_RegisterAction_" data-uid="BbQ.ChatWidgets.Services.WidgetActionRegistry.RegisterAction*"></a>
+  <h4 id="BbQ_ChatWidgets_Services_WidgetActionRegistry_RegisterAction_BbQ_ChatWidgets_Abstractions_IWidgetActionMetadata_" data-uid="BbQ.ChatWidgets.Services.WidgetActionRegistry.RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)">RegisterAction(IWidgetActionMetadata)</h4>
+  <div class="markdown level1 summary"><p>Registers a widget action with its metadata.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RegisterAction(IWidgetActionMetadata action)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata.html">IWidgetActionMetadata</a></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action metadata to register.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="BbQ_ChatWidgets_Services_WidgetActionRegistry_RegisterAction_BbQ_ChatWidgets_Abstractions_IWidgetActionMetadata__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Action metadata includes the action name, description, JSON schema for the payload,
+and the CLR type for payload deserialization. Each action name can only be registered once;
+subsequent registrations with the same name will overwrite the previous registration.</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></td>
+        <td><p>Thrown if the action name is null, empty, or whitespace.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html">IWidgetActionRegistry</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.html#BbQ_ChatWidgets_Extensions_WidgetActionHandlerExtensions_RegisterHandler__3_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_">WidgetActionHandlerExtensions.RegisterHandler&lt;TAction, TPayload, THandler&gt;(IWidgetActionRegistry, IWidgetActionHandlerResolver)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/WidgetActionRegistry.cs" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>

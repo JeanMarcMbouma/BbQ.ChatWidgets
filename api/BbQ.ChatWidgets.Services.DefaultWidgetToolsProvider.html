@@ -17,7 +17,7 @@
       <meta property="docfx:navrel" content="">
       <meta property="docfx:tocrel" content="toc.html">
     
-    
+    <meta property="docfx:rel" content="../">
     
   </head>
   <body data-spy="scroll" data-target="#affix" data-offset="120">
@@ -56,6 +56,16 @@
           </div>
         </div>
       </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
       <div role="main" class="container body-content hide-when-search">
 
         <div class="sidenav hide-when-search">
@@ -71,7 +81,7 @@
 
 
   <h1 id="BbQ_ChatWidgets_Services_DefaultWidgetToolsProvider" data-uid="BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider" class="text-break">Class DefaultWidgetToolsProvider</h1>
-  <div class="markdown level0 summary"><p>Default implementation of <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.yml">IWidgetToolsProvider</a> that provides AI tools
+  <div class="markdown level0 summary"><p>Default implementation of <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.html">IWidgetToolsProvider</a> that provides AI tools
 for all available widget instances registered in the widget registry.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
@@ -82,7 +92,7 @@ for all available widget instances registered in the widget registry.</p>
   </div>
   <div class="implements">
     <h5>Implements</h5>
-    <div><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.yml">IWidgetToolsProvider</a></div>
+    <div><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.html">IWidgetToolsProvider</a></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -113,7 +123,7 @@ for all available widget instances registered in the widget registry.</p>
   </div>
   <h5 id="BbQ_ChatWidgets_Services_DefaultWidgetToolsProvider_remarks"><strong>Remarks</strong></h5>
   <div class="markdown level0 remarks"><p>This provider creates tools by wrapping each registered widget instance in a WidgetTool.
-Tools are generated dynamically from the <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.yml">IWidgetRegistry</a>, which means:</p>
+Tools are generated dynamically from the <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.html">IWidgetRegistry</a>, which means:</p>
 <ul>
 <li>All registered widgets (both built-in and custom) are automatically included</li>
 <li>New widgets registered at runtime are immediately available to the AI</li>
@@ -123,9 +133,13 @@ Tools are generated dynamically from the <a class="xref" href="BbQ.ChatWidgets.A
 </div>
   <h3 id="constructors">Constructors
 </h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/DefaultWidgetToolsProvider.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Services_DefaultWidgetToolsProvider__ctor_" data-uid="BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider.#ctor*"></a>
   <h4 id="BbQ_ChatWidgets_Services_DefaultWidgetToolsProvider__ctor_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_" data-uid="BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider.#ctor(BbQ.ChatWidgets.Abstractions.IWidgetRegistry)">DefaultWidgetToolsProvider(IWidgetRegistry)</h4>
-  <div class="markdown level1 summary"><p>Default implementation of <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.yml">IWidgetToolsProvider</a> that provides AI tools
+  <div class="markdown level1 summary"><p>Default implementation of <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.html">IWidgetToolsProvider</a> that provides AI tools
 for all available widget instances registered in the widget registry.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -144,7 +158,7 @@ for all available widget instances registered in the widget registry.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.yml">IWidgetRegistry</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.html">IWidgetRegistry</a></td>
         <td><span class="parametername">registry</span></td>
         <td><p>The widget registry to use for discovering available widgets.</p>
 </td>
@@ -153,7 +167,7 @@ for all available widget instances registered in the widget registry.</p>
   </table>
   <h5 id="BbQ_ChatWidgets_Services_DefaultWidgetToolsProvider__ctor_BbQ_ChatWidgets_Abstractions_IWidgetRegistry__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>This provider creates tools by wrapping each registered widget instance in a WidgetTool.
-Tools are generated dynamically from the <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.yml">IWidgetRegistry</a>, which means:</p>
+Tools are generated dynamically from the <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.html">IWidgetRegistry</a>, which means:</p>
 <ul>
 <li>All registered widgets (both built-in and custom) are automatically included</li>
 <li>New widgets registered at runtime are immediately available to the AI</li>
@@ -179,6 +193,10 @@ Tools are generated dynamically from the <a class="xref" href="BbQ.ChatWidgets.A
   </table>
   <h3 id="methods">Methods
 </h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/DefaultWidgetToolsProvider.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Services_DefaultWidgetToolsProvider_GetTools_" data-uid="BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider.GetTools*"></a>
   <h4 id="BbQ_ChatWidgets_Services_DefaultWidgetToolsProvider_GetTools" data-uid="BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider.GetTools">GetTools()</h4>
   <div class="markdown level1 summary"><p>Gets the list of available widget tools for use by AI models.</p>
@@ -226,7 +244,7 @@ after the first call for performance.</p>
   </table>
   <h3 id="implements">Implements</h3>
   <div>
-      <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.yml">IWidgetToolsProvider</a>
+      <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.html">IWidgetToolsProvider</a>
   </div>
 
 </article>
@@ -234,6 +252,13 @@ after the first call for performance.</p>
 
           <div class="hidden-sm col-md-2" role="complementary">
             <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/3f33a8868691bbfb2acbe9026a2f33fef289f3ad/BbQ.ChatWidgets/Services/DefaultWidgetToolsProvider.cs" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
                 <h5>In this article</h5>
                 <div></div>

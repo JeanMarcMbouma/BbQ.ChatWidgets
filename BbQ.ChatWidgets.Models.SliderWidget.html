@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class SliderWidget | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class SliderWidget | BbQ.ChatWidgets ">
+    
+    <meta name="description" content="A slider widget for selecting a numeric value from a range.">
+      <link rel="shortcut icon" href="favicon.ico">
+      <link rel="stylesheet" href="styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="styles/docfx.css">
+      <link rel="stylesheet" href="styles/main.css">
+      <meta property="docfx:navrel" content="toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="index.html">
+                <img id="logo" class="svg" src="logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="BbQ.ChatWidgets.Models.SliderWidget">
+
+
+
+  <h1 id="BbQ_ChatWidgets_Models_SliderWidget" data-uid="BbQ.ChatWidgets.Models.SliderWidget" class="text-break">Class SliderWidget</h1>
+  <div class="markdown level0 summary"><p>A slider widget for selecting a numeric value from a range.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a></div>
+    <div class="level2"><span class="xref">SliderWidget</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a>&gt;</div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.SliderWidget.html">SliderWidget</a>&gt;</div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Deconstruct_System_String__System_String__">ChatWidget.Deconstruct(out string, out string)</a>
+    </div>
+    <div>
+      <a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Label">ChatWidget.Label</a>
+    </div>
+    <div>
+      <a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Action">ChatWidget.Action</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="BbQ.html">BbQ</a>.<a class="xref" href="BbQ.ChatWidgets.html">ChatWidgets</a>.<a class="xref" href="BbQ.ChatWidgets.Models.html">Models</a></h6>
+  <h6><strong>Assembly</strong>: BbQ.ChatWidgets.dll</h6>
+  <h5 id="BbQ_ChatWidgets_Models_SliderWidget_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed record SliderWidget : ChatWidget, IEquatable&lt;ChatWidget&gt;, IEquatable&lt;SliderWidget&gt;</code></pre>
+  </div>
+  <h5 id="BbQ_ChatWidgets_Models_SliderWidget_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Sliders allow users to select a value within a defined range using visual feedback.
+Common uses:</p>
+<ul>
+<li>Volume control</li>
+<li>Price range selection</li>
+<li>Rating scales</li>
+<li>Confidence levels</li>
+</ul>
+<p>Example JSON:
+{&quot;type&quot;:&quot;slider&quot;,&quot;label&quot;:&quot;Volume&quot;,&quot;action&quot;:&quot;set_volume&quot;,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:5,&quot;default&quot;:50}</p>
+</div>
+  <h3 id="constructors">Constructors
+</h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_SliderWidget__ctor_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.#ctor*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_SliderWidget__ctor_System_String_System_String_System_Int32_System_Int32_System_Int32_System_Nullable_System_Int32__" data-uid="BbQ.ChatWidgets.Models.SliderWidget.#ctor(System.String,System.String,System.Int32,System.Int32,System.Int32,System.Nullable{System.Int32})">SliderWidget(string, string, int, int, int, int?)</h4>
+  <div class="markdown level1 summary"><p>A slider widget for selecting a numeric value from a range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SliderWidget(string Label, string Action, int Min, int Max, int Step, int? Default = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">Label</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">Action</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">Min</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">Max</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">Step</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</td>
+        <td><span class="parametername">Default</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="BbQ_ChatWidgets_Models_SliderWidget__ctor_System_String_System_String_System_Int32_System_Int32_System_Int32_System_Nullable_System_Int32___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Sliders allow users to select a value within a defined range using visual feedback.
+Common uses:</p>
+<ul>
+<li>Volume control</li>
+<li>Price range selection</li>
+<li>Rating scales</li>
+<li>Confidence levels</li>
+</ul>
+<p>Example JSON:
+{&quot;type&quot;:&quot;slider&quot;,&quot;label&quot;:&quot;Volume&quot;,&quot;action&quot;:&quot;set_volume&quot;,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:5,&quot;default&quot;:50}</p>
+</div>
+  <h3 id="properties">Properties
+</h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_SliderWidget_Default_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Default*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_SliderWidget_Default" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Default">Default</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int? Default { get; init; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_SliderWidget_EqualityContract_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.EqualityContract*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_SliderWidget_EqualityContract" data-uid="BbQ.ChatWidgets.Models.SliderWidget.EqualityContract">EqualityContract</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Type EqualityContract { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_EqualityContract">ChatWidget.EqualityContract</a></div>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_SliderWidget_Max_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Max*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_SliderWidget_Max" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Max">Max</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Max { get; init; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_SliderWidget_Min_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Min*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_SliderWidget_Min" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Min">Min</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Min { get; init; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_SliderWidget_Purpose_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Purpose*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_SliderWidget_Purpose" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Purpose">Purpose</h4>
+  <div class="markdown level1 summary"><p>Describes the purpose and usage of this widget.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string Purpose { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Purpose">ChatWidget.Purpose</a></div>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_SliderWidget_Step_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Step*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_SliderWidget_Step" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Step">Step</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Step { get; init; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_SliderWidget_Deconstruct_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Deconstruct*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_SliderWidget_Deconstruct_System_String__System_String__System_Int32__System_Int32__System_Int32__System_Nullable_System_Int32___" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Deconstruct(System.String@,System.String@,System.Int32@,System.Int32@,System.Int32@,System.Nullable{System.Int32}@)">Deconstruct(out string, out string, out int, out int, out int, out int?)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Deconstruct(out string Label, out string Action, out int Min, out int Max, out int Step, out int? Default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">Label</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">Action</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">Min</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">Max</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">Step</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</td>
+        <td><span class="parametername">Default</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_SliderWidget_Equals_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Equals*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_SliderWidget_Equals_BbQ_ChatWidgets_Models_ChatWidget_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)">Equals(ChatWidget?)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override sealed bool Equals(ChatWidget? other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a></td>
+        <td><span class="parametername">other</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Equals_BbQ_ChatWidgets_Models_ChatWidget_">ChatWidget.Equals(ChatWidget?)</a></div>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_SliderWidget_Equals_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Equals*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_SliderWidget_Equals_BbQ_ChatWidgets_Models_SliderWidget_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Equals(BbQ.ChatWidgets.Models.SliderWidget)">Equals(SliderWidget?)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(SliderWidget? other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.SliderWidget.html">SliderWidget</a></td>
+        <td><span class="parametername">other</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_SliderWidget_Equals_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Equals*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_SliderWidget_Equals_System_Object_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.Equals(System.Object)">Equals(object?)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object? obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">obj</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Equals_System_Object_">ChatWidget.Equals(object?)</a></div>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_SliderWidget_GetHashCode_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.GetHashCode*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_SliderWidget_GetHashCode" data-uid="BbQ.ChatWidgets.Models.SliderWidget.GetHashCode">GetHashCode()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_GetHashCode">ChatWidget.GetHashCode()</a></div>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_SliderWidget_PrintMembers_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.PrintMembers*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_SliderWidget_PrintMembers_System_Text_StringBuilder_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.PrintMembers(System.Text.StringBuilder)">PrintMembers(StringBuilder)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool PrintMembers(StringBuilder builder)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a></td>
+        <td><span class="parametername">builder</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_PrintMembers_System_Text_StringBuilder_">ChatWidget.PrintMembers(StringBuilder)</a></div>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_SliderWidget_ToString_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.ToString*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_SliderWidget_ToString" data-uid="BbQ.ChatWidgets.Models.SliderWidget.ToString">ToString()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_ToString">ChatWidget.ToString()</a></div>
+  <h3 id="operators">Operators
+</h3>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_SliderWidget_op_Equality_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.op_Equality*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_SliderWidget_op_Equality_BbQ_ChatWidgets_Models_SliderWidget_BbQ_ChatWidgets_Models_SliderWidget_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.op_Equality(BbQ.ChatWidgets.Models.SliderWidget,BbQ.ChatWidgets.Models.SliderWidget)">operator ==(SliderWidget?, SliderWidget?)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(SliderWidget? left, SliderWidget? right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.SliderWidget.html">SliderWidget</a></td>
+        <td><span class="parametername">left</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.SliderWidget.html">SliderWidget</a></td>
+        <td><span class="parametername">right</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_SliderWidget_op_Inequality_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.op_Inequality*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_SliderWidget_op_Inequality_BbQ_ChatWidgets_Models_SliderWidget_BbQ_ChatWidgets_Models_SliderWidget_" data-uid="BbQ.ChatWidgets.Models.SliderWidget.op_Inequality(BbQ.ChatWidgets.Models.SliderWidget,BbQ.ChatWidgets.Models.SliderWidget)">operator !=(SliderWidget?, SliderWidget?)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(SliderWidget? left, SliderWidget? right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.SliderWidget.html">SliderWidget</a></td>
+        <td><span class="parametername">left</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.SliderWidget.html">SliderWidget</a></td>
+        <td><span class="parametername">right</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable&lt;T&gt;</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_GetSchema_BbQ_ChatWidgets_Models_ChatWidget_">ChatWidgetExtensions.GetSchema(ChatWidget)</a>
+  </div>
+  <div>
+      <a class="xref" href="BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_ToJson_BbQ_ChatWidgets_Models_ChatWidget_">ChatWidgetExtensions.ToJson(ChatWidget)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>

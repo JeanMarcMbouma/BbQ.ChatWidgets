@@ -1,61 +1,50 @@
-<#
-Generate API docs and build site (requires docfx)
+[CmdletBinding()]
+param(
+    [switch]$SkipJsDocs
+)
 
-Usage:
-  PowerShell: .\docs\generate-docs.ps1
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
 
-This script will:
- - build the `BbQ.ChatWidgets` project (Release)
- - run `docfx metadata` to produce API YAML
- - run `docfx build` to generate the site into `docs_site`
+function Assert-Command {
+    param([Parameter(Mandatory = $true)][string]$Name)
 
-If `docfx` is not installed, install via:
-  choco install docfx -y
-  # or
-  dotnet tool install -g docfx
-#>
-
-Write-Host "Building project (Release) and regenerating XML docs..."
-dotnet build BbQ.ChatWidgets/BbQ.ChatWidgets.csproj -c Release
-
-if (-not (Get-Command docfx -ErrorAction SilentlyContinue)) {
-  Write-Warning "DocFX not found. Install it (choco install docfx) or use 'dotnet tool install -g docfx' and re-run this script.";
-  exit 0
+    if (-not (Get-Command $Name -ErrorAction SilentlyContinue)) {
+        throw "Required command '$Name' was not found in PATH."
+    }
 }
 
-# Generate API metadata from compiled assembly (safer when source has compile warnings)
-Write-Host "Generating DocFX metadata from assembly..."
-docfx metadata docfx.json
+$repoRoot = Resolve-Path (Join-Path $PSScriptRoot '..')
+Push-Location $repoRoot
 
-Write-Host "Building .NET docs site into ./docs/..."
-# Build into the `docs` folder so final site lives under repository `docs/` for GitHub Pages or similar
-docfx build docfx.json -o docs
+try {
+    Assert-Command dotnet
+    Assert-Command docfx
 
-# ---- JS docs (TypeDoc) ----
-if (Test-Path "js") {
-  if (-not (Get-Command npm -ErrorAction SilentlyContinue)) {
-    Write-Warning "npm not found — skipping JS docs. Install Node/npm to generate JS docs.";
-  }
-  else {
-    Push-Location js
-    Write-Host "Installing JS dependencies (including TypeDoc)..."
-    npm install
-    if ($LASTEXITCODE -ne 0) {
-      Pop-Location
-      Write-Error "npm install failed"
-      exit $LASTEXITCODE
+    Write-Host 'Building .NET project (Release)...'
+    dotnet build 'BbQ.ChatWidgets/BbQ.ChatWidgets.csproj' -c Release
+
+    Write-Host 'Generating DocFX API metadata...'
+    docfx metadata 'docfx.json'
+
+    Write-Host 'Building DocFX site into ./docs ...'
+    docfx build 'docfx.json' -o 'docs'
+
+    if (-not $SkipJsDocs) {
+        if (Get-Command npm -ErrorAction SilentlyContinue) {
+            Write-Host 'Installing JS dependencies (npm ci)...'
+            Push-Location 'js'
+            npm ci
+            Pop-Location
+
+            Write-Host 'Generating JS docs (TypeDoc) into ./docs/js ...'
+            npx --yes typedoc --options 'js/typedoc.json'
+        }
+        else {
+            Write-Warning 'npm not found - skipping JS docs.'
+        }
     }
-    
-    Write-Host "Generating JS docs using local TypeDoc installation..."
-    npm run docs:js
-    if ($LASTEXITCODE -ne 0) {
-      Pop-Location
-      Write-Error "TypeDoc generation failed"
-      exit $LASTEXITCODE
-    }
-
+}
+finally {
     Pop-Location
-  }
 }
-
-Write-Host "Docs generation finished. Output: docs/ (and docs/js for TypeScript docs if generated)"

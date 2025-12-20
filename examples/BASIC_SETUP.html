@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Basic Setup Example | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Basic Setup Example | BbQ.ChatWidgets ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="basic-setup-example">Basic Setup Example</h1>
+
+<p>This example demonstrates the minimal configuration required to get a chat interface with widgets up and running.</p>
+<h2 id="1-server-side-programcs">1. Server-Side (<code>Program.cs</code>)</h2>
+<pre><code class="lang-csharp">using Microsoft.Extensions.AI;
+using BbQ.ChatWidgets.Extensions;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Configure OpenAI (or any other provider)
+IChatClient chatClient = new ChatClientBuilder(
+    new OpenAI.Chat.ChatClient(&quot;gpt-4o-mini&quot;, builder.Configuration[&quot;OpenAI:ApiKey&quot;]).AsIChatClient()
+).UseFunctionInvocation().Build();
+
+// Register BbQ services
+builder.Services.AddBbQChatWidgets(options =&gt;
+{
+    options.ChatClientFactory = _ =&gt; chatClient;
+});
+
+var app = builder.Build();
+
+// Map endpoints
+app.MapBbQChatEndpoints();
+
+app.Run();
+</code></pre>
+<h2 id="2-client-side-html--javascript">2. Client-Side (HTML + JavaScript)</h2>
+<pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;BbQ Chat&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/themes/bbq-chat-light.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;chat-container&quot;&gt;
+        &lt;div id=&quot;messages&quot;&gt;&lt;/div&gt;
+        &lt;input type=&quot;text&quot; id=&quot;user-input&quot; placeholder=&quot;Type a message...&quot;&gt;
+        &lt;button onclick=&quot;send()&quot;&gt;Send&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;script type=&quot;module&quot;&gt;
+        import { WidgetManager } from 'https://esm.sh/@bbq-chat/widgets';
+
+        const manager = new WidgetManager();
+        const messagesDiv = document.getElementById('messages');
+
+        window.send = async () =&gt; {
+            const input = document.getElementById('user-input');
+            const text = input.value;
+            input.value = '';
+
+            // 1. Send message to server
+            const response = await fetch('/api/chat/message', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: text })
+            });
+
+            const turn = await response.json();
+
+            // 2. Display text response
+            const msgEl = document.createElement('div');
+            msgEl.textContent = turn.content;
+            messagesDiv.appendChild(msgEl);
+
+            // 3. Render widgets
+            turn.widgets.forEach(widget =&gt; {
+                manager.render(widget, messagesDiv);
+            });
+        };
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h2 id="requestresponse-shape">Request/Response Shape</h2>
+<h3 id="request-post-apichatmessage">Request (<code>POST /api/chat/message</code>)</h3>
+<pre><code class="lang-json">{
+  &quot;message&quot;: &quot;Show me a button&quot;,
+  &quot;threadId&quot;: &quot;optional-session-id&quot;
+}
+</code></pre>
+<h3 id="response-chatturn">Response (<code>ChatTurn</code>)</h3>
+<pre><code class="lang-json">{
+  &quot;role&quot;: &quot;assistant&quot;,
+  &quot;content&quot;: &quot;Here is a button for you:&quot;,
+  &quot;widgets&quot;: [
+    {
+      &quot;type&quot;: &quot;button&quot;,
+      &quot;data&quot;: {
+        &quot;label&quot;: &quot;Click Me&quot;,
+        &quot;action&quot;: &quot;my_action&quot;
+      }
+    }
+  ],
+  &quot;threadId&quot;: &quot;optional-session-id&quot;
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/examples/BASIC_SETUP.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

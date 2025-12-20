@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Custom Implementation: Streaming &amp; SSE | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Custom Implementation: Streaming &amp; SSE | BbQ.ChatWidgets ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="custom-implementation-streaming--sse">Custom Implementation: Streaming &amp; SSE</h1>
+
+<p>This example illustrates how to use the streaming endpoints and server-pushed widget updates for a highly dynamic chat experience.</p>
+<h2 id="1-streaming-chat-responses">1. Streaming Chat Responses</h2>
+<p>Instead of waiting for the full AI response, you can stream it using Server-Sent Events (SSE).</p>
+<h3 id="client-side-javascript">Client-Side (JavaScript)</h3>
+<pre><code class="lang-javascript">const response = await fetch('/api/chat/stream/message', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: &quot;Tell me a long story&quot; })
+});
+
+const reader = response.body.getReader();
+const decoder = new TextDecoder();
+
+while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    const chunk = decoder.decode(value);
+    const lines = chunk.split('\n');
+
+    for (const line of lines) {
+        if (line.startsWith('data: ')) {
+            const turn = JSON.parse(line.substring(6));
+            console.log(&quot;Streamed content:&quot;, turn.content);
+            
+            if (!turn.isDelta) {
+                console.log(&quot;Final widgets:&quot;, turn.widgets);
+            }
+        }
+    }
+}
+</code></pre>
+<h2 id="2-server-pushed-widget-updates">2. Server-Pushed Widget Updates</h2>
+<p>You can push widget updates to the client independently of the chat stream. This is useful for long-running tasks or real-time data updates (e.g., a progress bar or a live chart).</p>
+<h3 id="client-side-subscribing-to-a-stream">Client-Side: Subscribing to a Stream</h3>
+<pre><code class="lang-javascript">const streamId = &quot;my-task-123&quot;;
+const eventSource = new EventSource(`/api/chat/widgets/streams/${streamId}/events`);
+
+eventSource.onmessage = (event) =&gt; {
+    const widget = JSON.parse(event.data);
+    console.log(&quot;Received server-pushed widget:&quot;, widget);
+    // Update the UI with the new widget state
+};
+</code></pre>
+<h3 id="server-side-publishing-an-update">Server-Side: Publishing an Update</h3>
+<p>You can publish updates from anywhere in your backend using the <code>IWidgetSseService</code>.</p>
+<pre><code class="lang-csharp">public class MyBackgroundService(IWidgetSseService sseService)
+{
+    public async Task UpdateProgress(string streamId, int progress)
+    {
+        var widget = new ProgressBarWidget(&quot;Processing...&quot;, progress);
+        await sseService.PublishAsync(streamId, widget);
+    }
+}
+</code></pre>
+<h2 id="summary-of-endpoints">Summary of Endpoints</h2>
+<ul>
+<li><strong><code>POST /api/chat/stream/message</code></strong>: Initiates a streaming chat response.</li>
+<li><strong><code>GET /api/chat/widgets/streams/{id}/events</code></strong>: Subscribes to a specific widget update stream.</li>
+<li><strong><code>POST /api/chat/widgets/streams/{id}/events</code></strong>: Publishes a widget to a specific stream (can also be done via the <code>IWidgetSseService</code> in C#).</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/examples/CUSTOM_IMPLEMENTATION.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

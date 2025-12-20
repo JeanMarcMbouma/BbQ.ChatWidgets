@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Architecture Guide | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Architecture Guide | BbQ.ChatWidgets ">
+    
+    
+      <link rel="shortcut icon" href="favicon.ico">
+      <link rel="stylesheet" href="styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="styles/docfx.css">
+      <link rel="stylesheet" href="styles/main.css">
+      <meta property="docfx:navrel" content="toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="index.html">
+                <img id="logo" class="svg" src="logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="architecture-guide">Architecture Guide</h1>
+
+<p>BbQ.ChatWidgets is designed as a distributed system that coordinates between a .NET backend and a JavaScript-based frontend. This guide explains the core components and the data flow between them.</p>
+<h2 id="high-level-overview">High-Level Overview</h2>
+<p>The system follows a &quot;Server-Driven UI&quot; pattern for chat. The LLM decides which widgets are appropriate for the conversation, and the server provides the metadata and templates required for the frontend to render them.</p>
+<h3 id="core-components">Core Components</h3>
+<h4 id="1-server-side-net">1. Server-Side (.NET)</h4>
+<ul>
+<li><strong><code>ChatWidgetService</code></strong>: The central orchestrator. It manages conversation threads, interacts with the <code>IChatClient</code>, parses widget hints from AI responses, and dispatches widget actions.</li>
+<li><strong><code>WidgetRegistry</code></strong>: A catalog of available widget templates. Each widget (e.g., <code>ButtonWidget</code>, <code>FormWidget</code>) is registered here as a live instance.</li>
+<li><strong><code>IThreadService</code></strong>: Manages conversation history. The default implementation is in-memory (<code>DefaultThreadService</code>), but it can be replaced with a persistent store.</li>
+<li><strong><code>IWidgetActionRegistry</code></strong>: Maps widget actions (e.g., &quot;submit_form&quot;) to their corresponding server-side handlers.</li>
+<li><strong><code>IAIInstructionProvider</code></strong>: Generates the system prompt that tells the LLM how to use widgets and what actions are available.</li>
+</ul>
+<h4 id="2-client-side-javascripttypescript">2. Client-Side (JavaScript/TypeScript)</h4>
+<ul>
+<li><strong><code>WidgetManager</code></strong>: The primary entry point for rendering widgets. It maintains a registry of component renderers and handles the lifecycle of widgets in the DOM.</li>
+<li><strong><code>WidgetSseManager</code></strong>: Handles real-time server-pushed updates for widgets via Server-Sent Events (SSE).</li>
+<li><strong>Action Dispatcher</strong>: Forwards user interactions (like clicking a button or submitting a form) back to the server's <code>/api/chat/action</code> endpoint.</li>
+</ul>
+<h2 id="data-flow">Data Flow</h2>
+<h3 id="1-message-request">1. Message Request</h3>
+<ol>
+<li>The frontend sends a <code>POST</code> request to <code>/api/chat/message</code> with the user's text.</li>
+<li><code>ChatWidgetService</code> retrieves the conversation history from <code>IThreadService</code>.</li>
+<li>It calls the <code>IChatClient</code> (e.g., OpenAI) with the history and a system prompt generated by <code>IAIInstructionProvider</code>.</li>
+<li>The LLM responds, potentially including <code>&lt;widget&gt;...&lt;/widget&gt;</code> tags or calling the <code>get_widget_tools</code> function.</li>
+<li><code>ChatWidgetService</code> parses these hints, creates the widget metadata, and returns a <code>ChatTurn</code> object containing the text and the list of widgets.</li>
+</ol>
+<h3 id="2-widget-action">2. Widget Action</h3>
+<ol>
+<li>The user interacts with a widget (e.g., clicks a &quot;Confirm&quot; button).</li>
+<li>The frontend sends a <code>POST</code> request to <code>/api/chat/action</code> with the action name and payload.</li>
+<li><code>ChatWidgetService</code> resolves the appropriate handler via <code>IWidgetActionHandlerResolver</code>.</li>
+<li>The handler executes (e.g., updates a database) and returns a response.</li>
+<li>The response is appended to the conversation thread, and the updated state is returned to the client.</li>
+</ol>
+<h3 id="3-streaming-sse">3. Streaming (SSE)</h3>
+<ol>
+<li>The frontend connects to <code>/api/chat/stream/message</code>.</li>
+<li>The server streams <code>ChatTurn</code> deltas as they are generated by the LLM.</li>
+<li>The final event in the stream contains the full <code>ChatTurn</code> with all resolved widgets.</li>
+</ol>
+<h2 id="extension-points">Extension Points</h2>
+<p>BbQ.ChatWidgets is highly extensible. You can swap out almost any component by providing your own implementation of the core interfaces:</p>
+<ul>
+<li><strong>Custom Widgets</strong>: Implement <code>IChatWidget</code> and register it in the <code>WidgetRegistry</code>.</li>
+<li><strong>Custom Persistence</strong>: Implement <code>IThreadService</code> to store conversations in SQL, NoSQL, or Redis.</li>
+<li><strong>Custom AI Logic</strong>: Replace <code>IAIInstructionProvider</code> or <code>IAIToolsProvider</code> to change how the LLM is guided.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/ARCHITECTURE.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>

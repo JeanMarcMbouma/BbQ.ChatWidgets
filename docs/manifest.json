@@ -1,5 +1,5 @@
 {
-  "source_base_path": "C:/Users/jm/source/repos/BbQ.ChatWidgets",
+  "source_base_path": "/home/runner/work/BbQ.ChatWidgets/BbQ.ChatWidgets",
   "xrefmap": "xrefmap.yml",
   "files": [
     {
@@ -634,6 +634,34 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for registering typed action handlers.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for convenient widget registration.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Extensions.yml",
       "output": {
         ".html": {
@@ -1138,20 +1166,6 @@
     },
     {
       "type": "ManagedReference",
-      "source_relative_path": "api/BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.yml",
-      "output": {
-        ".html": {
-          "relative_path": "BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry",
-      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.yml\" sourcestartlinenumber=\"1\">Default in-memory implementation of <xref href=\"BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Services.DefaultWidgetHintParser.yml",
       "output": {
         ".html": {
@@ -1177,20 +1191,6 @@
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider",
       "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider.yml\" sourcestartlinenumber=\"1\">Default implementation of <xref href=\"BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider\" data-throw-if-not-resolved=\"false\"></xref> that provides AI tools\nfor all available widget instances registered in the widget registry.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions",
-      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for registering typed action handlers.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1233,20 +1233,6 @@
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Services.WidgetRegistry",
       "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.WidgetRegistry.yml\" sourcestartlinenumber=\"1\">Central registry for widget instances.</p>\n"
-    },
-    {
-      "type": "ManagedReference",
-      "source_relative_path": "api/BbQ.ChatWidgets.Services.WidgetRegistryExtensions.yml",
-      "output": {
-        ".html": {
-          "relative_path": "BbQ.ChatWidgets.Services.WidgetRegistryExtensions.html"
-        }
-      },
-      "version": "",
-      "Uid": null,
-      "IsMRef": true,
-      "Title": "BbQ.ChatWidgets.Services.WidgetRegistryExtensions",
-      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.WidgetRegistryExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for convenient widget registration.</p>\n"
     },
     {
       "type": "ManagedReference",

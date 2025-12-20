@@ -5,11 +5,11 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Class Serialization | BbQ.ChatWidgets </title>
+      <title>Class WidgetActionHandlerExtensions | BbQ.ChatWidgets </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Class Serialization | BbQ.ChatWidgets ">
+      <meta name="title" content="Class WidgetActionHandlerExtensions | BbQ.ChatWidgets ">
     
-    <meta name="description" content="Provides centralized JSON serialization configuration for BbQ ChatWidgets.">
+    <meta name="description" content="Extension methods for registering typed action handlers.">
       <link rel="shortcut icon" href="favicon.ico">
       <link rel="stylesheet" href="styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="styles/docfx.css">
@@ -69,18 +69,18 @@
       <div role="main" class="container body-content hide-when-search">
         <div class="article row grid">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="BbQ.ChatWidgets.Models.Serialization">
+            <article class="content wrap" id="_content" data-uid="BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions">
 
 
 
-  <h1 id="BbQ_ChatWidgets_Models_Serialization" data-uid="BbQ.ChatWidgets.Models.Serialization" class="text-break">Class Serialization</h1>
-  <div class="markdown level0 summary"><p>Provides centralized JSON serialization configuration for BbQ ChatWidgets.</p>
+  <h1 id="BbQ_ChatWidgets_Extensions_WidgetActionHandlerExtensions" data-uid="BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions" class="text-break">Class WidgetActionHandlerExtensions</h1>
+  <div class="markdown level0 summary"><p>Extension methods for registering typed action handlers.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-    <div class="level1"><span class="xref">Serialization</span></div>
+    <div class="level1"><span class="xref">WidgetActionHandlerExtensions</span></div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -106,82 +106,26 @@
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="BbQ.html">BbQ</a>.<a class="xref" href="BbQ.ChatWidgets.html">ChatWidgets</a>.<a class="xref" href="BbQ.ChatWidgets.Models.html">Models</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="BbQ.html">BbQ</a>.<a class="xref" href="BbQ.ChatWidgets.html">ChatWidgets</a>.<a class="xref" href="BbQ.ChatWidgets.Extensions.html">Extensions</a></h6>
   <h6><strong>Assembly</strong>: BbQ.ChatWidgets.dll</h6>
-  <h5 id="BbQ_ChatWidgets_Models_Serialization_syntax">Syntax</h5>
+  <h5 id="BbQ_ChatWidgets_Extensions_WidgetActionHandlerExtensions_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static class Serialization</code></pre>
+    <pre><code class="lang-csharp hljs">public static class WidgetActionHandlerExtensions</code></pre>
   </div>
-  <h5 id="BbQ_ChatWidgets_Models_Serialization_remarks"><strong>Remarks</strong></h5>
-  <div class="markdown level0 remarks"><p>This static class defines the JSON serialization options used throughout the library.
-It ensures consistent JSON formatting for:</p>
-<ul>
-<li>Widget definitions (including custom widgets)</li>
-<li>Chat messages</li>
-<li>API requests and responses</li>
-<li>Structured AI responses</li>
-</ul>
-<p>Configuration:</p>
-<ul>
-<li>PropertyNamingPolicy: camelCase (standard for APIs and JavaScript)</li>
-<li>WriteIndented: false (compact JSON for network efficiency)</li>
-<li>Support for custom widget types via ICustomWidgetRegistry</li>
-</ul>
-</div>
-  <h3 id="properties">Properties
-</h3>
-
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-toc-issues/BbQ.ChatWidgets/Models/Serialization.cs">View Source</a>
-  </span>
-  <a id="BbQ_ChatWidgets_Models_Serialization_Default_" data-uid="BbQ.ChatWidgets.Models.Serialization.Default*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_Serialization_Default" data-uid="BbQ.ChatWidgets.Models.Serialization.Default">Default</h4>
-  <div class="markdown level1 summary"><p>Gets the default JSON serializer options used by BbQ ChatWidgets.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static JsonSerializerOptions Default { get; }</code></pre>
-  </div>
-  <h5 class="propertyValue">Property Value</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonserializeroptions">JsonSerializerOptions</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 id="BbQ_ChatWidgets_Models_Serialization_Default_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>This option instance should be used for all JSON serialization/deserialization
-within the library to ensure consistency. It uses:</p>
-<ul>
-<li>camelCase for property names (e.g., &quot;message&quot; instead of &quot;Message&quot;)</li>
-<li>Non-indented output for efficiency</li>
-<li>Support for polymorphic type serialization</li>
-<li>Support for custom widget types (if registry is set)</li>
-</ul>
-</div>
   <h3 id="methods">Methods
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-toc-issues/BbQ.ChatWidgets/Models/Serialization.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-toc-issues/BbQ.ChatWidgets/Extensions/WidgetActionHandlerExtensions.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_Serialization_SetCustomWidgetRegistry_" data-uid="BbQ.ChatWidgets.Models.Serialization.SetCustomWidgetRegistry*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_Serialization_SetCustomWidgetRegistry_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_" data-uid="BbQ.ChatWidgets.Models.Serialization.SetCustomWidgetRegistry(BbQ.ChatWidgets.Abstractions.IWidgetRegistry)">SetCustomWidgetRegistry(IWidgetRegistry)</h4>
-  <div class="markdown level1 summary"><p>Sets the custom widget registry for custom widget deserialization support.</p>
+  <a id="BbQ_ChatWidgets_Extensions_WidgetActionHandlerExtensions_RegisterHandler_" data-uid="BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.RegisterHandler*"></a>
+  <h4 id="BbQ_ChatWidgets_Extensions_WidgetActionHandlerExtensions_RegisterHandler__3_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_" data-uid="BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)">RegisterHandler&lt;TAction, TPayload, THandler&gt;(IWidgetActionRegistry, IWidgetActionHandlerResolver)</h4>
+  <div class="markdown level1 summary"><p>Registers a typed action handler with both the action registry and handler resolver.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void SetCustomWidgetRegistry(IWidgetRegistry registry)</code></pre>
+    <pre><code class="lang-csharp hljs">public static void RegisterHandler&lt;TAction, TPayload, THandler&gt;(this IWidgetActionRegistry registry, IWidgetActionHandlerResolver resolver) where TAction : notnull, IWidgetAction&lt;TPayload&gt;, new() where TPayload : notnull where THandler : notnull, IActionWidgetActionHandler&lt;TAction, TPayload&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -194,15 +138,57 @@ within the library to ensure consistency. It uses:</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.html">IWidgetRegistry</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html">IWidgetActionRegistry</a></td>
         <td><span class="parametername">registry</span></td>
         <td></td>
       </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html">IWidgetActionHandlerResolver</a></td>
+        <td><span class="parametername">resolver</span></td>
+        <td><p>The handler resolver where the handler type will be registered.</p>
+</td>
+      </tr>
     </tbody>
   </table>
-  <h5 id="BbQ_ChatWidgets_Models_Serialization_SetCustomWidgetRegistry_BbQ_ChatWidgets_Abstractions_IWidgetRegistry__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>This is set automatically when AddCustomWidgetSupport is called in dependency injection.
-The registry allows deserializing custom widget types defined outside the library.</p>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TAction</span></td>
+        <td><p>The action type implementing <code>IWidgetAction{T}</code>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TPayload</span></td>
+        <td><p>The payload type for this action.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">THandler</span></td>
+        <td><p>The handler type implementing <code>IActionWidgetActionHandler{TWidgetAction, T}</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="BbQ_ChatWidgets_Extensions_WidgetActionHandlerExtensions_RegisterHandler__3_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This extension method provides a convenient API for registering actions with their handlers in a type-safe manner.
+It:</p>
+<ol>
+<li>Creates action metadata from the action instance</li>
+<li>Registers the metadata with the action registry</li>
+<li>Registers the handler type with the resolver</li>
+</ol>
+<p>Use this method when setting up custom widget actions:</p>
+<pre><code class="lang-csharp">registry.RegisterHandler&lt;MyAction, MyPayload, MyHandler&gt;(
+    resolver,
+    new MyAction("my_action", "Does something")
+);</code></pre>
 </div>
 
 </article>
@@ -213,7 +199,7 @@ The registry allows deserializing custom widget types defined outside the librar
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-toc-issues/BbQ.ChatWidgets/Models/Serialization.cs" class="contribution-link">View Source</a>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-toc-issues/BbQ.ChatWidgets/Extensions/WidgetActionHandlerExtensions.cs" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

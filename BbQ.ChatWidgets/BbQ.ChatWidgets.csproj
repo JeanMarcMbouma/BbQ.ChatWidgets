@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DocumentationFile>bin\\$(Configuration)\\$(TargetFramework)\\BbQ.ChatWidgets.xml</DocumentationFile>
+    <PackageId>BbQ.ChatWidgets</PackageId>
+    <Authors>Jean Marc Mbouma</Authors>
+    <Description>Framework-agnostic widgets for AI chat UIs, powered by Microsoft.Extensions.AI.</Description>
+    <RepositoryUrl>https://github.com/JeanMarcMbouma/BbQ.ChatWidgets</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/JeanMarcMbouma/BbQ.ChatWidgets</PackageProjectUrl>
+    <PackageTags>chat;widgets;ai;ui;aspnetcore;chat-ui;interactive-widgets</PackageTags>
+    <Version>1.0.0</Version>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BbQ.Outcome" Version="1.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.3.0" />
+    <PackageReference Include="Microsoft.Extensions.AI" Version="*" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <!-- Include CSS themes in NuGet package -->
+  <ItemGroup>
+    <None Include="themes\bbq-chat-light.css" Pack="true" PackagePath="contentFiles\any\any\themes\" />
+    <None Include="themes\bbq-chat-dark.css" Pack="true" PackagePath="contentFiles\any\any\themes\" />
+    <None Include="themes\bbq-chat-corporate.css" Pack="true" PackagePath="contentFiles\any\any\themes\" />
+  </ItemGroup>
+
+  <!-- Include documentation in NuGet package -->
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+</Project>

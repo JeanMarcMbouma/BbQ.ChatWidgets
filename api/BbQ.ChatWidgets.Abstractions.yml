@@ -1,0 +1,223 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Abstractions
+  commentId: N:BbQ.ChatWidgets.Abstractions
+  id: BbQ.ChatWidgets.Abstractions
+  children:
+  - BbQ.ChatWidgets.Abstractions.IAIInstructionProvider
+  - BbQ.ChatWidgets.Abstractions.IAIToolsProvider
+  - BbQ.ChatWidgets.Abstractions.IActionWidgetActionHandler`2
+  - BbQ.ChatWidgets.Abstractions.IRecyclableWidget
+  - BbQ.ChatWidgets.Abstractions.IThreadService
+  - BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+  - BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata
+  - BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+  - BbQ.ChatWidgets.Abstractions.IWidgetAction`1
+  - BbQ.ChatWidgets.Abstractions.IWidgetHintParser
+  - BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer
+  - BbQ.ChatWidgets.Abstractions.IWidgetLocalizer
+  - BbQ.ChatWidgets.Abstractions.IWidgetRegistry
+  - BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider
+  langs:
+  - csharp
+  - vb
+  name: BbQ.ChatWidgets.Abstractions
+  nameWithType: BbQ.ChatWidgets.Abstractions
+  fullName: BbQ.ChatWidgets.Abstractions
+  type: Namespace
+  assemblies:
+  - BbQ.ChatWidgets
+references:
+- uid: BbQ.ChatWidgets.Abstractions.IAIInstructionProvider
+  commentId: T:BbQ.ChatWidgets.Abstractions.IAIInstructionProvider
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.html
+  name: IAIInstructionProvider
+  nameWithType: IAIInstructionProvider
+  fullName: BbQ.ChatWidgets.Abstractions.IAIInstructionProvider
+- uid: BbQ.ChatWidgets.Abstractions.IAIToolsProvider
+  commentId: T:BbQ.ChatWidgets.Abstractions.IAIToolsProvider
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IAIToolsProvider.html
+  name: IAIToolsProvider
+  nameWithType: IAIToolsProvider
+  fullName: BbQ.ChatWidgets.Abstractions.IAIToolsProvider
+- uid: BbQ.ChatWidgets.Abstractions.IRecyclableWidget
+  commentId: T:BbQ.ChatWidgets.Abstractions.IRecyclableWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IRecyclableWidget.html
+  name: IRecyclableWidget
+  nameWithType: IRecyclableWidget
+  fullName: BbQ.ChatWidgets.Abstractions.IRecyclableWidget
+- uid: BbQ.ChatWidgets.Abstractions.IThreadService
+  commentId: T:BbQ.ChatWidgets.Abstractions.IThreadService
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IThreadService.html
+  name: IThreadService
+  nameWithType: IThreadService
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadService
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetAction`1
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetAction`1
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetAction-1.html
+  name: IWidgetAction<T>
+  nameWithType: IWidgetAction<T>
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetAction<T>
+  nameWithType.vb: IWidgetAction(Of T)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IWidgetAction(Of T)
+  name.vb: IWidgetAction(Of T)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetAction`1
+    name: IWidgetAction
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetAction-1.html
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetAction`1
+    name: IWidgetAction
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetAction-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: BbQ.ChatWidgets.Abstractions.IActionWidgetActionHandler`2
+  commentId: T:BbQ.ChatWidgets.Abstractions.IActionWidgetActionHandler`2
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IActionWidgetActionHandler-2.html
+  name: IActionWidgetActionHandler<TWidgetAction, T>
+  nameWithType: IActionWidgetActionHandler<TWidgetAction, T>
+  fullName: BbQ.ChatWidgets.Abstractions.IActionWidgetActionHandler<TWidgetAction, T>
+  nameWithType.vb: IActionWidgetActionHandler(Of TWidgetAction, T)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IActionWidgetActionHandler(Of TWidgetAction, T)
+  name.vb: IActionWidgetActionHandler(Of TWidgetAction, T)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Abstractions.IActionWidgetActionHandler`2
+    name: IActionWidgetActionHandler
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IActionWidgetActionHandler-2.html
+  - name: <
+  - name: TWidgetAction
+  - name: ','
+  - name: " "
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Abstractions.IActionWidgetActionHandler`2
+    name: IActionWidgetActionHandler
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IActionWidgetActionHandler-2.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TWidgetAction
+  - name: ','
+  - name: " "
+  - name: T
+  - name: )
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html
+  name: IWidgetActionHandlerResolver
+  nameWithType: IWidgetActionHandlerResolver
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata.html
+  name: IWidgetActionMetadata
+  nameWithType: IWidgetActionMetadata
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html
+  name: IWidgetActionRegistry
+  nameWithType: IWidgetActionRegistry
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetHintParser
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetHintParser
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetHintParser.html
+  name: IWidgetHintParser
+  nameWithType: IWidgetHintParser
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetHintParser
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.html
+  name: IWidgetHintSanitizer
+  nameWithType: IWidgetHintSanitizer
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetLocalizer
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetLocalizer
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetLocalizer.html
+  name: IWidgetLocalizer
+  nameWithType: IWidgetLocalizer
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetLocalizer
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetRegistry
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetRegistry
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetRegistry.html
+  name: IWidgetRegistry
+  nameWithType: IWidgetRegistry
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetRegistry
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.html
+  name: IWidgetToolsProvider
+  nameWithType: IWidgetToolsProvider
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider
+- uid: BbQ.ChatWidgets.Abstractions
+  commentId: N:BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Abstractions
+  nameWithType: BbQ.ChatWidgets.Abstractions
+  fullName: BbQ.ChatWidgets.Abstractions
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Class ChatWidgetService | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Class ChatWidgetService | BbQ.ChatWidgets ">
+    
+    <meta name="description" content="Orchestrates chat widget interactions by managing message processing, widget tool availability, and conversation threading.">
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService">
+
+
+
+  <h1 id="BbQ_ChatWidgets_Services_ChatWidgetService" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService" class="text-break">Class ChatWidgetService</h1>
+  <div class="markdown level0 summary"><p>Orchestrates chat widget interactions by managing message processing, widget tool availability,
+and conversation threading.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">ChatWidgetService</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="BbQ.html">BbQ</a>.<a class="xref" href="BbQ.ChatWidgets.html">ChatWidgets</a>.<a class="xref" href="BbQ.ChatWidgets.Services.html">Services</a></h6>
+  <h6><strong>Assembly</strong>: BbQ.ChatWidgets.dll</h6>
+  <h5 id="BbQ_ChatWidgets_Services_ChatWidgetService_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class ChatWidgetService</code></pre>
+  </div>
+  <h5 id="BbQ_ChatWidgets_Services_ChatWidgetService_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>This service is the central hub for chat widget functionality. It:</p>
+<ul>
+<li>Manages conversation threads and message history</li>
+<li>Provides available widget tools to the AI chat client</li>
+<li>Processes user messages and generates responses with embedded widgets</li>
+<li>Handles widget actions triggered by user interactions using type-safe handlers</li>
+</ul>
+<p>The service integrates with:</p>
+<ul>
+<li><span class="xref">Microsoft.Extensions.AI.IChatClient</span> for AI responses</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintParser.yml">IWidgetHintParser</a> for parsing widget definitions from AI responses</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.yml">IWidgetHintSanitizer</a> for sanitizing incomplete widget markup</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.yml">IWidgetToolsProvider</a> for exposing widget capabilities</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIToolsProvider.yml">IAIToolsProvider</a> for additional AI tools</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IThreadService.yml">IThreadService</a> for conversation management</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.yml">IAIInstructionProvider</a> for custom AI instructions</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.yml">IWidgetActionRegistry</a> for action metadata</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.yml">IWidgetActionHandlerResolver</a> for handler resolution</li>
+</ul>
+</div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="BbQ_ChatWidgets_Services_ChatWidgetService__ctor_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.#ctor*"></a>
+  <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)">ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver)</h4>
+  <div class="markdown level1 summary"><p>Orchestrates chat widget interactions by managing message processing, widget tool availability,
+and conversation threading.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ChatWidgetService(IChatClient chat, IWidgetHintParser widgetHintParser, IWidgetHintSanitizer widgetHintSanitizer, IWidgetToolsProvider widgetToolsProvider, IAIToolsProvider aiToolsProvider, IThreadService threadService, IAIInstructionProvider instructionProvider, IWidgetActionRegistry actionRegistry, IWidgetActionHandlerResolver handlerResolver)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">IChatClient</span></td>
+        <td><span class="parametername">chat</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintParser.yml">IWidgetHintParser</a></td>
+        <td><span class="parametername">widgetHintParser</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.yml">IWidgetHintSanitizer</a></td>
+        <td><span class="parametername">widgetHintSanitizer</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.yml">IWidgetToolsProvider</a></td>
+        <td><span class="parametername">widgetToolsProvider</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIToolsProvider.yml">IAIToolsProvider</a></td>
+        <td><span class="parametername">aiToolsProvider</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IThreadService.yml">IThreadService</a></td>
+        <td><span class="parametername">threadService</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.yml">IAIInstructionProvider</a></td>
+        <td><span class="parametername">instructionProvider</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.yml">IWidgetActionRegistry</a></td>
+        <td><span class="parametername">actionRegistry</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.yml">IWidgetActionHandlerResolver</a></td>
+        <td><span class="parametername">handlerResolver</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This service is the central hub for chat widget functionality. It:</p>
+<ul>
+<li>Manages conversation threads and message history</li>
+<li>Provides available widget tools to the AI chat client</li>
+<li>Processes user messages and generates responses with embedded widgets</li>
+<li>Handles widget actions triggered by user interactions using type-safe handlers</li>
+</ul>
+<p>The service integrates with:</p>
+<ul>
+<li><span class="xref">Microsoft.Extensions.AI.IChatClient</span> for AI responses</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintParser.yml">IWidgetHintParser</a> for parsing widget definitions from AI responses</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.yml">IWidgetHintSanitizer</a> for sanitizing incomplete widget markup</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.yml">IWidgetToolsProvider</a> for exposing widget capabilities</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIToolsProvider.yml">IAIToolsProvider</a> for additional AI tools</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IThreadService.yml">IThreadService</a> for conversation management</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.yml">IAIInstructionProvider</a> for custom AI instructions</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.yml">IWidgetActionRegistry</a> for action metadata</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.yml">IWidgetActionHandlerResolver</a> for handler resolution</li>
+</ul>
+</div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="BbQ_ChatWidgets_Services_ChatWidgetService_HandleActionAsync_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.HandleActionAsync*"></a>
+  <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService_HandleActionAsync_System_String_System_Collections_Generic_IReadOnlyDictionary_System_String_System_Object__System_String_System_IServiceProvider_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.HandleActionAsync(System.String,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.IServiceProvider,System.Threading.CancellationToken)">HandleActionAsync(string, IReadOnlyDictionary&lt;string, object?&gt;, string, IServiceProvider, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Processes an action triggered by a widget and generates a response.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;ChatTurn&gt; HandleActionAsync(string action, IReadOnlyDictionary&lt;string, object?&gt; payload, string threadId, IServiceProvider serviceProvider, CancellationToken ct = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action identifier from the widget (e.g., &quot;submit&quot;, &quot;delete&quot;, &quot;select_option&quot;).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlydictionary-2">IReadOnlyDictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>&gt;</td>
+        <td><span class="parametername">payload</span></td>
+        <td><p>Optional data associated with the action (e.g., form values, selected options).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">threadId</span></td>
+        <td><p>The conversation thread ID for maintaining context.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a></td>
+        <td><span class="parametername">serviceProvider</span></td>
+        <td><p>The service provider for resolving dependencies.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>Cancellation token to cancel the async operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a>&gt;</td>
+        <td><p>A task that completes with a <a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.yml">ChatTurn</a> containing the action response
+with any resulting widgets.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="BbQ_ChatWidgets_Services_ChatWidgetService_HandleActionAsync_System_String_System_Collections_Generic_IReadOnlyDictionary_System_String_System_Object__System_String_System_IServiceProvider_System_Threading_CancellationToken__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method is called when a user interacts with a widget (e.g., clicks a button, submits a form).
+It:</p>
+<ol>
+<li>Looks up the action metadata from the registry</li>
+<li>Resolves the appropriate typed handler</li>
+<li>Deserializes the payload to the correct type</li>
+<li>Invokes the handler with type-safe parameters</li>
+<li>Appends the response to thread history</li>
+</ol>
+<p>The response may contain additional widgets for continued interaction.</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
+        <td><p>Thrown if no handler is registered for the action.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></td>
+        <td><p>Thrown if the operation is cancelled via the cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="BbQ_ChatWidgets_Services_ChatWidgetService_RespondAsync_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync*"></a>
+  <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService_RespondAsync_System_String_System_String_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync(System.String,System.String,System.Threading.CancellationToken)">RespondAsync(string, string?, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Processes a user message and generates an AI response with optional embedded widgets.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;ChatTurn&gt; RespondAsync(string userMessage, string? threadId = null, CancellationToken ct = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">userMessage</span></td>
+        <td><p>The message from the user to send to the AI.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">threadId</span></td>
+        <td><p>The conversation thread ID. If null or non-existent, a new thread is created.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>Cancellation token to cancel the async operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a>&gt;</td>
+        <td><p>A task that completes with a <a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.yml">ChatTurn</a> containing:</p>
+<ul>
+<li>The assistant's response content (with widget markers removed)</li>
+<li>Any parsed widget definitions from the response</li>
+<li>The conversation thread ID</li>
+</ul>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="BbQ_ChatWidgets_Services_ChatWidgetService_RespondAsync_System_String_System_String_System_Threading_CancellationToken__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method:</p>
+<ol>
+<li>Validates or creates a conversation thread</li>
+<li>Appends the user message to the thread history</li>
+<li>Retrieves available widget tools from the tools provider</li>
+<li>Sends the message to the AI chat client with widget tools enabled</li>
+<li>Parses the AI response to extract widgets and clean content</li>
+<li>Returns a ChatTurn with both content and parsed widgets</li>
+</ol>
+<p>The AI model receives widget tool definitions allowing it to embed interactive widgets
+in its responses using the <code>&lt;widget&gt;...&lt;/widget&gt;</code> format.</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></td>
+        <td><p>Thrown if the operation is cancelled via the cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="BbQ_ChatWidgets_Services_ChatWidgetService_StreamResponseAsync_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync*"></a>
+  <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService_StreamResponseAsync_System_String_System_String_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync(System.String,System.String,System.Threading.CancellationToken)">StreamResponseAsync(string, string?, CancellationToken)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IAsyncEnumerable&lt;ChatTurn&gt; StreamResponseAsync(string userMessage, string? threadId, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">userMessage</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">threadId</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,323 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgent
+  commentId: T:BbQ.ChatWidgets.Agents.Abstractions.IAgent
+  id: IAgent
+  parent: BbQ.ChatWidgets.Agents.Abstractions
+  children:
+  - BbQ.ChatWidgets.Agents.Abstractions.IAgent.InvokeAsync(BbQ.ChatWidgets.Agents.ChatRequest,System.Threading.CancellationToken)
+  langs:
+  - csharp
+  - vb
+  name: IAgent
+  nameWithType: IAgent
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgent
+  type: Interface
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Agents/Abstractions/IAgent.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents.Abstractions
+  summary: Represents an agent that processes chat requests and returns outcomes.
+  remarks: >-
+    An agent is a component that handles chat operations in the agent pipeline.
+
+    Agents are chained together to process requests through multiple stages,
+
+    allowing for modular, composable request handling.
+
+
+    Implementers should:
+
+    - Process the chat request
+
+    - Return an Outcome indicating success or failure
+
+    - Propagate cancellation requests
+  example: []
+  syntax:
+    content: public interface IAgent
+    content.vb: Public Interface IAgent
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgent.InvokeAsync(BbQ.ChatWidgets.Agents.ChatRequest,System.Threading.CancellationToken)
+  commentId: M:BbQ.ChatWidgets.Agents.Abstractions.IAgent.InvokeAsync(BbQ.ChatWidgets.Agents.ChatRequest,System.Threading.CancellationToken)
+  id: InvokeAsync(BbQ.ChatWidgets.Agents.ChatRequest,System.Threading.CancellationToken)
+  parent: BbQ.ChatWidgets.Agents.Abstractions.IAgent
+  langs:
+  - csharp
+  - vb
+  name: InvokeAsync(ChatRequest, CancellationToken)
+  nameWithType: IAgent.InvokeAsync(ChatRequest, CancellationToken)
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgent.InvokeAsync(BbQ.ChatWidgets.Agents.ChatRequest, System.Threading.CancellationToken)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Agents/Abstractions/IAgent.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents.Abstractions
+  summary: Invokes the agent to process a chat request.
+  remarks: >-
+    This method processes the request through the agent pipeline and returns
+
+    an Outcome that indicates success (with ChatTurn result) or failure (with errors).
+  example: []
+  syntax:
+    content: Task<Outcome<ChatTurn>> InvokeAsync(ChatRequest request, CancellationToken cancellationToken)
+    parameters:
+    - id: request
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+      description: The chat request to process.
+    - id: cancellationToken
+      type: System.Threading.CancellationToken
+      description: Token to cancel the async operation.
+    return:
+      type: System.Threading.Tasks.Task{BbQ.Outcome.Outcome{BbQ.ChatWidgets.Models.ChatTurn}}
+      description: An Outcome containing either a ChatTurn result or error information.
+    content.vb: Function InvokeAsync(request As ChatRequest, cancellationToken As CancellationToken) As Task(Of Outcome(Of ChatTurn))
+  overload: BbQ.ChatWidgets.Agents.Abstractions.IAgent.InvokeAsync*
+references:
+- uid: BbQ.ChatWidgets.Agents.Abstractions
+  commentId: N:BbQ.ChatWidgets.Agents.Abstractions
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Agents.Abstractions
+  nameWithType: BbQ.ChatWidgets.Agents.Abstractions
+  fullName: BbQ.ChatWidgets.Agents.Abstractions
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.Abstractions.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.Abstractions.html
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgent.InvokeAsync*
+  commentId: Overload:BbQ.ChatWidgets.Agents.Abstractions.IAgent.InvokeAsync
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.Abstractions.IAgent.html#BbQ_ChatWidgets_Agents_Abstractions_IAgent_InvokeAsync_BbQ_ChatWidgets_Agents_ChatRequest_System_Threading_CancellationToken_
+  name: InvokeAsync
+  nameWithType: IAgent.InvokeAsync
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgent.InvokeAsync
+- uid: BbQ.ChatWidgets.Agents.ChatRequest
+  commentId: T:BbQ.ChatWidgets.Agents.ChatRequest
+  parent: BbQ.ChatWidgets.Agents
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.ChatRequest.html
+  name: ChatRequest
+  nameWithType: ChatRequest
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task{BbQ.Outcome.Outcome{BbQ.ChatWidgets.Models.ChatTurn}}
+  commentId: T:System.Threading.Tasks.Task{BbQ.Outcome.Outcome{BbQ.ChatWidgets.Models.ChatTurn}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<Outcome<ChatTurn>>
+  nameWithType: Task<Outcome<ChatTurn>>
+  fullName: System.Threading.Tasks.Task<BbQ.Outcome.Outcome<BbQ.ChatWidgets.Models.ChatTurn>>
+  nameWithType.vb: Task(Of Outcome(Of ChatTurn))
+  fullName.vb: System.Threading.Tasks.Task(Of BbQ.Outcome.Outcome(Of BbQ.ChatWidgets.Models.ChatTurn))
+  name.vb: Task(Of Outcome(Of ChatTurn))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: BbQ.Outcome.Outcome`1
+    name: Outcome
+    isExternal: true
+  - name: <
+  - uid: BbQ.ChatWidgets.Models.ChatTurn
+    name: ChatTurn
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.Outcome.Outcome`1
+    name: Outcome
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.ChatTurn
+    name: ChatTurn
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html
+  - name: )
+  - name: )
+- uid: BbQ.ChatWidgets.Agents
+  commentId: N:BbQ.ChatWidgets.Agents
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Agents
+  nameWithType: BbQ.ChatWidgets.Agents
+  fullName: BbQ.ChatWidgets.Agents
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks

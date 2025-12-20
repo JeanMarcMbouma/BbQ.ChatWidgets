@@ -1,0 +1,873 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry
+  commentId: T:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry
+  id: DefaultWidgetActionRegistry
+  parent: BbQ.ChatWidgets.Services
+  children:
+  - BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.#ctor
+  - BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetAction(System.String)
+  - BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetActions
+  - BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
+  langs:
+  - csharp
+  - vb
+  name: DefaultWidgetActionRegistry
+  nameWithType: DefaultWidgetActionRegistry
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry
+  type: Class
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Services/DefaultWidgetActionRegistry.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Services
+  summary: Default in-memory implementation of <xref href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry" data-throw-if-not-resolved="false"></xref>.
+  remarks: >-
+    This registry maintains a dictionary of widget action metadata indexed by action name.
+
+    It provides:
+
+    - Registration of action metadata with validation
+
+    - Lookup of action metadata by name
+
+    - Discovery of all registered actions
+
+
+    The implementation is thread-safe through dictionary operations on the concurrent collection.
+
+    Actions are looked up by name, making name uniqueness essential.
+  example: []
+  syntax:
+    content: 'public sealed class DefaultWidgetActionRegistry : IWidgetActionRegistry'
+    content.vb: Public NotInheritable Class DefaultWidgetActionRegistry Implements IWidgetActionRegistry
+  inheritance:
+  - System.Object
+  implements:
+  - BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+  inheritedMembers:
+  - System.Object.GetType
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  extensionMethods:
+  - BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,{TAction})
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetActions
+  commentId: M:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetActions
+  id: GetActions
+  parent: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry
+  langs:
+  - csharp
+  - vb
+  name: GetActions()
+  nameWithType: DefaultWidgetActionRegistry.GetActions()
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetActions()
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Services/DefaultWidgetActionRegistry.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Services
+  summary: Gets all registered widget action metadata.
+  remarks: >-
+    Returns an enumeration of all action metadata that has been registered.
+
+    Useful for discovering available actions or generating documentation.
+  example: []
+  syntax:
+    content: public IEnumerable<IWidgetActionMetadata> GetActions()
+    return:
+      type: System.Collections.Generic.IEnumerable{BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata}
+      description: An enumeration of <xref href="BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata" data-throw-if-not-resolved="false"></xref> for all registered actions.
+    content.vb: Public Function GetActions() As IEnumerable(Of IWidgetActionMetadata)
+  overload: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetActions*
+  implements:
+  - BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.GetActions
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetAction(System.String)
+  commentId: M:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetAction(System.String)
+  id: GetAction(System.String)
+  parent: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry
+  langs:
+  - csharp
+  - vb
+  name: GetAction(string)
+  nameWithType: DefaultWidgetActionRegistry.GetAction(string)
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetAction(string)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Services/DefaultWidgetActionRegistry.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Services
+  summary: Retrieves the metadata for a specific widget action by name.
+  remarks: >-
+    Used to look up action information (payload type, description, schema) before
+
+    executing the action handler. Returns null if the action is not registered.
+  example: []
+  syntax:
+    content: public IWidgetActionMetadata? GetAction(string actionName)
+    parameters:
+    - id: actionName
+      type: System.String
+      description: The name of the action to look up.
+    return:
+      type: BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata
+      description: The action metadata, or null if not found.
+    content.vb: Public Function GetAction(actionName As String) As IWidgetActionMetadata
+  overload: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetAction*
+  implements:
+  - BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.GetAction(System.String)
+  nameWithType.vb: DefaultWidgetActionRegistry.GetAction(String)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetAction(String)
+  name.vb: GetAction(String)
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
+  commentId: M:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
+  id: RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
+  parent: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry
+  langs:
+  - csharp
+  - vb
+  name: RegisterAction(IWidgetActionMetadata)
+  nameWithType: DefaultWidgetActionRegistry.RegisterAction(IWidgetActionMetadata)
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Services/DefaultWidgetActionRegistry.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Services
+  summary: Registers a widget action with its metadata.
+  remarks: >-
+    Action metadata includes the action name, description, JSON schema for the payload,
+
+    and the CLR type for payload deserialization. Each action name can only be registered once;
+
+    subsequent registrations with the same name will overwrite the previous registration.
+  example: []
+  syntax:
+    content: public void RegisterAction(IWidgetActionMetadata action)
+    parameters:
+    - id: action
+      type: BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata
+      description: The action metadata to register.
+    content.vb: Public Sub RegisterAction(action As IWidgetActionMetadata)
+  overload: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.RegisterAction*
+  exceptions:
+  - type: System.ArgumentException
+    commentId: T:System.ArgumentException
+    description: Thrown if the action name is null, empty, or whitespace.
+  implements:
+  - BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.#ctor
+  commentId: M:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.#ctor
+  id: '#ctor'
+  parent: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry
+  langs:
+  - csharp
+  - vb
+  name: DefaultWidgetActionRegistry()
+  nameWithType: DefaultWidgetActionRegistry.DefaultWidgetActionRegistry()
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.DefaultWidgetActionRegistry()
+  type: Constructor
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Services/DefaultWidgetActionRegistry.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Services
+  syntax:
+    content: public DefaultWidgetActionRegistry()
+    content.vb: Public Sub New()
+  overload: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.#ctor*
+  nameWithType.vb: DefaultWidgetActionRegistry.New()
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.New()
+  name.vb: New()
+references:
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html
+  name: IWidgetActionRegistry
+  nameWithType: IWidgetActionRegistry
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+- uid: BbQ.ChatWidgets.Services
+  commentId: N:BbQ.ChatWidgets.Services
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Services
+  nameWithType: BbQ.ChatWidgets.Services
+  fullName: BbQ.ChatWidgets.Services
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Services
+    name: Services
+    isExternal: true
+    href: BbQ.ChatWidgets.Services.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Services
+    name: Services
+    isExternal: true
+    href: BbQ.ChatWidgets.Services.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,{TAction})
+  commentId: M:BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,``0)
+  parent: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions
+  definition: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,``0)
+  href: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.html#BbQ_ChatWidgets_Services_WidgetActionHandlerExtensions_RegisterHandler__3_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver___0_
+  name: RegisterHandler<TAction, TPayload, THandler>(IWidgetActionRegistry, IWidgetActionHandlerResolver, TAction)
+  nameWithType: WidgetActionHandlerExtensions.RegisterHandler<TAction, TPayload, THandler>(IWidgetActionRegistry, IWidgetActionHandlerResolver, TAction)
+  fullName: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler<TAction, TPayload, THandler>(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, TAction)
+  nameWithType.vb: WidgetActionHandlerExtensions.RegisterHandler(Of TAction, TPayload, THandler)(IWidgetActionRegistry, IWidgetActionHandlerResolver, TAction)
+  fullName.vb: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler(Of TAction, TPayload, THandler)(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, TAction)
+  name.vb: RegisterHandler(Of TAction, TPayload, THandler)(IWidgetActionRegistry, IWidgetActionHandlerResolver, TAction)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,``0)
+    name: RegisterHandler
+    isExternal: true
+    href: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.html#BbQ_ChatWidgets_Services_WidgetActionHandlerExtensions_RegisterHandler__3_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver___0_
+  - name: <
+  - name: TAction
+  - name: ','
+  - name: " "
+  - name: TPayload
+  - name: ','
+  - name: " "
+  - name: THandler
+  - name: '>'
+  - name: (
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+    name: IWidgetActionRegistry
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html
+  - name: ','
+  - name: " "
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+    name: IWidgetActionHandlerResolver
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html
+  - name: ','
+  - name: " "
+  - name: TAction
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,``0)
+    name: RegisterHandler
+    isExternal: true
+    href: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.html#BbQ_ChatWidgets_Services_WidgetActionHandlerExtensions_RegisterHandler__3_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TAction
+  - name: ','
+  - name: " "
+  - name: TPayload
+  - name: ','
+  - name: " "
+  - name: THandler
+  - name: )
+  - name: (
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+    name: IWidgetActionRegistry
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html
+  - name: ','
+  - name: " "
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+    name: IWidgetActionHandlerResolver
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html
+  - name: ','
+  - name: " "
+  - name: TAction
+  - name: )
+- uid: BbQ.ChatWidgets.Abstractions
+  commentId: N:BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Abstractions
+  nameWithType: BbQ.ChatWidgets.Abstractions
+  fullName: BbQ.ChatWidgets.Abstractions
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,``0)
+  commentId: M:BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,``0)
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.html#BbQ_ChatWidgets_Services_WidgetActionHandlerExtensions_RegisterHandler__3_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver___0_
+  name: RegisterHandler<TAction, TPayload, THandler>(IWidgetActionRegistry, IWidgetActionHandlerResolver, TAction)
+  nameWithType: WidgetActionHandlerExtensions.RegisterHandler<TAction, TPayload, THandler>(IWidgetActionRegistry, IWidgetActionHandlerResolver, TAction)
+  fullName: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler<TAction, TPayload, THandler>(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, TAction)
+  nameWithType.vb: WidgetActionHandlerExtensions.RegisterHandler(Of TAction, TPayload, THandler)(IWidgetActionRegistry, IWidgetActionHandlerResolver, TAction)
+  fullName.vb: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler(Of TAction, TPayload, THandler)(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, TAction)
+  name.vb: RegisterHandler(Of TAction, TPayload, THandler)(IWidgetActionRegistry, IWidgetActionHandlerResolver, TAction)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,``0)
+    name: RegisterHandler
+    isExternal: true
+    href: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.html#BbQ_ChatWidgets_Services_WidgetActionHandlerExtensions_RegisterHandler__3_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver___0_
+  - name: <
+  - name: TAction
+  - name: ','
+  - name: " "
+  - name: TPayload
+  - name: ','
+  - name: " "
+  - name: THandler
+  - name: '>'
+  - name: (
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+    name: IWidgetActionRegistry
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html
+  - name: ','
+  - name: " "
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+    name: IWidgetActionHandlerResolver
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html
+  - name: ','
+  - name: " "
+  - name: TAction
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.RegisterHandler``3(BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,``0)
+    name: RegisterHandler
+    isExternal: true
+    href: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.html#BbQ_ChatWidgets_Services_WidgetActionHandlerExtensions_RegisterHandler__3_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver___0_
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TAction
+  - name: ','
+  - name: " "
+  - name: TPayload
+  - name: ','
+  - name: " "
+  - name: THandler
+  - name: )
+  - name: (
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+    name: IWidgetActionRegistry
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html
+  - name: ','
+  - name: " "
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver
+    name: IWidgetActionHandlerResolver
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html
+  - name: ','
+  - name: " "
+  - name: TAction
+  - name: )
+- uid: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions
+  commentId: T:BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions
+  parent: BbQ.ChatWidgets.Services
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.html
+  name: WidgetActionHandlerExtensions
+  nameWithType: WidgetActionHandlerExtensions
+  fullName: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata
+  parent: BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata.html
+  name: IWidgetActionMetadata
+  nameWithType: IWidgetActionMetadata
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetActions*
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetActions
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.html#BbQ_ChatWidgets_Services_DefaultWidgetActionRegistry_GetActions
+  name: GetActions
+  nameWithType: DefaultWidgetActionRegistry.GetActions
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetActions
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.GetActions
+  commentId: M:BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.GetActions
+  parent: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html#BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_GetActions
+  name: GetActions()
+  nameWithType: IWidgetActionRegistry.GetActions()
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.GetActions()
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.GetActions
+    name: GetActions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html#BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_GetActions
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.GetActions
+    name: GetActions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html#BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_GetActions
+  - name: (
+  - name: )
+- uid: System.Collections.Generic.IEnumerable{BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata}
+  commentId: T:System.Collections.Generic.IEnumerable{BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<IWidgetActionMetadata>
+  nameWithType: IEnumerable<IWidgetActionMetadata>
+  fullName: System.Collections.Generic.IEnumerable<BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata>
+  nameWithType.vb: IEnumerable(Of IWidgetActionMetadata)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
+  name.vb: IEnumerable(Of IWidgetActionMetadata)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata
+    name: IWidgetActionMetadata
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata
+    name: IWidgetActionMetadata
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata.html
+  - name: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetAction*
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetAction
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.html#BbQ_ChatWidgets_Services_DefaultWidgetActionRegistry_GetAction_System_String_
+  name: GetAction
+  nameWithType: DefaultWidgetActionRegistry.GetAction
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.GetAction
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.GetAction(System.String)
+  commentId: M:BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.GetAction(System.String)
+  parent: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html#BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_GetAction_System_String_
+  name: GetAction(string)
+  nameWithType: IWidgetActionRegistry.GetAction(string)
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.GetAction(string)
+  nameWithType.vb: IWidgetActionRegistry.GetAction(String)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.GetAction(String)
+  name.vb: GetAction(String)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.GetAction(System.String)
+    name: GetAction
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html#BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_GetAction_System_String_
+  - name: (
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.GetAction(System.String)
+    name: GetAction
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html#BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_GetAction_System_String_
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.ArgumentException
+  commentId: T:System.ArgumentException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentexception
+  name: ArgumentException
+  nameWithType: ArgumentException
+  fullName: System.ArgumentException
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.RegisterAction*
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.RegisterAction
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.html#BbQ_ChatWidgets_Services_DefaultWidgetActionRegistry_RegisterAction_BbQ_ChatWidgets_Abstractions_IWidgetActionMetadata_
+  name: RegisterAction
+  nameWithType: DefaultWidgetActionRegistry.RegisterAction
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.RegisterAction
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
+  commentId: M:BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
+  parent: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html#BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_RegisterAction_BbQ_ChatWidgets_Abstractions_IWidgetActionMetadata_
+  name: RegisterAction(IWidgetActionMetadata)
+  nameWithType: IWidgetActionRegistry.RegisterAction(IWidgetActionMetadata)
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
+    name: RegisterAction
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html#BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_RegisterAction_BbQ_ChatWidgets_Abstractions_IWidgetActionMetadata_
+  - name: (
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata
+    name: IWidgetActionMetadata
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata.html
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.RegisterAction(BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata)
+    name: RegisterAction
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html#BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_RegisterAction_BbQ_ChatWidgets_Abstractions_IWidgetActionMetadata_
+  - name: (
+  - uid: BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata
+    name: IWidgetActionMetadata
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata.html
+  - name: )
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.#ctor*
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.#ctor
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.html#BbQ_ChatWidgets_Services_DefaultWidgetActionRegistry__ctor
+  name: DefaultWidgetActionRegistry
+  nameWithType: DefaultWidgetActionRegistry.DefaultWidgetActionRegistry
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.DefaultWidgetActionRegistry
+  nameWithType.vb: DefaultWidgetActionRegistry.New
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.New
+  name.vb: New

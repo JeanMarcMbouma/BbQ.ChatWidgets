@@ -1,0 +1,1211 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Models.ChatTurn
+  commentId: T:BbQ.ChatWidgets.Models.ChatTurn
+  id: ChatTurn
+  parent: BbQ.ChatWidgets.Models
+  children:
+  - BbQ.ChatWidgets.Models.ChatTurn.#ctor(BbQ.ChatWidgets.Models.ChatTurn)
+  - BbQ.ChatWidgets.Models.ChatTurn.#ctor(Microsoft.Extensions.AI.ChatRole,System.String,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget},System.String)
+  - BbQ.ChatWidgets.Models.ChatTurn.Content
+  - BbQ.ChatWidgets.Models.ChatTurn.Deconstruct(Microsoft.Extensions.AI.ChatRole@,System.String@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget}@,System.String@)
+  - BbQ.ChatWidgets.Models.ChatTurn.EqualityContract
+  - BbQ.ChatWidgets.Models.ChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  - BbQ.ChatWidgets.Models.ChatTurn.Equals(System.Object)
+  - BbQ.ChatWidgets.Models.ChatTurn.GetHashCode
+  - BbQ.ChatWidgets.Models.ChatTurn.PrintMembers(System.Text.StringBuilder)
+  - BbQ.ChatWidgets.Models.ChatTurn.Role
+  - BbQ.ChatWidgets.Models.ChatTurn.ThreadId
+  - BbQ.ChatWidgets.Models.ChatTurn.ToString
+  - BbQ.ChatWidgets.Models.ChatTurn.Widgets
+  - BbQ.ChatWidgets.Models.ChatTurn.op_Equality(BbQ.ChatWidgets.Models.ChatTurn,BbQ.ChatWidgets.Models.ChatTurn)
+  - BbQ.ChatWidgets.Models.ChatTurn.op_Inequality(BbQ.ChatWidgets.Models.ChatTurn,BbQ.ChatWidgets.Models.ChatTurn)
+  langs:
+  - csharp
+  - vb
+  name: ChatTurn
+  nameWithType: ChatTurn
+  fullName: BbQ.ChatWidgets.Models.ChatTurn
+  type: Class
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  summary: Represents a single turn in a chat conversation.
+  remarks: >-
+    A chat turn encapsulates a message in the conversation, either from the user or the assistant.
+
+    It includes:
+
+    - The role (who sent the message: User or Assistant)
+
+    - The content (the text of the message)
+
+    - Optional widgets (interactive UI elements embedded in the response)
+
+    - The thread ID (for tracking multi-turn conversations)
+
+
+    Chat turns are immutable records that form the history of a conversation thread.
+  example: []
+  syntax:
+    content: 'public record ChatTurn : IEquatable<ChatTurn>'
+    content.vb: Public Class ChatTurn Implements IEquatable(Of ChatTurn)
+  inheritance:
+  - System.Object
+  derivedClasses:
+  - BbQ.ChatWidgets.Models.StreamChatTurn
+  implements:
+  - System.IEquatable{BbQ.ChatWidgets.Models.ChatTurn}
+  inheritedMembers:
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+- uid: BbQ.ChatWidgets.Models.ChatTurn.#ctor(Microsoft.Extensions.AI.ChatRole,System.String,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget},System.String)
+  commentId: M:BbQ.ChatWidgets.Models.ChatTurn.#ctor(Microsoft.Extensions.AI.ChatRole,System.String,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget},System.String)
+  id: '#ctor(Microsoft.Extensions.AI.ChatRole,System.String,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget},System.String)'
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  langs:
+  - csharp
+  - vb
+  name: ChatTurn(ChatRole, string, IReadOnlyList<ChatWidget>?, string)
+  nameWithType: ChatTurn.ChatTurn(ChatRole, string, IReadOnlyList<ChatWidget>?, string)
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.ChatTurn(Microsoft.Extensions.AI.ChatRole, string, System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.ChatWidget>?, string)
+  type: Constructor
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  summary: Represents a single turn in a chat conversation.
+  remarks: >-
+    A chat turn encapsulates a message in the conversation, either from the user or the assistant.
+
+    It includes:
+
+    - The role (who sent the message: User or Assistant)
+
+    - The content (the text of the message)
+
+    - Optional widgets (interactive UI elements embedded in the response)
+
+    - The thread ID (for tracking multi-turn conversations)
+
+
+    Chat turns are immutable records that form the history of a conversation thread.
+  example: []
+  syntax:
+    content: public ChatTurn(ChatRole Role, string Content, IReadOnlyList<ChatWidget>? Widgets = null, string ThreadId = "")
+    parameters:
+    - id: Role
+      type: Microsoft.Extensions.AI.ChatRole
+    - id: Content
+      type: System.String
+    - id: Widgets
+      type: System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget}
+    - id: ThreadId
+      type: System.String
+    content.vb: Public Sub New(Role As ChatRole, Content As String, Widgets As IReadOnlyList(Of ChatWidget) = Nothing, ThreadId As String = "")
+  overload: BbQ.ChatWidgets.Models.ChatTurn.#ctor*
+  nameWithType.vb: ChatTurn.New(ChatRole, String, IReadOnlyList(Of ChatWidget), String)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatTurn.New(Microsoft.Extensions.AI.ChatRole, String, System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.ChatWidget), String)
+  name.vb: New(ChatRole, String, IReadOnlyList(Of ChatWidget), String)
+- uid: BbQ.ChatWidgets.Models.ChatTurn.ToString
+  commentId: M:BbQ.ChatWidgets.Models.ChatTurn.ToString
+  id: ToString
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: ChatTurn.ToString()
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.ToString()
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: System.Object.ToString
+  overload: BbQ.ChatWidgets.Models.ChatTurn.ToString*
+- uid: BbQ.ChatWidgets.Models.ChatTurn.PrintMembers(System.Text.StringBuilder)
+  commentId: M:BbQ.ChatWidgets.Models.ChatTurn.PrintMembers(System.Text.StringBuilder)
+  id: PrintMembers(System.Text.StringBuilder)
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  langs:
+  - csharp
+  - vb
+  name: PrintMembers(StringBuilder)
+  nameWithType: ChatTurn.PrintMembers(StringBuilder)
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.PrintMembers(System.Text.StringBuilder)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: protected virtual bool PrintMembers(StringBuilder builder)
+    parameters:
+    - id: builder
+      type: System.Text.StringBuilder
+    return:
+      type: System.Boolean
+    content.vb: Protected Overridable Function PrintMembers(builder As StringBuilder) As Boolean
+  overload: BbQ.ChatWidgets.Models.ChatTurn.PrintMembers*
+- uid: BbQ.ChatWidgets.Models.ChatTurn.op_Inequality(BbQ.ChatWidgets.Models.ChatTurn,BbQ.ChatWidgets.Models.ChatTurn)
+  commentId: M:BbQ.ChatWidgets.Models.ChatTurn.op_Inequality(BbQ.ChatWidgets.Models.ChatTurn,BbQ.ChatWidgets.Models.ChatTurn)
+  id: op_Inequality(BbQ.ChatWidgets.Models.ChatTurn,BbQ.ChatWidgets.Models.ChatTurn)
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  langs:
+  - csharp
+  - vb
+  name: operator !=(ChatTurn?, ChatTurn?)
+  nameWithType: ChatTurn.operator !=(ChatTurn?, ChatTurn?)
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.operator !=(BbQ.ChatWidgets.Models.ChatTurn?, BbQ.ChatWidgets.Models.ChatTurn?)
+  type: Operator
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public static bool operator !=(ChatTurn? left, ChatTurn? right)
+    parameters:
+    - id: left
+      type: BbQ.ChatWidgets.Models.ChatTurn
+    - id: right
+      type: BbQ.ChatWidgets.Models.ChatTurn
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Operator <>(left As ChatTurn, right As ChatTurn) As Boolean
+  overload: BbQ.ChatWidgets.Models.ChatTurn.op_Inequality*
+  nameWithType.vb: ChatTurn.<>(ChatTurn, ChatTurn)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatTurn.<>(BbQ.ChatWidgets.Models.ChatTurn, BbQ.ChatWidgets.Models.ChatTurn)
+  name.vb: <>(ChatTurn, ChatTurn)
+- uid: BbQ.ChatWidgets.Models.ChatTurn.op_Equality(BbQ.ChatWidgets.Models.ChatTurn,BbQ.ChatWidgets.Models.ChatTurn)
+  commentId: M:BbQ.ChatWidgets.Models.ChatTurn.op_Equality(BbQ.ChatWidgets.Models.ChatTurn,BbQ.ChatWidgets.Models.ChatTurn)
+  id: op_Equality(BbQ.ChatWidgets.Models.ChatTurn,BbQ.ChatWidgets.Models.ChatTurn)
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  langs:
+  - csharp
+  - vb
+  name: operator ==(ChatTurn?, ChatTurn?)
+  nameWithType: ChatTurn.operator ==(ChatTurn?, ChatTurn?)
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.operator ==(BbQ.ChatWidgets.Models.ChatTurn?, BbQ.ChatWidgets.Models.ChatTurn?)
+  type: Operator
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public static bool operator ==(ChatTurn? left, ChatTurn? right)
+    parameters:
+    - id: left
+      type: BbQ.ChatWidgets.Models.ChatTurn
+    - id: right
+      type: BbQ.ChatWidgets.Models.ChatTurn
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Operator =(left As ChatTurn, right As ChatTurn) As Boolean
+  overload: BbQ.ChatWidgets.Models.ChatTurn.op_Equality*
+  nameWithType.vb: ChatTurn.=(ChatTurn, ChatTurn)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatTurn.=(BbQ.ChatWidgets.Models.ChatTurn, BbQ.ChatWidgets.Models.ChatTurn)
+  name.vb: =(ChatTurn, ChatTurn)
+- uid: BbQ.ChatWidgets.Models.ChatTurn.GetHashCode
+  commentId: M:BbQ.ChatWidgets.Models.ChatTurn.GetHashCode
+  id: GetHashCode
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  langs:
+  - csharp
+  - vb
+  name: GetHashCode()
+  nameWithType: ChatTurn.GetHashCode()
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.GetHashCode()
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public override int GetHashCode()
+    return:
+      type: System.Int32
+    content.vb: Public Overrides Function GetHashCode() As Integer
+  overridden: System.Object.GetHashCode
+  overload: BbQ.ChatWidgets.Models.ChatTurn.GetHashCode*
+- uid: BbQ.ChatWidgets.Models.ChatTurn.Equals(System.Object)
+  commentId: M:BbQ.ChatWidgets.Models.ChatTurn.Equals(System.Object)
+  id: Equals(System.Object)
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  langs:
+  - csharp
+  - vb
+  name: Equals(object?)
+  nameWithType: ChatTurn.Equals(object?)
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.Equals(object?)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public override bool Equals(object? obj)
+    parameters:
+    - id: obj
+      type: System.Object
+    return:
+      type: System.Boolean
+    content.vb: Public Overrides Function Equals(obj As Object) As Boolean
+  overridden: System.Object.Equals(System.Object)
+  overload: BbQ.ChatWidgets.Models.ChatTurn.Equals*
+  nameWithType.vb: ChatTurn.Equals(Object)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatTurn.Equals(Object)
+  name.vb: Equals(Object)
+- uid: BbQ.ChatWidgets.Models.ChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  commentId: M:BbQ.ChatWidgets.Models.ChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  id: Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  langs:
+  - csharp
+  - vb
+  name: Equals(ChatTurn?)
+  nameWithType: ChatTurn.Equals(ChatTurn?)
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn?)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public virtual bool Equals(ChatTurn? other)
+    parameters:
+    - id: other
+      type: BbQ.ChatWidgets.Models.ChatTurn
+    return:
+      type: System.Boolean
+    content.vb: Public Overridable Function Equals(other As ChatTurn) As Boolean
+  overload: BbQ.ChatWidgets.Models.ChatTurn.Equals*
+  implements:
+  - System.IEquatable{BbQ.ChatWidgets.Models.ChatTurn}.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  nameWithType.vb: ChatTurn.Equals(ChatTurn)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  name.vb: Equals(ChatTurn)
+- uid: BbQ.ChatWidgets.Models.ChatTurn.#ctor(BbQ.ChatWidgets.Models.ChatTurn)
+  commentId: M:BbQ.ChatWidgets.Models.ChatTurn.#ctor(BbQ.ChatWidgets.Models.ChatTurn)
+  id: '#ctor(BbQ.ChatWidgets.Models.ChatTurn)'
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  langs:
+  - csharp
+  - vb
+  name: ChatTurn(ChatTurn)
+  nameWithType: ChatTurn.ChatTurn(ChatTurn)
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.ChatTurn(BbQ.ChatWidgets.Models.ChatTurn)
+  type: Constructor
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: protected ChatTurn(ChatTurn original)
+    parameters:
+    - id: original
+      type: BbQ.ChatWidgets.Models.ChatTurn
+    content.vb: Protected Sub New(original As ChatTurn)
+  overload: BbQ.ChatWidgets.Models.ChatTurn.#ctor*
+  nameWithType.vb: ChatTurn.New(ChatTurn)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatTurn.New(BbQ.ChatWidgets.Models.ChatTurn)
+  name.vb: New(ChatTurn)
+- uid: BbQ.ChatWidgets.Models.ChatTurn.Deconstruct(Microsoft.Extensions.AI.ChatRole@,System.String@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget}@,System.String@)
+  commentId: M:BbQ.ChatWidgets.Models.ChatTurn.Deconstruct(Microsoft.Extensions.AI.ChatRole@,System.String@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget}@,System.String@)
+  id: Deconstruct(Microsoft.Extensions.AI.ChatRole@,System.String@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget}@,System.String@)
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  langs:
+  - csharp
+  - vb
+  name: Deconstruct(out ChatRole, out string, out IReadOnlyList<ChatWidget>?, out string)
+  nameWithType: ChatTurn.Deconstruct(out ChatRole, out string, out IReadOnlyList<ChatWidget>?, out string)
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.Deconstruct(out Microsoft.Extensions.AI.ChatRole, out string, out System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.ChatWidget>?, out string)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public void Deconstruct(out ChatRole Role, out string Content, out IReadOnlyList<ChatWidget>? Widgets, out string ThreadId)
+    parameters:
+    - id: Role
+      type: Microsoft.Extensions.AI.ChatRole
+    - id: Content
+      type: System.String
+    - id: Widgets
+      type: System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget}
+    - id: ThreadId
+      type: System.String
+    content.vb: Public Sub Deconstruct(Role As ChatRole, Content As String, Widgets As IReadOnlyList(Of ChatWidget), ThreadId As String)
+  overload: BbQ.ChatWidgets.Models.ChatTurn.Deconstruct*
+  nameWithType.vb: ChatTurn.Deconstruct(ChatRole, String, IReadOnlyList(Of ChatWidget), String)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatTurn.Deconstruct(Microsoft.Extensions.AI.ChatRole, String, System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.ChatWidget), String)
+  name.vb: Deconstruct(ChatRole, String, IReadOnlyList(Of ChatWidget), String)
+- uid: BbQ.ChatWidgets.Models.ChatTurn.EqualityContract
+  commentId: P:BbQ.ChatWidgets.Models.ChatTurn.EqualityContract
+  id: EqualityContract
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  langs:
+  - csharp
+  - vb
+  name: EqualityContract
+  nameWithType: ChatTurn.EqualityContract
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.EqualityContract
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: protected virtual Type EqualityContract { get; }
+    parameters: []
+    return:
+      type: System.Type
+    content.vb: Protected Overridable ReadOnly Property EqualityContract As Type
+  overload: BbQ.ChatWidgets.Models.ChatTurn.EqualityContract*
+- uid: BbQ.ChatWidgets.Models.ChatTurn.Role
+  commentId: P:BbQ.ChatWidgets.Models.ChatTurn.Role
+  id: Role
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  langs:
+  - csharp
+  - vb
+  name: Role
+  nameWithType: ChatTurn.Role
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.Role
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public ChatRole Role { get; init; }
+    parameters: []
+    return:
+      type: Microsoft.Extensions.AI.ChatRole
+    content.vb: Public Property Role As ChatRole
+  overload: BbQ.ChatWidgets.Models.ChatTurn.Role*
+- uid: BbQ.ChatWidgets.Models.ChatTurn.Content
+  commentId: P:BbQ.ChatWidgets.Models.ChatTurn.Content
+  id: Content
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  langs:
+  - csharp
+  - vb
+  name: Content
+  nameWithType: ChatTurn.Content
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.Content
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public string Content { get; init; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Content As String
+  overload: BbQ.ChatWidgets.Models.ChatTurn.Content*
+- uid: BbQ.ChatWidgets.Models.ChatTurn.Widgets
+  commentId: P:BbQ.ChatWidgets.Models.ChatTurn.Widgets
+  id: Widgets
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  langs:
+  - csharp
+  - vb
+  name: Widgets
+  nameWithType: ChatTurn.Widgets
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.Widgets
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public IReadOnlyList<ChatWidget>? Widgets { get; init; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget}
+    content.vb: Public Property Widgets As IReadOnlyList(Of ChatWidget)
+  overload: BbQ.ChatWidgets.Models.ChatTurn.Widgets*
+- uid: BbQ.ChatWidgets.Models.ChatTurn.ThreadId
+  commentId: P:BbQ.ChatWidgets.Models.ChatTurn.ThreadId
+  id: ThreadId
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  langs:
+  - csharp
+  - vb
+  name: ThreadId
+  nameWithType: ChatTurn.ThreadId
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.ThreadId
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public string ThreadId { get; init; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property ThreadId As String
+  overload: BbQ.ChatWidgets.Models.ChatTurn.ThreadId*
+references:
+- uid: BbQ.ChatWidgets.Models
+  commentId: N:BbQ.ChatWidgets.Models
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Models
+  nameWithType: BbQ.ChatWidgets.Models
+  fullName: BbQ.ChatWidgets.Models
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Models
+    name: Models
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Models
+    name: Models
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.IEquatable{BbQ.ChatWidgets.Models.ChatTurn}
+  commentId: T:System.IEquatable{BbQ.ChatWidgets.Models.ChatTurn}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<ChatTurn>
+  nameWithType: IEquatable<ChatTurn>
+  fullName: System.IEquatable<BbQ.ChatWidgets.Models.ChatTurn>
+  nameWithType.vb: IEquatable(Of ChatTurn)
+  fullName.vb: System.IEquatable(Of BbQ.ChatWidgets.Models.ChatTurn)
+  name.vb: IEquatable(Of ChatTurn)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: BbQ.ChatWidgets.Models.ChatTurn
+    name: ChatTurn
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.ChatTurn
+    name: ChatTurn
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatTurn.#ctor*
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatTurn.#ctor
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn__ctor_Microsoft_Extensions_AI_ChatRole_System_String_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatWidget__System_String_
+  name: ChatTurn
+  nameWithType: ChatTurn.ChatTurn
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.ChatTurn
+  nameWithType.vb: ChatTurn.New
+  fullName.vb: BbQ.ChatWidgets.Models.ChatTurn.New
+  name.vb: New
+- uid: Microsoft.Extensions.AI.ChatRole
+  commentId: T:Microsoft.Extensions.AI.ChatRole
+  parent: Microsoft.Extensions.AI
+  isExternal: true
+  name: ChatRole
+  nameWithType: ChatRole
+  fullName: Microsoft.Extensions.AI.ChatRole
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget}
+  commentId: T:System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<ChatWidget>
+  nameWithType: IReadOnlyList<ChatWidget>
+  fullName: System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.ChatWidget>
+  nameWithType.vb: IReadOnlyList(Of ChatWidget)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.ChatWidget)
+  name.vb: IReadOnlyList(Of ChatWidget)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+- uid: Microsoft.Extensions.AI
+  commentId: N:Microsoft.Extensions.AI
+  isExternal: true
+  name: Microsoft.Extensions.AI
+  nameWithType: Microsoft.Extensions.AI
+  fullName: Microsoft.Extensions.AI
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+  - name: .
+  - uid: Microsoft.Extensions.AI
+    name: AI
+    isExternal: true
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+  - name: .
+  - uid: Microsoft.Extensions.AI
+    name: AI
+    isExternal: true
+- uid: System.Collections.Generic.IReadOnlyList`1
+  commentId: T:System.Collections.Generic.IReadOnlyList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<T>
+  nameWithType: IReadOnlyList<T>
+  fullName: System.Collections.Generic.IReadOnlyList<T>
+  nameWithType.vb: IReadOnlyList(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
+  name.vb: IReadOnlyList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatTurn.ToString*
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatTurn.ToString
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_ToString
+  name: ToString
+  nameWithType: ChatTurn.ToString
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.ToString
+- uid: BbQ.ChatWidgets.Models.ChatTurn.PrintMembers*
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatTurn.PrintMembers
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_PrintMembers_System_Text_StringBuilder_
+  name: PrintMembers
+  nameWithType: ChatTurn.PrintMembers
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.PrintMembers
+- uid: System.Text.StringBuilder
+  commentId: T:System.Text.StringBuilder
+  parent: System.Text
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.text.stringbuilder
+  name: StringBuilder
+  nameWithType: StringBuilder
+  fullName: System.Text.StringBuilder
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.Text
+  commentId: N:System.Text
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Text
+  nameWithType: System.Text
+  fullName: System.Text
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+- uid: BbQ.ChatWidgets.Models.ChatTurn.op_Inequality*
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatTurn.op_Inequality
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_op_Inequality_BbQ_ChatWidgets_Models_ChatTurn_BbQ_ChatWidgets_Models_ChatTurn_
+  name: operator !=
+  nameWithType: ChatTurn.operator !=
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.operator !=
+  nameWithType.vb: ChatTurn.<>
+  fullName.vb: BbQ.ChatWidgets.Models.ChatTurn.<>
+  name.vb: <>
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.ChatTurn.op_Inequality*
+    name: '!='
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_op_Inequality_BbQ_ChatWidgets_Models_ChatTurn_BbQ_ChatWidgets_Models_ChatTurn_
+- uid: BbQ.ChatWidgets.Models.ChatTurn
+  commentId: T:BbQ.ChatWidgets.Models.ChatTurn
+  parent: BbQ.ChatWidgets.Models
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html
+  name: ChatTurn
+  nameWithType: ChatTurn
+  fullName: BbQ.ChatWidgets.Models.ChatTurn
+- uid: BbQ.ChatWidgets.Models.ChatTurn.op_Equality*
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatTurn.op_Equality
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_op_Equality_BbQ_ChatWidgets_Models_ChatTurn_BbQ_ChatWidgets_Models_ChatTurn_
+  name: operator ==
+  nameWithType: ChatTurn.operator ==
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.operator ==
+  nameWithType.vb: ChatTurn.=
+  fullName.vb: BbQ.ChatWidgets.Models.ChatTurn.=
+  name.vb: =
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.ChatTurn.op_Equality*
+    name: ==
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_op_Equality_BbQ_ChatWidgets_Models_ChatTurn_BbQ_ChatWidgets_Models_ChatTurn_
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatTurn.GetHashCode*
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatTurn.GetHashCode
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_GetHashCode
+  name: GetHashCode
+  nameWithType: ChatTurn.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.GetHashCode
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatTurn.Equals*
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatTurn.Equals
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Equals_System_Object_
+  name: Equals
+  nameWithType: ChatTurn.Equals
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.Equals
+- uid: System.IEquatable{BbQ.ChatWidgets.Models.ChatTurn}.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  commentId: M:System.IEquatable{BbQ.ChatWidgets.Models.ChatTurn}.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  parent: System.IEquatable{BbQ.ChatWidgets.Models.ChatTurn}
+  definition: System.IEquatable`1.Equals(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(ChatTurn)
+  nameWithType: IEquatable<ChatTurn>.Equals(ChatTurn)
+  fullName: System.IEquatable<BbQ.ChatWidgets.Models.ChatTurn>.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  nameWithType.vb: IEquatable(Of ChatTurn).Equals(ChatTurn)
+  fullName.vb: System.IEquatable(Of BbQ.ChatWidgets.Models.ChatTurn).Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  spec.csharp:
+  - uid: System.IEquatable{BbQ.ChatWidgets.Models.ChatTurn}.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatTurn
+    name: ChatTurn
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable{BbQ.ChatWidgets.Models.ChatTurn}.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatTurn
+    name: ChatTurn
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html
+  - name: )
+- uid: System.IEquatable`1.Equals(`0)
+  commentId: M:System.IEquatable`1.Equals(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(T)
+  nameWithType: IEquatable<T>.Equals(T)
+  fullName: System.IEquatable<T>.Equals(T)
+  nameWithType.vb: IEquatable(Of T).Equals(T)
+  fullName.vb: System.IEquatable(Of T).Equals(T)
+  spec.csharp:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatTurn.Deconstruct*
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatTurn.Deconstruct
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Deconstruct_Microsoft_Extensions_AI_ChatRole__System_String__System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatWidget___System_String__
+  name: Deconstruct
+  nameWithType: ChatTurn.Deconstruct
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.Deconstruct
+- uid: BbQ.ChatWidgets.Models.ChatTurn.EqualityContract*
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatTurn.EqualityContract
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_EqualityContract
+  name: EqualityContract
+  nameWithType: ChatTurn.EqualityContract
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.EqualityContract
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: BbQ.ChatWidgets.Models.ChatTurn.Role*
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatTurn.Role
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Role
+  name: Role
+  nameWithType: ChatTurn.Role
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.Role
+- uid: BbQ.ChatWidgets.Models.ChatTurn.Content*
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatTurn.Content
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Content
+  name: Content
+  nameWithType: ChatTurn.Content
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.Content
+- uid: BbQ.ChatWidgets.Models.ChatTurn.Widgets*
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatTurn.Widgets
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Widgets
+  name: Widgets
+  nameWithType: ChatTurn.Widgets
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.Widgets
+- uid: BbQ.ChatWidgets.Models.ChatTurn.ThreadId*
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatTurn.ThreadId
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_ThreadId
+  name: ThreadId
+  nameWithType: ChatTurn.ThreadId
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.ThreadId

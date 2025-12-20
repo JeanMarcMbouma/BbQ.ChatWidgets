@@ -1,0 +1,1252 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn
+  commentId: T:BbQ.ChatWidgets.Models.StreamChatTurn
+  id: StreamChatTurn
+  parent: BbQ.ChatWidgets.Models
+  children:
+  - BbQ.ChatWidgets.Models.StreamChatTurn.#ctor(BbQ.ChatWidgets.Models.StreamChatTurn)
+  - BbQ.ChatWidgets.Models.StreamChatTurn.#ctor(Microsoft.Extensions.AI.ChatRole,System.String,System.String,System.Boolean)
+  - BbQ.ChatWidgets.Models.StreamChatTurn.Deconstruct(Microsoft.Extensions.AI.ChatRole@,System.String@,System.String@,System.Boolean@)
+  - BbQ.ChatWidgets.Models.StreamChatTurn.EqualityContract
+  - BbQ.ChatWidgets.Models.StreamChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  - BbQ.ChatWidgets.Models.StreamChatTurn.Equals(BbQ.ChatWidgets.Models.StreamChatTurn)
+  - BbQ.ChatWidgets.Models.StreamChatTurn.Equals(System.Object)
+  - BbQ.ChatWidgets.Models.StreamChatTurn.GetHashCode
+  - BbQ.ChatWidgets.Models.StreamChatTurn.IsDelta
+  - BbQ.ChatWidgets.Models.StreamChatTurn.PrintMembers(System.Text.StringBuilder)
+  - BbQ.ChatWidgets.Models.StreamChatTurn.ToString
+  - BbQ.ChatWidgets.Models.StreamChatTurn.op_Equality(BbQ.ChatWidgets.Models.StreamChatTurn,BbQ.ChatWidgets.Models.StreamChatTurn)
+  - BbQ.ChatWidgets.Models.StreamChatTurn.op_Inequality(BbQ.ChatWidgets.Models.StreamChatTurn,BbQ.ChatWidgets.Models.StreamChatTurn)
+  langs:
+  - csharp
+  - vb
+  name: StreamChatTurn
+  nameWithType: StreamChatTurn
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn
+  type: Class
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: 'public record StreamChatTurn : ChatTurn, IEquatable<ChatTurn>, IEquatable<StreamChatTurn>'
+    content.vb: Public Class StreamChatTurn Inherits ChatTurn Implements IEquatable(Of ChatTurn), IEquatable(Of StreamChatTurn)
+  inheritance:
+  - System.Object
+  - BbQ.ChatWidgets.Models.ChatTurn
+  implements:
+  - System.IEquatable{BbQ.ChatWidgets.Models.ChatTurn}
+  - System.IEquatable{BbQ.ChatWidgets.Models.StreamChatTurn}
+  inheritedMembers:
+  - BbQ.ChatWidgets.Models.ChatTurn.Deconstruct(Microsoft.Extensions.AI.ChatRole@,System.String@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget}@,System.String@)
+  - BbQ.ChatWidgets.Models.ChatTurn.Role
+  - BbQ.ChatWidgets.Models.ChatTurn.Content
+  - BbQ.ChatWidgets.Models.ChatTurn.Widgets
+  - BbQ.ChatWidgets.Models.ChatTurn.ThreadId
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.#ctor(Microsoft.Extensions.AI.ChatRole,System.String,System.String,System.Boolean)
+  commentId: M:BbQ.ChatWidgets.Models.StreamChatTurn.#ctor(Microsoft.Extensions.AI.ChatRole,System.String,System.String,System.Boolean)
+  id: '#ctor(Microsoft.Extensions.AI.ChatRole,System.String,System.String,System.Boolean)'
+  parent: BbQ.ChatWidgets.Models.StreamChatTurn
+  langs:
+  - csharp
+  - vb
+  name: StreamChatTurn(ChatRole, string, string, bool)
+  nameWithType: StreamChatTurn.StreamChatTurn(ChatRole, string, string, bool)
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.StreamChatTurn(Microsoft.Extensions.AI.ChatRole, string, string, bool)
+  type: Constructor
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public StreamChatTurn(ChatRole Role, string Content, string ThreadId, bool IsDelta = false)
+    parameters:
+    - id: Role
+      type: Microsoft.Extensions.AI.ChatRole
+    - id: Content
+      type: System.String
+    - id: ThreadId
+      type: System.String
+    - id: IsDelta
+      type: System.Boolean
+    content.vb: Public Sub New(Role As ChatRole, Content As String, ThreadId As String, IsDelta As Boolean = False)
+  overload: BbQ.ChatWidgets.Models.StreamChatTurn.#ctor*
+  nameWithType.vb: StreamChatTurn.New(ChatRole, String, String, Boolean)
+  fullName.vb: BbQ.ChatWidgets.Models.StreamChatTurn.New(Microsoft.Extensions.AI.ChatRole, String, String, Boolean)
+  name.vb: New(ChatRole, String, String, Boolean)
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.ToString
+  commentId: M:BbQ.ChatWidgets.Models.StreamChatTurn.ToString
+  id: ToString
+  parent: BbQ.ChatWidgets.Models.StreamChatTurn
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: StreamChatTurn.ToString()
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.ToString()
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: BbQ.ChatWidgets.Models.ChatTurn.ToString
+  overload: BbQ.ChatWidgets.Models.StreamChatTurn.ToString*
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.PrintMembers(System.Text.StringBuilder)
+  commentId: M:BbQ.ChatWidgets.Models.StreamChatTurn.PrintMembers(System.Text.StringBuilder)
+  id: PrintMembers(System.Text.StringBuilder)
+  parent: BbQ.ChatWidgets.Models.StreamChatTurn
+  langs:
+  - csharp
+  - vb
+  name: PrintMembers(StringBuilder)
+  nameWithType: StreamChatTurn.PrintMembers(StringBuilder)
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.PrintMembers(System.Text.StringBuilder)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: protected override bool PrintMembers(StringBuilder builder)
+    parameters:
+    - id: builder
+      type: System.Text.StringBuilder
+    return:
+      type: System.Boolean
+    content.vb: Protected Overrides Function PrintMembers(builder As StringBuilder) As Boolean
+  overridden: BbQ.ChatWidgets.Models.ChatTurn.PrintMembers(System.Text.StringBuilder)
+  overload: BbQ.ChatWidgets.Models.StreamChatTurn.PrintMembers*
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.op_Inequality(BbQ.ChatWidgets.Models.StreamChatTurn,BbQ.ChatWidgets.Models.StreamChatTurn)
+  commentId: M:BbQ.ChatWidgets.Models.StreamChatTurn.op_Inequality(BbQ.ChatWidgets.Models.StreamChatTurn,BbQ.ChatWidgets.Models.StreamChatTurn)
+  id: op_Inequality(BbQ.ChatWidgets.Models.StreamChatTurn,BbQ.ChatWidgets.Models.StreamChatTurn)
+  parent: BbQ.ChatWidgets.Models.StreamChatTurn
+  langs:
+  - csharp
+  - vb
+  name: operator !=(StreamChatTurn?, StreamChatTurn?)
+  nameWithType: StreamChatTurn.operator !=(StreamChatTurn?, StreamChatTurn?)
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.operator !=(BbQ.ChatWidgets.Models.StreamChatTurn?, BbQ.ChatWidgets.Models.StreamChatTurn?)
+  type: Operator
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public static bool operator !=(StreamChatTurn? left, StreamChatTurn? right)
+    parameters:
+    - id: left
+      type: BbQ.ChatWidgets.Models.StreamChatTurn
+    - id: right
+      type: BbQ.ChatWidgets.Models.StreamChatTurn
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Operator <>(left As StreamChatTurn, right As StreamChatTurn) As Boolean
+  overload: BbQ.ChatWidgets.Models.StreamChatTurn.op_Inequality*
+  nameWithType.vb: StreamChatTurn.<>(StreamChatTurn, StreamChatTurn)
+  fullName.vb: BbQ.ChatWidgets.Models.StreamChatTurn.<>(BbQ.ChatWidgets.Models.StreamChatTurn, BbQ.ChatWidgets.Models.StreamChatTurn)
+  name.vb: <>(StreamChatTurn, StreamChatTurn)
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.op_Equality(BbQ.ChatWidgets.Models.StreamChatTurn,BbQ.ChatWidgets.Models.StreamChatTurn)
+  commentId: M:BbQ.ChatWidgets.Models.StreamChatTurn.op_Equality(BbQ.ChatWidgets.Models.StreamChatTurn,BbQ.ChatWidgets.Models.StreamChatTurn)
+  id: op_Equality(BbQ.ChatWidgets.Models.StreamChatTurn,BbQ.ChatWidgets.Models.StreamChatTurn)
+  parent: BbQ.ChatWidgets.Models.StreamChatTurn
+  langs:
+  - csharp
+  - vb
+  name: operator ==(StreamChatTurn?, StreamChatTurn?)
+  nameWithType: StreamChatTurn.operator ==(StreamChatTurn?, StreamChatTurn?)
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.operator ==(BbQ.ChatWidgets.Models.StreamChatTurn?, BbQ.ChatWidgets.Models.StreamChatTurn?)
+  type: Operator
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public static bool operator ==(StreamChatTurn? left, StreamChatTurn? right)
+    parameters:
+    - id: left
+      type: BbQ.ChatWidgets.Models.StreamChatTurn
+    - id: right
+      type: BbQ.ChatWidgets.Models.StreamChatTurn
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Operator =(left As StreamChatTurn, right As StreamChatTurn) As Boolean
+  overload: BbQ.ChatWidgets.Models.StreamChatTurn.op_Equality*
+  nameWithType.vb: StreamChatTurn.=(StreamChatTurn, StreamChatTurn)
+  fullName.vb: BbQ.ChatWidgets.Models.StreamChatTurn.=(BbQ.ChatWidgets.Models.StreamChatTurn, BbQ.ChatWidgets.Models.StreamChatTurn)
+  name.vb: =(StreamChatTurn, StreamChatTurn)
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.GetHashCode
+  commentId: M:BbQ.ChatWidgets.Models.StreamChatTurn.GetHashCode
+  id: GetHashCode
+  parent: BbQ.ChatWidgets.Models.StreamChatTurn
+  langs:
+  - csharp
+  - vb
+  name: GetHashCode()
+  nameWithType: StreamChatTurn.GetHashCode()
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.GetHashCode()
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public override int GetHashCode()
+    return:
+      type: System.Int32
+    content.vb: Public Overrides Function GetHashCode() As Integer
+  overridden: BbQ.ChatWidgets.Models.ChatTurn.GetHashCode
+  overload: BbQ.ChatWidgets.Models.StreamChatTurn.GetHashCode*
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.Equals(System.Object)
+  commentId: M:BbQ.ChatWidgets.Models.StreamChatTurn.Equals(System.Object)
+  id: Equals(System.Object)
+  parent: BbQ.ChatWidgets.Models.StreamChatTurn
+  langs:
+  - csharp
+  - vb
+  name: Equals(object?)
+  nameWithType: StreamChatTurn.Equals(object?)
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.Equals(object?)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public override bool Equals(object? obj)
+    parameters:
+    - id: obj
+      type: System.Object
+    return:
+      type: System.Boolean
+    content.vb: Public Overrides Function Equals(obj As Object) As Boolean
+  overridden: BbQ.ChatWidgets.Models.ChatTurn.Equals(System.Object)
+  overload: BbQ.ChatWidgets.Models.StreamChatTurn.Equals*
+  nameWithType.vb: StreamChatTurn.Equals(Object)
+  fullName.vb: BbQ.ChatWidgets.Models.StreamChatTurn.Equals(Object)
+  name.vb: Equals(Object)
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  commentId: M:BbQ.ChatWidgets.Models.StreamChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  id: Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  parent: BbQ.ChatWidgets.Models.StreamChatTurn
+  langs:
+  - csharp
+  - vb
+  name: Equals(ChatTurn?)
+  nameWithType: StreamChatTurn.Equals(ChatTurn?)
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn?)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public override sealed bool Equals(ChatTurn? other)
+    parameters:
+    - id: other
+      type: BbQ.ChatWidgets.Models.ChatTurn
+    return:
+      type: System.Boolean
+    content.vb: Public NotOverridable Overrides Function Equals(other As ChatTurn) As Boolean
+  overridden: BbQ.ChatWidgets.Models.ChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  overload: BbQ.ChatWidgets.Models.StreamChatTurn.Equals*
+  nameWithType.vb: StreamChatTurn.Equals(ChatTurn)
+  fullName.vb: BbQ.ChatWidgets.Models.StreamChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  name.vb: Equals(ChatTurn)
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.Equals(BbQ.ChatWidgets.Models.StreamChatTurn)
+  commentId: M:BbQ.ChatWidgets.Models.StreamChatTurn.Equals(BbQ.ChatWidgets.Models.StreamChatTurn)
+  id: Equals(BbQ.ChatWidgets.Models.StreamChatTurn)
+  parent: BbQ.ChatWidgets.Models.StreamChatTurn
+  langs:
+  - csharp
+  - vb
+  name: Equals(StreamChatTurn?)
+  nameWithType: StreamChatTurn.Equals(StreamChatTurn?)
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.Equals(BbQ.ChatWidgets.Models.StreamChatTurn?)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public virtual bool Equals(StreamChatTurn? other)
+    parameters:
+    - id: other
+      type: BbQ.ChatWidgets.Models.StreamChatTurn
+    return:
+      type: System.Boolean
+    content.vb: Public Overridable Function Equals(other As StreamChatTurn) As Boolean
+  overload: BbQ.ChatWidgets.Models.StreamChatTurn.Equals*
+  implements:
+  - System.IEquatable{BbQ.ChatWidgets.Models.StreamChatTurn}.Equals(BbQ.ChatWidgets.Models.StreamChatTurn)
+  nameWithType.vb: StreamChatTurn.Equals(StreamChatTurn)
+  fullName.vb: BbQ.ChatWidgets.Models.StreamChatTurn.Equals(BbQ.ChatWidgets.Models.StreamChatTurn)
+  name.vb: Equals(StreamChatTurn)
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.#ctor(BbQ.ChatWidgets.Models.StreamChatTurn)
+  commentId: M:BbQ.ChatWidgets.Models.StreamChatTurn.#ctor(BbQ.ChatWidgets.Models.StreamChatTurn)
+  id: '#ctor(BbQ.ChatWidgets.Models.StreamChatTurn)'
+  parent: BbQ.ChatWidgets.Models.StreamChatTurn
+  langs:
+  - csharp
+  - vb
+  name: StreamChatTurn(StreamChatTurn)
+  nameWithType: StreamChatTurn.StreamChatTurn(StreamChatTurn)
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.StreamChatTurn(BbQ.ChatWidgets.Models.StreamChatTurn)
+  type: Constructor
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: protected StreamChatTurn(StreamChatTurn original)
+    parameters:
+    - id: original
+      type: BbQ.ChatWidgets.Models.StreamChatTurn
+    content.vb: Protected Sub New(original As StreamChatTurn)
+  overload: BbQ.ChatWidgets.Models.StreamChatTurn.#ctor*
+  nameWithType.vb: StreamChatTurn.New(StreamChatTurn)
+  fullName.vb: BbQ.ChatWidgets.Models.StreamChatTurn.New(BbQ.ChatWidgets.Models.StreamChatTurn)
+  name.vb: New(StreamChatTurn)
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.Deconstruct(Microsoft.Extensions.AI.ChatRole@,System.String@,System.String@,System.Boolean@)
+  commentId: M:BbQ.ChatWidgets.Models.StreamChatTurn.Deconstruct(Microsoft.Extensions.AI.ChatRole@,System.String@,System.String@,System.Boolean@)
+  id: Deconstruct(Microsoft.Extensions.AI.ChatRole@,System.String@,System.String@,System.Boolean@)
+  parent: BbQ.ChatWidgets.Models.StreamChatTurn
+  langs:
+  - csharp
+  - vb
+  name: Deconstruct(out ChatRole, out string, out string, out bool)
+  nameWithType: StreamChatTurn.Deconstruct(out ChatRole, out string, out string, out bool)
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.Deconstruct(out Microsoft.Extensions.AI.ChatRole, out string, out string, out bool)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public void Deconstruct(out ChatRole Role, out string Content, out string ThreadId, out bool IsDelta)
+    parameters:
+    - id: Role
+      type: Microsoft.Extensions.AI.ChatRole
+    - id: Content
+      type: System.String
+    - id: ThreadId
+      type: System.String
+    - id: IsDelta
+      type: System.Boolean
+    content.vb: Public Sub Deconstruct(Role As ChatRole, Content As String, ThreadId As String, IsDelta As Boolean)
+  overload: BbQ.ChatWidgets.Models.StreamChatTurn.Deconstruct*
+  nameWithType.vb: StreamChatTurn.Deconstruct(ChatRole, String, String, Boolean)
+  fullName.vb: BbQ.ChatWidgets.Models.StreamChatTurn.Deconstruct(Microsoft.Extensions.AI.ChatRole, String, String, Boolean)
+  name.vb: Deconstruct(ChatRole, String, String, Boolean)
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.EqualityContract
+  commentId: P:BbQ.ChatWidgets.Models.StreamChatTurn.EqualityContract
+  id: EqualityContract
+  parent: BbQ.ChatWidgets.Models.StreamChatTurn
+  langs:
+  - csharp
+  - vb
+  name: EqualityContract
+  nameWithType: StreamChatTurn.EqualityContract
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.EqualityContract
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: protected override Type EqualityContract { get; }
+    parameters: []
+    return:
+      type: System.Type
+    content.vb: Protected Overrides ReadOnly Property EqualityContract As Type
+  overridden: BbQ.ChatWidgets.Models.ChatTurn.EqualityContract
+  overload: BbQ.ChatWidgets.Models.StreamChatTurn.EqualityContract*
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.IsDelta
+  commentId: P:BbQ.ChatWidgets.Models.StreamChatTurn.IsDelta
+  id: IsDelta
+  parent: BbQ.ChatWidgets.Models.StreamChatTurn
+  langs:
+  - csharp
+  - vb
+  name: IsDelta
+  nameWithType: StreamChatTurn.IsDelta
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.IsDelta
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatTurn.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public bool IsDelta { get; init; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public Property IsDelta As Boolean
+  overload: BbQ.ChatWidgets.Models.StreamChatTurn.IsDelta*
+references:
+- uid: BbQ.ChatWidgets.Models
+  commentId: N:BbQ.ChatWidgets.Models
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Models
+  nameWithType: BbQ.ChatWidgets.Models
+  fullName: BbQ.ChatWidgets.Models
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Models
+    name: Models
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Models
+    name: Models
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: BbQ.ChatWidgets.Models.ChatTurn
+  commentId: T:BbQ.ChatWidgets.Models.ChatTurn
+  parent: BbQ.ChatWidgets.Models
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html
+  name: ChatTurn
+  nameWithType: ChatTurn
+  fullName: BbQ.ChatWidgets.Models.ChatTurn
+- uid: System.IEquatable{BbQ.ChatWidgets.Models.ChatTurn}
+  commentId: T:System.IEquatable{BbQ.ChatWidgets.Models.ChatTurn}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<ChatTurn>
+  nameWithType: IEquatable<ChatTurn>
+  fullName: System.IEquatable<BbQ.ChatWidgets.Models.ChatTurn>
+  nameWithType.vb: IEquatable(Of ChatTurn)
+  fullName.vb: System.IEquatable(Of BbQ.ChatWidgets.Models.ChatTurn)
+  name.vb: IEquatable(Of ChatTurn)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: BbQ.ChatWidgets.Models.ChatTurn
+    name: ChatTurn
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.ChatTurn
+    name: ChatTurn
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html
+  - name: )
+- uid: System.IEquatable{BbQ.ChatWidgets.Models.StreamChatTurn}
+  commentId: T:System.IEquatable{BbQ.ChatWidgets.Models.StreamChatTurn}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<StreamChatTurn>
+  nameWithType: IEquatable<StreamChatTurn>
+  fullName: System.IEquatable<BbQ.ChatWidgets.Models.StreamChatTurn>
+  nameWithType.vb: IEquatable(Of StreamChatTurn)
+  fullName.vb: System.IEquatable(Of BbQ.ChatWidgets.Models.StreamChatTurn)
+  name.vb: IEquatable(Of StreamChatTurn)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: BbQ.ChatWidgets.Models.StreamChatTurn
+    name: StreamChatTurn
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.StreamChatTurn.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.StreamChatTurn
+    name: StreamChatTurn
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.StreamChatTurn.html
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatTurn.Deconstruct(Microsoft.Extensions.AI.ChatRole@,System.String@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget}@,System.String@)
+  commentId: M:BbQ.ChatWidgets.Models.ChatTurn.Deconstruct(Microsoft.Extensions.AI.ChatRole@,System.String@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget}@,System.String@)
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Deconstruct_Microsoft_Extensions_AI_ChatRole__System_String__System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatWidget___System_String__
+  name: Deconstruct(out ChatRole, out string, out IReadOnlyList<ChatWidget>, out string)
+  nameWithType: ChatTurn.Deconstruct(out ChatRole, out string, out IReadOnlyList<ChatWidget>, out string)
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.Deconstruct(out Microsoft.Extensions.AI.ChatRole, out string, out System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.ChatWidget>, out string)
+  nameWithType.vb: ChatTurn.Deconstruct(ChatRole, String, IReadOnlyList(Of ChatWidget), String)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatTurn.Deconstruct(Microsoft.Extensions.AI.ChatRole, String, System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.ChatWidget), String)
+  name.vb: Deconstruct(ChatRole, String, IReadOnlyList(Of ChatWidget), String)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatTurn.Deconstruct(Microsoft.Extensions.AI.ChatRole@,System.String@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget}@,System.String@)
+    name: Deconstruct
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Deconstruct_Microsoft_Extensions_AI_ChatRole__System_String__System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatWidget___System_String__
+  - name: (
+  - name: out
+  - name: " "
+  - uid: Microsoft.Extensions.AI.ChatRole
+    name: ChatRole
+    isExternal: true
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: '>'
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatTurn.Deconstruct(Microsoft.Extensions.AI.ChatRole@,System.String@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget}@,System.String@)
+    name: Deconstruct
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Deconstruct_Microsoft_Extensions_AI_ChatRole__System_String__System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatWidget___System_String__
+  - name: (
+  - uid: Microsoft.Extensions.AI.ChatRole
+    name: ChatRole
+    isExternal: true
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatTurn.Role
+  commentId: P:BbQ.ChatWidgets.Models.ChatTurn.Role
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Role
+  name: Role
+  nameWithType: ChatTurn.Role
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.Role
+- uid: BbQ.ChatWidgets.Models.ChatTurn.Content
+  commentId: P:BbQ.ChatWidgets.Models.ChatTurn.Content
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Content
+  name: Content
+  nameWithType: ChatTurn.Content
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.Content
+- uid: BbQ.ChatWidgets.Models.ChatTurn.Widgets
+  commentId: P:BbQ.ChatWidgets.Models.ChatTurn.Widgets
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Widgets
+  name: Widgets
+  nameWithType: ChatTurn.Widgets
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.Widgets
+- uid: BbQ.ChatWidgets.Models.ChatTurn.ThreadId
+  commentId: P:BbQ.ChatWidgets.Models.ChatTurn.ThreadId
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_ThreadId
+  name: ThreadId
+  nameWithType: ChatTurn.ThreadId
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.ThreadId
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.#ctor*
+  commentId: Overload:BbQ.ChatWidgets.Models.StreamChatTurn.#ctor
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.StreamChatTurn.html#BbQ_ChatWidgets_Models_StreamChatTurn__ctor_Microsoft_Extensions_AI_ChatRole_System_String_System_String_System_Boolean_
+  name: StreamChatTurn
+  nameWithType: StreamChatTurn.StreamChatTurn
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.StreamChatTurn
+  nameWithType.vb: StreamChatTurn.New
+  fullName.vb: BbQ.ChatWidgets.Models.StreamChatTurn.New
+  name.vb: New
+- uid: Microsoft.Extensions.AI.ChatRole
+  commentId: T:Microsoft.Extensions.AI.ChatRole
+  parent: Microsoft.Extensions.AI
+  isExternal: true
+  name: ChatRole
+  nameWithType: ChatRole
+  fullName: Microsoft.Extensions.AI.ChatRole
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Microsoft.Extensions.AI
+  commentId: N:Microsoft.Extensions.AI
+  isExternal: true
+  name: Microsoft.Extensions.AI
+  nameWithType: Microsoft.Extensions.AI
+  fullName: Microsoft.Extensions.AI
+  spec.csharp:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+  - name: .
+  - uid: Microsoft.Extensions.AI
+    name: AI
+    isExternal: true
+  spec.vb:
+  - uid: Microsoft
+    name: Microsoft
+    isExternal: true
+  - name: .
+  - uid: Microsoft.Extensions
+    name: Extensions
+    isExternal: true
+  - name: .
+  - uid: Microsoft.Extensions.AI
+    name: AI
+    isExternal: true
+- uid: BbQ.ChatWidgets.Models.ChatTurn.ToString
+  commentId: M:BbQ.ChatWidgets.Models.ChatTurn.ToString
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_ToString
+  name: ToString()
+  nameWithType: ChatTurn.ToString()
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.ToString()
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatTurn.ToString
+    name: ToString
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_ToString
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatTurn.ToString
+    name: ToString
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_ToString
+  - name: (
+  - name: )
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.ToString*
+  commentId: Overload:BbQ.ChatWidgets.Models.StreamChatTurn.ToString
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.StreamChatTurn.html#BbQ_ChatWidgets_Models_StreamChatTurn_ToString
+  name: ToString
+  nameWithType: StreamChatTurn.ToString
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.ToString
+- uid: BbQ.ChatWidgets.Models.ChatTurn.PrintMembers(System.Text.StringBuilder)
+  commentId: M:BbQ.ChatWidgets.Models.ChatTurn.PrintMembers(System.Text.StringBuilder)
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_PrintMembers_System_Text_StringBuilder_
+  name: PrintMembers(StringBuilder)
+  nameWithType: ChatTurn.PrintMembers(StringBuilder)
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.PrintMembers(System.Text.StringBuilder)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatTurn.PrintMembers(System.Text.StringBuilder)
+    name: PrintMembers
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_PrintMembers_System_Text_StringBuilder_
+  - name: (
+  - uid: System.Text.StringBuilder
+    name: StringBuilder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.stringbuilder
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatTurn.PrintMembers(System.Text.StringBuilder)
+    name: PrintMembers
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_PrintMembers_System_Text_StringBuilder_
+  - name: (
+  - uid: System.Text.StringBuilder
+    name: StringBuilder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.stringbuilder
+  - name: )
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.PrintMembers*
+  commentId: Overload:BbQ.ChatWidgets.Models.StreamChatTurn.PrintMembers
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.StreamChatTurn.html#BbQ_ChatWidgets_Models_StreamChatTurn_PrintMembers_System_Text_StringBuilder_
+  name: PrintMembers
+  nameWithType: StreamChatTurn.PrintMembers
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.PrintMembers
+- uid: System.Text.StringBuilder
+  commentId: T:System.Text.StringBuilder
+  parent: System.Text
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.text.stringbuilder
+  name: StringBuilder
+  nameWithType: StringBuilder
+  fullName: System.Text.StringBuilder
+- uid: System.Text
+  commentId: N:System.Text
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Text
+  nameWithType: System.Text
+  fullName: System.Text
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.op_Inequality*
+  commentId: Overload:BbQ.ChatWidgets.Models.StreamChatTurn.op_Inequality
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.StreamChatTurn.html#BbQ_ChatWidgets_Models_StreamChatTurn_op_Inequality_BbQ_ChatWidgets_Models_StreamChatTurn_BbQ_ChatWidgets_Models_StreamChatTurn_
+  name: operator !=
+  nameWithType: StreamChatTurn.operator !=
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.operator !=
+  nameWithType.vb: StreamChatTurn.<>
+  fullName.vb: BbQ.ChatWidgets.Models.StreamChatTurn.<>
+  name.vb: <>
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.StreamChatTurn.op_Inequality*
+    name: '!='
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.StreamChatTurn.html#BbQ_ChatWidgets_Models_StreamChatTurn_op_Inequality_BbQ_ChatWidgets_Models_StreamChatTurn_BbQ_ChatWidgets_Models_StreamChatTurn_
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn
+  commentId: T:BbQ.ChatWidgets.Models.StreamChatTurn
+  parent: BbQ.ChatWidgets.Models
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.StreamChatTurn.html
+  name: StreamChatTurn
+  nameWithType: StreamChatTurn
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.op_Equality*
+  commentId: Overload:BbQ.ChatWidgets.Models.StreamChatTurn.op_Equality
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.StreamChatTurn.html#BbQ_ChatWidgets_Models_StreamChatTurn_op_Equality_BbQ_ChatWidgets_Models_StreamChatTurn_BbQ_ChatWidgets_Models_StreamChatTurn_
+  name: operator ==
+  nameWithType: StreamChatTurn.operator ==
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.operator ==
+  nameWithType.vb: StreamChatTurn.=
+  fullName.vb: BbQ.ChatWidgets.Models.StreamChatTurn.=
+  name.vb: =
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.StreamChatTurn.op_Equality*
+    name: ==
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.StreamChatTurn.html#BbQ_ChatWidgets_Models_StreamChatTurn_op_Equality_BbQ_ChatWidgets_Models_StreamChatTurn_BbQ_ChatWidgets_Models_StreamChatTurn_
+- uid: BbQ.ChatWidgets.Models.ChatTurn.GetHashCode
+  commentId: M:BbQ.ChatWidgets.Models.ChatTurn.GetHashCode
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_GetHashCode
+  name: GetHashCode()
+  nameWithType: ChatTurn.GetHashCode()
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.GetHashCode()
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatTurn.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_GetHashCode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatTurn.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_GetHashCode
+  - name: (
+  - name: )
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.GetHashCode*
+  commentId: Overload:BbQ.ChatWidgets.Models.StreamChatTurn.GetHashCode
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.StreamChatTurn.html#BbQ_ChatWidgets_Models_StreamChatTurn_GetHashCode
+  name: GetHashCode
+  nameWithType: StreamChatTurn.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.GetHashCode
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: BbQ.ChatWidgets.Models.ChatTurn.Equals(System.Object)
+  commentId: M:BbQ.ChatWidgets.Models.ChatTurn.Equals(System.Object)
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Equals_System_Object_
+  name: Equals(object)
+  nameWithType: ChatTurn.Equals(object)
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.Equals(object)
+  nameWithType.vb: ChatTurn.Equals(Object)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatTurn.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatTurn.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Equals_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatTurn.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Equals_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.Equals*
+  commentId: Overload:BbQ.ChatWidgets.Models.StreamChatTurn.Equals
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.StreamChatTurn.html#BbQ_ChatWidgets_Models_StreamChatTurn_Equals_System_Object_
+  name: Equals
+  nameWithType: StreamChatTurn.Equals
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.Equals
+- uid: BbQ.ChatWidgets.Models.ChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  commentId: M:BbQ.ChatWidgets.Models.ChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Equals_BbQ_ChatWidgets_Models_ChatTurn_
+  name: Equals(ChatTurn)
+  nameWithType: ChatTurn.Equals(ChatTurn)
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+    name: Equals
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Equals_BbQ_ChatWidgets_Models_ChatTurn_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatTurn
+    name: ChatTurn
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatTurn.Equals(BbQ.ChatWidgets.Models.ChatTurn)
+    name: Equals
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Equals_BbQ_ChatWidgets_Models_ChatTurn_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatTurn
+    name: ChatTurn
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html
+  - name: )
+- uid: System.IEquatable{BbQ.ChatWidgets.Models.StreamChatTurn}.Equals(BbQ.ChatWidgets.Models.StreamChatTurn)
+  commentId: M:System.IEquatable{BbQ.ChatWidgets.Models.StreamChatTurn}.Equals(BbQ.ChatWidgets.Models.StreamChatTurn)
+  parent: System.IEquatable{BbQ.ChatWidgets.Models.StreamChatTurn}
+  definition: System.IEquatable`1.Equals(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(StreamChatTurn)
+  nameWithType: IEquatable<StreamChatTurn>.Equals(StreamChatTurn)
+  fullName: System.IEquatable<BbQ.ChatWidgets.Models.StreamChatTurn>.Equals(BbQ.ChatWidgets.Models.StreamChatTurn)
+  nameWithType.vb: IEquatable(Of StreamChatTurn).Equals(StreamChatTurn)
+  fullName.vb: System.IEquatable(Of BbQ.ChatWidgets.Models.StreamChatTurn).Equals(BbQ.ChatWidgets.Models.StreamChatTurn)
+  spec.csharp:
+  - uid: System.IEquatable{BbQ.ChatWidgets.Models.StreamChatTurn}.Equals(BbQ.ChatWidgets.Models.StreamChatTurn)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.StreamChatTurn
+    name: StreamChatTurn
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.StreamChatTurn.html
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable{BbQ.ChatWidgets.Models.StreamChatTurn}.Equals(BbQ.ChatWidgets.Models.StreamChatTurn)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.StreamChatTurn
+    name: StreamChatTurn
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.StreamChatTurn.html
+  - name: )
+- uid: System.IEquatable`1.Equals(`0)
+  commentId: M:System.IEquatable`1.Equals(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(T)
+  nameWithType: IEquatable<T>.Equals(T)
+  fullName: System.IEquatable<T>.Equals(T)
+  nameWithType.vb: IEquatable(Of T).Equals(T)
+  fullName.vb: System.IEquatable(Of T).Equals(T)
+  spec.csharp:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.Deconstruct*
+  commentId: Overload:BbQ.ChatWidgets.Models.StreamChatTurn.Deconstruct
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.StreamChatTurn.html#BbQ_ChatWidgets_Models_StreamChatTurn_Deconstruct_Microsoft_Extensions_AI_ChatRole__System_String__System_String__System_Boolean__
+  name: Deconstruct
+  nameWithType: StreamChatTurn.Deconstruct
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.Deconstruct
+- uid: BbQ.ChatWidgets.Models.ChatTurn.EqualityContract
+  commentId: P:BbQ.ChatWidgets.Models.ChatTurn.EqualityContract
+  parent: BbQ.ChatWidgets.Models.ChatTurn
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_EqualityContract
+  name: EqualityContract
+  nameWithType: ChatTurn.EqualityContract
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.EqualityContract
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.EqualityContract*
+  commentId: Overload:BbQ.ChatWidgets.Models.StreamChatTurn.EqualityContract
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.StreamChatTurn.html#BbQ_ChatWidgets_Models_StreamChatTurn_EqualityContract
+  name: EqualityContract
+  nameWithType: StreamChatTurn.EqualityContract
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.EqualityContract
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: BbQ.ChatWidgets.Models.StreamChatTurn.IsDelta*
+  commentId: Overload:BbQ.ChatWidgets.Models.StreamChatTurn.IsDelta
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.StreamChatTurn.html#BbQ_ChatWidgets_Models_StreamChatTurn_IsDelta
+  name: IsDelta
+  nameWithType: StreamChatTurn.IsDelta
+  fullName: BbQ.ChatWidgets.Models.StreamChatTurn.IsDelta

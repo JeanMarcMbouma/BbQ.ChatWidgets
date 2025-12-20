@@ -1,0 +1,24 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Agents.Middleware
+  commentId: N:BbQ.ChatWidgets.Agents.Middleware
+  id: BbQ.ChatWidgets.Agents.Middleware
+  children:
+  - BbQ.ChatWidgets.Agents.Middleware.TriageMiddleware
+  langs:
+  - csharp
+  - vb
+  name: BbQ.ChatWidgets.Agents.Middleware
+  nameWithType: BbQ.ChatWidgets.Agents.Middleware
+  fullName: BbQ.ChatWidgets.Agents.Middleware
+  type: Namespace
+  assemblies:
+  - BbQ.ChatWidgets
+references:
+- uid: BbQ.ChatWidgets.Agents.Middleware.TriageMiddleware
+  commentId: T:BbQ.ChatWidgets.Agents.Middleware.TriageMiddleware
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.Middleware.TriageMiddleware.html
+  name: TriageMiddleware
+  nameWithType: TriageMiddleware
+  fullName: BbQ.ChatWidgets.Agents.Middleware.TriageMiddleware

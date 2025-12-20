@@ -1,0 +1,385 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Abstractions.IThreadService
+  commentId: T:BbQ.ChatWidgets.Abstractions.IThreadService
+  id: IThreadService
+  parent: BbQ.ChatWidgets.Abstractions
+  children:
+  - BbQ.ChatWidgets.Abstractions.IThreadService.AppendMessageToThread(System.String,BbQ.ChatWidgets.Models.ChatTurn)
+  - BbQ.ChatWidgets.Abstractions.IThreadService.CreateThread
+  - BbQ.ChatWidgets.Abstractions.IThreadService.DeleteThread(System.String)
+  - BbQ.ChatWidgets.Abstractions.IThreadService.GetMessage(System.String)
+  - BbQ.ChatWidgets.Abstractions.IThreadService.ThreadExists(System.String)
+  langs:
+  - csharp
+  - vb
+  name: IThreadService
+  nameWithType: IThreadService
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadService
+  type: Interface
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Abstractions/IThreadService.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Abstractions
+  summary: Defines the contract for managing conversation threads and message history.
+  remarks: >-
+    Thread services maintain the state of multi-turn conversations. Each thread represents
+
+    a separate conversation with its own message history. The service provides methods for:
+
+    - Creating new conversations
+
+    - Storing and retrieving messages
+
+    - Checking thread existence
+
+    - Cleaning up old threads
+
+
+    The default implementation stores threads in memory. For production applications,
+
+    consider implementing a custom service that persists to a database.
+  example: []
+  syntax:
+    content: public interface IThreadService
+    content.vb: Public Interface IThreadService
+- uid: BbQ.ChatWidgets.Abstractions.IThreadService.DeleteThread(System.String)
+  commentId: M:BbQ.ChatWidgets.Abstractions.IThreadService.DeleteThread(System.String)
+  id: DeleteThread(System.String)
+  parent: BbQ.ChatWidgets.Abstractions.IThreadService
+  langs:
+  - csharp
+  - vb
+  name: DeleteThread(string)
+  nameWithType: IThreadService.DeleteThread(string)
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadService.DeleteThread(string)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Abstractions/IThreadService.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Abstractions
+  summary: Deletes a conversation thread and all its message history.
+  remarks: >-
+    This operation removes the thread permanently. Once deleted, the thread ID
+
+    can be reused for a new conversation.
+  example: []
+  syntax:
+    content: void DeleteThread(string threadId)
+    parameters:
+    - id: threadId
+      type: System.String
+      description: The unique identifier of the thread to delete.
+    content.vb: Sub DeleteThread(threadId As String)
+  overload: BbQ.ChatWidgets.Abstractions.IThreadService.DeleteThread*
+  nameWithType.vb: IThreadService.DeleteThread(String)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IThreadService.DeleteThread(String)
+  name.vb: DeleteThread(String)
+- uid: BbQ.ChatWidgets.Abstractions.IThreadService.CreateThread
+  commentId: M:BbQ.ChatWidgets.Abstractions.IThreadService.CreateThread
+  id: CreateThread
+  parent: BbQ.ChatWidgets.Abstractions.IThreadService
+  langs:
+  - csharp
+  - vb
+  name: CreateThread()
+  nameWithType: IThreadService.CreateThread()
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadService.CreateThread()
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Abstractions/IThreadService.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Abstractions
+  summary: Creates a new conversation thread.
+  remarks: >-
+    Each thread has a unique identifier that can be used to retrieve and update
+
+    its message history. Threads start empty with no messages.
+  example: []
+  syntax:
+    content: string CreateThread()
+    return:
+      type: System.String
+      description: A unique thread identifier for the newly created conversation.
+    content.vb: Function CreateThread() As String
+  overload: BbQ.ChatWidgets.Abstractions.IThreadService.CreateThread*
+- uid: BbQ.ChatWidgets.Abstractions.IThreadService.ThreadExists(System.String)
+  commentId: M:BbQ.ChatWidgets.Abstractions.IThreadService.ThreadExists(System.String)
+  id: ThreadExists(System.String)
+  parent: BbQ.ChatWidgets.Abstractions.IThreadService
+  langs:
+  - csharp
+  - vb
+  name: ThreadExists(string)
+  nameWithType: IThreadService.ThreadExists(string)
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadService.ThreadExists(string)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Abstractions/IThreadService.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Abstractions
+  summary: Checks if a conversation thread exists.
+  example: []
+  syntax:
+    content: bool ThreadExists(string threadId)
+    parameters:
+    - id: threadId
+      type: System.String
+      description: The thread identifier to check.
+    return:
+      type: System.Boolean
+      description: True if the thread exists; false otherwise.
+    content.vb: Function ThreadExists(threadId As String) As Boolean
+  overload: BbQ.ChatWidgets.Abstractions.IThreadService.ThreadExists*
+  nameWithType.vb: IThreadService.ThreadExists(String)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IThreadService.ThreadExists(String)
+  name.vb: ThreadExists(String)
+- uid: BbQ.ChatWidgets.Abstractions.IThreadService.AppendMessageToThread(System.String,BbQ.ChatWidgets.Models.ChatTurn)
+  commentId: M:BbQ.ChatWidgets.Abstractions.IThreadService.AppendMessageToThread(System.String,BbQ.ChatWidgets.Models.ChatTurn)
+  id: AppendMessageToThread(System.String,BbQ.ChatWidgets.Models.ChatTurn)
+  parent: BbQ.ChatWidgets.Abstractions.IThreadService
+  langs:
+  - csharp
+  - vb
+  name: AppendMessageToThread(string, ChatTurn)
+  nameWithType: IThreadService.AppendMessageToThread(string, ChatTurn)
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadService.AppendMessageToThread(string, BbQ.ChatWidgets.Models.ChatTurn)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Abstractions/IThreadService.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Abstractions
+  summary: Appends a message to a conversation thread's history.
+  remarks: >-
+    This method adds a new turn (message) to the specified thread's conversation history.
+
+    The message is stored with its role (User or Assistant), content, and any embedded widgets.
+  example: []
+  syntax:
+    content: ChatMessages AppendMessageToThread(string threadId, ChatTurn chatTurn)
+    parameters:
+    - id: threadId
+      type: System.String
+      description: The thread identifier.
+    - id: chatTurn
+      type: BbQ.ChatWidgets.Models.ChatTurn
+      description: The message to append to the thread.
+    return:
+      type: BbQ.ChatWidgets.Models.ChatMessages
+      description: The updated <xref href="BbQ.ChatWidgets.Models.ChatMessages" data-throw-if-not-resolved="false"></xref> containing all turns including the newly appended one.
+    content.vb: Function AppendMessageToThread(threadId As String, chatTurn As ChatTurn) As ChatMessages
+  overload: BbQ.ChatWidgets.Abstractions.IThreadService.AppendMessageToThread*
+  exceptions:
+  - type: BbQ.ChatWidgets.Exceptions.ThreadNotFoundException
+    commentId: T:BbQ.ChatWidgets.Exceptions.ThreadNotFoundException
+    description: Thrown if the thread does not exist.
+  nameWithType.vb: IThreadService.AppendMessageToThread(String, ChatTurn)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IThreadService.AppendMessageToThread(String, BbQ.ChatWidgets.Models.ChatTurn)
+  name.vb: AppendMessageToThread(String, ChatTurn)
+- uid: BbQ.ChatWidgets.Abstractions.IThreadService.GetMessage(System.String)
+  commentId: M:BbQ.ChatWidgets.Abstractions.IThreadService.GetMessage(System.String)
+  id: GetMessage(System.String)
+  parent: BbQ.ChatWidgets.Abstractions.IThreadService
+  langs:
+  - csharp
+  - vb
+  name: GetMessage(string)
+  nameWithType: IThreadService.GetMessage(string)
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadService.GetMessage(string)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Abstractions/IThreadService.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Abstractions
+  summary: Retrieves the complete message history of a conversation thread.
+  remarks: >-
+    Returns all messages in the thread, including both user messages and assistant responses.
+
+    The messages are returned in order of insertion (oldest to newest).
+  example: []
+  syntax:
+    content: ChatMessages GetMessage(string threadId)
+    parameters:
+    - id: threadId
+      type: System.String
+      description: The thread identifier.
+    return:
+      type: BbQ.ChatWidgets.Models.ChatMessages
+      description: A <xref href="BbQ.ChatWidgets.Models.ChatMessages" data-throw-if-not-resolved="false"></xref> object containing all turns in the thread.
+    content.vb: Function GetMessage(threadId As String) As ChatMessages
+  overload: BbQ.ChatWidgets.Abstractions.IThreadService.GetMessage*
+  exceptions:
+  - type: BbQ.ChatWidgets.Exceptions.ThreadNotFoundException
+    commentId: T:BbQ.ChatWidgets.Exceptions.ThreadNotFoundException
+    description: Thrown if the thread does not exist.
+  nameWithType.vb: IThreadService.GetMessage(String)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IThreadService.GetMessage(String)
+  name.vb: GetMessage(String)
+references:
+- uid: BbQ.ChatWidgets.Abstractions
+  commentId: N:BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Abstractions
+  nameWithType: BbQ.ChatWidgets.Abstractions
+  fullName: BbQ.ChatWidgets.Abstractions
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html
+- uid: BbQ.ChatWidgets.Abstractions.IThreadService.DeleteThread*
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IThreadService.DeleteThread
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IThreadService.html#BbQ_ChatWidgets_Abstractions_IThreadService_DeleteThread_System_String_
+  name: DeleteThread
+  nameWithType: IThreadService.DeleteThread
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadService.DeleteThread
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: BbQ.ChatWidgets.Abstractions.IThreadService.CreateThread*
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IThreadService.CreateThread
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IThreadService.html#BbQ_ChatWidgets_Abstractions_IThreadService_CreateThread
+  name: CreateThread
+  nameWithType: IThreadService.CreateThread
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadService.CreateThread
+- uid: BbQ.ChatWidgets.Abstractions.IThreadService.ThreadExists*
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IThreadService.ThreadExists
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IThreadService.html#BbQ_ChatWidgets_Abstractions_IThreadService_ThreadExists_System_String_
+  name: ThreadExists
+  nameWithType: IThreadService.ThreadExists
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadService.ThreadExists
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: BbQ.ChatWidgets.Models.ChatMessages
+  commentId: T:BbQ.ChatWidgets.Models.ChatMessages
+  parent: BbQ.ChatWidgets.Models
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatMessages.html
+  name: ChatMessages
+  nameWithType: ChatMessages
+  fullName: BbQ.ChatWidgets.Models.ChatMessages
+- uid: BbQ.ChatWidgets.Exceptions.ThreadNotFoundException
+  commentId: T:BbQ.ChatWidgets.Exceptions.ThreadNotFoundException
+  isExternal: true
+  href: BbQ.ChatWidgets.Exceptions.ThreadNotFoundException.html
+  name: ThreadNotFoundException
+  nameWithType: ThreadNotFoundException
+  fullName: BbQ.ChatWidgets.Exceptions.ThreadNotFoundException
+- uid: BbQ.ChatWidgets.Abstractions.IThreadService.AppendMessageToThread*
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IThreadService.AppendMessageToThread
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IThreadService.html#BbQ_ChatWidgets_Abstractions_IThreadService_AppendMessageToThread_System_String_BbQ_ChatWidgets_Models_ChatTurn_
+  name: AppendMessageToThread
+  nameWithType: IThreadService.AppendMessageToThread
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadService.AppendMessageToThread
+- uid: BbQ.ChatWidgets.Models.ChatTurn
+  commentId: T:BbQ.ChatWidgets.Models.ChatTurn
+  parent: BbQ.ChatWidgets.Models
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatTurn.html
+  name: ChatTurn
+  nameWithType: ChatTurn
+  fullName: BbQ.ChatWidgets.Models.ChatTurn
+- uid: BbQ.ChatWidgets.Models
+  commentId: N:BbQ.ChatWidgets.Models
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Models
+  nameWithType: BbQ.ChatWidgets.Models
+  fullName: BbQ.ChatWidgets.Models
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Models
+    name: Models
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Models
+    name: Models
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.html
+- uid: BbQ.ChatWidgets.Abstractions.IThreadService.GetMessage*
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IThreadService.GetMessage
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IThreadService.html#BbQ_ChatWidgets_Abstractions_IThreadService_GetMessage_System_String_
+  name: GetMessage
+  nameWithType: IThreadService.GetMessage
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadService.GetMessage

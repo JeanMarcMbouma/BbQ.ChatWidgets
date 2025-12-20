@@ -1,0 +1,143 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Services
+  commentId: N:BbQ.ChatWidgets.Services
+  id: BbQ.ChatWidgets.Services
+  children:
+  - BbQ.ChatWidgets.Services.ChatWidgetService
+  - BbQ.ChatWidgets.Services.DefaultAIToolsProvider
+  - BbQ.ChatWidgets.Services.DefaultThreadService
+  - BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver
+  - BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry
+  - BbQ.ChatWidgets.Services.DefaultWidgetHintParser
+  - BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider
+  - BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions
+  - BbQ.ChatWidgets.Services.WidgetActionMetadata
+  - BbQ.ChatWidgets.Services.WidgetRegistry
+  - BbQ.ChatWidgets.Services.WidgetRegistryExtensions
+  langs:
+  - csharp
+  - vb
+  name: BbQ.ChatWidgets.Services
+  nameWithType: BbQ.ChatWidgets.Services
+  fullName: BbQ.ChatWidgets.Services
+  type: Namespace
+  assemblies:
+  - BbQ.ChatWidgets
+references:
+- uid: BbQ.ChatWidgets.Services.ChatWidgetService
+  commentId: T:BbQ.ChatWidgets.Services.ChatWidgetService
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.ChatWidgetService.html
+  name: ChatWidgetService
+  nameWithType: ChatWidgetService
+  fullName: BbQ.ChatWidgets.Services.ChatWidgetService
+- uid: BbQ.ChatWidgets.Services.DefaultAIToolsProvider
+  commentId: T:BbQ.ChatWidgets.Services.DefaultAIToolsProvider
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.DefaultAIToolsProvider.html
+  name: DefaultAIToolsProvider
+  nameWithType: DefaultAIToolsProvider
+  fullName: BbQ.ChatWidgets.Services.DefaultAIToolsProvider
+- uid: BbQ.ChatWidgets.Services.DefaultThreadService
+  commentId: T:BbQ.ChatWidgets.Services.DefaultThreadService
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.DefaultThreadService.html
+  name: DefaultThreadService
+  nameWithType: DefaultThreadService
+  fullName: BbQ.ChatWidgets.Services.DefaultThreadService
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry
+  commentId: T:BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry.html
+  name: DefaultWidgetActionRegistry
+  nameWithType: DefaultWidgetActionRegistry
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionRegistry
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetHintParser
+  commentId: T:BbQ.ChatWidgets.Services.DefaultWidgetHintParser
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.DefaultWidgetHintParser.html
+  name: DefaultWidgetHintParser
+  nameWithType: DefaultWidgetHintParser
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetHintParser
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider
+  commentId: T:BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider.html
+  name: DefaultWidgetToolsProvider
+  nameWithType: DefaultWidgetToolsProvider
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetToolsProvider
+- uid: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver
+  commentId: T:BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver.html
+  name: DefaultWidgetActionHandlerResolver
+  nameWithType: DefaultWidgetActionHandlerResolver
+  fullName: BbQ.ChatWidgets.Services.DefaultWidgetActionHandlerResolver
+- uid: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions
+  commentId: T:BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions
+  parent: BbQ.ChatWidgets.Services
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions.html
+  name: WidgetActionHandlerExtensions
+  nameWithType: WidgetActionHandlerExtensions
+  fullName: BbQ.ChatWidgets.Services.WidgetActionHandlerExtensions
+- uid: BbQ.ChatWidgets.Services.WidgetActionMetadata
+  commentId: T:BbQ.ChatWidgets.Services.WidgetActionMetadata
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.WidgetActionMetadata.html
+  name: WidgetActionMetadata
+  nameWithType: WidgetActionMetadata
+  fullName: BbQ.ChatWidgets.Services.WidgetActionMetadata
+- uid: BbQ.ChatWidgets.Services.WidgetRegistry
+  commentId: T:BbQ.ChatWidgets.Services.WidgetRegistry
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.WidgetRegistry.html
+  name: WidgetRegistry
+  nameWithType: WidgetRegistry
+  fullName: BbQ.ChatWidgets.Services.WidgetRegistry
+- uid: BbQ.ChatWidgets.Services.WidgetRegistryExtensions
+  commentId: T:BbQ.ChatWidgets.Services.WidgetRegistryExtensions
+  parent: BbQ.ChatWidgets.Services
+  isExternal: true
+  href: BbQ.ChatWidgets.Services.WidgetRegistryExtensions.html
+  name: WidgetRegistryExtensions
+  nameWithType: WidgetRegistryExtensions
+  fullName: BbQ.ChatWidgets.Services.WidgetRegistryExtensions
+- uid: BbQ.ChatWidgets.Services
+  commentId: N:BbQ.ChatWidgets.Services
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Services
+  nameWithType: BbQ.ChatWidgets.Services
+  fullName: BbQ.ChatWidgets.Services
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Services
+    name: Services
+    isExternal: true
+    href: BbQ.ChatWidgets.Services.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Services
+    name: Services
+    isExternal: true
+    href: BbQ.ChatWidgets.Services.html

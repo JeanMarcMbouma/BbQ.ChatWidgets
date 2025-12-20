@@ -1,0 +1,317 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IClassifier`1
+  commentId: T:BbQ.ChatWidgets.Agents.Abstractions.IClassifier`1
+  id: IClassifier`1
+  parent: BbQ.ChatWidgets.Agents.Abstractions
+  children:
+  - BbQ.ChatWidgets.Agents.Abstractions.IClassifier`1.ClassifyAsync(System.String,System.Threading.CancellationToken)
+  langs:
+  - csharp
+  - vb
+  name: IClassifier<TCategory>
+  nameWithType: IClassifier<TCategory>
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IClassifier<TCategory>
+  type: Interface
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Agents/Abstractions/IClassifier.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents.Abstractions
+  summary: Interface for classifying input into predefined categories.
+  remarks: >-
+    Classifiers are used to categorize user input or messages into specific enum-based categories.
+
+    This is useful for:
+
+    - Routing requests to appropriate handlers
+
+    - Intent detection
+
+    - Message categorization
+
+    - Request classification
+
+
+    Example usage:
+
+    <pre><code class="lang-csharp">public enum UserIntent
+
+    {
+        Hello,
+        Help,
+        Delete,
+        Search
+    }
+
+
+    public class IntentClassifier : IClassifier&lt;UserIntent&gt;
+
+    {
+        public async Task&lt;UserIntent&gt; ClassifyAsync(string input, CancellationToken ct)
+        {
+            // Use AI or rules to classify the input
+            return UserIntent.Hello;
+        }
+    }</code></pre>
+  example: []
+  syntax:
+    content: 'public interface IClassifier<TCategory> where TCategory : Enum'
+    typeParameters:
+    - id: TCategory
+      description: The enum type representing possible categories.
+    content.vb: Public Interface IClassifier(Of TCategory As [Enum])
+  nameWithType.vb: IClassifier(Of TCategory)
+  fullName.vb: BbQ.ChatWidgets.Agents.Abstractions.IClassifier(Of TCategory)
+  name.vb: IClassifier(Of TCategory)
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IClassifier`1.ClassifyAsync(System.String,System.Threading.CancellationToken)
+  commentId: M:BbQ.ChatWidgets.Agents.Abstractions.IClassifier`1.ClassifyAsync(System.String,System.Threading.CancellationToken)
+  id: ClassifyAsync(System.String,System.Threading.CancellationToken)
+  parent: BbQ.ChatWidgets.Agents.Abstractions.IClassifier`1
+  langs:
+  - csharp
+  - vb
+  name: ClassifyAsync(string, CancellationToken)
+  nameWithType: IClassifier<TCategory>.ClassifyAsync(string, CancellationToken)
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IClassifier<TCategory>.ClassifyAsync(string, System.Threading.CancellationToken)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Agents/Abstractions/IClassifier.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents.Abstractions
+  summary: Classifies the given input text into one of the specified categories.
+  remarks: >-
+    Implementations should analyze the input and determine which category it belongs to.
+
+    This could use:
+
+    - AI/LLM-based classification
+
+    - Rule-based classification
+
+    - Machine learning models
+
+    - Pattern matching
+  example: []
+  syntax:
+    content: Task<TCategory> ClassifyAsync(string input, CancellationToken ct = default)
+    parameters:
+    - id: input
+      type: System.String
+      description: The text input to classify.
+    - id: ct
+      type: System.Threading.CancellationToken
+      description: Token to cancel the async operation.
+    return:
+      type: System.Threading.Tasks.Task{{TCategory}}
+      description: The category that best matches the input.
+    content.vb: Function ClassifyAsync(input As String, ct As CancellationToken = Nothing) As Task(Of TCategory)
+  overload: BbQ.ChatWidgets.Agents.Abstractions.IClassifier`1.ClassifyAsync*
+  nameWithType.vb: IClassifier(Of TCategory).ClassifyAsync(String, CancellationToken)
+  fullName.vb: BbQ.ChatWidgets.Agents.Abstractions.IClassifier(Of TCategory).ClassifyAsync(String, System.Threading.CancellationToken)
+  name.vb: ClassifyAsync(String, CancellationToken)
+references:
+- uid: BbQ.ChatWidgets.Agents.Abstractions
+  commentId: N:BbQ.ChatWidgets.Agents.Abstractions
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Agents.Abstractions
+  nameWithType: BbQ.ChatWidgets.Agents.Abstractions
+  fullName: BbQ.ChatWidgets.Agents.Abstractions
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.Abstractions.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.Abstractions.html
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IClassifier`1.ClassifyAsync*
+  commentId: Overload:BbQ.ChatWidgets.Agents.Abstractions.IClassifier`1.ClassifyAsync
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.Abstractions.IClassifier-1.html#BbQ_ChatWidgets_Agents_Abstractions_IClassifier_1_ClassifyAsync_System_String_System_Threading_CancellationToken_
+  name: ClassifyAsync
+  nameWithType: IClassifier<TCategory>.ClassifyAsync
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IClassifier<TCategory>.ClassifyAsync
+  nameWithType.vb: IClassifier(Of TCategory).ClassifyAsync
+  fullName.vb: BbQ.ChatWidgets.Agents.Abstractions.IClassifier(Of TCategory).ClassifyAsync
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task{{TCategory}}
+  commentId: T:System.Threading.Tasks.Task{`0}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TCategory>
+  nameWithType: Task<TCategory>
+  fullName: System.Threading.Tasks.Task<TCategory>
+  nameWithType.vb: Task(Of TCategory)
+  fullName.vb: System.Threading.Tasks.Task(Of TCategory)
+  name.vb: Task(Of TCategory)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TCategory
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TCategory
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks

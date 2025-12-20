@@ -1,0 +1,474 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate
+  commentId: T:BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate
+  id: AgentDelegate
+  parent: BbQ.ChatWidgets.Agents.Abstractions
+  children:
+  - BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.#ctor(System.Object,System.IntPtr)
+  - BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.BeginInvoke(BbQ.ChatWidgets.Agents.ChatRequest,System.Threading.CancellationToken,System.AsyncCallback,System.Object)
+  - BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.EndInvoke(System.IAsyncResult)
+  - BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.Invoke(BbQ.ChatWidgets.Agents.ChatRequest,System.Threading.CancellationToken)
+  langs:
+  - csharp
+  - vb
+  name: AgentDelegate
+  nameWithType: AgentDelegate
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate
+  type: Delegate
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Agents/Abstractions/IAgent.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents.Abstractions
+  summary: Delegate for handling chat requests in the agent pipeline.
+  remarks: >-
+    This delegate type is used for middleware and agent components that process
+
+    chat requests and return outcomes. It provides a functional approach to
+
+    request handling compatible with pipeline middleware patterns.
+  example: []
+  syntax:
+    content: public delegate Task<Outcome<ChatTurn>> AgentDelegate(ChatRequest request, CancellationToken ct)
+    parameters:
+    - id: request
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+      description: The chat request to process.
+    - id: ct
+      type: System.Threading.CancellationToken
+      description: Cancellation token.
+    return:
+      type: System.Threading.Tasks.Task{BbQ.Outcome.Outcome{BbQ.ChatWidgets.Models.ChatTurn}}
+      description: An Outcome with the ChatTurn result or error information.
+    content.vb: Public Delegate Function AgentDelegate(request As ChatRequest, ct As CancellationToken) As Task(Of Outcome(Of ChatTurn))
+- uid: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.#ctor(System.Object,System.IntPtr)
+  commentId: M:BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.#ctor(System.Object,System.IntPtr)
+  id: '#ctor(System.Object,System.IntPtr)'
+  parent: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate
+  langs:
+  - csharp
+  - vb
+  name: AgentDelegate(object, nint)
+  nameWithType: AgentDelegate.AgentDelegate(object, nint)
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.AgentDelegate(object, nint)
+  type: Constructor
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Agents/Abstractions/IAgent.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents.Abstractions
+  syntax:
+    content: public AgentDelegate(object @object, nint method)
+    parameters:
+    - id: object
+      type: System.Object
+    - id: method
+      type: System.IntPtr
+    content.vb: Public Sub New([object] As Object, method As IntPtr)
+  overload: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.#ctor*
+  nameWithType.vb: AgentDelegate.New(Object, IntPtr)
+  fullName.vb: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.New(Object, System.IntPtr)
+  name.vb: New(Object, IntPtr)
+- uid: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.Invoke(BbQ.ChatWidgets.Agents.ChatRequest,System.Threading.CancellationToken)
+  commentId: M:BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.Invoke(BbQ.ChatWidgets.Agents.ChatRequest,System.Threading.CancellationToken)
+  id: Invoke(BbQ.ChatWidgets.Agents.ChatRequest,System.Threading.CancellationToken)
+  parent: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate
+  langs:
+  - csharp
+  - vb
+  name: Invoke(ChatRequest, CancellationToken)
+  nameWithType: AgentDelegate.Invoke(ChatRequest, CancellationToken)
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.Invoke(BbQ.ChatWidgets.Agents.ChatRequest, System.Threading.CancellationToken)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Agents/Abstractions/IAgent.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents.Abstractions
+  syntax:
+    content: public virtual Task<Outcome<ChatTurn>> Invoke(ChatRequest request, CancellationToken ct)
+    parameters:
+    - id: request
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+    - id: ct
+      type: System.Threading.CancellationToken
+    return:
+      type: System.Threading.Tasks.Task{BbQ.Outcome.Outcome{BbQ.ChatWidgets.Models.ChatTurn}}
+    content.vb: Public Overridable Function Invoke(request As ChatRequest, ct As CancellationToken) As Task(Of Outcome(Of ChatTurn))
+  overload: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.Invoke*
+- uid: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.BeginInvoke(BbQ.ChatWidgets.Agents.ChatRequest,System.Threading.CancellationToken,System.AsyncCallback,System.Object)
+  commentId: M:BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.BeginInvoke(BbQ.ChatWidgets.Agents.ChatRequest,System.Threading.CancellationToken,System.AsyncCallback,System.Object)
+  id: BeginInvoke(BbQ.ChatWidgets.Agents.ChatRequest,System.Threading.CancellationToken,System.AsyncCallback,System.Object)
+  parent: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate
+  langs:
+  - csharp
+  - vb
+  name: BeginInvoke(ChatRequest, CancellationToken, AsyncCallback, object)
+  nameWithType: AgentDelegate.BeginInvoke(ChatRequest, CancellationToken, AsyncCallback, object)
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.BeginInvoke(BbQ.ChatWidgets.Agents.ChatRequest, System.Threading.CancellationToken, System.AsyncCallback, object)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Agents/Abstractions/IAgent.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents.Abstractions
+  syntax:
+    content: public virtual IAsyncResult BeginInvoke(ChatRequest request, CancellationToken ct, AsyncCallback callback, object @object)
+    parameters:
+    - id: request
+      type: BbQ.ChatWidgets.Agents.ChatRequest
+    - id: ct
+      type: System.Threading.CancellationToken
+    - id: callback
+      type: System.AsyncCallback
+    - id: object
+      type: System.Object
+    return:
+      type: System.IAsyncResult
+    content.vb: Public Overridable Function BeginInvoke(request As ChatRequest, ct As CancellationToken, callback As AsyncCallback, [object] As Object) As IAsyncResult
+  overload: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.BeginInvoke*
+  nameWithType.vb: AgentDelegate.BeginInvoke(ChatRequest, CancellationToken, AsyncCallback, Object)
+  fullName.vb: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.BeginInvoke(BbQ.ChatWidgets.Agents.ChatRequest, System.Threading.CancellationToken, System.AsyncCallback, Object)
+  name.vb: BeginInvoke(ChatRequest, CancellationToken, AsyncCallback, Object)
+- uid: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.EndInvoke(System.IAsyncResult)
+  commentId: M:BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.EndInvoke(System.IAsyncResult)
+  id: EndInvoke(System.IAsyncResult)
+  parent: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate
+  langs:
+  - csharp
+  - vb
+  name: EndInvoke(IAsyncResult)
+  nameWithType: AgentDelegate.EndInvoke(IAsyncResult)
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.EndInvoke(System.IAsyncResult)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Agents/Abstractions/IAgent.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Agents.Abstractions
+  syntax:
+    content: public virtual Task<Outcome<ChatTurn>> EndInvoke(IAsyncResult result)
+    parameters:
+    - id: result
+      type: System.IAsyncResult
+    return:
+      type: System.Threading.Tasks.Task{BbQ.Outcome.Outcome{BbQ.ChatWidgets.Models.ChatTurn}}
+    content.vb: Public Overridable Function EndInvoke(result As IAsyncResult) As Task(Of Outcome(Of ChatTurn))
+  overload: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.EndInvoke*
+references:
+- uid: BbQ.ChatWidgets.Agents.Abstractions
+  commentId: N:BbQ.ChatWidgets.Agents.Abstractions
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Agents.Abstractions
+  nameWithType: BbQ.ChatWidgets.Agents.Abstractions
+  fullName: BbQ.ChatWidgets.Agents.Abstractions
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.Abstractions.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.Abstractions.html
+- uid: BbQ.ChatWidgets.Agents.ChatRequest
+  commentId: T:BbQ.ChatWidgets.Agents.ChatRequest
+  parent: BbQ.ChatWidgets.Agents
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.ChatRequest.html
+  name: ChatRequest
+  nameWithType: ChatRequest
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest
+- uid: System.Threading.CancellationToken
+  commentId: T:System.Threading.CancellationToken
+  parent: System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+  name: CancellationToken
+  nameWithType: CancellationToken
+  fullName: System.Threading.CancellationToken
+- uid: System.Threading.Tasks.Task{BbQ.Outcome.Outcome{BbQ.ChatWidgets.Models.ChatTurn}}
+  commentId: T:System.Threading.Tasks.Task{BbQ.Outcome.Outcome{BbQ.ChatWidgets.Models.ChatTurn}}
+  parent: System.Threading.Tasks
+  definition: System.Threading.Tasks.Task`1
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<Outcome<ChatTurn>>
+  nameWithType: Task<Outcome<ChatTurn>>
+  fullName: System.Threading.Tasks.Task<BbQ.Outcome.Outcome<BbQ.ChatWidgets.Models.ChatTurn>>
+  nameWithType.vb: Task(Of Outcome(Of ChatTurn))
+  fullName.vb: System.Threading.Tasks.Task(Of BbQ.Outcome.Outcome(Of BbQ.ChatWidgets.Models.ChatTurn))
+  name.vb: Task(Of Outcome(Of ChatTurn))
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - uid: BbQ.Outcome.Outcome`1
+    name: Outcome
+    isExternal: true
+  - name: <
+  - uid: BbQ.ChatWidgets.Models.ChatTurn
+    name: ChatTurn
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html
+  - name: '>'
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.Outcome.Outcome`1
+    name: Outcome
+    isExternal: true
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.ChatTurn
+    name: ChatTurn
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatTurn.html
+  - name: )
+  - name: )
+- uid: BbQ.ChatWidgets.Agents
+  commentId: N:BbQ.ChatWidgets.Agents
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Agents
+  nameWithType: BbQ.ChatWidgets.Agents
+  fullName: BbQ.ChatWidgets.Agents
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html
+- uid: System.Threading
+  commentId: N:System.Threading
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading
+  nameWithType: System.Threading
+  fullName: System.Threading
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+- uid: System.Threading.Tasks.Task`1
+  commentId: T:System.Threading.Tasks.Task`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  name: Task<TResult>
+  nameWithType: Task<TResult>
+  fullName: System.Threading.Tasks.Task<TResult>
+  nameWithType.vb: Task(Of TResult)
+  fullName.vb: System.Threading.Tasks.Task(Of TResult)
+  name.vb: Task(Of TResult)
+  spec.csharp:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: <
+  - name: TResult
+  - name: '>'
+  spec.vb:
+  - uid: System.Threading.Tasks.Task`1
+    name: Task
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TResult
+  - name: )
+- uid: System.Threading.Tasks
+  commentId: N:System.Threading.Tasks
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Threading.Tasks
+  nameWithType: System.Threading.Tasks
+  fullName: System.Threading.Tasks
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Threading
+    name: Threading
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading
+  - name: .
+  - uid: System.Threading.Tasks
+    name: Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+- uid: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.#ctor*
+  commentId: Overload:BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.#ctor
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.html#BbQ_ChatWidgets_Agents_Abstractions_AgentDelegate__ctor_System_Object_System_IntPtr_
+  name: AgentDelegate
+  nameWithType: AgentDelegate.AgentDelegate
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.AgentDelegate
+  nameWithType.vb: AgentDelegate.New
+  fullName.vb: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.New
+  name.vb: New
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.IntPtr
+  commentId: T:System.IntPtr
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.intptr
+  name: nint
+  nameWithType: nint
+  fullName: nint
+  nameWithType.vb: IntPtr
+  fullName.vb: System.IntPtr
+  name.vb: IntPtr
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.Invoke*
+  commentId: Overload:BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.Invoke
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.html#BbQ_ChatWidgets_Agents_Abstractions_AgentDelegate_Invoke_BbQ_ChatWidgets_Agents_ChatRequest_System_Threading_CancellationToken_
+  name: Invoke
+  nameWithType: AgentDelegate.Invoke
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.Invoke
+- uid: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.BeginInvoke*
+  commentId: Overload:BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.BeginInvoke
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.html#BbQ_ChatWidgets_Agents_Abstractions_AgentDelegate_BeginInvoke_BbQ_ChatWidgets_Agents_ChatRequest_System_Threading_CancellationToken_System_AsyncCallback_System_Object_
+  name: BeginInvoke
+  nameWithType: AgentDelegate.BeginInvoke
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.BeginInvoke
+- uid: System.AsyncCallback
+  commentId: T:System.AsyncCallback
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.asynccallback
+  name: AsyncCallback
+  nameWithType: AsyncCallback
+  fullName: System.AsyncCallback
+- uid: System.IAsyncResult
+  commentId: T:System.IAsyncResult
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iasyncresult
+  name: IAsyncResult
+  nameWithType: IAsyncResult
+  fullName: System.IAsyncResult
+- uid: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.EndInvoke*
+  commentId: Overload:BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.EndInvoke
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.html#BbQ_ChatWidgets_Agents_Abstractions_AgentDelegate_EndInvoke_System_IAsyncResult_
+  name: EndInvoke
+  nameWithType: AgentDelegate.EndInvoke
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.AgentDelegate.EndInvoke

@@ -1,0 +1,116 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Agents
+  commentId: N:BbQ.ChatWidgets.Agents
+  id: BbQ.ChatWidgets.Agents
+  children:
+  - BbQ.ChatWidgets.Agents.AgentPipelineBuilder
+  - BbQ.ChatWidgets.Agents.AgentRegistry
+  - BbQ.ChatWidgets.Agents.ChatRequest
+  - BbQ.ChatWidgets.Agents.InterAgentCommunicationContext
+  - BbQ.ChatWidgets.Agents.TriageAgent`1
+  langs:
+  - csharp
+  - vb
+  name: BbQ.ChatWidgets.Agents
+  nameWithType: BbQ.ChatWidgets.Agents
+  fullName: BbQ.ChatWidgets.Agents
+  type: Namespace
+  assemblies:
+  - BbQ.ChatWidgets
+references:
+- uid: BbQ.ChatWidgets.Agents.AgentPipelineBuilder
+  commentId: T:BbQ.ChatWidgets.Agents.AgentPipelineBuilder
+  parent: BbQ.ChatWidgets.Agents
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.AgentPipelineBuilder.html
+  name: AgentPipelineBuilder
+  nameWithType: AgentPipelineBuilder
+  fullName: BbQ.ChatWidgets.Agents.AgentPipelineBuilder
+- uid: BbQ.ChatWidgets.Agents.AgentRegistry
+  commentId: T:BbQ.ChatWidgets.Agents.AgentRegistry
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.AgentRegistry.html
+  name: AgentRegistry
+  nameWithType: AgentRegistry
+  fullName: BbQ.ChatWidgets.Agents.AgentRegistry
+- uid: BbQ.ChatWidgets.Agents.ChatRequest
+  commentId: T:BbQ.ChatWidgets.Agents.ChatRequest
+  parent: BbQ.ChatWidgets.Agents
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.ChatRequest.html
+  name: ChatRequest
+  nameWithType: ChatRequest
+  fullName: BbQ.ChatWidgets.Agents.ChatRequest
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext
+  commentId: T:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html
+  name: InterAgentCommunicationContext
+  nameWithType: InterAgentCommunicationContext
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext
+- uid: BbQ.ChatWidgets.Agents.TriageAgent`1
+  commentId: T:BbQ.ChatWidgets.Agents.TriageAgent`1
+  isExternal: true
+  href: BbQ.ChatWidgets.Agents.TriageAgent-1.html
+  name: TriageAgent<TCategory>
+  nameWithType: TriageAgent<TCategory>
+  fullName: BbQ.ChatWidgets.Agents.TriageAgent<TCategory>
+  nameWithType.vb: TriageAgent(Of TCategory)
+  fullName.vb: BbQ.ChatWidgets.Agents.TriageAgent(Of TCategory)
+  name.vb: TriageAgent(Of TCategory)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Agents.TriageAgent`1
+    name: TriageAgent
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.TriageAgent-1.html
+  - name: <
+  - name: TCategory
+  - name: '>'
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Agents.TriageAgent`1
+    name: TriageAgent
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.TriageAgent-1.html
+  - name: (
+  - name: Of
+  - name: " "
+  - name: TCategory
+  - name: )
+- uid: BbQ.ChatWidgets.Agents
+  commentId: N:BbQ.ChatWidgets.Agents
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Agents
+  nameWithType: BbQ.ChatWidgets.Agents
+  fullName: BbQ.ChatWidgets.Agents
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Agents
+    name: Agents
+    isExternal: true
+    href: BbQ.ChatWidgets.Agents.html

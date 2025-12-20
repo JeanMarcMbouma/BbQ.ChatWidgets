@@ -1,0 +1,1524 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Models.FormWidget
+  commentId: T:BbQ.ChatWidgets.Models.FormWidget
+  id: FormWidget
+  parent: BbQ.ChatWidgets.Models
+  children:
+  - BbQ.ChatWidgets.Models.FormWidget.#ctor(BbQ.ChatWidgets.Models.FormWidget)
+  - BbQ.ChatWidgets.Models.FormWidget.#ctor(System.String,System.String,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormField},System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormAction})
+  - BbQ.ChatWidgets.Models.FormWidget.Actions
+  - BbQ.ChatWidgets.Models.FormWidget.Deconstruct(System.String@,System.String@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormField}@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormAction}@)
+  - BbQ.ChatWidgets.Models.FormWidget.EqualityContract
+  - BbQ.ChatWidgets.Models.FormWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  - BbQ.ChatWidgets.Models.FormWidget.Equals(BbQ.ChatWidgets.Models.FormWidget)
+  - BbQ.ChatWidgets.Models.FormWidget.Equals(System.Object)
+  - BbQ.ChatWidgets.Models.FormWidget.Fields
+  - BbQ.ChatWidgets.Models.FormWidget.GetHashCode
+  - BbQ.ChatWidgets.Models.FormWidget.PrintMembers(System.Text.StringBuilder)
+  - BbQ.ChatWidgets.Models.FormWidget.Purpose
+  - BbQ.ChatWidgets.Models.FormWidget.Title
+  - BbQ.ChatWidgets.Models.FormWidget.ToString
+  - BbQ.ChatWidgets.Models.FormWidget.op_Equality(BbQ.ChatWidgets.Models.FormWidget,BbQ.ChatWidgets.Models.FormWidget)
+  - BbQ.ChatWidgets.Models.FormWidget.op_Inequality(BbQ.ChatWidgets.Models.FormWidget,BbQ.ChatWidgets.Models.FormWidget)
+  langs:
+  - csharp
+  - vb
+  name: FormWidget
+  nameWithType: FormWidget
+  fullName: BbQ.ChatWidgets.Models.FormWidget
+  type: Class
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: 'public record FormWidget : ChatWidget, IEquatable<ChatWidget>, IEquatable<FormWidget>'
+    content.vb: Public Class FormWidget Inherits ChatWidget Implements IEquatable(Of ChatWidget), IEquatable(Of FormWidget)
+  inheritance:
+  - System.Object
+  - BbQ.ChatWidgets.Models.ChatWidget
+  implements:
+  - System.IEquatable{BbQ.ChatWidgets.Models.ChatWidget}
+  - System.IEquatable{BbQ.ChatWidgets.Models.FormWidget}
+  inheritedMembers:
+  - BbQ.ChatWidgets.Models.ChatWidget.Deconstruct(System.String@,System.String@)
+  - BbQ.ChatWidgets.Models.ChatWidget.Label
+  - BbQ.ChatWidgets.Models.ChatWidget.Action
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  extensionMethods:
+  - BbQ.ChatWidgets.Models.ChatWidget.BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema
+  - BbQ.ChatWidgets.Models.ChatWidget.BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson
+- uid: BbQ.ChatWidgets.Models.FormWidget.#ctor(System.String,System.String,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormField},System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormAction})
+  commentId: M:BbQ.ChatWidgets.Models.FormWidget.#ctor(System.String,System.String,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormField},System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormAction})
+  id: '#ctor(System.String,System.String,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormField},System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormAction})'
+  parent: BbQ.ChatWidgets.Models.FormWidget
+  langs:
+  - csharp
+  - vb
+  name: FormWidget(string, string, IReadOnlyList<FormField>, IReadOnlyList<FormAction>)
+  nameWithType: FormWidget.FormWidget(string, string, IReadOnlyList<FormField>, IReadOnlyList<FormAction>)
+  fullName: BbQ.ChatWidgets.Models.FormWidget.FormWidget(string, string, System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.FormField>, System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.FormAction>)
+  type: Constructor
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public FormWidget(string Title, string Action, IReadOnlyList<FormField> Fields, IReadOnlyList<FormAction> Actions)
+    parameters:
+    - id: Title
+      type: System.String
+    - id: Action
+      type: System.String
+    - id: Fields
+      type: System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormField}
+    - id: Actions
+      type: System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormAction}
+    content.vb: Public Sub New(Title As String, Action As String, Fields As IReadOnlyList(Of FormField), Actions As IReadOnlyList(Of FormAction))
+  overload: BbQ.ChatWidgets.Models.FormWidget.#ctor*
+  nameWithType.vb: FormWidget.New(String, String, IReadOnlyList(Of FormField), IReadOnlyList(Of FormAction))
+  fullName.vb: BbQ.ChatWidgets.Models.FormWidget.New(String, String, System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.FormField), System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.FormAction))
+  name.vb: New(String, String, IReadOnlyList(Of FormField), IReadOnlyList(Of FormAction))
+- uid: BbQ.ChatWidgets.Models.FormWidget.ToString
+  commentId: M:BbQ.ChatWidgets.Models.FormWidget.ToString
+  id: ToString
+  parent: BbQ.ChatWidgets.Models.FormWidget
+  langs:
+  - csharp
+  - vb
+  name: ToString()
+  nameWithType: FormWidget.ToString()
+  fullName: BbQ.ChatWidgets.Models.FormWidget.ToString()
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public override string ToString()
+    return:
+      type: System.String
+    content.vb: Public Overrides Function ToString() As String
+  overridden: BbQ.ChatWidgets.Models.ChatWidget.ToString
+  overload: BbQ.ChatWidgets.Models.FormWidget.ToString*
+- uid: BbQ.ChatWidgets.Models.FormWidget.PrintMembers(System.Text.StringBuilder)
+  commentId: M:BbQ.ChatWidgets.Models.FormWidget.PrintMembers(System.Text.StringBuilder)
+  id: PrintMembers(System.Text.StringBuilder)
+  parent: BbQ.ChatWidgets.Models.FormWidget
+  langs:
+  - csharp
+  - vb
+  name: PrintMembers(StringBuilder)
+  nameWithType: FormWidget.PrintMembers(StringBuilder)
+  fullName: BbQ.ChatWidgets.Models.FormWidget.PrintMembers(System.Text.StringBuilder)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: protected override bool PrintMembers(StringBuilder builder)
+    parameters:
+    - id: builder
+      type: System.Text.StringBuilder
+    return:
+      type: System.Boolean
+    content.vb: Protected Overrides Function PrintMembers(builder As StringBuilder) As Boolean
+  overridden: BbQ.ChatWidgets.Models.ChatWidget.PrintMembers(System.Text.StringBuilder)
+  overload: BbQ.ChatWidgets.Models.FormWidget.PrintMembers*
+- uid: BbQ.ChatWidgets.Models.FormWidget.op_Inequality(BbQ.ChatWidgets.Models.FormWidget,BbQ.ChatWidgets.Models.FormWidget)
+  commentId: M:BbQ.ChatWidgets.Models.FormWidget.op_Inequality(BbQ.ChatWidgets.Models.FormWidget,BbQ.ChatWidgets.Models.FormWidget)
+  id: op_Inequality(BbQ.ChatWidgets.Models.FormWidget,BbQ.ChatWidgets.Models.FormWidget)
+  parent: BbQ.ChatWidgets.Models.FormWidget
+  langs:
+  - csharp
+  - vb
+  name: operator !=(FormWidget?, FormWidget?)
+  nameWithType: FormWidget.operator !=(FormWidget?, FormWidget?)
+  fullName: BbQ.ChatWidgets.Models.FormWidget.operator !=(BbQ.ChatWidgets.Models.FormWidget?, BbQ.ChatWidgets.Models.FormWidget?)
+  type: Operator
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public static bool operator !=(FormWidget? left, FormWidget? right)
+    parameters:
+    - id: left
+      type: BbQ.ChatWidgets.Models.FormWidget
+    - id: right
+      type: BbQ.ChatWidgets.Models.FormWidget
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Operator <>(left As FormWidget, right As FormWidget) As Boolean
+  overload: BbQ.ChatWidgets.Models.FormWidget.op_Inequality*
+  nameWithType.vb: FormWidget.<>(FormWidget, FormWidget)
+  fullName.vb: BbQ.ChatWidgets.Models.FormWidget.<>(BbQ.ChatWidgets.Models.FormWidget, BbQ.ChatWidgets.Models.FormWidget)
+  name.vb: <>(FormWidget, FormWidget)
+- uid: BbQ.ChatWidgets.Models.FormWidget.op_Equality(BbQ.ChatWidgets.Models.FormWidget,BbQ.ChatWidgets.Models.FormWidget)
+  commentId: M:BbQ.ChatWidgets.Models.FormWidget.op_Equality(BbQ.ChatWidgets.Models.FormWidget,BbQ.ChatWidgets.Models.FormWidget)
+  id: op_Equality(BbQ.ChatWidgets.Models.FormWidget,BbQ.ChatWidgets.Models.FormWidget)
+  parent: BbQ.ChatWidgets.Models.FormWidget
+  langs:
+  - csharp
+  - vb
+  name: operator ==(FormWidget?, FormWidget?)
+  nameWithType: FormWidget.operator ==(FormWidget?, FormWidget?)
+  fullName: BbQ.ChatWidgets.Models.FormWidget.operator ==(BbQ.ChatWidgets.Models.FormWidget?, BbQ.ChatWidgets.Models.FormWidget?)
+  type: Operator
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public static bool operator ==(FormWidget? left, FormWidget? right)
+    parameters:
+    - id: left
+      type: BbQ.ChatWidgets.Models.FormWidget
+    - id: right
+      type: BbQ.ChatWidgets.Models.FormWidget
+    return:
+      type: System.Boolean
+    content.vb: Public Shared Operator =(left As FormWidget, right As FormWidget) As Boolean
+  overload: BbQ.ChatWidgets.Models.FormWidget.op_Equality*
+  nameWithType.vb: FormWidget.=(FormWidget, FormWidget)
+  fullName.vb: BbQ.ChatWidgets.Models.FormWidget.=(BbQ.ChatWidgets.Models.FormWidget, BbQ.ChatWidgets.Models.FormWidget)
+  name.vb: =(FormWidget, FormWidget)
+- uid: BbQ.ChatWidgets.Models.FormWidget.GetHashCode
+  commentId: M:BbQ.ChatWidgets.Models.FormWidget.GetHashCode
+  id: GetHashCode
+  parent: BbQ.ChatWidgets.Models.FormWidget
+  langs:
+  - csharp
+  - vb
+  name: GetHashCode()
+  nameWithType: FormWidget.GetHashCode()
+  fullName: BbQ.ChatWidgets.Models.FormWidget.GetHashCode()
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public override int GetHashCode()
+    return:
+      type: System.Int32
+    content.vb: Public Overrides Function GetHashCode() As Integer
+  overridden: BbQ.ChatWidgets.Models.ChatWidget.GetHashCode
+  overload: BbQ.ChatWidgets.Models.FormWidget.GetHashCode*
+- uid: BbQ.ChatWidgets.Models.FormWidget.Equals(System.Object)
+  commentId: M:BbQ.ChatWidgets.Models.FormWidget.Equals(System.Object)
+  id: Equals(System.Object)
+  parent: BbQ.ChatWidgets.Models.FormWidget
+  langs:
+  - csharp
+  - vb
+  name: Equals(object?)
+  nameWithType: FormWidget.Equals(object?)
+  fullName: BbQ.ChatWidgets.Models.FormWidget.Equals(object?)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public override bool Equals(object? obj)
+    parameters:
+    - id: obj
+      type: System.Object
+    return:
+      type: System.Boolean
+    content.vb: Public Overrides Function Equals(obj As Object) As Boolean
+  overridden: BbQ.ChatWidgets.Models.ChatWidget.Equals(System.Object)
+  overload: BbQ.ChatWidgets.Models.FormWidget.Equals*
+  nameWithType.vb: FormWidget.Equals(Object)
+  fullName.vb: BbQ.ChatWidgets.Models.FormWidget.Equals(Object)
+  name.vb: Equals(Object)
+- uid: BbQ.ChatWidgets.Models.FormWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  commentId: M:BbQ.ChatWidgets.Models.FormWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  id: Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  parent: BbQ.ChatWidgets.Models.FormWidget
+  langs:
+  - csharp
+  - vb
+  name: Equals(ChatWidget?)
+  nameWithType: FormWidget.Equals(ChatWidget?)
+  fullName: BbQ.ChatWidgets.Models.FormWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget?)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public override sealed bool Equals(ChatWidget? other)
+    parameters:
+    - id: other
+      type: BbQ.ChatWidgets.Models.ChatWidget
+    return:
+      type: System.Boolean
+    content.vb: Public NotOverridable Overrides Function Equals(other As ChatWidget) As Boolean
+  overridden: BbQ.ChatWidgets.Models.ChatWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  overload: BbQ.ChatWidgets.Models.FormWidget.Equals*
+  nameWithType.vb: FormWidget.Equals(ChatWidget)
+  fullName.vb: BbQ.ChatWidgets.Models.FormWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  name.vb: Equals(ChatWidget)
+- uid: BbQ.ChatWidgets.Models.FormWidget.Equals(BbQ.ChatWidgets.Models.FormWidget)
+  commentId: M:BbQ.ChatWidgets.Models.FormWidget.Equals(BbQ.ChatWidgets.Models.FormWidget)
+  id: Equals(BbQ.ChatWidgets.Models.FormWidget)
+  parent: BbQ.ChatWidgets.Models.FormWidget
+  langs:
+  - csharp
+  - vb
+  name: Equals(FormWidget?)
+  nameWithType: FormWidget.Equals(FormWidget?)
+  fullName: BbQ.ChatWidgets.Models.FormWidget.Equals(BbQ.ChatWidgets.Models.FormWidget?)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public virtual bool Equals(FormWidget? other)
+    parameters:
+    - id: other
+      type: BbQ.ChatWidgets.Models.FormWidget
+    return:
+      type: System.Boolean
+    content.vb: Public Overridable Function Equals(other As FormWidget) As Boolean
+  overload: BbQ.ChatWidgets.Models.FormWidget.Equals*
+  implements:
+  - System.IEquatable{BbQ.ChatWidgets.Models.FormWidget}.Equals(BbQ.ChatWidgets.Models.FormWidget)
+  nameWithType.vb: FormWidget.Equals(FormWidget)
+  fullName.vb: BbQ.ChatWidgets.Models.FormWidget.Equals(BbQ.ChatWidgets.Models.FormWidget)
+  name.vb: Equals(FormWidget)
+- uid: BbQ.ChatWidgets.Models.FormWidget.#ctor(BbQ.ChatWidgets.Models.FormWidget)
+  commentId: M:BbQ.ChatWidgets.Models.FormWidget.#ctor(BbQ.ChatWidgets.Models.FormWidget)
+  id: '#ctor(BbQ.ChatWidgets.Models.FormWidget)'
+  parent: BbQ.ChatWidgets.Models.FormWidget
+  langs:
+  - csharp
+  - vb
+  name: FormWidget(FormWidget)
+  nameWithType: FormWidget.FormWidget(FormWidget)
+  fullName: BbQ.ChatWidgets.Models.FormWidget.FormWidget(BbQ.ChatWidgets.Models.FormWidget)
+  type: Constructor
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: protected FormWidget(FormWidget original)
+    parameters:
+    - id: original
+      type: BbQ.ChatWidgets.Models.FormWidget
+    content.vb: Protected Sub New(original As FormWidget)
+  overload: BbQ.ChatWidgets.Models.FormWidget.#ctor*
+  nameWithType.vb: FormWidget.New(FormWidget)
+  fullName.vb: BbQ.ChatWidgets.Models.FormWidget.New(BbQ.ChatWidgets.Models.FormWidget)
+  name.vb: New(FormWidget)
+- uid: BbQ.ChatWidgets.Models.FormWidget.Deconstruct(System.String@,System.String@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormField}@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormAction}@)
+  commentId: M:BbQ.ChatWidgets.Models.FormWidget.Deconstruct(System.String@,System.String@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormField}@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormAction}@)
+  id: Deconstruct(System.String@,System.String@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormField}@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormAction}@)
+  parent: BbQ.ChatWidgets.Models.FormWidget
+  langs:
+  - csharp
+  - vb
+  name: Deconstruct(out string, out string, out IReadOnlyList<FormField>, out IReadOnlyList<FormAction>)
+  nameWithType: FormWidget.Deconstruct(out string, out string, out IReadOnlyList<FormField>, out IReadOnlyList<FormAction>)
+  fullName: BbQ.ChatWidgets.Models.FormWidget.Deconstruct(out string, out string, out System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.FormField>, out System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.FormAction>)
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public void Deconstruct(out string Title, out string Action, out IReadOnlyList<FormField> Fields, out IReadOnlyList<FormAction> Actions)
+    parameters:
+    - id: Title
+      type: System.String
+    - id: Action
+      type: System.String
+    - id: Fields
+      type: System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormField}
+    - id: Actions
+      type: System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormAction}
+    content.vb: Public Sub Deconstruct(Title As String, Action As String, Fields As IReadOnlyList(Of FormField), Actions As IReadOnlyList(Of FormAction))
+  overload: BbQ.ChatWidgets.Models.FormWidget.Deconstruct*
+  nameWithType.vb: FormWidget.Deconstruct(String, String, IReadOnlyList(Of FormField), IReadOnlyList(Of FormAction))
+  fullName.vb: BbQ.ChatWidgets.Models.FormWidget.Deconstruct(String, String, System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.FormField), System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.FormAction))
+  name.vb: Deconstruct(String, String, IReadOnlyList(Of FormField), IReadOnlyList(Of FormAction))
+- uid: BbQ.ChatWidgets.Models.FormWidget.EqualityContract
+  commentId: P:BbQ.ChatWidgets.Models.FormWidget.EqualityContract
+  id: EqualityContract
+  parent: BbQ.ChatWidgets.Models.FormWidget
+  langs:
+  - csharp
+  - vb
+  name: EqualityContract
+  nameWithType: FormWidget.EqualityContract
+  fullName: BbQ.ChatWidgets.Models.FormWidget.EqualityContract
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: protected override Type EqualityContract { get; }
+    parameters: []
+    return:
+      type: System.Type
+    content.vb: Protected Overrides ReadOnly Property EqualityContract As Type
+  overridden: BbQ.ChatWidgets.Models.ChatWidget.EqualityContract
+  overload: BbQ.ChatWidgets.Models.FormWidget.EqualityContract*
+- uid: BbQ.ChatWidgets.Models.FormWidget.Title
+  commentId: P:BbQ.ChatWidgets.Models.FormWidget.Title
+  id: Title
+  parent: BbQ.ChatWidgets.Models.FormWidget
+  langs:
+  - csharp
+  - vb
+  name: Title
+  nameWithType: FormWidget.Title
+  fullName: BbQ.ChatWidgets.Models.FormWidget.Title
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public string Title { get; init; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Title As String
+  overload: BbQ.ChatWidgets.Models.FormWidget.Title*
+- uid: BbQ.ChatWidgets.Models.FormWidget.Fields
+  commentId: P:BbQ.ChatWidgets.Models.FormWidget.Fields
+  id: Fields
+  parent: BbQ.ChatWidgets.Models.FormWidget
+  langs:
+  - csharp
+  - vb
+  name: Fields
+  nameWithType: FormWidget.Fields
+  fullName: BbQ.ChatWidgets.Models.FormWidget.Fields
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public IReadOnlyList<FormField> Fields { get; init; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormField}
+    content.vb: Public Property Fields As IReadOnlyList(Of FormField)
+  overload: BbQ.ChatWidgets.Models.FormWidget.Fields*
+- uid: BbQ.ChatWidgets.Models.FormWidget.Actions
+  commentId: P:BbQ.ChatWidgets.Models.FormWidget.Actions
+  id: Actions
+  parent: BbQ.ChatWidgets.Models.FormWidget
+  langs:
+  - csharp
+  - vb
+  name: Actions
+  nameWithType: FormWidget.Actions
+  fullName: BbQ.ChatWidgets.Models.FormWidget.Actions
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  syntax:
+    content: public IReadOnlyList<FormAction> Actions { get; init; }
+    parameters: []
+    return:
+      type: System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormAction}
+    content.vb: Public Property Actions As IReadOnlyList(Of FormAction)
+  overload: BbQ.ChatWidgets.Models.FormWidget.Actions*
+- uid: BbQ.ChatWidgets.Models.FormWidget.Purpose
+  commentId: P:BbQ.ChatWidgets.Models.FormWidget.Purpose
+  id: Purpose
+  parent: BbQ.ChatWidgets.Models.FormWidget
+  langs:
+  - csharp
+  - vb
+  name: Purpose
+  nameWithType: FormWidget.Purpose
+  fullName: BbQ.ChatWidgets.Models.FormWidget.Purpose
+  type: Property
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Models/ChatWidget.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Models
+  example: []
+  syntax:
+    content: public override string Purpose { get; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Overrides ReadOnly Property Purpose As String
+  overridden: BbQ.ChatWidgets.Models.ChatWidget.Purpose
+  overload: BbQ.ChatWidgets.Models.FormWidget.Purpose*
+references:
+- uid: BbQ.ChatWidgets.Models
+  commentId: N:BbQ.ChatWidgets.Models
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Models
+  nameWithType: BbQ.ChatWidgets.Models
+  fullName: BbQ.ChatWidgets.Models
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Models
+    name: Models
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Models
+    name: Models
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: BbQ.ChatWidgets.Models.ChatWidget
+  commentId: T:BbQ.ChatWidgets.Models.ChatWidget
+  parent: BbQ.ChatWidgets.Models
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html
+  name: ChatWidget
+  nameWithType: ChatWidget
+  fullName: BbQ.ChatWidgets.Models.ChatWidget
+- uid: System.IEquatable{BbQ.ChatWidgets.Models.ChatWidget}
+  commentId: T:System.IEquatable{BbQ.ChatWidgets.Models.ChatWidget}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<ChatWidget>
+  nameWithType: IEquatable<ChatWidget>
+  fullName: System.IEquatable<BbQ.ChatWidgets.Models.ChatWidget>
+  nameWithType.vb: IEquatable(Of ChatWidget)
+  fullName.vb: System.IEquatable(Of BbQ.ChatWidgets.Models.ChatWidget)
+  name.vb: IEquatable(Of ChatWidget)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+- uid: System.IEquatable{BbQ.ChatWidgets.Models.FormWidget}
+  commentId: T:System.IEquatable{BbQ.ChatWidgets.Models.FormWidget}
+  parent: System
+  definition: System.IEquatable`1
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<FormWidget>
+  nameWithType: IEquatable<FormWidget>
+  fullName: System.IEquatable<BbQ.ChatWidgets.Models.FormWidget>
+  nameWithType.vb: IEquatable(Of FormWidget)
+  fullName.vb: System.IEquatable(Of BbQ.ChatWidgets.Models.FormWidget)
+  name.vb: IEquatable(Of FormWidget)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - uid: BbQ.ChatWidgets.Models.FormWidget
+    name: FormWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.FormWidget.html
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.FormWidget
+    name: FormWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.FormWidget.html
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatWidget.Deconstruct(System.String@,System.String@)
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidget.Deconstruct(System.String@,System.String@)
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Deconstruct_System_String__System_String__
+  name: Deconstruct(out string, out string)
+  nameWithType: ChatWidget.Deconstruct(out string, out string)
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.Deconstruct(out string, out string)
+  nameWithType.vb: ChatWidget.Deconstruct(String, String)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatWidget.Deconstruct(String, String)
+  name.vb: Deconstruct(String, String)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.Deconstruct(System.String@,System.String@)
+    name: Deconstruct
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Deconstruct_System_String__System_String__
+  - name: (
+  - name: out
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - name: out
+  - name: " "
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.Deconstruct(System.String@,System.String@)
+    name: Deconstruct
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Deconstruct_System_String__System_String__
+  - name: (
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: ','
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatWidget.Label
+  commentId: P:BbQ.ChatWidgets.Models.ChatWidget.Label
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Label
+  name: Label
+  nameWithType: ChatWidget.Label
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.Label
+- uid: BbQ.ChatWidgets.Models.ChatWidget.Action
+  commentId: P:BbQ.ChatWidgets.Models.ChatWidget.Action
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Action
+  name: Action
+  nameWithType: ChatWidget.Action
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.Action
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatWidget.BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+  parent: BbQ.ChatWidgets.Models.ChatWidgetExtensions
+  definition: BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+  href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_GetSchema_BbQ_ChatWidgets_Models_ChatWidget_
+  name: GetSchema(ChatWidget)
+  nameWithType: ChatWidgetExtensions.GetSchema(ChatWidget)
+  fullName: BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+    name: GetSchema
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_GetSchema_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+    name: GetSchema
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_GetSchema_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatWidget.BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+  parent: BbQ.ChatWidgets.Models.ChatWidgetExtensions
+  definition: BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+  href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_ToJson_BbQ_ChatWidgets_Models_ChatWidget_
+  name: ToJson(ChatWidget)
+  nameWithType: ChatWidgetExtensions.ToJson(ChatWidget)
+  fullName: BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+    name: ToJson
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_ToJson_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+    name: ToJson
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_ToJson_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: System.IEquatable`1
+  commentId: T:System.IEquatable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  name: IEquatable<T>
+  nameWithType: IEquatable<T>
+  fullName: System.IEquatable<T>
+  nameWithType.vb: IEquatable(Of T)
+  fullName.vb: System.IEquatable(Of T)
+  name.vb: IEquatable(Of T)
+  spec.csharp:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.IEquatable`1
+    name: IEquatable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_GetSchema_BbQ_ChatWidgets_Models_ChatWidget_
+  name: GetSchema(ChatWidget)
+  nameWithType: ChatWidgetExtensions.GetSchema(ChatWidget)
+  fullName: BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+    name: GetSchema
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_GetSchema_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.GetSchema(BbQ.ChatWidgets.Models.ChatWidget)
+    name: GetSchema
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_GetSchema_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+- uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions
+  commentId: T:BbQ.ChatWidgets.Models.ChatWidgetExtensions
+  parent: BbQ.ChatWidgets.Models
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html
+  name: ChatWidgetExtensions
+  nameWithType: ChatWidgetExtensions
+  fullName: BbQ.ChatWidgets.Models.ChatWidgetExtensions
+- uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_ToJson_BbQ_ChatWidgets_Models_ChatWidget_
+  name: ToJson(ChatWidget)
+  nameWithType: ChatWidgetExtensions.ToJson(ChatWidget)
+  fullName: BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+    name: ToJson
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_ToJson_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidgetExtensions.ToJson(BbQ.ChatWidgets.Models.ChatWidget)
+    name: ToJson
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_ToJson_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+- uid: BbQ.ChatWidgets.Models.FormWidget.#ctor*
+  commentId: Overload:BbQ.ChatWidgets.Models.FormWidget.#ctor
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.FormWidget.html#BbQ_ChatWidgets_Models_FormWidget__ctor_System_String_System_String_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_FormField__System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_FormAction__
+  name: FormWidget
+  nameWithType: FormWidget.FormWidget
+  fullName: BbQ.ChatWidgets.Models.FormWidget.FormWidget
+  nameWithType.vb: FormWidget.New
+  fullName.vb: BbQ.ChatWidgets.Models.FormWidget.New
+  name.vb: New
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormField}
+  commentId: T:System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormField}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<FormField>
+  nameWithType: IReadOnlyList<FormField>
+  fullName: System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.FormField>
+  nameWithType.vb: IReadOnlyList(Of FormField)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.FormField)
+  name.vb: IReadOnlyList(Of FormField)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: BbQ.ChatWidgets.Models.FormField
+    name: FormField
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.FormField.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.FormField
+    name: FormField
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.FormField.html
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormAction}
+  commentId: T:System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.FormAction}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<FormAction>
+  nameWithType: IReadOnlyList<FormAction>
+  fullName: System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.FormAction>
+  nameWithType.vb: IReadOnlyList(Of FormAction)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.FormAction)
+  name.vb: IReadOnlyList(Of FormAction)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: BbQ.ChatWidgets.Models.FormAction
+    name: FormAction
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.FormAction.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.FormAction
+    name: FormAction
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.FormAction.html
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyList`1
+  commentId: T:System.Collections.Generic.IReadOnlyList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<T>
+  nameWithType: IReadOnlyList<T>
+  fullName: System.Collections.Generic.IReadOnlyList<T>
+  nameWithType.vb: IReadOnlyList(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
+  name.vb: IReadOnlyList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: BbQ.ChatWidgets.Models.ChatWidget.ToString
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidget.ToString
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_ToString
+  name: ToString()
+  nameWithType: ChatWidget.ToString()
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.ToString()
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.ToString
+    name: ToString
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_ToString
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.ToString
+    name: ToString
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_ToString
+  - name: (
+  - name: )
+- uid: BbQ.ChatWidgets.Models.FormWidget.ToString*
+  commentId: Overload:BbQ.ChatWidgets.Models.FormWidget.ToString
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.FormWidget.html#BbQ_ChatWidgets_Models_FormWidget_ToString
+  name: ToString
+  nameWithType: FormWidget.ToString
+  fullName: BbQ.ChatWidgets.Models.FormWidget.ToString
+- uid: BbQ.ChatWidgets.Models.ChatWidget.PrintMembers(System.Text.StringBuilder)
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidget.PrintMembers(System.Text.StringBuilder)
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_PrintMembers_System_Text_StringBuilder_
+  name: PrintMembers(StringBuilder)
+  nameWithType: ChatWidget.PrintMembers(StringBuilder)
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.PrintMembers(System.Text.StringBuilder)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.PrintMembers(System.Text.StringBuilder)
+    name: PrintMembers
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_PrintMembers_System_Text_StringBuilder_
+  - name: (
+  - uid: System.Text.StringBuilder
+    name: StringBuilder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.stringbuilder
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.PrintMembers(System.Text.StringBuilder)
+    name: PrintMembers
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_PrintMembers_System_Text_StringBuilder_
+  - name: (
+  - uid: System.Text.StringBuilder
+    name: StringBuilder
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text.stringbuilder
+  - name: )
+- uid: BbQ.ChatWidgets.Models.FormWidget.PrintMembers*
+  commentId: Overload:BbQ.ChatWidgets.Models.FormWidget.PrintMembers
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.FormWidget.html#BbQ_ChatWidgets_Models_FormWidget_PrintMembers_System_Text_StringBuilder_
+  name: PrintMembers
+  nameWithType: FormWidget.PrintMembers
+  fullName: BbQ.ChatWidgets.Models.FormWidget.PrintMembers
+- uid: System.Text.StringBuilder
+  commentId: T:System.Text.StringBuilder
+  parent: System.Text
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.text.stringbuilder
+  name: StringBuilder
+  nameWithType: StringBuilder
+  fullName: System.Text.StringBuilder
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: System.Text
+  commentId: N:System.Text
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Text
+  nameWithType: System.Text
+  fullName: System.Text
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Text
+    name: Text
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.text
+- uid: BbQ.ChatWidgets.Models.FormWidget.op_Inequality*
+  commentId: Overload:BbQ.ChatWidgets.Models.FormWidget.op_Inequality
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.FormWidget.html#BbQ_ChatWidgets_Models_FormWidget_op_Inequality_BbQ_ChatWidgets_Models_FormWidget_BbQ_ChatWidgets_Models_FormWidget_
+  name: operator !=
+  nameWithType: FormWidget.operator !=
+  fullName: BbQ.ChatWidgets.Models.FormWidget.operator !=
+  nameWithType.vb: FormWidget.<>
+  fullName.vb: BbQ.ChatWidgets.Models.FormWidget.<>
+  name.vb: <>
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.FormWidget.op_Inequality*
+    name: '!='
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.FormWidget.html#BbQ_ChatWidgets_Models_FormWidget_op_Inequality_BbQ_ChatWidgets_Models_FormWidget_BbQ_ChatWidgets_Models_FormWidget_
+- uid: BbQ.ChatWidgets.Models.FormWidget
+  commentId: T:BbQ.ChatWidgets.Models.FormWidget
+  parent: BbQ.ChatWidgets.Models
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.FormWidget.html
+  name: FormWidget
+  nameWithType: FormWidget
+  fullName: BbQ.ChatWidgets.Models.FormWidget
+- uid: BbQ.ChatWidgets.Models.FormWidget.op_Equality*
+  commentId: Overload:BbQ.ChatWidgets.Models.FormWidget.op_Equality
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.FormWidget.html#BbQ_ChatWidgets_Models_FormWidget_op_Equality_BbQ_ChatWidgets_Models_FormWidget_BbQ_ChatWidgets_Models_FormWidget_
+  name: operator ==
+  nameWithType: FormWidget.operator ==
+  fullName: BbQ.ChatWidgets.Models.FormWidget.operator ==
+  nameWithType.vb: FormWidget.=
+  fullName.vb: BbQ.ChatWidgets.Models.FormWidget.=
+  name.vb: =
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.FormWidget.op_Equality*
+    name: ==
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.FormWidget.html#BbQ_ChatWidgets_Models_FormWidget_op_Equality_BbQ_ChatWidgets_Models_FormWidget_BbQ_ChatWidgets_Models_FormWidget_
+- uid: BbQ.ChatWidgets.Models.ChatWidget.GetHashCode
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidget.GetHashCode
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_GetHashCode
+  name: GetHashCode()
+  nameWithType: ChatWidget.GetHashCode()
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.GetHashCode()
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_GetHashCode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_GetHashCode
+  - name: (
+  - name: )
+- uid: BbQ.ChatWidgets.Models.FormWidget.GetHashCode*
+  commentId: Overload:BbQ.ChatWidgets.Models.FormWidget.GetHashCode
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.FormWidget.html#BbQ_ChatWidgets_Models_FormWidget_GetHashCode
+  name: GetHashCode
+  nameWithType: FormWidget.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.FormWidget.GetHashCode
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: BbQ.ChatWidgets.Models.ChatWidget.Equals(System.Object)
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidget.Equals(System.Object)
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Equals_System_Object_
+  name: Equals(object)
+  nameWithType: ChatWidget.Equals(object)
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.Equals(object)
+  nameWithType.vb: ChatWidget.Equals(Object)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatWidget.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Equals_System_Object_
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Equals_System_Object_
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: BbQ.ChatWidgets.Models.FormWidget.Equals*
+  commentId: Overload:BbQ.ChatWidgets.Models.FormWidget.Equals
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.FormWidget.html#BbQ_ChatWidgets_Models_FormWidget_Equals_System_Object_
+  name: Equals
+  nameWithType: FormWidget.Equals
+  fullName: BbQ.ChatWidgets.Models.FormWidget.Equals
+- uid: BbQ.ChatWidgets.Models.ChatWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  commentId: M:BbQ.ChatWidgets.Models.ChatWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Equals_BbQ_ChatWidgets_Models_ChatWidget_
+  name: Equals(ChatWidget)
+  nameWithType: ChatWidget.Equals(ChatWidget)
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+  spec.csharp:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+    name: Equals
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Equals_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+  spec.vb:
+  - uid: BbQ.ChatWidgets.Models.ChatWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)
+    name: Equals
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Equals_BbQ_ChatWidgets_Models_ChatWidget_
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.ChatWidget
+    name: ChatWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.ChatWidget.html
+  - name: )
+- uid: System.IEquatable{BbQ.ChatWidgets.Models.FormWidget}.Equals(BbQ.ChatWidgets.Models.FormWidget)
+  commentId: M:System.IEquatable{BbQ.ChatWidgets.Models.FormWidget}.Equals(BbQ.ChatWidgets.Models.FormWidget)
+  parent: System.IEquatable{BbQ.ChatWidgets.Models.FormWidget}
+  definition: System.IEquatable`1.Equals(`0)
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(FormWidget)
+  nameWithType: IEquatable<FormWidget>.Equals(FormWidget)
+  fullName: System.IEquatable<BbQ.ChatWidgets.Models.FormWidget>.Equals(BbQ.ChatWidgets.Models.FormWidget)
+  nameWithType.vb: IEquatable(Of FormWidget).Equals(FormWidget)
+  fullName.vb: System.IEquatable(Of BbQ.ChatWidgets.Models.FormWidget).Equals(BbQ.ChatWidgets.Models.FormWidget)
+  spec.csharp:
+  - uid: System.IEquatable{BbQ.ChatWidgets.Models.FormWidget}.Equals(BbQ.ChatWidgets.Models.FormWidget)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.FormWidget
+    name: FormWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.FormWidget.html
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable{BbQ.ChatWidgets.Models.FormWidget}.Equals(BbQ.ChatWidgets.Models.FormWidget)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - uid: BbQ.ChatWidgets.Models.FormWidget
+    name: FormWidget
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.FormWidget.html
+  - name: )
+- uid: System.IEquatable`1.Equals(`0)
+  commentId: M:System.IEquatable`1.Equals(`0)
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  name: Equals(T)
+  nameWithType: IEquatable<T>.Equals(T)
+  fullName: System.IEquatable<T>.Equals(T)
+  nameWithType.vb: IEquatable(Of T).Equals(T)
+  fullName.vb: System.IEquatable(Of T).Equals(T)
+  spec.csharp:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+  spec.vb:
+  - uid: System.IEquatable`1.Equals(`0)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.iequatable-1.equals
+  - name: (
+  - name: T
+  - name: )
+- uid: BbQ.ChatWidgets.Models.FormWidget.Deconstruct*
+  commentId: Overload:BbQ.ChatWidgets.Models.FormWidget.Deconstruct
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.FormWidget.html#BbQ_ChatWidgets_Models_FormWidget_Deconstruct_System_String__System_String__System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_FormField___System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_FormAction___
+  name: Deconstruct
+  nameWithType: FormWidget.Deconstruct
+  fullName: BbQ.ChatWidgets.Models.FormWidget.Deconstruct
+- uid: BbQ.ChatWidgets.Models.ChatWidget.EqualityContract
+  commentId: P:BbQ.ChatWidgets.Models.ChatWidget.EqualityContract
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_EqualityContract
+  name: EqualityContract
+  nameWithType: ChatWidget.EqualityContract
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.EqualityContract
+- uid: BbQ.ChatWidgets.Models.FormWidget.EqualityContract*
+  commentId: Overload:BbQ.ChatWidgets.Models.FormWidget.EqualityContract
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.FormWidget.html#BbQ_ChatWidgets_Models_FormWidget_EqualityContract
+  name: EqualityContract
+  nameWithType: FormWidget.EqualityContract
+  fullName: BbQ.ChatWidgets.Models.FormWidget.EqualityContract
+- uid: System.Type
+  commentId: T:System.Type
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.type
+  name: Type
+  nameWithType: Type
+  fullName: System.Type
+- uid: BbQ.ChatWidgets.Models.FormWidget.Title*
+  commentId: Overload:BbQ.ChatWidgets.Models.FormWidget.Title
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.FormWidget.html#BbQ_ChatWidgets_Models_FormWidget_Title
+  name: Title
+  nameWithType: FormWidget.Title
+  fullName: BbQ.ChatWidgets.Models.FormWidget.Title
+- uid: BbQ.ChatWidgets.Models.FormWidget.Fields*
+  commentId: Overload:BbQ.ChatWidgets.Models.FormWidget.Fields
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.FormWidget.html#BbQ_ChatWidgets_Models_FormWidget_Fields
+  name: Fields
+  nameWithType: FormWidget.Fields
+  fullName: BbQ.ChatWidgets.Models.FormWidget.Fields
+- uid: BbQ.ChatWidgets.Models.FormWidget.Actions*
+  commentId: Overload:BbQ.ChatWidgets.Models.FormWidget.Actions
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.FormWidget.html#BbQ_ChatWidgets_Models_FormWidget_Actions
+  name: Actions
+  nameWithType: FormWidget.Actions
+  fullName: BbQ.ChatWidgets.Models.FormWidget.Actions
+- uid: BbQ.ChatWidgets.Models.ChatWidget.Purpose
+  commentId: P:BbQ.ChatWidgets.Models.ChatWidget.Purpose
+  parent: BbQ.ChatWidgets.Models.ChatWidget
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Purpose
+  name: Purpose
+  nameWithType: ChatWidget.Purpose
+  fullName: BbQ.ChatWidgets.Models.ChatWidget.Purpose
+- uid: BbQ.ChatWidgets.Models.FormWidget.Purpose*
+  commentId: Overload:BbQ.ChatWidgets.Models.FormWidget.Purpose
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.FormWidget.html#BbQ_ChatWidgets_Models_FormWidget_Purpose
+  name: Purpose
+  nameWithType: FormWidget.Purpose
+  fullName: BbQ.ChatWidgets.Models.FormWidget.Purpose

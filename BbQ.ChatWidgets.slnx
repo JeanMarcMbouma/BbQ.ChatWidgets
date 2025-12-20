@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="BbQ.ChatWidgets/BbQ.ChatWidgets.csproj" />
+  <Folder Name="/samples/">
+    <Project Path="Sample/WebApp/WebApp.csproj" />
+  </Folder>
+  <Project Path="BbQ.ChatWidgets.Sample/BbQ.ChatWidgets.Sample.csproj" />
+  <Project Path="BbQ.ChatWidgets.Tests/BbQ.ChatWidgets.Tests.csproj" />
+</Solution>

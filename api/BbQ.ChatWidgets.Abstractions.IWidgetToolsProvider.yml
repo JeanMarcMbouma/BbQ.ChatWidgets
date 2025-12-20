@@ -1,0 +1,270 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider
+  commentId: T:BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider
+  id: IWidgetToolsProvider
+  parent: BbQ.ChatWidgets.Abstractions
+  children:
+  - BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.GetTools
+  langs:
+  - csharp
+  - vb
+  name: IWidgetToolsProvider
+  nameWithType: IWidgetToolsProvider
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider
+  type: Interface
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Abstractions/IWidgetToolsProvider.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Abstractions
+  summary: Defines the contract for providing AI tool definitions for all available widget types.
+  remarks: >-
+    This interface provides a way for chat clients to discover what widgets are available
+
+    and how to use them. The tools are passed to AI models via the library configuration (for example, <xref href="BbQChatOptions.WidgetToolsProviderFactory" data-throw-if-not-resolved="false"></xref>)
+
+    to enable the model to understand and use widgets.
+
+
+    Each tool includes:
+
+    - <code>Name</code>: The widget type identifier (e.g., "button", "card", "dropdown")
+
+    - <code>Description</code>: Human-readable description of the widget
+
+    - <code>Schema</code>: JSON schema describing the widget's parameters
+
+
+    By providing these tools to the AI, the model can:
+
+    - Understand what widgets are available
+
+    - Know the required and optional parameters for each widget
+
+    - Generate proper JSON for widget embedding
+
+    - Embed widgets appropriately in responses
+  example: []
+  syntax:
+    content: public interface IWidgetToolsProvider
+    content.vb: Public Interface IWidgetToolsProvider
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.GetTools
+  commentId: M:BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.GetTools
+  id: GetTools
+  parent: BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider
+  langs:
+  - csharp
+  - vb
+  name: GetTools()
+  nameWithType: IWidgetToolsProvider.GetTools()
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.GetTools()
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Abstractions/IWidgetToolsProvider.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Abstractions
+  summary: Gets all available widget tools that the AI model can use.
+  remarks: >-
+    Tools are typically cached after the first call for performance.
+
+    Each tool represents a widget type with its schema and description.
+
+
+    The returned tools should include all widget types the system supports:
+
+    - Button
+
+    - Card
+
+    - Input
+
+    - Dropdown
+
+    - Slider
+
+    - Toggle
+
+    - FileUpload
+
+
+    Implementations may:
+
+    - Return a fixed set of tools
+
+    - Dynamically generate tools from a registry
+
+    - Filter tools based on configuration
+
+    - Cache results for performance
+  example: []
+  syntax:
+    content: IReadOnlyList<WidgetTool> GetTools()
+    return:
+      type: System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.WidgetTool}
+      description: >-
+        A read-only list of <xref href="BbQ.ChatWidgets.Models.WidgetTool" data-throw-if-not-resolved="false"></xref> instances available for use.
+
+        The list should not be null but may be empty if no tools are available.
+    content.vb: Function GetTools() As IReadOnlyList(Of WidgetTool)
+  overload: BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.GetTools*
+references:
+- uid: BbQChatOptions.WidgetToolsProviderFactory
+  commentId: P:BbQChatOptions.WidgetToolsProviderFactory
+  isExternal: true
+  href: BbQChatOptions.html#BbQChatOptions_WidgetToolsProviderFactory
+  name: WidgetToolsProviderFactory
+  nameWithType: BbQChatOptions.WidgetToolsProviderFactory
+  fullName: BbQChatOptions.WidgetToolsProviderFactory
+- uid: BbQ.ChatWidgets.Abstractions
+  commentId: N:BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Abstractions
+  nameWithType: BbQ.ChatWidgets.Abstractions
+  fullName: BbQ.ChatWidgets.Abstractions
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html
+- uid: BbQ.ChatWidgets.Models.WidgetTool
+  commentId: T:BbQ.ChatWidgets.Models.WidgetTool
+  isExternal: true
+  href: BbQ.ChatWidgets.Models.WidgetTool.html
+  name: WidgetTool
+  nameWithType: WidgetTool
+  fullName: BbQ.ChatWidgets.Models.WidgetTool
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.GetTools*
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.GetTools
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.html#BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_GetTools
+  name: GetTools
+  nameWithType: IWidgetToolsProvider.GetTools
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.GetTools
+- uid: System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.WidgetTool}
+  commentId: T:System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.WidgetTool}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<WidgetTool>
+  nameWithType: IReadOnlyList<WidgetTool>
+  fullName: System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.WidgetTool>
+  nameWithType.vb: IReadOnlyList(Of WidgetTool)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.WidgetTool)
+  name.vb: IReadOnlyList(Of WidgetTool)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: BbQ.ChatWidgets.Models.WidgetTool
+    name: WidgetTool
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.WidgetTool.html
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: BbQ.ChatWidgets.Models.WidgetTool
+    name: WidgetTool
+    isExternal: true
+    href: BbQ.ChatWidgets.Models.WidgetTool.html
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyList`1
+  commentId: T:System.Collections.Generic.IReadOnlyList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<T>
+  nameWithType: IReadOnlyList<T>
+  fullName: System.Collections.Generic.IReadOnlyList<T>
+  nameWithType.vb: IReadOnlyList(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
+  name.vb: IReadOnlyList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

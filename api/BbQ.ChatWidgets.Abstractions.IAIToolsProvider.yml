@@ -1,0 +1,251 @@
+### YamlMime:ManagedReference
+items:
+- uid: BbQ.ChatWidgets.Abstractions.IAIToolsProvider
+  commentId: T:BbQ.ChatWidgets.Abstractions.IAIToolsProvider
+  id: IAIToolsProvider
+  parent: BbQ.ChatWidgets.Abstractions
+  children:
+  - BbQ.ChatWidgets.Abstractions.IAIToolsProvider.GetAITools
+  langs:
+  - csharp
+  - vb
+  name: IAIToolsProvider
+  nameWithType: IAIToolsProvider
+  fullName: BbQ.ChatWidgets.Abstractions.IAIToolsProvider
+  type: Interface
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Abstractions/IAIToolsProvider.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Abstractions
+  summary: Provides custom AI tools that can be used by the chat client.
+  remarks: >-
+    Implement this interface to provide additional tools beyond the built-in widget tools.
+
+    Custom tools allow the AI to perform specialized operations like:
+
+    - Database queries
+
+    - External API calls
+
+    - Custom calculations
+
+    - Data transformations
+
+
+    The provided tools are passed to the AI chat client, which can choose to invoke them
+
+    as part of its response generation.
+
+
+    Example implementation:
+
+    <pre><code class="lang-csharp">public class WeatherToolProvider : IAIToolsProvider
+
+    {
+        public IReadOnlyList&lt;AITool&gt; GetAITools()
+        {
+            var weatherTool = AIFunctionFactory.Create(
+                (string location) =&gt; GetWeatherForLocation(location),
+                new AIFunctionFactoryOptions
+                {
+                    Name = "get_weather",
+                    Description = "Get current weather for a location"
+                });
+
+            return new[] { weatherTool };
+        }
+
+        private string GetWeatherForLocation(string location)
+        {
+            // Call weather API
+            return "Sunny, 72°F";
+        }
+    }</code></pre>
+  example: []
+  syntax:
+    content: public interface IAIToolsProvider
+    content.vb: Public Interface IAIToolsProvider
+- uid: BbQ.ChatWidgets.Abstractions.IAIToolsProvider.GetAITools
+  commentId: M:BbQ.ChatWidgets.Abstractions.IAIToolsProvider.GetAITools
+  id: GetAITools
+  parent: BbQ.ChatWidgets.Abstractions.IAIToolsProvider
+  langs:
+  - csharp
+  - vb
+  name: GetAITools()
+  nameWithType: IAIToolsProvider.GetAITools()
+  fullName: BbQ.ChatWidgets.Abstractions.IAIToolsProvider.GetAITools()
+  type: Method
+  source:
+    href: https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/docs-rewrite/BbQ.ChatWidgets/Abstractions/IAIToolsProvider.cs
+  assemblies:
+  - BbQ.ChatWidgets
+  namespace: BbQ.ChatWidgets.Abstractions
+  summary: Gets the list of AI tools available for the chat client.
+  remarks: >-
+    This method is called when preparing the chat request to the AI client.
+
+    The returned tools are passed in the ChatOptions along with widget tools.
+
+
+    Implementations can:
+
+    - Cache tools after first call for performance
+
+    - Generate tools dynamically based on configuration
+
+    - Filter tools based on permissions or context
+
+    - Return an empty list if no custom tools are available
+  example: []
+  syntax:
+    content: IReadOnlyList<AITool> GetAITools()
+    return:
+      type: System.Collections.Generic.IReadOnlyList{Microsoft.Extensions.AI.AITool}
+      description: A read-only list of AITool instances available for the AI client.
+    content.vb: Function GetAITools() As IReadOnlyList(Of AITool)
+  overload: BbQ.ChatWidgets.Abstractions.IAIToolsProvider.GetAITools*
+references:
+- uid: BbQ.ChatWidgets.Abstractions
+  commentId: N:BbQ.ChatWidgets.Abstractions
+  isExternal: true
+  href: BbQ.html
+  name: BbQ.ChatWidgets.Abstractions
+  nameWithType: BbQ.ChatWidgets.Abstractions
+  fullName: BbQ.ChatWidgets.Abstractions
+  spec.csharp:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html
+  spec.vb:
+  - uid: BbQ
+    name: BbQ
+    isExternal: true
+    href: BbQ.html
+  - name: .
+  - uid: BbQ.ChatWidgets
+    name: ChatWidgets
+    isExternal: true
+    href: BbQ.ChatWidgets.html
+  - name: .
+  - uid: BbQ.ChatWidgets.Abstractions
+    name: Abstractions
+    isExternal: true
+    href: BbQ.ChatWidgets.Abstractions.html
+- uid: BbQ.ChatWidgets.Abstractions.IAIToolsProvider.GetAITools*
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IAIToolsProvider.GetAITools
+  isExternal: true
+  href: BbQ.ChatWidgets.Abstractions.IAIToolsProvider.html#BbQ_ChatWidgets_Abstractions_IAIToolsProvider_GetAITools
+  name: GetAITools
+  nameWithType: IAIToolsProvider.GetAITools
+  fullName: BbQ.ChatWidgets.Abstractions.IAIToolsProvider.GetAITools
+- uid: System.Collections.Generic.IReadOnlyList{Microsoft.Extensions.AI.AITool}
+  commentId: T:System.Collections.Generic.IReadOnlyList{Microsoft.Extensions.AI.AITool}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IReadOnlyList`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<AITool>
+  nameWithType: IReadOnlyList<AITool>
+  fullName: System.Collections.Generic.IReadOnlyList<Microsoft.Extensions.AI.AITool>
+  nameWithType.vb: IReadOnlyList(Of AITool)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of Microsoft.Extensions.AI.AITool)
+  name.vb: IReadOnlyList(Of AITool)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - uid: Microsoft.Extensions.AI.AITool
+    name: AITool
+    isExternal: true
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: Microsoft.Extensions.AI.AITool
+    name: AITool
+    isExternal: true
+  - name: )
+- uid: System.Collections.Generic.IReadOnlyList`1
+  commentId: T:System.Collections.Generic.IReadOnlyList`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  name: IReadOnlyList<T>
+  nameWithType: IReadOnlyList<T>
+  fullName: System.Collections.Generic.IReadOnlyList<T>
+  nameWithType.vb: IReadOnlyList(Of T)
+  fullName.vb: System.Collections.Generic.IReadOnlyList(Of T)
+  name.vb: IReadOnlyList(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IReadOnlyList`1
+    name: IReadOnlyList
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic

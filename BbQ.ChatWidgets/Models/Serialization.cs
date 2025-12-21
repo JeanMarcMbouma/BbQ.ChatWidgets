@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
 using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Services;
@@ -19,6 +20,7 @@ namespace BbQ.ChatWidgets.Models;
 /// Configuration:
 /// - PropertyNamingPolicy: camelCase (standard for APIs and JavaScript)
 /// - WriteIndented: false (compact JSON for network efficiency)
+/// - NumberHandling: AllowReadingFromString (enables number deserialization from JSON string values)
 /// - Support for custom widget types via ICustomWidgetRegistry
 /// </remarks>
 public static class Serialization
@@ -47,6 +49,7 @@ public static class Serialization
     /// - Non-indented output for efficiency
     /// - Support for polymorphic type serialization
     /// - Support for custom widget types (if registry is set)
+    /// - Number from string deserialization (allows reading numbers from JSON string values)
     /// </remarks>
     public static JsonSerializerOptions Default
     {
@@ -57,7 +60,8 @@ public static class Serialization
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 WriteIndented = false,
-                TypeInfoResolver = new DefaultJsonTypeInfoResolver()
+                TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
+                NumberHandling = JsonNumberHandling.AllowReadingFromString
             };
 
             // Add custom converter for ChatWidget that handles both built-in and custom widgets

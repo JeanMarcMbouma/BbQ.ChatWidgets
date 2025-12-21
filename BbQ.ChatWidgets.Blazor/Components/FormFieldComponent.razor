@@ -1,46 +1,56 @@
 @using BbQ.ChatWidgets.Models
 @using Microsoft.AspNetCore.Components
 
-@switch (Field.Type.ToLower())
-{
-    case "text":
-    case "email":
-    case "number":
-        <div class="bbq-form-field">
+<div class="bbq-form-field @(Field.Required ? "bbq-form-field-required" : "")">
+    @if (widget != null)
+    {
+        @switch (widget.GetType().Name)
+        {
+            case nameof(InputWidget):
+                <InputWidgetComponent Widget="(InputWidget)widget" OnAction="HandleWidgetAction" />
+                break;
+            case nameof(TextAreaWidget):
+                <TextAreaWidgetComponent Widget="(TextAreaWidget)widget" OnAction="HandleWidgetAction" />
+                break;
+            case nameof(DropdownWidget):
+                <DropdownWidgetComponent Widget="(DropdownWidget)widget" OnAction="HandleWidgetAction" />
+                break;
+            case nameof(SliderWidget):
+                <SliderWidgetComponent Widget="(SliderWidget)widget" OnAction="HandleWidgetAction" />
+                break;
+            case nameof(ToggleWidget):
+                <ToggleWidgetComponent Widget="(ToggleWidget)widget" OnAction="HandleWidgetAction" />
+                break;
+            case nameof(FileUploadWidget):
+                <FileUploadWidgetComponent Widget="(FileUploadWidget)widget" OnAction="HandleWidgetAction" />
+                break;
+            case nameof(DatePickerWidget):
+                <DatePickerWidgetComponent Widget="(DatePickerWidget)widget" OnAction="HandleWidgetAction" />
+                break;
+            case nameof(MultiSelectWidget):
+                <MultiSelectWidgetComponent Widget="(MultiSelectWidget)widget" OnAction="HandleWidgetAction" />
+                break;
+            default:
+                <div class="bbq-form-field-fallback">
+                    <label class="bbq-form-field-label">@Field.Label</label>
+                    <input type="text" class="bbq-form-input" placeholder="@Field.Label" @onchange="HandleFallbackChange" />
+                </div>
+                break;
+        }
+    }
+    else
+    {
+        <div class="bbq-form-field-error">
             <label class="bbq-form-field-label">@Field.Label</label>
-            <input 
-                type="@Field.Type" 
-                class="bbq-form-input"
-                placeholder="@Field.Label"
-                @onchange="HandleChange" />
+            <p class="bbq-form-field-error-text">Invalid field type: @Field.Type</p>
         </div>
-        break;
+    }
     
-    case "dropdown":
-        <div class="bbq-form-field">
-            <label class="bbq-form-field-label">@Field.Label</label>
-            <select class="bbq-form-select" @onchange="HandleChange">
-                <option value="">-- Select --</option>
-            </select>
-        </div>
-        break;
-    
-    case "toggle":
-        <div class="bbq-form-field">
-            <label class="bbq-form-checkbox">
-                <input type="checkbox" @onchange="HandleChange" />
-                <span>@Field.Label</span>
-            </label>
-        </div>
-        break;
-    
-    default:
-        <div class="bbq-form-field">
-            <label class="bbq-form-field-label">@Field.Label</label>
-            <input type="text" class="bbq-form-input" placeholder="@Field.Label" @onchange="HandleChange" />
-        </div>
-        break;
-}
+    @if (!string.IsNullOrEmpty(Field.ValidationHint))
+    {
+        <span class="bbq-form-field-hint">@Field.ValidationHint</span>
+    }
+</div>
 
 @code {
     [Parameter]
@@ -49,12 +59,54 @@
     [Parameter]
     public EventCallback<(string, object?)> OnValueChanged { get; set; }
 
-    private async Task HandleChange(ChangeEventArgs e)
+    [Parameter]
+    public EventCallback<(string, bool)> OnValidationChanged { get; set; }
+
+    private ChatWidget? widget;
+    private bool isValid = true;
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        
+        // Convert FormField to ChatWidget
+        widget = Field.ToWidget();
+
+        // Initialize validation state
+        isValid = !Field.Required;
+    }
+
+    private async Task HandleWidgetAction((string Action, object? Payload) args)
+    {
+        // Extract value from payload
+        object? value = null;
+        if (args.Payload != null)
+        {
+            var payloadType = args.Payload.GetType();
+            var valueProperty = payloadType.GetProperty("value");
+            if (valueProperty != null)
+            {
+                value = valueProperty.GetValue(args.Payload);
+            }
+        }
+
+        // Update validation state
+        isValid = !Field.Required || (value != null && !string.IsNullOrWhiteSpace(value.ToString()));
+        await OnValidationChanged.InvokeAsync((Field.Name, isValid));
+
+        // Forward the value change event
+        await OnValueChanged.InvokeAsync((Field.Name, value));
+    }
+
+    private async Task HandleFallbackChange(ChangeEventArgs e)
     {
         var value = e.Value;
-        if (Field != null)
-        {
-            await OnValueChanged.InvokeAsync((Field.Name, value));
-        }
+
+        // Update validation state
+        isValid = !Field.Required || (value != null && !string.IsNullOrWhiteSpace(value.ToString()));
+        await OnValidationChanged.InvokeAsync((Field.Name, isValid));
+
+        // Forward the value change event
+        await OnValueChanged.InvokeAsync((Field.Name, value));
     }
 }

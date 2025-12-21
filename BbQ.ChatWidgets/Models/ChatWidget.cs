@@ -588,21 +588,96 @@ public record FormWidget(
 
 /// <summary>
 /// Represents a field definition for a form, including metadata such as name, label, type, and validation requirements.
+/// This class supports JSON extension data to allow any registered widget to be deserialized as a form field.
 /// </summary>
-/// <param name="Name">The unique identifier for the form field. Used to reference the field in form data and processing.</param>
-/// <param name="Label">The display label for the form field, shown to users in the form UI.</param>
-/// <param name="Type">The type of widget or input control to use for the field, such as 'text', 'checkbox', or other supported types.</param>
-/// <param name="Required">A value indicating whether the field is required for form submission. Set to <see langword="true"/> if the field
-/// must be provided; otherwise, <see langword="false"/>.</param>
-/// <param name="ValidationHint">An optional hint or message to assist users in providing valid input for the field. Can be <see langword="null"/> if
-/// no hint is provided.</param>
-public record FormField(
-    string Name,
-    string Label,
-    string Type, 
-    bool Required,
-    string? ValidationHint = null
-);
+public class FormField
+{
+    /// <summary>
+    /// The unique identifier for the form field. Used to reference the field in form data and processing.
+    /// </summary>
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The display label for the form field, shown to users in the form UI.
+    /// </summary>
+    [JsonPropertyName("label")]
+    public string Label { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The type of widget or input control to use for the field, such as 'input', 'dropdown', or other supported widget types.
+    /// </summary>
+    [JsonPropertyName("type")]
+    public string Type { get; set; } = string.Empty;
+
+    /// <summary>
+    /// A value indicating whether the field is required for form submission. Set to <see langword="true"/> if the field
+    /// must be provided; otherwise, <see langword="false"/>.
+    /// </summary>
+    [JsonPropertyName("required")]
+    public bool Required { get; set; }
+
+    /// <summary>
+    /// An optional hint or message to assist users in providing valid input for the field. Can be <see langword="null"/> if
+    /// no hint is provided.
+    /// </summary>
+    [JsonPropertyName("validationHint")]
+    public string? ValidationHint { get; set; }
+
+    /// <summary>
+    /// Stores additional JSON properties that are not explicitly defined, allowing any registered widget's properties
+    /// to be captured and later deserialized.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? ExtensionData { get; set; }
+
+    /// <summary>
+    /// Default constructor for JSON deserialization.
+    /// </summary>
+    public FormField() { }
+
+    /// <summary>
+    /// Creates a new FormField instance.
+    /// </summary>
+    /// <param name="name">The unique identifier for the form field.</param>
+    /// <param name="label">The display label for the form field.</param>
+    /// <param name="type">The type of widget or input control to use for the field.</param>
+    /// <param name="required">A value indicating whether the field is required for form submission.</param>
+    /// <param name="validationHint">An optional hint or message to assist users in providing valid input.</param>
+    public FormField(string name, string label, string type, bool required, string? validationHint = null)
+    {
+        Name = name;
+        Label = label;
+        Type = type;
+        Required = required;
+        ValidationHint = validationHint;
+    }
+
+    /// <summary>
+    /// Deserializes this FormField to the appropriate ChatWidget based on the Type property.
+    /// </summary>
+    /// <returns>The deserialized ChatWidget, or null if deserialization fails.</returns>
+    public ChatWidget? ToWidget()
+    {
+        // Build a JSON object with the type and all extension data
+        var jsonObject = new Dictionary<string, object?>();
+        jsonObject["type"] = Type;
+        jsonObject["label"] = Label;
+        jsonObject["action"] = Name; // Use field name as action
+
+        // Copy extension data
+        if (ExtensionData != null)
+        {
+            foreach (var kvp in ExtensionData)
+            {
+                jsonObject[kvp.Key] = kvp.Value;
+            }
+        }
+
+        var json = JsonSerializer.Serialize(jsonObject, Serialization.Default);
+        return ChatWidget.FromJson(json);
+    }
+}
 
 /// <summary>
 /// Represents an action that can be performed on a form, such as submitting or canceling.

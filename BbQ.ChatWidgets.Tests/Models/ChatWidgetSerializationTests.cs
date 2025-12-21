@@ -393,4 +393,89 @@ public class ChatWidgetSerializationTests
         var upload = (FileUploadWidget)deserialized;
         Assert.Equal(5000000000L, upload.MaxBytes);
     }
+
+    [Fact]
+    public void SliderWidget_DeserializesNumbersFromNumbers()
+    {
+        // Arrange - JSON with actual numbers (not strings)
+        var json = """{"type":"slider","label":"Volume","action":"set_volume","min":0,"max":100,"step":5,"default":50}""";
+
+        // Act
+        var deserialized = ChatWidget.FromJson(json);
+
+        // Assert
+        Assert.NotNull(deserialized);
+        Assert.IsType<SliderWidget>(deserialized);
+        var slider = (SliderWidget)deserialized;
+        Assert.Equal(0, slider.Min);
+        Assert.Equal(100, slider.Max);
+        Assert.Equal(5, slider.Step);
+        Assert.Equal(50, slider.Default);
+    }
+
+    [Fact]
+    public void ProgressBarWidget_DeserializesNumbersFromNumbers()
+    {
+        // Arrange - JSON with actual numbers (not strings)
+        var json = """{"type":"progressbar","label":"Upload","action":"upload_progress","value":75,"max":100}""";
+
+        // Act
+        var deserialized = ChatWidget.FromJson(json);
+
+        // Assert
+        Assert.NotNull(deserialized);
+        Assert.IsType<ProgressBarWidget>(deserialized);
+        var progressBar = (ProgressBarWidget)deserialized;
+        Assert.Equal(75, progressBar.Value);
+        Assert.Equal(100, progressBar.Max);
+    }
+
+    [Fact]
+    public void ImageWidget_DeserializesNumbersFromNumbers()
+    {
+        // Arrange - JSON with actual numbers (not strings)
+        var json = """{"type":"image","label":"View","action":"view_image","imageUrl":"https://example.com/img.jpg","alt":"Test","width":320,"height":180}""";
+
+        // Act
+        var deserialized = ChatWidget.FromJson(json);
+
+        // Assert
+        Assert.NotNull(deserialized);
+        Assert.IsType<ImageWidget>(deserialized);
+        var image = (ImageWidget)deserialized;
+        Assert.Equal(320, image.Width);
+        Assert.Equal(180, image.Height);
+    }
+
+    [Fact]
+    public void InputWidget_DeserializesMaxLengthFromNumber()
+    {
+        // Arrange - JSON with actual number (not string)
+        var json = """{"type":"input","label":"Name","action":"input_name","placeholder":"Enter name","maxLength":50}""";
+
+        // Act
+        var deserialized = ChatWidget.FromJson(json);
+
+        // Assert
+        Assert.NotNull(deserialized);
+        Assert.IsType<InputWidget>(deserialized);
+        var input = (InputWidget)deserialized;
+        Assert.Equal(50, input.MaxLength);
+    }
+
+    [Fact]
+    public void FileUploadWidget_DeserializesMaxBytesFromNumber()
+    {
+        // Arrange - JSON with actual number (not string, using large value that requires long)
+        var json = """{"type":"fileupload","label":"Upload","action":"upload_file","accept":".pdf","maxBytes":5000000000}""";
+
+        // Act
+        var deserialized = ChatWidget.FromJson(json);
+
+        // Assert
+        Assert.NotNull(deserialized);
+        Assert.IsType<FileUploadWidget>(deserialized);
+        var upload = (FileUploadWidget)deserialized;
+        Assert.Equal(5000000000L, upload.MaxBytes);
+    }
 }

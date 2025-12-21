@@ -50,6 +50,11 @@ public static class Serialization
     /// - Support for polymorphic type serialization
     /// - Support for custom widget types (if registry is set)
     /// - Number from string deserialization (allows reading numbers from JSON string values)
+    /// 
+    /// Note: The AllowReadingFromString setting applies to all numeric properties across the library,
+    /// including ChatWidget properties, DTOs (UserMessageDto, WidgetActionDto), and custom payload types
+    /// used in action handlers. This improves interoperability with JavaScript clients and external APIs
+    /// that may send numbers as strings, but makes numeric validation more permissive throughout.
     /// </remarks>
     public static JsonSerializerOptions Default
     {

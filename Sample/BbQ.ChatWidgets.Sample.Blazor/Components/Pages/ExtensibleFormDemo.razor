@@ -1,0 +1,260 @@
+@rendermode @(new InteractiveServerRenderMode())
+@page "/extensible-form-demo"
+@using BbQ.ChatWidgets.Models
+@using Microsoft.Extensions.AI
+@using Microsoft.AspNetCore.Components.Web
+@using System.Text.Json
+@inject NavigationManager NavigationManager
+
+<PageTitle>Extensible Form Demo - BbQ Chat Widgets</PageTitle>
+
+<div class="demo-container">
+    <div class="demo-header">
+        <button class="btn-back" @onclick="GoBack">← Back</button>
+        <div>
+            <h1>📋 Extensible Form Demo</h1>
+            <p>Form fields can now be any registered widget type with full properties</p>
+        </div>
+    </div>
+
+    <div class="demo-content">
+        <CustomChatContainer ChatTurns="chatTurns" IsLoading="false" OnAction="HandleWidgetAction" />
+    </div>
+</div>
+
+<style>
+    .demo-container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background-color: var(--color-bg-primary);
+    }
+
+    .demo-header {
+        padding: 1.5rem;
+        background: var(--color-header-gradient);
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-back {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+    }
+
+    .btn-back:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .demo-header h1 {
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: 600;
+    }
+
+    .demo-header p {
+        margin: 0.25rem 0 0 0;
+        opacity: 0.9;
+        font-size: 0.95rem;
+    }
+
+    .demo-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 2rem;
+    }
+</style>
+
+@code {
+    private List<ChatTurn> chatTurns = new();
+
+    protected override void OnInitialized()
+    {
+        // Welcome message
+        chatTurns.Add(new ChatTurn(
+            ChatRole.Assistant,
+            "Welcome! This demo shows how FormField now supports ANY widget type with all their properties. Each field type uses JSON extension data to capture widget-specific properties."
+        ));
+
+        // Create a comprehensive form with different widget types
+        var formJson = @"{
+            ""type"": ""form"",
+            ""title"": ""User Registration Form"",
+            ""action"": ""register_user"",
+            ""fields"": [
+                {
+                    ""name"": ""username"",
+                    ""label"": ""Username"",
+                    ""type"": ""input"",
+                    ""required"": true,
+                    ""validationHint"": ""Must be 3-20 characters"",
+                    ""placeholder"": ""Enter username"",
+                    ""maxLength"": 20
+                },
+                {
+                    ""name"": ""email"",
+                    ""label"": ""Email Address"",
+                    ""type"": ""input"",
+                    ""required"": true,
+                    ""validationHint"": ""Enter a valid email"",
+                    ""placeholder"": ""user@example.com"",
+                    ""maxLength"": 100
+                },
+                {
+                    ""name"": ""bio"",
+                    ""label"": ""Biography"",
+                    ""type"": ""textarea"",
+                    ""required"": false,
+                    ""placeholder"": ""Tell us about yourself..."",
+                    ""maxLength"": 500,
+                    ""rows"": 4
+                },
+                {
+                    ""name"": ""country"",
+                    ""label"": ""Country"",
+                    ""type"": ""dropdown"",
+                    ""required"": true,
+                    ""validationHint"": ""Select your country"",
+                    ""options"": [""USA"", ""Canada"", ""UK"", ""Germany"", ""France"", ""Other""]
+                },
+                {
+                    ""name"": ""age"",
+                    ""label"": ""Age Range"",
+                    ""type"": ""slider"",
+                    ""required"": false,
+                    ""min"": 18,
+                    ""max"": 100,
+                    ""step"": 1,
+                    ""default"": 25
+                },
+                {
+                    ""name"": ""birthdate"",
+                    ""label"": ""Date of Birth"",
+                    ""type"": ""datepicker"",
+                    ""required"": true,
+                    ""validationHint"": ""Must be at least 18 years old"",
+                    ""minDate"": ""1900-01-01"",
+                    ""maxDate"": ""2006-12-31""
+                },
+                {
+                    ""name"": ""interests"",
+                    ""label"": ""Interests"",
+                    ""type"": ""multiselect"",
+                    ""required"": false,
+                    ""options"": [""Programming"", ""Design"", ""Gaming"", ""Music"", ""Sports"", ""Reading""]
+                },
+                {
+                    ""name"": ""newsletter"",
+                    ""label"": ""Subscribe to Newsletter"",
+                    ""type"": ""toggle"",
+                    ""required"": false,
+                    ""defaultValue"": true
+                },
+                {
+                    ""name"": ""resume"",
+                    ""label"": ""Upload Resume (Optional)"",
+                    ""type"": ""fileupload"",
+                    ""required"": false,
+                    ""accept"": "".pdf,.doc,.docx"",
+                    ""maxBytes"": 5000000
+                }
+            ],
+            ""actions"": [
+                {""type"": ""submit"", ""label"": ""Register""},
+                {""type"": ""cancel"", ""label"": ""Cancel""}
+            ]
+        }";
+
+        var formWidget = JsonSerializer.Deserialize<FormWidget>(formJson, Serialization.Default);
+        
+        if (formWidget != null)
+        {
+            chatTurns.Add(new ChatTurn(
+                ChatRole.Assistant,
+                "Here's a comprehensive registration form using all available field types. Notice how validation works - the Submit button is disabled until all required fields are valid:",
+                new List<ChatWidget> { formWidget }
+            ));
+        }
+
+        // Add a second simpler form
+        var simpleFormJson = @"{
+            ""type"": ""form"",
+            ""title"": ""Quick Feedback"",
+            ""action"": ""submit_feedback"",
+            ""fields"": [
+                {
+                    ""name"": ""rating"",
+                    ""label"": ""How would you rate this feature?"",
+                    ""type"": ""slider"",
+                    ""required"": true,
+                    ""validationHint"": ""Rate from 1 to 5"",
+                    ""min"": 1,
+                    ""max"": 5,
+                    ""step"": 1,
+                    ""default"": 3
+                },
+                {
+                    ""name"": ""feedback"",
+                    ""label"": ""Your Feedback"",
+                    ""type"": ""textarea"",
+                    ""required"": true,
+                    ""validationHint"": ""Please provide your feedback"",
+                    ""placeholder"": ""Share your thoughts..."",
+                    ""maxLength"": 500,
+                    ""rows"": 3
+                }
+            ],
+            ""actions"": [
+                {""type"": ""submit"", ""label"": ""Submit Feedback""},
+                {""type"": ""cancel"", ""label"": ""Skip""}
+            ]
+        }";
+
+        var simpleForm = JsonSerializer.Deserialize<FormWidget>(simpleFormJson, Serialization.Default);
+        
+        if (simpleForm != null)
+        {
+            chatTurns.Add(new ChatTurn(
+                ChatRole.Assistant,
+                "And here's a simpler feedback form showing validation in action:",
+                new List<ChatWidget> { simpleForm }
+            ));
+        }
+    }
+
+    private async Task HandleWidgetAction((string Action, object? Payload) args)
+    {
+        var (action, payload) = args;
+        var payloadJson = payload != null ? JsonSerializer.Serialize(payload, new JsonSerializerOptions { WriteIndented = true }) : "No data";
+        
+        chatTurns.Add(new ChatTurn(
+            ChatRole.User,
+            $"Submitted: **{action}**"
+        ));
+
+        StateHasChanged();
+
+        await Task.Delay(500);
+        chatTurns.Add(new ChatTurn(
+            ChatRole.Assistant,
+            $"✅ Form submitted successfully!\n\nReceived data:\n```json\n{payloadJson}\n```"
+        ));
+
+        StateHasChanged();
+    }
+
+    private void GoBack()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}

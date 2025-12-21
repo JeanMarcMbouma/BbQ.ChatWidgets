@@ -381,8 +381,8 @@ public class ChatWidgetSerializationTests
     [Fact]
     public void FileUploadWidget_DeserializesMaxBytesFromString()
     {
-        // Arrange - JSON with maxBytes as string
-        var json = """{"type":"fileupload","label":"Upload","action":"upload_file","accept":".pdf","maxBytes":"5000000"}""";
+        // Arrange - JSON with maxBytes as string (using large value that requires long)
+        var json = """{"type":"fileupload","label":"Upload","action":"upload_file","accept":".pdf","maxBytes":"5000000000"}""";
 
         // Act
         var deserialized = ChatWidget.FromJson(json);
@@ -391,6 +391,6 @@ public class ChatWidgetSerializationTests
         Assert.NotNull(deserialized);
         Assert.IsType<FileUploadWidget>(deserialized);
         var upload = (FileUploadWidget)deserialized;
-        Assert.Equal(5000000, upload.MaxBytes);
+        Assert.Equal(5000000000L, upload.MaxBytes);
     }
 }

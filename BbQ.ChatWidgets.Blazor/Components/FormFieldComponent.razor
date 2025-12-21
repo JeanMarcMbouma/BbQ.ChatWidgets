@@ -90,10 +90,8 @@
             }
         }
 
-        // Update validation state - validate based on whether we have a meaningful value
-        bool hasValue = value != null && (
-            value is not string str || !string.IsNullOrWhiteSpace(str)
-        );
+        // Update validation state - handle different value types appropriately
+        bool hasValue = IsValuePresent(value);
         isValid = !Field.Required || hasValue;
         await OnValidationChanged.InvokeAsync((Field.Name, isValid));
 
@@ -105,14 +103,20 @@
     {
         var value = e.Value;
 
-        // Update validation state - validate based on whether we have a meaningful value
-        bool hasValue = value != null && (
-            value is not string str || !string.IsNullOrWhiteSpace(str)
-        );
+        // Update validation state - handle different value types appropriately
+        bool hasValue = IsValuePresent(value);
         isValid = !Field.Required || hasValue;
         await OnValidationChanged.InvokeAsync((Field.Name, isValid));
 
         // Forward the value change event
         await OnValueChanged.InvokeAsync((Field.Name, value));
+    }
+
+    private bool IsValuePresent(object? value)
+    {
+        // Value is present if it's not null and:
+        // - For strings: not empty or whitespace
+        // - For other types (numbers, booleans, dates, etc.): just not null
+        return value != null && (value is not string str || !string.IsNullOrWhiteSpace(str));
     }
 }

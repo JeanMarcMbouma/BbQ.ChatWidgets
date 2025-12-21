@@ -670,12 +670,25 @@ public class FormField
         jsonObject["label"] = Label;
         jsonObject["action"] = Name; // Use field name as action for field identity
 
-        // Copy extension data
+        // Copy extension data - convert JsonElement to actual values
         if (ExtensionData != null)
         {
             foreach (var kvp in ExtensionData)
             {
-                jsonObject[kvp.Key] = kvp.Value;
+                // Convert JsonElement to the appropriate type
+                var element = kvp.Value;
+                object? value = element.ValueKind switch
+                {
+                    JsonValueKind.String => element.GetString(),
+                    JsonValueKind.Number => element.TryGetInt32(out var i) ? i : element.GetDouble(),
+                    JsonValueKind.True => true,
+                    JsonValueKind.False => false,
+                    JsonValueKind.Null => null,
+                    JsonValueKind.Array => JsonSerializer.Deserialize<object[]>(element.GetRawText(), Serialization.Default),
+                    JsonValueKind.Object => JsonSerializer.Deserialize<Dictionary<string, object?>>(element.GetRawText(), Serialization.Default),
+                    _ => element.GetRawText()
+                };
+                jsonObject[kvp.Key] = value;
             }
         }
 

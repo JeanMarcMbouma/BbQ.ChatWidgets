@@ -185,6 +185,13 @@
                 new List<ChatWidget> { formWidget }
             ));
         }
+        else
+        {
+            chatTurns.Add(new ChatTurn(
+                ChatRole.Assistant,
+                "Error: Failed to load registration form. Please check the console for details."
+            ));
+        }
 
         // Add a second simpler form
         var simpleFormJson = @"{
@@ -228,6 +235,13 @@
                 ChatRole.Assistant,
                 "And here's a simpler feedback form showing validation in action:",
                 new List<ChatWidget> { simpleForm }
+            ));
+        }
+        else
+        {
+            chatTurns.Add(new ChatTurn(
+                ChatRole.Assistant,
+                "Error: Failed to load feedback form. Please check the console for details."
             ));
         }
     }

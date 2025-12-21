@@ -656,6 +656,11 @@ public class FormField
     /// <summary>
     /// Deserializes this FormField to the appropriate ChatWidget based on the Type property.
     /// </summary>
+    /// <remarks>
+    /// This method constructs a widget from the FormField properties and extension data.
+    /// The widget's Action property is set to the FormField's Name to maintain field identity
+    /// when handling widget actions within forms.
+    /// </remarks>
     /// <returns>The deserialized ChatWidget, or null if deserialization fails.</returns>
     public ChatWidget? ToWidget()
     {
@@ -663,7 +668,7 @@ public class FormField
         var jsonObject = new Dictionary<string, object?>();
         jsonObject["type"] = Type;
         jsonObject["label"] = Label;
-        jsonObject["action"] = Name; // Use field name as action
+        jsonObject["action"] = Name; // Use field name as action for field identity
 
         // Copy extension data
         if (ExtensionData != null)

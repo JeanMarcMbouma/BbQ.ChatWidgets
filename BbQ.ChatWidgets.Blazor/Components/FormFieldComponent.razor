@@ -90,8 +90,11 @@
             }
         }
 
-        // Update validation state
-        isValid = !Field.Required || (value != null && !string.IsNullOrWhiteSpace(value.ToString()));
+        // Update validation state - validate based on whether we have a meaningful value
+        bool hasValue = value != null && (
+            value is not string str || !string.IsNullOrWhiteSpace(str)
+        );
+        isValid = !Field.Required || hasValue;
         await OnValidationChanged.InvokeAsync((Field.Name, isValid));
 
         // Forward the value change event
@@ -102,8 +105,11 @@
     {
         var value = e.Value;
 
-        // Update validation state
-        isValid = !Field.Required || (value != null && !string.IsNullOrWhiteSpace(value.ToString()));
+        // Update validation state - validate based on whether we have a meaningful value
+        bool hasValue = value != null && (
+            value is not string str || !string.IsNullOrWhiteSpace(str)
+        );
+        isValid = !Field.Required || hasValue;
         await OnValidationChanged.InvokeAsync((Field.Name, isValid));
 
         // Forward the value change event

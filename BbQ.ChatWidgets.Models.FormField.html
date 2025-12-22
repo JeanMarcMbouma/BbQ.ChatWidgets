@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width">
       <meta name="title" content="Class FormField | BbQ.ChatWidgets ">
     
-    <meta name="description" content="Represents a field definition for a form, including metadata such as name, label, type, and validation requirements.">
+    <meta name="description" content="Represents a field definition for a form, including metadata such as name, label, type, and validation requirements. This class supports JSON extension data to allow any registered widget to be deserialized as a form field.">
       <link rel="shortcut icon" href="favicon.ico">
       <link rel="stylesheet" href="styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="styles/docfx.css">
@@ -74,17 +74,14 @@
 
 
   <h1 id="BbQ_ChatWidgets_Models_FormField" data-uid="BbQ.ChatWidgets.Models.FormField" class="text-break">Class FormField</h1>
-  <div class="markdown level0 summary"><p>Represents a field definition for a form, including metadata such as name, label, type, and validation requirements.</p>
+  <div class="markdown level0 summary"><p>Represents a field definition for a form, including metadata such as name, label, type, and validation requirements.
+This class supports JSON extension data to allow any registered widget to be deserialized as a form field.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
     <div class="level1"><span class="xref">FormField</span></div>
-  </div>
-  <div class="implements">
-    <h5>Implements</h5>
-    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.FormField.html">FormField</a>&gt;</div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -95,17 +92,26 @@
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
     </div>
     <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a>
+    </div>
+    <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.referenceequals">object.ReferenceEquals(object, object)</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
     </div>
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="BbQ.html">BbQ</a>.<a class="xref" href="BbQ.ChatWidgets.html">ChatWidgets</a>.<a class="xref" href="BbQ.ChatWidgets.Models.html">Models</a></h6>
   <h6><strong>Assembly</strong>: BbQ.ChatWidgets.dll</h6>
   <h5 id="BbQ_ChatWidgets_Models_FormField_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public record FormField : IEquatable&lt;FormField&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public class FormField</code></pre>
   </div>
   <h3 id="constructors">Constructors
 </h3>
@@ -114,42 +120,26 @@
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField__ctor_" data-uid="BbQ.ChatWidgets.Models.FormField.#ctor*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_FormField__ctor_BbQ_ChatWidgets_Models_FormField_" data-uid="BbQ.ChatWidgets.Models.FormField.#ctor(BbQ.ChatWidgets.Models.FormField)">FormField(FormField)</h4>
-  <div class="markdown level1 summary"></div>
+  <h4 id="BbQ_ChatWidgets_Models_FormField__ctor" data-uid="BbQ.ChatWidgets.Models.FormField.#ctor">FormField()</h4>
+  <div class="markdown level1 summary"><p>Default constructor for JSON deserialization.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected FormField(FormField original)</code></pre>
+    <pre><code class="lang-csharp hljs">public FormField()</code></pre>
   </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.FormField.html">FormField</a></td>
-        <td><span class="parametername">original</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
 
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField__ctor_" data-uid="BbQ.ChatWidgets.Models.FormField.#ctor*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField__ctor_System_String_System_String_System_String_System_Boolean_System_String_" data-uid="BbQ.ChatWidgets.Models.FormField.#ctor(System.String,System.String,System.String,System.Boolean,System.String)">FormField(string, string, string, bool, string?)</h4>
-  <div class="markdown level1 summary"><p>Represents a field definition for a form, including metadata such as name, label, type, and validation requirements.</p>
+  <div class="markdown level1 summary"><p>Creates a new FormField instance.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public FormField(string Name, string Label, string Type, bool Required, string? ValidationHint = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public FormField(string name, string label, string type, bool required, string? validationHint = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -163,34 +153,32 @@
     <tbody>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">Name</span></td>
-        <td><p>The unique identifier for the form field. Used to reference the field in form data and processing.</p>
+        <td><span class="parametername">name</span></td>
+        <td><p>The unique identifier for the form field.</p>
 </td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">Label</span></td>
-        <td><p>The display label for the form field, shown to users in the form UI.</p>
+        <td><span class="parametername">label</span></td>
+        <td><p>The display label for the form field.</p>
 </td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">Type</span></td>
-        <td><p>The type of widget or input control to use for the field, such as 'text', 'checkbox', or other supported types.</p>
+        <td><span class="parametername">type</span></td>
+        <td><p>The type of widget or input control to use for the field.</p>
 </td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><span class="parametername">Required</span></td>
-        <td><p>A value indicating whether the field is required for form submission. Set to <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the field
-must be provided; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+        <td><span class="parametername">required</span></td>
+        <td><p>A value indicating whether the field is required for form submission.</p>
 </td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">ValidationHint</span></td>
-        <td><p>An optional hint or message to assist users in providing valid input for the field. Can be <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> if
-no hint is provided.</p>
+        <td><span class="parametername">validationHint</span></td>
+        <td><p>An optional hint or message to assist users in providing valid input.</p>
 </td>
       </tr>
     </tbody>
@@ -201,13 +189,16 @@ no hint is provided.</p>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_FormField_EqualityContract_" data-uid="BbQ.ChatWidgets.Models.FormField.EqualityContract*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_FormField_EqualityContract" data-uid="BbQ.ChatWidgets.Models.FormField.EqualityContract">EqualityContract</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="BbQ_ChatWidgets_Models_FormField_ExtensionData_" data-uid="BbQ.ChatWidgets.Models.FormField.ExtensionData*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_FormField_ExtensionData" data-uid="BbQ.ChatWidgets.Models.FormField.ExtensionData">ExtensionData</h4>
+  <div class="markdown level1 summary"><p>Stores additional JSON properties that are not explicitly defined, allowing any registered widget's properties
+to be captured and later deserialized.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual Type EqualityContract { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonExtensionData]
+public Dictionary&lt;string, JsonElement&gt;? ExtensionData { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-condensed">
@@ -219,7 +210,7 @@ no hint is provided.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.json.jsonelement">JsonElement</a>&gt;</td>
         <td></td>
       </tr>
     </tbody>
@@ -235,7 +226,8 @@ no hint is provided.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Label { get; init; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;label&quot;)]
+public string Label { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-condensed">
@@ -263,7 +255,8 @@ no hint is provided.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Name { get; init; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;name&quot;)]
+public string Name { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-condensed">
@@ -292,7 +285,8 @@ must be provided; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Required { get; init; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;required&quot;)]
+public bool Required { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-condensed">
@@ -315,12 +309,13 @@ must be provided; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/
   </span>
   <a id="BbQ_ChatWidgets_Models_FormField_Type_" data-uid="BbQ.ChatWidgets.Models.FormField.Type*"></a>
   <h4 id="BbQ_ChatWidgets_Models_FormField_Type" data-uid="BbQ.ChatWidgets.Models.FormField.Type">Type</h4>
-  <div class="markdown level1 summary"><p>The type of widget or input control to use for the field, such as 'text', 'checkbox', or other supported types.</p>
+  <div class="markdown level1 summary"><p>The type of widget or input control to use for the field, such as 'input', 'dropdown', or other supported widget types.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string Type { get; init; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;type&quot;)]
+public string Type { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-condensed">
@@ -349,7 +344,8 @@ no hint is provided.</p>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public string? ValidationHint { get; init; }</code></pre>
+    <pre><code class="lang-csharp hljs">[JsonPropertyName(&quot;validationHint&quot;)]
+public string? ValidationHint { get; set; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-condensed">
@@ -372,152 +368,14 @@ no hint is provided.</p>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_FormField_Deconstruct_" data-uid="BbQ.ChatWidgets.Models.FormField.Deconstruct*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_FormField_Deconstruct_System_String__System_String__System_String__System_Boolean__System_String__" data-uid="BbQ.ChatWidgets.Models.FormField.Deconstruct(System.String@,System.String@,System.String@,System.Boolean@,System.String@)">Deconstruct(out string, out string, out string, out bool, out string?)</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="BbQ_ChatWidgets_Models_FormField_ToWidget_" data-uid="BbQ.ChatWidgets.Models.FormField.ToWidget*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_FormField_ToWidget" data-uid="BbQ.ChatWidgets.Models.FormField.ToWidget">ToWidget()</h4>
+  <div class="markdown level1 summary"><p>Deserializes this FormField to the appropriate ChatWidget based on the Type property.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Deconstruct(out string Name, out string Label, out string Type, out bool Required, out string? ValidationHint)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">Name</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">Label</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">Type</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><span class="parametername">Required</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">ValidationHint</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
-  </span>
-  <a id="BbQ_ChatWidgets_Models_FormField_Equals_" data-uid="BbQ.ChatWidgets.Models.FormField.Equals*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_FormField_Equals_BbQ_ChatWidgets_Models_FormField_" data-uid="BbQ.ChatWidgets.Models.FormField.Equals(BbQ.ChatWidgets.Models.FormField)">Equals(FormField?)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual bool Equals(FormField? other)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.FormField.html">FormField</a></td>
-        <td><span class="parametername">other</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
-  </span>
-  <a id="BbQ_ChatWidgets_Models_FormField_Equals_" data-uid="BbQ.ChatWidgets.Models.FormField.Equals*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_FormField_Equals_System_Object_" data-uid="BbQ.ChatWidgets.Models.FormField.Equals(System.Object)">Equals(object?)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override bool Equals(object? obj)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
-        <td><span class="parametername">obj</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a></div>
-
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
-  </span>
-  <a id="BbQ_ChatWidgets_Models_FormField_GetHashCode_" data-uid="BbQ.ChatWidgets.Models.FormField.GetHashCode*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_FormField_GetHashCode" data-uid="BbQ.ChatWidgets.Models.FormField.GetHashCode">GetHashCode()</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+    <pre><code class="lang-csharp hljs">public ChatWidget? ToWidget()</code></pre>
   </div>
   <h5 class="returns">Returns</h5>
   <table class="table table-bordered table-condensed">
@@ -529,190 +387,17 @@ no hint is provided.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
-        <td></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a></td>
+        <td><p>The deserialized ChatWidget, or null if deserialization fails.</p>
+</td>
       </tr>
     </tbody>
   </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></div>
-
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
-  </span>
-  <a id="BbQ_ChatWidgets_Models_FormField_PrintMembers_" data-uid="BbQ.ChatWidgets.Models.FormField.PrintMembers*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_FormField_PrintMembers_System_Text_StringBuilder_" data-uid="BbQ.ChatWidgets.Models.FormField.PrintMembers(System.Text.StringBuilder)">PrintMembers(StringBuilder)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected virtual bool PrintMembers(StringBuilder builder)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.text.stringbuilder">StringBuilder</a></td>
-        <td><span class="parametername">builder</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
-  </span>
-  <a id="BbQ_ChatWidgets_Models_FormField_ToString_" data-uid="BbQ.ChatWidgets.Models.FormField.ToString*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_FormField_ToString" data-uid="BbQ.ChatWidgets.Models.FormField.ToString">ToString()</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
-  </div>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a></div>
-  <h3 id="operators">Operators
-</h3>
-
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
-  </span>
-  <a id="BbQ_ChatWidgets_Models_FormField_op_Equality_" data-uid="BbQ.ChatWidgets.Models.FormField.op_Equality*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_FormField_op_Equality_BbQ_ChatWidgets_Models_FormField_BbQ_ChatWidgets_Models_FormField_" data-uid="BbQ.ChatWidgets.Models.FormField.op_Equality(BbQ.ChatWidgets.Models.FormField,BbQ.ChatWidgets.Models.FormField)">operator ==(FormField?, FormField?)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool operator ==(FormField? left, FormField? right)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.FormField.html">FormField</a></td>
-        <td><span class="parametername">left</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.FormField.html">FormField</a></td>
-        <td><span class="parametername">right</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
-  </span>
-  <a id="BbQ_ChatWidgets_Models_FormField_op_Inequality_" data-uid="BbQ.ChatWidgets.Models.FormField.op_Inequality*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_FormField_op_Inequality_BbQ_ChatWidgets_Models_FormField_BbQ_ChatWidgets_Models_FormField_" data-uid="BbQ.ChatWidgets.Models.FormField.op_Inequality(BbQ.ChatWidgets.Models.FormField,BbQ.ChatWidgets.Models.FormField)">operator !=(FormField?, FormField?)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool operator !=(FormField? left, FormField? right)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.FormField.html">FormField</a></td>
-        <td><span class="parametername">left</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.FormField.html">FormField</a></td>
-        <td><span class="parametername">right</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h3 id="implements">Implements</h3>
-  <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable&lt;T&gt;</a>
-  </div>
+  <h5 id="BbQ_ChatWidgets_Models_FormField_ToWidget_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method constructs a widget from the FormField properties and extension data.
+The widget's Action property is set to the FormField's Name to maintain field identity
+when handling widget actions within forms.</p>
+</div>
 
 </article>
           </div>

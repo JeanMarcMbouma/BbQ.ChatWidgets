@@ -854,7 +854,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Models.FormField",
-      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.FormField.yml\" sourcestartlinenumber=\"1\">Represents a field definition for a form, including metadata such as name, label, type, and validation requirements.</p>\n"
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.FormField.yml\" sourcestartlinenumber=\"1\">Represents a field definition for a form, including metadata such as name, label, type, and validation requirements.\nThis class supports JSON extension data to allow any registered widget to be deserialized as a form field.</p>\n"
     },
     {
       "type": "ManagedReference",

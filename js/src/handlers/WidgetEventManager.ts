@@ -206,18 +206,97 @@ export class WidgetEventManager {
 
   private attachFormHandlers(container: Element): void {
     container.querySelectorAll('[data-widget-type="form"]').forEach((form) => {
+      // Track validation state for the form
+      const validationState = new Map<string, boolean>();
+      let hasAttemptedSubmit = false;
+
+      // Initialize validation state for all required fields
+      const requiredFields = form.querySelectorAll('[data-required="true"]');
+      requiredFields.forEach((fieldContainer) => {
+        const input = fieldContainer.querySelector('input, select, textarea') as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+        if (input) {
+          const name = input.getAttribute('name');
+          if (name) {
+            // Initialize validation state based on default values
+            validationState.set(name, this.isFieldValid(input));
+          }
+        }
+      });
+
+      // Attach change handlers to track validation state
+      const inputs = form.querySelectorAll('input, select, textarea');
+      inputs.forEach((input: Element) => {
+        const field = input as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+        const name = field.getAttribute('name');
+        const fieldContainer = field.closest('.bbq-form-field');
+
+        if (!name || !fieldContainer) return;
+
+        // Check if field is required
+        const isRequired = fieldContainer.getAttribute('data-required') === 'true';
+
+        const updateValidation = () => {
+          if (isRequired) {
+            const isValid = this.isFieldValid(field);
+            validationState.set(name, isValid);
+
+            // Update submit button state
+            this.updateFormSubmitButton(form, validationState, hasAttemptedSubmit);
+          }
+
+          // Update slider value display if it's a slider
+          if (field instanceof HTMLInputElement && field.type === 'range') {
+            const valueSpan = fieldContainer.querySelector('.bbq-form-slider-value');
+            if (valueSpan) {
+              valueSpan.textContent = field.value;
+            }
+          }
+        };
+
+        // Attach appropriate event listeners
+        if (field instanceof HTMLInputElement && field.type === 'range') {
+          field.addEventListener('input', updateValidation);
+        }
+        field.addEventListener('change', updateValidation);
+        field.addEventListener('blur', updateValidation);
+      });
+
       // Attach click handlers to form buttons
       form.querySelectorAll('button[data-action]').forEach((button) => {
         button.addEventListener('click', (e: Event) => {
           e.preventDefault();
+          const actionType = button.getAttribute('data-action-type');
           const action = button.getAttribute('data-action');
           if (!action) return;
+
+          // If this is a submit action, validate the form
+          if (actionType === 'submit') {
+            hasAttemptedSubmit = true;
+
+            // Check if form is valid
+            if (!this.isFormValid(validationState)) {
+              // Show validation message
+              const validationMsg = form.querySelector('.bbq-form-validation-message') as HTMLElement;
+              if (validationMsg) {
+                validationMsg.style.display = 'block';
+              }
+
+              // Update submit button state
+              this.updateFormSubmitButton(form, validationState, hasAttemptedSubmit);
+              return; // Don't submit if invalid
+            }
+
+            // Hide validation message if it was shown
+            const validationMsg = form.querySelector('.bbq-form-validation-message') as HTMLElement;
+            if (validationMsg) {
+              validationMsg.style.display = 'none';
+            }
+          }
 
           // Collect form data
           const payload: Record<string, any> = {};
 
-          // Get all form inputs (both inside and outside fieldset)
-          const inputs = form.querySelectorAll('input, select, textarea');
+          // Iterate over all previously collected form inputs
           inputs.forEach((input: Element) => {
             const field = input as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
             const name = field.getAttribute('name');
@@ -256,5 +335,76 @@ export class WidgetEventManager {
         });
       });
     });
+  }
+
+  /**
+   * Check if a field value is valid (not empty for required fields)
+   */
+  private isFieldValid(field: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement): boolean {
+    // For text inputs and textareas, check if value is not empty
+    if (field instanceof HTMLInputElement) {
+      if (field.type === 'checkbox' || field.type === 'radio') {
+        // Checkboxes and radios are valid if checked
+        return field.checked;
+      } else if (field.type === 'file') {
+        // File inputs are valid if at least one file is selected
+        return field.files !== null && field.files.length > 0;
+      } else if (field.type === 'range') {
+        // Range inputs always have a value, so they're always valid
+        return true;
+      } else {
+        // Text, email, number, date, etc. - check for non-empty value
+        return field.value.trim() !== '';
+      }
+    } else if (field instanceof HTMLSelectElement) {
+      // Selects are valid if a value is selected (not the placeholder option)
+      if (field.multiple) {
+        return field.selectedOptions.length > 0;
+      } else {
+        return field.value !== '';
+      }
+    } else if (field instanceof HTMLTextAreaElement) {
+      // Textareas are valid if they have non-empty content
+      return field.value.trim() !== '';
+    }
+    return false;
+  }
+
+  /**
+   * Check if all required fields in the form are valid
+   */
+  private isFormValid(validationState: Map<string, boolean>): boolean {
+    if (validationState.size === 0) {
+      return true; // No required fields
+    }
+
+    // Check if all required fields are valid
+    for (const [, isValid] of validationState) {
+      if (!isValid) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Update the submit button state based on validation
+   */
+  private updateFormSubmitButton(
+    form: Element,
+    validationState: Map<string, boolean>,
+    hasAttemptedSubmit: boolean
+  ): void {
+    const submitButton = form.querySelector('.bbq-form-submit') as HTMLButtonElement;
+    if (!submitButton) return;
+
+    const isValid = this.isFormValid(validationState);
+
+    // Disable the submit button if validation has been attempted and form is invalid
+    if (hasAttemptedSubmit && !isValid) {
+      submitButton.disabled = true;
+    } else {
+      submitButton.disabled = false;
+    }
   }
 }

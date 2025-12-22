@@ -411,6 +411,8 @@ export interface FormField {
   type: string; // widget type or input type
   required: boolean;
   validationHint?: string;
+  // Allow additional properties for field-specific attributes (options, min, max, etc.)
+  [key: string]: any;
 }
 
 /**

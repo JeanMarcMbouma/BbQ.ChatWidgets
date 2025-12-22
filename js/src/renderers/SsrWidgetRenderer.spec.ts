@@ -12,6 +12,7 @@ import {
   DatePickerWidget,
   MultiSelectWidget,
   ProgressBarWidget,
+  FormWidget,
 } from '../models/ChatWidget';
 
 describe('SsrWidgetRenderer', () => {
@@ -186,6 +187,230 @@ describe('SsrWidgetRenderer', () => {
   describe('Framework property', () => {
     it('should return SSR as framework name', () => {
       expect(renderer.framework).toBe('SSR');
+    });
+  });
+
+  describe('Form rendering', () => {
+    it('should render form with fields and actions', () => {
+      const widget = new FormWidget(
+        'form',
+        'submit_form',
+        'Test Form',
+        [
+          {
+            name: 'username',
+            label: 'Username',
+            type: 'input',
+            required: true,
+            validationHint: 'Enter your username',
+          },
+          {
+            name: 'email',
+            label: 'Email',
+            type: 'input',
+            required: true,
+            validationHint: 'Enter a valid email',
+          },
+          {
+            name: 'bio',
+            label: 'Bio',
+            type: 'textarea',
+            required: false,
+          },
+        ],
+        [
+          { type: 'submit', label: 'Submit' },
+          { type: 'cancel', label: 'Cancel' },
+        ]
+      );
+      const html = renderer.renderWidget(widget);
+
+      expect(html).toContain('bbq-form');
+      expect(html).toContain('data-widget-type="form"');
+      expect(html).toContain('Test Form');
+      expect(html).toContain('Username');
+      expect(html).toContain('Email');
+      expect(html).toContain('Bio');
+      expect(html).toContain('Submit');
+      expect(html).toContain('Cancel');
+    });
+
+    it('should mark required fields with asterisk', () => {
+      const widget = new FormWidget(
+        'form',
+        'submit_form',
+        'Form',
+        [
+          {
+            name: 'required_field',
+            label: 'Required Field',
+            type: 'input',
+            required: true,
+          },
+          {
+            name: 'optional_field',
+            label: 'Optional Field',
+            type: 'input',
+            required: false,
+          },
+        ],
+        [{ type: 'submit', label: 'Submit' }]
+      );
+      const html = renderer.renderWidget(widget);
+
+      // Check for required indicator
+      expect(html).toContain('bbq-form-required');
+      expect(html).toContain('*');
+      expect(html).toContain('data-required="true"');
+    });
+
+    it('should include validation hints when provided', () => {
+      const widget = new FormWidget(
+        'form',
+        'submit_form',
+        'Form',
+        [
+          {
+            name: 'field',
+            label: 'Field',
+            type: 'input',
+            required: true,
+            validationHint: 'This is a validation hint',
+          },
+        ],
+        [{ type: 'submit', label: 'Submit' }]
+      );
+      const html = renderer.renderWidget(widget);
+
+      expect(html).toContain('bbq-form-field-hint');
+      expect(html).toContain('This is a validation hint');
+    });
+
+    it('should render validation message container', () => {
+      const widget = new FormWidget(
+        'form',
+        'submit_form',
+        'Form',
+        [
+          {
+            name: 'field',
+            label: 'Field',
+            type: 'input',
+            required: true,
+          },
+        ],
+        [{ type: 'submit', label: 'Submit' }]
+      );
+      const html = renderer.renderWidget(widget);
+
+      expect(html).toContain('bbq-form-validation-message');
+      expect(html).toContain('Please fill in all required fields before submitting');
+    });
+
+    it('should render different field types correctly', () => {
+      const widget = new FormWidget(
+        'form',
+        'submit_form',
+        'Form',
+        [
+          {
+            name: 'text',
+            label: 'Text',
+            type: 'input',
+            required: true,
+          },
+          {
+            name: 'dropdown',
+            label: 'Dropdown',
+            type: 'dropdown',
+            required: true,
+            options: ['Option 1', 'Option 2'],
+          },
+          {
+            name: 'slider',
+            label: 'Slider',
+            type: 'slider',
+            required: false,
+            min: 0,
+            max: 100,
+            step: 5,
+            default: 50,
+          },
+          {
+            name: 'toggle',
+            label: 'Toggle',
+            type: 'toggle',
+            required: false,
+            defaultValue: true,
+          },
+          {
+            name: 'date',
+            label: 'Date',
+            type: 'datepicker',
+            required: true,
+            minDate: '2024-01-01',
+            maxDate: '2024-12-31',
+          },
+          {
+            name: 'multi',
+            label: 'Multi-select',
+            type: 'multiselect',
+            required: false,
+            options: ['A', 'B', 'C'],
+          },
+          {
+            name: 'file',
+            label: 'File Upload',
+            type: 'fileupload',
+            required: false,
+            accept: '.pdf,.docx',
+            maxBytes: 5000000,
+          },
+        ],
+        [{ type: 'submit', label: 'Submit' }]
+      );
+      const html = renderer.renderWidget(widget);
+
+      expect(html).toContain('bbq-form-input');
+      expect(html).toContain('bbq-form-select');
+      expect(html).toContain('bbq-form-slider');
+      expect(html).toContain('bbq-form-toggle');
+      expect(html).toContain('bbq-form-datepicker');
+      expect(html).toContain('bbq-form-multiselect');
+      expect(html).toContain('bbq-form-fileupload');
+      expect(html).toContain('Option 1');
+      expect(html).toContain('Option 2');
+      expect(html).toContain('min="0"');
+      expect(html).toContain('max="100"');
+      expect(html).toContain('value="50"');
+      expect(html).toContain('accept=".pdf,.docx"');
+      expect(html).toContain('data-max-bytes="5000000"');
+    });
+
+    it('should set submit and cancel button classes', () => {
+      const widget = new FormWidget(
+        'form',
+        'submit_form',
+        'Form',
+        [
+          {
+            name: 'field',
+            label: 'Field',
+            type: 'input',
+            required: false,
+          },
+        ],
+        [
+          { type: 'submit', label: 'Submit' },
+          { type: 'cancel', label: 'Cancel' },
+        ]
+      );
+      const html = renderer.renderWidget(widget);
+
+      expect(html).toContain('bbq-form-submit');
+      expect(html).toContain('bbq-form-cancel');
+      expect(html).toContain('data-action-type="submit"');
+      expect(html).toContain('data-action-type="cancel"');
     });
   });
 });

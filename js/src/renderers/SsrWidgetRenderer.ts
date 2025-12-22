@@ -309,7 +309,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     const title = this.escape(widget.title);
     const action = this.escape(widget.action);
 
-    let html = `<div class="bbq-widget bbq-form" data-widget-id="${id}" data-widget-type="form">`;
+    let html = `<div class="bbq-widget bbq-form" data-widget-id="${id}" data-widget-type="form" data-action="${action}">`;
     html += `<fieldset class="bbq-form-fieldset">`;
     html += `<legend class="bbq-form-title">${title}</legend>`;
 
@@ -320,8 +320,9 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
         const fieldLabel = this.escape(field.label);
         const fieldType = this.escape(field.type);
         const required = field.required ? ' required' : '';
+        const requiredAttr = field.required ? ' data-required="true"' : '';
 
-        html += `<div class="bbq-form-field">`;
+        html += `<div class="bbq-form-field${field.required ? ' bbq-form-field-required' : ''}"${requiredAttr}>`;
         html += `<label class="bbq-form-field-label" for="${fieldId}">${fieldLabel}${field.required ? '<span class="bbq-form-required">*</span>' : ''}</label>`;
 
         switch (fieldType) {
@@ -330,28 +331,77 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
           case 'email':
           case 'number':
           case 'password':
-            html += `<input type="${fieldType === 'input' ? 'text' : fieldType}" id="${fieldId}" class="bbq-form-input" name="${this.escape(field.name)}" placeholder="${this.escape(field.label)}"${required} />`;
+            html += `<input type="${fieldType === 'input' ? 'text' : fieldType}" id="${fieldId}" class="bbq-form-input" name="${this.escape(field.name)}" placeholder="${this.escape(field.label)}"${required} data-field-type="${fieldType}" />`;
             break;
           case 'textarea':
-            html += `<textarea id="${fieldId}" class="bbq-form-textarea" name="${this.escape(field.name)}" placeholder="${this.escape(field.label)}"${required}></textarea>`;
+            html += `<textarea id="${fieldId}" class="bbq-form-textarea" name="${this.escape(field.name)}" placeholder="${this.escape(field.label)}"${required} data-field-type="${fieldType}"></textarea>`;
             break;
           case 'dropdown':
           case 'select':
-            html += `<select id="${fieldId}" class="bbq-form-select" name="${this.escape(field.name)}"${required}><option value="">Select...</option></select>`;
+            html += `<select id="${fieldId}" class="bbq-form-select" name="${this.escape(field.name)}"${required} data-field-type="${fieldType}"><option value="">Select...</option>`;
+            // Render options if provided
+            if (field.options && Array.isArray(field.options)) {
+              for (const option of field.options) {
+                const escapedOption = this.escape(option);
+                html += `<option value="${escapedOption}">${escapedOption}</option>`;
+              }
+            }
+            html += `</select>`;
             break;
           case 'checkbox':
-            html += `<input type="checkbox" id="${fieldId}" class="bbq-form-checkbox" name="${this.escape(field.name)}" />`;
+            html += `<input type="checkbox" id="${fieldId}" class="bbq-form-checkbox" name="${this.escape(field.name)}" data-field-type="${fieldType}" />`;
             break;
           case 'radio':
-            html += `<input type="radio" id="${fieldId}" class="bbq-form-radio" name="${this.escape(field.name)}" />`;
+            html += `<input type="radio" id="${fieldId}" class="bbq-form-radio" name="${this.escape(field.name)}" data-field-type="${fieldType}" />`;
+            break;
+          case 'slider':
+            const min = field.min ?? 0;
+            const max = field.max ?? 100;
+            const step = field.step ?? 1;
+            const defaultValue = field.default ?? field.defaultValue ?? min;
+            html += `<input type="range" id="${fieldId}" class="bbq-form-slider" name="${this.escape(field.name)}" min="${min}" max="${max}" step="${step}" value="${defaultValue}"${required} data-field-type="${fieldType}" />`;
+            html += `<span class="bbq-form-slider-value" aria-live="polite">${defaultValue}</span>`;
+            break;
+          case 'toggle':
+            const checked = field.defaultValue ? ' checked' : '';
+            html += `<input type="checkbox" id="${fieldId}" class="bbq-form-toggle" name="${this.escape(field.name)}"${checked} data-field-type="${fieldType}" />`;
+            break;
+          case 'datepicker':
+            const minDate = field.minDate ? ` min="${this.escape(field.minDate)}"` : '';
+            const maxDate = field.maxDate ? ` max="${this.escape(field.maxDate)}"` : '';
+            html += `<input type="date" id="${fieldId}" class="bbq-form-datepicker" name="${this.escape(field.name)}"${minDate}${maxDate}${required} data-field-type="${fieldType}" />`;
+            break;
+          case 'multiselect':
+            html += `<select id="${fieldId}" class="bbq-form-multiselect" name="${this.escape(field.name)}" multiple${required} data-field-type="${fieldType}">`;
+            // Render options if provided
+            if (field.options && Array.isArray(field.options)) {
+              for (const option of field.options) {
+                const escapedOption = this.escape(option);
+                html += `<option value="${escapedOption}">${escapedOption}</option>`;
+              }
+            }
+            html += `</select>`;
+            break;
+          case 'fileupload':
+            const accept = field.accept ? ` accept="${this.escape(field.accept)}"` : '';
+            const maxBytes = field.maxBytes ? ` data-max-bytes="${field.maxBytes}"` : '';
+            html += `<input type="file" id="${fieldId}" class="bbq-form-fileupload" name="${this.escape(field.name)}"${accept}${maxBytes}${required} data-field-type="${fieldType}" />`;
             break;
           default:
-            html += `<input type="text" id="${fieldId}" class="bbq-form-input" name="${this.escape(field.name)}"${required} />`;
+            html += `<input type="text" id="${fieldId}" class="bbq-form-input" name="${this.escape(field.name)}"${required} data-field-type="${fieldType}" />`;
+        }
+
+        // Add validation hint if present
+        if (field.validationHint) {
+          html += `<span class="bbq-form-field-hint">${this.escape(field.validationHint)}</span>`;
         }
 
         html += '</div>';
       }
     }
+
+    // Add validation message container (hidden by default)
+    html += '<div class="bbq-form-validation-message" style="display: none;">Please fill in all required fields before submitting.</div>';
 
     // Render form actions
     if (widget.actions && Array.isArray(widget.actions)) {

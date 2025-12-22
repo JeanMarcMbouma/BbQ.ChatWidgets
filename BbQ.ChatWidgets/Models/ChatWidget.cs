@@ -664,36 +664,45 @@ public class FormField
     /// <returns>The deserialized ChatWidget, or null if deserialization fails.</returns>
     public ChatWidget? ToWidget()
     {
-        // Build a JSON object with the type and all extension data
-        var jsonObject = new Dictionary<string, object?>();
-        jsonObject["type"] = Type;
-        jsonObject["label"] = Label;
-        jsonObject["action"] = Name; // Use field name as action for field identity
-
-        // Copy extension data - convert JsonElement to actual values
-        if (ExtensionData != null)
+        try
         {
-            foreach (var kvp in ExtensionData)
-            {
-                // Convert JsonElement to the appropriate type
-                var element = kvp.Value;
-                object? value = element.ValueKind switch
-                {
-                    JsonValueKind.String => element.GetString(),
-                    JsonValueKind.Number => element.TryGetInt32(out var i) ? i : element.GetDouble(),
-                    JsonValueKind.True => true,
-                    JsonValueKind.False => false,
-                    JsonValueKind.Null => null,
-                    JsonValueKind.Array => JsonSerializer.Deserialize<object[]>(element.GetRawText(), Serialization.Default),
-                    JsonValueKind.Object => JsonSerializer.Deserialize<Dictionary<string, object?>>(element.GetRawText(), Serialization.Default),
-                    _ => element.GetRawText()
-                };
-                jsonObject[kvp.Key] = value;
-            }
-        }
+            // Build a JSON object with the type and all extension data
+            var jsonObject = new Dictionary<string, object?>();
+            jsonObject["type"] = Type;
+            jsonObject["label"] = Label;
+            jsonObject["action"] = Name; // Use field name as action for field identity
 
-        var json = JsonSerializer.Serialize(jsonObject, Serialization.Default);
-        return ChatWidget.FromJson(json);
+            // Copy extension data - convert JsonElement to actual values
+            if (ExtensionData != null)
+            {
+                foreach (var kvp in ExtensionData)
+                {
+                    // Convert JsonElement to the appropriate type
+                    var element = kvp.Value;
+                    object? value = element.ValueKind switch
+                    {
+                        JsonValueKind.String => element.GetString(),
+                        JsonValueKind.Number => element.TryGetInt32(out var i) ? i : element.GetDouble(),
+                        JsonValueKind.True => true,
+                        JsonValueKind.False => false,
+                        JsonValueKind.Null => null,
+                        JsonValueKind.Array => JsonSerializer.Deserialize<object[]>(element.GetRawText(), Serialization.Default),
+                        JsonValueKind.Object => JsonSerializer.Deserialize<Dictionary<string, object?>>(element.GetRawText(), Serialization.Default),
+                        _ => element.GetRawText()
+                    };
+                    jsonObject[kvp.Key] = value;
+                }
+            }
+
+            var json = JsonSerializer.Serialize(jsonObject, Serialization.Default);
+            return ChatWidget.FromJson(json);
+        }
+        catch (Exception ex)
+        {
+            // Log the error for debugging - in production environments, this should use a proper logging framework
+            System.Diagnostics.Debug.WriteLine($"Failed to deserialize FormField '{Name}' of type '{Type}': {ex.Message}");
+            return null;
+        }
     }
 }
 

@@ -1,34 +1,35 @@
 @using BbQ.ChatWidgets.Models
 @using Microsoft.AspNetCore.Components
+@using System.Text.Json
 
 <div class="bbq-form-field @(Field.Required ? "bbq-form-field-required" : "")">
     @if (widget != null)
     {
-        @switch (widget.GetType().Name)
+        @switch (widget)
         {
-            case nameof(InputWidget):
-                <InputWidgetComponent Widget="(InputWidget)widget" OnAction="HandleWidgetAction" />
+            case InputWidget inputWidget:
+                <InputWidgetComponent Widget="inputWidget" OnAction="HandleWidgetAction" />
                 break;
-            case nameof(TextAreaWidget):
-                <TextAreaWidgetComponent Widget="(TextAreaWidget)widget" OnAction="HandleWidgetAction" />
+            case TextAreaWidget textAreaWidget:
+                <TextAreaWidgetComponent Widget="textAreaWidget" OnAction="HandleWidgetAction" />
                 break;
-            case nameof(DropdownWidget):
-                <DropdownWidgetComponent Widget="(DropdownWidget)widget" OnAction="HandleWidgetAction" />
+            case DropdownWidget dropdownWidget:
+                <DropdownWidgetComponent Widget="dropdownWidget" OnAction="HandleWidgetAction" />
                 break;
-            case nameof(SliderWidget):
-                <SliderWidgetComponent Widget="(SliderWidget)widget" OnAction="HandleWidgetAction" />
+            case SliderWidget sliderWidget:
+                <SliderWidgetComponent Widget="sliderWidget" OnAction="HandleWidgetAction" />
                 break;
-            case nameof(ToggleWidget):
-                <ToggleWidgetComponent Widget="(ToggleWidget)widget" OnAction="HandleWidgetAction" />
+            case ToggleWidget toggleWidget:
+                <ToggleWidgetComponent Widget="toggleWidget" OnAction="HandleWidgetAction" />
                 break;
-            case nameof(FileUploadWidget):
-                <FileUploadWidgetComponent Widget="(FileUploadWidget)widget" OnAction="HandleWidgetAction" />
+            case FileUploadWidget fileUploadWidget:
+                <FileUploadWidgetComponent Widget="fileUploadWidget" OnAction="HandleWidgetAction" />
                 break;
-            case nameof(DatePickerWidget):
-                <DatePickerWidgetComponent Widget="(DatePickerWidget)widget" OnAction="HandleWidgetAction" />
+            case DatePickerWidget datePickerWidget:
+                <DatePickerWidgetComponent Widget="datePickerWidget" OnAction="HandleWidgetAction" />
                 break;
-            case nameof(MultiSelectWidget):
-                <MultiSelectWidgetComponent Widget="(MultiSelectWidget)widget" OnAction="HandleWidgetAction" />
+            case MultiSelectWidget multiSelectWidget:
+                <MultiSelectWidgetComponent Widget="multiSelectWidget" OnAction="HandleWidgetAction" />
                 break;
             default:
                 <div class="bbq-form-field-fallback">
@@ -72,21 +73,59 @@
         // Convert FormField to ChatWidget
         widget = Field.ToWidget();
 
-        // Initialize validation state
-        isValid = !Field.Required;
+        // Initialize validation state based on widget default values
+        if (Field.Required && widget != null)
+        {
+            var initialValue = GetInitialValueFromWidget(widget);
+            isValid = IsValuePresent(initialValue);
+        }
+        else
+        {
+            // Non-required fields are valid by default
+            isValid = true;
+        }
+    }
+
+    private object? GetInitialValueFromWidget(ChatWidget widget)
+    {
+        // Check for default values in common widget types
+        return widget switch
+        {
+            SliderWidget slider => slider.Default,
+            ToggleWidget toggle => toggle.DefaultValue,
+            _ => null
+        };
     }
 
     private async Task HandleWidgetAction((string Action, object? Payload) args)
     {
-        // Extract value from payload
+        // Extract value from payload using JSON deserialization for type safety
         object? value = null;
         if (args.Payload != null)
         {
-            var payloadType = args.Payload.GetType();
-            var valueProperty = payloadType.GetProperty("value");
-            if (valueProperty != null)
+            try
             {
-                value = valueProperty.GetValue(args.Payload);
+                // Serialize and deserialize to extract the value property in a type-safe way
+                var json = JsonSerializer.Serialize(args.Payload, Serialization.Default);
+                var jsonDoc = JsonDocument.Parse(json);
+                if (jsonDoc.RootElement.TryGetProperty("value", out var valueElement))
+                {
+                    value = valueElement.ValueKind switch
+                    {
+                        JsonValueKind.String => valueElement.GetString(),
+                        JsonValueKind.Number => valueElement.TryGetInt32(out var i) ? (object)i : valueElement.GetDouble(),
+                        JsonValueKind.True => true,
+                        JsonValueKind.False => false,
+                        JsonValueKind.Array => JsonSerializer.Deserialize<object[]>(valueElement.GetRawText(), Serialization.Default),
+                        JsonValueKind.Object => JsonSerializer.Deserialize<Dictionary<string, object?>>(valueElement.GetRawText(), Serialization.Default),
+                        _ => valueElement.GetRawText()
+                    };
+                }
+            }
+            catch
+            {
+                // If extraction fails, use the payload as-is
+                value = args.Payload;
             }
         }
 

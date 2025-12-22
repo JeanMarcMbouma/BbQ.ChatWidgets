@@ -27,7 +27,7 @@
                 @foreach (var action in Widget.Actions)
                 {
                     var isSubmit = action.Type.Equals("submit", StringComparison.OrdinalIgnoreCase);
-                    var isDisabled = isSubmit && !IsFormValid();
+                    var isDisabled = isSubmit && hasAttemptedSubmit && !IsFormValid();
                     <button 
                         class="bbq-button bbq-form-action-@action.Type @(isDisabled ? "bbq-button-disabled" : "")" 
                         @onclick="@(async () => await HandleActionClick(action.Type))"
@@ -54,8 +54,8 @@
     [Parameter]
     public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
 
-    private Dictionary<string, object?> formData = new();
-    private Dictionary<string, bool> fieldValidationState = new();
+    private readonly Dictionary<string, object?> formData = new();
+    private readonly Dictionary<string, bool> fieldValidationState = new();
     private bool hasAttemptedSubmit = false;
 
     protected override void OnParametersSet()
@@ -90,14 +90,11 @@
             return true;
 
         // Check if all required fields are valid
-        foreach (var field in Widget.Fields)
+        foreach (var field in Widget.Fields.Where(f => f.Required))
         {
-            if (field.Required)
+            if (!fieldValidationState.TryGetValue(field.Name, out var isValid) || !isValid)
             {
-                if (!fieldValidationState.TryGetValue(field.Name, out var isValid) || !isValid)
-                {
-                    return false;
-                }
+                return false;
             }
         }
 

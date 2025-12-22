@@ -294,7 +294,7 @@ export class WidgetEventManager {
           }
 
           // Collect form data
-          const payload: Record<string, any> = { formData: {} };
+          const payload: Record<string, any> = {};
 
           // Get all form inputs (both inside and outside fieldset)
           inputs.forEach((input: Element) => {
@@ -306,28 +306,28 @@ export class WidgetEventManager {
             // Handle different input types
             if (field instanceof HTMLInputElement) {
               if (field.type === 'checkbox') {
-                payload.formData[name] = field.checked;
+                payload[name] = field.checked;
               } else if (field.type === 'radio') {
                 if (field.checked) {
-                  payload.formData[name] = field.value;
+                  payload[name] = field.value;
                 }
               } else if (field.type === 'file') {
-                payload.formData[name] = field.files ? Array.from(field.files).map((f) => ({
+                payload[name] = field.files ? Array.from(field.files).map((f) => ({
                   name: f.name,
                   size: f.size,
                   type: f.type,
                 })) : [];
               } else {
-                payload.formData[name] = field.value;
+                payload[name] = field.value;
               }
             } else if (field instanceof HTMLSelectElement) {
               if (field.multiple) {
-                payload.formData[name] = Array.from(field.selectedOptions).map((o) => o.value);
+                payload[name] = Array.from(field.selectedOptions).map((o) => o.value);
               } else {
-                payload.formData[name] = field.value;
+                payload[name] = field.value;
               }
             } else if (field instanceof HTMLTextAreaElement) {
-              payload.formData[name] = field.value;
+              payload[name] = field.value;
             }
           });
 

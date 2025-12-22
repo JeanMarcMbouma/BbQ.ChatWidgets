@@ -217,7 +217,7 @@ describe('WidgetEventManager', () => {
 
       // Should call handler when form is valid
       expect(actionCalled).toBe(true);
-      expect(capturedPayload.formData.username).toBe('testuser');
+      expect(capturedPayload.username).toBe('testuser');
     });
 
     it('should handle forms with mixed required and optional fields', async () => {

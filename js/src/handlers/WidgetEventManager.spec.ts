@@ -314,5 +314,217 @@ describe('WidgetEventManager', () => {
       // Cancel should work even when form is invalid
       expect(actionCalled).toBe(true);
     });
+
+    it('should validate required checkbox fields', async () => {
+      setupContainer();
+      const renderer = new SsrWidgetRenderer();
+      const widget = new FormWidget(
+        'form',
+        'submit_form',
+        'Test Form',
+        [
+          {
+            name: 'accept_terms',
+            label: 'Accept Terms',
+            type: 'checkbox',
+            required: true,
+          },
+        ],
+        [{ type: 'submit', label: 'Submit' }]
+      );
+      container.innerHTML = renderer.renderWidget(widget);
+
+      let actionCalled = false;
+
+      const handler = {
+        handle: async (action: string, payload: any) => {
+          actionCalled = true;
+        },
+      };
+
+      const manager = new WidgetEventManager(handler);
+      manager.attachHandlers(container);
+
+      // Try to submit without checking the checkbox
+      const submitButton = container.querySelector('.bbq-form-submit') as HTMLButtonElement;
+      submitButton?.click();
+
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      // Should not submit when checkbox is unchecked
+      expect(actionCalled).toBe(false);
+
+      // Check the checkbox
+      const checkbox = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
+      checkbox.checked = true;
+      checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      // Now submit should work
+      submitButton?.click();
+
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      expect(actionCalled).toBe(true);
+    });
+
+    it('should validate required file upload fields', async () => {
+      setupContainer();
+      const renderer = new SsrWidgetRenderer();
+      const widget = new FormWidget(
+        'form',
+        'submit_form',
+        'Test Form',
+        [
+          {
+            name: 'document',
+            label: 'Upload Document',
+            type: 'fileupload',
+            required: true,
+          },
+        ],
+        [{ type: 'submit', label: 'Submit' }]
+      );
+      container.innerHTML = renderer.renderWidget(widget);
+
+      let actionCalled = false;
+
+      const handler = {
+        handle: async (action: string, payload: any) => {
+          actionCalled = true;
+        },
+      };
+
+      const manager = new WidgetEventManager(handler);
+      manager.attachHandlers(container);
+
+      // Try to submit without selecting a file
+      const submitButton = container.querySelector('.bbq-form-submit') as HTMLButtonElement;
+      submitButton?.click();
+
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      // Should not submit when no file is selected
+      expect(actionCalled).toBe(false);
+
+      // Mock file selection by directly setting the files property
+      const fileInput = container.querySelector('input[type="file"]') as HTMLInputElement;
+      // Create a mock FileList
+      const mockFile = new File(['test'], 'test.txt', { type: 'text/plain' });
+      Object.defineProperty(fileInput, 'files', {
+        value: [mockFile],
+        writable: false,
+      });
+      fileInput.dispatchEvent(new Event('change', { bubbles: true }));
+
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      // Now submit should work
+      submitButton?.click();
+
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      expect(actionCalled).toBe(true);
+    });
+
+    it('should validate required multiselect fields', async () => {
+      setupContainer();
+      const renderer = new SsrWidgetRenderer();
+      const widget = new FormWidget(
+        'form',
+        'submit_form',
+        'Test Form',
+        [
+          {
+            name: 'tags',
+            label: 'Select Tags',
+            type: 'multiselect',
+            required: true,
+            options: ['Tag1', 'Tag2', 'Tag3'],
+          },
+        ],
+        [{ type: 'submit', label: 'Submit' }]
+      );
+      container.innerHTML = renderer.renderWidget(widget);
+
+      let actionCalled = false;
+
+      const handler = {
+        handle: async (action: string, payload: any) => {
+          actionCalled = true;
+        },
+      };
+
+      const manager = new WidgetEventManager(handler);
+      manager.attachHandlers(container);
+
+      // Try to submit without selecting any options
+      const submitButton = container.querySelector('.bbq-form-submit') as HTMLButtonElement;
+      submitButton?.click();
+
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      // Should not submit when no options are selected
+      expect(actionCalled).toBe(false);
+
+      // Select at least one option
+      const multiselect = container.querySelector('select[multiple]') as HTMLSelectElement;
+      multiselect.options[0].selected = true;
+      multiselect.dispatchEvent(new Event('change', { bubbles: true }));
+
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      // Now submit should work
+      submitButton?.click();
+
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      expect(actionCalled).toBe(true);
+    });
+
+    it('should update slider value display in real-time', async () => {
+      setupContainer();
+      const renderer = new SsrWidgetRenderer();
+      const widget = new FormWidget(
+        'form',
+        'submit_form',
+        'Test Form',
+        [
+          {
+            name: 'rating',
+            label: 'Rating',
+            type: 'slider',
+            required: false,
+            min: 1,
+            max: 5,
+            step: 1,
+            default: 3,
+          },
+        ],
+        [{ type: 'submit', label: 'Submit' }]
+      );
+      container.innerHTML = renderer.renderWidget(widget);
+
+      const manager = new WidgetEventManager({
+        handle: async () => {},
+      });
+      manager.attachHandlers(container);
+
+      const slider = container.querySelector('input[type="range"]') as HTMLInputElement;
+      const valueSpan = container.querySelector('.bbq-form-slider-value');
+
+      // Initial value should be 3
+      expect(valueSpan?.textContent).toBe('3');
+
+      // Change slider value
+      slider.value = '5';
+      slider.dispatchEvent(new Event('input', { bubbles: true }));
+
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      // Value display should update
+      expect(valueSpan?.textContent).toBe('5');
+    });
   });
 });

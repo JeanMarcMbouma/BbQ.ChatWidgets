@@ -296,7 +296,7 @@ export class WidgetEventManager {
           // Collect form data
           const payload: Record<string, any> = {};
 
-          // Get all form inputs (both inside and outside fieldset)
+          // Iterate over all previously collected form inputs
           inputs.forEach((input: Element) => {
             const field = input as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
             const name = field.getAttribute('name');
@@ -403,10 +403,8 @@ export class WidgetEventManager {
     // Disable the submit button if validation has been attempted and form is invalid
     if (hasAttemptedSubmit && !isValid) {
       submitButton.disabled = true;
-      submitButton.classList.add('bbq-button-disabled');
     } else {
       submitButton.disabled = false;
-      submitButton.classList.remove('bbq-button-disabled');
     }
   }
 }

@@ -628,13 +628,6 @@ input[type="file"].bbq-file {
     outline-offset: 2px;
 }
 
-.bbq-button-disabled {
-    background-color: #cbd5e1;
-    color: #94a3b8;
-    cursor: not-allowed;
-    box-shadow: none;
-}
-
 /* Responsive Styles */
 @media (max-width: 640px) {
     .bbq-widget {

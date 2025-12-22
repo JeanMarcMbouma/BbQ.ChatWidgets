@@ -358,6 +358,14 @@ describe('SsrWidgetRenderer', () => {
             required: false,
             options: ['A', 'B', 'C'],
           },
+          {
+            name: 'file',
+            label: 'File Upload',
+            type: 'fileupload',
+            required: false,
+            accept: '.pdf,.docx',
+            maxBytes: 5000000,
+          },
         ],
         [{ type: 'submit', label: 'Submit' }]
       );
@@ -369,11 +377,14 @@ describe('SsrWidgetRenderer', () => {
       expect(html).toContain('bbq-form-toggle');
       expect(html).toContain('bbq-form-datepicker');
       expect(html).toContain('bbq-form-multiselect');
+      expect(html).toContain('bbq-form-fileupload');
       expect(html).toContain('Option 1');
       expect(html).toContain('Option 2');
       expect(html).toContain('min="0"');
       expect(html).toContain('max="100"');
       expect(html).toContain('value="50"');
+      expect(html).toContain('accept=".pdf,.docx"');
+      expect(html).toContain('data-max-bytes="5000000"');
     });
 
     it('should set submit and cancel button classes', () => {

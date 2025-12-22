@@ -121,8 +121,7 @@
                 return; // Don't submit if form is invalid
             }
         }
-        
-        var payload = new { formData = formData };
-        await OnAction.InvokeAsync((actionName, payload));
+       
+        await OnAction.InvokeAsync((actionName, formData));
     }
 }

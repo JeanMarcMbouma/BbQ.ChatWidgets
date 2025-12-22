@@ -13,7 +13,10 @@
             {
                 @foreach (var field in Widget.Fields)
                 {
-                    <FormFieldComponent Field="field" OnValueChanged="HandleFieldValueChanged" />
+                    <FormFieldComponent 
+                        Field="field" 
+                        OnValueChanged="HandleFieldValueChanged" 
+                        OnValidationChanged="HandleFieldValidationChanged" />
                 }
             }
         </div>
@@ -23,12 +26,24 @@
             {
                 @foreach (var action in Widget.Actions)
                 {
-                    <button class="bbq-button bbq-form-action-@action.Type" @onclick="@(async () => await HandleActionClick(action.Type))">
+                    var isSubmit = action.Type.Equals("submit", StringComparison.OrdinalIgnoreCase);
+                    var isDisabled = isSubmit && hasAttemptedSubmit && !IsFormValid();
+                    <button 
+                        class="bbq-button bbq-form-action-@action.Type @(isDisabled ? "bbq-button-disabled" : "")" 
+                        @onclick="@(async () => await HandleActionClick(action.Type))"
+                        disabled="@isDisabled">
                         @action.Label
                     </button>
                 }
             }
         </div>
+
+        @if (!IsFormValid() && hasAttemptedSubmit)
+        {
+            <div class="bbq-form-validation-message">
+                <p>Please fill in all required fields before submitting.</p>
+            </div>
+        }
     </div>
 </div>
 
@@ -39,19 +54,51 @@
     [Parameter]
     public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
 
-    private Dictionary<string, object?> formData = new();
+    private readonly Dictionary<string, object?> formData = new();
+    private readonly Dictionary<string, bool> fieldValidationState = new();
+    private bool hasAttemptedSubmit = false;
 
-    private EventCallback<(string, object?)> CreateFieldCallback()
+    protected override void OnParametersSet()
     {
-        return EventCallback.Factory.Create<(string, object?)>(this, args =>
+        base.OnParametersSet();
+        
+        // Initialize validation state for all fields
+        if (Widget?.Fields != null)
         {
-            formData[args.Item1] = args.Item2;
-        });
+            foreach (var field in Widget.Fields)
+            {
+                // Non-required fields are valid by default
+                fieldValidationState[field.Name] = !field.Required;
+            }
+        }
     }
 
     private void HandleFieldValueChanged((string fieldName, object? value) args)
     {
         formData[args.fieldName] = args.value;
+    }
+
+    private void HandleFieldValidationChanged((string fieldName, bool isValid) args)
+    {
+        fieldValidationState[args.fieldName] = args.isValid;
+        StateHasChanged();
+    }
+
+    private bool IsFormValid()
+    {
+        if (Widget?.Fields == null || fieldValidationState.Count == 0)
+            return true;
+
+        // Check if all required fields are valid
+        foreach (var field in Widget.Fields.Where(f => f.Required))
+        {
+            if (!fieldValidationState.TryGetValue(field.Name, out var isValid) || !isValid)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private async Task HandleActionClick(string actionType)
@@ -62,6 +109,18 @@
             "cancel" => "form_cancel",
             _ => "form_action"
         };
+
+        // If submit action, check validation
+        if (actionType.Equals("submit", StringComparison.OrdinalIgnoreCase))
+        {
+            hasAttemptedSubmit = true;
+            
+            if (!IsFormValid())
+            {
+                StateHasChanged();
+                return; // Don't submit if form is invalid
+            }
+        }
         
         var payload = new { formData = formData };
         await OnAction.InvokeAsync((actionName, payload));

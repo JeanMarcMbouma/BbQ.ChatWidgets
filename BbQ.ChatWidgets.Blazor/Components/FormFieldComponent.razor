@@ -1,46 +1,57 @@
 @using BbQ.ChatWidgets.Models
 @using Microsoft.AspNetCore.Components
+@using System.Text.Json
 
-@switch (Field.Type.ToLower())
-{
-    case "text":
-    case "email":
-    case "number":
-        <div class="bbq-form-field">
+<div class="bbq-form-field @(Field.Required ? "bbq-form-field-required" : "")">
+    @if (widget != null)
+    {
+        @switch (widget)
+        {
+            case InputWidget inputWidget:
+                <InputWidgetComponent Widget="inputWidget" OnAction="HandleWidgetAction" />
+                break;
+            case TextAreaWidget textAreaWidget:
+                <TextAreaWidgetComponent Widget="textAreaWidget" OnAction="HandleWidgetAction" />
+                break;
+            case DropdownWidget dropdownWidget:
+                <DropdownWidgetComponent Widget="dropdownWidget" OnAction="HandleWidgetAction" />
+                break;
+            case SliderWidget sliderWidget:
+                <SliderWidgetComponent Widget="sliderWidget" OnAction="HandleWidgetAction" />
+                break;
+            case ToggleWidget toggleWidget:
+                <ToggleWidgetComponent Widget="toggleWidget" OnAction="HandleWidgetAction" />
+                break;
+            case FileUploadWidget fileUploadWidget:
+                <FileUploadWidgetComponent Widget="fileUploadWidget" OnAction="HandleWidgetAction" />
+                break;
+            case DatePickerWidget datePickerWidget:
+                <DatePickerWidgetComponent Widget="datePickerWidget" OnAction="HandleWidgetAction" />
+                break;
+            case MultiSelectWidget multiSelectWidget:
+                <MultiSelectWidgetComponent Widget="multiSelectWidget" OnAction="HandleWidgetAction" />
+                break;
+            default:
+                <div class="bbq-form-field-fallback">
+                    <label class="bbq-form-field-label">@Field.Label</label>
+                    <input type="text" class="bbq-form-input" placeholder="@Field.Label" @onchange="HandleFallbackChange" />
+                </div>
+                break;
+        }
+    }
+    else
+    {
+        <div class="bbq-form-field-error">
             <label class="bbq-form-field-label">@Field.Label</label>
-            <input 
-                type="@Field.Type" 
-                class="bbq-form-input"
-                placeholder="@Field.Label"
-                @onchange="HandleChange" />
+            <p class="bbq-form-field-error-text">Invalid field type: @Field.Type</p>
         </div>
-        break;
+    }
     
-    case "dropdown":
-        <div class="bbq-form-field">
-            <label class="bbq-form-field-label">@Field.Label</label>
-            <select class="bbq-form-select" @onchange="HandleChange">
-                <option value="">-- Select --</option>
-            </select>
-        </div>
-        break;
-    
-    case "toggle":
-        <div class="bbq-form-field">
-            <label class="bbq-form-checkbox">
-                <input type="checkbox" @onchange="HandleChange" />
-                <span>@Field.Label</span>
-            </label>
-        </div>
-        break;
-    
-    default:
-        <div class="bbq-form-field">
-            <label class="bbq-form-field-label">@Field.Label</label>
-            <input type="text" class="bbq-form-input" placeholder="@Field.Label" @onchange="HandleChange" />
-        </div>
-        break;
-}
+    @if (!string.IsNullOrEmpty(Field.ValidationHint))
+    {
+        <span class="bbq-form-field-hint">@Field.ValidationHint</span>
+    }
+</div>
 
 @code {
     [Parameter]
@@ -49,12 +60,102 @@
     [Parameter]
     public EventCallback<(string, object?)> OnValueChanged { get; set; }
 
-    private async Task HandleChange(ChangeEventArgs e)
+    [Parameter]
+    public EventCallback<(string, bool)> OnValidationChanged { get; set; }
+
+    private ChatWidget? widget;
+    private bool isValid = true;
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        
+        // Convert FormField to ChatWidget
+        widget = Field.ToWidget();
+
+        // Initialize validation state based on widget default values
+        if (Field.Required && widget != null)
+        {
+            var initialValue = GetInitialValueFromWidget(widget);
+            isValid = IsValuePresent(initialValue);
+        }
+        else
+        {
+            // Non-required fields are valid by default
+            isValid = true;
+        }
+    }
+
+    private object? GetInitialValueFromWidget(ChatWidget widget)
+    {
+        // Check for default values in common widget types
+        return widget switch
+        {
+            SliderWidget slider => slider.Default,
+            ToggleWidget toggle => toggle.DefaultValue,
+            _ => null
+        };
+    }
+
+    private async Task HandleWidgetAction((string Action, object? Payload) args)
+    {
+        // Extract value from payload using JSON deserialization for type safety
+        object? value = null;
+        if (args.Payload != null)
+        {
+            try
+            {
+                // Serialize and deserialize to extract the value property in a type-safe way
+                var json = JsonSerializer.Serialize(args.Payload, Serialization.Default);
+                using var jsonDoc = JsonDocument.Parse(json);
+                if (jsonDoc.RootElement.TryGetProperty("value", out var valueElement))
+                {
+                    value = valueElement.ValueKind switch
+                    {
+                        JsonValueKind.String => valueElement.GetString(),
+                        JsonValueKind.Number => valueElement.TryGetInt32(out var i) ? (object)i : valueElement.GetDouble(),
+                        JsonValueKind.True => true,
+                        JsonValueKind.False => false,
+                        JsonValueKind.Array => JsonSerializer.Deserialize<object[]>(valueElement.GetRawText(), Serialization.Default),
+                        JsonValueKind.Object => JsonSerializer.Deserialize<Dictionary<string, object?>>(valueElement.GetRawText(), Serialization.Default),
+                        _ => valueElement.GetRawText()
+                    };
+                }
+            }
+            catch
+            {
+                // If extraction fails, use the payload as-is
+                value = args.Payload;
+            }
+        }
+
+        // Update validation state - handle different value types appropriately
+        bool hasValue = IsValuePresent(value);
+        isValid = !Field.Required || hasValue;
+        await OnValidationChanged.InvokeAsync((Field.Name, isValid));
+
+        // Forward the value change event
+        await OnValueChanged.InvokeAsync((Field.Name, value));
+    }
+
+    private async Task HandleFallbackChange(ChangeEventArgs e)
     {
         var value = e.Value;
-        if (Field != null)
-        {
-            await OnValueChanged.InvokeAsync((Field.Name, value));
-        }
+
+        // Update validation state - handle different value types appropriately
+        bool hasValue = IsValuePresent(value);
+        isValid = !Field.Required || hasValue;
+        await OnValidationChanged.InvokeAsync((Field.Name, isValid));
+
+        // Forward the value change event
+        await OnValueChanged.InvokeAsync((Field.Name, value));
+    }
+
+    private bool IsValuePresent(object? value)
+    {
+        // Value is present if it's not null and:
+        // - For strings: not empty or whitespace
+        // - For other types (numbers, booleans, dates, etc.): just not null
+        return value != null && (value is not string str || !string.IsNullOrWhiteSpace(str));
     }
 }

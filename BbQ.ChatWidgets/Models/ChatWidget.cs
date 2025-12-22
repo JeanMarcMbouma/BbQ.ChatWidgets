@@ -588,21 +588,123 @@ public record FormWidget(
 
 /// <summary>
 /// Represents a field definition for a form, including metadata such as name, label, type, and validation requirements.
+/// This class supports JSON extension data to allow any registered widget to be deserialized as a form field.
 /// </summary>
-/// <param name="Name">The unique identifier for the form field. Used to reference the field in form data and processing.</param>
-/// <param name="Label">The display label for the form field, shown to users in the form UI.</param>
-/// <param name="Type">The type of widget or input control to use for the field, such as 'text', 'checkbox', or other supported types.</param>
-/// <param name="Required">A value indicating whether the field is required for form submission. Set to <see langword="true"/> if the field
-/// must be provided; otherwise, <see langword="false"/>.</param>
-/// <param name="ValidationHint">An optional hint or message to assist users in providing valid input for the field. Can be <see langword="null"/> if
-/// no hint is provided.</param>
-public record FormField(
-    string Name,
-    string Label,
-    string Type, 
-    bool Required,
-    string? ValidationHint = null
-);
+public class FormField
+{
+    /// <summary>
+    /// The unique identifier for the form field. Used to reference the field in form data and processing.
+    /// </summary>
+    [JsonPropertyName("name")]
+    public string Name { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The display label for the form field, shown to users in the form UI.
+    /// </summary>
+    [JsonPropertyName("label")]
+    public string Label { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The type of widget or input control to use for the field, such as 'input', 'dropdown', or other supported widget types.
+    /// </summary>
+    [JsonPropertyName("type")]
+    public string Type { get; set; } = string.Empty;
+
+    /// <summary>
+    /// A value indicating whether the field is required for form submission. Set to <see langword="true"/> if the field
+    /// must be provided; otherwise, <see langword="false"/>.
+    /// </summary>
+    [JsonPropertyName("required")]
+    public bool Required { get; set; }
+
+    /// <summary>
+    /// An optional hint or message to assist users in providing valid input for the field. Can be <see langword="null"/> if
+    /// no hint is provided.
+    /// </summary>
+    [JsonPropertyName("validationHint")]
+    public string? ValidationHint { get; set; }
+
+    /// <summary>
+    /// Stores additional JSON properties that are not explicitly defined, allowing any registered widget's properties
+    /// to be captured and later deserialized.
+    /// </summary>
+    [JsonExtensionData]
+    public Dictionary<string, JsonElement>? ExtensionData { get; set; }
+
+    /// <summary>
+    /// Default constructor for JSON deserialization.
+    /// </summary>
+    public FormField() { }
+
+    /// <summary>
+    /// Creates a new FormField instance.
+    /// </summary>
+    /// <param name="name">The unique identifier for the form field.</param>
+    /// <param name="label">The display label for the form field.</param>
+    /// <param name="type">The type of widget or input control to use for the field.</param>
+    /// <param name="required">A value indicating whether the field is required for form submission.</param>
+    /// <param name="validationHint">An optional hint or message to assist users in providing valid input.</param>
+    public FormField(string name, string label, string type, bool required, string? validationHint = null)
+    {
+        Name = name;
+        Label = label;
+        Type = type;
+        Required = required;
+        ValidationHint = validationHint;
+    }
+
+    /// <summary>
+    /// Deserializes this FormField to the appropriate ChatWidget based on the Type property.
+    /// </summary>
+    /// <remarks>
+    /// This method constructs a widget from the FormField properties and extension data.
+    /// The widget's Action property is set to the FormField's Name to maintain field identity
+    /// when handling widget actions within forms.
+    /// </remarks>
+    /// <returns>The deserialized ChatWidget, or null if deserialization fails.</returns>
+    public ChatWidget? ToWidget()
+    {
+        try
+        {
+            // Build a JSON object with the type and all extension data
+            var jsonObject = new Dictionary<string, object?>();
+            jsonObject["type"] = Type;
+            jsonObject["label"] = Label;
+            jsonObject["action"] = Name; // Use field name as action for field identity
+
+            // Copy extension data - convert JsonElement to actual values
+            if (ExtensionData != null)
+            {
+                foreach (var kvp in ExtensionData)
+                {
+                    // Convert JsonElement to the appropriate type
+                    var element = kvp.Value;
+                    object? value = element.ValueKind switch
+                    {
+                        JsonValueKind.String => element.GetString(),
+                        JsonValueKind.Number => element.TryGetInt32(out var i) ? i : element.GetDouble(),
+                        JsonValueKind.True => true,
+                        JsonValueKind.False => false,
+                        JsonValueKind.Null => null,
+                        JsonValueKind.Array => JsonSerializer.Deserialize<object[]>(element.GetRawText(), Serialization.Default),
+                        JsonValueKind.Object => JsonSerializer.Deserialize<Dictionary<string, object?>>(element.GetRawText(), Serialization.Default),
+                        _ => element.GetRawText()
+                    };
+                    jsonObject[kvp.Key] = value;
+                }
+            }
+
+            var json = JsonSerializer.Serialize(jsonObject, Serialization.Default);
+            return ChatWidget.FromJson(json);
+        }
+        catch (Exception ex)
+        {
+            // Log the error for debugging - in production environments, this should use a proper logging framework
+            System.Diagnostics.Debug.WriteLine($"Failed to deserialize FormField '{Name}' of type '{Type}': {ex.Message}");
+            return null;
+        }
+    }
+}
 
 /// <summary>
 /// Represents an action that can be performed on a form, such as submitting or canceling.

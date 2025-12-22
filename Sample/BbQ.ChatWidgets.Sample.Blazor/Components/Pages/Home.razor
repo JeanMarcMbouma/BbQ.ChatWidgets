@@ -67,6 +67,12 @@
                 OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("widgets")))" />
             
             <ScenarioCard 
+                Title="Extensible Form Demo" 
+                Description="Forms with any widget type and validation"
+                Icon="📋"
+                OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("extensible-form")))" />
+            
+            <ScenarioCard 
                 Title="Basic Chat" 
                 Description="Simple conversation with AI responses"
                 Icon="✓"
@@ -138,6 +144,7 @@
         var url = scenario switch
         {
             "widgets" => "/widget-showcase",
+            "extensible-form" => "/extensible-form-demo",
             "basic" => "/basic-chat",
             "streaming" => "/streaming-chat",
             "triage" => "/triage-agent",

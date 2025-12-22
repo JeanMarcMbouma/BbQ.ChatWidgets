@@ -107,7 +107,7 @@
             {
                 // Serialize and deserialize to extract the value property in a type-safe way
                 var json = JsonSerializer.Serialize(args.Payload, Serialization.Default);
-                var jsonDoc = JsonDocument.Parse(json);
+                using var jsonDoc = JsonDocument.Parse(json);
                 if (jsonDoc.RootElement.TryGetProperty("value", out var valueElement))
                 {
                     value = valueElement.ValueKind switch

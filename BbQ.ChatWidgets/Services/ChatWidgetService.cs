@@ -173,7 +173,7 @@ public sealed class ChatWidgetService(
             responseText += responseUpdate.Text;
             var (content, widgets) = widgetHintParser.Parse(responseText);
             responseText = content.Trim();
-            if(widgets != null  && widgets.Count > 0)
+            if (widgets != null && widgets.Count > 0)
                 chatWidgets.AddRange(widgets);
             yield return new StreamChatTurn(ChatRole.Assistant, widgetHintSanitizer.Sanitize(content), threadId, IsDelta: true);
         }

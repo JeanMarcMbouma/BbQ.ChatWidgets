@@ -102,7 +102,7 @@ public class SummarizationIntegrationTests
         {
             options.ChatClientFactory = _ => mockChatClient;
             options.EnableAutoSummarization = true;
-            options.SummarizationThreshold = 20; // High threshold
+            options.SummarizationThreshold = 20; // Must be greater than RecentTurnsToKeep
             options.RecentTurnsToKeep = 10;
         });
         

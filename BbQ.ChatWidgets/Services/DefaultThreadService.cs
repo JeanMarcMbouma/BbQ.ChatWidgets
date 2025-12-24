@@ -23,10 +23,12 @@ namespace BbQ.ChatWidgets.Services;
 /// - Automatic widget recycling for recyclable widgets
 /// - Fast O(1) thread lookup
 /// - Memory-based storage (data is lost on restart)
+/// - Chat history summarization support
 /// </remarks>
 public sealed class DefaultThreadService : IThreadService
 {
     private readonly ConcurrentDictionary<string, ChatMessages> _threads = new();
+    private readonly ConcurrentDictionary<string, List<ChatSummary>> _summaries = new();
 
     /// <summary>
     /// Appends a message to an existing conversation thread and handles widget recycling.
@@ -94,6 +96,7 @@ public sealed class DefaultThreadService : IThreadService
     public void DeleteThread(string threadId)
     {
         _threads.TryRemove(threadId, out _);
+        _summaries.TryRemove(threadId, out _);
     }
 
     /// <summary>
@@ -124,5 +127,62 @@ public sealed class DefaultThreadService : IThreadService
     public bool ThreadExists(string threadId)
     {
         return _threads.ContainsKey(threadId);
+    }
+
+    /// <summary>
+    /// Stores a summary of conversation turns for the specified thread.
+    /// </summary>
+    /// <remarks>
+    /// Summaries are stored in order of creation. This method is thread-safe.
+    /// </remarks>
+    /// <param name="threadId">The conversation thread identifier.</param>
+    /// <param name="summary">The summary to store.</param>
+    /// <exception cref="ThreadNotFoundException">Thrown if the thread does not exist.</exception>
+    public void StoreSummary(string threadId, ChatSummary summary)
+    {
+        if (!_threads.ContainsKey(threadId))
+        {
+            throw new ThreadNotFoundException(threadId);
+        }
+
+        _summaries.AddOrUpdate(
+            threadId,
+            _ => new List<ChatSummary> { summary },
+            (_, list) =>
+            {
+                lock (list)
+                {
+                    list.Add(summary);
+                }
+                return list;
+            });
+    }
+
+    /// <summary>
+    /// Retrieves all summaries for a conversation thread.
+    /// </summary>
+    /// <remarks>
+    /// Returns a snapshot of the summaries at the time of the call.
+    /// This method is thread-safe.
+    /// </remarks>
+    /// <param name="threadId">The conversation thread identifier.</param>
+    /// <returns>A read-only list of summaries for the thread.</returns>
+    /// <exception cref="ThreadNotFoundException">Thrown if the thread does not exist.</exception>
+    public IReadOnlyList<ChatSummary> GetSummaries(string threadId)
+    {
+        if (!_threads.ContainsKey(threadId))
+        {
+            throw new ThreadNotFoundException(threadId);
+        }
+
+        if (_summaries.TryGetValue(threadId, out var list))
+        {
+            lock (list)
+            {
+                return list.ToList();
+            }
+        }
+
+        return Array.Empty<ChatSummary>();
     }
 }

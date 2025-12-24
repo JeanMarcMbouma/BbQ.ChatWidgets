@@ -17,6 +17,7 @@ namespace BbQ.ChatWidgets.Services;
 /// - Provides available widget tools to the AI chat client
 /// - Processes user messages and generates responses with embedded widgets
 /// - Handles widget actions triggered by user interactions using type-safe handlers
+/// - Manages context window limits through automatic chat history summarization
 /// 
 /// The service integrates with:
 /// - <see cref="IChatClient"/> for AI responses
@@ -28,6 +29,7 @@ namespace BbQ.ChatWidgets.Services;
 /// - <see cref="IAIInstructionProvider"/> for custom AI instructions
 /// - <see cref="IWidgetActionRegistry"/> for action metadata
 /// - <see cref="IWidgetActionHandlerResolver"/> for handler resolution
+/// - <see cref="IChatHistorySummarizer"/> for chat history summarization
 /// </remarks>
 public sealed class ChatWidgetService(
     IChatClient chat,
@@ -38,7 +40,9 @@ public sealed class ChatWidgetService(
     IThreadService threadService,
     IAIInstructionProvider instructionProvider,
     IWidgetActionRegistry actionRegistry,
-    IWidgetActionHandlerResolver handlerResolver)
+    IWidgetActionHandlerResolver handlerResolver,
+    IChatHistorySummarizer historySummarizer,
+    BbQChatOptions options)
 {
     /// <summary>
     /// Processes a user message and generates an AI response with optional embedded widgets.
@@ -95,7 +99,9 @@ public sealed class ChatWidgetService(
 
         var messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.User, userMessage, ThreadId: threadId));
 
-        var completion = await chat.GetResponseAsync(messages.ToAIMessages(), chatOptions, ct);
+        var aiMessages = await PrepareMessagesWithSummarizationAsync(messages, threadId, ct);
+
+        var completion = await chat.GetResponseAsync(aiMessages, chatOptions, ct);
 
         var (content, widgets) = widgetHintParser.Parse(completion.Text);
 
@@ -157,14 +163,17 @@ public sealed class ChatWidgetService(
         };
 
         var messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.User, userMessage, ThreadId: threadId));
+
+        var aiMessages = await PrepareMessagesWithSummarizationAsync(messages, threadId, cancellationToken);
+
         string responseText = string.Empty;
         var chatWidgets = new List<ChatWidget>();
-        await foreach(var responseUpdate in chat.GetStreamingResponseAsync(messages.ToAIMessages(), chatOptions, cancellationToken))
+        await foreach(var responseUpdate in chat.GetStreamingResponseAsync(aiMessages, chatOptions, cancellationToken))
         {
             responseText += responseUpdate.Text;
             var (content, widgets) = widgetHintParser.Parse(responseText);
             responseText = content.Trim();
-            if(widgets != null  && widgets.Count > 0)
+            if (widgets != null && widgets.Count > 0)
                 chatWidgets.AddRange(widgets);
             yield return new StreamChatTurn(ChatRole.Assistant, widgetHintSanitizer.Sanitize(content), threadId, IsDelta: true);
         }
@@ -172,6 +181,67 @@ public sealed class ChatWidgetService(
         messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.Assistant, responseText, chatWidgets, threadId));
 
         yield return messages.Turns[messages.Turns.Count - 1];
+    }
+
+    /// <summary>
+    /// Prepares AI messages with automatic summarization if needed.
+    /// </summary>
+    /// <remarks>
+    /// This helper method:
+    /// 1. Checks if summarization is enabled and threshold is exceeded
+    /// 2. Generates summaries for older turns if needed
+    /// 3. Returns AI messages with summaries prepended and recent turns in full
+    /// 
+    /// Used by both RespondAsync and StreamResponseAsync to avoid duplication.
+    /// </remarks>
+    /// <param name="messages">The full conversation history.</param>
+    /// <param name="threadId">The conversation thread ID.</param>
+    /// <param name="ct">Cancellation token.</param>
+    /// <returns>AI messages ready to send to the chat client.</returns>
+    private async Task<IReadOnlyList<Microsoft.Extensions.AI.ChatMessage>> PrepareMessagesWithSummarizationAsync(
+        ChatMessages messages,
+        string threadId,
+        CancellationToken ct)
+    {
+        // Check if we need to summarize and manage context
+        if (options.EnableAutoSummarization && messages.Turns.Count > options.SummarizationThreshold)
+        {
+            // Generate summary for older turns if needed
+            var summaries = threadService.GetSummaries(threadId);
+            var lastSummarizedIndex = summaries.Count > 0 ? summaries[^1].EndTurnIndex : -1;
+            var turnsToSummarize = messages.Turns.Count - options.RecentTurnsToKeep;
+
+            // Only create new summary if there are unsummarized turns
+            if (turnsToSummarize > lastSummarizedIndex + 1)
+            {
+                var startIndex = lastSummarizedIndex + 1;
+                var endIndex = turnsToSummarize - 1;
+                var turnsForSummary = messages.Turns.Skip(startIndex).Take(endIndex - startIndex + 1).ToList();
+
+                if (turnsForSummary.Count > 0)
+                {
+                    var summaryText = await historySummarizer.SummarizeAsync(turnsForSummary, ct);
+                    
+                    // Only store the summary if we actually received non-empty content.
+                    // This avoids marking turns as summarized when the summarizer fails
+                    // or returns an empty response, which would otherwise lose context.
+                    if (!string.IsNullOrWhiteSpace(summaryText))
+                    {
+                        var summary = new ChatSummary(summaryText, startIndex, endIndex);
+                        threadService.StoreSummary(threadId, summary);
+                        summaries = threadService.GetSummaries(threadId);
+                    }
+                }
+            }
+
+            // Use summaries with recent turns
+            return messages.ToAIMessages(options.RecentTurnsToKeep, summaries);
+        }
+        else
+        {
+            // Use default behavior without summarization
+            return messages.ToAIMessages();
+        }
     }
 
     /// <summary>

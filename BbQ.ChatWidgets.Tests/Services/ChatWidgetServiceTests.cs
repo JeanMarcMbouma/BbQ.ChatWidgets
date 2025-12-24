@@ -21,6 +21,8 @@ public class ChatWidgetServiceTests
     private readonly Mock<IAIInstructionProvider> mockAIInstructionsProvider = new();
     private readonly Mock<IWidgetActionRegistry> mockActionRegistry = new();
     private readonly Mock<IWidgetActionHandlerResolver> mockHandlerResolver = new();
+    private readonly Mock<IChatHistorySummarizer> mockHistorySummarizer = new();
+    private readonly BbQChatOptions options = new();
 
     private readonly ChatWidgetService chatWidgetService;
 
@@ -35,7 +37,9 @@ public class ChatWidgetServiceTests
             mockThreadService.Object,
             mockAIInstructionsProvider.Object,
             mockActionRegistry.Object,
-            mockHandlerResolver.Object
+            mockHandlerResolver.Object,
+            mockHistorySummarizer.Object,
+            options
         );
     }
 

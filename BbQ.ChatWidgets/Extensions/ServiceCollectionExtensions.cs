@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Text.Json;
 
 namespace BbQ.ChatWidgets.Extensions;
@@ -49,6 +50,9 @@ public static class ServiceCollectionExtensions
     {
         var options = new BbQChatOptions();
         configure?.Invoke(options);
+        
+        // Validate summarization settings
+        options.ValidateSummarizationSettings();
 
         services.AddSingleton(options);
         services.AddSingleton<WidgetRegistry>();
@@ -79,6 +83,9 @@ public static class ServiceCollectionExtensions
             services.AddSingleton(sp => options.WidgetToolsProviderFactory(sp));
         else
             services.AddSingleton<IWidgetToolsProvider, DefaultWidgetToolsProvider>();
+
+        // Register chat history summarizer (use TryAdd to allow custom implementations)
+        services.TryAddSingleton<IChatHistorySummarizer, DefaultChatHistorySummarizer>();
 
         // Register Widget SSE service for server-side widget streams
         services.AddSingleton<IWidgetSseService, WidgetSseService>();

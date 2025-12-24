@@ -1,4 +1,5 @@
 using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Exceptions;
 using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Services;
 using Microsoft.Extensions.AI;
@@ -81,6 +82,33 @@ public class ChatHistorySummarizationTests
         Assert.NotEqual(threadId, newThreadId);
         var summaries = threadService.GetSummaries(newThreadId);
         Assert.Empty(summaries);
+    }
+
+    [Fact]
+    public void DefaultThreadService_StoreSummary_ThrowsOnNonExistentThread()
+    {
+        // Arrange
+        var threadService = new DefaultThreadService();
+        var summary = new ChatSummary("Test summary", 0, 4);
+        var nonExistentThreadId = "non-existent-thread";
+
+        // Act & Assert
+        var exception = Assert.Throws<ThreadNotFoundException>(() =>
+            threadService.StoreSummary(nonExistentThreadId, summary));
+        Assert.Equal(nonExistentThreadId, exception.ThreadId);
+    }
+
+    [Fact]
+    public void DefaultThreadService_GetSummaries_ThrowsOnNonExistentThread()
+    {
+        // Arrange
+        var threadService = new DefaultThreadService();
+        var nonExistentThreadId = "non-existent-thread";
+
+        // Act & Assert
+        var exception = Assert.Throws<ThreadNotFoundException>(() =>
+            threadService.GetSummaries(nonExistentThreadId));
+        Assert.Equal(nonExistentThreadId, exception.ThreadId);
     }
 
     [Fact]

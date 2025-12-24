@@ -99,8 +99,14 @@ public class CustomSummarizer : IChatHistorySummarizer
     }
 }
 
-// Register your custom summarizer
+// Register your custom summarizer BEFORE calling AddBbQChatWidgets
+// This ensures your implementation is used instead of the default
 services.AddSingleton<IChatHistorySummarizer, CustomSummarizer>();
+services.AddBbQChatWidgets(options => 
+{
+    options.ChatClientFactory = sp => new OpenAIChatClient(...);
+    // ... other configuration
+});
 ```
 
 ## Thread Service Integration
@@ -197,7 +203,9 @@ public async Task AutoSummarization_CreatesAndUsesSummaries()
         options.ChatClientFactory = _ => new TestChatClient();
     });
     
+    var serviceProvider = services.BuildServiceProvider();
     var chatService = serviceProvider.GetRequiredService<ChatWidgetService>();
+    var threadService = serviceProvider.GetRequiredService<IThreadService>();
     
     // Create conversation beyond threshold
     string? threadId = null;

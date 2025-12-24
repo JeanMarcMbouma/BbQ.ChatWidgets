@@ -184,4 +184,40 @@ public sealed class BbQChatOptions
     /// while older context is condensed into summaries.
     /// </remarks>
     public int RecentTurnsToKeep { get; set; } = 10;
+
+    /// <summary>
+    /// Validates the summarization configuration settings.
+    /// </summary>
+    /// <remarks>
+    /// This method should be called after configuration to ensure that:
+    /// - SummarizationThreshold is greater than RecentTurnsToKeep
+    /// - Both values are positive
+    /// 
+    /// Invalid configuration can lead to incorrect summarization behavior.
+    /// </remarks>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown when the configuration is invalid.
+    /// </exception>
+    public void ValidateSummarizationSettings()
+    {
+        if (EnableAutoSummarization)
+        {
+            if (SummarizationThreshold <= 0)
+            {
+                throw new InvalidOperationException($"SummarizationThreshold must be positive. Current value: {SummarizationThreshold}");
+            }
+
+            if (RecentTurnsToKeep <= 0)
+            {
+                throw new InvalidOperationException($"RecentTurnsToKeep must be positive. Current value: {RecentTurnsToKeep}");
+            }
+
+            if (SummarizationThreshold <= RecentTurnsToKeep)
+            {
+                throw new InvalidOperationException(
+                    $"SummarizationThreshold ({SummarizationThreshold}) must be greater than RecentTurnsToKeep ({RecentTurnsToKeep}). " +
+                    "Otherwise, there would be no turns to summarize.");
+            }
+        }
+    }
 }

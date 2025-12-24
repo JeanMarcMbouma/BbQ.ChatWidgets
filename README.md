@@ -32,7 +32,7 @@ app.MapBbQChatEndpoints();
 - **Type-Safe Widget Actions**: Strongly-typed handlers for widget interactions
 - **Extensible Architecture**: Swap out components via dependency injection
 
-## Documentation
+## Install
 
 ### NuGet (.NET)
 

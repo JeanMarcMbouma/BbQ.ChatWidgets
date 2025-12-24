@@ -309,6 +309,131 @@ The messages are returned in order of insertion (oldest to newest).</p>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Abstractions/IThreadService.cs">View Source</a>
   </span>
+  <a id="BbQ_ChatWidgets_Abstractions_IThreadService_GetSummaries_" data-uid="BbQ.ChatWidgets.Abstractions.IThreadService.GetSummaries*"></a>
+  <h4 id="BbQ_ChatWidgets_Abstractions_IThreadService_GetSummaries_System_String_" data-uid="BbQ.ChatWidgets.Abstractions.IThreadService.GetSummaries(System.String)">GetSummaries(string)</h4>
+  <div class="markdown level1 summary"><p>Retrieves all summaries for a conversation thread.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IReadOnlyList&lt;ChatSummary&gt; GetSummaries(string threadId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">threadId</span></td>
+        <td><p>The thread identifier.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatSummary.html">ChatSummary</a>&gt;</td>
+        <td><p>A read-only list of summaries for the thread.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="BbQ_ChatWidgets_Abstractions_IThreadService_GetSummaries_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Returns summaries in the order they were created, each covering a specific
+range of conversation turns.</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Exceptions.ThreadNotFoundException.html">ThreadNotFoundException</a></td>
+        <td><p>Thrown if the thread does not exist.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Abstractions/IThreadService.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Abstractions_IThreadService_StoreSummary_" data-uid="BbQ.ChatWidgets.Abstractions.IThreadService.StoreSummary*"></a>
+  <h4 id="BbQ_ChatWidgets_Abstractions_IThreadService_StoreSummary_System_String_BbQ_ChatWidgets_Models_ChatSummary_" data-uid="BbQ.ChatWidgets.Abstractions.IThreadService.StoreSummary(System.String,BbQ.ChatWidgets.Models.ChatSummary)">StoreSummary(string, ChatSummary)</h4>
+  <div class="markdown level1 summary"><p>Stores a summary of conversation turns for the specified thread.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void StoreSummary(string threadId, ChatSummary summary)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">threadId</span></td>
+        <td><p>The thread identifier.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatSummary.html">ChatSummary</a></td>
+        <td><span class="parametername">summary</span></td>
+        <td><p>The summary to store.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="BbQ_ChatWidgets_Abstractions_IThreadService_StoreSummary_System_String_BbQ_ChatWidgets_Models_ChatSummary__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Summaries help manage context window limits by condensing older conversation
+history into concise text. Multiple summaries can be stored for a thread,
+each covering a different range of turns.</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Exceptions.ThreadNotFoundException.html">ThreadNotFoundException</a></td>
+        <td><p>Thrown if the thread does not exist.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Abstractions/IThreadService.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Abstractions_IThreadService_ThreadExists_" data-uid="BbQ.ChatWidgets.Abstractions.IThreadService.ThreadExists*"></a>
   <h4 id="BbQ_ChatWidgets_Abstractions_IThreadService_ThreadExists_System_String_" data-uid="BbQ.ChatWidgets.Abstractions.IThreadService.ThreadExists(System.String)">ThreadExists(string)</h4>
   <div class="markdown level1 summary"><p>Checks if a conversation thread exists.</p>

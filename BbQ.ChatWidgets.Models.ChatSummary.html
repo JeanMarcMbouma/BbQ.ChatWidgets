@@ -5,11 +5,11 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Class ChatMessages | BbQ.ChatWidgets </title>
+      <title>Class ChatSummary | BbQ.ChatWidgets </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Class ChatMessages | BbQ.ChatWidgets ">
+      <meta name="title" content="Class ChatSummary | BbQ.ChatWidgets ">
     
-    <meta name="description" content="Represents a complete chat message history for a conversation.">
+    <meta name="description" content="Represents a summary of a range of chat conversation turns.">
       <link rel="shortcut icon" href="favicon.ico">
       <link rel="stylesheet" href="styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="styles/docfx.css">
@@ -69,22 +69,22 @@
       <div role="main" class="container body-content hide-when-search">
         <div class="article row grid">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="BbQ.ChatWidgets.Models.ChatMessages">
+            <article class="content wrap" id="_content" data-uid="BbQ.ChatWidgets.Models.ChatSummary">
 
 
 
-  <h1 id="BbQ_ChatWidgets_Models_ChatMessages" data-uid="BbQ.ChatWidgets.Models.ChatMessages" class="text-break">Class ChatMessages</h1>
-  <div class="markdown level0 summary"><p>Represents a complete chat message history for a conversation.</p>
+  <h1 id="BbQ_ChatWidgets_Models_ChatSummary" data-uid="BbQ.ChatWidgets.Models.ChatSummary" class="text-break">Class ChatSummary</h1>
+  <div class="markdown level0 summary"><p>Represents a summary of a range of chat conversation turns.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-    <div class="level1"><span class="xref">ChatMessages</span></div>
+    <div class="level1"><span class="xref">ChatSummary</span></div>
   </div>
   <div class="implements">
     <h5>Implements</h5>
-    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatMessages.html">ChatMessages</a>&gt;</div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatSummary.html">ChatSummary</a>&gt;</div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
@@ -103,27 +103,31 @@
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="BbQ.html">BbQ</a>.<a class="xref" href="BbQ.ChatWidgets.html">ChatWidgets</a>.<a class="xref" href="BbQ.ChatWidgets.Models.html">Models</a></h6>
   <h6><strong>Assembly</strong>: BbQ.ChatWidgets.dll</h6>
-  <h5 id="BbQ_ChatWidgets_Models_ChatMessages_syntax">Syntax</h5>
+  <h5 id="BbQ_ChatWidgets_Models_ChatSummary_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public record ChatMessages : IEquatable&lt;ChatMessages&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public record ChatSummary : IEquatable&lt;ChatSummary&gt;</code></pre>
   </div>
-  <h5 id="BbQ_ChatWidgets_Models_ChatMessages_remarks"><strong>Remarks</strong></h5>
-  <div class="markdown level0 remarks"><p>A chat message encapsulates the full history of turns in a conversation.
-It provides a sequence of chat turns that can be converted to AI framework formats.</p>
+  <h5 id="BbQ_ChatWidgets_Models_ChatSummary_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Chat summaries are used to manage context window limits by condensing
+older conversation history into concise summaries. This allows the system
+to maintain relevant context while staying within token budget constraints.</p>
+<p>The turn indices reference positions in the original conversation history,
+allowing the system to track which turns have been summarized and which
+are still being used in their original form.</p>
 </div>
   <h3 id="constructors">Constructors
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatMessages.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ChatMessages__ctor_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.#ctor*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ChatMessages__ctor_BbQ_ChatWidgets_Models_ChatMessages_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.#ctor(BbQ.ChatWidgets.Models.ChatMessages)">ChatMessages(ChatMessages)</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary__ctor_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.#ctor*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary__ctor_BbQ_ChatWidgets_Models_ChatSummary_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.#ctor(BbQ.ChatWidgets.Models.ChatSummary)">ChatSummary(ChatSummary)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected ChatMessages(ChatMessages original)</code></pre>
+    <pre><code class="lang-csharp hljs">protected ChatSummary(ChatSummary original)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -136,7 +140,7 @@ It provides a sequence of chat turns that can be converted to AI framework forma
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatMessages.html">ChatMessages</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatSummary.html">ChatSummary</a></td>
         <td><span class="parametername">original</span></td>
         <td></td>
       </tr>
@@ -144,16 +148,16 @@ It provides a sequence of chat turns that can be converted to AI framework forma
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatMessages.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ChatMessages__ctor_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.#ctor*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ChatMessages__ctor_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatTurn__" data-uid="BbQ.ChatWidgets.Models.ChatMessages.#ctor(System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatTurn})">ChatMessages(IReadOnlyList&lt;ChatTurn&gt;)</h4>
-  <div class="markdown level1 summary"><p>Represents a complete chat message history for a conversation.</p>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary__ctor_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.#ctor*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary__ctor_System_String_System_Int32_System_Int32_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.#ctor(System.String,System.Int32,System.Int32)">ChatSummary(string, int, int)</h4>
+  <div class="markdown level1 summary"><p>Represents a summary of a range of chat conversation turns.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ChatMessages(IReadOnlyList&lt;ChatTurn&gt; Turns)</code></pre>
+    <pre><code class="lang-csharp hljs">public ChatSummary(string SummaryText, int StartTurnIndex, int EndTurnIndex)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -166,25 +170,69 @@ It provides a sequence of chat turns that can be converted to AI framework forma
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a>&gt;</td>
-        <td><span class="parametername">Turns</span></td>
-        <td><p>The sequence of chat turns in this conversation.</p>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">SummaryText</span></td>
+        <td><p>The condensed summary of the conversation turns.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">StartTurnIndex</span></td>
+        <td><p>The index of the first turn included in this summary (inclusive).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">EndTurnIndex</span></td>
+        <td><p>The index of the last turn included in this summary (inclusive).</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 id="BbQ_ChatWidgets_Models_ChatMessages__ctor_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatTurn___remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>A chat message encapsulates the full history of turns in a conversation.
-It provides a sequence of chat turns that can be converted to AI framework formats.</p>
+  <h5 id="BbQ_ChatWidgets_Models_ChatSummary__ctor_System_String_System_Int32_System_Int32__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Chat summaries are used to manage context window limits by condensing
+older conversation history into concise summaries. This allows the system
+to maintain relevant context while staying within token budget constraints.</p>
+<p>The turn indices reference positions in the original conversation history,
+allowing the system to track which turns have been summarized and which
+are still being used in their original form.</p>
 </div>
   <h3 id="properties">Properties
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatMessages.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ChatMessages_EqualityContract_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.EqualityContract*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ChatMessages_EqualityContract" data-uid="BbQ.ChatWidgets.Models.ChatMessages.EqualityContract">EqualityContract</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_EndTurnIndex_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.EndTurnIndex*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_EndTurnIndex" data-uid="BbQ.ChatWidgets.Models.ChatSummary.EndTurnIndex">EndTurnIndex</h4>
+  <div class="markdown level1 summary"><p>The index of the last turn included in this summary (inclusive).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int EndTurnIndex { get; init; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_EqualityContract_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.EqualityContract*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_EqualityContract" data-uid="BbQ.ChatWidgets.Models.ChatSummary.EqualityContract">EqualityContract</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -208,16 +256,16 @@ It provides a sequence of chat turns that can be converted to AI framework forma
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatMessages.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ChatMessages_Turns_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.Turns*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ChatMessages_Turns" data-uid="BbQ.ChatWidgets.Models.ChatMessages.Turns">Turns</h4>
-  <div class="markdown level1 summary"><p>The sequence of chat turns in this conversation.</p>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_StartTurnIndex_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.StartTurnIndex*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_StartTurnIndex" data-uid="BbQ.ChatWidgets.Models.ChatSummary.StartTurnIndex">StartTurnIndex</h4>
+  <div class="markdown level1 summary"><p>The index of the first turn included in this summary (inclusive).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;ChatTurn&gt; Turns { get; init; }</code></pre>
+    <pre><code class="lang-csharp hljs">public int StartTurnIndex { get; init; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-condensed">
@@ -229,7 +277,35 @@ It provides a sequence of chat turns that can be converted to AI framework forma
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a>&gt;</td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_SummaryText_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.SummaryText*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_SummaryText" data-uid="BbQ.ChatWidgets.Models.ChatSummary.SummaryText">SummaryText</h4>
+  <div class="markdown level1 summary"><p>The condensed summary of the conversation turns.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string SummaryText { get; init; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td></td>
       </tr>
     </tbody>
@@ -238,15 +314,15 @@ It provides a sequence of chat turns that can be converted to AI framework forma
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatMessages.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ChatMessages_Deconstruct_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.Deconstruct*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ChatMessages_Deconstruct_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatTurn___" data-uid="BbQ.ChatWidgets.Models.ChatMessages.Deconstruct(System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatTurn}@)">Deconstruct(out IReadOnlyList&lt;ChatTurn&gt;)</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_Deconstruct_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.Deconstruct*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_Deconstruct_System_String__System_Int32__System_Int32__" data-uid="BbQ.ChatWidgets.Models.ChatSummary.Deconstruct(System.String@,System.Int32@,System.Int32@)">Deconstruct(out string, out int, out int)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Deconstruct(out IReadOnlyList&lt;ChatTurn&gt; Turns)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Deconstruct(out string SummaryText, out int StartTurnIndex, out int EndTurnIndex)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -259,23 +335,33 @@ It provides a sequence of chat turns that can be converted to AI framework forma
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a>&gt;</td>
-        <td><span class="parametername">Turns</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">SummaryText</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">StartTurnIndex</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">EndTurnIndex</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatMessages.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ChatMessages_Equals_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.Equals*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ChatMessages_Equals_BbQ_ChatWidgets_Models_ChatMessages_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.Equals(BbQ.ChatWidgets.Models.ChatMessages)">Equals(ChatMessages?)</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_Equals_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.Equals*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_Equals_BbQ_ChatWidgets_Models_ChatSummary_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.Equals(BbQ.ChatWidgets.Models.ChatSummary)">Equals(ChatSummary?)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public virtual bool Equals(ChatMessages? other)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual bool Equals(ChatSummary? other)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -288,7 +374,7 @@ It provides a sequence of chat turns that can be converted to AI framework forma
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatMessages.html">ChatMessages</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatSummary.html">ChatSummary</a></td>
         <td><span class="parametername">other</span></td>
         <td></td>
       </tr>
@@ -311,10 +397,10 @@ It provides a sequence of chat turns that can be converted to AI framework forma
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatMessages.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ChatMessages_Equals_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.Equals*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ChatMessages_Equals_System_Object_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.Equals(System.Object)">Equals(object?)</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_Equals_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.Equals*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_Equals_System_Object_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.Equals(System.Object)">Equals(object?)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -357,10 +443,10 @@ It provides a sequence of chat turns that can be converted to AI framework forma
   <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a></div>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatMessages.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ChatMessages_GetHashCode_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.GetHashCode*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ChatMessages_GetHashCode" data-uid="BbQ.ChatWidgets.Models.ChatMessages.GetHashCode">GetHashCode()</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_GetHashCode_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.GetHashCode*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_GetHashCode" data-uid="BbQ.ChatWidgets.Models.ChatSummary.GetHashCode">GetHashCode()</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -386,10 +472,10 @@ It provides a sequence of chat turns that can be converted to AI framework forma
   <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></div>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatMessages.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ChatMessages_PrintMembers_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.PrintMembers*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ChatMessages_PrintMembers_System_Text_StringBuilder_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.PrintMembers(System.Text.StringBuilder)">PrintMembers(StringBuilder)</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_PrintMembers_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.PrintMembers*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_PrintMembers_System_Text_StringBuilder_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.PrintMembers(System.Text.StringBuilder)">PrintMembers(StringBuilder)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -430,10 +516,10 @@ It provides a sequence of chat turns that can be converted to AI framework forma
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatMessages.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ChatMessages_ToString_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.ToString*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ChatMessages_ToString" data-uid="BbQ.ChatWidgets.Models.ChatMessages.ToString">ToString()</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_ToString_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.ToString*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_ToString" data-uid="BbQ.ChatWidgets.Models.ChatSummary.ToString">ToString()</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -461,15 +547,15 @@ It provides a sequence of chat turns that can be converted to AI framework forma
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatMessages.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ChatMessages_op_Equality_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.op_Equality*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ChatMessages_op_Equality_BbQ_ChatWidgets_Models_ChatMessages_BbQ_ChatWidgets_Models_ChatMessages_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.op_Equality(BbQ.ChatWidgets.Models.ChatMessages,BbQ.ChatWidgets.Models.ChatMessages)">operator ==(ChatMessages?, ChatMessages?)</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_op_Equality_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.op_Equality*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_op_Equality_BbQ_ChatWidgets_Models_ChatSummary_BbQ_ChatWidgets_Models_ChatSummary_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.op_Equality(BbQ.ChatWidgets.Models.ChatSummary,BbQ.ChatWidgets.Models.ChatSummary)">operator ==(ChatSummary?, ChatSummary?)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool operator ==(ChatMessages? left, ChatMessages? right)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool operator ==(ChatSummary? left, ChatSummary? right)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -482,12 +568,12 @@ It provides a sequence of chat turns that can be converted to AI framework forma
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatMessages.html">ChatMessages</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatSummary.html">ChatSummary</a></td>
         <td><span class="parametername">left</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatMessages.html">ChatMessages</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatSummary.html">ChatSummary</a></td>
         <td><span class="parametername">right</span></td>
         <td></td>
       </tr>
@@ -510,15 +596,15 @@ It provides a sequence of chat turns that can be converted to AI framework forma
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatMessages.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ChatMessages_op_Inequality_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.op_Inequality*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ChatMessages_op_Inequality_BbQ_ChatWidgets_Models_ChatMessages_BbQ_ChatWidgets_Models_ChatMessages_" data-uid="BbQ.ChatWidgets.Models.ChatMessages.op_Inequality(BbQ.ChatWidgets.Models.ChatMessages,BbQ.ChatWidgets.Models.ChatMessages)">operator !=(ChatMessages?, ChatMessages?)</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_op_Inequality_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.op_Inequality*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_op_Inequality_BbQ_ChatWidgets_Models_ChatSummary_BbQ_ChatWidgets_Models_ChatSummary_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.op_Inequality(BbQ.ChatWidgets.Models.ChatSummary,BbQ.ChatWidgets.Models.ChatSummary)">operator !=(ChatSummary?, ChatSummary?)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool operator !=(ChatMessages? left, ChatMessages? right)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool operator !=(ChatSummary? left, ChatSummary? right)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -531,12 +617,12 @@ It provides a sequence of chat turns that can be converted to AI framework forma
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatMessages.html">ChatMessages</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatSummary.html">ChatSummary</a></td>
         <td><span class="parametername">left</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatMessages.html">ChatMessages</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatSummary.html">ChatSummary</a></td>
         <td><span class="parametername">right</span></td>
         <td></td>
       </tr>
@@ -561,16 +647,6 @@ It provides a sequence of chat turns that can be converted to AI framework forma
   <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable&lt;T&gt;</a>
   </div>
-  <h3 id="extensionmethods">Extension Methods</h3>
-  <div>
-      <a class="xref" href="BbQ.ChatWidgets.Models.ChatMessageExtensions.html#BbQ_ChatWidgets_Models_ChatMessageExtensions_ToAIMessages_BbQ_ChatWidgets_Models_ChatMessages_">ChatMessageExtensions.ToAIMessages(ChatMessages)</a>
-  </div>
-  <div>
-      <a class="xref" href="BbQ.ChatWidgets.Models.ChatMessageExtensions.html#BbQ_ChatWidgets_Models_ChatMessageExtensions_ToAIMessages_BbQ_ChatWidgets_Models_ChatMessages_System_Int32_">ChatMessageExtensions.ToAIMessages(ChatMessages, int)</a>
-  </div>
-  <div>
-      <a class="xref" href="BbQ.ChatWidgets.Models.ChatMessageExtensions.html#BbQ_ChatWidgets_Models_ChatMessageExtensions_ToAIMessages_BbQ_ChatWidgets_Models_ChatMessages_System_Int32_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatSummary__">ChatMessageExtensions.ToAIMessages(ChatMessages, int, IReadOnlyList&lt;ChatSummary&gt;)</a>
-  </div>
 
 </article>
           </div>
@@ -580,7 +656,7 @@ It provides a sequence of chat turns that can be converted to AI framework forma
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatMessages.cs" class="contribution-link">View Source</a>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/ChatSummary.cs" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

@@ -73,6 +73,14 @@
 <h1 id="thread-management">Thread Management</h1>
 
 <p><code>IThreadService</code> keeps track of multiple conversations and helps you append messages or look up threads by ID.</p>
+<h2 id="chat-history-summarization">Chat History Summarization</h2>
+<p>The thread service now includes support for chat history summarization to manage context window limits:</p>
+<ul>
+<li><strong>Store Summaries</strong>: <code>StoreSummary(threadId, summary)</code> stores a summary for a range of conversation turns</li>
+<li><strong>Retrieve Summaries</strong>: <code>GetSummaries(threadId)</code> retrieves all summaries for a thread</li>
+<li><strong>Automatic Management</strong>: <code>ChatWidgetService</code> automatically creates summaries when conversations exceed thresholds</li>
+</ul>
+<p>For detailed information on summarization, see the <a href="../guides/CHAT_HISTORY_SUMMARIZATION.html">Chat History Summarization Guide</a>.</p>
 
 </article>
           </div>

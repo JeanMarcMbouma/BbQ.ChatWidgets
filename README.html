@@ -91,6 +91,16 @@ builder.Services.AddBbQChatWidgets(options =&gt;
 
 app.MapBbQChatEndpoints();
 </code></pre>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>Interactive Chat Widgets</strong>: Buttons, forms, cards, dropdowns, sliders, toggles, file uploads, and more</li>
+<li><strong>Server-Driven UI</strong>: The LLM decides which widgets to show based on conversation context</li>
+<li><strong>Automatic Chat History Summarization</strong>: Efficiently manages long conversations by summarizing older turns</li>
+<li><strong>SSE Support</strong>: Real-time server-pushed widget updates</li>
+<li><strong>Triage Agents</strong>: Route conversations to specialized agents based on classification</li>
+<li><strong>Type-Safe Widget Actions</strong>: Strongly-typed handlers for widget interactions</li>
+<li><strong>Extensible Architecture</strong>: Swap out components via dependency injection</li>
+</ul>
 <h2 id="install">Install</h2>
 <h3 id="nuget-net">NuGet (.NET)</h3>
 <pre><code class="lang-powershell">dotnet add [YOUR_PROJECT] package BbQ.ChatWidgets

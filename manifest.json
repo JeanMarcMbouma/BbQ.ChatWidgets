@@ -74,6 +74,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.yml\" sourcestartlinenumber=\"1\">Defines the contract for summarizing chat conversation history.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IRecyclableWidget.yml",
       "output": {
         ".html": {
@@ -732,6 +746,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ChatSummary.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ChatSummary.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ChatSummary",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ChatSummary.yml\" sourcestartlinenumber=\"1\">Represents a summary of a range of chat conversation turns.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Models.ChatTurn.yml",
       "output": {
         ".html": {
@@ -1124,6 +1152,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.yml\" sourcestartlinenumber=\"1\">Default implementation of <xref href=\"BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer\" data-throw-if-not-resolved=\"false\"></xref> using an AI chat client.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.yml",
       "output": {
         ".html": {
@@ -1501,6 +1543,16 @@
       "output": {
         ".html": {
           "relative_path": "examples/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/guides/CHAT_HISTORY_SUMMARIZATION.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/CHAT_HISTORY_SUMMARIZATION.html"
         }
       },
       "version": ""

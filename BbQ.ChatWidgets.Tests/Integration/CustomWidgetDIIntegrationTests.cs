@@ -127,7 +127,11 @@ public class CustomWidgetDIIntegrationTests
             };
         });
 
-        services.BuildServiceProvider();
+        var provider = services.BuildServiceProvider();
+        
+        // Ensure the registry is initialized by resolving it
+        // This triggers Serialization.SetCustomWidgetRegistry()
+        var registry = provider.GetRequiredService<IWidgetRegistry>();
 
         // Act
         var original = new TestDIRatingWidget("Rate This", "submit", 10);

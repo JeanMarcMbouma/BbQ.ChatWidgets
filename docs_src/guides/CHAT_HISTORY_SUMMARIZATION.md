@@ -257,6 +257,6 @@ See the API documentation for detailed reference:
 
 ## Related Topics
 
-- [Architecture Overview](ARCHITECTURE.md)
-- [Thread Management](design/THREAD_MANAGEMENT.md)
-- [Getting Started](GETTING_STARTED.md)
+- [Architecture Overview](../ARCHITECTURE.md)
+- [Thread Management](../design/THREAD_MANAGEMENT.md)
+- [Getting Started](../GETTING_STARTED.md)

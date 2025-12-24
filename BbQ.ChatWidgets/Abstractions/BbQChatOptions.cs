@@ -144,4 +144,44 @@ public sealed class BbQChatOptions
     /// This action allows customizing the widget action registry during the chat options configuration.
     /// </remarks>
     public Action<IServiceProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver>? WidgetActionRegistryFactory { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether automatic chat history summarization is enabled.
+    /// </summary>
+    /// <remarks>
+    /// When enabled, the system will automatically generate summaries of older
+    /// conversation turns when the context window size is exceeded.
+    /// Default: true
+    /// 
+    /// Summarization helps maintain relevant context while staying within
+    /// token budget constraints for the AI model.
+    /// </remarks>
+    public bool EnableAutoSummarization { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the threshold for triggering automatic summarization.
+    /// </summary>
+    /// <remarks>
+    /// When the number of conversation turns exceeds this threshold,
+    /// older turns will be summarized to reduce context size.
+    /// Default: 15 turns
+    /// 
+    /// The system will keep the most recent turns and summarize older ones.
+    /// This threshold should be set higher than the number of recent turns
+    /// you want to keep in full detail.
+    /// </remarks>
+    public int SummarizationThreshold { get; set; } = 15;
+
+    /// <summary>
+    /// Gets or sets the number of recent turns to keep unsummarized.
+    /// </summary>
+    /// <remarks>
+    /// The most recent N turns will always be sent in full to the AI,
+    /// while older turns may be summarized.
+    /// Default: 10 turns
+    /// 
+    /// This ensures the AI has immediate context from the recent conversation
+    /// while older context is condensed into summaries.
+    /// </remarks>
+    public int RecentTurnsToKeep { get; set; } = 10;
 }

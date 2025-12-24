@@ -69,4 +69,29 @@ public interface IThreadService
     /// <returns>A <see cref="ChatMessages"/> object containing all turns in the thread.</returns>
     /// <exception cref="Exceptions.ThreadNotFoundException">Thrown if the thread does not exist.</exception>
     ChatMessages GetMessage(string threadId);
+
+    /// <summary>
+    /// Stores a summary of conversation turns for the specified thread.
+    /// </summary>
+    /// <remarks>
+    /// Summaries help manage context window limits by condensing older conversation
+    /// history into concise text. Multiple summaries can be stored for a thread,
+    /// each covering a different range of turns.
+    /// </remarks>
+    /// <param name="threadId">The thread identifier.</param>
+    /// <param name="summary">The summary to store.</param>
+    /// <exception cref="Exceptions.ThreadNotFoundException">Thrown if the thread does not exist.</exception>
+    void StoreSummary(string threadId, ChatSummary summary);
+
+    /// <summary>
+    /// Retrieves all summaries for a conversation thread.
+    /// </summary>
+    /// <remarks>
+    /// Returns summaries in the order they were created, each covering a specific
+    /// range of conversation turns.
+    /// </remarks>
+    /// <param name="threadId">The thread identifier.</param>
+    /// <returns>A read-only list of summaries for the thread.</returns>
+    /// <exception cref="Exceptions.ThreadNotFoundException">Thrown if the thread does not exist.</exception>
+    IReadOnlyList<ChatSummary> GetSummaries(string threadId);
 }

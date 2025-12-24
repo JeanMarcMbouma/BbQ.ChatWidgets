@@ -80,6 +80,9 @@ public static class ServiceCollectionExtensions
         else
             services.AddSingleton<IWidgetToolsProvider, DefaultWidgetToolsProvider>();
 
+        // Register chat history summarizer
+        services.AddSingleton<IChatHistorySummarizer, DefaultChatHistorySummarizer>();
+
         // Register Widget SSE service for server-side widget streams
         services.AddSingleton<IWidgetSseService, WidgetSseService>();
         services.AddSingleton<IStreamPayloadValidator, DefaultStreamPayloadValidator>();

@@ -127,5 +127,70 @@ public static class ChatMessageExtensions
                 .Select(turn => new Microsoft.Extensions.AI.ChatMessage(turn.Role, turn.Content))
             ];
         }
+
+        /// <summary>
+        /// Converts a <see cref="ChatMessages"/> to a list of <see cref="Microsoft.Extensions.AI.ChatMessage"/> with summaries for context management.
+        /// </summary>
+        /// <remarks>
+        /// This overload uses summaries to manage context when conversations exceed the maximum turns threshold.
+        /// It:
+        /// - Includes existing summaries at the beginning
+        /// - Keeps the most recent N turns in full detail
+        /// - Reduces token usage while preserving context
+        /// 
+        /// This is particularly useful for long conversations where full history would
+        /// exceed token limits but context is still important.
+        /// </remarks>
+        /// <param name="maxTurns">The maximum number of recent turns to include in full detail.</param>
+        /// <param name="summaries">Existing summaries of older conversation turns.</param>
+        /// <returns>
+        /// A read-only list of <see cref="Microsoft.Extensions.AI.ChatMessage"/> objects
+        /// with summaries prepended and recent turns included.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown if <paramref name="summaries"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown if <paramref name="maxTurns"/> is less than 1.
+        /// </exception>
+        public IReadOnlyList<Microsoft.Extensions.AI.ChatMessage> ToAIMessages(
+            int maxTurns,
+            IReadOnlyList<ChatSummary> summaries)
+        {
+            ArgumentNullException.ThrowIfNull(chatMessage);
+            ArgumentNullException.ThrowIfNull(summaries);
+
+            if (maxTurns < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(maxTurns), maxTurns, "Maximum turns must be at least 1.");
+            }
+
+            // Handle empty conversation
+            if (chatMessage.Turns.Count == 0)
+            {
+                return [];
+            }
+
+            var messages = new List<Microsoft.Extensions.AI.ChatMessage>();
+
+            // Add summaries as system messages at the beginning
+            if (summaries.Count > 0)
+            {
+                var combinedSummary = string.Join("\n\n", summaries.Select(s => s.SummaryText));
+                messages.Add(new Microsoft.Extensions.AI.ChatMessage(
+                    Microsoft.Extensions.AI.ChatRole.System,
+                    $"Previous conversation summary:\n{combinedSummary}"));
+            }
+
+            // Add recent turns in full detail
+            var turnsToInclude = Math.Min(chatMessage.Turns.Count, maxTurns);
+            messages.AddRange(
+                chatMessage.Turns
+                    .TakeLast(turnsToInclude)
+                    .Select(turn => new Microsoft.Extensions.AI.ChatMessage(turn.Role, turn.Content))
+            );
+
+            return messages;
+        }
     }
 }

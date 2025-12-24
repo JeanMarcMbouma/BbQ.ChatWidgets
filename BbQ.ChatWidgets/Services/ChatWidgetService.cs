@@ -17,6 +17,7 @@ namespace BbQ.ChatWidgets.Services;
 /// - Provides available widget tools to the AI chat client
 /// - Processes user messages and generates responses with embedded widgets
 /// - Handles widget actions triggered by user interactions using type-safe handlers
+/// - Manages context window limits through automatic chat history summarization
 /// 
 /// The service integrates with:
 /// - <see cref="IChatClient"/> for AI responses
@@ -28,6 +29,7 @@ namespace BbQ.ChatWidgets.Services;
 /// - <see cref="IAIInstructionProvider"/> for custom AI instructions
 /// - <see cref="IWidgetActionRegistry"/> for action metadata
 /// - <see cref="IWidgetActionHandlerResolver"/> for handler resolution
+/// - <see cref="IChatHistorySummarizer"/> for chat history summarization
 /// </remarks>
 public sealed class ChatWidgetService(
     IChatClient chat,
@@ -38,7 +40,9 @@ public sealed class ChatWidgetService(
     IThreadService threadService,
     IAIInstructionProvider instructionProvider,
     IWidgetActionRegistry actionRegistry,
-    IWidgetActionHandlerResolver handlerResolver)
+    IWidgetActionHandlerResolver handlerResolver,
+    IChatHistorySummarizer historySummarizer,
+    BbQChatOptions options)
 {
     /// <summary>
     /// Processes a user message and generates an AI response with optional embedded widgets.
@@ -95,7 +99,41 @@ public sealed class ChatWidgetService(
 
         var messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.User, userMessage, ThreadId: threadId));
 
-        var completion = await chat.GetResponseAsync(messages.ToAIMessages(), chatOptions, ct);
+        // Check if we need to summarize and manage context
+        IReadOnlyList<Microsoft.Extensions.AI.ChatMessage> aiMessages;
+        if (options.EnableAutoSummarization && messages.Turns.Count > options.SummarizationThreshold)
+        {
+            // Generate summary for older turns if needed
+            var summaries = threadService.GetSummaries(threadId);
+            var lastSummarizedIndex = summaries.Count > 0 ? summaries[^1].EndTurnIndex : -1;
+            var turnsToSummarize = messages.Turns.Count - options.RecentTurnsToKeep;
+
+            // Only create new summary if there are unsummarized turns
+            if (turnsToSummarize > lastSummarizedIndex + 1)
+            {
+                var startIndex = lastSummarizedIndex + 1;
+                var endIndex = turnsToSummarize - 1;
+                var turnsForSummary = messages.Turns.Skip(startIndex).Take(endIndex - startIndex + 1).ToList();
+
+                if (turnsForSummary.Count > 0)
+                {
+                    var summaryText = await historySummarizer.SummarizeAsync(turnsForSummary, ct);
+                    var summary = new ChatSummary(summaryText, startIndex, endIndex);
+                    threadService.StoreSummary(threadId, summary);
+                    summaries = threadService.GetSummaries(threadId);
+                }
+            }
+
+            // Use summaries with recent turns
+            aiMessages = messages.ToAIMessages(options.RecentTurnsToKeep, summaries);
+        }
+        else
+        {
+            // Use default behavior without summarization
+            aiMessages = messages.ToAIMessages();
+        }
+
+        var completion = await chat.GetResponseAsync(aiMessages, chatOptions, ct);
 
         var (content, widgets) = widgetHintParser.Parse(completion.Text);
 
@@ -157,9 +195,44 @@ public sealed class ChatWidgetService(
         };
 
         var messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.User, userMessage, ThreadId: threadId));
+
+        // Check if we need to summarize and manage context
+        IReadOnlyList<Microsoft.Extensions.AI.ChatMessage> aiMessages;
+        if (options.EnableAutoSummarization && messages.Turns.Count > options.SummarizationThreshold)
+        {
+            // Generate summary for older turns if needed
+            var summaries = threadService.GetSummaries(threadId);
+            var lastSummarizedIndex = summaries.Count > 0 ? summaries[^1].EndTurnIndex : -1;
+            var turnsToSummarize = messages.Turns.Count - options.RecentTurnsToKeep;
+
+            // Only create new summary if there are unsummarized turns
+            if (turnsToSummarize > lastSummarizedIndex + 1)
+            {
+                var startIndex = lastSummarizedIndex + 1;
+                var endIndex = turnsToSummarize - 1;
+                var turnsForSummary = messages.Turns.Skip(startIndex).Take(endIndex - startIndex + 1).ToList();
+
+                if (turnsForSummary.Count > 0)
+                {
+                    var summaryText = await historySummarizer.SummarizeAsync(turnsForSummary, cancellationToken);
+                    var summary = new ChatSummary(summaryText, startIndex, endIndex);
+                    threadService.StoreSummary(threadId, summary);
+                    summaries = threadService.GetSummaries(threadId);
+                }
+            }
+
+            // Use summaries with recent turns
+            aiMessages = messages.ToAIMessages(options.RecentTurnsToKeep, summaries);
+        }
+        else
+        {
+            // Use default behavior without summarization
+            aiMessages = messages.ToAIMessages();
+        }
+
         string responseText = string.Empty;
         var chatWidgets = new List<ChatWidget>();
-        await foreach(var responseUpdate in chat.GetStreamingResponseAsync(messages.ToAIMessages(), chatOptions, cancellationToken))
+        await foreach(var responseUpdate in chat.GetStreamingResponseAsync(aiMessages, chatOptions, cancellationToken))
         {
             responseText += responseUpdate.Text;
             var (content, widgets) = widgetHintParser.Parse(responseText);

@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Import BbQ ChatWidgets theme */
-@import '../../../js/src/styles/light.css';
+@import '../../../../js/src/styles/light.css';
 
 * {
   box-sizing: border-box;

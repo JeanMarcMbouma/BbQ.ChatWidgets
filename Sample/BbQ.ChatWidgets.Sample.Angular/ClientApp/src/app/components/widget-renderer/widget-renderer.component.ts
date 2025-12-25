@@ -1,19 +1,15 @@
 import {
   Component,
-  Input,
-  Output,
-  EventEmitter,
   ElementRef,
   AfterViewInit,
   OnInit,
-  OnDestroy,
-  OnChanges,
-  SimpleChanges,
-  ViewChild
+  ViewChild,
+  inject
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SsrWidgetRenderer, WidgetEventManager, customWidgetRegistry } from '@bbq/chatwidgets';
-import type { ChatWidget } from '@bbq/chatwidgets';
+import { WidgetRendererComponent as BaseWidgetRendererComponent, WidgetRegistryService } from '@bbq-chat/widgets-angular';
+import { SsrWidgetRenderer } from '@bbq-chat/widgets-angular';
+import type { ChatWidget } from '@bbq-chat/widgets-angular';
 import * as echarts from 'echarts';
 import { EChartsWidget } from '../../widgets/EChartsWidget';
 import { renderECharts } from '../../widgets/echartsRenderer';
@@ -28,54 +24,13 @@ declare global {
   }
 }
 
-let customRegistrationsDone = false;
-function ensureCustomRegistrations() {
-  if (customRegistrationsDone) return;
-  customRegistrationsDone = true;
-
-  // Make echarts available globally for inline scripts in rendered HTML
-  window.echarts = echarts;
-
-  // Register custom ECharts widget with factory function for proper deserialization
-  customWidgetRegistry.registerFactory('echarts', (obj: any) => {
-    if (obj.type === 'echarts') {
-      return new EChartsWidget(
-        obj.label || '',
-        obj.action || '',
-        obj.chartType || 'bar',
-        obj.jsonData || '{}'
-      );
-    }
-    return null;
-  });
-
-  // Register clock widget factory
-  customWidgetRegistry.registerFactory('clock', (obj: any) => {
-    if (obj.type === 'clock') {
-      return new ClockWidget(
-        obj.label || 'Clock',
-        obj.action || 'clock_tick',
-        obj.timezone,
-        obj.streamId
-      );
-    }
-    return null;
-  });
-
-  // Register weather widget factory
-  customWidgetRegistry.registerFactory('weather', (obj: any) => {
-    if (obj.type === 'weather') {
-      return new WeatherWidget(
-        obj.label || 'Weather',
-        obj.action || 'weather_update',
-        obj.city,
-        obj.streamId
-      );
-    }
-    return null;
-  });
-}
-
+/**
+ * Extended WidgetRendererComponent that adds support for custom widgets
+ * (ECharts, Clock, Weather) with SSE support and custom rendering.
+ * 
+ * This component extends the base WidgetRendererComponent from @bbq-chat/widgets-angular
+ * and adds application-specific custom widget functionality.
+ */
 @Component({
   selector: 'app-widget-renderer',
   standalone: true,
@@ -97,45 +52,90 @@ function ensureCustomRegistrations() {
     }
   `]
 })
-export class WidgetRendererComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
-  @Input() widgets: ChatWidget[] | null | undefined;
-  @Output() widgetAction = new EventEmitter<{ actionName: string; payload: any }>();
-  @ViewChild('widgetContainer', { static: false }) containerRef!: ElementRef<HTMLDivElement>;
-
-  widgetHtmlList: string[] = [];
-  private renderer = new SsrWidgetRenderer();
-  private eventManager?: WidgetEventManager;
+export class WidgetRendererComponent extends BaseWidgetRendererComponent implements OnInit, AfterViewInit {
   private chartInstances: Map<HTMLElement, any> = new Map();
   private resizeListeners: Map<HTMLElement, () => void> = new Map();
-  private isViewInitialized = false;
+  private customRenderer = new SsrWidgetRenderer();
+  private widgetRegistry = inject(WidgetRegistryService);
 
-  ngOnInit() {
-    ensureCustomRegistrations();
-    this.updateWidgetHtml();
+  override ngOnInit() {
+    this.registerCustomWidgets();
+    super.ngOnInit();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['widgets']) {
-      this.updateWidgetHtml();
-    }
+  override ngAfterViewInit() {
+    super.ngAfterViewInit();
+    // Add custom widget initialization after base setup.
+    // Use setTimeout(0) to defer initialization until after Angular's initial
+    // change detection and view rendering have completed, so that the dynamically
+    // rendered widget DOM is fully available for initialization.
+    setTimeout(() => {
+      this.initializeCustomWidgets();
+    }, 0);
   }
 
-  ngAfterViewInit() {
-    this.isViewInitialized = true;
-    this.setupEventHandlers();
+  override ngOnDestroy() {
+    this.cleanupCustomWidgets();
+    super.ngOnDestroy();
   }
 
-  ngOnDestroy() {
-    this.cleanup();
+  /**
+   * Register custom widget factories
+   */
+  private registerCustomWidgets() {
+    // Make echarts available globally for inline scripts in rendered HTML
+    window.echarts = echarts;
+
+    // Register custom ECharts widget with factory function for proper deserialization
+    this.widgetRegistry.registerFactory('echarts', (obj: any) => {
+      if (obj.type === 'echarts') {
+        return new EChartsWidget(
+          obj.label || '',
+          obj.action || '',
+          obj.chartType || 'bar',
+          obj.jsonData || '{}'
+        );
+      }
+      return null;
+    });
+
+    // Register clock widget factory
+    this.widgetRegistry.registerFactory('clock', (obj: any) => {
+      if (obj.type === 'clock') {
+        return new ClockWidget(
+          obj.label || 'Clock',
+          obj.action || 'clock_tick',
+          obj.timezone,
+          obj.streamId
+        );
+      }
+      return null;
+    });
+
+    // Register weather widget factory
+    this.widgetRegistry.registerFactory('weather', (obj: any) => {
+      if (obj.type === 'weather') {
+        return new WeatherWidget(
+          obj.label || 'Weather',
+          obj.action || 'weather_update',
+          obj.city,
+          obj.streamId
+        );
+      }
+      return null;
+    });
   }
 
-  private updateWidgetHtml() {
+  /**
+   * Override widget HTML generation to handle custom widgets
+   */
+  protected override updateWidgetHtml() {
     if (!this.widgets || this.widgets.length === 0) {
       this.widgetHtmlList = [];
       return;
     }
 
-    this.widgetHtmlList = this.widgets.map((widget, index) => {
+    this.widgetHtmlList = this.widgets.map((widget) => {
       // Handle custom ECharts widget rendering
       if (widget.type === 'echarts') {
         const echartsWidget = widget as EChartsWidget;
@@ -155,66 +155,36 @@ export class WidgetRendererComponent implements OnInit, AfterViewInit, OnDestroy
       }
 
       // Render all other built-in widgets using library renderer
-      return this.renderer.renderWidget(widget);
+      return this.customRenderer.renderWidget(widget);
     });
 
-    // After view updates, reinitialize widgets only if view is already initialized
-    if (this.isViewInitialized) {
+    // After view updates, reinitialize widgets
+    if ((this as any).isViewInitialized) {
       setTimeout(() => {
-        this.setupEventHandlers();
+        this.initializeCustomWidgets();
       }, 0);
     }
   }
 
-  private setupEventHandlers() {
+  /**
+   * Initialize custom widgets (ECharts, Clock, Weather)
+   */
+  private initializeCustomWidgets() {
     if (!this.containerRef?.nativeElement) return;
 
-    // Cleanup old resources before setting up new ones
-    this.cleanup();
-
     const container = this.containerRef.nativeElement;
-
-    // Create a custom action handler that emits events
-    const actionHandler = {
-      handle: async (action: string, payload: any) => {
-        this.widgetAction.emit({ actionName: action, payload });
-      },
-    };
-
-    // Attach event handlers using WidgetEventManager
-    this.eventManager = new WidgetEventManager(actionHandler);
-    this.eventManager.attachHandlers(container);
 
     // Initialize ECharts widgets
     this.initializeECharts(container);
 
     // Attach ECharts click handlers
-    this.attachEChartsHandlers(container, actionHandler);
+    this.attachEChartsHandlers(container);
 
     // Initialize clock widgets with SSE subscriptions
     this.initializeClockWidgets(container);
 
     // Initialize weather widgets with SSE subscriptions
     this.initializeWeatherWidgets(container);
-  }
-
-  handleClick(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-    // Only trigger actions on non-form buttons and clickable elements (cards)
-    // Don't trigger on input elements or form buttons (let WidgetEventManager handle those)
-    const button = target.tagName === 'BUTTON' ? target : target.closest('button');
-    if (button && !button.closest('[data-widget-type="form"]')) {
-      const actionName = button.getAttribute('data-action');
-      if (actionName) {
-        try {
-          const payloadStr = button.getAttribute('data-payload');
-          const payload = payloadStr ? JSON.parse(payloadStr) : {};
-          this.widgetAction.emit({ actionName, payload });
-        } catch (err) {
-          console.error('Failed to parse widget action payload:', err);
-        }
-      }
-    }
   }
 
   /**
@@ -261,10 +231,7 @@ export class WidgetRendererComponent implements OnInit, AfterViewInit, OnDestroy
   /**
    * Attach ECharts click event handlers
    */
-  private attachEChartsHandlers(
-    container: HTMLElement,
-    actionHandler: { handle: (action: string, payload: any) => void }
-  ) {
+  private attachEChartsHandlers(container: HTMLElement) {
     const echartsContainers = container.querySelectorAll('[data-widget-type="echarts"]');
 
     echartsContainers.forEach((widget) => {
@@ -294,7 +261,7 @@ export class WidgetRendererComponent implements OnInit, AfterViewInit, OnDestroy
               componentType: params.componentType || '',
               name: params.name || '',
             };
-            actionHandler.handle(actionName, payload);
+            this.widgetAction.emit({ actionName, payload });
           }
         });
       };
@@ -429,16 +396,15 @@ export class WidgetRendererComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   /**
-   * Cleanup all resources including SSE streams, ECharts instances, and event listeners.
-   * This prevents memory leaks and stops server polling when widgets are destroyed.
+   * Cleanup custom resources
    */
-  private cleanup() {
+  private cleanupCustomWidgets() {
     if (!this.containerRef?.nativeElement) return;
 
     const container = this.containerRef.nativeElement;
 
     // Dispose ECharts instances
-    this.chartInstances.forEach((chart, chartContainer) => {
+    this.chartInstances.forEach((chart) => {
       if (chart && !chart.isDisposed()) {
         chart.dispose();
       }
@@ -446,7 +412,7 @@ export class WidgetRendererComponent implements OnInit, AfterViewInit, OnDestroy
     this.chartInstances.clear();
 
     // Remove resize event listeners
-    this.resizeListeners.forEach((listener, chartContainer) => {
+    this.resizeListeners.forEach((listener) => {
       window.removeEventListener('resize', listener);
     });
     this.resizeListeners.clear();
@@ -470,9 +436,5 @@ export class WidgetRendererComponent implements OnInit, AfterViewInit, OnDestroy
         (widget as any).__eventSource = undefined;
       }
     });
-
-    // Cleanup event manager (if it has a cleanup method)
-    // Note: WidgetEventManager doesn't expose a cleanup method, but we recreate it on each setup
-    this.eventManager = undefined;
   }
 }

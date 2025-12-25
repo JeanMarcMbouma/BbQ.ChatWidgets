@@ -1,26 +1,25 @@
 {
-  "name": "@bbq-chat/widgets",
+  "name": "@bbq-chat/widgets-angular",
   "version": "1.0.0",
-  "description": "Framework-agnostic widget library for AI chat UIs",
+  "description": "Angular components and services for BbQ ChatWidgets",
   "license": "MIT",
   "author": "BbQ ChatWidgets Contributors",
   "homepage": "https://github.com/JeanMarcMbouma/BbQ.ChatWidgets",
   "repository": {
     "type": "git",
     "url": "https://github.com/JeanMarcMbouma/BbQ.ChatWidgets.git",
-    "directory": "js"
+    "directory": "js-angular"
   },
   "bugs": {
     "url": "https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/issues"
   },
   "keywords": [
+    "angular",
     "chat",
     "widgets",
     "ui",
-    "interactive",
-    "form",
     "components",
-    "typescript"
+    "bbq-chat"
   ],
   "type": "module",
   "main": "./dist/index.js",
@@ -31,26 +30,7 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
-    },
-    "./models": {
-      "import": "./dist/models/index.js",
-      "require": "./dist/models/index.cjs",
-      "types": "./dist/models/index.d.ts"
-    },
-    "./renderers": {
-      "import": "./dist/renderers/index.js",
-      "require": "./dist/renderers/index.cjs",
-      "types": "./dist/renderers/index.d.ts"
-    },
-    "./handlers": {
-      "import": "./dist/handlers/index.js",
-      "require": "./dist/handlers/index.cjs",
-      "types": "./dist/handlers/index.d.ts"
-    },
-    "./styles": "./dist/styles/index.css",
-    "./styles/light": "./dist/styles/light.css",
-    "./styles/dark": "./dist/styles/dark.css",
-    "./styles/corporate": "./dist/styles/corporate.css"
+    }
   },
   "files": [
     "dist",
@@ -60,30 +40,33 @@
   ],
   "scripts": {
     "build": "tsc && node scripts/build.mjs",
-    "docs:js": "npx typedoc --out ../docs/js src --tsconfig tsconfig.json --options typedoc.json",
     "build:watch": "tsc --watch",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage",
+    "test": "echo \"No tests yet\"",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --write \"src/**/*.ts\"",
     "type-check": "tsc --noEmit",
-    "prepublishOnly": "npm run build && npm run test && npm run lint"
+    "prepublishOnly": "npm run build && npm run lint"
+  },
+  "peerDependencies": {
+    "@angular/common": ">=17.0.0",
+    "@angular/core": ">=17.0.0",
+    "@bbq-chat/widgets": "^1.0.0"
   },
   "devDependencies": {
+    "@angular/common": "^17.3.0",
+    "@angular/core": "^17.3.0",
+    "@bbq-chat/widgets": "file:../js",
     "@types/node": "^20.10.0",
     "@typescript-eslint/eslint-plugin": "^6.13.0",
     "@typescript-eslint/parser": "^6.13.0",
-    "@vitest/coverage-v8": "^4.0.16",
-    "@vitest/ui": "^4.0.16",
     "esbuild": "^0.27.2",
     "eslint": "^8.55.0",
-    "jsdom": "^24.1.3",
     "prettier": "^3.1.1",
-    "typedoc": "^0.28.15",
-    "typescript": "^5.3.3",
-    "vitest": "^4.0.16"
+    "rxjs": "^7.8.0",
+    "tslib": "^2.3.0",
+    "typescript": "^5.4.2",
+    "zone.js": "^0.14.3"
   },
   "engines": {
     "node": ">=14.0.0"

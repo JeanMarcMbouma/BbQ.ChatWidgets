@@ -2,10 +2,11 @@
 
 A compact library of UI chat widgets and helpers for server and client integrations.
 
-This repository ships two distributable packages:
+This repository ships three distributable packages:
 
 - NuGet: `BbQ.ChatWidgets` (the .NET library: services, renderers, endpoints)
 - npm: `@bbq-chat/widgets` (the JavaScript/TypeScript client library: widgets, client helpers)
+- npm: `@bbq-chat/widgets-angular` (Angular-native components and services)
 
 > Note: the .NET package no longer bundles the JavaScript client or theme CSS. Install the npm package (or bring your own UI) to render widgets in a browser.
 
@@ -44,6 +45,12 @@ dotnet add [YOUR_PROJECT] package BbQ.ChatWidgets
 
 ```bash
 npm install @bbq-chat/widgets
+```
+
+### npm (Angular native components)
+
+```bash
+npm install @bbq-chat/widgets-angular @bbq-chat/widgets
 ```
 
 ## Documentation

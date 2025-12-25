@@ -16,13 +16,10 @@
           <div class="message-content">
             <p>{{ msg.content }}</p>
             @if (msg.widgets && msg.widgets.length > 0) {
-              <div class="widgets">
-                @for (widget of msg.widgets; track $index) {
-                  <div class="widget-item">
-                    <pre><code>{{ widget | json }}</code></pre>
-                  </div>
-                }
-              </div>
+              <app-widget-renderer 
+                [widgets]="msg.widgets" 
+                (widgetAction)="handleWidgetAction($event)">
+              </app-widget-renderer>
             }
           </div>
           <span class="timestamp">{{ msg.timestamp | date:'shortTime' }}</span>

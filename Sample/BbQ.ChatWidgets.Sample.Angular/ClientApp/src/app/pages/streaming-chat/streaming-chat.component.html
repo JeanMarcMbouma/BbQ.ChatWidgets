@@ -18,6 +18,12 @@
         <div class="message" [class.user]="msg.role === 'user'" [class.assistant]="msg.role === 'assistant'">
           <div class="message-content">
             <p>{{ msg.content }}</p>
+            @if (msg.widgets && msg.widgets.length > 0) {
+              <app-widget-renderer 
+                [widgets]="msg.widgets" 
+                (widgetAction)="handleWidgetAction($event)">
+              </app-widget-renderer>
+            }
           </div>
           <span class="timestamp">{{ msg.timestamp | date:'shortTime' }}</span>
         </div>

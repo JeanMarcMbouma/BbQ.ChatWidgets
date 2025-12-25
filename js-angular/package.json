@@ -54,7 +54,7 @@
     "@bbq-chat/widgets": "^1.0.0"
   },
   "devDependencies": {
-    "@angular/common": "^17.3.0",
+    "@angular/common": "^19.2.16",
     "@angular/core": "^17.3.0",
     "@bbq-chat/widgets": "file:../js",
     "@types/node": "^20.10.0",

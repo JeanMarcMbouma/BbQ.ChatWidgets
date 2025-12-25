@@ -116,7 +116,7 @@
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-toc-issues/BbQ.ChatWidgets/Models/ChatMessages.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatMessages.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_ChatMessageExtensions_ToAIMessages_" data-uid="BbQ.ChatWidgets.Models.ChatMessageExtensions.ToAIMessages*"></a>
   <h4 id="BbQ_ChatWidgets_Models_ChatMessageExtensions_ToAIMessages_BbQ_ChatWidgets_Models_ChatMessages_" data-uid="BbQ.ChatWidgets.Models.ChatMessageExtensions.ToAIMessages(BbQ.ChatWidgets.Models.ChatMessages)">ToAIMessages(ChatMessages)</h4>
@@ -201,7 +201,7 @@ Uses TakeLast() for efficient memory usage, processing only necessary turns.</p>
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-toc-issues/BbQ.ChatWidgets/Models/ChatMessages.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatMessages.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_ChatMessageExtensions_ToAIMessages_" data-uid="BbQ.ChatWidgets.Models.ChatMessageExtensions.ToAIMessages*"></a>
   <h4 id="BbQ_ChatWidgets_Models_ChatMessageExtensions_ToAIMessages_BbQ_ChatWidgets_Models_ChatMessages_System_Int32_" data-uid="BbQ.ChatWidgets.Models.ChatMessageExtensions.ToAIMessages(BbQ.ChatWidgets.Models.ChatMessages,System.Int32)">ToAIMessages(ChatMessages, int)</h4>
@@ -284,6 +284,97 @@ and the available turns in the conversation.</p>
     </tbody>
   </table>
 
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatMessages.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_ChatMessageExtensions_ToAIMessages_" data-uid="BbQ.ChatWidgets.Models.ChatMessageExtensions.ToAIMessages*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatMessageExtensions_ToAIMessages_BbQ_ChatWidgets_Models_ChatMessages_System_Int32_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatSummary__" data-uid="BbQ.ChatWidgets.Models.ChatMessageExtensions.ToAIMessages(BbQ.ChatWidgets.Models.ChatMessages,System.Int32,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatSummary})">ToAIMessages(ChatMessages, int, IReadOnlyList&lt;ChatSummary&gt;)</h4>
+  <div class="markdown level1 summary"><p>Converts a <a class="xref" href="BbQ.ChatWidgets.Models.ChatMessages.html">ChatMessages</a> to a list of <span class="xref">Microsoft.Extensions.AI.ChatMessage</span> with summaries for context management.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IReadOnlyList&lt;ChatMessage&gt; ToAIMessages(this ChatMessages chatMessage, int maxTurns, IReadOnlyList&lt;ChatSummary&gt; summaries)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatMessages.html">ChatMessages</a></td>
+        <td><span class="parametername">chatMessage</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">maxTurns</span></td>
+        <td><p>The maximum number of recent turns to include in full detail.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatSummary.html">ChatSummary</a>&gt;</td>
+        <td><span class="parametername">summaries</span></td>
+        <td><p>Existing summaries of older conversation turns.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<span class="xref">ChatMessage</span>&gt;</td>
+        <td><p>A read-only list of <span class="xref">Microsoft.Extensions.AI.ChatMessage</span> objects
+with summaries prepended and recent turns included.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="BbQ_ChatWidgets_Models_ChatMessageExtensions_ToAIMessages_BbQ_ChatWidgets_Models_ChatMessages_System_Int32_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatSummary___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This overload uses summaries to manage context when conversations exceed the maximum turns threshold.
+It:</p>
+<ul>
+<li>Includes existing summaries at the beginning</li>
+<li>Keeps the most recent N turns in full detail</li>
+<li>Reduces token usage while preserving context</li>
+</ul>
+<p>This is particularly useful for long conversations where full history would
+exceed token limits but context is still important.</p>
+</div>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
+        <td><p>Thrown if <code class="paramref">summaries</code> is null.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a></td>
+        <td><p>Thrown if <code class="paramref">maxTurns</code> is less than 1.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
 </article>
           </div>
 
@@ -292,7 +383,7 @@ and the available turns in the conversation.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-toc-issues/BbQ.ChatWidgets/Models/ChatMessages.cs" class="contribution-link">View Source</a>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatMessages.cs" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

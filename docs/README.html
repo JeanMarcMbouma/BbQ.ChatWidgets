@@ -73,10 +73,11 @@
 <h1 id="bbqchatwidgets">BbQ.ChatWidgets</h1>
 
 <p>A compact library of UI chat widgets and helpers for server and client integrations.</p>
-<p>This repository ships two distributable packages:</p>
+<p>This repository ships three distributable packages:</p>
 <ul>
 <li>NuGet: <code>BbQ.ChatWidgets</code> (the .NET library: services, renderers, endpoints)</li>
 <li>npm: <code>@bbq-chat/widgets</code> (the JavaScript/TypeScript client library: widgets, client helpers)</li>
+<li>npm: <code>@bbq-chat/widgets-angular</code> (Angular-native components and services)</li>
 </ul>
 <blockquote>
 <p>Note: the .NET package no longer bundles the JavaScript client or theme CSS. Install the npm package (or bring your own UI) to render widgets in a browser.</p>
@@ -91,12 +92,25 @@ builder.Services.AddBbQChatWidgets(options =&gt;
 
 app.MapBbQChatEndpoints();
 </code></pre>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>Interactive Chat Widgets</strong>: Buttons, forms, cards, dropdowns, sliders, toggles, file uploads, and more</li>
+<li><strong>Server-Driven UI</strong>: The LLM decides which widgets to show based on conversation context</li>
+<li><strong>Automatic Chat History Summarization</strong>: Efficiently manages long conversations by summarizing older turns</li>
+<li><strong>SSE Support</strong>: Real-time server-pushed widget updates</li>
+<li><strong>Triage Agents</strong>: Route conversations to specialized agents based on classification</li>
+<li><strong>Type-Safe Widget Actions</strong>: Strongly-typed handlers for widget interactions</li>
+<li><strong>Extensible Architecture</strong>: Swap out components via dependency injection</li>
+</ul>
 <h2 id="install">Install</h2>
 <h3 id="nuget-net">NuGet (.NET)</h3>
 <pre><code class="lang-powershell">dotnet add [YOUR_PROJECT] package BbQ.ChatWidgets
 </code></pre>
 <h3 id="npm-jsts-client--themes">npm (JS/TS client + themes)</h3>
 <pre><code class="lang-bash">npm install @bbq-chat/widgets
+</code></pre>
+<h3 id="npm-angular-native-components">npm (Angular native components)</h3>
+<pre><code class="lang-bash">npm install @bbq-chat/widgets-angular @bbq-chat/widgets
 </code></pre>
 <h2 id="documentation">Documentation</h2>
 <ul>
@@ -127,7 +141,7 @@ docfx build docfx.json -o docs
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-toc-issues/README.md/#L1" class="contribution-link">Edit this page</a>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/README.md/#L1" class="contribution-link">Edit this page</a>
                   </li>
                 </ul>
               </div>

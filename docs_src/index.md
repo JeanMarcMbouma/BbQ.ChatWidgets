@@ -26,6 +26,7 @@ BbQ.ChatWidgets bridges the gap between static AI text responses and interactive
 - [Guides](guides/README.md) - In-depth tutorials on configuration, custom widgets, and more.
 - [Examples](examples/README.md) - Real-world implementation patterns.
 - [Widget Catalog](widgets/README.md) - Explore the built-in widget library.
-- [API Reference](api/README.md) - Detailed technical documentation.
+- [API Reference (.NET)](api/README.md) - Detailed .NET API documentation.
+- [API Reference (JavaScript)](js/index.html) - JavaScript/TypeScript API documentation.
 - [Quick Reference](QUICK_REFERENCE.md) - A handy cheat sheet for endpoints and types.
 

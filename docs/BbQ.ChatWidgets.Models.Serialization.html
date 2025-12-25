@@ -125,6 +125,7 @@ It ensures consistent JSON formatting for:</p>
 <ul>
 <li>PropertyNamingPolicy: camelCase (standard for APIs and JavaScript)</li>
 <li>WriteIndented: false (compact JSON for network efficiency)</li>
+<li>NumberHandling: AllowReadingFromString (enables number deserialization from JSON string values)</li>
 <li>Support for custom widget types via ICustomWidgetRegistry</li>
 </ul>
 </div>
@@ -132,7 +133,7 @@ It ensures consistent JSON formatting for:</p>
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-toc-issues/BbQ.ChatWidgets/Models/Serialization.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/Serialization.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_Serialization_Default_" data-uid="BbQ.ChatWidgets.Models.Serialization.Default*"></a>
   <h4 id="BbQ_ChatWidgets_Models_Serialization_Default" data-uid="BbQ.ChatWidgets.Models.Serialization.Default">Default</h4>
@@ -166,13 +167,18 @@ within the library to ensure consistency. It uses:</p>
 <li>Non-indented output for efficiency</li>
 <li>Support for polymorphic type serialization</li>
 <li>Support for custom widget types (if registry is set)</li>
+<li>Number from string deserialization (allows reading numbers from JSON string values)</li>
 </ul>
+<p>Note: The AllowReadingFromString setting applies to all numeric properties across the library,
+including ChatWidget properties, DTOs (UserMessageDto, WidgetActionDto), and custom payload types
+used in action handlers. This improves interoperability with JavaScript clients and external APIs
+that may send numbers as strings, but makes numeric validation more permissive throughout.</p>
 </div>
   <h3 id="methods">Methods
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-toc-issues/BbQ.ChatWidgets/Models/Serialization.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/Serialization.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_Serialization_SetCustomWidgetRegistry_" data-uid="BbQ.ChatWidgets.Models.Serialization.SetCustomWidgetRegistry*"></a>
   <h4 id="BbQ_ChatWidgets_Models_Serialization_SetCustomWidgetRegistry_BbQ_ChatWidgets_Abstractions_IWidgetRegistry_" data-uid="BbQ.ChatWidgets.Models.Serialization.SetCustomWidgetRegistry(BbQ.ChatWidgets.Abstractions.IWidgetRegistry)">SetCustomWidgetRegistry(IWidgetRegistry)</h4>
@@ -213,7 +219,7 @@ The registry allows deserializing custom widget types defined outside the librar
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-toc-issues/BbQ.ChatWidgets/Models/Serialization.cs" class="contribution-link">View Source</a>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/Serialization.cs" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

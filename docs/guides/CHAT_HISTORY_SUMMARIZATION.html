@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Chat History Summarization | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Chat History Summarization | BbQ.ChatWidgets ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="chat-history-summarization">Chat History Summarization</h1>
+
+<p>BbQ.ChatWidgets includes automatic chat history summarization to manage context window limits efficiently. This feature helps maintain relevant conversation context while staying within token budget constraints.</p>
+<h2 id="overview">Overview</h2>
+<p>When conversations grow long, sending the entire history to the AI model can:</p>
+<ul>
+<li>Exceed token limits</li>
+<li>Increase API costs</li>
+<li>Slow down response times</li>
+<li>Include irrelevant older context</li>
+</ul>
+<p>The summarization feature automatically condenses older conversation turns into concise summaries while keeping recent turns in full detail.</p>
+<h2 id="how-it-works">How It Works</h2>
+<p>The system uses a three-part strategy:</p>
+<ol>
+<li><strong>Threshold Detection</strong>: Monitors the number of conversation turns</li>
+<li><strong>Smart Summarization</strong>: Creates summaries of older turns when the threshold is exceeded</li>
+<li><strong>Context Management</strong>: Sends summaries + recent turns to the AI model</li>
+</ol>
+<h3 id="architecture">Architecture</h3>
+<pre><code>Full Conversation History
+├── Turns 0-4    → Summarized → &quot;User discussed X, decided Y&quot;
+├── Turns 5-9    → Summarized → &quot;Conversation moved to topic Z&quot;
+└── Turns 10-11  → Kept in full detail
+
+Sent to AI:
+├── System Message: Combined summaries
+└── Recent Turns: Full detail of turns 10-11
+</code></pre>
+<h2 id="configuration">Configuration</h2>
+<p>Configure summarization in your <code>AddBbQChatWidgets</code> setup:</p>
+<pre><code class="lang-csharp">services.AddBbQChatWidgets(options =&gt;
+{
+    // Enable/disable automatic summarization (default: true)
+    options.EnableAutoSummarization = true;
+    
+    // Trigger summarization after this many turns (default: 15)
+    options.SummarizationThreshold = 15;
+    
+    // Keep this many recent turns in full detail (default: 10)
+    options.RecentTurnsToKeep = 10;
+    
+    // Your chat client
+    options.ChatClientFactory = sp =&gt; new OpenAIChatClient(...);
+});
+</code></pre>
+<h3 id="configuration-options">Configuration Options</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EnableAutoSummarization</code></td>
+<td><code>bool</code></td>
+<td><code>true</code></td>
+<td>Enables/disables automatic summarization</td>
+</tr>
+<tr>
+<td><code>SummarizationThreshold</code></td>
+<td><code>int</code></td>
+<td><code>15</code></td>
+<td>Number of turns before summarization kicks in</td>
+</tr>
+<tr>
+<td><code>RecentTurnsToKeep</code></td>
+<td><code>int</code></td>
+<td><code>10</code></td>
+<td>Number of recent turns to keep unsummarized</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-summaries-are-generated">How Summaries Are Generated</h2>
+<p>The <code>DefaultChatHistorySummarizer</code> uses your configured AI client to generate summaries:</p>
+<ol>
+<li>Formats older conversation turns into a readable format</li>
+<li>Sends them to the AI with a specialized summarization prompt</li>
+<li>Receives a concise summary (2-4 sentences)</li>
+<li>Stores the summary with the thread</li>
+</ol>
+<p>The summarization prompt instructs the AI to focus on:</p>
+<ul>
+<li>Main topics discussed</li>
+<li>Important decisions or conclusions</li>
+<li>Key information needed for context</li>
+<li>Action items or pending questions</li>
+</ul>
+<h2 id="custom-summarization">Custom Summarization</h2>
+<p>You can implement custom summarization logic by creating your own <code>IChatHistorySummarizer</code>:</p>
+<pre><code class="lang-csharp">public class CustomSummarizer : IChatHistorySummarizer
+{
+    public async Task&lt;string&gt; SummarizeAsync(
+        IReadOnlyList&lt;ChatTurn&gt; turns, 
+        CancellationToken ct = default)
+    {
+        // Your custom summarization logic
+        // Could use:
+        // - A different AI model
+        // - Template-based summarization
+        // - Custom business rules
+        // - Database lookups
+        
+        return &quot;Custom summary...&quot;;
+    }
+}
+
+// Register your custom summarizer BEFORE calling AddBbQChatWidgets
+// This ensures your implementation is used instead of the default
+services.AddSingleton&lt;IChatHistorySummarizer, CustomSummarizer&gt;();
+services.AddBbQChatWidgets(options =&gt; 
+{
+    options.ChatClientFactory = sp =&gt; new OpenAIChatClient(...);
+    // ... other configuration
+});
+</code></pre>
+<h2 id="thread-service-integration">Thread Service Integration</h2>
+<p>The <code>IThreadService</code> interface includes methods for managing summaries:</p>
+<pre><code class="lang-csharp">public interface IThreadService
+{
+    // Existing methods...
+    
+    // Store a summary for a thread
+    void StoreSummary(string threadId, ChatSummary summary);
+    
+    // Retrieve all summaries for a thread
+    IReadOnlyList&lt;ChatSummary&gt; GetSummaries(string threadId);
+}
+</code></pre>
+<p>The <code>DefaultThreadService</code> stores summaries in memory. For production use, implement a persistent <code>IThreadService</code> that stores summaries alongside conversation history.</p>
+<h2 id="example-long-conversation">Example: Long Conversation</h2>
+<pre><code class="lang-csharp">var chatService = serviceProvider.GetRequiredService&lt;ChatWidgetService&gt;();
+string? threadId = null;
+
+// User has a long conversation (20+ turns)
+for (int i = 0; i &lt; 20; i++)
+{
+    var response = await chatService.RespondAsync($&quot;Message {i}&quot;, threadId);
+    threadId = response.ThreadId;
+}
+
+// Check if summaries were created
+var threadService = serviceProvider.GetRequiredService&lt;IThreadService&gt;();
+var summaries = threadService.GetSummaries(threadId);
+
+Console.WriteLine($&quot;Created {summaries.Count} summaries&quot;);
+foreach (var summary in summaries)
+{
+    Console.WriteLine($&quot;Turns {summary.StartTurnIndex}-{summary.EndTurnIndex}: {summary.SummaryText}&quot;);
+}
+</code></pre>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<h3 id="when-to-use-summarization">When to Use Summarization</h3>
+<p>✅ <strong>Good for:</strong></p>
+<ul>
+<li>Long-running support conversations</li>
+<li>Multi-session interactions</li>
+<li>Complex problem-solving discussions</li>
+<li>Customer service chat histories</li>
+</ul>
+<p>❌ <strong>Not needed for:</strong></p>
+<ul>
+<li>Short Q&amp;A exchanges</li>
+<li>Single-turn requests</li>
+<li>API-only interactions</li>
+<li>When using small context windows intentionally</li>
+</ul>
+<h3 id="optimization-tips">Optimization Tips</h3>
+<ol>
+<li><strong>Adjust Thresholds</strong>: Set higher thresholds for simpler conversations</li>
+<li><strong>Cache Summaries</strong>: Implement caching in custom <code>IThreadService</code></li>
+<li><strong>Use Cheaper Models</strong>: Configure a cost-effective model for summarization</li>
+<li><strong>Batch Processing</strong>: Summarize multiple turn ranges at once if needed</li>
+</ol>
+<h2 id="testing-summarization">Testing Summarization</h2>
+<p>The library includes comprehensive tests for summarization:</p>
+<pre><code class="lang-csharp">// Unit tests
+dotnet test --filter &quot;ChatHistorySummarizationTests&quot;
+
+// Integration tests
+dotnet test --filter &quot;SummarizationIntegrationTests&quot;
+</code></pre>
+<p>Example test:</p>
+<pre><code class="lang-csharp">[Fact]
+public async Task AutoSummarization_CreatesAndUsesSummaries()
+{
+    var services = new ServiceCollection();
+    
+    services.AddBbQChatWidgets(options =&gt;
+    {
+        options.EnableAutoSummarization = true;
+        options.SummarizationThreshold = 5;
+        options.RecentTurnsToKeep = 2;
+        options.ChatClientFactory = _ =&gt; new TestChatClient();
+    });
+    
+    var serviceProvider = services.BuildServiceProvider();
+    var chatService = serviceProvider.GetRequiredService&lt;ChatWidgetService&gt;();
+    var threadService = serviceProvider.GetRequiredService&lt;IThreadService&gt;();
+    
+    // Create conversation beyond threshold
+    string? threadId = null;
+    for (int i = 0; i &lt; 6; i++)
+    {
+        threadId = (await chatService.RespondAsync($&quot;Message {i}&quot;, threadId)).ThreadId;
+    }
+    
+    // Verify summaries were created
+    var summaries = threadService.GetSummaries(threadId);
+    Assert.NotEmpty(summaries);
+}
+</code></pre>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Set Appropriate Thresholds</strong>: Balance context preservation with token usage</li>
+<li><strong>Monitor Summary Quality</strong>: Periodically review generated summaries</li>
+<li><strong>Persist Summaries</strong>: Store summaries in production for consistency</li>
+<li><strong>Consider User Experience</strong>: Ensure summaries maintain conversation coherence</li>
+<li><strong>Test Edge Cases</strong>: Verify behavior with very short and very long conversations</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="summaries-not-being-created">Summaries Not Being Created</h3>
+<p>Check:</p>
+<ul>
+<li><code>EnableAutoSummarization</code> is <code>true</code></li>
+<li>Conversation has exceeded <code>SummarizationThreshold</code></li>
+<li>Chat client is properly configured</li>
+<li>No exceptions in summarization logic</li>
+</ul>
+<h3 id="poor-summary-quality">Poor Summary Quality</h3>
+<p>Try:</p>
+<ul>
+<li>Adjusting the summarization prompt in <code>DefaultChatHistorySummarizer</code></li>
+<li>Using a more capable AI model for summarization</li>
+<li>Implementing custom summarization logic</li>
+<li>Tuning the temperature/parameters for the summarization call</li>
+</ul>
+<h3 id="performance-issues">Performance Issues</h3>
+<p>Consider:</p>
+<ul>
+<li>Increasing <code>SummarizationThreshold</code> to summarize less frequently</li>
+<li>Using a faster/cheaper model for summarization</li>
+<li>Implementing async summarization in background</li>
+<li>Caching summaries to avoid regeneration</li>
+</ul>
+<h2 id="api-reference">API Reference</h2>
+<p>See the API documentation for detailed reference:</p>
+<ul>
+<li><a href="../api/abstractions/README.html"><code>IChatHistorySummarizer</code></a></li>
+<li><a href="../api/models/README.html"><code>ChatSummary</code></a></li>
+<li><a href="../api/abstractions/README.html"><code>BbQChatOptions</code></a></li>
+<li><a href="../api/abstractions/README.html"><code>IThreadService</code></a></li>
+</ul>
+<h2 id="related-topics">Related Topics</h2>
+<ul>
+<li><a href="../ARCHITECTURE.html">Architecture Overview</a></li>
+<li><a href="../design/THREAD_MANAGEMENT.html">Thread Management</a></li>
+<li><a href="../GETTING_STARTED.html">Getting Started</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/docs_src/guides/CHAT_HISTORY_SUMMARIZATION.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -16,5 +16,7 @@
   href: widgets/README.md
 - name: Contributing
   href: contributing/README.md
-- name: API
+- name: API (.NET)
   href: api/README.md
+- name: API (JavaScript)
+  href: js/index.html

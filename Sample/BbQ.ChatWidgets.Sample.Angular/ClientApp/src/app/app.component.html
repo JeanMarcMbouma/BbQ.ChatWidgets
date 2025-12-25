@@ -1,16 +1,19 @@
 <div class="app-container">
   @if (currentPage() === null) {
     <app-home></app-home>
-  } @else {
-    <div class="page">
-      <div class="page-header">
-        <button class="back-button" (click)="handleBack()">← Back</button>
-        <h1>{{ getPageTitle() }}</h1>
-      </div>
-      <div class="page-content">
-        <p>{{ currentPage() }} page - Implementation in progress...</p>
-        <p>This Angular sample demonstrates the same features as the React sample.</p>
-      </div>
-    </div>
+  } @else if (currentPage() === ScenarioType.BasicChat) {
+    <app-basic-chat></app-basic-chat>
+  } @else if (currentPage() === ScenarioType.StreamingChat) {
+    <app-streaming-chat></app-streaming-chat>
+  } @else if (currentPage() === ScenarioType.TriageAgent) {
+    <app-triage-agent></app-triage-agent>
+  } @else if (currentPage() === ScenarioType.WidgetsDemo) {
+    <app-widgets-demo></app-widgets-demo>
+  } @else if (currentPage() === ScenarioType.ActionsDemo) {
+    <app-actions-demo></app-actions-demo>
+  } @else if (currentPage() === ScenarioType.SseWidgets) {
+    <app-sse-widgets></app-sse-widgets>
+  } @else if (currentPage() === ScenarioType.SseClock) {
+    <app-sse-clock></app-sse-clock>
   }
 </div>

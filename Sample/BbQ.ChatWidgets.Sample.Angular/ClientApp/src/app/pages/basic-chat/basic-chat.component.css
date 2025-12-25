@@ -1,0 +1,25 @@
+/* Component-specific styles for Basic Chat */
+.widgets {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.widget-item {
+  background: rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  overflow-x: auto;
+}
+
+.widget-item pre {
+  margin: 0;
+  font-family: 'Monaco', 'Courier New', monospace;
+  color: #333;
+}
+
+.widget-item code {
+  color: #667eea;
+}

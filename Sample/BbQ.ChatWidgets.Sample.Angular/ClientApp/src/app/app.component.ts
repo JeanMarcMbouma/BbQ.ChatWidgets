@@ -2,12 +2,30 @@ import { Component, signal, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+import { BasicChatComponent } from './pages/basic-chat/basic-chat.component';
+import { StreamingChatComponent } from './pages/streaming-chat/streaming-chat.component';
+import { TriageAgentComponent } from './pages/triage-agent/triage-agent.component';
+import { WidgetsDemoComponent } from './pages/widgets-demo/widgets-demo.component';
+import { ActionsDemoComponent } from './pages/actions-demo/actions-demo.component';
+import { SseWidgetsComponent } from './pages/sse-widgets/sse-widgets.component';
+import { SseClockComponent } from './pages/sse-clock/sse-clock.component';
 import { ScenarioType } from './models/chat.models';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HomeComponent],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    HomeComponent,
+    BasicChatComponent,
+    StreamingChatComponent,
+    TriageAgentComponent,
+    WidgetsDemoComponent,
+    ActionsDemoComponent,
+    SseWidgetsComponent,
+    SseClockComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -16,17 +34,25 @@ export class AppComponent implements OnInit, OnDestroy {
   ScenarioType = ScenarioType;
 
   private scenarioEventListener: any;
+  private navigateBackListener: any;
 
   ngOnInit() {
     this.scenarioEventListener = (event: any) => {
       this.handleSelectScenario(event.detail);
     };
+    this.navigateBackListener = () => {
+      this.handleBack();
+    };
     window.addEventListener('selectScenario', this.scenarioEventListener);
+    window.addEventListener('navigateBack', this.navigateBackListener);
   }
 
   ngOnDestroy() {
     if (this.scenarioEventListener) {
       window.removeEventListener('selectScenario', this.scenarioEventListener);
+    }
+    if (this.navigateBackListener) {
+      window.removeEventListener('navigateBack', this.navigateBackListener);
     }
   }
 

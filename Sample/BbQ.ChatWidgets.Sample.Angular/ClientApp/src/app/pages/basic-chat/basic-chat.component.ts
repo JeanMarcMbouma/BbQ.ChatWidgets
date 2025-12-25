@@ -2,11 +2,12 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter, signal, effect } fr
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChatService } from '../../services/chat.service';
+import { WidgetRendererComponent } from '../../components/widget-renderer/widget-renderer.component';
 
 @Component({
   selector: 'app-basic-chat',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, WidgetRendererComponent],
   templateUrl: './basic-chat.component.html',
   styleUrls: ['../shared-chat-styles.css', './basic-chat.component.css']
 })
@@ -44,6 +45,11 @@ export class BasicChatComponent implements OnInit, OnDestroy {
     if (event.key === 'Enter' && !this.chatService.isLoading()) {
       this.sendMessage();
     }
+  }
+
+  handleWidgetAction(event: { actionName: string; payload: any }) {
+    console.log('Widget action triggered:', event.actionName, event.payload);
+    // Handle widget actions if needed
   }
 
   private scrollToBottom() {

@@ -2,11 +2,12 @@ import { Component, OnInit, Output, EventEmitter, signal, effect } from '@angula
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StreamingChatService } from '../../services/streaming-chat.service';
+import { WidgetRendererComponent } from '../../components/widget-renderer/widget-renderer.component';
 
 @Component({
   selector: 'app-streaming-chat',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, WidgetRendererComponent],
   templateUrl: './streaming-chat.component.html',
   styleUrls: ['../shared-chat-styles.css']
 })
@@ -39,6 +40,11 @@ export class StreamingChatComponent implements OnInit {
     if (event.key === 'Enter' && !this.streamingService.isStreaming()) {
       this.sendMessage();
     }
+  }
+
+  handleWidgetAction(event: { actionName: string; payload: any }) {
+    console.log('Widget action triggered:', event.actionName, event.payload);
+    // Handle widget actions if needed
   }
 
   private scrollToBottom() {

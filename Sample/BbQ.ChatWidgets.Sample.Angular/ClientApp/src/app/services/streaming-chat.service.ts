@@ -50,7 +50,6 @@ export class StreamingChatService {
         throw new Error('Response body is null');
       }
 
-      let accumulatedContent = '';
       let assistantMessageId = (Date.now() + 1).toString();
       let receivedThreadId = false;
 
@@ -75,13 +74,15 @@ export class StreamingChatService {
               }
 
               if (parsed.content) {
-                accumulatedContent += parsed.content;
+                // Note: Streaming returns delta and each delta has the current text
+                // So we use parsed.content directly, not accumulated
+                const currentContent = parsed.content;
 
                 const existingIndex = this._messages().findIndex(m => m.id === assistantMessageId);
                 const updatedMessage: ChatMessage = {
                   id: assistantMessageId,
                   role: 'assistant',
-                  content: accumulatedContent,
+                  content: currentContent,
                   widgets: parsed.widgets,
                   timestamp: new Date()
                 };

@@ -5,6 +5,7 @@ import {
   EventEmitter,
   ElementRef,
   AfterViewInit,
+  OnInit,
   OnDestroy,
   OnChanges,
   SimpleChanges,
@@ -96,7 +97,7 @@ function ensureCustomRegistrations() {
     }
   `]
 })
-export class WidgetRendererComponent implements AfterViewInit, OnDestroy, OnChanges {
+export class WidgetRendererComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
   @Input() widgets: ChatWidget[] | null | undefined;
   @Output() widgetAction = new EventEmitter<{ actionName: string; payload: any }>();
   @ViewChild('widgetContainer', { static: false }) containerRef!: ElementRef<HTMLDivElement>;
@@ -104,6 +105,9 @@ export class WidgetRendererComponent implements AfterViewInit, OnDestroy, OnChan
   widgetHtmlList: string[] = [];
   private renderer = new SsrWidgetRenderer();
   private eventManager?: WidgetEventManager;
+  private chartInstances: Map<HTMLElement, any> = new Map();
+  private resizeListeners: Map<HTMLElement, () => void> = new Map();
+  private isViewInitialized = false;
 
   ngOnInit() {
     ensureCustomRegistrations();
@@ -117,11 +121,12 @@ export class WidgetRendererComponent implements AfterViewInit, OnDestroy, OnChan
   }
 
   ngAfterViewInit() {
+    this.isViewInitialized = true;
     this.setupEventHandlers();
   }
 
   ngOnDestroy() {
-    this.cleanupStreams();
+    this.cleanup();
   }
 
   private updateWidgetHtml() {
@@ -153,14 +158,19 @@ export class WidgetRendererComponent implements AfterViewInit, OnDestroy, OnChan
       return this.renderer.renderWidget(widget);
     });
 
-    // After view updates, reinitialize widgets
-    setTimeout(() => {
-      this.setupEventHandlers();
-    }, 0);
+    // After view updates, reinitialize widgets only if view is already initialized
+    if (this.isViewInitialized) {
+      setTimeout(() => {
+        this.setupEventHandlers();
+      }, 0);
+    }
   }
 
   private setupEventHandlers() {
     if (!this.containerRef?.nativeElement) return;
+
+    // Cleanup old resources before setting up new ones
+    this.cleanup();
 
     const container = this.containerRef.nativeElement;
 
@@ -230,10 +240,17 @@ export class WidgetRendererComponent implements AfterViewInit, OnDestroy, OnChan
         const myChart = window.echarts.init(chartContainer);
         myChart.setOption(options);
 
-        // Store reference for resize handling
-        window.addEventListener('resize', () => {
-          if (myChart) myChart.resize();
-        });
+        // Store chart instance for cleanup
+        this.chartInstances.set(chartContainer, myChart);
+
+        // Create and store resize listener
+        const resizeListener = () => {
+          if (myChart && !myChart.isDisposed()) {
+            myChart.resize();
+          }
+        };
+        this.resizeListeners.set(chartContainer, resizeListener);
+        window.addEventListener('resize', resizeListener);
       } catch (e) {
         console.error('Failed to initialize ECharts:', e);
         console.error('Chart data:', jsonDataStr);
@@ -412,13 +429,27 @@ export class WidgetRendererComponent implements AfterViewInit, OnDestroy, OnChan
   }
 
   /**
-   * Close all active SSE streams for widgets.
+   * Cleanup all resources including SSE streams, ECharts instances, and event listeners.
    * This prevents memory leaks and stops server polling when widgets are destroyed.
    */
-  private cleanupStreams() {
+  private cleanup() {
     if (!this.containerRef?.nativeElement) return;
 
     const container = this.containerRef.nativeElement;
+
+    // Dispose ECharts instances
+    this.chartInstances.forEach((chart, chartContainer) => {
+      if (chart && !chart.isDisposed()) {
+        chart.dispose();
+      }
+    });
+    this.chartInstances.clear();
+
+    // Remove resize event listeners
+    this.resizeListeners.forEach((listener, chartContainer) => {
+      window.removeEventListener('resize', listener);
+    });
+    this.resizeListeners.clear();
 
     // Close clock streams
     const clockWidgets = container.querySelectorAll('[data-widget-type="clock"]');
@@ -439,5 +470,9 @@ export class WidgetRendererComponent implements AfterViewInit, OnDestroy, OnChan
         (widget as any).__eventSource = undefined;
       }
     });
+
+    // Cleanup event manager (if it has a cleanup method)
+    // Note: WidgetEventManager doesn't expose a cleanup method, but we recreate it on each setup
+    this.eventManager = undefined;
   }
 }

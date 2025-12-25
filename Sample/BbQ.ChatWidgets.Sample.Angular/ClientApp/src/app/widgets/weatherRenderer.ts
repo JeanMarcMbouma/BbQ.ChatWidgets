@@ -1,4 +1,5 @@
 import { WeatherWidget } from './WeatherWidget';
+import { escapeHtml } from '../utils/html-escape';
 
 /**
  * Renders weather widget HTML with SSE metadata.
@@ -8,11 +9,11 @@ export function renderWeather(widget: WeatherWidget): string {
   const widgetId = `weather-${widget.action}`;
   const streamId = widget.streamId || 'weather-stream';
   const city = widget.city || 'London';
-  
+
   return `
     <div 
       class="bbq-widget bbq-weather" 
-      data-widget-id="${widgetId}" 
+      data-widget-id="${escapeHtml(widgetId)}" 
       data-widget-type="weather"
       data-action="${escapeHtml(widget.action)}"
       data-stream-id="${escapeHtml(streamId)}"
@@ -34,18 +35,4 @@ export function renderWeather(widget: WeatherWidget): string {
       </div>
     </div>
   `;
-}
-
-/**
- * Escapes HTML special characters
- */
-function escapeHtml(text: string): string {
-  const map: { [key: string]: string } = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;',
-  };
-  return text.replace(/[&<>"']/g, (m) => map[m]);
 }

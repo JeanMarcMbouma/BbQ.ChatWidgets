@@ -1,4 +1,5 @@
 import { ClockWidget } from './ClockWidget';
+import { escapeHtml } from '../utils/html-escape';
 
 /**
  * Renders clock widget HTML with SSE metadata.
@@ -8,14 +9,14 @@ import { ClockWidget } from './ClockWidget';
 export function renderClock(widget: ClockWidget): string {
   const widgetId = `clock-${widget.action}`;
   const streamId = widget.streamId || 'default-stream';
-  const dataStreamId = ` data-stream-id="${escapeHtml(streamId)}"` ;
-  
+
   return `
     <div 
       class="bbq-widget bbq-clock" 
-      data-widget-id="${widgetId}" 
+      data-widget-id="${escapeHtml(widgetId)}" 
       data-widget-type="clock"
-      data-action="${escapeHtml(widget.action)}"${dataStreamId}
+      data-action="${escapeHtml(widget.action)}"
+      data-stream-id="${escapeHtml(streamId)}"
       data-auto-start="true"
       role="status"
       aria-live="polite">
@@ -26,18 +27,4 @@ export function renderClock(widget: ClockWidget): string {
       </div>
     </div>
   `;
-}
-
-/**
- * Escapes HTML special characters
- */
-function escapeHtml(text: string): string {
-  const map: { [key: string]: string } = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;',
-  };
-  return text.replace(/[&<>"']/g, (m) => map[m]);
 }

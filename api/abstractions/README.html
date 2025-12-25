@@ -73,6 +73,47 @@
 <h1 id="api-abstractions">API Abstractions</h1>
 
 <p>This section covers the interfaces you can implement to extend the system: <code>IWidgetRegistry</code>, <code>IWidgetActionHandlerResolver</code>, and <code>IThreadService</code> are good entry points.</p>
+<h2 id="core-interfaces">Core Interfaces</h2>
+<h3 id="widget-system">Widget System</h3>
+<ul>
+<li><a href="../BbQ.ChatWidgets.Abstractions.IWidgetRegistry.html">IWidgetRegistry</a> - Central registry for widget templates</li>
+<li><a href="../BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.html">IWidgetToolsProvider</a> - Provides widget tools to AI agents</li>
+<li><a href="../BbQ.ChatWidgets.Abstractions.IWidgetHintParser.html">IWidgetHintParser</a> - Parses widget hints from AI responses</li>
+<li><a href="../BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer.html">IWidgetHintSanitizer</a> - Sanitizes widget content</li>
+<li><a href="../BbQ.ChatWidgets.Abstractions.IWidgetLocalizer.html">IWidgetLocalizer</a> - Localizes widget content</li>
+<li><a href="../BbQ.ChatWidgets.Abstractions.IRecyclableWidget.html">IRecyclableWidget</a> - Interface for widgets that can be recycled</li>
+</ul>
+<h3 id="action-handling">Action Handling</h3>
+<ul>
+<li><a href="../BbQ.ChatWidgets.Abstractions.IWidgetAction-1.html">IWidgetAction<t></t></a> - Base interface for widget actions</li>
+<li><a href="../BbQ.ChatWidgets.Abstractions.IActionWidgetActionHandler-2.html">IActionWidgetActionHandler&lt;TWidgetAction, T&gt;</a> - Handler for typed widget actions</li>
+<li><a href="../BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html">IWidgetActionRegistry</a> - Registry for widget action metadata</li>
+<li><a href="../BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html">IWidgetActionHandlerResolver</a> - Resolves action handlers</li>
+<li><a href="../BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata.html">IWidgetActionMetadata</a> - Metadata for widget actions</li>
+</ul>
+<h3 id="thread-management">Thread Management</h3>
+<ul>
+<li><a href="../BbQ.ChatWidgets.Abstractions.IThreadService.html">IThreadService</a> - Manages conversation threads and history</li>
+<li><a href="../BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.html">IChatHistorySummarizer</a> - Summarizes chat history to manage context windows</li>
+</ul>
+<h3 id="ai-integration">AI Integration</h3>
+<ul>
+<li><a href="../BbQ.ChatWidgets.Abstractions.IAIToolsProvider.html">IAIToolsProvider</a> - Provides AI tools for the chat system</li>
+<li><a href="../BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.html">IAIInstructionProvider</a> - Provides AI instructions and prompts</li>
+</ul>
+<h3 id="sse-server-sent-events">SSE (Server-Sent Events)</h3>
+<ul>
+<li><a href="../BbQ.ChatWidgets.Abstractions.IWidgetSseService.html">IWidgetSseService</a> - Real-time widget streaming via SSE</li>
+<li><a href="../BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.html">IStreamPayloadValidator</a> - Validates SSE stream payloads</li>
+<li><a href="../BbQ.ChatWidgets.Abstractions.StreamValidationRules.html">StreamValidationRules</a> - Rules for stream validation</li>
+</ul>
+<h3 id="exceptions">Exceptions</h3>
+<ul>
+<li><a href="../BbQ.ChatWidgets.Abstractions.PayloadValidationException.html">PayloadValidationException</a> - Exception for payload validation errors</li>
+<li><a href="../BbQ.ChatWidgets.Abstractions.PayloadValidationReason.html">PayloadValidationReason</a> - Reasons for payload validation failures</li>
+<li><a href="../BbQ.ChatWidgets.Abstractions.PublishRateLimitExceededException.html">PublishRateLimitExceededException</a> - Exception for rate limit violations</li>
+</ul>
+<p>For a complete list of types, see the <a href="../toc.html">API Reference TOC</a>.</p>
 
 </article>
           </div>

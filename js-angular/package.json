@@ -1,0 +1,75 @@
+{
+  "name": "@bbq-chat/widgets-angular",
+  "version": "1.0.0",
+  "description": "Angular components and services for BbQ ChatWidgets",
+  "license": "MIT",
+  "author": "BbQ ChatWidgets Contributors",
+  "homepage": "https://github.com/JeanMarcMbouma/BbQ.ChatWidgets",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JeanMarcMbouma/BbQ.ChatWidgets.git",
+    "directory": "js-angular"
+  },
+  "bugs": {
+    "url": "https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/issues"
+  },
+  "keywords": [
+    "angular",
+    "chat",
+    "widgets",
+    "ui",
+    "components",
+    "bbq-chat"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc && node scripts/build.mjs",
+    "build:watch": "tsc --watch",
+    "test": "echo \"No tests yet\"",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "type-check": "tsc --noEmit",
+    "prepublishOnly": "npm run build && npm run lint",
+    "prepare": "npm run build"
+  },
+  "peerDependencies": {
+    "@angular/common": ">=17.0.0",
+    "@angular/core": ">=17.0.0",
+    "@bbq-chat/widgets": "^1.0.0"
+  },
+  "devDependencies": {
+    "@angular/common": "^17.3.0",
+    "@angular/core": "^17.3.0",
+    "@bbq-chat/widgets": "file:../js",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "esbuild": "^0.27.2",
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.1",
+    "rxjs": "^7.8.0",
+    "tslib": "^2.3.0",
+    "typescript": "^5.4.2",
+    "zone.js": "^0.14.3"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

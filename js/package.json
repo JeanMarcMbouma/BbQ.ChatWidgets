@@ -69,8 +69,7 @@
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --write \"src/**/*.ts\"",
     "type-check": "tsc --noEmit",
-    "prepublishOnly": "npm run build && npm run test && npm run lint",
-    "prepare": "npm run build"
+    "prepublishOnly": "npm run build && npm run test && npm run lint"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",

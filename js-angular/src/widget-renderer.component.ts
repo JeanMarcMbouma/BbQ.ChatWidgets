@@ -75,9 +75,9 @@ export class WidgetRendererComponent
   containerRef!: ElementRef<HTMLDivElement>;
 
   widgetHtmlList: string[] = [];
-  private renderer = new SsrWidgetRenderer();
-  private eventManager?: WidgetEventManager;
-  private isViewInitialized = false;
+  protected renderer = new SsrWidgetRenderer();
+  protected eventManager?: WidgetEventManager;
+  protected isViewInitialized = false;
 
   ngOnInit() {
     this.updateWidgetHtml();
@@ -98,7 +98,7 @@ export class WidgetRendererComponent
     this.cleanup();
   }
 
-  private updateWidgetHtml() {
+  protected updateWidgetHtml() {
     if (!this.widgets || this.widgets.length === 0) {
       this.widgetHtmlList = [];
       return;

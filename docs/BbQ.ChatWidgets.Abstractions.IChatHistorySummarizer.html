@@ -5,11 +5,11 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Interface IWidgetHintParser | BbQ.ChatWidgets </title>
+      <title>Interface IChatHistorySummarizer | BbQ.ChatWidgets </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Interface IWidgetHintParser | BbQ.ChatWidgets ">
+      <meta name="title" content="Interface IChatHistorySummarizer | BbQ.ChatWidgets ">
     
-    <meta name="description" content="Defines the contract for parsing widget hints from raw AI model output.">
+    <meta name="description" content="Defines the contract for summarizing chat conversation history.">
       <link rel="shortcut icon" href="favicon.ico">
       <link rel="stylesheet" href="styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="styles/docfx.css">
@@ -69,48 +69,47 @@
       <div role="main" class="container body-content hide-when-search">
         <div class="article row grid">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetHintParser">
+            <article class="content wrap" id="_content" data-uid="BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer">
 
 
 
-  <h1 id="BbQ_ChatWidgets_Abstractions_IWidgetHintParser" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetHintParser" class="text-break">Interface IWidgetHintParser</h1>
-  <div class="markdown level0 summary"><p>Defines the contract for parsing widget hints from raw AI model output.</p>
+  <h1 id="BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer" data-uid="BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer" class="text-break">Interface IChatHistorySummarizer</h1>
+  <div class="markdown level0 summary"><p>Defines the contract for summarizing chat conversation history.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <h6><strong>Namespace</strong>: <a class="xref" href="BbQ.html">BbQ</a>.<a class="xref" href="BbQ.ChatWidgets.html">ChatWidgets</a>.<a class="xref" href="BbQ.ChatWidgets.Abstractions.html">Abstractions</a></h6>
   <h6><strong>Assembly</strong>: BbQ.ChatWidgets.dll</h6>
-  <h5 id="BbQ_ChatWidgets_Abstractions_IWidgetHintParser_syntax">Syntax</h5>
+  <h5 id="BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public interface IWidgetHintParser</code></pre>
+    <pre><code class="lang-csharp hljs">public interface IChatHistorySummarizer</code></pre>
   </div>
-  <h5 id="BbQ_ChatWidgets_Abstractions_IWidgetHintParser_remarks"><strong>Remarks</strong></h5>
-  <div class="markdown level0 remarks"><p>Widget hints are embedded in AI-generated text using XML-style markers (&lt;widget&gt;...&lt;/widget&gt;).
-Implementations of this interface extract these hints, deserialize the widget definitions,
-and return both the cleaned content and the parsed widgets.</p>
-<p>The parsing process:</p>
-<ol>
-<li>Identify widget markers in the raw output</li>
-<li>Extract JSON widget definitions between markers</li>
-<li>Deserialize JSON into typed ChatWidget instances</li>
-<li>Remove widget markers from content, leaving clean text</li>
-<li>Return tuple of (cleanContent, widgets)</li>
-</ol>
-<p>Implementations should be resilient to malformed JSON and invalid widget types.</p>
+  <h5 id="BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Chat history summarizers help manage context window limits by condensing
+older conversation turns into concise summaries. This allows maintaining
+relevant context while staying within token budget constraints.</p>
+<p>The summarizer typically:</p>
+<ul>
+<li>Takes a range of conversation turns</li>
+<li>Generates a concise summary capturing key points</li>
+<li>Returns the summary text for inclusion in the context</li>
+</ul>
+<p>Implementations may use AI models, template-based summarization,
+or custom business logic to generate summaries.</p>
 </div>
   <h3 id="methods">Methods
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Abstractions/IWidgetHintParser.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Abstractions/IChatHistorySummarizer.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Abstractions_IWidgetHintParser_Parse_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetHintParser.Parse*"></a>
-  <h4 id="BbQ_ChatWidgets_Abstractions_IWidgetHintParser_Parse_System_String_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetHintParser.Parse(System.String)">Parse(string)</h4>
-  <div class="markdown level1 summary"><p>Parses widget hints from raw AI model output.</p>
+  <a id="BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_SummarizeAsync_" data-uid="BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.SummarizeAsync*"></a>
+  <h4 id="BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_SummarizeAsync_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatTurn__System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.SummarizeAsync(System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatTurn},System.Threading.CancellationToken)">SummarizeAsync(IReadOnlyList&lt;ChatTurn&gt;, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Generates a summary of the specified conversation turns.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">(string Content, IReadOnlyList&lt;ChatWidget&gt;? Widgets) Parse(string rawModelOutput)</code></pre>
+    <pre><code class="lang-csharp hljs">Task&lt;string&gt; SummarizeAsync(IReadOnlyList&lt;ChatTurn&gt; turns, CancellationToken ct = default)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -123,9 +122,15 @@ and return both the cleaned content and the parsed widgets.</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">rawModelOutput</span></td>
-        <td><p>The unprocessed output from the AI model, potentially containing embedded widget markers.</p>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a>&gt;</td>
+        <td><span class="parametername">turns</span></td>
+        <td><p>The conversation turns to summarize.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>Cancellation token for the async operation.</p>
 </td>
       </tr>
     </tbody>
@@ -140,36 +145,23 @@ and return both the cleaned content and the parsed widgets.</p>
     </thead>
     <tbody>
       <tr>
-        <td>(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,system.collections.generic.ireadonlylist-bbq.chatwidgets.models.chatwidget--.content">Content</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a>&gt; <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,system.collections.generic.ireadonlylist-bbq.chatwidgets.models.chatwidget--.widgets">Widgets</a>)</td>
-        <td><p>A tuple containing:</p>
-<ul>
-<li><code>Content</code>: The cleaned output with all widget markers removed</li>
-<li><code>Widgets</code>: A read-only list of successfully parsed widgets, or null if none found</li>
-</ul>
-<p>The content is trimmed of excess whitespace.</p>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><p>A task that completes with a concise text summary of the conversation turns.</p>
 </td>
       </tr>
     </tbody>
   </table>
-  <h5 id="BbQ_ChatWidgets_Abstractions_IWidgetHintParser_Parse_System_String__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>This method extracts widget definitions embedded in the format:
-&lt;widget&gt;{&quot;type&quot;:&quot;button&quot;,&quot;label&quot;:&quot;Click&quot;,&quot;action&quot;:&quot;submit&quot;}&lt;/widget&gt;</p>
-<p>Multiple widgets can be present in a single output:
-&quot;Here are options: &lt;widget&gt;{...}&lt;/widget&gt; or &lt;widget&gt;{...}&lt;/widget&gt;&quot;</p>
-<p>The method handles:</p>
+  <h5 id="BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_SummarizeAsync_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatTurn__System_Threading_CancellationToken__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method should:</p>
 <ul>
-<li>Multiple widget definitions in one output</li>
-<li>Optional properties on widgets</li>
-<li>Malformed JSON (skipped with warning/log)</li>
-<li>Invalid widget types (skipped)</li>
-<li>Empty widget markers (ignored)</li>
-<li>No widgets present (returns null)</li>
+<li>Extract key information from the provided turns</li>
+<li>Preserve important context and decisions</li>
+<li>Generate a concise summary suitable for inclusion in AI prompts</li>
+<li>Handle both user and assistant messages appropriately</li>
 </ul>
+<p>The summary is intended to be prepended to recent conversation turns
+when the full history would exceed the context window.</p>
 </div>
-  <h5 id="BbQ_ChatWidgets_Abstractions_IWidgetHintParser_Parse_System_String__examples">Examples</h5>
-  <p>Input: &quot;Click here: &lt;widget&gt;{&quot;type&quot;:&quot;button&quot;,&quot;label&quot;:&quot;Submit&quot;,&quot;action&quot;:&quot;submit&quot;}&lt;/widget&gt;&quot;
-Output: (&quot;Click here:&quot;, [ButtonWidget(label: &quot;Submit&quot;, action: &quot;submit&quot;)])</p>
-
   <h5 class="exceptions">Exceptions</h5>
   <table class="table table-bordered table-condensed">
     <thead>
@@ -181,7 +173,12 @@ Output: (&quot;Click here:&quot;, [ButtonWidget(label: &quot;Submit&quot;, actio
     <tbody>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentnullexception">ArgumentNullException</a></td>
-        <td><p>Thrown if <code class="paramref">rawModelOutput</code> is null.</p>
+        <td><p>Thrown if <code class="paramref">turns</code> is null.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></td>
+        <td><p>Thrown if the operation is cancelled via the cancellation token.</p>
 </td>
       </tr>
     </tbody>
@@ -195,7 +192,7 @@ Output: (&quot;Click here:&quot;, [ButtonWidget(label: &quot;Submit&quot;, actio
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Abstractions/IWidgetHintParser.cs" class="contribution-link">View Source</a>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Abstractions/IChatHistorySummarizer.cs" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

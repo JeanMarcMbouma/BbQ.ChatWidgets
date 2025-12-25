@@ -74,6 +74,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.yml\" sourcestartlinenumber=\"1\">Defines the contract for summarizing chat conversation history.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IRecyclableWidget.yml",
       "output": {
         ".html": {
@@ -732,6 +746,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ChatSummary.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ChatSummary.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ChatSummary",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ChatSummary.yml\" sourcestartlinenumber=\"1\">Represents a summary of a range of chat conversation turns.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Models.ChatTurn.yml",
       "output": {
         ".html": {
@@ -854,7 +882,7 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Models.FormField",
-      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.FormField.yml\" sourcestartlinenumber=\"1\">Represents a field definition for a form, including metadata such as name, label, type, and validation requirements.</p>\n"
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.FormField.yml\" sourcestartlinenumber=\"1\">Represents a field definition for a form, including metadata such as name, label, type, and validation requirements.\nThis class supports JSON extension data to allow any registered widget to be deserialized as a form field.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1121,6 +1149,20 @@
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Services.DefaultAIToolsProvider",
       "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.DefaultAIToolsProvider.yml\" sourcestartlinenumber=\"1\">Provides default AI tools for the chat widget system.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.yml\" sourcestartlinenumber=\"1\">Default implementation of <xref href=\"BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer\" data-throw-if-not-resolved=\"false\"></xref> using an AI chat client.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1501,6 +1543,16 @@
       "output": {
         ".html": {
           "relative_path": "examples/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/guides/CHAT_HISTORY_SUMMARIZATION.md",
+      "output": {
+        ".html": {
+          "relative_path": "guides/CHAT_HISTORY_SUMMARIZATION.html"
         }
       },
       "version": ""

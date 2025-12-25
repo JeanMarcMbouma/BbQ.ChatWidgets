@@ -21,6 +21,7 @@ This section covers the interfaces you can implement to extend the system: `IWid
 
 ### Thread Management
 - [IThreadService](../BbQ.ChatWidgets.Abstractions.IThreadService.html) - Manages conversation threads and history
+- [IChatHistorySummarizer](../BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.html) - Summarizes chat history to manage context windows
 
 ### AI Integration
 - [IAIToolsProvider](../BbQ.ChatWidgets.Abstractions.IAIToolsProvider.html) - Provides AI tools for the chat system

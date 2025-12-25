@@ -69,6 +69,27 @@ references:
   fullName.vb: BbQ.ChatWidgets.Abstractions.IActionWidgetActionHandler(Of TWidgetAction, T).HandleActionAsync
   nameWithType: IActionWidgetActionHandler<TWidgetAction, T>.HandleActionAsync
   nameWithType.vb: IActionWidgetActionHandler(Of TWidgetAction, T).HandleActionAsync
+- uid: BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer
+  name: IChatHistorySummarizer
+  href: BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.html
+  commentId: T:BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer
+  fullName: BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer
+  nameWithType: IChatHistorySummarizer
+- uid: BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.SummarizeAsync(System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatTurn},System.Threading.CancellationToken)
+  name: SummarizeAsync(IReadOnlyList<ChatTurn>, CancellationToken)
+  href: BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.html#BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_SummarizeAsync_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatTurn__System_Threading_CancellationToken_
+  commentId: M:BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.SummarizeAsync(System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatTurn},System.Threading.CancellationToken)
+  name.vb: SummarizeAsync(IReadOnlyList(Of ChatTurn), CancellationToken)
+  fullName: BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.SummarizeAsync(System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.ChatTurn>, System.Threading.CancellationToken)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.SummarizeAsync(System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.ChatTurn), System.Threading.CancellationToken)
+  nameWithType: IChatHistorySummarizer.SummarizeAsync(IReadOnlyList<ChatTurn>, CancellationToken)
+  nameWithType.vb: IChatHistorySummarizer.SummarizeAsync(IReadOnlyList(Of ChatTurn), CancellationToken)
+- uid: BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.SummarizeAsync*
+  name: SummarizeAsync
+  href: BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.html#BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_SummarizeAsync_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.SummarizeAsync
+  fullName: BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.SummarizeAsync
+  nameWithType: IChatHistorySummarizer.SummarizeAsync
 - uid: BbQ.ChatWidgets.Abstractions.IRecyclableWidget
   name: IRecyclableWidget
   href: BbQ.ChatWidgets.Abstractions.IRecyclableWidget.html
@@ -201,6 +222,36 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Abstractions.IThreadService.GetMessage
   fullName: BbQ.ChatWidgets.Abstractions.IThreadService.GetMessage
   nameWithType: IThreadService.GetMessage
+- uid: BbQ.ChatWidgets.Abstractions.IThreadService.GetSummaries(System.String)
+  name: GetSummaries(string)
+  href: BbQ.ChatWidgets.Abstractions.IThreadService.html#BbQ_ChatWidgets_Abstractions_IThreadService_GetSummaries_System_String_
+  commentId: M:BbQ.ChatWidgets.Abstractions.IThreadService.GetSummaries(System.String)
+  name.vb: GetSummaries(String)
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadService.GetSummaries(string)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IThreadService.GetSummaries(String)
+  nameWithType: IThreadService.GetSummaries(string)
+  nameWithType.vb: IThreadService.GetSummaries(String)
+- uid: BbQ.ChatWidgets.Abstractions.IThreadService.GetSummaries*
+  name: GetSummaries
+  href: BbQ.ChatWidgets.Abstractions.IThreadService.html#BbQ_ChatWidgets_Abstractions_IThreadService_GetSummaries_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IThreadService.GetSummaries
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadService.GetSummaries
+  nameWithType: IThreadService.GetSummaries
+- uid: BbQ.ChatWidgets.Abstractions.IThreadService.StoreSummary(System.String,BbQ.ChatWidgets.Models.ChatSummary)
+  name: StoreSummary(string, ChatSummary)
+  href: BbQ.ChatWidgets.Abstractions.IThreadService.html#BbQ_ChatWidgets_Abstractions_IThreadService_StoreSummary_System_String_BbQ_ChatWidgets_Models_ChatSummary_
+  commentId: M:BbQ.ChatWidgets.Abstractions.IThreadService.StoreSummary(System.String,BbQ.ChatWidgets.Models.ChatSummary)
+  name.vb: StoreSummary(String, ChatSummary)
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadService.StoreSummary(string, BbQ.ChatWidgets.Models.ChatSummary)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IThreadService.StoreSummary(String, BbQ.ChatWidgets.Models.ChatSummary)
+  nameWithType: IThreadService.StoreSummary(string, ChatSummary)
+  nameWithType.vb: IThreadService.StoreSummary(String, ChatSummary)
+- uid: BbQ.ChatWidgets.Abstractions.IThreadService.StoreSummary*
+  name: StoreSummary
+  href: BbQ.ChatWidgets.Abstractions.IThreadService.html#BbQ_ChatWidgets_Abstractions_IThreadService_StoreSummary_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IThreadService.StoreSummary
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadService.StoreSummary
+  nameWithType: IThreadService.StoreSummary
 - uid: BbQ.ChatWidgets.Abstractions.IThreadService.ThreadExists(System.String)
   name: ThreadExists(string)
   href: BbQ.ChatWidgets.Abstractions.IThreadService.html#BbQ_ChatWidgets_Abstractions_IThreadService_ThreadExists_System_String_
@@ -2427,6 +2478,15 @@ references:
   fullName.vb: BbQ.ChatWidgets.Models.ChatMessageExtensions.ToAIMessages(BbQ.ChatWidgets.Models.ChatMessages, Integer)
   nameWithType: ChatMessageExtensions.ToAIMessages(ChatMessages, int)
   nameWithType.vb: ChatMessageExtensions.ToAIMessages(ChatMessages, Integer)
+- uid: BbQ.ChatWidgets.Models.ChatMessageExtensions.ToAIMessages(BbQ.ChatWidgets.Models.ChatMessages,System.Int32,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatSummary})
+  name: ToAIMessages(ChatMessages, int, IReadOnlyList<ChatSummary>)
+  href: BbQ.ChatWidgets.Models.ChatMessageExtensions.html#BbQ_ChatWidgets_Models_ChatMessageExtensions_ToAIMessages_BbQ_ChatWidgets_Models_ChatMessages_System_Int32_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatSummary__
+  commentId: M:BbQ.ChatWidgets.Models.ChatMessageExtensions.ToAIMessages(BbQ.ChatWidgets.Models.ChatMessages,System.Int32,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatSummary})
+  name.vb: ToAIMessages(ChatMessages, Integer, IReadOnlyList(Of ChatSummary))
+  fullName: BbQ.ChatWidgets.Models.ChatMessageExtensions.ToAIMessages(BbQ.ChatWidgets.Models.ChatMessages, int, System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.ChatSummary>)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatMessageExtensions.ToAIMessages(BbQ.ChatWidgets.Models.ChatMessages, Integer, System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.ChatSummary))
+  nameWithType: ChatMessageExtensions.ToAIMessages(ChatMessages, int, IReadOnlyList<ChatSummary>)
+  nameWithType.vb: ChatMessageExtensions.ToAIMessages(ChatMessages, Integer, IReadOnlyList(Of ChatSummary))
 - uid: BbQ.ChatWidgets.Models.ChatMessageExtensions.ToAIMessages*
   name: ToAIMessages
   href: BbQ.ChatWidgets.Models.ChatMessageExtensions.html#BbQ_ChatWidgets_Models_ChatMessageExtensions_ToAIMessages_
@@ -2601,6 +2661,198 @@ references:
   fullName.vb: BbQ.ChatWidgets.Models.ChatMessages.<>
   nameWithType: ChatMessages.operator !=
   nameWithType.vb: ChatMessages.<>
+- uid: BbQ.ChatWidgets.Models.ChatSummary
+  name: ChatSummary
+  href: BbQ.ChatWidgets.Models.ChatSummary.html
+  commentId: T:BbQ.ChatWidgets.Models.ChatSummary
+  fullName: BbQ.ChatWidgets.Models.ChatSummary
+  nameWithType: ChatSummary
+- uid: BbQ.ChatWidgets.Models.ChatSummary.#ctor(BbQ.ChatWidgets.Models.ChatSummary)
+  name: ChatSummary(ChatSummary)
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary__ctor_BbQ_ChatWidgets_Models_ChatSummary_
+  commentId: M:BbQ.ChatWidgets.Models.ChatSummary.#ctor(BbQ.ChatWidgets.Models.ChatSummary)
+  name.vb: New(ChatSummary)
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.ChatSummary(BbQ.ChatWidgets.Models.ChatSummary)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatSummary.New(BbQ.ChatWidgets.Models.ChatSummary)
+  nameWithType: ChatSummary.ChatSummary(ChatSummary)
+  nameWithType.vb: ChatSummary.New(ChatSummary)
+- uid: BbQ.ChatWidgets.Models.ChatSummary.#ctor(System.String,System.Int32,System.Int32)
+  name: ChatSummary(string, int, int)
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary__ctor_System_String_System_Int32_System_Int32_
+  commentId: M:BbQ.ChatWidgets.Models.ChatSummary.#ctor(System.String,System.Int32,System.Int32)
+  name.vb: New(String, Integer, Integer)
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.ChatSummary(string, int, int)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatSummary.New(String, Integer, Integer)
+  nameWithType: ChatSummary.ChatSummary(string, int, int)
+  nameWithType.vb: ChatSummary.New(String, Integer, Integer)
+- uid: BbQ.ChatWidgets.Models.ChatSummary.#ctor*
+  name: ChatSummary
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatSummary.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.ChatSummary
+  fullName.vb: BbQ.ChatWidgets.Models.ChatSummary.New
+  nameWithType: ChatSummary.ChatSummary
+  nameWithType.vb: ChatSummary.New
+- uid: BbQ.ChatWidgets.Models.ChatSummary.Deconstruct(System.String@,System.Int32@,System.Int32@)
+  name: Deconstruct(out string, out int, out int)
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_Deconstruct_System_String__System_Int32__System_Int32__
+  commentId: M:BbQ.ChatWidgets.Models.ChatSummary.Deconstruct(System.String@,System.Int32@,System.Int32@)
+  name.vb: Deconstruct(String, Integer, Integer)
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.Deconstruct(out string, out int, out int)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatSummary.Deconstruct(String, Integer, Integer)
+  nameWithType: ChatSummary.Deconstruct(out string, out int, out int)
+  nameWithType.vb: ChatSummary.Deconstruct(String, Integer, Integer)
+- uid: BbQ.ChatWidgets.Models.ChatSummary.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatSummary.Deconstruct
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.Deconstruct
+  nameWithType: ChatSummary.Deconstruct
+- uid: BbQ.ChatWidgets.Models.ChatSummary.EndTurnIndex
+  name: EndTurnIndex
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_EndTurnIndex
+  commentId: P:BbQ.ChatWidgets.Models.ChatSummary.EndTurnIndex
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.EndTurnIndex
+  nameWithType: ChatSummary.EndTurnIndex
+- uid: BbQ.ChatWidgets.Models.ChatSummary.EndTurnIndex*
+  name: EndTurnIndex
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_EndTurnIndex_
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatSummary.EndTurnIndex
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.EndTurnIndex
+  nameWithType: ChatSummary.EndTurnIndex
+- uid: BbQ.ChatWidgets.Models.ChatSummary.EqualityContract
+  name: EqualityContract
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_EqualityContract
+  commentId: P:BbQ.ChatWidgets.Models.ChatSummary.EqualityContract
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.EqualityContract
+  nameWithType: ChatSummary.EqualityContract
+- uid: BbQ.ChatWidgets.Models.ChatSummary.EqualityContract*
+  name: EqualityContract
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_EqualityContract_
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatSummary.EqualityContract
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.EqualityContract
+  nameWithType: ChatSummary.EqualityContract
+- uid: BbQ.ChatWidgets.Models.ChatSummary.Equals(BbQ.ChatWidgets.Models.ChatSummary)
+  name: Equals(ChatSummary?)
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_Equals_BbQ_ChatWidgets_Models_ChatSummary_
+  commentId: M:BbQ.ChatWidgets.Models.ChatSummary.Equals(BbQ.ChatWidgets.Models.ChatSummary)
+  name.vb: Equals(ChatSummary)
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.Equals(BbQ.ChatWidgets.Models.ChatSummary?)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatSummary.Equals(BbQ.ChatWidgets.Models.ChatSummary)
+  nameWithType: ChatSummary.Equals(ChatSummary?)
+  nameWithType.vb: ChatSummary.Equals(ChatSummary)
+- uid: BbQ.ChatWidgets.Models.ChatSummary.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Models.ChatSummary.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatSummary.Equals(Object)
+  nameWithType: ChatSummary.Equals(object?)
+  nameWithType.vb: ChatSummary.Equals(Object)
+- uid: BbQ.ChatWidgets.Models.ChatSummary.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatSummary.Equals
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.Equals
+  nameWithType: ChatSummary.Equals
+- uid: BbQ.ChatWidgets.Models.ChatSummary.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Models.ChatSummary.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.GetHashCode()
+  nameWithType: ChatSummary.GetHashCode()
+- uid: BbQ.ChatWidgets.Models.ChatSummary.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatSummary.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.GetHashCode
+  nameWithType: ChatSummary.GetHashCode
+- uid: BbQ.ChatWidgets.Models.ChatSummary.PrintMembers(System.Text.StringBuilder)
+  name: PrintMembers(StringBuilder)
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_PrintMembers_System_Text_StringBuilder_
+  commentId: M:BbQ.ChatWidgets.Models.ChatSummary.PrintMembers(System.Text.StringBuilder)
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.PrintMembers(System.Text.StringBuilder)
+  nameWithType: ChatSummary.PrintMembers(StringBuilder)
+- uid: BbQ.ChatWidgets.Models.ChatSummary.PrintMembers*
+  name: PrintMembers
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_PrintMembers_
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatSummary.PrintMembers
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.PrintMembers
+  nameWithType: ChatSummary.PrintMembers
+- uid: BbQ.ChatWidgets.Models.ChatSummary.StartTurnIndex
+  name: StartTurnIndex
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_StartTurnIndex
+  commentId: P:BbQ.ChatWidgets.Models.ChatSummary.StartTurnIndex
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.StartTurnIndex
+  nameWithType: ChatSummary.StartTurnIndex
+- uid: BbQ.ChatWidgets.Models.ChatSummary.StartTurnIndex*
+  name: StartTurnIndex
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_StartTurnIndex_
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatSummary.StartTurnIndex
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.StartTurnIndex
+  nameWithType: ChatSummary.StartTurnIndex
+- uid: BbQ.ChatWidgets.Models.ChatSummary.SummaryText
+  name: SummaryText
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_SummaryText
+  commentId: P:BbQ.ChatWidgets.Models.ChatSummary.SummaryText
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.SummaryText
+  nameWithType: ChatSummary.SummaryText
+- uid: BbQ.ChatWidgets.Models.ChatSummary.SummaryText*
+  name: SummaryText
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_SummaryText_
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatSummary.SummaryText
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.SummaryText
+  nameWithType: ChatSummary.SummaryText
+- uid: BbQ.ChatWidgets.Models.ChatSummary.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_ToString
+  commentId: M:BbQ.ChatWidgets.Models.ChatSummary.ToString
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.ToString()
+  nameWithType: ChatSummary.ToString()
+- uid: BbQ.ChatWidgets.Models.ChatSummary.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatSummary.ToString
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.ToString
+  nameWithType: ChatSummary.ToString
+- uid: BbQ.ChatWidgets.Models.ChatSummary.op_Equality(BbQ.ChatWidgets.Models.ChatSummary,BbQ.ChatWidgets.Models.ChatSummary)
+  name: operator ==(ChatSummary?, ChatSummary?)
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_op_Equality_BbQ_ChatWidgets_Models_ChatSummary_BbQ_ChatWidgets_Models_ChatSummary_
+  commentId: M:BbQ.ChatWidgets.Models.ChatSummary.op_Equality(BbQ.ChatWidgets.Models.ChatSummary,BbQ.ChatWidgets.Models.ChatSummary)
+  name.vb: =(ChatSummary, ChatSummary)
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.operator ==(BbQ.ChatWidgets.Models.ChatSummary?, BbQ.ChatWidgets.Models.ChatSummary?)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatSummary.=(BbQ.ChatWidgets.Models.ChatSummary, BbQ.ChatWidgets.Models.ChatSummary)
+  nameWithType: ChatSummary.operator ==(ChatSummary?, ChatSummary?)
+  nameWithType.vb: ChatSummary.=(ChatSummary, ChatSummary)
+- uid: BbQ.ChatWidgets.Models.ChatSummary.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatSummary.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.operator ==
+  fullName.vb: BbQ.ChatWidgets.Models.ChatSummary.=
+  nameWithType: ChatSummary.operator ==
+  nameWithType.vb: ChatSummary.=
+- uid: BbQ.ChatWidgets.Models.ChatSummary.op_Inequality(BbQ.ChatWidgets.Models.ChatSummary,BbQ.ChatWidgets.Models.ChatSummary)
+  name: operator !=(ChatSummary?, ChatSummary?)
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_op_Inequality_BbQ_ChatWidgets_Models_ChatSummary_BbQ_ChatWidgets_Models_ChatSummary_
+  commentId: M:BbQ.ChatWidgets.Models.ChatSummary.op_Inequality(BbQ.ChatWidgets.Models.ChatSummary,BbQ.ChatWidgets.Models.ChatSummary)
+  name.vb: <>(ChatSummary, ChatSummary)
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.operator !=(BbQ.ChatWidgets.Models.ChatSummary?, BbQ.ChatWidgets.Models.ChatSummary?)
+  fullName.vb: BbQ.ChatWidgets.Models.ChatSummary.<>(BbQ.ChatWidgets.Models.ChatSummary, BbQ.ChatWidgets.Models.ChatSummary)
+  nameWithType: ChatSummary.operator !=(ChatSummary?, ChatSummary?)
+  nameWithType.vb: ChatSummary.<>(ChatSummary, ChatSummary)
+- uid: BbQ.ChatWidgets.Models.ChatSummary.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Models.ChatSummary.html#BbQ_ChatWidgets_Models_ChatSummary_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatSummary.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Models.ChatSummary.operator !=
+  fullName.vb: BbQ.ChatWidgets.Models.ChatSummary.<>
+  nameWithType: ChatSummary.operator !=
+  nameWithType.vb: ChatSummary.<>
 - uid: BbQ.ChatWidgets.Models.ChatTurn
   name: ChatTurn
   href: BbQ.ChatWidgets.Models.ChatTurn.html
@@ -3891,15 +4143,15 @@ references:
   commentId: T:BbQ.ChatWidgets.Models.FormField
   fullName: BbQ.ChatWidgets.Models.FormField
   nameWithType: FormField
-- uid: BbQ.ChatWidgets.Models.FormField.#ctor(BbQ.ChatWidgets.Models.FormField)
-  name: FormField(FormField)
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField__ctor_BbQ_ChatWidgets_Models_FormField_
-  commentId: M:BbQ.ChatWidgets.Models.FormField.#ctor(BbQ.ChatWidgets.Models.FormField)
-  name.vb: New(FormField)
-  fullName: BbQ.ChatWidgets.Models.FormField.FormField(BbQ.ChatWidgets.Models.FormField)
-  fullName.vb: BbQ.ChatWidgets.Models.FormField.New(BbQ.ChatWidgets.Models.FormField)
-  nameWithType: FormField.FormField(FormField)
-  nameWithType.vb: FormField.New(FormField)
+- uid: BbQ.ChatWidgets.Models.FormField.#ctor
+  name: FormField()
+  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField__ctor
+  commentId: M:BbQ.ChatWidgets.Models.FormField.#ctor
+  name.vb: New()
+  fullName: BbQ.ChatWidgets.Models.FormField.FormField()
+  fullName.vb: BbQ.ChatWidgets.Models.FormField.New()
+  nameWithType: FormField.FormField()
+  nameWithType.vb: FormField.New()
 - uid: BbQ.ChatWidgets.Models.FormField.#ctor(System.String,System.String,System.String,System.Boolean,System.String)
   name: FormField(string, string, string, bool, string?)
   href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField__ctor_System_String_System_String_System_String_System_Boolean_System_String_
@@ -3918,69 +4170,18 @@ references:
   fullName.vb: BbQ.ChatWidgets.Models.FormField.New
   nameWithType: FormField.FormField
   nameWithType.vb: FormField.New
-- uid: BbQ.ChatWidgets.Models.FormField.Deconstruct(System.String@,System.String@,System.String@,System.Boolean@,System.String@)
-  name: Deconstruct(out string, out string, out string, out bool, out string?)
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_Deconstruct_System_String__System_String__System_String__System_Boolean__System_String__
-  commentId: M:BbQ.ChatWidgets.Models.FormField.Deconstruct(System.String@,System.String@,System.String@,System.Boolean@,System.String@)
-  name.vb: Deconstruct(String, String, String, Boolean, String)
-  fullName: BbQ.ChatWidgets.Models.FormField.Deconstruct(out string, out string, out string, out bool, out string?)
-  fullName.vb: BbQ.ChatWidgets.Models.FormField.Deconstruct(String, String, String, Boolean, String)
-  nameWithType: FormField.Deconstruct(out string, out string, out string, out bool, out string?)
-  nameWithType.vb: FormField.Deconstruct(String, String, String, Boolean, String)
-- uid: BbQ.ChatWidgets.Models.FormField.Deconstruct*
-  name: Deconstruct
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_Deconstruct_
-  commentId: Overload:BbQ.ChatWidgets.Models.FormField.Deconstruct
-  fullName: BbQ.ChatWidgets.Models.FormField.Deconstruct
-  nameWithType: FormField.Deconstruct
-- uid: BbQ.ChatWidgets.Models.FormField.EqualityContract
-  name: EqualityContract
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_EqualityContract
-  commentId: P:BbQ.ChatWidgets.Models.FormField.EqualityContract
-  fullName: BbQ.ChatWidgets.Models.FormField.EqualityContract
-  nameWithType: FormField.EqualityContract
-- uid: BbQ.ChatWidgets.Models.FormField.EqualityContract*
-  name: EqualityContract
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_EqualityContract_
-  commentId: Overload:BbQ.ChatWidgets.Models.FormField.EqualityContract
-  fullName: BbQ.ChatWidgets.Models.FormField.EqualityContract
-  nameWithType: FormField.EqualityContract
-- uid: BbQ.ChatWidgets.Models.FormField.Equals(BbQ.ChatWidgets.Models.FormField)
-  name: Equals(FormField?)
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_Equals_BbQ_ChatWidgets_Models_FormField_
-  commentId: M:BbQ.ChatWidgets.Models.FormField.Equals(BbQ.ChatWidgets.Models.FormField)
-  name.vb: Equals(FormField)
-  fullName: BbQ.ChatWidgets.Models.FormField.Equals(BbQ.ChatWidgets.Models.FormField?)
-  fullName.vb: BbQ.ChatWidgets.Models.FormField.Equals(BbQ.ChatWidgets.Models.FormField)
-  nameWithType: FormField.Equals(FormField?)
-  nameWithType.vb: FormField.Equals(FormField)
-- uid: BbQ.ChatWidgets.Models.FormField.Equals(System.Object)
-  name: Equals(object?)
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_Equals_System_Object_
-  commentId: M:BbQ.ChatWidgets.Models.FormField.Equals(System.Object)
-  name.vb: Equals(Object)
-  fullName: BbQ.ChatWidgets.Models.FormField.Equals(object?)
-  fullName.vb: BbQ.ChatWidgets.Models.FormField.Equals(Object)
-  nameWithType: FormField.Equals(object?)
-  nameWithType.vb: FormField.Equals(Object)
-- uid: BbQ.ChatWidgets.Models.FormField.Equals*
-  name: Equals
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_Equals_
-  commentId: Overload:BbQ.ChatWidgets.Models.FormField.Equals
-  fullName: BbQ.ChatWidgets.Models.FormField.Equals
-  nameWithType: FormField.Equals
-- uid: BbQ.ChatWidgets.Models.FormField.GetHashCode
-  name: GetHashCode()
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_GetHashCode
-  commentId: M:BbQ.ChatWidgets.Models.FormField.GetHashCode
-  fullName: BbQ.ChatWidgets.Models.FormField.GetHashCode()
-  nameWithType: FormField.GetHashCode()
-- uid: BbQ.ChatWidgets.Models.FormField.GetHashCode*
-  name: GetHashCode
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_GetHashCode_
-  commentId: Overload:BbQ.ChatWidgets.Models.FormField.GetHashCode
-  fullName: BbQ.ChatWidgets.Models.FormField.GetHashCode
-  nameWithType: FormField.GetHashCode
+- uid: BbQ.ChatWidgets.Models.FormField.ExtensionData
+  name: ExtensionData
+  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_ExtensionData
+  commentId: P:BbQ.ChatWidgets.Models.FormField.ExtensionData
+  fullName: BbQ.ChatWidgets.Models.FormField.ExtensionData
+  nameWithType: FormField.ExtensionData
+- uid: BbQ.ChatWidgets.Models.FormField.ExtensionData*
+  name: ExtensionData
+  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_ExtensionData_
+  commentId: Overload:BbQ.ChatWidgets.Models.FormField.ExtensionData
+  fullName: BbQ.ChatWidgets.Models.FormField.ExtensionData
+  nameWithType: FormField.ExtensionData
 - uid: BbQ.ChatWidgets.Models.FormField.Label
   name: Label
   href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_Label
@@ -4005,18 +4206,6 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Models.FormField.Name
   fullName: BbQ.ChatWidgets.Models.FormField.Name
   nameWithType: FormField.Name
-- uid: BbQ.ChatWidgets.Models.FormField.PrintMembers(System.Text.StringBuilder)
-  name: PrintMembers(StringBuilder)
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_PrintMembers_System_Text_StringBuilder_
-  commentId: M:BbQ.ChatWidgets.Models.FormField.PrintMembers(System.Text.StringBuilder)
-  fullName: BbQ.ChatWidgets.Models.FormField.PrintMembers(System.Text.StringBuilder)
-  nameWithType: FormField.PrintMembers(StringBuilder)
-- uid: BbQ.ChatWidgets.Models.FormField.PrintMembers*
-  name: PrintMembers
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_PrintMembers_
-  commentId: Overload:BbQ.ChatWidgets.Models.FormField.PrintMembers
-  fullName: BbQ.ChatWidgets.Models.FormField.PrintMembers
-  nameWithType: FormField.PrintMembers
 - uid: BbQ.ChatWidgets.Models.FormField.Required
   name: Required
   href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_Required
@@ -4029,18 +4218,18 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Models.FormField.Required
   fullName: BbQ.ChatWidgets.Models.FormField.Required
   nameWithType: FormField.Required
-- uid: BbQ.ChatWidgets.Models.FormField.ToString
-  name: ToString()
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_ToString
-  commentId: M:BbQ.ChatWidgets.Models.FormField.ToString
-  fullName: BbQ.ChatWidgets.Models.FormField.ToString()
-  nameWithType: FormField.ToString()
-- uid: BbQ.ChatWidgets.Models.FormField.ToString*
-  name: ToString
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_ToString_
-  commentId: Overload:BbQ.ChatWidgets.Models.FormField.ToString
-  fullName: BbQ.ChatWidgets.Models.FormField.ToString
-  nameWithType: FormField.ToString
+- uid: BbQ.ChatWidgets.Models.FormField.ToWidget
+  name: ToWidget()
+  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_ToWidget
+  commentId: M:BbQ.ChatWidgets.Models.FormField.ToWidget
+  fullName: BbQ.ChatWidgets.Models.FormField.ToWidget()
+  nameWithType: FormField.ToWidget()
+- uid: BbQ.ChatWidgets.Models.FormField.ToWidget*
+  name: ToWidget
+  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_ToWidget_
+  commentId: Overload:BbQ.ChatWidgets.Models.FormField.ToWidget
+  fullName: BbQ.ChatWidgets.Models.FormField.ToWidget
+  nameWithType: FormField.ToWidget
 - uid: BbQ.ChatWidgets.Models.FormField.Type
   name: Type
   href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_Type
@@ -4065,42 +4254,6 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Models.FormField.ValidationHint
   fullName: BbQ.ChatWidgets.Models.FormField.ValidationHint
   nameWithType: FormField.ValidationHint
-- uid: BbQ.ChatWidgets.Models.FormField.op_Equality(BbQ.ChatWidgets.Models.FormField,BbQ.ChatWidgets.Models.FormField)
-  name: operator ==(FormField?, FormField?)
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_op_Equality_BbQ_ChatWidgets_Models_FormField_BbQ_ChatWidgets_Models_FormField_
-  commentId: M:BbQ.ChatWidgets.Models.FormField.op_Equality(BbQ.ChatWidgets.Models.FormField,BbQ.ChatWidgets.Models.FormField)
-  name.vb: =(FormField, FormField)
-  fullName: BbQ.ChatWidgets.Models.FormField.operator ==(BbQ.ChatWidgets.Models.FormField?, BbQ.ChatWidgets.Models.FormField?)
-  fullName.vb: BbQ.ChatWidgets.Models.FormField.=(BbQ.ChatWidgets.Models.FormField, BbQ.ChatWidgets.Models.FormField)
-  nameWithType: FormField.operator ==(FormField?, FormField?)
-  nameWithType.vb: FormField.=(FormField, FormField)
-- uid: BbQ.ChatWidgets.Models.FormField.op_Equality*
-  name: operator ==
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_op_Equality_
-  commentId: Overload:BbQ.ChatWidgets.Models.FormField.op_Equality
-  name.vb: =
-  fullName: BbQ.ChatWidgets.Models.FormField.operator ==
-  fullName.vb: BbQ.ChatWidgets.Models.FormField.=
-  nameWithType: FormField.operator ==
-  nameWithType.vb: FormField.=
-- uid: BbQ.ChatWidgets.Models.FormField.op_Inequality(BbQ.ChatWidgets.Models.FormField,BbQ.ChatWidgets.Models.FormField)
-  name: operator !=(FormField?, FormField?)
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_op_Inequality_BbQ_ChatWidgets_Models_FormField_BbQ_ChatWidgets_Models_FormField_
-  commentId: M:BbQ.ChatWidgets.Models.FormField.op_Inequality(BbQ.ChatWidgets.Models.FormField,BbQ.ChatWidgets.Models.FormField)
-  name.vb: <>(FormField, FormField)
-  fullName: BbQ.ChatWidgets.Models.FormField.operator !=(BbQ.ChatWidgets.Models.FormField?, BbQ.ChatWidgets.Models.FormField?)
-  fullName.vb: BbQ.ChatWidgets.Models.FormField.<>(BbQ.ChatWidgets.Models.FormField, BbQ.ChatWidgets.Models.FormField)
-  nameWithType: FormField.operator !=(FormField?, FormField?)
-  nameWithType.vb: FormField.<>(FormField, FormField)
-- uid: BbQ.ChatWidgets.Models.FormField.op_Inequality*
-  name: operator !=
-  href: BbQ.ChatWidgets.Models.FormField.html#BbQ_ChatWidgets_Models_FormField_op_Inequality_
-  commentId: Overload:BbQ.ChatWidgets.Models.FormField.op_Inequality
-  name.vb: <>
-  fullName: BbQ.ChatWidgets.Models.FormField.operator !=
-  fullName.vb: BbQ.ChatWidgets.Models.FormField.<>
-  nameWithType: FormField.operator !=
-  nameWithType.vb: FormField.<>
 - uid: BbQ.ChatWidgets.Models.FormWidget
   name: FormWidget
   href: BbQ.ChatWidgets.Models.FormWidget.html
@@ -6570,15 +6723,15 @@ references:
   commentId: T:BbQ.ChatWidgets.Services.ChatWidgetService
   fullName: BbQ.ChatWidgets.Services.ChatWidgetService
   nameWithType: ChatWidgetService
-- uid: BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)
-  name: ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver)
-  href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_
-  commentId: M:BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)
-  name.vb: New(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver)
-  fullName: BbQ.ChatWidgets.Services.ChatWidgetService.ChatWidgetService(Microsoft.Extensions.AI.IChatClient, BbQ.ChatWidgets.Abstractions.IWidgetHintParser, BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer, BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider, BbQ.ChatWidgets.Abstractions.IAIToolsProvider, BbQ.ChatWidgets.Abstractions.IThreadService, BbQ.ChatWidgets.Abstractions.IAIInstructionProvider, BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)
-  fullName.vb: BbQ.ChatWidgets.Services.ChatWidgetService.New(Microsoft.Extensions.AI.IChatClient, BbQ.ChatWidgets.Abstractions.IWidgetHintParser, BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer, BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider, BbQ.ChatWidgets.Abstractions.IAIToolsProvider, BbQ.ChatWidgets.Abstractions.IThreadService, BbQ.ChatWidgets.Abstractions.IAIInstructionProvider, BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)
-  nameWithType: ChatWidgetService.ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver)
-  nameWithType.vb: ChatWidgetService.New(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver)
+- uid: BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer,BbQChatOptions)
+  name: ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)
+  href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_BbQChatOptions_
+  commentId: M:BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer,BbQChatOptions)
+  name.vb: New(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)
+  fullName: BbQ.ChatWidgets.Services.ChatWidgetService.ChatWidgetService(Microsoft.Extensions.AI.IChatClient, BbQ.ChatWidgets.Abstractions.IWidgetHintParser, BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer, BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider, BbQ.ChatWidgets.Abstractions.IAIToolsProvider, BbQ.ChatWidgets.Abstractions.IThreadService, BbQ.ChatWidgets.Abstractions.IAIInstructionProvider, BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer, BbQChatOptions)
+  fullName.vb: BbQ.ChatWidgets.Services.ChatWidgetService.New(Microsoft.Extensions.AI.IChatClient, BbQ.ChatWidgets.Abstractions.IWidgetHintParser, BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer, BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider, BbQ.ChatWidgets.Abstractions.IAIToolsProvider, BbQ.ChatWidgets.Abstractions.IThreadService, BbQ.ChatWidgets.Abstractions.IAIInstructionProvider, BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer, BbQChatOptions)
+  nameWithType: ChatWidgetService.ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)
+  nameWithType.vb: ChatWidgetService.New(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)
 - uid: BbQ.ChatWidgets.Services.ChatWidgetService.#ctor*
   name: ChatWidgetService
   href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService__ctor_
@@ -6669,6 +6822,45 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Services.DefaultAIToolsProvider.GetAITools
   fullName: BbQ.ChatWidgets.Services.DefaultAIToolsProvider.GetAITools
   nameWithType: DefaultAIToolsProvider.GetAITools
+- uid: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer
+  name: DefaultChatHistorySummarizer
+  href: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.html
+  commentId: T:BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer
+  fullName: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer
+  nameWithType: DefaultChatHistorySummarizer
+- uid: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.#ctor(Microsoft.Extensions.AI.IChatClient)
+  name: DefaultChatHistorySummarizer(IChatClient)
+  href: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.html#BbQ_ChatWidgets_Services_DefaultChatHistorySummarizer__ctor_Microsoft_Extensions_AI_IChatClient_
+  commentId: M:BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.#ctor(Microsoft.Extensions.AI.IChatClient)
+  name.vb: New(IChatClient)
+  fullName: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.DefaultChatHistorySummarizer(Microsoft.Extensions.AI.IChatClient)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.New(Microsoft.Extensions.AI.IChatClient)
+  nameWithType: DefaultChatHistorySummarizer.DefaultChatHistorySummarizer(IChatClient)
+  nameWithType.vb: DefaultChatHistorySummarizer.New(IChatClient)
+- uid: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.#ctor*
+  name: DefaultChatHistorySummarizer
+  href: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.html#BbQ_ChatWidgets_Services_DefaultChatHistorySummarizer__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.DefaultChatHistorySummarizer
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.New
+  nameWithType: DefaultChatHistorySummarizer.DefaultChatHistorySummarizer
+  nameWithType.vb: DefaultChatHistorySummarizer.New
+- uid: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.SummarizeAsync(System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatTurn},System.Threading.CancellationToken)
+  name: SummarizeAsync(IReadOnlyList<ChatTurn>, CancellationToken)
+  href: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.html#BbQ_ChatWidgets_Services_DefaultChatHistorySummarizer_SummarizeAsync_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatTurn__System_Threading_CancellationToken_
+  commentId: M:BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.SummarizeAsync(System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatTurn},System.Threading.CancellationToken)
+  name.vb: SummarizeAsync(IReadOnlyList(Of ChatTurn), CancellationToken)
+  fullName: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.SummarizeAsync(System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.ChatTurn>, System.Threading.CancellationToken)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.SummarizeAsync(System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.ChatTurn), System.Threading.CancellationToken)
+  nameWithType: DefaultChatHistorySummarizer.SummarizeAsync(IReadOnlyList<ChatTurn>, CancellationToken)
+  nameWithType.vb: DefaultChatHistorySummarizer.SummarizeAsync(IReadOnlyList(Of ChatTurn), CancellationToken)
+- uid: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.SummarizeAsync*
+  name: SummarizeAsync
+  href: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.html#BbQ_ChatWidgets_Services_DefaultChatHistorySummarizer_SummarizeAsync_
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.SummarizeAsync
+  fullName: BbQ.ChatWidgets.Services.DefaultChatHistorySummarizer.SummarizeAsync
+  nameWithType: DefaultChatHistorySummarizer.SummarizeAsync
 - uid: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator
   name: DefaultStreamPayloadValidator
   href: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.html
@@ -6879,6 +7071,36 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Services.DefaultThreadService.GetMessage
   fullName: BbQ.ChatWidgets.Services.DefaultThreadService.GetMessage
   nameWithType: DefaultThreadService.GetMessage
+- uid: BbQ.ChatWidgets.Services.DefaultThreadService.GetSummaries(System.String)
+  name: GetSummaries(string)
+  href: BbQ.ChatWidgets.Services.DefaultThreadService.html#BbQ_ChatWidgets_Services_DefaultThreadService_GetSummaries_System_String_
+  commentId: M:BbQ.ChatWidgets.Services.DefaultThreadService.GetSummaries(System.String)
+  name.vb: GetSummaries(String)
+  fullName: BbQ.ChatWidgets.Services.DefaultThreadService.GetSummaries(string)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultThreadService.GetSummaries(String)
+  nameWithType: DefaultThreadService.GetSummaries(string)
+  nameWithType.vb: DefaultThreadService.GetSummaries(String)
+- uid: BbQ.ChatWidgets.Services.DefaultThreadService.GetSummaries*
+  name: GetSummaries
+  href: BbQ.ChatWidgets.Services.DefaultThreadService.html#BbQ_ChatWidgets_Services_DefaultThreadService_GetSummaries_
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultThreadService.GetSummaries
+  fullName: BbQ.ChatWidgets.Services.DefaultThreadService.GetSummaries
+  nameWithType: DefaultThreadService.GetSummaries
+- uid: BbQ.ChatWidgets.Services.DefaultThreadService.StoreSummary(System.String,BbQ.ChatWidgets.Models.ChatSummary)
+  name: StoreSummary(string, ChatSummary)
+  href: BbQ.ChatWidgets.Services.DefaultThreadService.html#BbQ_ChatWidgets_Services_DefaultThreadService_StoreSummary_System_String_BbQ_ChatWidgets_Models_ChatSummary_
+  commentId: M:BbQ.ChatWidgets.Services.DefaultThreadService.StoreSummary(System.String,BbQ.ChatWidgets.Models.ChatSummary)
+  name.vb: StoreSummary(String, ChatSummary)
+  fullName: BbQ.ChatWidgets.Services.DefaultThreadService.StoreSummary(string, BbQ.ChatWidgets.Models.ChatSummary)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultThreadService.StoreSummary(String, BbQ.ChatWidgets.Models.ChatSummary)
+  nameWithType: DefaultThreadService.StoreSummary(string, ChatSummary)
+  nameWithType.vb: DefaultThreadService.StoreSummary(String, ChatSummary)
+- uid: BbQ.ChatWidgets.Services.DefaultThreadService.StoreSummary*
+  name: StoreSummary
+  href: BbQ.ChatWidgets.Services.DefaultThreadService.html#BbQ_ChatWidgets_Services_DefaultThreadService_StoreSummary_
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultThreadService.StoreSummary
+  fullName: BbQ.ChatWidgets.Services.DefaultThreadService.StoreSummary
+  nameWithType: DefaultThreadService.StoreSummary
 - uid: BbQ.ChatWidgets.Services.DefaultThreadService.ThreadExists(System.String)
   name: ThreadExists(string)
   href: BbQ.ChatWidgets.Services.DefaultThreadService.html#BbQ_ChatWidgets_Services_DefaultThreadService_ThreadExists_System_String_

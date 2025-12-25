@@ -5,11 +5,11 @@
   <head>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>Class ToggleWidget | BbQ.ChatWidgets </title>
+      <title>Class ChatSummary | BbQ.ChatWidgets </title>
       <meta name="viewport" content="width=device-width">
-      <meta name="title" content="Class ToggleWidget | BbQ.ChatWidgets ">
+      <meta name="title" content="Class ChatSummary | BbQ.ChatWidgets ">
     
-    <meta name="description" content="A toggle widget for boolean (yes/no, on/off) selection.">
+    <meta name="description" content="Represents a summary of a range of chat conversation turns.">
       <link rel="shortcut icon" href="favicon.ico">
       <link rel="stylesheet" href="styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="styles/docfx.css">
@@ -69,38 +69,30 @@
       <div role="main" class="container body-content hide-when-search">
         <div class="article row grid">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="BbQ.ChatWidgets.Models.ToggleWidget">
+            <article class="content wrap" id="_content" data-uid="BbQ.ChatWidgets.Models.ChatSummary">
 
 
 
-  <h1 id="BbQ_ChatWidgets_Models_ToggleWidget" data-uid="BbQ.ChatWidgets.Models.ToggleWidget" class="text-break">Class ToggleWidget</h1>
-  <div class="markdown level0 summary"><p>A toggle widget for boolean (yes/no, on/off) selection.</p>
+  <h1 id="BbQ_ChatWidgets_Models_ChatSummary" data-uid="BbQ.ChatWidgets.Models.ChatSummary" class="text-break">Class ChatSummary</h1>
+  <div class="markdown level0 summary"><p>Represents a summary of a range of chat conversation turns.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
     <h5>Inheritance</h5>
     <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
-    <div class="level1"><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a></div>
-    <div class="level2"><span class="xref">ToggleWidget</span></div>
+    <div class="level1"><span class="xref">ChatSummary</span></div>
   </div>
   <div class="implements">
     <h5>Implements</h5>
-    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a>&gt;</div>
-    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ToggleWidget.html">ToggleWidget</a>&gt;</div>
+    <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatSummary.html">ChatSummary</a>&gt;</div>
   </div>
   <div class="inheritedMembers">
     <h5>Inherited Members</h5>
     <div>
-      <a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Deconstruct_System_String__System_String__">ChatWidget.Deconstruct(out string, out string)</a>
-    </div>
-    <div>
-      <a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Label">ChatWidget.Label</a>
-    </div>
-    <div>
-      <a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Action">ChatWidget.Action</a>
-    </div>
-    <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gettype">object.GetType()</a>
+    </div>
+    <div>
+      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone">object.MemberwiseClone()</a>
     </div>
     <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)">object.Equals(object, object)</a>
@@ -111,35 +103,61 @@
   </div>
   <h6><strong>Namespace</strong>: <a class="xref" href="BbQ.html">BbQ</a>.<a class="xref" href="BbQ.ChatWidgets.html">ChatWidgets</a>.<a class="xref" href="BbQ.ChatWidgets.Models.html">Models</a></h6>
   <h6><strong>Assembly</strong>: BbQ.ChatWidgets.dll</h6>
-  <h5 id="BbQ_ChatWidgets_Models_ToggleWidget_syntax">Syntax</h5>
+  <h5 id="BbQ_ChatWidgets_Models_ChatSummary_syntax">Syntax</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public sealed record ToggleWidget : ChatWidget, IEquatable&lt;ChatWidget&gt;, IEquatable&lt;ToggleWidget&gt;</code></pre>
+    <pre><code class="lang-csharp hljs">public record ChatSummary : IEquatable&lt;ChatSummary&gt;</code></pre>
   </div>
-  <h5 id="BbQ_ChatWidgets_Models_ToggleWidget_remarks"><strong>Remarks</strong></h5>
-  <div class="markdown level0 remarks"><p>Toggles provide a simple on/off selection mechanism with visual feedback.
-Uses:</p>
-<ul>
-<li>Feature enable/disable</li>
-<li>Preference settings</li>
-<li>Yes/no questions</li>
-</ul>
-<p>Example JSON:
-{&quot;type&quot;:&quot;toggle&quot;,&quot;label&quot;:&quot;Enable notifications&quot;,&quot;action&quot;:&quot;toggle_notifications&quot;,&quot;defaultValue&quot;:false}</p>
+  <h5 id="BbQ_ChatWidgets_Models_ChatSummary_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Chat summaries are used to manage context window limits by condensing
+older conversation history into concise summaries. This allows the system
+to maintain relevant context while staying within token budget constraints.</p>
+<p>The turn indices reference positions in the original conversation history,
+allowing the system to track which turns have been summarized and which
+are still being used in their original form.</p>
 </div>
   <h3 id="constructors">Constructors
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ToggleWidget__ctor_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.#ctor*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ToggleWidget__ctor_System_String_System_String_System_Boolean_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.#ctor(System.String,System.String,System.Boolean)">ToggleWidget(string, string, bool)</h4>
-  <div class="markdown level1 summary"><p>A toggle widget for boolean (yes/no, on/off) selection.</p>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary__ctor_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.#ctor*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary__ctor_BbQ_ChatWidgets_Models_ChatSummary_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.#ctor(BbQ.ChatWidgets.Models.ChatSummary)">ChatSummary(ChatSummary)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ChatSummary(ChatSummary original)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatSummary.html">ChatSummary</a></td>
+        <td><span class="parametername">original</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary__ctor_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.#ctor*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary__ctor_System_String_System_Int32_System_Int32_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.#ctor(System.String,System.Int32,System.Int32)">ChatSummary(string, int, int)</h4>
+  <div class="markdown level1 summary"><p>Represents a summary of a range of chat conversation turns.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ToggleWidget(string Label, string Action, bool DefaultValue)</code></pre>
+    <pre><code class="lang-csharp hljs">public ChatSummary(string SummaryText, int StartTurnIndex, int EndTurnIndex)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -153,45 +171,46 @@ Uses:</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">Label</span></td>
-        <td></td>
+        <td><span class="parametername">SummaryText</span></td>
+        <td><p>The condensed summary of the conversation turns.</p>
+</td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">Action</span></td>
-        <td></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">StartTurnIndex</span></td>
+        <td><p>The index of the first turn included in this summary (inclusive).</p>
+</td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><span class="parametername">DefaultValue</span></td>
-        <td></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">EndTurnIndex</span></td>
+        <td><p>The index of the last turn included in this summary (inclusive).</p>
+</td>
       </tr>
     </tbody>
   </table>
-  <h5 id="BbQ_ChatWidgets_Models_ToggleWidget__ctor_System_String_System_String_System_Boolean__remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>Toggles provide a simple on/off selection mechanism with visual feedback.
-Uses:</p>
-<ul>
-<li>Feature enable/disable</li>
-<li>Preference settings</li>
-<li>Yes/no questions</li>
-</ul>
-<p>Example JSON:
-{&quot;type&quot;:&quot;toggle&quot;,&quot;label&quot;:&quot;Enable notifications&quot;,&quot;action&quot;:&quot;toggle_notifications&quot;,&quot;defaultValue&quot;:false}</p>
+  <h5 id="BbQ_ChatWidgets_Models_ChatSummary__ctor_System_String_System_Int32_System_Int32__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Chat summaries are used to manage context window limits by condensing
+older conversation history into concise summaries. This allows the system
+to maintain relevant context while staying within token budget constraints.</p>
+<p>The turn indices reference positions in the original conversation history,
+allowing the system to track which turns have been summarized and which
+are still being used in their original form.</p>
 </div>
   <h3 id="properties">Properties
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ToggleWidget_DefaultValue_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.DefaultValue*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ToggleWidget_DefaultValue" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.DefaultValue">DefaultValue</h4>
-  <div class="markdown level1 summary"></div>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_EndTurnIndex_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.EndTurnIndex*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_EndTurnIndex" data-uid="BbQ.ChatWidgets.Models.ChatSummary.EndTurnIndex">EndTurnIndex</h4>
+  <div class="markdown level1 summary"><p>The index of the last turn included in this summary (inclusive).</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool DefaultValue { get; init; }</code></pre>
+    <pre><code class="lang-csharp hljs">public int EndTurnIndex { get; init; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-condensed">
@@ -203,22 +222,22 @@ Uses:</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
         <td></td>
       </tr>
     </tbody>
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ToggleWidget_EqualityContract_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.EqualityContract*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ToggleWidget_EqualityContract" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.EqualityContract">EqualityContract</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_EqualityContract_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.EqualityContract*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_EqualityContract" data-uid="BbQ.ChatWidgets.Models.ChatSummary.EqualityContract">EqualityContract</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override Type EqualityContract { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">protected virtual Type EqualityContract { get; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-condensed">
@@ -235,20 +254,46 @@ Uses:</p>
       </tr>
     </tbody>
   </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_EqualityContract">ChatWidget.EqualityContract</a></div>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ToggleWidget_Purpose_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.Purpose*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ToggleWidget_Purpose" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.Purpose">Purpose</h4>
-  <div class="markdown level1 summary"><p>Describes the purpose and usage of this widget.</p>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_StartTurnIndex_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.StartTurnIndex*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_StartTurnIndex" data-uid="BbQ.ChatWidgets.Models.ChatSummary.StartTurnIndex">StartTurnIndex</h4>
+  <div class="markdown level1 summary"><p>The index of the first turn included in this summary (inclusive).</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override string Purpose { get; }</code></pre>
+    <pre><code class="lang-csharp hljs">public int StartTurnIndex { get; init; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_SummaryText_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.SummaryText*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_SummaryText" data-uid="BbQ.ChatWidgets.Models.ChatSummary.SummaryText">SummaryText</h4>
+  <div class="markdown level1 summary"><p>The condensed summary of the conversation turns.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string SummaryText { get; init; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-condensed">
@@ -265,21 +310,19 @@ Uses:</p>
       </tr>
     </tbody>
   </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Purpose">ChatWidget.Purpose</a></div>
   <h3 id="methods">Methods
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ToggleWidget_Deconstruct_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.Deconstruct*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ToggleWidget_Deconstruct_System_String__System_String__System_Boolean__" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.Deconstruct(System.String@,System.String@,System.Boolean@)">Deconstruct(out string, out string, out bool)</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_Deconstruct_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.Deconstruct*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_Deconstruct_System_String__System_Int32__System_Int32__" data-uid="BbQ.ChatWidgets.Models.ChatSummary.Deconstruct(System.String@,System.Int32@,System.Int32@)">Deconstruct(out string, out int, out int)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Deconstruct(out string Label, out string Action, out bool DefaultValue)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Deconstruct(out string SummaryText, out int StartTurnIndex, out int EndTurnIndex)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -293,32 +336,32 @@ Uses:</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">Label</span></td>
+        <td><span class="parametername">SummaryText</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">Action</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">StartTurnIndex</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><span class="parametername">DefaultValue</span></td>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">EndTurnIndex</span></td>
         <td></td>
       </tr>
     </tbody>
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ToggleWidget_Equals_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.Equals*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ToggleWidget_Equals_BbQ_ChatWidgets_Models_ChatWidget_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.Equals(BbQ.ChatWidgets.Models.ChatWidget)">Equals(ChatWidget?)</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_Equals_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.Equals*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_Equals_BbQ_ChatWidgets_Models_ChatSummary_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.Equals(BbQ.ChatWidgets.Models.ChatSummary)">Equals(ChatSummary?)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public override sealed bool Equals(ChatWidget? other)</code></pre>
+    <pre><code class="lang-csharp hljs">public virtual bool Equals(ChatSummary? other)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -331,53 +374,7 @@ Uses:</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a></td>
-        <td><span class="parametername">other</span></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Equals_BbQ_ChatWidgets_Models_ChatWidget_">ChatWidget.Equals(ChatWidget?)</a></div>
-
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
-  </span>
-  <a id="BbQ_ChatWidgets_Models_ToggleWidget_Equals_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.Equals*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ToggleWidget_Equals_BbQ_ChatWidgets_Models_ToggleWidget_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.Equals(BbQ.ChatWidgets.Models.ToggleWidget)">Equals(ToggleWidget?)</h4>
-  <div class="markdown level1 summary"></div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public bool Equals(ToggleWidget? other)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ToggleWidget.html">ToggleWidget</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatSummary.html">ChatSummary</a></td>
         <td><span class="parametername">other</span></td>
         <td></td>
       </tr>
@@ -400,10 +397,10 @@ Uses:</p>
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ToggleWidget_Equals_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.Equals*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ToggleWidget_Equals_System_Object_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.Equals(System.Object)">Equals(object?)</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_Equals_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.Equals*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_Equals_System_Object_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.Equals(System.Object)">Equals(object?)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -443,13 +440,13 @@ Uses:</p>
     </tbody>
   </table>
   <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_Equals_System_Object_">ChatWidget.Equals(object?)</a></div>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)">object.Equals(object)</a></div>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ToggleWidget_GetHashCode_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.GetHashCode*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ToggleWidget_GetHashCode" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.GetHashCode">GetHashCode()</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_GetHashCode_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.GetHashCode*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_GetHashCode" data-uid="BbQ.ChatWidgets.Models.ChatSummary.GetHashCode">GetHashCode()</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -472,18 +469,18 @@ Uses:</p>
     </tbody>
   </table>
   <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_GetHashCode">ChatWidget.GetHashCode()</a></div>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a></div>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ToggleWidget_PrintMembers_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.PrintMembers*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ToggleWidget_PrintMembers_System_Text_StringBuilder_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.PrintMembers(System.Text.StringBuilder)">PrintMembers(StringBuilder)</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_PrintMembers_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.PrintMembers*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_PrintMembers_System_Text_StringBuilder_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.PrintMembers(System.Text.StringBuilder)">PrintMembers(StringBuilder)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected override bool PrintMembers(StringBuilder builder)</code></pre>
+    <pre><code class="lang-csharp hljs">protected virtual bool PrintMembers(StringBuilder builder)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -517,14 +514,12 @@ Uses:</p>
       </tr>
     </tbody>
   </table>
-  <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_PrintMembers_System_Text_StringBuilder_">ChatWidget.PrintMembers(StringBuilder)</a></div>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ToggleWidget_ToString_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.ToString*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ToggleWidget_ToString" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.ToString">ToString()</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_ToString_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.ToString*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_ToString" data-uid="BbQ.ChatWidgets.Models.ChatSummary.ToString">ToString()</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -547,20 +542,20 @@ Uses:</p>
     </tbody>
   </table>
   <h5 class="overrides">Overrides</h5>
-  <div><a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html#BbQ_ChatWidgets_Models_ChatWidget_ToString">ChatWidget.ToString()</a></div>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.tostring">object.ToString()</a></div>
   <h3 id="operators">Operators
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ToggleWidget_op_Equality_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.op_Equality*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ToggleWidget_op_Equality_BbQ_ChatWidgets_Models_ToggleWidget_BbQ_ChatWidgets_Models_ToggleWidget_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.op_Equality(BbQ.ChatWidgets.Models.ToggleWidget,BbQ.ChatWidgets.Models.ToggleWidget)">operator ==(ToggleWidget?, ToggleWidget?)</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_op_Equality_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.op_Equality*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_op_Equality_BbQ_ChatWidgets_Models_ChatSummary_BbQ_ChatWidgets_Models_ChatSummary_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.op_Equality(BbQ.ChatWidgets.Models.ChatSummary,BbQ.ChatWidgets.Models.ChatSummary)">operator ==(ChatSummary?, ChatSummary?)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool operator ==(ToggleWidget? left, ToggleWidget? right)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool operator ==(ChatSummary? left, ChatSummary? right)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -573,12 +568,12 @@ Uses:</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ToggleWidget.html">ToggleWidget</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatSummary.html">ChatSummary</a></td>
         <td><span class="parametername">left</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ToggleWidget.html">ToggleWidget</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatSummary.html">ChatSummary</a></td>
         <td><span class="parametername">right</span></td>
         <td></td>
       </tr>
@@ -601,15 +596,15 @@ Uses:</p>
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatWidget.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatSummary.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Models_ToggleWidget_op_Inequality_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.op_Inequality*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_ToggleWidget_op_Inequality_BbQ_ChatWidgets_Models_ToggleWidget_BbQ_ChatWidgets_Models_ToggleWidget_" data-uid="BbQ.ChatWidgets.Models.ToggleWidget.op_Inequality(BbQ.ChatWidgets.Models.ToggleWidget,BbQ.ChatWidgets.Models.ToggleWidget)">operator !=(ToggleWidget?, ToggleWidget?)</h4>
+  <a id="BbQ_ChatWidgets_Models_ChatSummary_op_Inequality_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.op_Inequality*"></a>
+  <h4 id="BbQ_ChatWidgets_Models_ChatSummary_op_Inequality_BbQ_ChatWidgets_Models_ChatSummary_BbQ_ChatWidgets_Models_ChatSummary_" data-uid="BbQ.ChatWidgets.Models.ChatSummary.op_Inequality(BbQ.ChatWidgets.Models.ChatSummary,BbQ.ChatWidgets.Models.ChatSummary)">operator !=(ChatSummary?, ChatSummary?)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static bool operator !=(ToggleWidget? left, ToggleWidget? right)</code></pre>
+    <pre><code class="lang-csharp hljs">public static bool operator !=(ChatSummary? left, ChatSummary? right)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -622,12 +617,12 @@ Uses:</p>
     </thead>
     <tbody>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ToggleWidget.html">ToggleWidget</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatSummary.html">ChatSummary</a></td>
         <td><span class="parametername">left</span></td>
         <td></td>
       </tr>
       <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Models.ToggleWidget.html">ToggleWidget</a></td>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.ChatSummary.html">ChatSummary</a></td>
         <td><span class="parametername">right</span></td>
         <td></td>
       </tr>
@@ -652,16 +647,6 @@ Uses:</p>
   <div>
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable&lt;T&gt;</a>
   </div>
-  <div>
-      <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iequatable-1">IEquatable&lt;T&gt;</a>
-  </div>
-  <h3 id="extensionmethods">Extension Methods</h3>
-  <div>
-      <a class="xref" href="BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_GetSchema_BbQ_ChatWidgets_Models_ChatWidget_">ChatWidgetExtensions.GetSchema(ChatWidget)</a>
-  </div>
-  <div>
-      <a class="xref" href="BbQ.ChatWidgets.Models.ChatWidgetExtensions.html#BbQ_ChatWidgets_Models_ChatWidgetExtensions_ToJson_BbQ_ChatWidgets_Models_ChatWidget_">ChatWidgetExtensions.ToJson(ChatWidget)</a>
-  </div>
 
 </article>
           </div>
@@ -671,7 +656,7 @@ Uses:</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatWidget.cs" class="contribution-link">View Source</a>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Models/ChatSummary.cs" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

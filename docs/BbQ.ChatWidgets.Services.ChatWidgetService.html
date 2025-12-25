@@ -117,6 +117,7 @@ and conversation threading.</p>
 <li>Provides available widget tools to the AI chat client</li>
 <li>Processes user messages and generates responses with embedded widgets</li>
 <li>Handles widget actions triggered by user interactions using type-safe handlers</li>
+<li>Manages context window limits through automatic chat history summarization</li>
 </ul>
 <p>The service integrates with:</p>
 <ul>
@@ -129,23 +130,24 @@ and conversation threading.</p>
 <li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.html">IAIInstructionProvider</a> for custom AI instructions</li>
 <li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html">IWidgetActionRegistry</a> for action metadata</li>
 <li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html">IWidgetActionHandlerResolver</a> for handler resolution</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.html">IChatHistorySummarizer</a> for chat history summarization</li>
 </ul>
 </div>
   <h3 id="constructors">Constructors
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-toc-issues/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Services_ChatWidgetService__ctor_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.#ctor*"></a>
-  <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver)">ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver)</h4>
+  <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_BbQChatOptions_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer,BbQChatOptions)">ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)</h4>
   <div class="markdown level1 summary"><p>Orchestrates chat widget interactions by managing message processing, widget tool availability,
 and conversation threading.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ChatWidgetService(IChatClient chat, IWidgetHintParser widgetHintParser, IWidgetHintSanitizer widgetHintSanitizer, IWidgetToolsProvider widgetToolsProvider, IAIToolsProvider aiToolsProvider, IThreadService threadService, IAIInstructionProvider instructionProvider, IWidgetActionRegistry actionRegistry, IWidgetActionHandlerResolver handlerResolver)</code></pre>
+    <pre><code class="lang-csharp hljs">public ChatWidgetService(IChatClient chat, IWidgetHintParser widgetHintParser, IWidgetHintSanitizer widgetHintSanitizer, IWidgetToolsProvider widgetToolsProvider, IAIToolsProvider aiToolsProvider, IThreadService threadService, IAIInstructionProvider instructionProvider, IWidgetActionRegistry actionRegistry, IWidgetActionHandlerResolver handlerResolver, IChatHistorySummarizer historySummarizer, BbQChatOptions options)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -202,15 +204,26 @@ and conversation threading.</p>
         <td><span class="parametername">handlerResolver</span></td>
         <td></td>
       </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.html">IChatHistorySummarizer</a></td>
+        <td><span class="parametername">historySummarizer</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQChatOptions.html">BbQChatOptions</a></td>
+        <td><span class="parametername">options</span></td>
+        <td></td>
+      </tr>
     </tbody>
   </table>
-  <h5 id="BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver__remarks">Remarks</h5>
+  <h5 id="BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_BbQChatOptions__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>This service is the central hub for chat widget functionality. It:</p>
 <ul>
 <li>Manages conversation threads and message history</li>
 <li>Provides available widget tools to the AI chat client</li>
 <li>Processes user messages and generates responses with embedded widgets</li>
 <li>Handles widget actions triggered by user interactions using type-safe handlers</li>
+<li>Manages context window limits through automatic chat history summarization</li>
 </ul>
 <p>The service integrates with:</p>
 <ul>
@@ -223,13 +236,14 @@ and conversation threading.</p>
 <li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.html">IAIInstructionProvider</a> for custom AI instructions</li>
 <li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html">IWidgetActionRegistry</a> for action metadata</li>
 <li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver.html">IWidgetActionHandlerResolver</a> for handler resolution</li>
+<li><a class="xref" href="BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer.html">IChatHistorySummarizer</a> for chat history summarization</li>
 </ul>
 </div>
   <h3 id="methods">Methods
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-toc-issues/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Services_ChatWidgetService_HandleActionAsync_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.HandleActionAsync*"></a>
   <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService_HandleActionAsync_System_String_System_Collections_Generic_IReadOnlyDictionary_System_String_System_Object__System_String_System_IServiceProvider_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.HandleActionAsync(System.String,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object},System.String,System.IServiceProvider,System.Threading.CancellationToken)">HandleActionAsync(string, IReadOnlyDictionary&lt;string, object?&gt;, string, IServiceProvider, CancellationToken)</h4>
@@ -334,7 +348,7 @@ It:</p>
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-toc-issues/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Services_ChatWidgetService_RespondAsync_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync*"></a>
   <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService_RespondAsync_System_String_System_String_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync(System.String,System.String,System.Threading.CancellationToken)">RespondAsync(string, string?, CancellationToken)</h4>
@@ -427,7 +441,7 @@ in its responses using the <code>&lt;widget&gt;...&lt;/widget&gt;</code> format.
   </table>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-toc-issues/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Services_ChatWidgetService_StreamResponseAsync_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync*"></a>
   <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService_StreamResponseAsync_System_String_System_String_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync(System.String,System.String,System.Threading.CancellationToken)">StreamResponseAsync(string, string?, CancellationToken)</h4>
@@ -523,7 +537,7 @@ in its responses using the <code>&lt;widget&gt;...&lt;/widget&gt;</code> format.
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-toc-issues/BbQ.ChatWidgets/Services/ChatWidgetService.cs" class="contribution-link">View Source</a>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/copilot/fix-docfx-documentation-structure/BbQ.ChatWidgets/Services/ChatWidgetService.cs" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

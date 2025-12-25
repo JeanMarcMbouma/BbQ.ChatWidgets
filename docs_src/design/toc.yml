@@ -1,0 +1,10 @@
+- name: Design Decisions
+  href: README.md
+- name: Context Windows
+  href: CONTEXT_WINDOWS.md
+- name: Serialization Strategy
+  href: SERIALIZATION.md
+- name: Polymorphism
+  href: POLYMORPHISM.md
+- name: Thread Management
+  href: THREAD_MANAGEMENT.md

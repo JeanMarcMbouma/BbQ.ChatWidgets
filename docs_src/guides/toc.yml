@@ -1,0 +1,16 @@
+- name: Guides Overview
+  href: README.md
+- name: Installation
+  href: INSTALLATION.md
+- name: Configuration
+  href: CONFIGURATION.md
+- name: Custom Widgets
+  href: CUSTOM_WIDGETS.md
+- name: Custom AI Tools
+  href: CUSTOM_AI_TOOLS.md
+- name: Custom Action Handlers
+  href: CUSTOM_ACTION_HANDLERS.md
+- name: Typed Action Handlers
+  href: TYPED_ACTION_HANDLERS.md
+- name: Chat History Summarization
+  href: CHAT_HISTORY_SUMMARIZATION.md

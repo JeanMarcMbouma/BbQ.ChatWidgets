@@ -1,0 +1,44 @@
+.app-container {
+  min-height: 100vh;
+}
+
+.page {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.page-header {
+  background: white;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.back-button {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: #5568d3;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.page-content {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}

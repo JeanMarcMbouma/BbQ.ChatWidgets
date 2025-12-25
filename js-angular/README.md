@@ -126,15 +126,17 @@ All standard widget types from `@bbq-chat/widgets` are supported:
 - `CardWidget` - Information cards
 - `FormWidget` - Form containers
 - `InputWidget` - Text input fields
+- `TextAreaWidget` - Multi-line text input
 - `DropdownWidget` - Dropdown selects
 - `SliderWidget` - Range sliders
 - `ToggleWidget` - Toggle switches
 - `FileUploadWidget` - File upload controls
 - `DatePickerWidget` - Date pickers
 - `MultiSelectWidget` - Multi-select dropdowns
+- `ThemeSwitcherWidget` - Theme switcher controls
+- `ProgressBarWidget` - Progress indicators
 - `ImageWidget` - Image displays
-- `VideoWidget` - Video players
-- `AudioWidget` - Audio players
+- `ImageCollectionWidget` - Image galleries
 
 ## Advanced Usage
 

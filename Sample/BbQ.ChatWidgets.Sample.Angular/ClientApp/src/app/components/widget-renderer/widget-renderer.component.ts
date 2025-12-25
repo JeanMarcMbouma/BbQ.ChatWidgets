@@ -65,7 +65,10 @@ export class WidgetRendererComponent extends BaseWidgetRendererComponent impleme
 
   override ngAfterViewInit() {
     super.ngAfterViewInit();
-    // Add custom widget initialization after base setup
+    // Add custom widget initialization after base setup.
+    // Use setTimeout(0) to defer initialization until after Angular's initial
+    // change detection and view rendering have completed, so that the dynamically
+    // rendered widget DOM is fully available for initialization.
     setTimeout(() => {
       this.initializeCustomWidgets();
     }, 0);

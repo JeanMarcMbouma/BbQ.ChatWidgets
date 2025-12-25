@@ -31,7 +31,7 @@ export class WidgetRegistryService {
    */
   registerFactory(
     type: string,
-    factory: (obj: any) => ChatWidget | null
+    factory: (obj: unknown) => ChatWidget | null
   ): void {
     customWidgetRegistry.registerFactory(type, factory);
   }

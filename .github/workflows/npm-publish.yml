@@ -41,6 +41,7 @@ jobs:
   publish-angular:
     runs-on: ubuntu-latest
     needs: publish-core # Wait for core package to be published first
+    if: ${{ needs.publish-core.result == 'success' }}
     defaults:
       run:
         working-directory: js-angular

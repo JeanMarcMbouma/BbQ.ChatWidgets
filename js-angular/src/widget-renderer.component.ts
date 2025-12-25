@@ -68,7 +68,7 @@ export class WidgetRendererComponent
    */
   @Output() widgetAction = new EventEmitter<{
     actionName: string;
-    payload: any;
+    payload: unknown;
   }>();
 
   @ViewChild('widgetContainer', { static: false })
@@ -98,6 +98,15 @@ export class WidgetRendererComponent
     this.cleanup();
   }
 
+  /**
+   * Base implementation for updating the rendered HTML for the current widgets.
+   *
+   * Subclasses may override this method to customize how widgets are rendered
+   * (for example, to inject additional markup or perform preprocessing).
+   *
+   * Since this is the base implementation, overriding implementations are not
+   * required to call `super.updateWidgetHtml()`.
+   */
   protected updateWidgetHtml() {
     if (!this.widgets || this.widgets.length === 0) {
       this.widgetHtmlList = [];
@@ -105,7 +114,7 @@ export class WidgetRendererComponent
     }
 
     this.widgetHtmlList = this.widgets.map((widget) => {
-      // Render all widgets using library renderer
+      // Render widgets using the BbQ library renderer (standard/built-in widget types; custom extensions may use additional logic)
       return this.renderer.renderWidget(widget);
     });
 

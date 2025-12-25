@@ -15,7 +15,6 @@ import { CommonModule } from '@angular/common';
 import {
   SsrWidgetRenderer,
   WidgetEventManager,
-  customWidgetRegistry,
   ChatWidget,
 } from '@bbq-chat/widgets';
 

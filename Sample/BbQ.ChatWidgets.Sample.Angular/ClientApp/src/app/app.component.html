@@ -1,0 +1,19 @@
+<div class="app-container">
+  @if (currentPage() === null) {
+    <app-home (selectScenario)="handleSelectScenario($event)"></app-home>
+  } @else if (currentPage() === ScenarioType.BasicChat) {
+    <app-basic-chat (navigateBack)="handleBack()"></app-basic-chat>
+  } @else if (currentPage() === ScenarioType.StreamingChat) {
+    <app-streaming-chat (navigateBack)="handleBack()"></app-streaming-chat>
+  } @else if (currentPage() === ScenarioType.TriageAgent) {
+    <app-triage-agent (navigateBack)="handleBack()"></app-triage-agent>
+  } @else if (currentPage() === ScenarioType.WidgetsDemo) {
+    <app-widgets-demo (navigateBack)="handleBack()"></app-widgets-demo>
+  } @else if (currentPage() === ScenarioType.ActionsDemo) {
+    <app-actions-demo (navigateBack)="handleBack()"></app-actions-demo>
+  } @else if (currentPage() === ScenarioType.SseWidgets) {
+    <app-sse-widgets (navigateBack)="handleBack()"></app-sse-widgets>
+  } @else if (currentPage() === ScenarioType.SseClock) {
+    <app-sse-clock (navigateBack)="handleBack()"></app-sse-clock>
+  }
+</div>

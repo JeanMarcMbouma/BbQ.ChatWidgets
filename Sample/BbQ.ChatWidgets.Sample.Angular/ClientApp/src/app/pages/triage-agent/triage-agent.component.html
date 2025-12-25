@@ -1,0 +1,67 @@
+<div class="page">
+  <div class="page-header">
+    <button class="back-button" (click)="handleBack()">← Back</button>
+    <h1>🎯 Triage Agent</h1>
+    <div class="thread-info">
+      @if (chatService.threadId()) {
+        <span class="thread-id">Thread: {{ chatService.threadId()!.slice(0, 8) }}...</span>
+      }
+    </div>
+  </div>
+
+  <div class="chat-container">
+    <div class="messages-list">
+      @for (msg of chatService.messages(); track msg.id) {
+        <div class="message" [class.user]="msg.role === 'user'" [class.assistant]="msg.role === 'assistant'">
+          <div class="message-content">
+            <p>{{ msg.content }}</p>
+          </div>
+          <span class="timestamp">{{ msg.timestamp | date:'shortTime' }}</span>
+        </div>
+      }
+      
+      @if (chatService.isLoading()) {
+        <div class="message assistant loading">
+          <div class="spinner"></div>
+          <p>Thinking...</p>
+        </div>
+      }
+    </div>
+
+    @if (chatService.error()) {
+      <div class="error-message">{{ chatService.error() }}</div>
+    }
+
+    <div class="input-area">
+      <input
+        type="text"
+        class="chat-input"
+        [value]="input()"
+        (input)="input.set($any($event.target).value)"
+        (keydown)="handleKeyDown($event)"
+        [disabled]="chatService.isLoading()"
+        placeholder="Type a message..."
+      />
+      <button
+        class="send-button"
+        (click)="sendMessage()"
+        [disabled]="chatService.isLoading() || !input().trim()"
+      >
+        {{ chatService.isLoading() ? 'Sending...' : 'Send' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="scenario-info">
+    <h3>About This Scenario</h3>
+    <p>
+      <strong>Triage Agent</strong> demonstrates intelligent routing. Your message is classified
+      and routed to the appropriate specialized agent.
+    </p>
+    <ul>
+      <li>Endpoint: POST /api/chat/agent</li>
+      <li>Intent Classification: HelpRequest, DataQuery, ActionRequest, Feedback</li>
+      <li>Agent Routing: Specialized agents handle specific intents</li>
+    </ul>
+  </div>
+</div>

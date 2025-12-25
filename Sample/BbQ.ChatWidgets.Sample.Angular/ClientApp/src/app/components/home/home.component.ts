@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SCENARIOS } from '../../config/scenarios';
-import { ScenarioType, ScenarioConfig } from '../../models/chat.models';
+import { ScenarioType } from '../../models/chat.models';
 
 @Component({
   selector: 'app-home',
@@ -12,9 +12,9 @@ import { ScenarioType, ScenarioConfig } from '../../models/chat.models';
 })
 export class HomeComponent {
   scenarios = SCENARIOS;
+  @Output() selectScenario = new EventEmitter<ScenarioType>();
 
   onSelectScenario(scenario: ScenarioType): void {
-    // This will be handled by the parent component (app.component)
-    window.dispatchEvent(new CustomEvent('selectScenario', { detail: scenario }));
+    this.selectScenario.emit(scenario);
   }
 }

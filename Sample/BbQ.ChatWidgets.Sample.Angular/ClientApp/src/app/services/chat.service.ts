@@ -1,5 +1,6 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { ChatMessage } from '../models/chat.models';
 
 @Injectable({
@@ -35,10 +36,10 @@ export class ChatService {
     this._error.set(null);
 
     try {
-      const response = await this.http.post<any>(endpoint, {
+      const response = await firstValueFrom(this.http.post<any>(endpoint, {
         message: text,
         threadId: this._threadId()
-      }).toPromise();
+      }));
 
       if (!this._threadId() && response.threadId) {
         this._threadId.set(response.threadId);
@@ -54,8 +55,8 @@ export class ChatService {
 
       this._messages.update(msgs => [...msgs, assistantMessage]);
     } catch (err: any) {
-      const errorMsg = err?.message || 'Unknown error';
-      this._error.set(`Failed to get response: ${errorMsg}`);
+      console.error('Failed to get response:', err);
+      this._error.set('Failed to get response. Please try again.');
     } finally {
       this._isLoading.set(false);
     }
@@ -66,11 +67,11 @@ export class ChatService {
     this._error.set(null);
 
     try {
-      const response = await this.http.post<any>('/api/chat/action', {
+      const response = await firstValueFrom(this.http.post<any>('/api/chat/action', {
         action: actionName,
         payload: payload,
         threadId: this._threadId()
-      }).toPromise();
+      }));
 
       const assistantMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
@@ -82,8 +83,8 @@ export class ChatService {
 
       this._messages.update(msgs => [...msgs, assistantMessage]);
     } catch (err: any) {
-      const errorMsg = err?.message || 'Unknown error';
-      this._error.set(`Failed to send action: ${errorMsg}`);
+      console.error('Failed to send action:', err);
+      this._error.set('Failed to send action. Please try again.');
     } finally {
       this._isLoading.set(false);
     }

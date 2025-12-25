@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'ClientApp' title`, () => {
+  it('should have no page selected initially', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('ClientApp');
+    expect(app.currentPage()).toBeNull();
   });
 
-  it('should render title', () => {
+  it('should render home component when no page is selected', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, ClientApp');
+    expect(compiled.querySelector('app-home')).toBeTruthy();
   });
 });

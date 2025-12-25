@@ -1,4 +1,4 @@
-import { Component, signal, OnInit, OnDestroy } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -29,32 +29,9 @@ import { ScenarioType } from './models/chat.models';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent {
   currentPage = signal<ScenarioType | null>(null);
   ScenarioType = ScenarioType;
-
-  private scenarioEventListener: any;
-  private navigateBackListener: any;
-
-  ngOnInit() {
-    this.scenarioEventListener = (event: any) => {
-      this.handleSelectScenario(event.detail);
-    };
-    this.navigateBackListener = () => {
-      this.handleBack();
-    };
-    window.addEventListener('selectScenario', this.scenarioEventListener);
-    window.addEventListener('navigateBack', this.navigateBackListener);
-  }
-
-  ngOnDestroy() {
-    if (this.scenarioEventListener) {
-      window.removeEventListener('selectScenario', this.scenarioEventListener);
-    }
-    if (this.navigateBackListener) {
-      window.removeEventListener('navigateBack', this.navigateBackListener);
-    }
-  }
 
   handleSelectScenario(scenario: ScenarioType) {
     this.currentPage.set(scenario);

@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, effect } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StreamingChatService } from '../../services/streaming-chat.service';
@@ -12,6 +12,7 @@ import { StreamingChatService } from '../../services/streaming-chat.service';
 })
 export class StreamingChatComponent implements OnInit {
   input = signal('');
+  @Output() navigateBack = new EventEmitter<void>();
   
   constructor(public streamingService: StreamingChatService) {
     effect(() => {
@@ -48,6 +49,6 @@ export class StreamingChatComponent implements OnInit {
   }
 
   handleBack() {
-    window.dispatchEvent(new CustomEvent('navigateBack'));
+    this.navigateBack.emit();
   }
 }

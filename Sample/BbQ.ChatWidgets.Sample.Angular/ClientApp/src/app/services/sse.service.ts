@@ -11,6 +11,13 @@ export class SseService {
     const subject = new Subject<any>();
     const url = `/api/chat/widgets/streams/${streamId}/events`;
 
+    // Close existing EventSource for the same streamId to avoid leaks
+    const existingEventSource = this.eventSources.get(streamId);
+    if (existingEventSource) {
+      existingEventSource.close();
+      this.eventSources.delete(streamId);
+    }
+
     const eventSource = new EventSource(url);
     this.eventSources.set(streamId, eventSource);
 
@@ -26,6 +33,7 @@ export class SseService {
     eventSource.onerror = (error) => {
       console.error('SSE error:', error);
       subject.error(error);
+      subject.complete();
       this.unsubscribe(streamId);
     };
 

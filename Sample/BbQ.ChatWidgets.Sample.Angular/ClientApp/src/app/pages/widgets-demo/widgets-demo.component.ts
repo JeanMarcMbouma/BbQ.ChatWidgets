@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -29,7 +29,9 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['../shared-chat-styles.css']
 })
 export class WidgetsDemoComponent {
+  @Output() navigateBack = new EventEmitter<void>();
+
   handleBack() {
-    window.dispatchEvent(new CustomEvent('navigateBack'));
+    this.navigateBack.emit();
   }
 }

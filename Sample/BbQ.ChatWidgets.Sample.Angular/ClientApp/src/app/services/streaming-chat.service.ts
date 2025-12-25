@@ -46,7 +46,7 @@ export class StreamingChatService {
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
 
-      if (!reader) {
+      if (!response || !reader) {
         throw new Error('Response body is null');
       }
 
@@ -103,8 +103,8 @@ export class StreamingChatService {
         }
       }
     } catch (err: any) {
-      const errorMsg = err?.message || 'Unknown error';
-      this._error.set(`Failed to get streaming response: ${errorMsg}`);
+      console.error('Failed to get streaming response:', err);
+      this._error.set('Failed to get streaming response. Please try again.');
     } finally {
       this._isStreaming.set(false);
     }

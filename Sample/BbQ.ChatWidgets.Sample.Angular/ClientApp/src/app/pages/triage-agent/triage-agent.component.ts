@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, effect } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChatService } from '../../services/chat.service';
@@ -12,6 +12,7 @@ import { ChatService } from '../../services/chat.service';
 })
 export class TriageAgentComponent implements OnInit {
   input = signal('');
+  @Output() navigateBack = new EventEmitter<void>();
   
   constructor(public chatService: ChatService) {
     effect(() => {
@@ -48,6 +49,6 @@ export class TriageAgentComponent implements OnInit {
   }
 
   handleBack() {
-    window.dispatchEvent(new CustomEvent('navigateBack'));
+    this.navigateBack.emit();
   }
 }

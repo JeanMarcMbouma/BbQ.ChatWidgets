@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, signal, effect } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChatService } from '../../services/chat.service';
@@ -12,6 +12,7 @@ import { ChatService } from '../../services/chat.service';
 })
 export class BasicChatComponent implements OnInit, OnDestroy {
   input = signal('');
+  @Output() navigateBack = new EventEmitter<void>();
   
   constructor(public chatService: ChatService) {
     // Auto-scroll effect
@@ -53,6 +54,6 @@ export class BasicChatComponent implements OnInit, OnDestroy {
   }
 
   handleBack() {
-    window.dispatchEvent(new CustomEvent('navigateBack'));
+    this.navigateBack.emit();
   }
 }

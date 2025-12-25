@@ -13,7 +13,7 @@
   
   <!-- BbQ Text -->
   <text x="66" y="28" font-family="Arial, sans-serif" font-size="24" font-weight="bold" 
-        fill="url(#grad1)">BbQ</text>
+        text-anchor="start" fill="url(#grad1)">BbQ</text>
   
   <!-- Decorative dots (widget representation) -->
   <circle cx="14" cy="14" r="1.5" fill="#FF6B6B" opacity="0.6"/>

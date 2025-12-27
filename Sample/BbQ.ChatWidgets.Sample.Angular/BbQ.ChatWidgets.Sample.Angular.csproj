@@ -7,7 +7,7 @@
     <LangVersion>latest</LangVersion>
     <RootNamespace>BbQ.ChatWidgets.Sample.Angular</RootNamespace>
     <AssemblyName>BbQ.ChatWidgets.Sample.Angular</AssemblyName>
-    <UserSecretsId>2dd19de5-a740-4c00-8755-9dcb018ce466</UserSecretsId>
+    <UserSecretsId>1dd19de5-a740-4c00-8755-9dcb018ce455</UserSecretsId>
     <SpaRoot>ClientApp\</SpaRoot>
   </PropertyGroup>
 

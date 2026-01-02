@@ -26,7 +26,6 @@ import {
 } from '@bbq-chat/widgets';
 import { WidgetRegistryService } from './widget-registry.service';
 import {
-  CustomWidgetComponent,
   WidgetTemplateContext,
   isHtmlRenderer,
   isComponentRenderer,
@@ -200,7 +199,9 @@ export class WidgetRendererComponent
     this.cleanupDynamicWidgets();
 
     const container = this.containerRef.nativeElement;
-    const dynamicWidgetDivs = container.querySelectorAll('.bbq-widget:not([data-rendered])');
+    const dynamicWidgetDivs = Array.from(
+      container.querySelectorAll('.bbq-widget:not([data-rendered])')
+    ) as HTMLElement[];
     
     let dynamicIndex = 0;
     this.widgetItems.forEach((item) => {
@@ -209,7 +210,7 @@ export class WidgetRendererComponent
         
         if (!customRenderer) return;
         
-        const targetDiv = dynamicWidgetDivs[dynamicIndex] as HTMLElement;
+        const targetDiv = dynamicWidgetDivs[dynamicIndex];
         if (!targetDiv) return;
         
         // Mark as rendered to avoid re-rendering
@@ -240,11 +241,21 @@ export class WidgetRendererComponent
       elementInjector: this.injector,
     });
     
-    // Set component inputs
-    (componentRef.instance as CustomWidgetComponent).widget = widget;
-    (componentRef.instance as CustomWidgetComponent).widgetAction = (actionName: string, payload: unknown) => {
-      this.widgetAction.emit({ actionName, payload });
-    };
+    // Safely set component inputs if they exist
+    const instance = componentRef.instance;
+    if (instance && typeof instance === 'object') {
+      // Set widget property if it exists on the instance
+      if ('widget' in instance) {
+        (instance as any).widget = widget;
+      }
+      
+      // Set widgetAction callback if it exists on the instance
+      if ('widgetAction' in instance) {
+        (instance as any).widgetAction = (actionName: string, payload: unknown) => {
+          this.widgetAction.emit({ actionName, payload });
+        };
+      }
+    }
     
     // Attach the component's host view to the target element
     targetElement.appendChild(componentRef.location.nativeElement);
@@ -275,7 +286,7 @@ export class WidgetRendererComponent
     const viewRef = templateRef.createEmbeddedView(context);
     
     // Attach the view's DOM nodes to the target element
-    viewRef.rootNodes.forEach((node: any) => {
+    viewRef.rootNodes.forEach((node: Node) => {
       targetElement.appendChild(node);
     });
     

@@ -70,16 +70,29 @@ export interface CustomWidgetRendererConfig {
 export function isHtmlRenderer(
   renderer: CustomWidgetRenderer
 ): renderer is CustomWidgetHtmlRenderer {
-  return typeof renderer === 'function' && !('ɵcmp' in renderer);
+  return typeof renderer === 'function';
 }
 
 /**
  * Type guard to check if a renderer is an Angular Component
+ * Note: This uses a heuristic check. Components are constructor functions.
+ * For more robust checking, use Angular's own utilities or duck typing.
  */
 export function isComponentRenderer(
   renderer: CustomWidgetRenderer
 ): renderer is Type<CustomWidgetComponent> {
-  return typeof renderer === 'function' && 'ɵcmp' in renderer;
+  // Check if it's a function (constructor) but not a regular function renderer
+  if (typeof renderer !== 'function') {
+    return false;
+  }
+  
+  // Check for Angular component metadata (more robust than checking ɵcmp)
+  // Components typically have prototype with constructor property
+  return (
+    renderer.prototype !== undefined &&
+    renderer.prototype.constructor === renderer &&
+    renderer.length === 0 // Constructor with no required params (Angular DI)
+  );
 }
 
 /**

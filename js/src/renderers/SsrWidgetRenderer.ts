@@ -354,7 +354,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
           case 'radio':
             html += `<input type="radio" id="${fieldId}" class="bbq-form-radio" name="${this.escape(field.name)}" data-field-type="${fieldType}" />`;
             break;
-          case 'slider':
+          case 'slider': {
             const min = field.min ?? 0;
             const max = field.max ?? 100;
             const step = field.step ?? 1;
@@ -362,15 +362,18 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
             html += `<input type="range" id="${fieldId}" class="bbq-form-slider" name="${this.escape(field.name)}" min="${min}" max="${max}" step="${step}" value="${defaultValue}"${required} data-field-type="${fieldType}" />`;
             html += `<span class="bbq-form-slider-value" aria-live="polite">${defaultValue}</span>`;
             break;
-          case 'toggle':
+          }
+          case 'toggle': {
             const checked = field.defaultValue ? ' checked' : '';
             html += `<input type="checkbox" id="${fieldId}" class="bbq-form-toggle" name="${this.escape(field.name)}"${checked} data-field-type="${fieldType}" />`;
             break;
-          case 'datepicker':
+          }
+          case 'datepicker': {
             const minDate = field.minDate ? ` min="${this.escape(field.minDate)}"` : '';
             const maxDate = field.maxDate ? ` max="${this.escape(field.maxDate)}"` : '';
             html += `<input type="date" id="${fieldId}" class="bbq-form-datepicker" name="${this.escape(field.name)}"${minDate}${maxDate}${required} data-field-type="${fieldType}" />`;
             break;
+          }
           case 'multiselect':
             html += `<select id="${fieldId}" class="bbq-form-multiselect" name="${this.escape(field.name)}" multiple${required} data-field-type="${fieldType}">`;
             // Render options if provided
@@ -382,11 +385,12 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
             }
             html += `</select>`;
             break;
-          case 'fileupload':
+          case 'fileupload': {
             const accept = field.accept ? ` accept="${this.escape(field.accept)}"` : '';
             const maxBytes = field.maxBytes ? ` data-max-bytes="${field.maxBytes}"` : '';
             html += `<input type="file" id="${fieldId}" class="bbq-form-fileupload" name="${this.escape(field.name)}"${accept}${maxBytes}${required} data-field-type="${fieldType}" />`;
             break;
+          }
           default:
             html += `<input type="text" id="${fieldId}" class="bbq-form-input" name="${this.escape(field.name)}"${required} data-field-type="${fieldType}" />`;
         }

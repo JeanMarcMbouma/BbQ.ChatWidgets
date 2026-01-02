@@ -59,7 +59,7 @@ describe('WidgetEventManager', () => {
       let capturedPayload: any;
 
       const handler = {
-        handle: async (action: string, payload: any) => {
+        handle: async (_action: string, payload: any) => {
           actionCalled = true;
           capturedPayload = payload;
         },
@@ -89,7 +89,7 @@ describe('WidgetEventManager', () => {
       let capturedPayload: any;
 
       const handler = {
-        handle: async (action: string, payload: any) => {
+        handle: async (_action: string, payload: any) => {
           capturedPayload = payload;
         },
       };
@@ -149,7 +149,7 @@ describe('WidgetEventManager', () => {
       let actionCalled = false;
 
       const handler = {
-        handle: async (action: string, payload: any) => {
+        handle: async (_action: string, _payload: any) => {
           actionCalled = true;
         },
       };
@@ -193,7 +193,7 @@ describe('WidgetEventManager', () => {
       let capturedPayload: any;
 
       const handler = {
-        handle: async (action: string, payload: any) => {
+        handle: async (_action: string, payload: any) => {
           actionCalled = true;
           capturedPayload = payload;
         },
@@ -248,7 +248,7 @@ describe('WidgetEventManager', () => {
       let actionCalled = false;
 
       const handler = {
-        handle: async (action: string, payload: any) => {
+        handle: async (_action: string, _payload: any) => {
           actionCalled = true;
         },
       };
@@ -297,7 +297,7 @@ describe('WidgetEventManager', () => {
       let actionCalled = false;
 
       const handler = {
-        handle: async (action: string, payload: any) => {
+        handle: async (_action: string, _payload: any) => {
           actionCalled = true;
         },
       };
@@ -337,7 +337,7 @@ describe('WidgetEventManager', () => {
       let actionCalled = false;
 
       const handler = {
-        handle: async (action: string, payload: any) => {
+        handle: async (_action: string, _payload: any) => {
           actionCalled = true;
         },
       };
@@ -391,7 +391,7 @@ describe('WidgetEventManager', () => {
       let actionCalled = false;
 
       const handler = {
-        handle: async (action: string, payload: any) => {
+        handle: async (_action: string, _payload: any) => {
           actionCalled = true;
         },
       };
@@ -451,7 +451,7 @@ describe('WidgetEventManager', () => {
       let actionCalled = false;
 
       const handler = {
-        handle: async (action: string, payload: any) => {
+        handle: async (_action: string, _payload: any) => {
           actionCalled = true;
         },
       };

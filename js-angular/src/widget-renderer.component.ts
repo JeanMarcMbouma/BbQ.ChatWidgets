@@ -10,6 +10,13 @@ import {
   OnChanges,
   SimpleChanges,
   ViewChild,
+  ComponentRef,
+  EmbeddedViewRef,
+  TemplateRef,
+  inject,
+  Injector,
+  createComponent,
+  EnvironmentInjector,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -17,12 +24,25 @@ import {
   WidgetEventManager,
   ChatWidget,
 } from '@bbq-chat/widgets';
+import { WidgetRegistryService } from './widget-registry.service';
+import {
+  CustomWidgetComponent,
+  WidgetTemplateContext,
+  isHtmlRenderer,
+  isComponentRenderer,
+  isTemplateRenderer,
+} from './custom-widget-renderer.types';
 
 /**
  * Angular component for rendering chat widgets
  * 
  * This component handles rendering of chat widgets using the BbQ ChatWidgets library.
- * It manages widget lifecycle, event handling, and cleanup.
+ * It manages widget lifecycle, event handling, and cleanup. 
+ * 
+ * Supports three types of custom widget renderers:
+ * 1. HTML function renderers (return HTML strings)
+ * 2. Angular Component renderers (render as dynamic components)
+ * 3. Angular TemplateRef renderers (render as embedded views)
  * 
  * @example
  * ```typescript
@@ -38,8 +58,12 @@ import {
   imports: [CommonModule],
   template: `
     <div #widgetContainer class="bbq-widgets-container" (click)="handleClick($event)">
-      @for (widgetHtml of widgetHtmlList; track $index) {
-        <div class="bbq-widget" [innerHTML]="widgetHtml"></div>
+      @for (item of widgetItems; track item.index) {
+        @if (item.isHtml) {
+          <div class="bbq-widget" [innerHTML]="item.html"></div>
+        } @else {
+          <div class="bbq-widget" #dynamicWidget></div>
+        }
       }
     </div>
   `,
@@ -74,10 +98,21 @@ export class WidgetRendererComponent
   @ViewChild('widgetContainer', { static: false })
   containerRef!: ElementRef<HTMLDivElement>;
 
-  widgetHtmlList: string[] = [];
+  protected widgetItems: Array<{
+    index: number;
+    widget: ChatWidget;
+    isHtml: boolean;
+    html?: string;
+  }> = [];
+  
   protected renderer = new SsrWidgetRenderer();
   protected eventManager?: WidgetEventManager;
   protected isViewInitialized = false;
+  protected widgetRegistry = inject(WidgetRegistryService);
+  protected injector = inject(Injector);
+  protected environmentInjector = inject(EnvironmentInjector);
+  protected dynamicComponents: Array<ComponentRef<any>> = [];
+  protected dynamicViews: Array<EmbeddedViewRef<WidgetTemplateContext>> = [];
 
   ngOnInit() {
     this.updateWidgetHtml();
@@ -92,6 +127,8 @@ export class WidgetRendererComponent
   ngAfterViewInit() {
     this.isViewInitialized = true;
     this.setupEventHandlers();
+    // Render dynamic components/templates after view init
+    this.renderDynamicWidgets();
   }
 
   ngOnDestroy() {
@@ -109,21 +146,159 @@ export class WidgetRendererComponent
    */
   protected updateWidgetHtml() {
     if (!this.widgets || this.widgets.length === 0) {
-      this.widgetHtmlList = [];
+      this.widgetItems = [];
       return;
     }
 
-    this.widgetHtmlList = this.widgets.map((widget) => {
-      // Render widgets using the BbQ library renderer (standard/built-in widget types; custom extensions may use additional logic)
-      return this.renderer.renderWidget(widget);
+    this.widgetItems = this.widgets.map((widget, index) => {
+      const customRenderer = this.widgetRegistry.getRenderer(widget.type);
+      
+      // If custom renderer is registered and it's an HTML function, use it
+      if (customRenderer && isHtmlRenderer(customRenderer)) {
+        return {
+          index,
+          widget,
+          isHtml: true,
+          html: customRenderer(widget),
+        };
+      }
+      
+      // If custom renderer is a component or template, mark for dynamic rendering
+      if (customRenderer && (isComponentRenderer(customRenderer) || isTemplateRenderer(customRenderer))) {
+        return {
+          index,
+          widget,
+          isHtml: false,
+        };
+      }
+      
+      // Default: render using the BbQ library renderer
+      return {
+        index,
+        widget,
+        isHtml: true,
+        html: this.renderer.renderWidget(widget),
+      };
     });
 
     // After view updates, reinitialize widgets only if view is already initialized
     if (this.isViewInitialized) {
       setTimeout(() => {
         this.setupEventHandlers();
+        this.renderDynamicWidgets();
       }, 0);
     }
+  }
+
+  /**
+   * Render dynamic components and templates for custom widgets
+   */
+  protected renderDynamicWidgets() {
+    if (!this.containerRef?.nativeElement) return;
+    
+    // Clean up existing dynamic components and views
+    this.cleanupDynamicWidgets();
+
+    const container = this.containerRef.nativeElement;
+    const dynamicWidgetDivs = container.querySelectorAll('.bbq-widget:not([data-rendered])');
+    
+    let dynamicIndex = 0;
+    this.widgetItems.forEach((item) => {
+      if (!item.isHtml) {
+        const customRenderer = this.widgetRegistry.getRenderer(item.widget.type);
+        
+        if (!customRenderer) return;
+        
+        const targetDiv = dynamicWidgetDivs[dynamicIndex] as HTMLElement;
+        if (!targetDiv) return;
+        
+        // Mark as rendered to avoid re-rendering
+        targetDiv.setAttribute('data-rendered', 'true');
+        
+        if (isComponentRenderer(customRenderer)) {
+          this.renderComponent(customRenderer, item.widget, targetDiv);
+        } else if (isTemplateRenderer(customRenderer)) {
+          this.renderTemplate(customRenderer, item.widget, targetDiv);
+        }
+        
+        dynamicIndex++;
+      }
+    });
+  }
+
+  /**
+   * Render an Angular component for a custom widget
+   */
+  protected renderComponent(
+    componentType: any,
+    widget: ChatWidget,
+    targetElement: HTMLElement
+  ) {
+    // Create the component using Angular's createComponent API
+    const componentRef = createComponent(componentType, {
+      environmentInjector: this.environmentInjector,
+      elementInjector: this.injector,
+    });
+    
+    // Set component inputs
+    (componentRef.instance as CustomWidgetComponent).widget = widget;
+    (componentRef.instance as CustomWidgetComponent).widgetAction = (actionName: string, payload: unknown) => {
+      this.widgetAction.emit({ actionName, payload });
+    };
+    
+    // Attach the component's host view to the target element
+    targetElement.appendChild(componentRef.location.nativeElement);
+    
+    // Store reference for cleanup
+    this.dynamicComponents.push(componentRef);
+    
+    // Trigger change detection
+    componentRef.changeDetectorRef.detectChanges();
+  }
+
+  /**
+   * Render an Angular template for a custom widget
+   */
+  protected renderTemplate(
+    templateRef: TemplateRef<WidgetTemplateContext>,
+    widget: ChatWidget,
+    targetElement: HTMLElement
+  ) {
+    const context: WidgetTemplateContext = {
+      $implicit: widget,
+      widget: widget,
+      emitAction: (actionName: string, payload: unknown) => {
+        this.widgetAction.emit({ actionName, payload });
+      },
+    };
+    
+    const viewRef = templateRef.createEmbeddedView(context);
+    
+    // Attach the view's DOM nodes to the target element
+    viewRef.rootNodes.forEach((node: any) => {
+      targetElement.appendChild(node);
+    });
+    
+    // Store reference for cleanup
+    this.dynamicViews.push(viewRef);
+    
+    // Trigger change detection
+    viewRef.detectChanges();
+  }
+
+  /**
+   * Cleanup dynamic components and views
+   */
+  protected cleanupDynamicWidgets() {
+    this.dynamicComponents.forEach((componentRef) => {
+      componentRef.destroy();
+    });
+    this.dynamicComponents = [];
+    
+    this.dynamicViews.forEach((viewRef) => {
+      viewRef.destroy();
+    });
+    this.dynamicViews = [];
   }
 
   private setupEventHandlers() {
@@ -169,6 +344,9 @@ export class WidgetRendererComponent
    * Cleanup all resources including event listeners.
    */
   private cleanup() {
+    // Cleanup dynamic widgets first
+    this.cleanupDynamicWidgets();
+    
     // Cleanup event manager
     this.eventManager = undefined;
   }

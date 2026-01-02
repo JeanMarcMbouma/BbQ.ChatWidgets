@@ -16,6 +16,21 @@ export { WidgetRendererComponent } from './widget-renderer.component';
 // Export services
 export { WidgetRegistryService } from './widget-registry.service';
 
+// Export custom widget renderer types
+export type {
+  CustomWidgetComponent,
+  CustomWidgetRenderer,
+  CustomWidgetHtmlRenderer,
+  CustomWidgetRendererConfig,
+  WidgetTemplateContext,
+} from './custom-widget-renderer.types';
+
+export {
+  isHtmlRenderer,
+  isComponentRenderer,
+  isTemplateRenderer,
+} from './custom-widget-renderer.types';
+
 // Re-export commonly used types from core package
 export type {
   ChatWidget,

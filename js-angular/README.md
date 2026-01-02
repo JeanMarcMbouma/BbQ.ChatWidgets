@@ -166,7 +166,80 @@ async handleWidgetAction(event: { actionName: string; payload: any }) {
 
 ### Custom Widget Renderers
 
-For complex custom widgets, you may need to create custom renderers. See the [core package documentation](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets) for details.
+The library now supports three types of custom widget renderers for enhanced flexibility:
+
+#### 1. HTML Function Renderer
+
+Simple function that returns HTML strings:
+
+```typescript
+this.widgetRegistry.registerRenderer('myWidget', (widget) => {
+  return `<div class="my-widget">${widget.label}</div>`;
+});
+```
+
+#### 2. Angular Component Renderer (Recommended)
+
+Use Angular components for full framework features including data binding, change detection, and dependency injection:
+
+```typescript
+import { Component, Input } from '@angular/core';
+import { CustomWidgetComponent } from '@bbq-chat/widgets-angular';
+
+@Component({
+  selector: 'app-my-widget',
+  standalone: true,
+  template: `
+    <div class="my-widget">
+      <h3>{{ myWidget.title }}</h3>
+      <button (click)="onClick()">Action</button>
+    </div>
+  `
+})
+export class MyWidgetComponent implements CustomWidgetComponent {
+  @Input() widget!: ChatWidget;
+  widgetAction?: (actionName: string, payload: unknown) => void;
+
+  get myWidget(): MyCustomWidget {
+    return this.widget as MyCustomWidget;
+  }
+
+  onClick() {
+    this.widgetAction?.('my_action', { data: 'example' });
+  }
+}
+
+// Register the component
+this.widgetRegistry.registerRenderer('myWidget', MyWidgetComponent);
+```
+
+#### 3. Angular Template Renderer
+
+Use inline templates with full Angular template syntax:
+
+```typescript
+@Component({
+  template: `
+    <ng-template #myTemplate let-widget let-emitAction="emitAction">
+      <div class="my-widget">
+        <h3>{{ widget.title }}</h3>
+        <button (click)="emitAction('my_action', { data: 'example' })">
+          Action
+        </button>
+      </div>
+    </ng-template>
+  `
+})
+export class AppComponent implements OnInit {
+  @ViewChild('myTemplate', { static: true }) myTemplate!: TemplateRef<any>;
+
+  ngOnInit() {
+    this.widgetRegistry.registerRenderer('myWidget', this.myTemplate);
+  }
+}
+```
+
+See [EXAMPLES.md](./EXAMPLES.md) for detailed examples and best practices.
 
 ## License
 

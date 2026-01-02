@@ -24,7 +24,8 @@ export enum ScenarioType {
   WidgetsDemo = 'widgets',
   ActionsDemo = 'actions',
   SseWidgets = 'sse-widgets',
-  SseClock = 'sse-clock'
+  SseClock = 'sse-clock',
+  CustomWidgetDemo = 'custom-widget-demo'
 }
 
 export interface ScenarioConfig {

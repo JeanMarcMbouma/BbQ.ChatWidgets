@@ -71,6 +71,19 @@ export const SCENARIOS: ScenarioConfig[] = [
     icon: '🎬'
   },
   {
+    id: ScenarioType.CustomWidgetDemo,
+    name: 'Custom Widget Renderers',
+    description: 'Demonstrates three approaches for custom widget rendering with Angular.',
+    endpoint: 'N/A',
+    features: [
+      'HTML function renderer',
+      'Angular component renderer',
+      'Template renderer',
+      'Full Angular features'
+    ],
+    icon: '🎨'
+  },
+  {
     id: ScenarioType.SseWidgets,
     name: 'SSE Widget Updates',
     description: 'Demonstrates server-sent events updating widgets in real-time.',

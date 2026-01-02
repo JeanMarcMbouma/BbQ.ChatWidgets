@@ -211,42 +211,221 @@ export class AppComponent implements OnInit {
 }
 ```
 
-### 3. Create a custom renderer (optional)
+### 3. Create custom renderers
 
-If you need custom rendering logic, extend the WidgetRendererComponent:
+The library now supports three types of custom renderers:
+
+#### Option A: HTML Function Renderer
+
+Use a function that returns HTML strings:
 
 ```typescript
-import { Component } from '@angular/core';
-import { WidgetRendererComponent } from '@bbq-chat/widgets-angular';
+import { Component, OnInit } from '@angular/core';
+import { WidgetRegistryService } from '@bbq-chat/widgets-angular';
 import { WeatherWidget } from './custom-widgets/weather-widget';
 
 @Component({
-  selector: 'app-custom-widget-renderer',
-  template: `
-    <div #widgetContainer class="bbq-widgets-container">
-      @for (widget of widgets; track $index) {
-        @if (widget.type === 'weather') {
-          <div class="weather-widget">
-            <h3>{{ (widget as WeatherWidget).city }}</h3>
-            <p>{{ (widget as WeatherWidget).temperature }}°C</p>
-            <p>{{ (widget as WeatherWidget).condition }}</p>
-          </div>
-        } @else {
-          <div [innerHTML]="renderWidget(widget)"></div>
-        }
-      }
-    </div>
-  `
+  selector: 'app-root',
+  template: '...'
 })
-export class CustomWidgetRendererComponent extends WidgetRendererComponent {
-  // You can override methods or add custom logic here
-  WeatherWidget = WeatherWidget; // Make available in template
-  
-  renderWidget(widget: any): string {
-    return this['renderer'].renderWidget(widget);
+export class AppComponent implements OnInit {
+  constructor(private widgetRegistry: WidgetRegistryService) {}
+
+  ngOnInit() {
+    // Register custom widget factory
+    this.widgetRegistry.registerFactory('weather', (obj: any) => {
+      if (obj.type === 'weather') {
+        return new WeatherWidget(
+          obj.label,
+          obj.action,
+          obj.city,
+          obj.temperature,
+          obj.condition
+        );
+      }
+      return null;
+    });
+
+    // Register HTML renderer
+    this.widgetRegistry.registerRenderer('weather', (widget) => {
+      const w = widget as WeatherWidget;
+      return `
+        <div class="weather-widget">
+          <h3>${w.city}</h3>
+          <p>${w.temperature}°C - ${w.condition}</p>
+        </div>
+      `;
+    });
   }
 }
 ```
+
+#### Option B: Angular Component Renderer (Recommended)
+
+Create an Angular component for better type safety and data binding:
+
+```typescript
+// weather-widget.component.ts
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CustomWidgetComponent } from '@bbq-chat/widgets-angular';
+import { WeatherWidget } from './custom-widgets/weather-widget';
+
+@Component({
+  selector: 'app-weather-widget',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="weather-widget">
+      <h3>{{ weatherWidget.city }}</h3>
+      <div class="weather-info">
+        <p class="temperature">{{ weatherWidget.temperature }}°C</p>
+        <p class="condition">{{ weatherWidget.condition }}</p>
+      </div>
+      <button (click)="onRefresh()">Refresh</button>
+    </div>
+  `,
+  styles: [`
+    .weather-widget {
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    .temperature {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  `]
+})
+export class WeatherWidgetComponent implements CustomWidgetComponent {
+  @Input() widget!: ChatWidget;
+  widgetAction?: (actionName: string, payload: unknown) => void;
+
+  get weatherWidget(): WeatherWidget {
+    return this.widget as WeatherWidget;
+  }
+
+  onRefresh() {
+    if (this.widgetAction) {
+      this.widgetAction('refresh_weather', { 
+        city: this.weatherWidget.city 
+      });
+    }
+  }
+}
+```
+
+Then register the component:
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { WidgetRegistryService } from '@bbq-chat/widgets-angular';
+import { WeatherWidget } from './custom-widgets/weather-widget';
+import { WeatherWidgetComponent } from './weather-widget.component';
+
+@Component({
+  selector: 'app-root',
+  template: '...'
+})
+export class AppComponent implements OnInit {
+  constructor(private widgetRegistry: WidgetRegistryService) {}
+
+  ngOnInit() {
+    // Register custom widget factory
+    this.widgetRegistry.registerFactory('weather', (obj: any) => {
+      if (obj.type === 'weather') {
+        return new WeatherWidget(
+          obj.label,
+          obj.action,
+          obj.city,
+          obj.temperature,
+          obj.condition
+        );
+      }
+      return null;
+    });
+
+    // Register component renderer - enables full Angular features
+    this.widgetRegistry.registerRenderer('weather', WeatherWidgetComponent);
+  }
+}
+```
+
+#### Option C: Angular Template Renderer
+
+Use Angular templates for inline rendering with data binding:
+
+```typescript
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { WidgetRegistryService, WidgetTemplateContext } from '@bbq-chat/widgets-angular';
+import { WeatherWidget } from './custom-widgets/weather-widget';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <ng-template #weatherTemplate let-widget let-emitAction="emitAction">
+      <div class="weather-widget">
+        <h3>{{ widget.city }}</h3>
+        <p>{{ widget.temperature }}°C - {{ widget.condition }}</p>
+        <button (click)="emitAction('refresh_weather', { city: widget.city })">
+          Refresh
+        </button>
+      </div>
+    </ng-template>
+
+    <bbq-widget-renderer 
+      [widgets]="widgets" 
+      (widgetAction)="handleWidgetAction($event)">
+    </bbq-widget-renderer>
+  `
+})
+export class AppComponent implements OnInit {
+  @ViewChild('weatherTemplate', { static: true })
+  weatherTemplate!: TemplateRef<WidgetTemplateContext>;
+
+  widgets: ChatWidget[] = [];
+
+  constructor(private widgetRegistry: WidgetRegistryService) {}
+
+  ngOnInit() {
+    // Register custom widget factory
+    this.widgetRegistry.registerFactory('weather', (obj: any) => {
+      if (obj.type === 'weather') {
+        return new WeatherWidget(
+          obj.label,
+          obj.action,
+          obj.city,
+          obj.temperature,
+          obj.condition
+        );
+      }
+      return null;
+    });
+
+    // Register template renderer - enables inline Angular templates
+    this.widgetRegistry.registerRenderer('weather', this.weatherTemplate);
+  }
+
+  handleWidgetAction(event: { actionName: string; payload: any }) {
+    console.log('Widget action:', event);
+  }
+}
+```
+
+### Benefits of Component-Based Renderers
+
+Using Angular components for custom widgets provides several advantages:
+
+1. **Type Safety**: Full TypeScript support with interfaces and types
+2. **Data Binding**: Use Angular's powerful two-way data binding
+3. **Lifecycle Hooks**: Access to Angular lifecycle hooks (ngOnInit, ngOnDestroy, etc.)
+4. **Change Detection**: Automatic UI updates when data changes
+5. **Dependency Injection**: Inject services directly into widget components
+6. **Animations**: Use Angular animations for smooth transitions
+7. **Reactive Forms**: Integrate with Angular reactive forms
+8. **Testing**: Easier unit testing with Angular TestBed
 
 ## Integration with Forms
 

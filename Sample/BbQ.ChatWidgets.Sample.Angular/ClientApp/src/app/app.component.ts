@@ -9,6 +9,7 @@ import { WidgetsDemoComponent } from './pages/widgets-demo/widgets-demo.componen
 import { ActionsDemoComponent } from './pages/actions-demo/actions-demo.component';
 import { SseWidgetsComponent } from './pages/sse-widgets/sse-widgets.component';
 import { SseClockComponent } from './pages/sse-clock/sse-clock.component';
+import { CustomWidgetDemoComponent } from './pages/custom-widget-demo/custom-widget-demo.component';
 import { ScenarioType } from './models/chat.models';
 
 @Component({
@@ -24,7 +25,8 @@ import { ScenarioType } from './models/chat.models';
     WidgetsDemoComponent,
     ActionsDemoComponent,
     SseWidgetsComponent,
-    SseClockComponent
+    SseClockComponent,
+    CustomWidgetDemoComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -52,7 +54,8 @@ export class AppComponent {
       [ScenarioType.WidgetsDemo]: '🧩 Widgets Demo',
       [ScenarioType.ActionsDemo]: '🎬 Actions Demo',
       [ScenarioType.SseWidgets]: '📡 SSE Widget Updates',
-      [ScenarioType.SseClock]: '⏰ SSE Clock'
+      [ScenarioType.SseClock]: '⏰ SSE Clock',
+      [ScenarioType.CustomWidgetDemo]: '🎨 Custom Widget Renderers'
     };
     
     return titles[page] || '';

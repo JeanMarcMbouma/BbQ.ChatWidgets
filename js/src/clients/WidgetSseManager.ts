@@ -32,7 +32,9 @@ export class WidgetSseManager {
     if (!this.es) return;
     try {
       this.es.close();
-    } catch {}
+    } catch {
+      // Ignore close errors
+    }
     this.es = null;
   }
 

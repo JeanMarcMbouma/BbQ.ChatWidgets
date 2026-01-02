@@ -15,5 +15,15 @@
     <app-sse-widgets (navigateBack)="handleBack()"></app-sse-widgets>
   } @else if (currentPage() === ScenarioType.SseClock) {
     <app-sse-clock (navigateBack)="handleBack()"></app-sse-clock>
+  } @else if (currentPage() === ScenarioType.CustomWidgetDemo) {
+    <div class="page-container">
+      <div class="page-header">
+        <button class="back-button" (click)="handleBack()">
+          ← Back to Home
+        </button>
+        <h1 class="page-title">{{ getPageTitle() }}</h1>
+      </div>
+      <app-custom-widget-demo></app-custom-widget-demo>
+    </div>
   }
 </div>

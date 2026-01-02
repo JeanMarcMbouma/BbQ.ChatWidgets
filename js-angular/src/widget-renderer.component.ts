@@ -152,22 +152,31 @@ export class WidgetRendererComponent
     this.widgetItems = this.widgets.map((widget, index) => {
       const customRenderer = this.widgetRegistry.getRenderer(widget.type);
       
-      // If custom renderer is registered and it's an HTML function, use it
+      // Check template renderer first (most specific)
+      if (customRenderer && isTemplateRenderer(customRenderer)) {
+        return {
+          index,
+          widget,
+          isHtml: false,
+        };
+      }
+      
+      // Check component renderer second
+      if (customRenderer && isComponentRenderer(customRenderer)) {
+        return {
+          index,
+          widget,
+          isHtml: false,
+        };
+      }
+      
+      // Check HTML function renderer last (most general, matches any function)
       if (customRenderer && isHtmlRenderer(customRenderer)) {
         return {
           index,
           widget,
           isHtml: true,
           html: customRenderer(widget),
-        };
-      }
-      
-      // If custom renderer is a component or template, mark for dynamic rendering
-      if (customRenderer && (isComponentRenderer(customRenderer) || isTemplateRenderer(customRenderer))) {
-        return {
-          index,
-          widget,
-          isHtml: false,
         };
       }
       
@@ -195,35 +204,41 @@ export class WidgetRendererComponent
   protected renderDynamicWidgets() {
     if (!this.containerRef?.nativeElement) return;
     
-    // Clean up existing dynamic components and views
-    this.cleanupDynamicWidgets();
+    // Use microtask to ensure Angular has completed change detection
+    Promise.resolve().then(() => {
+      if (!this.containerRef?.nativeElement) return;
+      
+      // Clean up existing dynamic components and views
+      this.cleanupDynamicWidgets();
 
-    const container = this.containerRef.nativeElement;
-    const dynamicWidgetDivs = Array.from(
-      container.querySelectorAll('.bbq-widget:not([data-rendered])')
-    ) as HTMLElement[];
-    
-    let dynamicIndex = 0;
-    this.widgetItems.forEach((item) => {
-      if (!item.isHtml) {
-        const customRenderer = this.widgetRegistry.getRenderer(item.widget.type);
-        
-        if (!customRenderer) return;
-        
-        const targetDiv = dynamicWidgetDivs[dynamicIndex];
-        if (!targetDiv) return;
-        
-        // Mark as rendered to avoid re-rendering
-        targetDiv.setAttribute('data-rendered', 'true');
-        
-        if (isComponentRenderer(customRenderer)) {
-          this.renderComponent(customRenderer, item.widget, targetDiv);
-        } else if (isTemplateRenderer(customRenderer)) {
-          this.renderTemplate(customRenderer, item.widget, targetDiv);
+      const container = this.containerRef.nativeElement;
+      // Query all widget divs without the data-rendered filter
+      const dynamicWidgetDivs = Array.from(
+        container.querySelectorAll('.bbq-widget')
+      ) as HTMLElement[];
+      
+      let dynamicIndex = 0;
+      this.widgetItems.forEach((item) => {
+        if (!item.isHtml) {
+          const customRenderer = this.widgetRegistry.getRenderer(item.widget.type);
+          
+          if (!customRenderer) return;
+          
+          const targetDiv = dynamicWidgetDivs[dynamicIndex];
+          if (!targetDiv) return;
+          
+          // Clear the div content before rendering
+          targetDiv.innerHTML = '';
+          
+          if (isComponentRenderer(customRenderer)) {
+            this.renderComponent(customRenderer, item.widget, targetDiv);
+          } else if (isTemplateRenderer(customRenderer)) {
+            this.renderTemplate(customRenderer, item.widget, targetDiv);
+          }
+          
+          dynamicIndex++;
         }
-        
-        dynamicIndex++;
-      }
+      });
     });
   }
 
@@ -249,17 +264,13 @@ export class WidgetRendererComponent
     // Safely set component inputs if they exist
     const instance = componentRef.instance;
     if (instance && typeof instance === 'object') {
-      // Check if 'widget' property exists and is writable
-      const widgetDescriptor = Object.getOwnPropertyDescriptor(instance, 'widget') ||
-                               Object.getOwnPropertyDescriptor(Object.getPrototypeOf(instance), 'widget');
-      if (widgetDescriptor !== undefined || 'widget' in instance) {
+      // Set widget property if it exists in the prototype chain
+      if ('widget' in instance) {
         (instance as any).widget = widget;
       }
       
-      // Check if 'widgetAction' property exists and is writable
-      const actionDescriptor = Object.getOwnPropertyDescriptor(instance, 'widgetAction') ||
-                               Object.getOwnPropertyDescriptor(Object.getPrototypeOf(instance), 'widgetAction');
-      if (actionDescriptor !== undefined || 'widgetAction' in instance) {
+      // Set widgetAction callback if it exists in the prototype chain
+      if ('widgetAction' in instance) {
         (instance as any).widgetAction = (actionName: string, payload: unknown) => {
           this.widgetAction.emit({ actionName, payload });
         };

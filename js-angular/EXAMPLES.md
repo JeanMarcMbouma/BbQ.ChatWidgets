@@ -359,7 +359,7 @@ Use Angular templates for inline rendering with data binding:
 
 ```typescript
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { WidgetRegistryService } from '@bbq-chat/widgets-angular';
+import { WidgetRegistryService, WidgetTemplateContext } from '@bbq-chat/widgets-angular';
 import { WeatherWidget } from './custom-widgets/weather-widget';
 
 @Component({
@@ -383,7 +383,7 @@ import { WeatherWidget } from './custom-widgets/weather-widget';
 })
 export class AppComponent implements OnInit {
   @ViewChild('weatherTemplate', { static: true })
-  weatherTemplate!: TemplateRef<any>;
+  weatherTemplate!: TemplateRef<WidgetTemplateContext>;
 
   widgets: ChatWidget[] = [];
 

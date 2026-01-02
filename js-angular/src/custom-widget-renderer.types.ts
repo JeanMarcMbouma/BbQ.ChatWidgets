@@ -65,12 +65,16 @@ export interface CustomWidgetRendererConfig {
 }
 
 /**
- * Type guard to check if a renderer is an HTML function
+ * Type guard to check if a renderer is a TemplateRef
  */
-export function isHtmlRenderer(
+export function isTemplateRenderer(
   renderer: CustomWidgetRenderer
-): renderer is CustomWidgetHtmlRenderer {
-  return typeof renderer === 'function';
+): renderer is TemplateRef<WidgetTemplateContext> {
+  return (
+    renderer !== null &&
+    typeof renderer === 'object' &&
+    'createEmbeddedView' in renderer
+  );
 }
 
 /**
@@ -104,14 +108,13 @@ export function isComponentRenderer(
 }
 
 /**
- * Type guard to check if a renderer is a TemplateRef
+ * Type guard to check if a renderer is an HTML function
+ * 
+ * Note: This should be checked AFTER checking for component and template renderers
+ * since components are also functions but with additional properties.
  */
-export function isTemplateRenderer(
+export function isHtmlRenderer(
   renderer: CustomWidgetRenderer
-): renderer is TemplateRef<WidgetTemplateContext> {
-  return (
-    renderer !== null &&
-    typeof renderer === 'object' &&
-    'createEmbeddedView' in renderer
-  );
+): renderer is CustomWidgetHtmlRenderer {
+  return typeof renderer === 'function';
 }

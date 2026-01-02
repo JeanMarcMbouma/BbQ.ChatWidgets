@@ -218,6 +218,8 @@ this.widgetRegistry.registerRenderer('myWidget', MyWidgetComponent);
 Use inline templates with full Angular template syntax:
 
 ```typescript
+import { WidgetTemplateContext } from '@bbq-chat/widgets-angular';
+
 @Component({
   template: `
     <ng-template #myTemplate let-widget let-emitAction="emitAction">
@@ -231,7 +233,7 @@ Use inline templates with full Angular template syntax:
   `
 })
 export class AppComponent implements OnInit {
-  @ViewChild('myTemplate', { static: true }) myTemplate!: TemplateRef<any>;
+  @ViewChild('myTemplate', { static: true }) myTemplate!: TemplateRef<WidgetTemplateContext>;
 
   ngOnInit() {
     this.widgetRegistry.registerRenderer('myWidget', this.myTemplate);

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WidgetRendererComponent, WidgetRegistryService } from '@bbq-chat/widgets-angular';
+import { WidgetRendererComponent, WidgetRegistryService, WidgetTemplateContext } from '@bbq-chat/widgets-angular';
 import type { ChatWidget } from '@bbq-chat/widgets-angular';
 import { DemoCustomWidgetComponent, ProductWidget } from '../../components/demo-custom-widget/demo-custom-widget.component';
 
@@ -233,7 +233,7 @@ import { DemoCustomWidgetComponent, ProductWidget } from '../../components/demo-
 })
 export class CustomWidgetDemoComponent implements OnInit {
   @ViewChild('productTemplate', { static: true })
-  productTemplate!: TemplateRef<any>;
+  productTemplate!: TemplateRef<WidgetTemplateContext>;
 
   htmlRendererWidgets: ChatWidget[] = [];
   componentRendererWidgets: ChatWidget[] = [];

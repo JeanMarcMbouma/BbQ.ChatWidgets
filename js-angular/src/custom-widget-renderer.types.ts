@@ -75,8 +75,16 @@ export function isHtmlRenderer(
 
 /**
  * Type guard to check if a renderer is an Angular Component
- * Note: This uses a heuristic check. Components are constructor functions.
- * For more robust checking, use Angular's own utilities or duck typing.
+ * 
+ * Note: This uses a heuristic check based on the following assumptions:
+ * 1. Components are constructor functions
+ * 2. Components have a prototype with a constructor property
+ * 3. Components typically use dependency injection (no required constructor params)
+ * 
+ * Limitation: This may not detect components with required constructor parameters.
+ * For edge cases, explicitly check your component's constructor signature.
+ * 
+ * Alternative: You can always register a wrapper component that has no required params.
  */
 export function isComponentRenderer(
   renderer: CustomWidgetRenderer
@@ -86,7 +94,7 @@ export function isComponentRenderer(
     return false;
   }
   
-  // Check for Angular component metadata (more robust than checking ɵcmp)
+  // Check for Angular component characteristics
   // Components typically have prototype with constructor property
   return (
     renderer.prototype !== undefined &&

@@ -229,6 +229,11 @@ export class WidgetRendererComponent
 
   /**
    * Render an Angular component for a custom widget
+   * 
+   * Note: This method safely assigns properties to component instances
+   * by checking for property existence at runtime. This approach is necessary
+   * because we cannot statically verify that all components implement
+   * the CustomWidgetComponent interface.
    */
   protected renderComponent(
     componentType: any,
@@ -244,13 +249,17 @@ export class WidgetRendererComponent
     // Safely set component inputs if they exist
     const instance = componentRef.instance;
     if (instance && typeof instance === 'object') {
-      // Set widget property if it exists on the instance
-      if ('widget' in instance) {
+      // Check if 'widget' property exists and is writable
+      const widgetDescriptor = Object.getOwnPropertyDescriptor(instance, 'widget') ||
+                               Object.getOwnPropertyDescriptor(Object.getPrototypeOf(instance), 'widget');
+      if (widgetDescriptor !== undefined || 'widget' in instance) {
         (instance as any).widget = widget;
       }
       
-      // Set widgetAction callback if it exists on the instance
-      if ('widgetAction' in instance) {
+      // Check if 'widgetAction' property exists and is writable
+      const actionDescriptor = Object.getOwnPropertyDescriptor(instance, 'widgetAction') ||
+                               Object.getOwnPropertyDescriptor(Object.getPrototypeOf(instance), 'widgetAction');
+      if (actionDescriptor !== undefined || 'widgetAction' in instance) {
         (instance as any).widgetAction = (actionName: string, payload: unknown) => {
           this.widgetAction.emit({ actionName, payload });
         };
@@ -263,8 +272,8 @@ export class WidgetRendererComponent
     // Store reference for cleanup
     this.dynamicComponents.push(componentRef);
     
-    // Trigger change detection
-    componentRef.changeDetectorRef.detectChanges();
+    // Trigger change detection (use optional chaining for safety)
+    componentRef.changeDetectorRef?.detectChanges();
   }
 
   /**

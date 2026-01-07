@@ -1,4 +1,4 @@
-import { ChatWidget } from '@bbq/chatwidgets';
+import { ChatWidget } from '@bbq-chat/widgets';
 
 /**
  * Client-side representation of the server clock widget.

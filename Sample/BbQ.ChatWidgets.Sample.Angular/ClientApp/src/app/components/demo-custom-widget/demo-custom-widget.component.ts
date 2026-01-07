@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CustomWidgetComponent } from '@bbq-chat/widgets-angular';
-import type { ChatWidget } from '@bbq-chat/widgets-angular';
+import { CustomWidgetComponent, ChatWidget } from '@bbq-chat/widgets-angular';
 
 /**
  * Custom widget that represents a product card
@@ -9,6 +8,7 @@ import type { ChatWidget } from '@bbq-chat/widgets-angular';
  */
 export class ProductWidget extends ChatWidget {
   constructor(
+    type: string,
     label: string,
     action: string,
     public productName: string,
@@ -16,12 +16,12 @@ export class ProductWidget extends ChatWidget {
     public imageUrl: string,
     public inStock: boolean
   ) {
-    super('product', label, action);
+    super(type, label, action);
   }
 
   override toObject(): any {
     return {
-      type: 'product',
+      type: this.type,
       label: this.label,
       action: this.action,
       productName: this.productName,

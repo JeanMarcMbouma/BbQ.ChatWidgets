@@ -173,6 +173,8 @@ interface ActionLog {
 export class ActionsDemoComponent implements OnInit {
   @Output() navigateBack = new EventEmitter<void>();
   actionLog = signal<ActionLog[]>([]);
+  
+  private readonly MAX_ACTION_LOG_ENTRIES = 20;
 
   constructor(public chatService: ChatService) {}
 
@@ -190,7 +192,7 @@ export class ActionsDemoComponent implements OnInit {
       time,
       action: event.actionName,
       payload
-    }, ...log].slice(0, 20)); // Keep last 20 actions
+    }, ...log].slice(0, this.MAX_ACTION_LOG_ENTRIES));
 
     console.log('Widget action triggered:', event.actionName, event.payload);
     this.chatService.sendAction(event.actionName, event.payload);

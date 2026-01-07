@@ -31,9 +31,12 @@ export {
   isTemplateRenderer,
 } from './custom-widget-renderer.types';
 
-// Re-export commonly used types from core package
-export type {
+// Re-export commonly used types and classes from core package
+export {
   ChatWidget,
+} from '@bbq-chat/widgets';
+
+export type {
   ButtonWidget,
   CardWidget,
   FormWidget,

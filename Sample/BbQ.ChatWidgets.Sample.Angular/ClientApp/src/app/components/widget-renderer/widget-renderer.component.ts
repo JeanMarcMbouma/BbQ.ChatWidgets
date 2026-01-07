@@ -1,10 +1,14 @@
 import {
   Component,
   OnInit,
-  inject
+  inject,
+  Input,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WidgetRendererComponent as BaseWidgetRendererComponent, WidgetRegistryService } from '@bbq-chat/widgets-angular';
+import type { ChatWidget } from '@bbq-chat/widgets-angular';
 import { EChartsWidget } from '../../widgets/EChartsWidget';
 import { ClockWidget } from '../../widgets/ClockWidget';
 import { WeatherWidget } from '../../widgets/WeatherWidget';
@@ -26,11 +30,37 @@ import { WeatherWidgetComponent } from '../weather-widget/weather-widget.compone
   standalone: true,
   imports: [CommonModule],
   template: `
-    <!-- Base component handles rendering -->
-  `
+    <div #widgetContainer class="bbq-widgets-container" (click)="handleClick($event)">
+      @for (item of widgetItems; track item.index) {
+        @if (item.isHtml) {
+          <div class="bbq-widget" [innerHTML]="item.html"></div>
+        } @else {
+          <div class="bbq-widget" #dynamicWidget></div>
+        }
+      }
+    </div>
+  `,
+  styles: [
+    `
+      .bbq-widgets-container {
+        margin-top: 0.5rem;
+      }
+
+      .bbq-widget {
+        margin-bottom: 0.5rem;
+      }
+    `,
+  ],
 })
 export class WidgetRendererComponent extends BaseWidgetRendererComponent implements OnInit {
-  private widgetRegistry = inject(WidgetRegistryService);
+  // Re-declare inputs and outputs for proper type checking
+  @Input() override widgets: ChatWidget[] | null | undefined;
+  @Output() override widgetAction = new EventEmitter<{
+    actionName: string;
+    payload: unknown;
+  }>();
+
+  protected override widgetRegistry = inject(WidgetRegistryService);
 
   override ngOnInit() {
     this.registerCustomWidgets();

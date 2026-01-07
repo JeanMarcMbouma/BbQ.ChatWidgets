@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WidgetRendererComponent, WidgetRegistryService, WidgetTemplateContext } from '@bbq-chat/widgets-angular';
+import { WidgetRegistryService, WidgetTemplateContext } from '@bbq-chat/widgets-angular';
 import type { ChatWidget } from '@bbq-chat/widgets-angular';
 import { DemoCustomWidgetComponent, ProductWidget } from '../../components/demo-custom-widget/demo-custom-widget.component';
+import { WidgetRendererComponent } from '../../components/widget-renderer/widget-renderer.component';
 
 /**
  * Demo page showcasing custom widget renderers
@@ -23,7 +24,7 @@ import { DemoCustomWidgetComponent, ProductWidget } from '../../components/demo-
         <h3>About This Demo</h3>
         <p>
           This page demonstrates the three types of custom widget renderers
-          available in @bbq-chat/widgets-angular:
+          available in the Angular library:
         </p>
         <ol>
           <li><strong>HTML Function Renderer:</strong> Returns HTML strings (simple, no Angular features)</li>
@@ -38,10 +39,10 @@ import { DemoCustomWidgetComponent, ProductWidget } from '../../components/demo-
           Simple function that returns HTML strings. No Angular features, but lightweight.
         </p>
         <div class="widget-container">
-          <bbq-widget-renderer 
+          <app-widget-renderer 
             [widgets]="htmlRendererWidgets"
             (widgetAction)="handleAction($event)">
-          </bbq-widget-renderer>
+          </app-widget-renderer>
         </div>
       </div>
 
@@ -52,10 +53,10 @@ import { DemoCustomWidgetComponent, ProductWidget } from '../../components/demo-
           dependency injection, and more. Best for complex widgets.
         </p>
         <div class="widget-container">
-          <bbq-widget-renderer 
+          <app-widget-renderer 
             [widgets]="componentRendererWidgets"
             (widgetAction)="handleAction($event)">
-          </bbq-widget-renderer>
+          </app-widget-renderer>
         </div>
       </div>
 
@@ -66,10 +67,10 @@ import { DemoCustomWidgetComponent, ProductWidget } from '../../components/demo-
           but don't warrant a separate component.
         </p>
         <div class="widget-container">
-          <bbq-widget-renderer 
+          <app-widget-renderer 
             [widgets]="templateRendererWidgets"
             (widgetAction)="handleAction($event)">
-          </bbq-widget-renderer>
+          </app-widget-renderer>
         </div>
       </div>
 
@@ -249,10 +250,11 @@ export class CustomWidgetDemoComponent implements OnInit {
   }
 
   private registerCustomWidgets() {
-    // Register the ProductWidget factory
-    this.widgetRegistry.registerFactory('product', (obj: any) => {
-      if (obj.type === 'product') {
+    // Register the ProductWidget factory for all product types
+    const productFactory = (obj: any) => {
+      if (obj.type && obj.type.startsWith('product')) {
         return new ProductWidget(
+          obj.type,
           obj.label,
           obj.action,
           obj.productName,
@@ -262,7 +264,11 @@ export class CustomWidgetDemoComponent implements OnInit {
         );
       }
       return null;
-    });
+    };
+    
+    this.widgetRegistry.registerFactory('product-html', productFactory);
+    this.widgetRegistry.registerFactory('product-component', productFactory);
+    this.widgetRegistry.registerFactory('product-template', productFactory);
 
     // Register different renderers for different demo types
     
@@ -296,6 +302,7 @@ export class CustomWidgetDemoComponent implements OnInit {
   private setupDemoWidgets() {
     // HTML Function Renderer example
     const htmlWidget = new ProductWidget(
+      'product-html',
       'HTML Product',
       'html_action',
       'Wireless Headphones',
@@ -303,11 +310,11 @@ export class CustomWidgetDemoComponent implements OnInit {
       'https://via.placeholder.com/120',
       true
     );
-    htmlWidget.type = 'product-html';
     this.htmlRendererWidgets = [htmlWidget];
 
     // Component Renderer example
     const componentWidget1 = new ProductWidget(
+      'product-component',
       'Component Product 1',
       'component_action',
       'Smart Watch',
@@ -315,9 +322,9 @@ export class CustomWidgetDemoComponent implements OnInit {
       'https://via.placeholder.com/120',
       true
     );
-    componentWidget1.type = 'product-component';
 
     const componentWidget2 = new ProductWidget(
+      'product-component',
       'Component Product 2',
       'component_action',
       'Bluetooth Speaker',
@@ -325,12 +332,12 @@ export class CustomWidgetDemoComponent implements OnInit {
       'https://via.placeholder.com/120',
       false
     );
-    componentWidget2.type = 'product-component';
 
     this.componentRendererWidgets = [componentWidget1, componentWidget2];
 
     // Template Renderer example
     const templateWidget = new ProductWidget(
+      'product-template',
       'Template Product',
       'template_action',
       'USB-C Cable',
@@ -338,7 +345,6 @@ export class CustomWidgetDemoComponent implements OnInit {
       'https://via.placeholder.com/120',
       true
     );
-    templateWidget.type = 'product-template';
     this.templateRendererWidgets = [templateWidget];
   }
 

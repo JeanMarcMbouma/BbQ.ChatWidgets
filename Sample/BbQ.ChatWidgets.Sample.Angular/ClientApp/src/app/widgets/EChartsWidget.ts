@@ -1,4 +1,4 @@
-import { ChatWidget } from '@bbq/chatwidgets';
+import { ChatWidget } from '@bbq-chat/widgets';
 
 /**
  * Custom ECharts widget demonstrating extensibility.

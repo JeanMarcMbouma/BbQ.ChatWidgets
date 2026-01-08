@@ -16,6 +16,7 @@ import {
   Injector,
   createComponent,
   EnvironmentInjector,
+  Inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -30,6 +31,13 @@ import {
   isComponentRenderer,
   isTemplateRenderer,
 } from './custom-widget-renderer.types';
+import {
+  WIDGET_EVENT_MANAGER_FACTORY,
+  SSR_WIDGET_RENDERER,
+  widgetEventManagerFactoryProvider,
+  ssrWidgetRendererFactory,
+  WidgetEventManagerFactory,
+} from './widget-di.tokens';
 
 /**
  * Angular component for rendering chat widgets
@@ -54,6 +62,10 @@ import {
   selector: 'bbq-widget-renderer',
   standalone: true,
   imports: [CommonModule],
+  providers: [
+    { provide: WIDGET_EVENT_MANAGER_FACTORY, useFactory: widgetEventManagerFactoryProvider },
+    { provide: SSR_WIDGET_RENDERER, useFactory: ssrWidgetRendererFactory },
+  ],
   template: `
     <div #widgetContainer class="bbq-widgets-container" (click)="handleClick($event)">
       @for (item of widgetItems; track item.index) {
@@ -103,13 +115,14 @@ export class WidgetRendererComponent
     html?: string;
   }> = [];
   
-  protected renderer = new SsrWidgetRenderer();
   protected eventManager?: WidgetEventManager;
   protected isViewInitialized = false;
   protected dynamicComponents: Array<ComponentRef<any>> = [];
   protected dynamicViews: Array<EmbeddedViewRef<WidgetTemplateContext>> = [];
 
   constructor(
+    @Inject(SSR_WIDGET_RENDERER) protected renderer: SsrWidgetRenderer,
+    @Inject(WIDGET_EVENT_MANAGER_FACTORY) protected eventManagerFactory: WidgetEventManagerFactory,
     protected widgetRegistry: WidgetRegistryService,
     protected injector: Injector,
     protected environmentInjector: EnvironmentInjector
@@ -349,8 +362,8 @@ export class WidgetRendererComponent
       },
     };
 
-    // Attach event handlers using WidgetEventManager
-    this.eventManager = new WidgetEventManager(actionHandler);
+    // Use the injected factory to create an event manager with the component-specific action handler
+    this.eventManager = this.eventManagerFactory(actionHandler);
     this.eventManager.attachHandlers(container);
   }
 

@@ -16,6 +16,16 @@ export { WidgetRendererComponent } from './widget-renderer.component';
 // Export services
 export { WidgetRegistryService } from './widget-registry.service';
 
+// Export DI tokens and factories
+export {
+  WIDGET_EVENT_MANAGER_FACTORY,
+  SSR_WIDGET_RENDERER,
+  widgetEventManagerFactoryProvider,
+  ssrWidgetRendererFactory,
+} from './widget-di.tokens';
+
+export type { WidgetEventManagerFactory } from './widget-di.tokens';
+
 // Export custom widget renderer types
 export type {
   CustomWidgetComponent,

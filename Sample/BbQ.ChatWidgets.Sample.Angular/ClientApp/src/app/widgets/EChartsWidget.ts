@@ -28,10 +28,11 @@ export class EChartsWidget extends ChatWidget {
   }
 
   toObject(): any {
+    const base = this as any;
     return {
       type: 'echarts',
-      label: this.label,
-      action: this.action,
+      label: base.label,
+      action: base.action,
       chartType: this.chartType,
       jsonData: this.jsonData,
     };

@@ -70,17 +70,6 @@ export const SCENARIOS: ScenarioConfig[] = [
     ],
     icon: '🎬'
   },
-  // Temporarily disabled due to NG0203 injection context error
-  // TODO: Fix the injection context issue with custom widget renderers
-  // The error occurs when the base WidgetRendererComponent from the library is used in a template.
-  // Despite using constructor parameter injection (not inject()), Angular throws NG0203 error.
-  // This may be related to how ng-packagr bundles the component or Angular 19's DI system.
-  // Possible solutions to investigate:
-  // 1. Check if there's a circular dependency causing the issue
-  // 2. Try making WidgetRendererComponent a directive instead of a component
-  // 3. Use providedIn: 'any' for WidgetRegistryService
-  // 4. Create a factory provider for the base component
-  /*
   {
     id: ScenarioType.CustomWidgetDemo,
     name: 'Custom Widget Renderers',
@@ -94,7 +83,6 @@ export const SCENARIOS: ScenarioConfig[] = [
     ],
     icon: '🎨'
   },
-  */
   {
     id: ScenarioType.SseWidgets,
     name: 'SSE Widget Updates',

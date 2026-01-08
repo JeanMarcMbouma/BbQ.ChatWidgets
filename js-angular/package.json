@@ -21,26 +21,30 @@
     "components",
     "bbq-chat"
   ],
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./fesm2022/bbq-chat-widgets-angular.mjs",
+  "module": "./fesm2022/bbq-chat-widgets-angular.mjs",
+  "es2020": "./fesm2020/bbq-chat-widgets-angular.mjs",
+  "esm2020": "./esm2020/bbq-chat-widgets-angular.mjs",
+  "fesm2020": "./fesm2020/bbq-chat-widgets-angular.mjs",
+  "fesm2022": "./fesm2022/bbq-chat-widgets-angular.mjs",
+  "typings": "./index.d.ts",
   "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "types": "./index.d.ts",
+      "esm2020": "./esm2020/bbq-chat-widgets-angular.mjs",
+      "es2020": "./fesm2020/bbq-chat-widgets-angular.mjs",
+      "es2015": "./fesm2020/bbq-chat-widgets-angular.mjs",
+      "node": "./fesm2020/bbq-chat-widgets-angular.mjs",
+      "default": "./fesm2022/bbq-chat-widgets-angular.mjs"
     }
   },
-  "files": [
-    "dist",
-    "src",
-    "README.md",
-    "LICENSE"
-  ],
+  "sideEffects": false,
   "scripts": {
-    "build": "tsc && node scripts/build.mjs",
-    "build:watch": "tsc --watch",
+    "build": "ng-packagr -p ng-package.json",
+    "build:watch": "ng-packagr -p ng-package.json --watch",
     "test": "echo \"No tests yet\"",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
@@ -55,17 +59,19 @@
   },
   "devDependencies": {
     "@angular/common": "^17.3.0",
+    "@angular/compiler": "^17.3.0",
+    "@angular/compiler-cli": "^17.3.0",
     "@angular/core": "^17.3.0",
     "@bbq-chat/widgets": "file:../js",
     "@types/node": "^20.10.0",
     "@typescript-eslint/eslint-plugin": "^6.13.0",
     "@typescript-eslint/parser": "^6.13.0",
-    "esbuild": "^0.27.2",
     "eslint": "^8.55.0",
+    "ng-packagr": "^17.3.0",
     "prettier": "^3.1.1",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
-    "typescript": "^5.4.2",
+    "typescript": "~5.4.2",
     "zone.js": "^0.14.3"
   },
   "engines": {

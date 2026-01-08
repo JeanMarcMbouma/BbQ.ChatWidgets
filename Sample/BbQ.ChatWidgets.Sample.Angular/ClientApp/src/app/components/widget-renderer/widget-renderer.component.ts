@@ -53,12 +53,7 @@ import { WeatherWidgetComponent } from '../weather-widget/weather-widget.compone
   ],
 })
 export class WidgetRendererComponent extends BaseWidgetRendererComponent implements OnInit {
-  constructor() {
-    super();
-  }
-
-
-
+  
   override ngOnInit() {
     this.registerCustomWidgets();
     super.ngOnInit();

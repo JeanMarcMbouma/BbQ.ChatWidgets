@@ -21,26 +21,26 @@
     "components",
     "bbq-chat"
   ],
-  "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/fesm2022/bbq-chat-widgets-angular.mjs",
+  "module": "./dist/fesm2022/bbq-chat-widgets-angular.mjs",
+  "esm2022": "./dist/esm2022/bbq-chat-widgets-angular.mjs",
+  "fesm2022": "./dist/fesm2022/bbq-chat-widgets-angular.mjs",
+  "typings": "./dist/index.d.ts",
   "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
     ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "esm2022": "./dist/esm2022/bbq-chat-widgets-angular.mjs",
+      "esm": "./dist/esm2022/bbq-chat-widgets-angular.mjs",
+      "default": "./dist/fesm2022/bbq-chat-widgets-angular.mjs"
     }
   },
-  "files": [
-    "dist",
-    "src",
-    "README.md",
-    "LICENSE"
-  ],
+  "sideEffects": false,
   "scripts": {
-    "build": "tsc && node scripts/build.mjs",
-    "build:watch": "tsc --watch",
+    "build": "ng-packagr -p ng-package.json",
+    "build:watch": "ng-packagr -p ng-package.json --watch",
     "test": "echo \"No tests yet\"",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
@@ -49,24 +49,26 @@
     "prepublishOnly": "npm run build && npm run lint"
   },
   "peerDependencies": {
-    "@angular/common": ">=17.0.0",
-    "@angular/core": ">=17.0.0",
+    "@angular/common": ">=19.2.17",
+    "@angular/core": ">=19.2.17",
     "@bbq-chat/widgets": "^1.0.0"
   },
   "devDependencies": {
-    "@angular/common": "^17.3.0",
-    "@angular/core": "^17.3.0",
+    "@angular/common": "^19.2.17",
+    "@angular/compiler": "^19.2.17",
+    "@angular/compiler-cli": "^19.2.17",
+    "@angular/core": "^19.2.17",
     "@bbq-chat/widgets": "file:../js",
     "@types/node": "^20.10.0",
     "@typescript-eslint/eslint-plugin": "^6.13.0",
     "@typescript-eslint/parser": "^6.13.0",
-    "esbuild": "^0.27.2",
     "eslint": "^8.55.0",
+    "ng-packagr": "^19.0.0",
     "prettier": "^3.1.1",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
-    "typescript": "^5.4.2",
-    "zone.js": "^0.14.3"
+    "typescript": "~5.7.0",
+    "zone.js": "^0.15.0"
   },
   "engines": {
     "node": ">=14.0.0"

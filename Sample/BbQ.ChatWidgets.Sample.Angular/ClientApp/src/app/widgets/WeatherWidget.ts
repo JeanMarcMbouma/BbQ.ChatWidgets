@@ -15,10 +15,11 @@ export class WeatherWidget extends ChatWidget {
   }
 
   toObject(): any {
+    const base = this as any;
     return {
       type: 'weather',
-      label: this.label,
-      action: this.action,
+      label: base.label,
+      action: base.action,
       city: this.city,
       streamId: this.streamId,
     };

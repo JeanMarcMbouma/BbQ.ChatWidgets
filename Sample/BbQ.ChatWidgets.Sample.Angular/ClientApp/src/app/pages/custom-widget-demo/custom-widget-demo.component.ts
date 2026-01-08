@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WidgetRegistryService, WidgetTemplateContext } from '@bbq-chat/widgets-angular';
+import { WidgetRegistryService, WidgetTemplateContext, WidgetRendererComponent } from '@bbq-chat/widgets-angular';
 import type { ChatWidget } from '@bbq-chat/widgets-angular';
 import { DemoCustomWidgetComponent, ProductWidget } from '../../components/demo-custom-widget/demo-custom-widget.component';
-import { WidgetRendererComponent } from '../../components/widget-renderer/widget-renderer.component';
 
 /**
  * Demo page showcasing custom widget renderers
@@ -39,10 +38,10 @@ import { WidgetRendererComponent } from '../../components/widget-renderer/widget
           Simple function that returns HTML strings. No Angular features, but lightweight.
         </p>
         <div class="widget-container">
-          <app-widget-renderer 
+          <bbq-widget-renderer 
             [widgets]="htmlRendererWidgets"
             (widgetAction)="handleAction($event)">
-          </app-widget-renderer>
+          </bbq-widget-renderer>
         </div>
       </div>
 
@@ -53,10 +52,10 @@ import { WidgetRendererComponent } from '../../components/widget-renderer/widget
           dependency injection, and more. Best for complex widgets.
         </p>
         <div class="widget-container">
-          <app-widget-renderer 
+          <bbq-widget-renderer 
             [widgets]="componentRendererWidgets"
             (widgetAction)="handleAction($event)">
-          </app-widget-renderer>
+          </bbq-widget-renderer>
         </div>
       </div>
 
@@ -67,10 +66,10 @@ import { WidgetRendererComponent } from '../../components/widget-renderer/widget
           but don't warrant a separate component.
         </p>
         <div class="widget-container">
-          <app-widget-renderer 
+          <bbq-widget-renderer 
             [widgets]="templateRendererWidgets"
             (widgetAction)="handleAction($event)">
-          </app-widget-renderer>
+          </bbq-widget-renderer>
         </div>
       </div>
 

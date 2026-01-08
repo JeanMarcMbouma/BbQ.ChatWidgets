@@ -17,10 +17,11 @@ export class ClockWidget extends ChatWidget {
   }
 
   toObject(): any {
+    const base = this as any;
     return {
       type: 'clock',
-      label: this.label,
-      action: this.action,
+      label: base.label,
+      action: base.action,
       timezone: this.timezone,
       streamId: this.streamId,
     };

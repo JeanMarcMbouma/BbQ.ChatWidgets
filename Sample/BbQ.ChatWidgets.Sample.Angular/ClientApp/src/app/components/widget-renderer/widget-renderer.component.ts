@@ -1,7 +1,6 @@
 import {
   Component,
   OnInit,
-  inject,
   Input,
   Output,
   EventEmitter,
@@ -17,8 +16,8 @@ import { ClockWidgetComponent } from '../clock-widget/clock-widget.component';
 import { WeatherWidgetComponent } from '../weather-widget/weather-widget.component';
 
 /**
- * Extended WidgetRendererComponent that registers custom widget renderers
- * using the new component-based renderer API.
+ * Wrapper component that uses the base WidgetRendererComponent
+ * and registers custom widget renderers using the component-based renderer API.
  * 
  * This component demonstrates the new approach:
  * - ECharts: Component renderer (complex widget with lifecycle)
@@ -28,43 +27,25 @@ import { WeatherWidgetComponent } from '../weather-widget/weather-widget.compone
 @Component({
   selector: 'app-widget-renderer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BaseWidgetRendererComponent],
   template: `
-    <div #widgetContainer class="bbq-widgets-container" (click)="handleClick($event)">
-      @for (item of widgetItems; track item.index) {
-        @if (item.isHtml) {
-          <div class="bbq-widget" [innerHTML]="item.html"></div>
-        } @else {
-          <div class="bbq-widget" #dynamicWidget></div>
-        }
-      }
-    </div>
+    <bbq-widget-renderer 
+      [widgets]="widgets"
+      (widgetAction)="widgetAction.emit($event)">
+    </bbq-widget-renderer>
   `,
-  styles: [
-    `
-      .bbq-widgets-container {
-        margin-top: 0.5rem;
-      }
-
-      .bbq-widget {
-        margin-bottom: 0.5rem;
-      }
-    `,
-  ],
 })
-export class WidgetRendererComponent extends BaseWidgetRendererComponent implements OnInit {
-  // Re-declare inputs and outputs for proper type checking
-  @Input() override widgets: ChatWidget[] | null | undefined;
-  @Output() override widgetAction = new EventEmitter<{
+export class WidgetRendererComponent implements OnInit {
+  @Input() widgets: ChatWidget[] | null | undefined;
+  @Output() widgetAction = new EventEmitter<{
     actionName: string;
     payload: unknown;
   }>();
 
-  protected override widgetRegistry = inject(WidgetRegistryService);
+  constructor(private widgetRegistry: WidgetRegistryService) {}
 
-  override ngOnInit() {
+  ngOnInit() {
     this.registerCustomWidgets();
-    super.ngOnInit();
   }
 
   /**

@@ -107,11 +107,17 @@ export class WidgetRendererComponent
   protected renderer = new SsrWidgetRenderer();
   protected eventManager?: WidgetEventManager;
   protected isViewInitialized = false;
-  protected widgetRegistry = inject(WidgetRegistryService);
-  protected injector = inject(Injector);
-  protected environmentInjector = inject(EnvironmentInjector);
+  protected widgetRegistry: WidgetRegistryService;
+  protected injector: Injector;
+  protected environmentInjector: EnvironmentInjector;
   protected dynamicComponents: Array<ComponentRef<any>> = [];
   protected dynamicViews: Array<EmbeddedViewRef<WidgetTemplateContext>> = [];
+
+  constructor() {
+    this.widgetRegistry = inject(WidgetRegistryService);
+    this.injector = inject(Injector);
+    this.environmentInjector = inject(EnvironmentInjector);
+  }
 
   ngOnInit() {
     this.updateWidgetHtml();

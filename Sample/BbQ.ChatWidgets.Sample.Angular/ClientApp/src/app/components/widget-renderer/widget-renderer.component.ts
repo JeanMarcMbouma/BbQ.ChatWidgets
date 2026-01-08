@@ -53,14 +53,11 @@ import { WeatherWidgetComponent } from '../weather-widget/weather-widget.compone
   ],
 })
 export class WidgetRendererComponent extends BaseWidgetRendererComponent implements OnInit {
-  // Re-declare inputs and outputs for proper type checking
-  @Input() override widgets: ChatWidget[] | null | undefined;
-  @Output() override widgetAction = new EventEmitter<{
-    actionName: string;
-    payload: unknown;
-  }>();
+  constructor() {
+    super();
+  }
 
-  protected override widgetRegistry = inject(WidgetRegistryService);
+
 
   override ngOnInit() {
     this.registerCustomWidgets();

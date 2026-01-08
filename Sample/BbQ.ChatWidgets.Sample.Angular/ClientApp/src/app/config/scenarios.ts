@@ -70,6 +70,9 @@ export const SCENARIOS: ScenarioConfig[] = [
     ],
     icon: '🎬'
   },
+  // Temporarily disabled due to NG0203 injection context error
+  // TODO: Fix the injection context issue with custom widget renderers
+  /*
   {
     id: ScenarioType.CustomWidgetDemo,
     name: 'Custom Widget Renderers',
@@ -83,6 +86,7 @@ export const SCENARIOS: ScenarioConfig[] = [
     ],
     icon: '🎨'
   },
+  */
   {
     id: ScenarioType.SseWidgets,
     name: 'SSE Widget Updates',

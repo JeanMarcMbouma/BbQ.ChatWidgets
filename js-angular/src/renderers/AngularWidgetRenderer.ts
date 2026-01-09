@@ -45,6 +45,36 @@ export class AngularWidgetRenderer implements IWidgetRenderer {
   }
 
   /**
+   * Register or override a widget component
+   * Use this to replace built-in components or add custom ones
+   * 
+   * @example
+   * ```typescript
+   * renderer.registerComponent('button', MyCustomButtonComponent);
+   * ```
+   */
+  registerComponent(type: string, component: Type<IWidgetComponent>) {
+    this.componentRegistry.set(type, component);
+  }
+
+  /**
+   * Register multiple widget components at once
+   * 
+   * @example
+   * ```typescript
+   * renderer.registerComponents({
+   *   button: MyButtonComponent,
+   *   card: MyCardComponent
+   * });
+   * ```
+   */
+  registerComponents(components: Record<string, Type<IWidgetComponent>>) {
+    for (const [type, component] of Object.entries(components)) {
+      this.componentRegistry.set(type, component);
+    }
+  }
+
+  /**
    * Get the Angular component type for a given widget
    * Returns the component class that should be dynamically instantiated
    */

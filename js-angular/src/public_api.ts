@@ -20,8 +20,10 @@ export { WidgetRegistryService } from './widget-registry.service';
 export {
   WIDGET_EVENT_MANAGER_FACTORY,
   SSR_WIDGET_RENDERER,
+  ANGULAR_WIDGET_RENDERER,
   widgetEventManagerFactoryProvider,
   ssrWidgetRendererFactory,
+  angularWidgetRendererFactory,
 } from './widget-di.tokens';
 
 export type { WidgetEventManagerFactory } from './widget-di.tokens';
@@ -40,6 +42,33 @@ export {
   isComponentRenderer,
   isTemplateRenderer,
 } from './custom-widget-renderer.types';
+
+// Export Angular renderer and built-in components
+export {
+  AngularWidgetRenderer,
+  ButtonWidgetComponent,
+  CardWidgetComponent,
+  InputWidgetComponent,
+  TextAreaWidgetComponent,
+  DropdownWidgetComponent,
+  SliderWidgetComponent,
+  ToggleWidgetComponent,
+  FileUploadWidgetComponent,
+  ThemeSwitcherWidgetComponent,
+  DatePickerWidgetComponent,
+  MultiSelectWidgetComponent,
+  ProgressBarWidgetComponent,
+  FormWidgetComponent,
+  ImageWidgetComponent,
+  ImageCollectionWidgetComponent,
+} from './renderers';
+
+export type {
+  IWidgetComponent,
+  AngularRendererOptions,
+} from './renderers';
+
+export { BUILT_IN_WIDGET_COMPONENTS } from './renderers/built-in-components';
 
 // Re-export commonly used types and classes from core package
 export {

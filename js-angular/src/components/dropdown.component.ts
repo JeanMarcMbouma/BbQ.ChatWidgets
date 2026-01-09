@@ -1,0 +1,47 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import type { DropdownWidget } from '@bbq-chat/widgets';
+import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
+
+@Component({
+  selector: 'bbq-dropdown-widget',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  template: `
+    <div 
+      class="bbq-widget bbq-dropdown" 
+      [attr.data-widget-type]="'dropdown'">
+      <label class="bbq-dropdown-label" [attr.for]="selectId">
+        {{ dropdownWidget.label }}
+      </label>
+      <select 
+        [id]="selectId"
+        class="bbq-dropdown-select" 
+        [attr.data-action]="dropdownWidget.action"
+        [attr.aria-labelledby]="selectId"
+        [(ngModel)]="value">
+        @for (option of dropdownWidget.options; track option) {
+          <option [value]="option">{{ option }}</option>
+        }
+      </select>
+    </div>
+  `,
+  styles: []
+})
+export class DropdownWidgetComponent implements IWidgetComponent, OnInit {
+  @Input() widget!: any;
+  widgetAction?: (actionName: string, payload: unknown) => void;
+  
+  value = '';
+  selectId = '';
+
+  get dropdownWidget(): DropdownWidget {
+    return this.widget as DropdownWidget;
+  }
+
+  ngOnInit() {
+    this.selectId = `bbq-${this.dropdownWidget.action.replace(/\s+/g, '-').toLowerCase()}-select`;
+    this.value = this.dropdownWidget.options[0] || '';
+  }
+}

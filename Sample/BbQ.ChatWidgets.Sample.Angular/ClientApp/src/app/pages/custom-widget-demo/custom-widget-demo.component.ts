@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WidgetRegistryService, WidgetTemplateContext, WidgetRendererComponent } from '@bbq-chat/widgets-angular';
-import type { ChatWidget } from '@bbq-chat/widgets-angular';
+import type { ChatWidget, CustomWidgetRenderer } from '@bbq-chat/widgets-angular';
 import { DemoCustomWidgetComponent, ProductWidget } from '../../components/demo-custom-widget/demo-custom-widget.component';
 
 /**
@@ -295,7 +295,7 @@ export class CustomWidgetDemoComponent implements OnInit {
     this.widgetRegistry.registerRenderer('product-component', DemoCustomWidgetComponent);
 
     // 3. Template Renderer - inline template
-    this.widgetRegistry.registerRenderer('product-template', this.productTemplate);
+    this.widgetRegistry.registerRenderer('product-template', this.productTemplate as CustomWidgetRenderer);
   }
 
   private setupDemoWidgets() {

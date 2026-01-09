@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CustomWidgetComponent, ChatWidget } from '@bbq-chat/widgets-angular';
 
@@ -178,7 +178,13 @@ export class ProductWidget extends ChatWidget {
     }
   `]
 })
-export class DemoCustomWidgetComponent implements CustomWidgetComponent {
+export class DemoCustomWidgetComponent implements CustomWidgetComponent, AfterViewInit {
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      // Any post-view initialization can go here
+      console.log('ProductWidget component initialized for', this);
+    }, 1000);
+  }
   @Input() widget!: ChatWidget;
   widgetAction?: (actionName: string, payload: unknown) => void;
 

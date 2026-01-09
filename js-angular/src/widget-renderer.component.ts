@@ -90,8 +90,7 @@ import {
   ],
 })
 export class WidgetRendererComponent
-  implements OnInit, AfterViewInit, OnDestroy, OnChanges
-{
+  implements OnInit, AfterViewInit, OnDestroy, OnChanges {
   /**
    * Array of widgets to render
    */
@@ -114,7 +113,7 @@ export class WidgetRendererComponent
     isHtml: boolean;
     html?: string;
   }> = [];
-  
+
   protected eventManager?: WidgetEventManager;
   protected isViewInitialized = false;
   protected dynamicComponents: Array<ComponentRef<any>> = [];
@@ -126,7 +125,7 @@ export class WidgetRendererComponent
     protected widgetRegistry: WidgetRegistryService,
     protected injector: Injector,
     protected environmentInjector: EnvironmentInjector
-  ) {}
+  ) { }
 
   ngOnInit() {
     // this.updateWidgetHtml();
@@ -167,7 +166,7 @@ export class WidgetRendererComponent
 
     this.widgetItems = this.widgets.map((widget, index) => {
       const customRenderer = this.widgetRegistry.getRenderer(widget.type);
-      
+
       // Check template renderer first (most specific)
       if (customRenderer && isTemplateRenderer(customRenderer)) {
         return {
@@ -176,7 +175,7 @@ export class WidgetRendererComponent
           isHtml: false,
         };
       }
-      
+
       // Check component renderer second
       if (customRenderer && isComponentRenderer(customRenderer)) {
         return {
@@ -185,7 +184,7 @@ export class WidgetRendererComponent
           isHtml: false,
         };
       }
-      
+
       // Check HTML function renderer last (most general, matches any function)
       if (customRenderer && isHtmlRenderer(customRenderer)) {
         return {
@@ -195,7 +194,7 @@ export class WidgetRendererComponent
           html: customRenderer(widget),
         };
       }
-      
+
       // Default: render using the BbQ library renderer
       return {
         index,
@@ -219,11 +218,11 @@ export class WidgetRendererComponent
    */
   protected renderDynamicWidgets() {
     if (!this.containerRef?.nativeElement) return;
-    
+
     // Use microtask to ensure Angular has completed change detection
     Promise.resolve().then(() => {
       if (!this.containerRef?.nativeElement) return;
-      
+
       // Clean up existing dynamic components and views
       this.cleanupDynamicWidgets();
 
@@ -232,26 +231,26 @@ export class WidgetRendererComponent
       const dynamicWidgetDivs = Array.from(
         container.querySelectorAll('.bbq-widget')
       ) as HTMLElement[];
-      
+
       let dynamicIndex = 0;
       this.widgetItems.forEach((item) => {
         if (!item.isHtml) {
           const customRenderer = this.widgetRegistry.getRenderer(item.widget.type);
-          
+
           if (!customRenderer) return;
-          
+
           const targetDiv = dynamicWidgetDivs[dynamicIndex];
           if (!targetDiv) return;
-          
+
           // Clear the div content before rendering
           targetDiv.innerHTML = '';
-          
+
           if (isComponentRenderer(customRenderer)) {
             this.renderComponent(customRenderer, item.widget, targetDiv);
           } else if (isTemplateRenderer(customRenderer)) {
             this.renderTemplate(customRenderer, item.widget, targetDiv);
           }
-          
+
           dynamicIndex++;
         }
       });
@@ -276,29 +275,21 @@ export class WidgetRendererComponent
       environmentInjector: this.environmentInjector,
       elementInjector: this.injector,
     });
-    
+
     // Safely set component inputs if they exist
-    const instance = componentRef.instance;
-    if (instance && typeof instance === 'object') {
-      // Set widget property if it exists in the prototype chain
-      if ('widget' in instance) {
-        (instance as any).widget = widget;
-      }
-      
-      // Set widgetAction callback if it exists in the prototype chain
-      if ('widgetAction' in instance) {
-        (instance as any).widgetAction = (actionName: string, payload: unknown) => {
-          this.widgetAction.emit({ actionName, payload });
-        };
-      }
-    }
-    
+    const instance = componentRef.instance as any;
+    // Set widget property if it exists in the prototype chain
+    instance['widget'] = widget;
+    // Set widgetAction property if it exists in the prototype chain
+    instance['widgetAction'] = (actionName: string, payload: unknown) => {
+        this.widgetAction.emit({ actionName, payload });
+      };
     // Attach the component's host view to the target element
     targetElement.appendChild(componentRef.location.nativeElement);
-    
+
     // Store reference for cleanup
     this.dynamicComponents.push(componentRef);
-    
+
     // Trigger change detection (use optional chaining for safety)
     componentRef.changeDetectorRef?.detectChanges();
   }
@@ -318,17 +309,17 @@ export class WidgetRendererComponent
         this.widgetAction.emit({ actionName, payload });
       },
     };
-    
+
     const viewRef = templateRef.createEmbeddedView(context);
-    
+
     // Attach the view's DOM nodes to the target element
     viewRef.rootNodes.forEach((node: Node) => {
       targetElement.appendChild(node);
     });
-    
+
     // Store reference for cleanup
     this.dynamicViews.push(viewRef);
-    
+
     // Trigger change detection
     viewRef.detectChanges();
   }
@@ -341,7 +332,7 @@ export class WidgetRendererComponent
       componentRef.destroy();
     });
     this.dynamicComponents = [];
-    
+
     this.dynamicViews.forEach((viewRef) => {
       viewRef.destroy();
     });
@@ -393,7 +384,7 @@ export class WidgetRendererComponent
   private cleanup() {
     // Cleanup dynamic widgets first
     this.cleanupDynamicWidgets();
-    
+
     // Cleanup event manager
     this.eventManager = undefined;
   }

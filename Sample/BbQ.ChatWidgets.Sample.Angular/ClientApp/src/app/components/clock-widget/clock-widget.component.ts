@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, signal, ChangeDetectorRef, inject, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CustomWidgetComponent } from '@bbq-chat/widgets-angular';
 import type { ChatWidget } from '@bbq-chat/widgets-angular';
@@ -19,8 +19,8 @@ import { ClockWidget } from '../../widgets/ClockWidget';
       aria-live="polite">
       <label class="bbq-clock-label">{{ clockWidget.label }}</label>
       <div class="bbq-clock-display">
-        <div class="bbq-clock-time">{{ timeLocal || '—' }}</div>
-        <div class="bbq-clock-iso">{{ time || 'Loading time...' }}</div>
+        <div class="bbq-clock-time">{{ timeLocal() || '—' }}</div>
+        <div class="bbq-clock-iso">{{ time() || 'Loading time...' }}</div>
       </div>
     </div>
   `,
@@ -58,11 +58,12 @@ import { ClockWidget } from '../../widgets/ClockWidget';
   `]
 })
 export class ClockWidgetComponent implements CustomWidgetComponent, OnInit, OnDestroy {
+
   @Input() widget!: ChatWidget;
   widgetAction?: (actionName: string, payload: unknown) => void;
   
-  timeLocal: string = '';
-  time: string = '';
+  timeLocal = signal<string>('');
+  time = signal<string>('');
   
   private eventSource?: EventSource;
 
@@ -98,11 +99,12 @@ export class ClockWidgetComponent implements CustomWidgetComponent, OnInit, OnDe
         // Update clock display if data matches this widget's ID
         if (data && data.widgetId === 'clock') {
           if (data.timeLocal) {
-            this.timeLocal = String(data.timeLocal);
+            this.timeLocal.set(String(data.timeLocal));
           }
           if (data.time) {
-            this.time = String(data.time);
+            this.time.set(String(data.time));
           }
+          console.log('ClockWidget updated time:', this.timeLocal(), this.time());
         }
       } catch {
         // Ignore parse errors

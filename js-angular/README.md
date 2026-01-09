@@ -2,6 +2,14 @@
 
 Angular components and services for BbQ ChatWidgets. This package provides Angular-native wrappers for the core [@bbq-chat/widgets](https://www.npmjs.com/package/@bbq-chat/widgets) library.
 
+## Features
+
+- ✨ **Native Angular Components** - All widgets render as Angular components with full framework support
+- 🎨 **Type-Safe** - Full TypeScript support with comprehensive type definitions
+- 🔄 **Two-Way Data Binding** - Leverage Angular's powerful data binding
+- 🎯 **Automatic Rendering** - The `WidgetRendererComponent` automatically uses `AngularWidgetRenderer` for all built-in widgets
+- 🔧 **Extensible** - Easy custom widget registration with full Angular component support
+
 ## Installation
 
 ```bash
@@ -65,7 +73,12 @@ Or import a specific theme:
 
 ### WidgetRendererComponent
 
-The main component for rendering chat widgets.
+The main component for rendering chat widgets. It automatically uses the `AngularWidgetRenderer` to render all built-in widgets as native Angular components.
+
+**Rendering Modes:**
+- Built-in widgets (button, card, form, etc.) are rendered as Angular components via `AngularWidgetRenderer`
+- Custom widgets can use HTML functions, Angular components, or Angular templates
+- Falls back to `SsrWidgetRenderer` (HTML string rendering) if needed for compatibility
 
 **Inputs:**
 - `widgets: ChatWidget[] | null | undefined` - Array of widgets to render
@@ -120,11 +133,11 @@ export class AppComponent implements OnInit {
 
 ## Widget Types
 
-All standard widget types from `@bbq-chat/widgets` are supported:
+All standard widget types from `@bbq-chat/widgets` are supported and rendered as native Angular components:
 
 - `ButtonWidget` - Clickable buttons
 - `CardWidget` - Information cards
-- `FormWidget` - Form containers
+- `FormWidget` - Form containers with validation
 - `InputWidget` - Text input fields
 - `TextAreaWidget` - Multi-line text input
 - `DropdownWidget` - Dropdown selects
@@ -137,6 +150,47 @@ All standard widget types from `@bbq-chat/widgets` are supported:
 - `ProgressBarWidget` - Progress indicators
 - `ImageWidget` - Image displays
 - `ImageCollectionWidget` - Image galleries
+
+## AngularWidgetRenderer
+
+The `AngularWidgetRenderer` is automatically used by `WidgetRendererComponent` to render all built-in widgets as native Angular components instead of HTML strings. This provides several advantages:
+
+### Benefits
+
+- **Native Angular Components** - Full Angular lifecycle hooks, change detection, and dependency injection
+- **Type Safety** - Strong typing throughout the rendering pipeline
+- **Better Performance** - No need for `innerHTML` or manual DOM manipulation
+- **Reactive Updates** - Leverage Angular's reactive forms and data binding
+- **Testability** - Easier to test with Angular TestBed
+
+### How It Works
+
+The `WidgetRendererComponent` automatically detects and uses `AngularWidgetRenderer` for all built-in widget types:
+
+```typescript
+// The WidgetRendererComponent automatically uses AngularWidgetRenderer
+// No configuration needed - it just works!
+<bbq-widget-renderer 
+  [widgets]="widgets" 
+  (widgetAction)="handleWidgetAction($event)">
+</bbq-widget-renderer>
+```
+
+### Built-in Widget Components
+
+All built-in widgets are available as standalone Angular components:
+
+```typescript
+import {
+  ButtonWidgetComponent,
+  CardWidgetComponent,
+  FormWidgetComponent,
+  InputWidgetComponent,
+  // ... and more
+} from '@bbq-chat/widgets-angular';
+```
+
+These components can be used directly in your templates if needed, though typically you'll use them through `WidgetRendererComponent`.
 
 ## Advanced Usage
 

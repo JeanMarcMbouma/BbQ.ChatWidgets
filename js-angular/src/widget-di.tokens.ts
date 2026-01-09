@@ -1,5 +1,7 @@
 import { InjectionToken } from '@angular/core';
 import { SsrWidgetRenderer, WidgetEventManager, IWidgetActionHandler } from '@bbq-chat/widgets';
+import { AngularWidgetRenderer } from './renderers/AngularWidgetRenderer';
+import { BUILT_IN_WIDGET_COMPONENTS } from './renderers/built-in-components';
 
 /**
  * Injection token for WidgetEventManager factory
@@ -38,6 +40,22 @@ export const SSR_WIDGET_RENDERER = new InjectionToken<SsrWidgetRenderer>(
 );
 
 /**
+ * Injection token for AngularWidgetRenderer
+ * 
+ * Use this token to inject an AngularWidgetRenderer instance in your components.
+ * This is the recommended renderer for Angular applications as it provides
+ * native Angular component rendering instead of HTML string rendering.
+ * 
+ * @example
+ * ```typescript
+ * constructor(@Inject(ANGULAR_WIDGET_RENDERER) private renderer: AngularWidgetRenderer) {}
+ * ```
+ */
+export const ANGULAR_WIDGET_RENDERER = new InjectionToken<AngularWidgetRenderer>(
+  'ANGULAR_WIDGET_RENDERER'
+);
+
+/**
  * Factory function for creating WidgetEventManager instances
  * 
  * This factory is used by default in WidgetRendererComponent's providers array.
@@ -60,4 +78,18 @@ export function widgetEventManagerFactoryProvider(): WidgetEventManagerFactory {
  */
 export function ssrWidgetRendererFactory(): SsrWidgetRenderer {
   return new SsrWidgetRenderer();
+}
+
+/**
+ * Factory function for creating AngularWidgetRenderer instances
+ * 
+ * This factory creates an AngularWidgetRenderer with all built-in widget components
+ * pre-registered. This is the recommended renderer for Angular applications.
+ * 
+ * @returns A new AngularWidgetRenderer instance with built-in components registered
+ */
+export function angularWidgetRendererFactory(): AngularWidgetRenderer {
+  const renderer = new AngularWidgetRenderer();
+  renderer.registerBuiltInComponents(BUILT_IN_WIDGET_COMPONENTS);
+  return renderer;
 }

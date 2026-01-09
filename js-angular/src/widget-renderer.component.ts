@@ -17,6 +17,7 @@ import {
   createComponent,
   EnvironmentInjector,
   Inject,
+  Optional,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -34,10 +35,13 @@ import {
 import {
   WIDGET_EVENT_MANAGER_FACTORY,
   SSR_WIDGET_RENDERER,
+  ANGULAR_WIDGET_RENDERER,
   widgetEventManagerFactoryProvider,
   ssrWidgetRendererFactory,
+  angularWidgetRendererFactory,
   WidgetEventManagerFactory,
 } from './widget-di.tokens';
+import { AngularWidgetRenderer } from './renderers/AngularWidgetRenderer';
 
 /**
  * Angular component for rendering chat widgets
@@ -65,6 +69,7 @@ import {
   providers: [
     { provide: WIDGET_EVENT_MANAGER_FACTORY, useFactory: widgetEventManagerFactoryProvider },
     { provide: SSR_WIDGET_RENDERER, useFactory: ssrWidgetRendererFactory },
+    { provide: ANGULAR_WIDGET_RENDERER, useFactory: angularWidgetRendererFactory },
   ],
   template: `
     <div #widgetContainer class="bbq-widgets-container" (click)="handleClick($event)">
@@ -121,6 +126,7 @@ export class WidgetRendererComponent
 
   constructor(
     @Inject(SSR_WIDGET_RENDERER) protected renderer: SsrWidgetRenderer,
+    @Optional() @Inject(ANGULAR_WIDGET_RENDERER) protected angularRenderer: AngularWidgetRenderer | null,
     @Inject(WIDGET_EVENT_MANAGER_FACTORY) protected eventManagerFactory: WidgetEventManagerFactory,
     protected widgetRegistry: WidgetRegistryService,
     protected injector: Injector,
@@ -195,7 +201,19 @@ export class WidgetRendererComponent
         };
       }
 
-      // Default: render using the BbQ library renderer
+      // Try to use AngularWidgetRenderer for built-in widgets
+      if (this.angularRenderer) {
+        const componentType = this.angularRenderer.getComponentType(widget);
+        if (componentType) {
+          return {
+            index,
+            widget,
+            isHtml: false,
+          };
+        }
+      }
+
+      // Fallback: render using the SSR library renderer
       return {
         index,
         widget,
@@ -237,18 +255,25 @@ export class WidgetRendererComponent
         if (!item.isHtml) {
           const customRenderer = this.widgetRegistry.getRenderer(item.widget.type);
 
-          if (!customRenderer) return;
-
           const targetDiv = dynamicWidgetDivs[dynamicIndex];
           if (!targetDiv) return;
 
           // Clear the div content before rendering
           targetDiv.innerHTML = '';
 
-          if (isComponentRenderer(customRenderer)) {
-            this.renderComponent(customRenderer, item.widget, targetDiv);
-          } else if (isTemplateRenderer(customRenderer)) {
-            this.renderTemplate(customRenderer, item.widget, targetDiv);
+          // Handle custom renderers first
+          if (customRenderer) {
+            if (isComponentRenderer(customRenderer)) {
+              this.renderComponent(customRenderer, item.widget, targetDiv);
+            } else if (isTemplateRenderer(customRenderer)) {
+              this.renderTemplate(customRenderer, item.widget, targetDiv);
+            }
+          } else if (this.angularRenderer) {
+            // Try to render using AngularWidgetRenderer for built-in widgets
+            const componentType = this.angularRenderer.getComponentType(item.widget);
+            if (componentType) {
+              this.renderComponent(componentType, item.widget, targetDiv);
+            }
           }
 
           dynamicIndex++;

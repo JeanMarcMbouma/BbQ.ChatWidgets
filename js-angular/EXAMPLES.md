@@ -1,5 +1,21 @@
 # Usage Examples
 
+## Understanding Widget Rendering
+
+The `@bbq-chat/widgets-angular` package uses the **AngularWidgetRenderer** to render all built-in widgets as native Angular components. This provides better performance, type safety, and full Angular framework integration compared to HTML string rendering.
+
+### Automatic Angular Rendering
+
+When you use `WidgetRendererComponent`, it automatically uses `AngularWidgetRenderer` for all built-in widget types:
+
+- ✅ **Built-in widgets** (button, card, form, etc.) → Rendered as Angular components
+- ✅ **Custom component renderers** → Your Angular components
+- ✅ **Custom template renderers** → Your Angular templates
+- ✅ **HTML function renderers** → Your custom HTML strings
+- ✅ **Fallback** → SSR renderer for compatibility
+
+No configuration needed - it just works!
+
 ## Basic Usage
 
 ### 1. Install the package

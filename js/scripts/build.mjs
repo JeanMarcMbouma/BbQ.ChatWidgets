@@ -51,9 +51,9 @@ async function build() {
       types: './index.d.ts',
       exports: {
         '.': {
-          import: './index.js',
-          require: './index.cjs',
           types: './index.d.ts',
+          import: './index.js',
+          require: './index.cjs'
         },
         './styles': './styles/index.css',
         './styles/light': './styles/light.css',

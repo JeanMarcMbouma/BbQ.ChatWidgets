@@ -129,7 +129,7 @@ export class WidgetRendererComponent
   ) {}
 
   ngOnInit() {
-    this.updateWidgetHtml();
+    // this.updateWidgetHtml();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -139,6 +139,7 @@ export class WidgetRendererComponent
   }
 
   ngAfterViewInit() {
+    this.updateWidgetHtml();
     this.isViewInitialized = true;
     this.setupEventHandlers();
     // Render dynamic components/templates after view init

@@ -19,6 +19,8 @@ class FormFieldWidget implements ChatWidget {
   readonly type: string;
   readonly label: string;
   readonly action: string;
+  readonly appearance = 'form';
+  readonly hideLabel = true;
 
   constructor(
     public field: any,
@@ -50,7 +52,7 @@ class FormFieldWidget implements ChatWidget {
 
   // Map field properties to widget properties
   get placeholder(): string | undefined {
-    return this.field.label;
+    return this.field.placeholder ?? undefined;
   }
 
   get maxLength(): number | undefined {

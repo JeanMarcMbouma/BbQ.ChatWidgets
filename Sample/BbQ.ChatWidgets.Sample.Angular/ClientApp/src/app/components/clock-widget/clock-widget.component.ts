@@ -61,10 +61,10 @@ export class ClockWidgetComponent implements CustomWidgetComponent, OnInit, OnDe
 
   @Input() widget!: ChatWidget;
   widgetAction?: (actionName: string, payload: unknown) => void;
+  constructor(private changeDetectorRef: ChangeDetectorRef) {}
   
   timeLocal = signal<string>('');
   time = signal<string>('');
-  
   private eventSource?: EventSource;
 
   get clockWidget(): ClockWidget {
@@ -81,7 +81,6 @@ export class ClockWidgetComponent implements CustomWidgetComponent, OnInit, OnDe
 
   private subscribeToSSE() {
     const streamId = this.clockWidget.streamId || 'default-stream';
-    
     // Auto-start the server clock
     fetch(`/sample/clock/${encodeURIComponent(streamId)}/start`, { method: 'POST' })
       .catch(() => {
@@ -92,6 +91,7 @@ export class ClockWidgetComponent implements CustomWidgetComponent, OnInit, OnDe
     const url = `/api/chat/widgets/streams/${encodeURIComponent(streamId)}/events`;
     this.eventSource = new EventSource(url);
 
+    console.log(this.changeDetectorRef)
     this.eventSource.onmessage = (ev) => {
       try {
         const data = JSON.parse(ev.data);
@@ -104,7 +104,7 @@ export class ClockWidgetComponent implements CustomWidgetComponent, OnInit, OnDe
           if (data.time) {
             this.time.set(String(data.time));
           }
-          console.log('ClockWidget updated time:', this.timeLocal(), this.time());
+          this.changeDetectorRef?.detectChanges();
         }
       } catch {
         // Ignore parse errors

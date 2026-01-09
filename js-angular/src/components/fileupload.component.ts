@@ -11,13 +11,13 @@ import { CustomWidgetComponent } from '../custom-widget-renderer.types';
     <div 
       class="bbq-widget bbq-file-upload" 
       [attr.data-widget-type]="'fileupload'">
-      <label class="bbq-file-label" [attr.for]="inputId">
+      <label *ngIf="showLabel" class="bbq-file-label" [attr.for]="inputId">
         {{ fileUploadWidget.label }}
       </label>
       <input 
         type="file" 
         [id]="inputId"
-        class="bbq-file-input" 
+        [ngClass]="inputClasses"
         [attr.data-action]="fileUploadWidget.action"
         [accept]="fileUploadWidget.accept || ''"
         [attr.data-max-bytes]="fileUploadWidget.maxBytes"
@@ -34,6 +34,25 @@ export class FileUploadWidgetComponent implements CustomWidgetComponent, OnInit 
 
   get fileUploadWidget(): FileUploadWidget {
     return this.widget as FileUploadWidget;
+  }
+
+  get showLabel(): boolean {
+    const widget = this.fileUploadWidget as any;
+    if (widget.hideLabel === true) {
+      return false;
+    }
+    if (widget.showLabel === false) {
+      return false;
+    }
+    return true;
+  }
+
+  get inputClasses(): string[] {
+    return this.isFormAppearance ? ['bbq-form-fileupload'] : ['bbq-file'];
+  }
+
+  private get isFormAppearance(): boolean {
+    return (this.fileUploadWidget as any).appearance === 'form';
   }
 
   ngOnInit() {

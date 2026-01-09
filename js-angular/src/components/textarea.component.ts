@@ -12,12 +12,12 @@ import { CustomWidgetComponent } from '../custom-widget-renderer.types';
     <div 
       class="bbq-widget bbq-textarea" 
       [attr.data-widget-type]="'textarea'">
-      <label class="bbq-textarea-label" [attr.for]="textareaId">
+      <label *ngIf="showLabel" class="bbq-textarea-label" [attr.for]="textareaId">
         {{ textareaWidget.label }}
       </label>
       <textarea 
         [id]="textareaId"
-        class="bbq-textarea-field" 
+        [ngClass]="textareaClasses"
         [attr.data-action]="textareaWidget.action"
         [placeholder]="textareaWidget.placeholder || ''"
         [maxLength]="textareaWidget.maxLength || 0"
@@ -36,6 +36,25 @@ export class TextAreaWidgetComponent implements CustomWidgetComponent, OnInit {
 
   get textareaWidget(): TextAreaWidget {
     return this.widget as TextAreaWidget;
+  }
+
+  get showLabel(): boolean {
+    const widget = this.textareaWidget as any;
+    if (widget.hideLabel === true) {
+      return false;
+    }
+    if (widget.showLabel === false) {
+      return false;
+    }
+    return true;
+  }
+
+  get textareaClasses(): string[] {
+    return this.isFormAppearance ? ['bbq-form-textarea'] : ['bbq-form-textarea', 'bbq-input'];
+  }
+
+  private get isFormAppearance(): boolean {
+    return (this.textareaWidget as any).appearance === 'form';
   }
 
   ngOnInit() {

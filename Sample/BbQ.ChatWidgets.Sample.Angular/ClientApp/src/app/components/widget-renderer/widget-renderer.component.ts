@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WidgetRendererComponent as BaseWidgetRendererComponent, WidgetRegistryService } from '@bbq-chat/widgets-angular';
-import type { ChatWidget } from '@bbq-chat/widgets-angular';
+import type { AngularWidgetRenderer, ChatWidget } from '@bbq-chat/widgets-angular';
 import { EChartsWidget } from '../../widgets/EChartsWidget';
 import { ClockWidget } from '../../widgets/ClockWidget';
 import { WeatherWidget } from '../../widgets/WeatherWidget';
@@ -42,7 +42,9 @@ export class WidgetRendererComponent implements OnInit {
     payload: unknown;
   }>();
 
-  constructor(private widgetRegistry: WidgetRegistryService) {}
+  constructor(private widgetRegistry: WidgetRegistryService,
+    private angularWidgetRenderer: AngularWidgetRenderer
+  ) { }
 
   ngOnInit() {
     this.registerCustomWidgets();
@@ -91,12 +93,12 @@ export class WidgetRendererComponent implements OnInit {
 
     // Register component-based renderers using the new API
     // ECharts: Complex widget with chart initialization, event handlers, resize listeners
-    this.widgetRegistry.registerRenderer('echarts', EChartsWidgetComponent);
-    
+    this.angularWidgetRenderer.registerComponent('echarts', EChartsWidgetComponent);
+
     // Clock: SSE-based widget with real-time updates
-    this.widgetRegistry.registerRenderer('clock', ClockWidgetComponent);
-    
+    this.angularWidgetRenderer.registerComponent('clock', ClockWidgetComponent);
+
     // Weather: SSE-based widget with real-time weather data
-    this.widgetRegistry.registerRenderer('weather', WeatherWidgetComponent);
+    this.angularWidgetRenderer.registerComponent('weather', WeatherWidgetComponent);
   }
 }

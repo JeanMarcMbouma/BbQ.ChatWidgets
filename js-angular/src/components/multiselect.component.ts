@@ -12,12 +12,12 @@ import { CustomWidgetComponent } from '../custom-widget-renderer.types';
     <div 
       class="bbq-widget bbq-multi-select" 
       [attr.data-widget-type]="'multiselect'">
-      <label class="bbq-multi-select-label" [attr.for]="selectId">
+      <label *ngIf="showLabel" class="bbq-multi-select-label" [attr.for]="selectId">
         {{ multiSelectWidget.label }}
       </label>
       <select 
         [id]="selectId"
-        class="bbq-multi-select-select" 
+        [ngClass]="selectClasses"
         [attr.data-action]="multiSelectWidget.action"
         multiple
         [(ngModel)]="values">
@@ -38,6 +38,27 @@ export class MultiSelectWidgetComponent implements CustomWidgetComponent, OnInit
 
   get multiSelectWidget(): MultiSelectWidget {
     return this.widget as MultiSelectWidget;
+  }
+
+  get showLabel(): boolean {
+    const widget = this.multiSelectWidget as any;
+    if (widget.hideLabel === true) {
+      return false;
+    }
+    if (widget.showLabel === false) {
+      return false;
+    }
+    return true;
+  }
+
+  get selectClasses(): string[] {
+    return this.isFormAppearance 
+      ? ['bbq-form-multiselect', 'bbq-form-select']
+      : ['bbq-form-multiselect', 'bbq-form-select'];
+  }
+
+  private get isFormAppearance(): boolean {
+    return (this.multiSelectWidget as any).appearance === 'form';
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CustomWidgetComponent } from '@bbq-chat/widgets-angular';
 import type { ChatWidget } from '@bbq-chat/widgets-angular';
@@ -114,6 +114,7 @@ import { WeatherWidget } from '../../widgets/WeatherWidget';
 export class WeatherWidgetComponent implements CustomWidgetComponent, OnInit, OnDestroy {
   @Input() widget!: ChatWidget;
   widgetAction?: (actionName: string, payload: unknown) => void;
+  constructor(private changeDetectorRef: ChangeDetectorRef) {}
   
   city: string = '';
   condition: string = '';
@@ -175,6 +176,7 @@ export class WeatherWidgetComponent implements CustomWidgetComponent, OnInit, On
           if (data.windSpeed !== undefined) this.windSpeed = Number(data.windSpeed);
           if (data.windDirection) this.windDirection = String(data.windDirection);
           if (data.timestamp) this.timestamp = String(data.timestamp);
+          this.changeDetectorRef?.detectChanges();
         }
       } catch {
         // Ignore parse errors

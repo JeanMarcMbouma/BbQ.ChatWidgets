@@ -12,13 +12,13 @@ import { CustomWidgetComponent } from '../custom-widget-renderer.types';
     <div 
       class="bbq-widget bbq-input" 
       [attr.data-widget-type]="'input'">
-      <label class="bbq-input-label" [attr.for]="inputId">
+      <label *ngIf="showLabel" class="bbq-input-label" [attr.for]="inputId">
         {{ inputWidget.label }}
       </label>
       <input 
         type="text" 
         [id]="inputId"
-        class="bbq-input-field" 
+        [ngClass]="inputClasses"
         [attr.data-action]="inputWidget.action"
         [placeholder]="inputWidget.placeholder || ''"
         [maxLength]="inputWidget.maxLength || 0"
@@ -36,6 +36,25 @@ export class InputWidgetComponent implements CustomWidgetComponent, OnInit {
 
   get inputWidget(): InputWidget {
     return this.widget as InputWidget;
+  }
+
+  get showLabel(): boolean {
+    const widget = this.inputWidget as any;
+    if (widget.hideLabel === true) {
+      return false;
+    }
+    if (widget.showLabel === false) {
+      return false;
+    }
+    return true;
+  }
+
+  get inputClasses(): string[] {
+    return this.isFormAppearance ? ['bbq-form-input'] : ['bbq-input'];
+  }
+
+  private get isFormAppearance(): boolean {
+    return (this.inputWidget as any).appearance === 'form';
   }
 
   ngOnInit() {

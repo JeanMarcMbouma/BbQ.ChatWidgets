@@ -16,11 +16,11 @@ import { CustomWidgetComponent } from '../custom-widget-renderer.types';
         <input 
           type="checkbox" 
           [id]="checkboxId"
-          class="bbq-toggle-input" 
+          [ngClass]="checkboxClasses"
           [attr.data-action]="toggleWidget.action"
           [attr.aria-label]="toggleWidget.label"
           [(ngModel)]="checked" />
-        <span class="bbq-toggle-text">{{ toggleWidget.label }}</span>
+        <span *ngIf="showLabel" class="bbq-toggle-text">{{ toggleWidget.label }}</span>
       </label>
     </div>
   `,
@@ -35,6 +35,25 @@ export class ToggleWidgetComponent implements CustomWidgetComponent, OnInit {
 
   get toggleWidget(): ToggleWidget {
     return this.widget as ToggleWidget;
+  }
+
+  get showLabel(): boolean {
+    const widget = this.toggleWidget as any;
+    if (widget.hideLabel === true) {
+      return false;
+    }
+    if (widget.showLabel === false) {
+      return false;
+    }
+    return true;
+  }
+
+  get checkboxClasses(): string[] {
+    return this.isFormAppearance ? ['bbq-toggle-input', 'bbq-form-toggle'] : ['bbq-toggle-input'];
+  }
+
+  private get isFormAppearance(): boolean {
+    return (this.toggleWidget as any).appearance === 'form';
   }
 
   ngOnInit() {

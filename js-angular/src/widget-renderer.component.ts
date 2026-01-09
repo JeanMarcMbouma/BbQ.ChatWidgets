@@ -18,6 +18,7 @@ import {
   EnvironmentInjector,
   Inject,
   Optional,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -304,11 +305,15 @@ export class WidgetRendererComponent
     // Safely set component inputs if they exist
     const instance = componentRef.instance as any;
     // Set widget property if it exists in the prototype chain
-    instance['widget'] = widget;
+    if (!instance['widget']) {
+      instance['widget'] = widget;
+    }
     // Set widgetAction property if it exists in the prototype chain
+    if(!instance['widgetAction']) {
     instance['widgetAction'] = (actionName: string, payload: unknown) => {
         this.widgetAction.emit({ actionName, payload });
       };
+    }
     // Attach the component's host view to the target element
     targetElement.appendChild(componentRef.location.nativeElement);
 

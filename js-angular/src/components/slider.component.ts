@@ -12,13 +12,13 @@ import { CustomWidgetComponent } from '../custom-widget-renderer.types';
     <div 
       class="bbq-widget bbq-slider" 
       [attr.data-widget-type]="'slider'">
-      <label class="bbq-slider-label" [attr.for]="sliderId">
+      <label *ngIf="showLabel" class="bbq-slider-label" [attr.for]="sliderId">
         {{ sliderWidget.label }}
       </label>
       <input 
         type="range" 
         [id]="sliderId"
-        class="bbq-slider-input" 
+        [ngClass]="sliderClasses"
         [min]="sliderWidget.min"
         [max]="sliderWidget.max"
         [step]="sliderWidget.step"
@@ -39,6 +39,25 @@ export class SliderWidgetComponent implements CustomWidgetComponent, OnInit {
 
   get sliderWidget(): SliderWidget {
     return this.widget as SliderWidget;
+  }
+
+  get showLabel(): boolean {
+    const widget = this.sliderWidget as any;
+    if (widget.hideLabel === true) {
+      return false;
+    }
+    if (widget.showLabel === false) {
+      return false;
+    }
+    return true;
+  }
+
+  get sliderClasses(): string[] {
+    return this.isFormAppearance ? ['bbq-form-slider'] : ['bbq-slider'];
+  }
+
+  private get isFormAppearance(): boolean {
+    return (this.sliderWidget as any).appearance === 'form';
   }
 
   ngOnInit() {

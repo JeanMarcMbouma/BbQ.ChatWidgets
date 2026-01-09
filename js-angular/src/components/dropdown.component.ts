@@ -12,12 +12,12 @@ import { CustomWidgetComponent } from '../custom-widget-renderer.types';
     <div 
       class="bbq-widget bbq-dropdown" 
       [attr.data-widget-type]="'dropdown'">
-      <label class="bbq-dropdown-label" [attr.for]="selectId">
+      <label *ngIf="showLabel" class="bbq-dropdown-label" [attr.for]="selectId">
         {{ dropdownWidget.label }}
       </label>
       <select 
         [id]="selectId"
-        class="bbq-dropdown-select" 
+        [ngClass]="selectClasses"
         [attr.data-action]="dropdownWidget.action"
         [(ngModel)]="value">
         @for (option of dropdownWidget.options; track option) {
@@ -37,6 +37,25 @@ export class DropdownWidgetComponent implements CustomWidgetComponent, OnInit {
 
   get dropdownWidget(): DropdownWidget {
     return this.widget as DropdownWidget;
+  }
+
+  get showLabel(): boolean {
+    const widget = this.dropdownWidget as any;
+    if (widget.hideLabel === true) {
+      return false;
+    }
+    if (widget.showLabel === false) {
+      return false;
+    }
+    return true;
+  }
+
+  get selectClasses(): string[] {
+    return this.isFormAppearance ? ['bbq-form-select'] : ['bbq-dropdown'];
+  }
+
+  private get isFormAppearance(): boolean {
+    return (this.dropdownWidget as any).appearance === 'form';
   }
 
   ngOnInit() {

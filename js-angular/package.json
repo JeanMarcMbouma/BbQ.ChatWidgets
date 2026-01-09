@@ -1,6 +1,6 @@
 {
   "name": "@bbq-chat/widgets-angular",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Angular components and services for BbQ ChatWidgets",
   "license": "MIT",
   "author": "BbQ ChatWidgets Contributors",
@@ -21,56 +21,38 @@
     "components",
     "bbq-chat"
   ],
-  "main": "./dist/fesm2022/bbq-chat-widgets-angular.mjs",
-  "module": "./dist/fesm2022/bbq-chat-widgets-angular.mjs",
-  "esm2022": "./dist/esm2022/bbq-chat-widgets-angular.mjs",
-  "fesm2022": "./dist/fesm2022/bbq-chat-widgets-angular.mjs",
-  "typings": "./dist/index.d.ts",
-  "exports": {
-    "./package.json": {
-      "default": "./package.json"
-    },
-    ".": {
-      "types": "./dist/index.d.ts",
-      "esm2022": "./dist/esm2022/bbq-chat-widgets-angular.mjs",
-      "esm": "./dist/esm2022/bbq-chat-widgets-angular.mjs",
-      "default": "./dist/fesm2022/bbq-chat-widgets-angular.mjs"
-    }
-  },
   "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "build": "ng-packagr -p ng-package.json",
-    "build:watch": "ng-packagr -p ng-package.json --watch",
-    "test": "echo \"No tests yet\"",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix",
-    "format": "prettier --write \"src/**/*.ts\"",
-    "type-check": "tsc --noEmit",
-    "prepublishOnly": "npm run build && npm run lint"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
   },
+  "packageManager": "npm@10.9.0",
   "peerDependencies": {
-    "@angular/common": ">=19.2.17",
-    "@angular/core": ">=19.2.17",
+    "@angular/common": "^21.0.0",
+    "@angular/compiler": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/forms": "^21.0.0",
+    "@angular/platform-browser": "^21.0.0",
+    "@angular/router": "^21.0.0",
+    "rxjs": "~7.8.0",
     "@bbq-chat/widgets": "^1.0.0"
   },
   "devDependencies": {
-    "@angular/common": "^19.2.17",
-    "@angular/compiler": "^19.2.17",
-    "@angular/compiler-cli": "^19.2.17",
-    "@angular/core": "^19.2.17",
+    "@angular/build": "^21.0.5",
+    "@angular/cli": "^21.0.5",
+    "@angular/compiler-cli": "^21.0.0",
     "@bbq-chat/widgets": "file:../js",
-    "@types/node": "^20.10.0",
-    "@typescript-eslint/eslint-plugin": "^6.13.0",
-    "@typescript-eslint/parser": "^6.13.0",
-    "eslint": "^8.55.0",
-    "ng-packagr": "^19.0.0",
-    "prettier": "^3.1.1",
-    "rxjs": "^7.8.0",
-    "tslib": "^2.3.0",
-    "typescript": "~5.7.0",
-    "zone.js": "^0.15.0"
-  },
-  "engines": {
-    "node": ">=14.0.0"
+    "jsdom": "^27.1.0",
+    "ng-packagr": "^21.0.0",
+    "typescript": "~5.9.2",
+    "vitest": "^4.0.8"
   }
 }

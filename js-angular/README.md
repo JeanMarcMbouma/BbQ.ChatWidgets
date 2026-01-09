@@ -162,6 +162,7 @@ The `AngularWidgetRenderer` is automatically used by `WidgetRendererComponent` t
 - **Better Performance** - No need for `innerHTML` or manual DOM manipulation
 - **Reactive Updates** - Leverage Angular's reactive forms and data binding
 - **Testability** - Easier to test with Angular TestBed
+- **Easy Component Swapping** - Simple API to replace any widget component with your own
 
 ### How It Works
 
@@ -174,6 +175,36 @@ The `WidgetRendererComponent` automatically detects and uses `AngularWidgetRende
   [widgets]="widgets" 
   (widgetAction)="handleWidgetAction($event)">
 </bbq-widget-renderer>
+```
+
+### Swapping Widget Components
+
+You can easily replace any built-in widget component with your own custom implementation:
+
+```typescript
+import { Component, OnInit, Inject } from '@angular/core';
+import { ANGULAR_WIDGET_RENDERER, AngularWidgetRenderer } from '@bbq-chat/widgets-angular';
+import { MyCustomButtonComponent } from './my-custom-button.component';
+
+@Component({
+  selector: 'app-root',
+  template: '...'
+})
+export class AppComponent implements OnInit {
+  constructor(@Inject(ANGULAR_WIDGET_RENDERER) private renderer: AngularWidgetRenderer) {}
+
+  ngOnInit() {
+    // Replace the built-in button component with your custom one
+    this.renderer.registerComponent('button', MyCustomButtonComponent);
+    
+    // Or register multiple components at once
+    this.renderer.registerComponents({
+      button: MyCustomButtonComponent,
+      input: MyCustomInputComponent,
+      card: MyCustomCardComponent
+    });
+  }
+}
 ```
 
 ### Built-in Widget Components
@@ -191,6 +222,10 @@ import {
 ```
 
 These components can be used directly in your templates if needed, though typically you'll use them through `WidgetRendererComponent`.
+
+### Form Widget Dynamic Rendering
+
+The `FormWidgetComponent` uses dynamic component rendering to render form fields. Instead of inline HTML, it dynamically instantiates the appropriate widget component (InputWidget, SliderWidget, etc.) for each field. This ensures consistency across all widgets and makes the form behavior automatically inherit any custom widget component replacements.
 
 ## Advanced Usage
 

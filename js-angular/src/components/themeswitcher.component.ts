@@ -19,7 +19,6 @@ import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
         [id]="selectId"
         class="bbq-theme-switcher-select" 
         [attr.data-action]="themeSwitcherWidget.action"
-        [attr.aria-labelledby]="selectId"
         [(ngModel)]="value">
         @for (theme of themeSwitcherWidget.themes; track theme) {
           <option [value]="theme">{{ theme }}</option>

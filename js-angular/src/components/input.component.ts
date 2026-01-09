@@ -22,7 +22,6 @@ import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
         [attr.data-action]="inputWidget.action"
         [placeholder]="inputWidget.placeholder || ''"
         [maxLength]="inputWidget.maxLength || 0"
-        [attr.aria-labelledby]="inputId"
         [(ngModel)]="value" />
     </div>
   `,

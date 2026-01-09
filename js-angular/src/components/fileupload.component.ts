@@ -21,7 +21,6 @@ import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
         [attr.data-action]="fileUploadWidget.action"
         [accept]="fileUploadWidget.accept || ''"
         [attr.data-max-bytes]="fileUploadWidget.maxBytes"
-        [attr.aria-labelledby]="inputId"
         (change)="onFileChange($event)" />
     </div>
   `,

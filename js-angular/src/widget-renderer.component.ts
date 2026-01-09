@@ -41,7 +41,7 @@ import {
   angularWidgetRendererFactory,
   WidgetEventManagerFactory,
 } from './widget-di.tokens';
-import { AngularWidgetRenderer, IWidgetComponent } from './renderers/AngularWidgetRenderer';
+import { AngularWidgetRenderer } from './renderers/AngularWidgetRenderer';
 
 /**
  * Angular component for rendering chat widgets

@@ -19,7 +19,6 @@ import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
         [id]="selectId"
         class="bbq-dropdown-select" 
         [attr.data-action]="dropdownWidget.action"
-        [attr.aria-labelledby]="selectId"
         [(ngModel)]="value">
         @for (option of dropdownWidget.options; track option) {
           <option [value]="option">{{ option }}</option>

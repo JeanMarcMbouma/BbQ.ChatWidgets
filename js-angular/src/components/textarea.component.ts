@@ -22,7 +22,6 @@ import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
         [placeholder]="textareaWidget.placeholder || ''"
         [maxLength]="textareaWidget.maxLength || 0"
         [rows]="textareaWidget.rows || 4"
-        [attr.aria-labelledby]="textareaId"
         [(ngModel)]="value"></textarea>
     </div>
   `,

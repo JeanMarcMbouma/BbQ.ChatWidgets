@@ -302,7 +302,8 @@ export class FormWidgetComponent implements IWidgetComponent, OnInit, AfterViewI
   }
 
   getFieldId(fieldName: string): string {
-    return `${this.formId}-${fieldName}`;
+    // Match the ID format used by dynamically rendered input widgets
+    return `bbq-${this.formId}_${fieldName}-input`;
   }
 
   getFieldProp(field: any, prop: string): any {

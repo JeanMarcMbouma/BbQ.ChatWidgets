@@ -22,7 +22,6 @@ import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
         [attr.data-action]="datePickerWidget.action"
         [min]="datePickerWidget.minDate || ''"
         [max]="datePickerWidget.maxDate || ''"
-        [attr.aria-labelledby]="inputId"
         [(ngModel)]="value" />
     </div>
   `,

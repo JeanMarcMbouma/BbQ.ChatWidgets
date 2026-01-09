@@ -19,7 +19,6 @@ import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
         [id]="selectId"
         class="bbq-multi-select-select" 
         [attr.data-action]="multiSelectWidget.action"
-        [attr.aria-labelledby]="selectId"
         multiple
         [(ngModel)]="values">
         @for (option of multiSelectWidget.options; track option) {

@@ -403,3 +403,4 @@ MigrationBackup/
 FodyWeavers.xsd
 Sample/WebApp/wwwroot/assets/*.js
 api/*.*
+/js-angular/.angular

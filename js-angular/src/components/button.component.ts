@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import type { ButtonWidget } from '@bbq-chat/widgets';
-import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
+import { CustomWidgetComponent } from '../custom-widget-renderer.types';
 
 @Component({
   selector: 'bbq-button-widget',
@@ -19,7 +19,7 @@ import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
   `,
   styles: []
 })
-export class ButtonWidgetComponent implements IWidgetComponent {
+export class ButtonWidgetComponent implements CustomWidgetComponent {
   @Input() widget!: any;
   widgetAction?: (actionName: string, payload: unknown) => void;
 

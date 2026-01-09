@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import type { InputWidget } from '@bbq-chat/widgets';
-import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
+import { CustomWidgetComponent } from '../custom-widget-renderer.types';
 
 @Component({
   selector: 'bbq-input-widget',
@@ -27,7 +27,7 @@ import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
   `,
   styles: []
 })
-export class InputWidgetComponent implements IWidgetComponent, OnInit {
+export class InputWidgetComponent implements CustomWidgetComponent, OnInit {
   @Input() widget!: any;
   widgetAction?: (actionName: string, payload: unknown) => void;
   

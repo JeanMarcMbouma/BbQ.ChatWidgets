@@ -1,14 +1,7 @@
 import { Type } from '@angular/core';
 import { IWidgetRenderer } from '@bbq-chat/widgets';
 import type { ChatWidget } from '@bbq-chat/widgets';
-
-/**
- * Interface for widget component renderers
- */
-export interface IWidgetComponent {
-  widget: ChatWidget;
-  widgetAction?: (actionName: string, payload: unknown) => void;
-}
+import { CustomWidgetComponent } from '../custom-widget-renderer.types';
 
 /**
  * Options for configuring the Angular widget renderer
@@ -17,7 +10,7 @@ export interface AngularRendererOptions {
   /**
    * Per-widget-type component overrides. Key is widget.type.
    */
-  components?: Partial<Record<string, Type<IWidgetComponent>>>;
+  components?: Partial<Record<string, Type<CustomWidgetComponent>>>;
 }
 
 /**
@@ -28,7 +21,7 @@ export interface AngularRendererOptions {
 export class AngularWidgetRenderer implements IWidgetRenderer {
   readonly framework = 'Angular';
   private overrides: AngularRendererOptions['components'] | undefined;
-  private componentRegistry: Map<string, Type<IWidgetComponent>> = new Map();
+  private componentRegistry: Map<string, Type<CustomWidgetComponent>> = new Map();
 
   constructor(options?: AngularRendererOptions) {
     this.overrides = options?.components;
@@ -38,7 +31,7 @@ export class AngularWidgetRenderer implements IWidgetRenderer {
    * Register all built-in widget components
    * Must be called after components are imported to avoid circular dependencies
    */
-  registerBuiltInComponents(components: Record<string, Type<IWidgetComponent>>) {
+  registerBuiltInComponents(components: Record<string, Type<CustomWidgetComponent>>) {
     for (const [type, component] of Object.entries(components)) {
       this.componentRegistry.set(type, component);
     }
@@ -53,7 +46,7 @@ export class AngularWidgetRenderer implements IWidgetRenderer {
    * renderer.registerComponent('button', MyCustomButtonComponent);
    * ```
    */
-  registerComponent(type: string, component: Type<IWidgetComponent>) {
+  registerComponent(type: string, component: Type<CustomWidgetComponent>) {
     this.componentRegistry.set(type, component);
   }
 
@@ -68,7 +61,7 @@ export class AngularWidgetRenderer implements IWidgetRenderer {
    * });
    * ```
    */
-  registerComponents(components: Record<string, Type<IWidgetComponent>>) {
+  registerComponents(components: Record<string, Type<CustomWidgetComponent>>) {
     for (const [type, component] of Object.entries(components)) {
       this.componentRegistry.set(type, component);
     }
@@ -78,12 +71,12 @@ export class AngularWidgetRenderer implements IWidgetRenderer {
    * Get the Angular component type for a given widget
    * Returns the component class that should be dynamically instantiated
    */
-  getComponentType(widget: ChatWidget): Type<IWidgetComponent> | null {
+  getComponentType(widget: ChatWidget): Type<CustomWidgetComponent> | null {
     const type = widget.type;
 
     // Check for custom override first
     if (this.overrides && this.overrides[type]) {
-      return this.overrides[type] as Type<IWidgetComponent>;
+      return this.overrides[type] as Type<CustomWidgetComponent>;
     }
 
     // Check built-in registry

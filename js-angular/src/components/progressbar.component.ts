@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import type { ProgressBarWidget } from '@bbq-chat/widgets';
-import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
+import { CustomWidgetComponent } from '../custom-widget-renderer.types';
 
 @Component({
   selector: 'bbq-progressbar-widget',
@@ -31,7 +31,7 @@ import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
   `,
   styles: []
 })
-export class ProgressBarWidgetComponent implements IWidgetComponent, OnInit {
+export class ProgressBarWidgetComponent implements CustomWidgetComponent, OnInit {
   @Input() widget!: any;
   widgetAction?: (actionName: string, payload: unknown) => void;
   

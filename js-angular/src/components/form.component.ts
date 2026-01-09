@@ -2,7 +2,7 @@ import { Component, Input, OnInit, AfterViewInit, ViewChildren, QueryList, ViewC
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import type { FormWidget, ChatWidget } from '@bbq-chat/widgets';
-import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
+import { CustomWidgetComponent } from '../custom-widget-renderer.types';
 import { InputWidgetComponent } from './input.component';
 import { TextAreaWidgetComponent } from './textarea.component';
 import { DropdownWidgetComponent } from './dropdown.component';
@@ -174,7 +174,7 @@ class FormFieldWidget implements ChatWidget {
     }
   `]
 })
-export class FormWidgetComponent implements IWidgetComponent, OnInit, AfterViewInit, OnDestroy {
+export class FormWidgetComponent implements CustomWidgetComponent, OnInit, AfterViewInit, OnDestroy {
   @Input() widget!: any;
   widgetAction?: (actionName: string, payload: unknown) => void;
   
@@ -187,7 +187,7 @@ export class FormWidgetComponent implements IWidgetComponent, OnInit, AfterViewI
   private componentRefs: ComponentRef<any>[] = [];
 
   // Component registry for field types
-  private fieldComponentRegistry: Record<string, Type<IWidgetComponent>> = {
+  private fieldComponentRegistry: Record<string, Type<CustomWidgetComponent>> = {
     'input': InputWidgetComponent,
     'text': InputWidgetComponent,
     'email': InputWidgetComponent,

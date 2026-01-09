@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import type { CardWidget } from '@bbq-chat/widgets';
-import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
+import { CustomWidgetComponent } from '../custom-widget-renderer.types';
 
 @Component({
   selector: 'bbq-card-widget',
@@ -36,7 +36,7 @@ import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
   `,
   styles: []
 })
-export class CardWidgetComponent implements IWidgetComponent {
+export class CardWidgetComponent implements CustomWidgetComponent {
   @Input() widget!: any;
   widgetAction?: (actionName: string, payload: unknown) => void;
 

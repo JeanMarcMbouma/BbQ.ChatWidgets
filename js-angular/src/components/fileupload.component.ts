@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import type { FileUploadWidget } from '@bbq-chat/widgets';
-import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
+import { CustomWidgetComponent } from '../custom-widget-renderer.types';
 
 @Component({
   selector: 'bbq-fileupload-widget',
@@ -26,7 +26,7 @@ import { IWidgetComponent } from '../renderers/AngularWidgetRenderer';
   `,
   styles: []
 })
-export class FileUploadWidgetComponent implements IWidgetComponent, OnInit {
+export class FileUploadWidgetComponent implements CustomWidgetComponent, OnInit {
   @Input() widget!: any;
   widgetAction?: (actionName: string, payload: unknown) => void;
   

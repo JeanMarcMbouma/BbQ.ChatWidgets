@@ -64,7 +64,6 @@ export {
 } from './renderers';
 
 export type {
-  IWidgetComponent,
   AngularRendererOptions,
 } from './renderers';
 

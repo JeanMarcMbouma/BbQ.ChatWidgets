@@ -42,6 +42,8 @@ export class WidgetRendererComponent implements OnInit {
     payload: unknown;
   }>();
 
+  static registered = false;
+
   constructor(private widgetRegistry: WidgetRegistryService,
     private angularWidgetRenderer: AngularWidgetRenderer
   ) { }
@@ -90,6 +92,10 @@ export class WidgetRendererComponent implements OnInit {
       }
       return null;
     });
+
+    if (WidgetRendererComponent.registered)
+      return;
+    WidgetRendererComponent.registered = true;
 
     // Register component-based renderers using the new API
     // ECharts: Complex widget with chart initialization, event handlers, resize listeners

@@ -1,6 +1,6 @@
 {
   "name": "@bbq-chat/widgets-angular",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "Angular components and services for BbQ ChatWidgets",
   "license": "MIT",
   "author": "BbQ ChatWidgets Contributors",
@@ -22,17 +22,14 @@
     "bbq-chat"
   ],
   "sideEffects": false,
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
-  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "prepublishOnly": "npm run build && node -e \"require('fs').cpSync('README.md', 'dist/README.md'); require('fs').cpSync('LICENSE', 'dist/LICENSE', {force:false})\" || exit 0",
+    "publish:lib": "cd dist && npm publish"
   },
   "packageManager": "npm@10.9.0",
   "peerDependencies": {

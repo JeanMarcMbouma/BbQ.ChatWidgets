@@ -100,4 +100,4 @@ export {
 } from '@bbq-chat/widgets';
 
 // Version
-export const VERSION = '1.0.6';
+export const VERSION = '1.0.8';

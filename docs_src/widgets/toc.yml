@@ -1,5 +1,7 @@
 - name: Widget Catalog
   href: README.md
+- name: Widget Gallery
+  href: GALLERY.md
 - name: Widget Types
   href: WIDGET_TYPES.md
 - name: Theme Switcher Widget

@@ -1,5 +1,7 @@
 - name: Examples Overview
   href: README.md
+- name: Use Cases & Tutorials
+  href: USE_CASES.md
 - name: Basic Setup
   href: BASIC_SETUP.md
 - name: Advanced Configuration

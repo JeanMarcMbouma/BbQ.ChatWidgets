@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Use Cases &amp; Tutorials | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Use Cases &amp; Tutorials | BbQ.ChatWidgets ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="use-cases--tutorials">Use Cases &amp; Tutorials</h1>
+
+<p>Real-world scenarios with step-by-step implementation guides. Each tutorial includes sample code and links to working examples.</p>
+<hr>
+<h2 id="-quick-links">🎯 Quick Links</h2>
+<ul>
+<li><a href="#1-supporttriage-bot">1. Support/Triage Bot</a></li>
+<li><a href="#2-form-based-chat">2. Form-Based Chat</a></li>
+<li><a href="#3-streaming--real-time-updates-sse">3. Streaming &amp; Real-Time Updates (SSE)</a></li>
+<li><a href="#4-widget-actions--interactions">4. Widget Actions &amp; Interactions</a></li>
+</ul>
+<hr>
+<h2 id="1-supporttriage-bot">1. Support/Triage Bot</h2>
+<h3 id="scenario">Scenario</h3>
+<p>Build an intelligent support bot that classifies user questions and routes them to specialized agents (billing, technical, general inquiry).</p>
+<h3 id="what-youll-learn">What You'll Learn</h3>
+<ul>
+<li>Intent classification with <code>TriageAgent</code></li>
+<li>Routing to specialized agents</li>
+<li>Using inter-agent communication metadata</li>
+<li>Handling different conversation contexts</li>
+</ul>
+<h3 id="step-by-step">Step-by-Step</h3>
+<h4 id="step-1-define-user-intents">Step 1: Define User Intents</h4>
+<pre><code class="lang-csharp">public enum UserIntent
+{
+    TechnicalSupport,
+    BillingInquiry,
+    GeneralQuestion
+}
+</code></pre>
+<h4 id="step-2-create-an-intent-classifier">Step 2: Create an Intent Classifier</h4>
+<pre><code class="lang-csharp">using BbQ.ChatWidgets.Agents.Abstractions;
+
+public class SupportClassifier : IClassifier&lt;UserIntent&gt;
+{
+    private readonly IChatClient _chatClient;
+
+    public async Task&lt;UserIntent&gt; ClassifyAsync(string message, CancellationToken cancellationToken)
+    {
+        var systemPrompt = &quot;&quot;&quot;
+            Classify the user's message into one of these categories:
+            - TechnicalSupport: Issues with software, bugs, errors, login problems
+            - BillingInquiry: Questions about payments, invoices, subscriptions, pricing
+            - GeneralQuestion: Everything else (product info, how-to, general questions)
+            
+            Reply with ONLY the category name.
+            &quot;&quot;&quot;;
+
+        var options = new ChatOptions { ToolMode = ChatToolMode.None };
+        var response = await _chatClient.GetResponseAsync(
+            [new ChatMessage(ChatRole.User, systemPrompt + &quot;\n\nUser message: &quot; + message)],
+            options,
+            cancellationToken);
+
+        return Enum.Parse&lt;UserIntent&gt;(response.Text.Trim(), ignoreCase: true);
+    }
+}
+</code></pre>
+<h4 id="step-3-create-specialized-agents">Step 3: Create Specialized Agents</h4>
+<pre><code class="lang-csharp">public class TechnicalSupportAgent : IAgent
+{
+    private readonly IChatClient _chatClient;
+    private readonly IThreadService _threadService;
+    
+    public async Task&lt;Outcome&lt;ChatTurn&gt;&gt; InvokeAsync(ChatRequest request, CancellationToken cancellationToken)
+    {
+        // Get user message from metadata
+        var userMessage = request.Metadata.TryGetValue(&quot;user_message&quot;, out var msg) 
+            ? msg?.ToString() ?? string.Empty 
+            : string.Empty;
+        
+        var systemPrompt = &quot;&quot;&quot;
+            You are a technical support specialist. Help users troubleshoot issues.
+            Use buttons for common actions like 'reset_password', 'clear_cache', 'contact_tech'.
+            Wrap widgets in &lt;widget&gt;...&lt;/widget&gt; tags with JSON inside.
+            &quot;&quot;&quot;;
+        
+        var response = await _chatClient.GetResponseAsync(
+            [
+                new ChatMessage(ChatRole.System, systemPrompt),
+                new ChatMessage(ChatRole.User, userMessage)
+            ],
+            cancellationToken: cancellationToken);
+        
+        var turn = new ChatTurn(response.Text, request.ThreadId);
+        return Outcome.Success(turn);
+    }
+}
+
+public class BillingAgent : IAgent
+{
+    private readonly IChatClient _chatClient;
+    private readonly IThreadService _threadService;
+    
+    public async Task&lt;Outcome&lt;ChatTurn&gt;&gt; InvokeAsync(ChatRequest request, CancellationToken cancellationToken)
+    {
+        var userMessage = request.Metadata.TryGetValue(&quot;user_message&quot;, out var msg) 
+            ? msg?.ToString() ?? string.Empty 
+            : string.Empty;
+        
+        var systemPrompt = &quot;&quot;&quot;
+            You are a billing specialist. Help with invoices, payments, and subscriptions.
+            Use buttons for: 'view_invoices', 'update_payment', 'cancel_subscription'.
+            Wrap widgets in &lt;widget&gt;...&lt;/widget&gt; tags with JSON inside.
+            &quot;&quot;&quot;;
+        
+        var response = await _chatClient.GetResponseAsync(
+            [
+                new ChatMessage(ChatRole.System, systemPrompt),
+                new ChatMessage(ChatRole.User, userMessage)
+            ],
+            cancellationToken: cancellationToken);
+        
+        var turn = new ChatTurn(response.Text, request.ThreadId);
+        return Outcome.Success(turn);
+    }
+}
+</code></pre>
+<h4 id="step-4-register-triage-system">Step 4: Register Triage System</h4>
+<pre><code class="lang-csharp">// In Program.cs
+// 1. Register the classifier
+services.AddScoped&lt;IClassifier&lt;UserIntent&gt;, SupportClassifier&gt;();
+
+// 2. Register specialized agents
+services.AddScoped&lt;TechnicalSupportAgent&gt;();
+services.AddScoped&lt;BillingAgent&gt;();
+services.AddScoped&lt;GeneralAgent&gt;();
+
+// 3. Register agent registry and map agents
+services.AddSingleton&lt;IAgentRegistry&gt;(sp =&gt;
+{
+    var registry = new AgentRegistry();
+    registry.Register(&quot;tech-support&quot;, sp.GetRequiredService&lt;TechnicalSupportAgent&gt;());
+    registry.Register(&quot;billing&quot;, sp.GetRequiredService&lt;BillingAgent&gt;());
+    registry.Register(&quot;general&quot;, sp.GetRequiredService&lt;GeneralAgent&gt;());
+    return registry;
+});
+
+// 4. Register triage agent with routing
+services.AddScoped&lt;IAgent&gt;(sp =&gt;
+{
+    var classifier = sp.GetRequiredService&lt;IClassifier&lt;UserIntent&gt;&gt;();
+    var registry = sp.GetRequiredService&lt;IAgentRegistry&gt;();
+    var threadService = sp.GetService&lt;IThreadService&gt;();
+    
+    Func&lt;UserIntent, string?&gt; routingMapping = classification =&gt; classification switch
+    {
+        UserIntent.TechnicalSupport =&gt; &quot;tech-support&quot;,
+        UserIntent.BillingInquiry =&gt; &quot;billing&quot;,
+        UserIntent.GeneralQuestion =&gt; &quot;general&quot;,
+        _ =&gt; &quot;general&quot;  // fallback
+    };
+    
+    return new TriageAgent&lt;UserIntent&gt;(
+        classifier,
+        registry,
+        routingMapping,
+        fallbackAgentName: &quot;general&quot;,
+        threadService: threadService
+    );
+});
+</code></pre>
+<h4 id="step-5-use-the-triage-agent">Step 5: Use the Triage Agent</h4>
+<pre><code class="lang-csharp">// The triage agent automatically classifies and routes
+app.MapPost(&quot;/api/chat/support&quot;, async (
+    string message,
+    string threadId,
+    HttpContext httpContext,
+    IAgent triageAgent) =&gt;
+{
+    // Build request with metadata
+    var chatRequest = new ChatRequest(threadId, httpContext.RequestServices);
+    chatRequest.Metadata[&quot;user_message&quot;] = message;
+    
+    var result = await triageAgent.InvokeAsync(chatRequest, CancellationToken.None);
+    
+    return result.IsSuccess 
+        ? Results.Ok(result.Value) 
+        : Results.Problem(result.ErrorMessage);
+});
+</code></pre>
+<h3 id="try-it-out">Try It Out</h3>
+<p>Run the <a href="../../Sample/BbQ.ChatWidgets.Sample.Console/">Console Sample</a> or <a href="../../Sample/BbQ.ChatWidgets.Sample.React/">React Sample</a> which both include triage examples.</p>
+<pre><code class="lang-bash"># Console sample
+cd Sample/BbQ.ChatWidgets.Sample.Console
+dotnet run
+
+# Try these messages:
+# &quot;I can't log in&quot; → Routes to TechnicalSupportAgent
+# &quot;Where is my invoice?&quot; → Routes to BillingAgent
+# &quot;What features do you offer?&quot; → Routes to GeneralAgent
+</code></pre>
+<hr>
+<h2 id="2-form-based-chat">2. Form-Based Chat</h2>
+<h3 id="scenario-1">Scenario</h3>
+<p>Collect structured information from users through conversational forms (contact forms, surveys, registration, etc.).</p>
+<h3 id="what-youll-learn-1">What You'll Learn</h3>
+<ul>
+<li>Creating forms with multiple input types</li>
+<li>Handling form submissions</li>
+<li>Validating user input</li>
+<li>Providing feedback</li>
+</ul>
+<h3 id="step-by-step-1">Step-by-Step</h3>
+<h4 id="step-1-define-form-action-and-payload">Step 1: Define Form Action and Payload</h4>
+<pre><code class="lang-csharp">public record ContactFormAction : IWidgetAction&lt;ContactFormPayload&gt;
+{
+    public string ActionId =&gt; &quot;submit_contact&quot;;
+}
+
+public record ContactFormPayload(
+    string Name,
+    string Email,
+    string Message,
+    bool Subscribe);
+</code></pre>
+<h4 id="step-2-create-form-action-handler">Step 2: Create Form Action Handler</h4>
+<pre><code class="lang-csharp">public class ContactFormHandler : IActionWidgetActionHandler&lt;ContactFormAction, ContactFormPayload&gt;
+{
+    private readonly ILogger&lt;ContactFormHandler&gt; _logger;
+    
+    public async Task&lt;string&gt; HandleAsync(
+        ContactFormAction action,
+        ContactFormPayload payload,
+        string threadId,
+        CancellationToken cancellationToken)
+    {
+        // Validate
+        if (string.IsNullOrWhiteSpace(payload.Email) || !payload.Email.Contains(&quot;@&quot;))
+        {
+            return &quot;❌ Please provide a valid email address.&quot;;
+        }
+        
+        // Process the form (save to DB, send email, etc.)
+        _logger.LogInformation(
+            &quot;Contact form submitted: {Name} ({Email}), Subscribe: {Subscribe}&quot;,
+            payload.Name, payload.Email, payload.Subscribe);
+        
+        // Simulate processing
+        await Task.Delay(500, cancellationToken);
+        
+        // Return confirmation with a button
+        return $&quot;&quot;&quot;
+            ✅ Thank you, {payload.Name}! We've received your message and will get back to you soon.
+            
+            &lt;widget&gt;
+            {{
+                &quot;type&quot;: &quot;button&quot;,
+                &quot;label&quot;: &quot;Submit Another&quot;,
+                &quot;action&quot;: &quot;new_contact_form&quot;
+            }}
+            &lt;/widget&gt;
+            &quot;&quot;&quot;;
+    }
+}
+</code></pre>
+<h4 id="step-3-register-action-handler">Step 3: Register Action Handler</h4>
+<pre><code class="lang-csharp">// In Program.cs
+services.AddBbQChatWidgets(options =&gt;
+{
+    options.ChatClientFactory = sp =&gt; chatClient;
+    
+    // Register the action handler
+    options.ActionRegistry.RegisterHandler&lt;
+        ContactFormAction,
+        ContactFormPayload,
+        ContactFormHandler&gt;();
+});
+
+services.AddScoped&lt;ContactFormHandler&gt;();
+</code></pre>
+<h4 id="step-4-ai-generates-the-form">Step 4: AI Generates the Form</h4>
+<p>When the user says &quot;I want to contact support&quot; or &quot;Show me a contact form&quot;, the LLM will generate:</p>
+<pre><code class="lang-xml">&lt;widget&gt;
+{
+  &quot;type&quot;: &quot;form&quot;,
+  &quot;title&quot;: &quot;Contact Us&quot;,
+  &quot;action&quot;: &quot;submit_contact&quot;,
+  &quot;fields&quot;: [
+    {&quot;name&quot;: &quot;Name&quot;, &quot;label&quot;: &quot;Name&quot;, &quot;type&quot;: &quot;input&quot;, &quot;required&quot;: true, &quot;placeholder&quot;: &quot;Your full name&quot;},
+    {&quot;name&quot;: &quot;Email&quot;, &quot;label&quot;: &quot;Email&quot;, &quot;type&quot;: &quot;input&quot;, &quot;required&quot;: true, &quot;placeholder&quot;: &quot;you@example.com&quot;},
+    {&quot;name&quot;: &quot;Message&quot;, &quot;label&quot;: &quot;Message&quot;, &quot;type&quot;: &quot;textarea&quot;, &quot;required&quot;: true, &quot;rows&quot;: 4, &quot;placeholder&quot;: &quot;How can we help?&quot;},
+    {&quot;name&quot;: &quot;Subscribe&quot;, &quot;label&quot;: &quot;Subscribe to newsletter&quot;, &quot;type&quot;: &quot;toggle&quot;, &quot;required&quot;: false}
+  ],
+  &quot;actions&quot;: [
+    {&quot;type&quot;: &quot;submit&quot;, &quot;label&quot;: &quot;Send Message&quot;},
+    {&quot;type&quot;: &quot;cancel&quot;, &quot;label&quot;: &quot;Cancel&quot;}
+  ]
+}
+&lt;/widget&gt;
+</code></pre>
+<h4 id="step-5-frontend-handles-submission">Step 5: Frontend Handles Submission</h4>
+<p>The <code>WidgetManager</code> automatically handles form submission:</p>
+<pre><code class="lang-typescript">import { WidgetManager } from '@bbq-chat/widgets';
+
+const manager = new WidgetManager();
+
+// Render the form widget
+manager.render(formWidget, container);
+
+// When user clicks submit, WidgetManager automatically:
+// 1. Collects all input values
+// 2. POSTs to /api/chat/action with action=&quot;submit_contact&quot; and payload
+// 3. Displays the response
+</code></pre>
+<h3 id="try-it-out-1">Try It Out</h3>
+<p>Run the <a href="../../Sample/BbQ.ChatWidgets.Sample.React/">React Sample</a>:</p>
+<pre><code class="lang-bash">cd Sample/BbQ.ChatWidgets.Sample.React
+dotnet run
+
+# In the browser, type:
+# &quot;Show me a contact form&quot;
+# Fill out the form and submit
+</code></pre>
+<hr>
+<h2 id="3-streaming--real-time-updates-sse">3. Streaming &amp; Real-Time Updates (SSE)</h2>
+<h3 id="scenario-2">Scenario</h3>
+<p>Push live updates to the client without polling (stock prices, progress updates, notifications, live charts).</p>
+<h3 id="what-youll-learn-2">What You'll Learn</h3>
+<ul>
+<li>Server-Sent Events (SSE) integration</li>
+<li>Publishing widget updates from background services</li>
+<li>Creating SSE-powered widgets</li>
+<li>Real-time data streaming</li>
+</ul>
+<h3 id="step-by-step-2">Step-by-Step</h3>
+<h4 id="step-1-create-a-custom-sse-widget">Step 1: Create a Custom SSE Widget</h4>
+<pre><code class="lang-csharp">public record ClockWidget(string Label, string StreamId) 
+    : ChatWidget(Label, &quot;clock_action&quot;)
+{
+    public override string Purpose =&gt; &quot;Displays real-time clock updates via SSE&quot;;
+}
+</code></pre>
+<h4 id="step-2-register-widget-and-stream-validation">Step 2: Register Widget and Stream Validation</h4>
+<pre><code class="lang-csharp">services.AddBbQChatWidgets(options =&gt;
+{
+    options.ChatClientFactory = sp =&gt; chatClient;
+    
+    options.WidgetRegistryConfigurator = registry =&gt;
+    {
+        registry.Register(new ClockWidget(&quot;Live Clock&quot;, &quot;clock-stream&quot;));
+    };
+    
+    options.StreamValidationRules = new StreamValidationRules
+    {
+        AllowedStreamIds = new[] { &quot;clock-stream&quot;, &quot;weather-stream&quot; },
+        MaxPublishRatePerMinute = 60
+    };
+});
+</code></pre>
+<h4 id="step-3-create-background-publisher">Step 3: Create Background Publisher</h4>
+<pre><code class="lang-csharp">public class ClockPublisher : BackgroundService
+{
+    private readonly IWidgetSseService _sseService;
+    private readonly ILogger&lt;ClockPublisher&gt; _logger;
+    
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        while (!stoppingToken.IsCancellationRequested)
+        {
+            try
+            {
+                var now = DateTime.Now;
+                var clockWidget = new ClockWidget(
+                    $&quot;🕐 {now:HH:mm:ss}&quot;,
+                    &quot;clock-stream&quot;);
+                
+                await _sseService.PublishWidgetAsync(
+                    &quot;clock-stream&quot;,
+                    clockWidget,
+                    stoppingToken);
+                
+                await Task.Delay(1000, stoppingToken); // Update every second
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, &quot;Error publishing clock update&quot;);
+            }
+        }
+    }
+}
+
+// Register in Program.cs
+services.AddHostedService&lt;ClockPublisher&gt;();
+</code></pre>
+<h4 id="step-4-frontend-subscribes-to-stream">Step 4: Frontend Subscribes to Stream</h4>
+<pre><code class="lang-typescript">import { SseManager } from '@bbq-chat/widgets';
+
+const sseManager = new SseManager('/api/chat/widgets/streams');
+
+// Subscribe to the clock stream
+sseManager.subscribe('clock-stream', (widget) =&gt; {
+    console.log('Clock update:', widget);
+    // Update UI with new time
+    document.getElementById('clock').textContent = widget.label;
+});
+
+// Clean up when done
+// sseManager.unsubscribe('clock-stream');
+</code></pre>
+<h4 id="step-5-ai-tells-user-about-sse-widget">Step 5: AI Tells User About SSE Widget</h4>
+<p>When the user asks &quot;Show me a live clock&quot;, the LLM responds:</p>
+<pre><code class="lang-xml">I'll show you a real-time clock that updates every second:
+
+&lt;widget type=&quot;clock&quot; label=&quot;Live Clock&quot; streamId=&quot;clock-stream&quot; /&gt;
+
+The clock will update automatically via Server-Sent Events.
+</code></pre>
+<h3 id="advanced-progress-updates">Advanced: Progress Updates</h3>
+<p>Perfect for long-running operations:</p>
+<pre><code class="lang-csharp">public class FileUploadService
+{
+    private readonly IWidgetSseService _sseService;
+    
+    public async Task UploadFileAsync(Stream fileStream, string streamId)
+    {
+        var totalBytes = fileStream.Length;
+        var uploadedBytes = 0L;
+        var buffer = new byte[8192];
+        
+        while (uploadedBytes &lt; totalBytes)
+        {
+            var bytesRead = await fileStream.ReadAsync(buffer);
+            uploadedBytes += bytesRead;
+            
+            var progress = (int)((uploadedBytes / (double)totalBytes) * 100);
+            
+            // Push progress update
+            var progressWidget = new ProgressBarWidget(
+                &quot;Uploading...&quot;,
+                &quot;upload_progress&quot;,
+                progress,
+                $&quot;{uploadedBytes:N0} / {totalBytes:N0} bytes&quot;);
+            
+            await _sseService.PublishWidgetAsync(streamId, progressWidget);
+        }
+        
+        // Send completion widget
+        var completeWidget = new ButtonWidget(&quot;View File&quot;, &quot;view_uploaded_file&quot;);
+        await _sseService.PublishWidgetAsync(streamId, completeWidget);
+    }
+}
+</code></pre>
+<h3 id="try-it-out-2">Try It Out</h3>
+<p>Run the <a href="../../Sample/BbQ.ChatWidgets.Sample.React/">React Sample</a> with SSE:</p>
+<pre><code class="lang-bash">cd Sample/BbQ.ChatWidgets.Sample.React
+dotnet run
+
+# Try: &quot;Show me a live clock&quot; or &quot;Show me live weather&quot;
+</code></pre>
+<hr>
+<h2 id="4-widget-actions--interactions">4. Widget Actions &amp; Interactions</h2>
+<h3 id="scenario-3">Scenario</h3>
+<p>Handle user clicks, form submissions, and custom widget interactions on the server.</p>
+<h3 id="what-youll-learn-3">What You'll Learn</h3>
+<ul>
+<li>Creating typed action handlers</li>
+<li>Passing payloads with actions</li>
+<li>Chaining widgets (one action triggers another widget)</li>
+<li>Error handling and validation</li>
+</ul>
+<h3 id="step-by-step-3">Step-by-Step</h3>
+<h4 id="step-1-simple-button-action-no-payload">Step 1: Simple Button Action (No Payload)</h4>
+<pre><code class="lang-csharp">public record ApproveAction : IWidgetAction&lt;ApprovePayload&gt;
+{
+    public string ActionId =&gt; &quot;approve_request&quot;;
+}
+
+public record ApprovePayload(); // Empty payload for simple button
+
+public class ApproveHandler : IActionWidgetActionHandler&lt;ApproveAction, ApprovePayload&gt;
+{
+    public async Task&lt;string&gt; HandleAsync(
+        ApproveAction action,
+        ApprovePayload payload,
+        string threadId,
+        CancellationToken cancellationToken)
+    {
+        // Process approval
+        await Task.Delay(100, cancellationToken);
+        
+        return &quot;&quot;&quot;
+            ✅ Request approved!
+            
+            &lt;widget&gt;
+            {
+                &quot;type&quot;: &quot;button&quot;,
+                &quot;label&quot;: &quot;View Details&quot;,
+                &quot;action&quot;: &quot;view_details&quot;
+            }
+            &lt;/widget&gt;
+            &lt;widget&gt;
+            {
+                &quot;type&quot;: &quot;button&quot;,
+                &quot;label&quot;: &quot;Notify User&quot;,
+                &quot;action&quot;: &quot;send_notification&quot;
+            }
+            &lt;/widget&gt;
+            &quot;&quot;&quot;;
+    }
+}
+</code></pre>
+<h4 id="step-2-action-with-payload-data">Step 2: Action with Payload Data</h4>
+<pre><code class="lang-csharp">public record SelectPlanAction : IWidgetAction&lt;SelectPlanPayload&gt;
+{
+    public string ActionId =&gt; &quot;select_plan&quot;;
+}
+
+public record SelectPlanPayload(string PlanId, string PlanName, decimal Price);
+
+public class SelectPlanHandler : IActionWidgetActionHandler&lt;SelectPlanAction, SelectPlanPayload&gt;
+{
+    public async Task&lt;string&gt; HandleAsync(
+        SelectPlanAction action,
+        SelectPlanPayload payload,
+        string threadId,
+        CancellationToken cancellationToken)
+    {
+        return $&quot;&quot;&quot;
+            You've selected the **{payload.PlanName}** plan at ${payload.Price}/month.
+            
+            &lt;widget&gt;
+            {{
+                &quot;type&quot;: &quot;form&quot;,
+                &quot;title&quot;: &quot;Complete Purchase&quot;,
+                &quot;action&quot;: &quot;confirm_purchase&quot;,
+                &quot;fields&quot;: [
+                    {{&quot;name&quot;: &quot;cardNumber&quot;, &quot;label&quot;: &quot;Card Number&quot;, &quot;type&quot;: &quot;input&quot;, &quot;required&quot;: true, &quot;placeholder&quot;: &quot;1234 5678 9012 3456&quot;}},
+                    {{&quot;name&quot;: &quot;expiry&quot;, &quot;label&quot;: &quot;Expiry&quot;, &quot;type&quot;: &quot;input&quot;, &quot;required&quot;: true, &quot;placeholder&quot;: &quot;MM/YY&quot;}},
+                    {{&quot;name&quot;: &quot;cvv&quot;, &quot;label&quot;: &quot;CVV&quot;, &quot;type&quot;: &quot;input&quot;, &quot;required&quot;: true, &quot;placeholder&quot;: &quot;123&quot;}}
+                ],
+                &quot;actions&quot;: [
+                    {{&quot;type&quot;: &quot;submit&quot;, &quot;label&quot;: &quot;Confirm&quot;}},
+                    {{&quot;type&quot;: &quot;cancel&quot;, &quot;label&quot;: &quot;Cancel&quot;}}
+                ]
+            }}
+            &lt;/widget&gt;
+            &quot;&quot;&quot;;
+    }
+}
+</code></pre>
+<h4 id="step-3-action-chaining-multi-step-flow">Step 3: Action Chaining (Multi-Step Flow)</h4>
+<pre><code class="lang-csharp">// Step 1: Show plans
+public class ShowPlansHandler : IActionWidgetActionHandler&lt;ShowPlansAction, ShowPlansPayload&gt;
+{
+    public async Task&lt;string&gt; HandleAsync(...)
+    {
+        return &quot;&quot;&quot;
+            Choose your plan:
+            
+            &lt;widget&gt;
+            {
+                &quot;type&quot;: &quot;card&quot;,
+                &quot;title&quot;: &quot;Basic&quot;,
+                &quot;description&quot;: &quot;$9/month&quot;,
+                &quot;label&quot;: &quot;Select&quot;,
+                &quot;action&quot;: &quot;select_plan&quot;
+            }
+            &lt;/widget&gt;
+            
+            &lt;widget&gt;
+            {
+                &quot;type&quot;: &quot;card&quot;,
+                &quot;title&quot;: &quot;Pro&quot;,
+                &quot;description&quot;: &quot;$29/month&quot;,
+                &quot;label&quot;: &quot;Select&quot;,
+                &quot;action&quot;: &quot;select_plan&quot;
+            }
+            &lt;/widget&gt;
+            &quot;&quot;&quot;;
+    }
+}
+
+// Step 2: Select plan (see above)
+
+// Step 3: Confirm purchase
+public class ConfirmPurchaseHandler : IActionWidgetActionHandler&lt;ConfirmPurchaseAction, ConfirmPurchasePayload&gt;
+{
+    public async Task&lt;string&gt; HandleAsync(...)
+    {
+        // Process payment...
+        
+        return &quot;&quot;&quot;
+            🎉 Payment successful! Welcome to the Pro plan.
+            
+            &lt;widget&gt;
+            {
+                &quot;type&quot;: &quot;button&quot;,
+                &quot;label&quot;: &quot;Go to Dashboard&quot;,
+                &quot;action&quot;: &quot;open_dashboard&quot;
+            }
+            &lt;/widget&gt;
+            &quot;&quot;&quot;;
+    }
+}
+</code></pre>
+<h4 id="step-4-register-all-handlers">Step 4: Register All Handlers</h4>
+<pre><code class="lang-csharp">services.AddBbQChatWidgets(options =&gt;
+{
+    var registry = options.ActionRegistry;
+    
+    registry.RegisterHandler&lt;ApproveAction, ApprovePayload, ApproveHandler&gt;();
+    registry.RegisterHandler&lt;SelectPlanAction, SelectPlanPayload, SelectPlanHandler&gt;();
+    registry.RegisterHandler&lt;ShowPlansAction, ShowPlansPayload, ShowPlansHandler&gt;();
+    registry.RegisterHandler&lt;ConfirmPurchaseAction, ConfirmPurchasePayload, ConfirmPurchaseHandler&gt;();
+});
+</code></pre>
+<h4 id="step-5-error-handling">Step 5: Error Handling</h4>
+<pre><code class="lang-csharp">public class PaymentHandler : IActionWidgetActionHandler&lt;PaymentAction, PaymentPayload&gt;
+{
+    public async Task&lt;string&gt; HandleAsync(...)
+    {
+        try
+        {
+            await ProcessPaymentAsync(payload);
+            return &quot;✅ Payment successful!&quot;;
+        }
+        catch (PaymentFailedException ex)
+        {
+            return $&quot;&quot;&quot;
+                ❌ Payment failed: {ex.Message}
+                
+                &lt;widget&gt;
+                {{
+                    &quot;type&quot;: &quot;button&quot;,
+                    &quot;label&quot;: &quot;Try Again&quot;,
+                    &quot;action&quot;: &quot;retry_payment&quot;
+                }}
+                &lt;/widget&gt;
+                &lt;widget&gt;
+                {{
+                    &quot;type&quot;: &quot;button&quot;,
+                    &quot;label&quot;: &quot;Contact Support&quot;,
+                    &quot;action&quot;: &quot;contact_support&quot;
+                }}
+                &lt;/widget&gt;
+                &quot;&quot;&quot;;
+        }
+    }
+}
+</code></pre>
+<h3 id="try-it-out-3">Try It Out</h3>
+<p>Run any of the samples and interact with buttons:</p>
+<pre><code class="lang-bash">cd Sample/BbQ.ChatWidgets.Sample.Console
+dotnet run
+
+# Try: &quot;Show me some buttons&quot;
+# Click the buttons to trigger actions
+</code></pre>
+<hr>
+<h2 id="-next-steps">📚 Next Steps</h2>
+<ul>
+<li><strong><a href="../guides/CUSTOM_WIDGETS.html">Custom Widgets Guide</a></strong> - Build your own widget types</li>
+<li><strong><a href="../guides/CUSTOM_ACTION_HANDLERS.html">Custom Action Handlers</a></strong> - Advanced action handling</li>
+<li><strong><a href="../guides/CHAT_HISTORY_SUMMARIZATION.html">Chat History Summarization</a></strong> - Manage long conversations</li>
+<li><strong><a href="../guides/TRIAGE_AGENTS.md">Triage Agents Deep Dive</a></strong> - Advanced routing patterns</li>
+</ul>
+<hr>
+<h2 id="-sample-projects">🔗 Sample Projects</h2>
+<p>All tutorials reference these working samples:</p>
+<ul>
+<li><a href="../../Sample/BbQ.ChatWidgets.Sample.Console/">Console Sample</a> - Command-line chat with triage</li>
+<li><a href="../../Sample/BbQ.ChatWidgets.Sample.React/">React Sample</a> - Web UI with forms and SSE</li>
+<li><a href="../../Sample/BbQ.ChatWidgets.Sample.Angular/">Angular Sample</a> - Angular components</li>
+<li><a href="../../Sample/BbQ.ChatWidgets.Sample.Blazor/">Blazor Sample</a> - Server-side Blazor</li>
+</ul>
+<p>Each sample includes multiple use cases and is fully runnable.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/examples/USE_CASES.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

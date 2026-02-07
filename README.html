@@ -72,6 +72,8 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="bbqchatwidgets">BbQ.ChatWidgets</h1>
 
+<p><a href="https://www.nuget.org/packages/BbQ.ChatWidgets/"><img src="https://img.shields.io/nuget/v/BbQ.ChatWidgets.svg" alt="NuGet Version"></a>
+<a href="https://www.npmjs.com/package/@bbq-chat/widgets"><img src="https://img.shields.io/npm/v/@bbq-chat/widgets.svg" alt="npm Version"></a></p>
 <p>A compact library of UI chat widgets and helpers for server and client integrations.</p>
 <p>This repository ships three distributable packages:</p>
 <ul>
@@ -82,16 +84,69 @@
 <blockquote>
 <p>Note: the .NET package no longer bundles the JavaScript client or theme CSS. Install the npm package (or bring your own UI) to render widgets in a browser.</p>
 </blockquote>
-<h2 id="quick-start-aspnet-core">Quick start (ASP.NET Core)</h2>
-<pre><code class="lang-csharp">using BbQ.ChatWidgets;
+<h2 id="-30-second-demos">🚀 30-Second Demos</h2>
+<p>Get a working button widget in under 30 seconds!</p>
+<h3 id="c--net-server">C# / .NET (Server)</h3>
+<pre><code class="lang-csharp">using Microsoft.Extensions.AI;
+using BbQ.ChatWidgets.Extensions;
 
-builder.Services.AddBbQChatWidgets(options =&gt;
-{
-    // configure options (chat client, tools, widgets, etc.)
+var builder = WebApplication.CreateBuilder(args);
+
+// 1. Create chat client with function invocation
+var apiKey = builder.Configuration[&quot;OpenAI:ApiKey&quot;] 
+    ?? throw new InvalidOperationException(&quot;OpenAI:ApiKey not configured&quot;);
+    
+IChatClient chatClient = new ChatClientBuilder(
+    new OpenAI.Chat.ChatClient(&quot;gpt-4o-mini&quot;, apiKey).AsIChatClient())
+    .UseFunctionInvocation()
+    .Build();
+
+// 2. Register BbQ services
+builder.Services.AddBbQChatWidgets(options =&gt; 
+    options.ChatClientFactory = _ =&gt; chatClient);
+
+var app = builder.Build();
+
+// 3. Map endpoints
+app.MapBbQChatEndpoints();
+app.Run();
+</code></pre>
+<h3 id="javascript--typescript-client">JavaScript / TypeScript (Client)</h3>
+<pre><code class="lang-typescript">import { WidgetManager } from '@bbq-chat/widgets';
+
+// 1. Send a message
+const response = await fetch('/api/chat/message', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: 'Show me a button', threadId: 'demo-123' })
 });
 
-app.MapBbQChatEndpoints();
+const turn = await response.json();
+
+// 2. Render widgets
+const manager = new WidgetManager();
+turn.widgets?.forEach(widget =&gt; 
+    manager.render(widget, document.getElementById('chat-container'))
+);
 </code></pre>
+<h3 id="angular-client">Angular (Client)</h3>
+<pre><code class="lang-typescript">import { Component } from '@angular/core';
+import { ChatWidgetsModule } from '@bbq-chat/widgets-angular';
+
+@Component({
+  selector: 'app-chat',
+  standalone: true,
+  imports: [ChatWidgetsModule],
+  template: `
+    &lt;bbq-chat-widget 
+      [apiEndpoint]=&quot;'/api/chat'&quot;
+      [threadId]=&quot;'demo-123'&quot;&gt;
+    &lt;/bbq-chat-widget&gt;
+  `
+})
+export class ChatComponent { }
+</code></pre>
+<p>📚 <strong><a href="GETTING_STARTED.html">Full Getting Started Guide →</a></strong> | <strong><a href="widgets/GALLERY.html">Widget Gallery →</a></strong> | <strong><a href="INTEGRATION_PATHS.html">Integration Paths →</a></strong></p>
 <h2 id="features">Features</h2>
 <ul>
 <li><strong>Interactive Chat Widgets</strong>: Buttons, forms, cards, dropdowns, sliders, toggles, file uploads, and more</li>
@@ -112,25 +167,26 @@ app.MapBbQChatEndpoints();
 <h3 id="npm-angular-native-components">npm (Angular native components)</h3>
 <pre><code class="lang-bash">npm install @bbq-chat/widgets-angular @bbq-chat/widgets
 </code></pre>
-<h2 id="documentation">Documentation</h2>
+<h2 id="-documentation">📖 Documentation</h2>
 <ul>
-<li>Documentation sources: <code>docs_src/</code></li>
-<li>Contributing guide: <code>.github/CONTRIBUTING.md</code></li>
+<li><strong><a href="GETTING_STARTED.html">Getting Started</a></strong> - Complete setup guide</li>
+<li><strong><a href="widgets/GALLERY.html">Widget Gallery</a></strong> - Visual showcase of all widgets</li>
+<li><strong><a href="INTEGRATION_PATHS.html">Integration Paths</a></strong> - Choose the right approach for your stack</li>
+<li><strong><a href="examples/USE_CASES.html">Use Cases &amp; Tutorials</a></strong> - Step-by-step scenarios</li>
+<li><strong><a href="docs/index.html">API Reference</a></strong> - Generated API docs</li>
+<li><strong><a href=".github/CONTRIBUTING.html">Contributing Guide</a></strong> - How to contribute</li>
 </ul>
-<p>Build the docs locally (requires DocFX):</p>
+<h3 id="build-documentation-locally">Build Documentation Locally</h3>
 <pre><code class="lang-powershell">./docs/generate-docs.ps1
 </code></pre>
-<p>Or run DocFX directly:</p>
-<pre><code class="lang-powershell">dotnet build BbQ.ChatWidgets/BbQ.ChatWidgets.csproj -c Release
-docfx metadata docfx.json
-docfx build docfx.json -o docs
-</code></pre>
-<h2 id="tests">Tests</h2>
+<h2 id="-tests">🧪 Tests</h2>
 <ul>
 <li>.NET: <code>dotnet test</code></li>
 <li>JS/TS: <code>npm test</code> (run from <code>Sample/WebApp/ClientApp</code>)</li>
 </ul>
-<h2 id="license">License</h2>
+<h2 id="-changelog">📋 Changelog</h2>
+<p>See <strong><a href="CHANGELOG.md">CHANGELOG.md</a></strong> for version history and release notes.</p>
+<h2 id="-license">📄 License</h2>
 <p>See <code>LICENSE</code>.</p>
 
 </article>

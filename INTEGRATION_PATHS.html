@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Integration Paths | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Integration Paths | BbQ.ChatWidgets ">
+    
+    
+      <link rel="shortcut icon" href="favicon.ico">
+      <link rel="stylesheet" href="styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="styles/docfx.css">
+      <link rel="stylesheet" href="styles/main.css">
+      <meta property="docfx:navrel" content="toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="index.html">
+                <img id="logo" class="svg" src="logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="integration-paths">Integration Paths</h1>
+
+<p>Choose the right integration approach for your application stack and requirements.</p>
+<h2 id="-decision-matrix">🤔 Decision Matrix</h2>
+<p>Use this guide to pick the best integration path for your project:</p>
+<table>
+<thead>
+<tr>
+<th>Your Stack</th>
+<th>Best Integration</th>
+<th>What You Get</th>
+<th>Complexity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ASP.NET Core API + React/Vue/Vanilla JS</strong></td>
+<td>.NET Backend + JS Client</td>
+<td>Full flexibility, framework-agnostic</td>
+<td>⭐⭐ Medium</td>
+</tr>
+<tr>
+<td><strong>ASP.NET Core API + Angular</strong></td>
+<td>.NET Backend + Angular Client</td>
+<td>Type-safe Angular components</td>
+<td>⭐⭐ Medium</td>
+</tr>
+<tr>
+<td><strong>Blazor Server</strong></td>
+<td>.NET Backend + Blazor Components</td>
+<td>Full .NET stack, no JS needed</td>
+<td>⭐ Easy</td>
+</tr>
+<tr>
+<td><strong>Pure JavaScript (Node.js backend)</strong></td>
+<td>JS-only (consume .NET API)</td>
+<td>Frontend-first, backend agnostic</td>
+<td>⭐⭐⭐ Advanced</td>
+</tr>
+<tr>
+<td><strong>Existing .NET app</strong></td>
+<td>.NET-only (extend current app)</td>
+<td>Add chat to existing project</td>
+<td>⭐ Easy</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="-integration-scenarios">📋 Integration Scenarios</h2>
+<h3 id="1-net-backend--javascripttypescript-client">1️⃣ .NET Backend + JavaScript/TypeScript Client</h3>
+<p><strong>Best for</strong>: Modern web applications with separate frontend and backend</p>
+<p><strong>What you need</strong>:</p>
+<ul>
+<li>ASP.NET Core 8+ backend</li>
+<li>Any frontend framework (React, Vue, Svelte, etc.) or vanilla JS</li>
+</ul>
+<h4 id="backend-setup-net">Backend Setup (.NET)</h4>
+<pre><code class="lang-csharp">using Microsoft.Extensions.AI;
+using BbQ.ChatWidgets.Extensions;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Configure chat client with function invocation
+var apiKey = builder.Configuration[&quot;OpenAI:ApiKey&quot;] 
+    ?? throw new InvalidOperationException(&quot;OpenAI:ApiKey not configured&quot;);
+    
+IChatClient chatClient = new ChatClientBuilder(
+    new OpenAI.Chat.ChatClient(&quot;gpt-4o-mini&quot;, apiKey).AsIChatClient())
+    .UseFunctionInvocation()
+    .Build();
+
+// Register BbQ services
+builder.Services.AddBbQChatWidgets(options =&gt; {
+    options.ChatClientFactory = _ =&gt; chatClient;
+    options.RoutePrefix = &quot;/api/chat&quot;;
+});
+
+var app = builder.Build();
+app.MapBbQChatEndpoints(); // Creates /api/chat/message, /api/chat/action, etc.
+app.Run();
+</code></pre>
+<h4 id="frontend-setup-jsts">Frontend Setup (JS/TS)</h4>
+<pre><code class="lang-bash">npm install @bbq-chat/widgets
+</code></pre>
+<pre><code class="lang-typescript">import { WidgetManager } from '@bbq-chat/widgets';
+import '@bbq-chat/widgets/dist/styles/theme.css'; // Optional: default theme
+
+const manager = new WidgetManager();
+
+async function sendMessage(text: string) {
+    const response = await fetch('/api/chat/message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, threadId: 'user-123' })
+    });
+    
+    const turn = await response.json();
+    
+    // Render widgets
+    const container = document.getElementById('chat-widgets');
+    turn.widgets?.forEach(widget =&gt; manager.render(widget, container));
+}
+</code></pre>
+<p><strong>Pros</strong>:</p>
+<ul>
+<li>✅ Framework-agnostic frontend</li>
+<li>✅ Full control over UI/UX</li>
+<li>✅ Can integrate with any JS framework</li>
+</ul>
+<p><strong>Cons</strong>:</p>
+<ul>
+<li>❌ More manual wiring</li>
+<li>❌ Need to handle widget actions yourself</li>
+</ul>
+<p><strong>Sample</strong>: <a href="../Sample/BbQ.ChatWidgets.Sample.React/">React Sample</a></p>
+<hr>
+<h3 id="2-net-backend--angular-client">2️⃣ .NET Backend + Angular Client</h3>
+<p><strong>Best for</strong>: Angular applications that want native Angular components</p>
+<p><strong>What you need</strong>:</p>
+<ul>
+<li>ASP.NET Core 8+ backend</li>
+<li>Angular 15+ frontend</li>
+</ul>
+<h4 id="backend-setup-net-1">Backend Setup (.NET)</h4>
+<p>Same as scenario #1 above.</p>
+<h4 id="frontend-setup-angular">Frontend Setup (Angular)</h4>
+<pre><code class="lang-bash">npm install @bbq-chat/widgets @bbq-chat/widgets-angular
+</code></pre>
+<p><strong>app.component.ts</strong>:</p>
+<pre><code class="lang-typescript">import { Component } from '@angular/core';
+import { ChatWidgetsModule } from '@bbq-chat/widgets-angular';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [ChatWidgetsModule],
+  template: `
+    &lt;bbq-chat-widget 
+      [apiEndpoint]=&quot;'/api/chat'&quot;
+      [threadId]=&quot;'user-123'&quot;
+      [enableStreaming]=&quot;true&quot;
+      (widgetAction)=&quot;onWidgetAction($event)&quot;&gt;
+    &lt;/bbq-chat-widget&gt;
+  `
+})
+export class AppComponent {
+  onWidgetAction(event: any) {
+    console.log('Widget action:', event);
+  }
+}
+</code></pre>
+<p><strong>Pros</strong>:</p>
+<ul>
+<li>✅ Native Angular components and services</li>
+<li>✅ Type-safe with TypeScript</li>
+<li>✅ Reactive bindings with RxJS</li>
+<li>✅ Pre-built chat UI</li>
+</ul>
+<p><strong>Cons</strong>:</p>
+<ul>
+<li>❌ Angular-only (can't use in React/Vue)</li>
+</ul>
+<p><strong>Sample</strong>: <a href="../Sample/BbQ.ChatWidgets.Sample.Angular/">Angular Sample</a></p>
+<hr>
+<h3 id="3-blazor-server-integration">3️⃣ Blazor Server Integration</h3>
+<p><strong>Best for</strong>: Full .NET stack with server-side rendering</p>
+<p><strong>What you need</strong>:</p>
+<ul>
+<li>ASP.NET Core 8+ with Blazor Server</li>
+<li>No JavaScript needed</li>
+</ul>
+<h4 id="setup">Setup</h4>
+<pre><code class="lang-bash">dotnet add package BbQ.ChatWidgets
+dotnet add package BbQ.ChatWidgets.Blazor
+</code></pre>
+<p><strong>Program.cs</strong>:</p>
+<pre><code class="lang-csharp">using Microsoft.Extensions.AI;
+using BbQ.ChatWidgets.Extensions;
+using BbQ.ChatWidgets.Blazor;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services
+    .AddRazorComponents()
+    .AddInteractiveServerComponents();
+
+// Configure chat client
+IChatClient chatClient = new ChatClientBuilder(
+    new OpenAI.Chat.ChatClient(&quot;gpt-4o-mini&quot;, apiKey).AsIChatClient())
+    .UseFunctionInvocation()
+    .Build();
+
+builder.Services.AddBbQChatWidgets(options =&gt; 
+    options.ChatClientFactory = _ =&gt; chatClient);
+
+var app = builder.Build();
+
+app.MapBbQChatEndpoints();
+app.MapRazorComponents&lt;App&gt;()
+   .AddInteractiveServerRenderMode();
+
+app.Run();
+</code></pre>
+<p><strong>ChatComponent.razor</strong>:</p>
+<pre><code class="lang-razor">@using BbQ.ChatWidgets.Blazor
+@inject ChatWidgetService ChatService
+
+&lt;BbqChatWidget ThreadId=&quot;@threadId&quot; /&gt;
+
+@code {
+    private string threadId = &quot;blazor-user-123&quot;;
+}
+</code></pre>
+<p><strong>Pros</strong>:</p>
+<ul>
+<li>✅ Pure .NET/C# - no JavaScript required</li>
+<li>✅ Server-side rendering</li>
+<li>✅ Tight integration with Blazor</li>
+</ul>
+<p><strong>Cons</strong>:</p>
+<ul>
+<li>❌ Requires SignalR connection</li>
+<li>❌ Not suitable for static hosting</li>
+</ul>
+<p><strong>Sample</strong>: <a href="../Sample/BbQ.ChatWidgets.Sample.Blazor/">Blazor Sample</a></p>
+<hr>
+<h3 id="4-javascript-only-no-net-backend">4️⃣ JavaScript-Only (No .NET Backend)</h3>
+<p><strong>Best for</strong>: Frontend-first applications or existing Node.js backends</p>
+<p><strong>What you need</strong>:</p>
+<ul>
+<li>Your own backend API that wraps OpenAI/Azure OpenAI</li>
+<li>Frontend framework of choice</li>
+</ul>
+<h4 id="approach">Approach</h4>
+<p>Since BbQ.ChatWidgets' .NET backend provides the widget orchestration layer, you have two options:</p>
+<p><strong>Option A</strong>: Host a minimal .NET API just for chat</p>
+<ul>
+<li>Deploy a small ASP.NET Core service with BbQ.ChatWidgets</li>
+<li>Your main app calls this service's <code>/api/chat</code> endpoints</li>
+<li>Best for microservices architectures</li>
+</ul>
+<p><strong>Option B</strong>: Implement widget logic in your backend</p>
+<ul>
+<li>Use <code>@bbq-chat/widgets</code> for frontend rendering</li>
+<li>Implement your own backend that follows the BbQ chat API contract:
+<ul>
+<li><code>POST /api/chat/message</code> → Returns <code>ChatTurn</code> with widgets</li>
+<li><code>POST /api/chat/action</code> → Handles widget actions</li>
+</ul>
+</li>
+<li>More work, but fully customizable</li>
+</ul>
+<p><strong>Example API Contract</strong> (if implementing your own):</p>
+<pre><code class="lang-typescript">// POST /api/chat/message
+interface MessageRequest {
+  message: string;
+  threadId?: string;
+}
+
+interface ChatTurn {
+  content: string;
+  widgets?: Widget[]; // See @bbq-chat/widgets for Widget type definitions
+  threadId: string;
+}
+
+// POST /api/chat/action
+interface ActionRequest {
+  action: string;
+  payload?: any;
+  threadId: string;
+}
+</code></pre>
+<p><strong>Pros</strong>:</p>
+<ul>
+<li>✅ Use any backend technology</li>
+<li>✅ Frontend-first development</li>
+</ul>
+<p><strong>Cons</strong>:</p>
+<ul>
+<li>❌ More implementation work</li>
+<li>❌ Miss out on .NET-specific features (triage agents, etc.)</li>
+</ul>
+<hr>
+<h3 id="5-net-only-extend-existing-app">5️⃣ .NET-Only (Extend Existing App)</h3>
+<p><strong>Best for</strong>: Adding chat to an existing .NET application</p>
+<p><strong>What you need</strong>:</p>
+<ul>
+<li>Existing ASP.NET Core application</li>
+<li>Access to modify <code>Program.cs</code> and add services</li>
+</ul>
+<h4 id="setup-1">Setup</h4>
+<pre><code class="lang-bash">dotnet add package BbQ.ChatWidgets
+</code></pre>
+<pre><code class="lang-csharp">// In your existing Program.cs or Startup.cs
+using BbQ.ChatWidgets.Extensions;
+
+// Add to your existing service registration
+builder.Services.AddBbQChatWidgets(options =&gt; {
+    options.ChatClientFactory = sp =&gt; /* your chat client */;
+    options.RoutePrefix = &quot;/api/chat&quot;; // or any prefix you prefer
+});
+
+// Add to your existing app configuration
+app.MapBbQChatEndpoints();
+</code></pre>
+<p>Then integrate with your existing frontend (jQuery, MVC views, etc.) by calling the endpoints.</p>
+<p><strong>Pros</strong>:</p>
+<ul>
+<li>✅ Minimal changes to existing app</li>
+<li>✅ Reuse existing infrastructure</li>
+<li>✅ Gradual adoption</li>
+</ul>
+<p><strong>Cons</strong>:</p>
+<ul>
+<li>❌ May need to adapt to existing architecture</li>
+<li>❌ Limited if frontend is very old (no fetch/AJAX)</li>
+</ul>
+<hr>
+<h2 id="-mix-and-match">🔀 Mix-and-Match</h2>
+<p>You can combine approaches! For example:</p>
+<ul>
+<li><strong>Multi-platform</strong>: One .NET backend serving both Angular and React clients</li>
+<li><strong>Hybrid</strong>: Blazor Server for admin, React for public-facing chat</li>
+<li><strong>Microservices</strong>: Dedicated chat service (.NET) consumed by multiple frontend apps</li>
+</ul>
+<hr>
+<h2 id="-getting-started-steps">🚦 Getting Started Steps</h2>
+<h3 id="for-all-paths">For All Paths</h3>
+<ol>
+<li><strong>Install packages</strong> (NuGet and/or npm)</li>
+<li><strong>Configure chat client</strong> (OpenAI, Azure OpenAI, etc.)</li>
+<li><strong>Register services</strong> (<code>AddBbQChatWidgets</code>)</li>
+<li><strong>Map endpoints</strong> (<code>MapBbQChatEndpoints</code>)</li>
+<li><strong>Test with a simple message</strong> (use curl, Postman, or browser)</li>
+</ol>
+<h3 id="next-steps">Next Steps</h3>
+<ul>
+<li>📚 <strong><a href="GETTING_STARTED.html">Getting Started Guide</a></strong> - Detailed setup instructions</li>
+<li>🎨 <strong><a href="widgets/GALLERY.html">Widget Gallery</a></strong> - See all available widgets</li>
+<li>🔧 <strong><a href="examples/USE_CASES.html">Use Cases &amp; Tutorials</a></strong> - Real-world scenarios</li>
+<li>🧑‍💻 <strong><a href="../Sample/">Sample Projects</a></strong> - Working examples for each stack</li>
+</ul>
+<hr>
+<h2 id="-still-not-sure">💡 Still Not Sure?</h2>
+<p>Ask yourself:</p>
+<ol>
+<li><p><strong>Do I have a .NET backend?</strong></p>
+<ul>
+<li>Yes → Start with scenario #1, #2, or #3</li>
+<li>No → Go with scenario #4</li>
+</ul>
+</li>
+<li><p><strong>What's my frontend?</strong></p>
+<ul>
+<li>Angular → Scenario #2 (native components)</li>
+<li>React/Vue/Other → Scenario #1 (framework-agnostic)</li>
+<li>Blazor → Scenario #3 (full .NET)</li>
+<li>No preference → Try scenario #1 (most flexible)</li>
+</ul>
+</li>
+<li><p><strong>Do I want server-side or client-side rendering?</strong></p>
+<ul>
+<li>Server-side → Scenario #3 (Blazor Server)</li>
+<li>Client-side → Scenario #1 or #2</li>
+</ul>
+</li>
+<li><p><strong>Am I adding to an existing app or starting fresh?</strong></p>
+<ul>
+<li>Existing → Scenario #5 (extend)</li>
+<li>Fresh → Pick based on team skills (Scenario #1, #2, or #3)</li>
+</ul>
+</li>
+</ol>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/INTEGRATION_PATHS.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>

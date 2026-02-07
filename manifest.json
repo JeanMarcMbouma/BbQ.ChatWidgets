@@ -1336,6 +1336,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "docs_src/INTEGRATION_PATHS.md",
+      "output": {
+        ".html": {
+          "relative_path": "INTEGRATION_PATHS.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "docs_src/QUICK_REFERENCE.md",
       "output": {
         ".html": {
@@ -1536,6 +1546,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "docs_src/examples/USE_CASES.md",
+      "output": {
+        ".html": {
+          "relative_path": "examples/USE_CASES.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "docs_src/guides/CHAT_HISTORY_SUMMARIZATION.md",
       "output": {
         ".html": {
@@ -1633,6 +1653,16 @@
         },
         ".json": {
           "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/widgets/GALLERY.md",
+      "output": {
+        ".html": {
+          "relative_path": "widgets/GALLERY.html"
         }
       },
       "version": ""

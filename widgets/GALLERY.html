@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Widget Gallery | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Widget Gallery | BbQ.ChatWidgets ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="widget-gallery">Widget Gallery</h1>
+
+<p>A visual showcase of all built-in widgets in BbQ.ChatWidgets. Each widget is designed to be AI-driven - the LLM decides when and how to use them based on conversation context.</p>
+<h2 id="-interactive-action-widgets">🎯 Interactive Action Widgets</h2>
+<h3 id="buttonwidget">ButtonWidget</h3>
+<p><strong>Purpose</strong>: Single-click action with no input required</p>
+<p><strong>Use when</strong>: User needs to confirm, approve, retry, cancel, or trigger any immediate action</p>
+<p><strong>Example</strong>:</p>
+<pre><code class="lang-xml">&lt;widget&gt;
+{
+  &quot;type&quot;: &quot;button&quot;,
+  &quot;label&quot;: &quot;Confirm Order&quot;,
+  &quot;action&quot;: &quot;confirm_order&quot;
+}
+&lt;/widget&gt;
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li><code>label</code> (string) - Display text on the button</li>
+<li><code>action</code> (string) - Action identifier to trigger on click</li>
+</ul>
+<hr>
+<h3 id="cardwidget">CardWidget</h3>
+<p><strong>Purpose</strong>: Display rich content with optional image and call-to-action</p>
+<p><strong>Use when</strong>: Showcasing products, articles, recommendations, or any content with a preview</p>
+<p><strong>Example</strong>:</p>
+<pre><code class="lang-xml">&lt;widget&gt;
+{
+  &quot;type&quot;: &quot;card&quot;,
+  &quot;title&quot;: &quot;Premium Plan&quot;,
+  &quot;description&quot;: &quot;Unlimited access to all features&quot;,
+  &quot;imageUrl&quot;: &quot;https://example.com/premium.png&quot;,
+  &quot;label&quot;: &quot;Upgrade Now&quot;,
+  &quot;action&quot;: &quot;upgrade_plan&quot;
+}
+&lt;/widget&gt;
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li><code>title</code> (string) - Card heading</li>
+<li><code>description</code> (string, optional) - Supporting text</li>
+<li><code>imageUrl</code> (string, optional) - Preview image URL</li>
+<li><code>label</code> (string) - Button text</li>
+<li><code>action</code> (string) - Action identifier for button click</li>
+</ul>
+<hr>
+<h2 id="-form-container">📝 Form Container</h2>
+<h3 id="formwidget">FormWidget</h3>
+<p><strong>Purpose</strong>: Group multiple input widgets and submit them together</p>
+<p><strong>Use when</strong>: Collecting multiple pieces of information from the user</p>
+<p><strong>Example</strong>:</p>
+<pre><code class="lang-xml">&lt;widget&gt;
+{
+  &quot;type&quot;: &quot;form&quot;,
+  &quot;title&quot;: &quot;Contact Us&quot;,
+  &quot;action&quot;: &quot;submit_contact&quot;,
+  &quot;fields&quot;: [
+    {
+      &quot;name&quot;: &quot;userName&quot;,
+      &quot;label&quot;: &quot;Name&quot;,
+      &quot;type&quot;: &quot;input&quot;,
+      &quot;required&quot;: true,
+      &quot;validationHint&quot;: &quot;Your full name&quot;
+    },
+    {
+      &quot;name&quot;: &quot;message&quot;,
+      &quot;label&quot;: &quot;Message&quot;,
+      &quot;type&quot;: &quot;textarea&quot;,
+      &quot;required&quot;: true,
+      &quot;rows&quot;: 4
+    },
+    {
+      &quot;name&quot;: &quot;subscribe&quot;,
+      &quot;label&quot;: &quot;Subscribe to newsletter&quot;,
+      &quot;type&quot;: &quot;toggle&quot;,
+      &quot;required&quot;: false
+    }
+  ],
+  &quot;actions&quot;: [
+    {&quot;type&quot;: &quot;submit&quot;, &quot;label&quot;: &quot;Send Message&quot;},
+    {&quot;type&quot;: &quot;cancel&quot;, &quot;label&quot;: &quot;Cancel&quot;}
+  ]
+}
+&lt;/widget&gt;
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li><code>title</code> (string) - Form heading</li>
+<li><code>action</code> (string) - Action identifier for form submission</li>
+<li><code>fields</code> (array) - Array of form field definitions</li>
+<li><code>actions</code> (array) - Form actions (must include submit and cancel)</li>
+</ul>
+<p><strong>Important</strong>: All input widgets (Input, TextArea, Dropdown, MultiSelect, Slider, Toggle, DatePicker, FileUpload) <strong>must</strong> be placed inside a FormWidget.</p>
+<hr>
+<h2 id="-input-widgets-must-be-inside-formwidget">🔤 Input Widgets (Must be inside FormWidget)</h2>
+<h3 id="inputwidget">InputWidget</h3>
+<p><strong>Purpose</strong>: Single-line text input</p>
+<p><strong>Example</strong> (as form field):</p>
+<pre><code class="lang-xml">{
+  &quot;name&quot;: &quot;email&quot;,
+  &quot;label&quot;: &quot;Email&quot;,
+  &quot;type&quot;: &quot;input&quot;,
+  &quot;required&quot;: true,
+  &quot;placeholder&quot;: &quot;you@example.com&quot;
+}
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li><code>name</code> (string) - Field identifier for submission</li>
+<li><code>label</code> (string) - Field label</li>
+<li><code>type</code> (string) - Must be &quot;input&quot;</li>
+<li><code>required</code> (boolean) - Whether field is required</li>
+<li><code>placeholder</code> (string, optional) - Hint text</li>
+<li><code>validationHint</code> (string, optional) - Validation message</li>
+</ul>
+<hr>
+<h3 id="textareawidget">TextAreaWidget</h3>
+<p><strong>Purpose</strong>: Multi-line text input for longer content</p>
+<p><strong>Example</strong> (as form field):</p>
+<pre><code class="lang-xml">{
+  &quot;name&quot;: &quot;feedback&quot;,
+  &quot;label&quot;: &quot;Feedback&quot;,
+  &quot;type&quot;: &quot;textarea&quot;,
+  &quot;required&quot;: true,
+  &quot;rows&quot;: 5,
+  &quot;placeholder&quot;: &quot;Tell us more...&quot;
+}
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li><code>name</code> (string) - Field identifier</li>
+<li><code>label</code> (string) - Field label</li>
+<li><code>type</code> (string) - Must be &quot;textarea&quot;</li>
+<li><code>required</code> (boolean) - Whether field is required</li>
+<li><code>placeholder</code> (string, optional) - Hint text</li>
+<li><code>rows</code> (number, optional) - Number of visible lines</li>
+</ul>
+<hr>
+<h3 id="dropdownwidget">DropdownWidget</h3>
+<p><strong>Purpose</strong>: Select one option from a list</p>
+<p><strong>Example</strong> (as form field):</p>
+<pre><code class="lang-xml">{
+  &quot;name&quot;: &quot;country&quot;,
+  &quot;label&quot;: &quot;Country&quot;,
+  &quot;type&quot;: &quot;dropdown&quot;,
+  &quot;required&quot;: true,
+  &quot;options&quot;: [&quot;USA&quot;, &quot;Canada&quot;, &quot;UK&quot;, &quot;Germany&quot;]
+}
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li><code>name</code> (string) - Field identifier</li>
+<li><code>label</code> (string) - Field label</li>
+<li><code>type</code> (string) - Must be &quot;dropdown&quot;</li>
+<li><code>required</code> (boolean) - Whether field is required</li>
+<li><code>options</code> (array) - Array of option strings</li>
+</ul>
+<hr>
+<h3 id="multiselectwidget">MultiSelectWidget</h3>
+<p><strong>Purpose</strong>: Select multiple options from a list</p>
+<p><strong>Example</strong> (as form field):</p>
+<pre><code class="lang-xml">{
+  &quot;name&quot;: &quot;interests&quot;,
+  &quot;label&quot;: &quot;Interests&quot;,
+  &quot;type&quot;: &quot;multiselect&quot;,
+  &quot;required&quot;: false,
+  &quot;options&quot;: [&quot;Sports&quot;, &quot;Music&quot;, &quot;Technology&quot;, &quot;Travel&quot;]
+}
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li><code>name</code> (string) - Field identifier</li>
+<li><code>label</code> (string) - Field label</li>
+<li><code>type</code> (string) - Must be &quot;multiselect&quot;</li>
+<li><code>required</code> (boolean) - Whether field is required</li>
+<li><code>options</code> (array) - Array of option strings</li>
+</ul>
+<hr>
+<h3 id="sliderwidget">SliderWidget</h3>
+<p><strong>Purpose</strong>: Select a numeric value within a range</p>
+<p><strong>Example</strong> (as form field):</p>
+<pre><code class="lang-xml">{
+  &quot;name&quot;: &quot;budget&quot;,
+  &quot;label&quot;: &quot;Budget&quot;,
+  &quot;type&quot;: &quot;slider&quot;,
+  &quot;required&quot;: true,
+  &quot;min&quot;: 0,
+  &quot;max&quot;: 10000,
+  &quot;step&quot;: 100,
+  &quot;value&quot;: 5000
+}
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li><code>name</code> (string) - Field identifier</li>
+<li><code>label</code> (string) - Field label</li>
+<li><code>type</code> (string) - Must be &quot;slider&quot;</li>
+<li><code>required</code> (boolean) - Whether field is required</li>
+<li><code>min</code> (number) - Minimum value</li>
+<li><code>max</code> (number) - Maximum value</li>
+<li><code>step</code> (number, optional) - Increment step</li>
+<li><code>value</code> (number, optional) - Initial value</li>
+</ul>
+<hr>
+<h3 id="togglewidget">ToggleWidget</h3>
+<p><strong>Purpose</strong>: Boolean on/off switch</p>
+<p><strong>Example</strong> (as form field):</p>
+<pre><code class="lang-xml">{
+  &quot;name&quot;: &quot;notifications&quot;,
+  &quot;label&quot;: &quot;Enable notifications&quot;,
+  &quot;type&quot;: &quot;toggle&quot;,
+  &quot;required&quot;: false
+}
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li><code>name</code> (string) - Field identifier</li>
+<li><code>label</code> (string) - Field label</li>
+<li><code>type</code> (string) - Must be &quot;toggle&quot;</li>
+<li><code>required</code> (boolean) - Whether field is required</li>
+</ul>
+<hr>
+<h3 id="datepickerwidget">DatePickerWidget</h3>
+<p><strong>Purpose</strong>: Select a date from a calendar</p>
+<p><strong>Example</strong> (as form field):</p>
+<pre><code class="lang-xml">{
+  &quot;name&quot;: &quot;appointmentDate&quot;,
+  &quot;label&quot;: &quot;Appointment Date&quot;,
+  &quot;type&quot;: &quot;datepicker&quot;,
+  &quot;required&quot;: true,
+  &quot;minDate&quot;: &quot;2024-01-01&quot;,
+  &quot;maxDate&quot;: &quot;2024-12-31&quot;
+}
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li><code>name</code> (string) - Field identifier</li>
+<li><code>label</code> (string) - Field label</li>
+<li><code>type</code> (string) - Must be &quot;datepicker&quot;</li>
+<li><code>required</code> (boolean) - Whether field is required</li>
+<li><code>minDate</code> (string, optional) - Minimum date (YYYY-MM-DD)</li>
+<li><code>maxDate</code> (string, optional) - Maximum date (YYYY-MM-DD)</li>
+</ul>
+<hr>
+<h3 id="fileuploadwidget">FileUploadWidget</h3>
+<p><strong>Purpose</strong>: Select and upload one or more files</p>
+<p><strong>Example</strong> (as form field):</p>
+<pre><code class="lang-xml">{
+  &quot;name&quot;: &quot;documents&quot;,
+  &quot;label&quot;: &quot;Attach Documents&quot;,
+  &quot;type&quot;: &quot;fileupload&quot;,
+  &quot;required&quot;: false,
+  &quot;accept&quot;: &quot;.pdf,.doc,.docx&quot;
+}
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li><code>name</code> (string) - Field identifier</li>
+<li><code>label</code> (string) - Field label</li>
+<li><code>type</code> (string) - Must be &quot;fileupload&quot;</li>
+<li><code>required</code> (boolean) - Whether field is required</li>
+<li><code>accept</code> (string, optional) - Allowed file types (e.g., &quot;.pdf,.jpg,.png&quot;)</li>
+<li><code>multiple</code> (boolean, optional) - Allow multiple file selection</li>
+</ul>
+<hr>
+<h2 id="-informational-widgets">📊 Informational Widgets</h2>
+<h3 id="progressbarwidget">ProgressBarWidget</h3>
+<p><strong>Purpose</strong>: Show progress or completion status</p>
+<p><strong>Use when</strong>: Displaying upload progress, task completion, or any percentage-based status</p>
+<p><strong>Example</strong>:</p>
+<pre><code class="lang-xml">&lt;widget&gt;
+{
+  &quot;type&quot;: &quot;progressbar&quot;,
+  &quot;label&quot;: &quot;Upload Progress&quot;,
+  &quot;action&quot;: &quot;upload_status&quot;,
+  &quot;value&quot;: 75,
+  &quot;status&quot;: &quot;Uploading...&quot;
+}
+&lt;/widget&gt;
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li><code>label</code> (string) - Progress bar title</li>
+<li><code>action</code> (string) - Action identifier</li>
+<li><code>value</code> (number) - Progress percentage (0-100)</li>
+<li><code>status</code> (string, optional) - Status message</li>
+</ul>
+<hr>
+<h3 id="imagewidget">ImageWidget</h3>
+<p><strong>Purpose</strong>: Display a single image</p>
+<p><strong>Use when</strong>: Showing a photo, diagram, chart, or any visual content</p>
+<p><strong>Example</strong>:</p>
+<pre><code class="lang-xml">&lt;widget&gt;
+{
+  &quot;type&quot;: &quot;image&quot;,
+  &quot;label&quot;: &quot;Product Photo&quot;,
+  &quot;action&quot;: &quot;view_image&quot;,
+  &quot;imageUrl&quot;: &quot;https://example.com/product.jpg&quot;
+}
+&lt;/widget&gt;
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li><code>label</code> (string) - Image caption/alt text</li>
+<li><code>action</code> (string) - Action identifier</li>
+<li><code>imageUrl</code> (string) - URL of the image</li>
+</ul>
+<hr>
+<h3 id="imagecollectionwidget">ImageCollectionWidget</h3>
+<p><strong>Purpose</strong>: Display multiple images in a gallery</p>
+<p><strong>Use when</strong>: Showing multiple photos, a carousel, or a collection of visual content</p>
+<p><strong>Example</strong>:</p>
+<pre><code class="lang-xml">&lt;widget&gt;
+{
+  &quot;type&quot;: &quot;imagecollection&quot;,
+  &quot;label&quot;: &quot;Product Gallery&quot;,
+  &quot;action&quot;: &quot;view_gallery&quot;,
+  &quot;images&quot;: [
+    {
+      &quot;imageUrl&quot;: &quot;https://example.com/img1.jpg&quot;,
+      &quot;alt&quot;: &quot;Front view&quot;
+    },
+    {
+      &quot;imageUrl&quot;: &quot;https://example.com/img2.jpg&quot;,
+      &quot;alt&quot;: &quot;Side view&quot;
+    }
+  ]
+}
+&lt;/widget&gt;
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li><code>label</code> (string) - Gallery title</li>
+<li><code>action</code> (string) - Action identifier</li>
+<li><code>images</code> (array) - Array of ImageItem objects with <code>imageUrl</code> and optional <code>alt</code></li>
+</ul>
+<hr>
+<h3 id="themeswitcherwidget">ThemeSwitcherWidget</h3>
+<p><strong>Purpose</strong>: Let users change the UI theme (Light, Dark, Corporate, etc.)</p>
+<p><strong>Use when</strong>: Providing theme customization options</p>
+<p><strong>Example</strong>:</p>
+<pre><code class="lang-xml">&lt;widget&gt;
+{
+  &quot;type&quot;: &quot;themeswitcher&quot;,
+  &quot;label&quot;: &quot;Choose your theme&quot;,
+  &quot;action&quot;: &quot;change_theme&quot;,
+  &quot;themes&quot;: [&quot;light&quot;, &quot;dark&quot;, &quot;system&quot;]
+}
+&lt;/widget&gt;
+</code></pre>
+<p><strong>Properties</strong>:</p>
+<ul>
+<li><code>label</code> (string) - Widget heading</li>
+<li><code>action</code> (string) - Action identifier</li>
+<li><code>themes</code> (array) - Array of theme names (e.g., [&quot;light&quot;, &quot;dark&quot;, &quot;system&quot;])</li>
+</ul>
+<hr>
+<h2 id="-learn-more">📖 Learn More</h2>
+<ul>
+<li><strong><a href="WIDGET_TYPES.html">Widget Types Reference</a></strong> - Technical details for each widget</li>
+<li><strong><a href="../guides/CUSTOM_WIDGETS.html">Custom Widgets Guide</a></strong> - Build your own widgets</li>
+<li><strong><a href="../guides/CUSTOM_ACTION_HANDLERS.html">Action Handlers</a></strong> - Handle widget interactions</li>
+<li><strong><a href="../examples/USE_CASES.html">Use Cases &amp; Examples</a></strong> - Real-world scenarios</li>
+</ul>
+<h2 id="-try-it-out">🎨 Try It Out</h2>
+<p>Check out our live samples:</p>
+<ul>
+<li><a href="../../Sample/BbQ.ChatWidgets.Sample.Console/">Console Sample</a> - Command-line chat with widgets</li>
+<li><a href="../../Sample/BbQ.ChatWidgets.Sample.React/">React Sample</a> - Web UI with React</li>
+<li><a href="../../Sample/BbQ.ChatWidgets.Sample.Angular/">Angular Sample</a> - Angular app</li>
+<li><a href="../../Sample/BbQ.ChatWidgets.Sample.Blazor/">Blazor Sample</a> - Blazor Server app</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/widgets/GALLERY.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

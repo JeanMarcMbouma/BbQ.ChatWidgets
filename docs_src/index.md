@@ -22,9 +22,9 @@ BbQ.ChatWidgets bridges the gap between static AI text responses and interactive
 ## 🚀 Quick Start
 
 Get a working button widget in under 30 seconds! See quick start examples for:
-- [C# / .NET Server](../README.md#-30-second-demos)
-- [JavaScript / TypeScript Client](../README.md#-30-second-demos)
-- [Angular Client](../README.md#-30-second-demos)
+- [C# / .NET Server](README.md#30-second-demos)
+- [JavaScript / TypeScript Client](README.md#30-second-demos)
+- [Angular Client](README.md#30-second-demos)
 
 ## Navigation
 

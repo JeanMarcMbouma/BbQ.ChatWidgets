@@ -11,7 +11,13 @@ A visual showcase of all built-in widgets in BbQ.ChatWidgets. Each widget is des
 
 **Example**:
 ```xml
-<widget type="button" label="Confirm Order" action="confirm_order" />
+<widget>
+{
+  "type": "button",
+  "label": "Confirm Order",
+  "action": "confirm_order"
+}
+</widget>
 ```
 
 **Properties**:
@@ -27,12 +33,16 @@ A visual showcase of all built-in widgets in BbQ.ChatWidgets. Each widget is des
 
 **Example**:
 ```xml
-<widget type="card" 
-  title="Premium Plan" 
-  description="Unlimited access to all features" 
-  imageUrl="https://example.com/premium.png"
-  label="Upgrade Now"
-  action="upgrade_plan" />
+<widget>
+{
+  "type": "card",
+  "title": "Premium Plan",
+  "description": "Unlimited access to all features",
+  "imageUrl": "https://example.com/premium.png",
+  "label": "Upgrade Now",
+  "action": "upgrade_plan"
+}
+</widget>
 ```
 
 **Properties**:
@@ -53,20 +63,46 @@ A visual showcase of all built-in widgets in BbQ.ChatWidgets. Each widget is des
 
 **Example**:
 ```xml
-<widget type="form" 
-  title="Contact Us" 
-  submitLabel="Send Message" 
-  action="submit_contact">
-  <widget type="input" label="Name" name="userName" placeholder="Your name" />
-  <widget type="textarea" label="Message" name="message" rows="4" />
-  <widget type="toggle" label="Subscribe to newsletter" name="subscribe" />
+<widget>
+{
+  "type": "form",
+  "title": "Contact Us",
+  "action": "submit_contact",
+  "fields": [
+    {
+      "name": "userName",
+      "label": "Name",
+      "type": "input",
+      "required": true,
+      "validationHint": "Your full name"
+    },
+    {
+      "name": "message",
+      "label": "Message",
+      "type": "textarea",
+      "required": true,
+      "rows": 4
+    },
+    {
+      "name": "subscribe",
+      "label": "Subscribe to newsletter",
+      "type": "toggle",
+      "required": false
+    }
+  ],
+  "actions": [
+    {"type": "submit", "label": "Send Message"},
+    {"type": "cancel", "label": "Cancel"}
+  ]
+}
 </widget>
 ```
 
 **Properties**:
 - `title` (string) - Form heading
-- `submitLabel` (string) - Text for submit button
 - `action` (string) - Action identifier for form submission
+- `fields` (array) - Array of form field definitions
+- `actions` (array) - Form actions (must include submit and cancel)
 
 **Important**: All input widgets (Input, TextArea, Dropdown, MultiSelect, Slider, Toggle, DatePicker, FileUpload) **must** be placed inside a FormWidget.
 
@@ -77,79 +113,120 @@ A visual showcase of all built-in widgets in BbQ.ChatWidgets. Each widget is des
 ### InputWidget
 **Purpose**: Single-line text input
 
-**Example**:
+**Example** (as form field):
 ```xml
-<widget type="input" label="Email" name="email" placeholder="you@example.com" />
+{
+  "name": "email",
+  "label": "Email",
+  "type": "input",
+  "required": true,
+  "placeholder": "you@example.com"
+}
 ```
 
 **Properties**:
-- `label` (string) - Field label
 - `name` (string) - Field identifier for submission
+- `label` (string) - Field label
+- `type` (string) - Must be "input"
+- `required` (boolean) - Whether field is required
 - `placeholder` (string, optional) - Hint text
-- `value` (string, optional) - Pre-filled value
+- `validationHint` (string, optional) - Validation message
 
 ---
 
 ### TextAreaWidget
 **Purpose**: Multi-line text input for longer content
 
-**Example**:
+**Example** (as form field):
 ```xml
-<widget type="textarea" label="Feedback" name="feedback" rows="5" placeholder="Tell us more..." />
+{
+  "name": "feedback",
+  "label": "Feedback",
+  "type": "textarea",
+  "required": true,
+  "rows": 5,
+  "placeholder": "Tell us more..."
+}
 ```
 
 **Properties**:
-- `label` (string) - Field label
 - `name` (string) - Field identifier
+- `label` (string) - Field label
+- `type` (string) - Must be "textarea"
+- `required` (boolean) - Whether field is required
 - `placeholder` (string, optional) - Hint text
 - `rows` (number, optional) - Number of visible lines
-- `value` (string, optional) - Pre-filled value
 
 ---
 
 ### DropdownWidget
 **Purpose**: Select one option from a list
 
-**Example**:
+**Example** (as form field):
 ```xml
-<widget type="dropdown" label="Country" name="country" options="USA,Canada,UK,Germany" />
+{
+  "name": "country",
+  "label": "Country",
+  "type": "dropdown",
+  "required": true,
+  "options": ["USA", "Canada", "UK", "Germany"]
+}
 ```
 
 **Properties**:
-- `label` (string) - Field label
 - `name` (string) - Field identifier
-- `options` (string) - Comma-separated list or JSON array
-- `value` (string, optional) - Pre-selected value
+- `label` (string) - Field label
+- `type` (string) - Must be "dropdown"
+- `required` (boolean) - Whether field is required
+- `options` (array) - Array of option strings
 
 ---
 
 ### MultiSelectWidget
 **Purpose**: Select multiple options from a list
 
-**Example**:
+**Example** (as form field):
 ```xml
-<widget type="multiselect" label="Interests" name="interests" options="Sports,Music,Technology,Travel" />
+{
+  "name": "interests",
+  "label": "Interests",
+  "type": "multiselect",
+  "required": false,
+  "options": ["Sports", "Music", "Technology", "Travel"]
+}
 ```
 
 **Properties**:
-- `label` (string) - Field label
 - `name` (string) - Field identifier
-- `options` (string) - Comma-separated list or JSON array
-- `values` (array, optional) - Pre-selected values
+- `label` (string) - Field label
+- `type` (string) - Must be "multiselect"
+- `required` (boolean) - Whether field is required
+- `options` (array) - Array of option strings
 
 ---
 
 ### SliderWidget
 **Purpose**: Select a numeric value within a range
 
-**Example**:
+**Example** (as form field):
 ```xml
-<widget type="slider" label="Budget" name="budget" min="0" max="10000" step="100" value="5000" />
+{
+  "name": "budget",
+  "label": "Budget",
+  "type": "slider",
+  "required": true,
+  "min": 0,
+  "max": 10000,
+  "step": 100,
+  "value": 5000
+}
 ```
 
 **Properties**:
-- `label` (string) - Field label
 - `name` (string) - Field identifier
+- `label` (string) - Field label
+- `type` (string) - Must be "slider"
+- `required` (boolean) - Whether field is required
 - `min` (number) - Minimum value
 - `max` (number) - Maximum value
 - `step` (number, optional) - Increment step
@@ -160,44 +237,68 @@ A visual showcase of all built-in widgets in BbQ.ChatWidgets. Each widget is des
 ### ToggleWidget
 **Purpose**: Boolean on/off switch
 
-**Example**:
+**Example** (as form field):
 ```xml
-<widget type="toggle" label="Enable notifications" name="notifications" />
+{
+  "name": "notifications",
+  "label": "Enable notifications",
+  "type": "toggle",
+  "required": false
+}
 ```
 
 **Properties**:
-- `label` (string) - Field label
 - `name` (string) - Field identifier
-- `value` (boolean, optional) - Initial state (true/false)
+- `label` (string) - Field label
+- `type` (string) - Must be "toggle"
+- `required` (boolean) - Whether field is required
 
 ---
 
 ### DatePickerWidget
 **Purpose**: Select a date from a calendar
 
-**Example**:
+**Example** (as form field):
 ```xml
-<widget type="datepicker" label="Appointment Date" name="appointmentDate" />
+{
+  "name": "appointmentDate",
+  "label": "Appointment Date",
+  "type": "datepicker",
+  "required": true,
+  "minDate": "2024-01-01",
+  "maxDate": "2024-12-31"
+}
 ```
 
 **Properties**:
-- `label` (string) - Field label
 - `name` (string) - Field identifier
-- `value` (string, optional) - Initial date (ISO format)
+- `label` (string) - Field label
+- `type` (string) - Must be "datepicker"
+- `required` (boolean) - Whether field is required
+- `minDate` (string, optional) - Minimum date (YYYY-MM-DD)
+- `maxDate` (string, optional) - Maximum date (YYYY-MM-DD)
 
 ---
 
 ### FileUploadWidget
 **Purpose**: Select and upload one or more files
 
-**Example**:
+**Example** (as form field):
 ```xml
-<widget type="fileupload" label="Attach Documents" name="documents" accept=".pdf,.doc,.docx" />
+{
+  "name": "documents",
+  "label": "Attach Documents",
+  "type": "fileupload",
+  "required": false,
+  "accept": ".pdf,.doc,.docx"
+}
 ```
 
 **Properties**:
-- `label` (string) - Field label
 - `name` (string) - Field identifier
+- `label` (string) - Field label
+- `type` (string) - Must be "fileupload"
+- `required` (boolean) - Whether field is required
 - `accept` (string, optional) - Allowed file types (e.g., ".pdf,.jpg,.png")
 - `multiple` (boolean, optional) - Allow multiple file selection
 
@@ -212,11 +313,20 @@ A visual showcase of all built-in widgets in BbQ.ChatWidgets. Each widget is des
 
 **Example**:
 ```xml
-<widget type="progressbar" label="Upload Progress" value="75" status="Uploading..." />
+<widget>
+{
+  "type": "progressbar",
+  "label": "Upload Progress",
+  "action": "upload_status",
+  "value": 75,
+  "status": "Uploading..."
+}
+</widget>
 ```
 
 **Properties**:
 - `label` (string) - Progress bar title
+- `action` (string) - Action identifier
 - `value` (number) - Progress percentage (0-100)
 - `status` (string, optional) - Status message
 
@@ -229,13 +339,20 @@ A visual showcase of all built-in widgets in BbQ.ChatWidgets. Each widget is des
 
 **Example**:
 ```xml
-<widget type="image" label="Product Photo" imageUrl="https://example.com/product.jpg" />
+<widget>
+{
+  "type": "image",
+  "label": "Product Photo",
+  "action": "view_image",
+  "imageUrl": "https://example.com/product.jpg"
+}
+</widget>
 ```
 
 **Properties**:
 - `label` (string) - Image caption/alt text
+- `action` (string) - Action identifier
 - `imageUrl` (string) - URL of the image
-- `action` (string, optional) - Action triggered when image is clicked
 
 ---
 
@@ -246,18 +363,29 @@ A visual showcase of all built-in widgets in BbQ.ChatWidgets. Each widget is des
 
 **Example**:
 ```xml
-<widget type="imagecollection" label="Product Gallery">
-  <images>
-    [{"url":"https://example.com/img1.jpg","caption":"Front view"},
-     {"url":"https://example.com/img2.jpg","caption":"Side view"}]
-  </images>
+<widget>
+{
+  "type": "imagecollection",
+  "label": "Product Gallery",
+  "action": "view_gallery",
+  "images": [
+    {
+      "imageUrl": "https://example.com/img1.jpg",
+      "alt": "Front view"
+    },
+    {
+      "imageUrl": "https://example.com/img2.jpg",
+      "alt": "Side view"
+    }
+  ]
+}
 </widget>
 ```
 
 **Properties**:
 - `label` (string) - Gallery title
-- `images` (array) - Array of image objects with `url` and optional `caption`
-- `action` (string, optional) - Action triggered when an image is clicked
+- `action` (string) - Action identifier
+- `images` (array) - Array of ImageItem objects with `imageUrl` and optional `alt`
 
 ---
 
@@ -268,11 +396,20 @@ A visual showcase of all built-in widgets in BbQ.ChatWidgets. Each widget is des
 
 **Example**:
 ```xml
-<widget type="themeswitcher" label="Choose your theme" />
+<widget>
+{
+  "type": "themeswitcher",
+  "label": "Choose your theme",
+  "action": "change_theme",
+  "themes": ["light", "dark", "system"]
+}
+</widget>
 ```
 
 **Properties**:
 - `label` (string) - Widget heading
+- `action` (string) - Action identifier
+- `themes` (array) - Array of theme names (e.g., ["light", "dark", "system"])
 
 ---
 

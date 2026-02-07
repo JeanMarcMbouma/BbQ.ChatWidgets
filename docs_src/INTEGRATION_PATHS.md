@@ -35,6 +35,9 @@ using BbQ.ChatWidgets.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure chat client with function invocation
+var apiKey = builder.Configuration["OpenAI:ApiKey"] 
+    ?? throw new InvalidOperationException("OpenAI:ApiKey not configured");
+    
 IChatClient chatClient = new ChatClientBuilder(
     new OpenAI.Chat.ChatClient("gpt-4o-mini", apiKey).AsIChatClient())
     .UseFunctionInvocation()

@@ -57,14 +57,13 @@ public class SupportClassifier : IClassifier<UserIntent>
             Reply with ONLY the category name.
             """;
 
-        var response = await _chatClient.CompleteAsync(
-            new ChatMessage[] {
-                new(ChatRole.System, systemPrompt),
-                new(ChatRole.User, message)
-            },
-            cancellationToken: cancellationToken);
+        var options = new ChatOptions { ToolMode = ChatToolMode.None };
+        var response = await _chatClient.GetResponseAsync(
+            [new ChatMessage(ChatRole.User, systemPrompt + "\n\nUser message: " + message)],
+            options,
+            cancellationToken);
 
-        return Enum.Parse<UserIntent>(response.Message.Text.Trim(), ignoreCase: true);
+        return Enum.Parse<UserIntent>(response.Text.Trim(), ignoreCase: true);
     }
 }
 ```
@@ -74,42 +73,60 @@ public class SupportClassifier : IClassifier<UserIntent>
 ```csharp
 public class TechnicalSupportAgent : IAgent
 {
-    private readonly ChatWidgetService _widgetService;
+    private readonly IChatClient _chatClient;
+    private readonly IThreadService _threadService;
     
-    public async Task<string> ProcessAsync(ChatRequest request, CancellationToken cancellationToken)
+    public async Task<Outcome<ChatTurn>> InvokeAsync(ChatRequest request, CancellationToken cancellationToken)
     {
-        // Access the classified intent from metadata
-        var context = request.Context.Get<InterAgentCommunicationContext>();
+        // Get user message from metadata
+        var userMessage = request.Metadata.TryGetValue("user_message", out var msg) 
+            ? msg?.ToString() ?? string.Empty 
+            : string.Empty;
         
         var systemPrompt = """
             You are a technical support specialist. Help users troubleshoot issues.
-            You can show buttons for common actions: 'reset_password', 'clear_cache', 'contact_tech'.
+            Use buttons for common actions like 'reset_password', 'clear_cache', 'contact_tech'.
+            Wrap widgets in <widget>...</widget> tags with JSON inside.
             """;
         
-        return await _widgetService.GetResponseAsync(
-            request.Message,
-            request.ThreadId,
-            systemPrompt,
-            cancellationToken);
+        var response = await _chatClient.GetResponseAsync(
+            [
+                new ChatMessage(ChatRole.System, systemPrompt),
+                new ChatMessage(ChatRole.User, userMessage)
+            ],
+            cancellationToken: cancellationToken);
+        
+        var turn = new ChatTurn(response.Text, request.ThreadId);
+        return Outcome.Success(turn);
     }
 }
 
 public class BillingAgent : IAgent
 {
-    private readonly ChatWidgetService _widgetService;
+    private readonly IChatClient _chatClient;
+    private readonly IThreadService _threadService;
     
-    public async Task<string> ProcessAsync(ChatRequest request, CancellationToken cancellationToken)
+    public async Task<Outcome<ChatTurn>> InvokeAsync(ChatRequest request, CancellationToken cancellationToken)
     {
+        var userMessage = request.Metadata.TryGetValue("user_message", out var msg) 
+            ? msg?.ToString() ?? string.Empty 
+            : string.Empty;
+        
         var systemPrompt = """
             You are a billing specialist. Help with invoices, payments, and subscriptions.
-            You can show buttons for: 'view_invoices', 'update_payment', 'cancel_subscription'.
+            Use buttons for: 'view_invoices', 'update_payment', 'cancel_subscription'.
+            Wrap widgets in <widget>...</widget> tags with JSON inside.
             """;
         
-        return await _widgetService.GetResponseAsync(
-            request.Message,
-            request.ThreadId,
-            systemPrompt,
-            cancellationToken);
+        var response = await _chatClient.GetResponseAsync(
+            [
+                new ChatMessage(ChatRole.System, systemPrompt),
+                new ChatMessage(ChatRole.User, userMessage)
+            ],
+            cancellationToken: cancellationToken);
+        
+        var turn = new ChatTurn(response.Text, request.ThreadId);
+        return Outcome.Success(turn);
     }
 }
 ```
@@ -118,23 +135,47 @@ public class BillingAgent : IAgent
 
 ```csharp
 // In Program.cs
-services.AddTriageAgentSystem<UserIntent>(triage => 
-{
-    triage.WithClassifier<SupportClassifier>();
-    
-    triage.RegisterAgent(UserIntent.TechnicalSupport, sp => 
-        sp.GetRequiredService<TechnicalSupportAgent>());
-    
-    triage.RegisterAgent(UserIntent.BillingInquiry, sp => 
-        sp.GetRequiredService<BillingAgent>());
-    
-    triage.RegisterAgent(UserIntent.GeneralQuestion, sp => 
-        sp.GetRequiredService<GeneralAgent>());
-});
+// 1. Register the classifier
+services.AddScoped<IClassifier<UserIntent>, SupportClassifier>();
 
+// 2. Register specialized agents
 services.AddScoped<TechnicalSupportAgent>();
 services.AddScoped<BillingAgent>();
 services.AddScoped<GeneralAgent>();
+
+// 3. Register agent registry and map agents
+services.AddSingleton<IAgentRegistry>(sp =>
+{
+    var registry = new AgentRegistry();
+    registry.Register("tech-support", sp.GetRequiredService<TechnicalSupportAgent>());
+    registry.Register("billing", sp.GetRequiredService<BillingAgent>());
+    registry.Register("general", sp.GetRequiredService<GeneralAgent>());
+    return registry;
+});
+
+// 4. Register triage agent with routing
+services.AddScoped<IAgent>(sp =>
+{
+    var classifier = sp.GetRequiredService<IClassifier<UserIntent>>();
+    var registry = sp.GetRequiredService<IAgentRegistry>();
+    var threadService = sp.GetService<IThreadService>();
+    
+    Func<UserIntent, string?> routingMapping = classification => classification switch
+    {
+        UserIntent.TechnicalSupport => "tech-support",
+        UserIntent.BillingInquiry => "billing",
+        UserIntent.GeneralQuestion => "general",
+        _ => "general"  // fallback
+    };
+    
+    return new TriageAgent<UserIntent>(
+        classifier,
+        registry,
+        routingMapping,
+        fallbackAgentName: "general",
+        threadService: threadService
+    );
+});
 ```
 
 #### Step 5: Use the Triage Agent
@@ -144,13 +185,18 @@ services.AddScoped<GeneralAgent>();
 app.MapPost("/api/chat/support", async (
     string message,
     string threadId,
-    TriageAgent<UserIntent> triageAgent) =>
+    HttpContext httpContext,
+    IAgent triageAgent) =>
 {
-    var result = await triageAgent.ProcessAsync(
-        new ChatRequest(message, threadId),
-        CancellationToken.None);
+    // Build request with metadata
+    var chatRequest = new ChatRequest(threadId, httpContext.RequestServices);
+    chatRequest.Metadata["user_message"] = message;
     
-    return Results.Ok(result);
+    var result = await triageAgent.InvokeAsync(chatRequest, CancellationToken.None);
+    
+    return result.IsSuccess 
+        ? Results.Ok(result.Value) 
+        : Results.Problem(result.ErrorMessage);
 });
 ```
 
@@ -230,7 +276,13 @@ public class ContactFormHandler : IActionWidgetActionHandler<ContactFormAction, 
         return $"""
             ✅ Thank you, {payload.Name}! We've received your message and will get back to you soon.
             
-            <widget type="button" label="Submit Another" action="new_contact_form" />
+            <widget>
+            {{
+                "type": "button",
+                "label": "Submit Another",
+                "action": "new_contact_form"
+            }}
+            </widget>
             """;
     }
 }
@@ -259,11 +311,22 @@ services.AddScoped<ContactFormHandler>();
 When the user says "I want to contact support" or "Show me a contact form", the LLM will generate:
 
 ```xml
-<widget type="form" title="Contact Us" submitLabel="Send Message" action="submit_contact">
-  <widget type="input" label="Name" name="Name" placeholder="Your full name" />
-  <widget type="input" label="Email" name="Email" placeholder="you@example.com" />
-  <widget type="textarea" label="Message" name="Message" rows="4" placeholder="How can we help?" />
-  <widget type="toggle" label="Subscribe to newsletter" name="Subscribe" />
+<widget>
+{
+  "type": "form",
+  "title": "Contact Us",
+  "action": "submit_contact",
+  "fields": [
+    {"name": "Name", "label": "Name", "type": "input", "required": true, "placeholder": "Your full name"},
+    {"name": "Email", "label": "Email", "type": "input", "required": true, "placeholder": "you@example.com"},
+    {"name": "Message", "label": "Message", "type": "textarea", "required": true, "rows": 4, "placeholder": "How can we help?"},
+    {"name": "Subscribe", "label": "Subscribe to newsletter", "type": "toggle", "required": false}
+  ],
+  "actions": [
+    {"type": "submit", "label": "Send Message"},
+    {"type": "cancel", "label": "Cancel"}
+  ]
+}
 </widget>
 ```
 
@@ -500,8 +563,20 @@ public class ApproveHandler : IActionWidgetActionHandler<ApproveAction, ApproveP
         return """
             ✅ Request approved!
             
-            <widget type="button" label="View Details" action="view_details" />
-            <widget type="button" label="Notify User" action="send_notification" />
+            <widget>
+            {
+                "type": "button",
+                "label": "View Details",
+                "action": "view_details"
+            }
+            </widget>
+            <widget>
+            {
+                "type": "button",
+                "label": "Notify User",
+                "action": "send_notification"
+            }
+            </widget>
             """;
     }
 }
@@ -528,10 +603,21 @@ public class SelectPlanHandler : IActionWidgetActionHandler<SelectPlanAction, Se
         return $"""
             You've selected the **{payload.PlanName}** plan at ${payload.Price}/month.
             
-            <widget type="form" title="Complete Purchase" submitLabel="Confirm" action="confirm_purchase">
-              <widget type="input" label="Card Number" name="cardNumber" placeholder="1234 5678 9012 3456" />
-              <widget type="input" label="Expiry" name="expiry" placeholder="MM/YY" />
-              <widget type="input" label="CVV" name="cvv" placeholder="123" />
+            <widget>
+            {{
+                "type": "form",
+                "title": "Complete Purchase",
+                "action": "confirm_purchase",
+                "fields": [
+                    {{"name": "cardNumber", "label": "Card Number", "type": "input", "required": true, "placeholder": "1234 5678 9012 3456"}},
+                    {{"name": "expiry", "label": "Expiry", "type": "input", "required": true, "placeholder": "MM/YY"}},
+                    {{"name": "cvv", "label": "CVV", "type": "input", "required": true, "placeholder": "123"}}
+                ],
+                "actions": [
+                    {{"type": "submit", "label": "Confirm"}},
+                    {{"type": "cancel", "label": "Cancel"}}
+                ]
+            }}
             </widget>
             """;
     }
@@ -549,19 +635,25 @@ public class ShowPlansHandler : IActionWidgetActionHandler<ShowPlansAction, Show
         return """
             Choose your plan:
             
-            <widget type="card" 
-              title="Basic" 
-              description="$9/month" 
-              label="Select" 
-              action="select_plan" 
-              payload='{"PlanId":"basic","PlanName":"Basic","Price":9}' />
+            <widget>
+            {
+                "type": "card",
+                "title": "Basic",
+                "description": "$9/month",
+                "label": "Select",
+                "action": "select_plan"
+            }
+            </widget>
             
-            <widget type="card" 
-              title="Pro" 
-              description="$29/month" 
-              label="Select" 
-              action="select_plan" 
-              payload='{"PlanId":"pro","PlanName":"Pro","Price":29}' />
+            <widget>
+            {
+                "type": "card",
+                "title": "Pro",
+                "description": "$29/month",
+                "label": "Select",
+                "action": "select_plan"
+            }
+            </widget>
             """;
     }
 }
@@ -578,7 +670,13 @@ public class ConfirmPurchaseHandler : IActionWidgetActionHandler<ConfirmPurchase
         return """
             🎉 Payment successful! Welcome to the Pro plan.
             
-            <widget type="button" label="Go to Dashboard" action="open_dashboard" />
+            <widget>
+            {
+                "type": "button",
+                "label": "Go to Dashboard",
+                "action": "open_dashboard"
+            }
+            </widget>
             """;
     }
 }
@@ -615,8 +713,20 @@ public class PaymentHandler : IActionWidgetActionHandler<PaymentAction, PaymentP
             return $"""
                 ❌ Payment failed: {ex.Message}
                 
-                <widget type="button" label="Try Again" action="retry_payment" />
-                <widget type="button" label="Contact Support" action="contact_support" />
+                <widget>
+                {{
+                    "type": "button",
+                    "label": "Try Again",
+                    "action": "retry_payment"
+                }}
+                </widget>
+                <widget>
+                {{
+                    "type": "button",
+                    "label": "Contact Support",
+                    "action": "contact_support"
+                }}
+                </widget>
                 """;
         }
     }

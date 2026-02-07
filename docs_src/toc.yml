@@ -2,6 +2,8 @@
   href: index.md
 - name: Getting Started
   href: GETTING_STARTED.md
+- name: Integration Paths
+  href: INTEGRATION_PATHS.md
 - name: Architecture
   href: ARCHITECTURE.md
 - name: Quick Reference

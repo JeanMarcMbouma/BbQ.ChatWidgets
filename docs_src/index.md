@@ -19,14 +19,45 @@ BbQ.ChatWidgets bridges the gap between static AI text responses and interactive
 - **Triage Agent**: Intelligent request routing and intent classification.
 - **Extensible**: Easily create and register your own custom widgets and action handlers.
 
+## 🚀 Quick Start
+
+Get a working button widget in under 30 seconds! See quick start examples for:
+- [C# / .NET Server](../README.md#-30-second-demos)
+- [JavaScript / TypeScript Client](../README.md#-30-second-demos)
+- [Angular Client](../README.md#-30-second-demos)
+
 ## Navigation
 
-- [Getting Started](GETTING_STARTED.md) - Get up and running in minutes.
-- [Architecture Overview](ARCHITECTURE.md) - Understand how the pieces fit together.
-- [Guides](guides/README.md) - In-depth tutorials on configuration, custom widgets, and more.
-- [Examples](examples/README.md) - Real-world implementation patterns.
-- [Widget Catalog](widgets/README.md) - Explore the built-in widget library.
-- [API Reference (.NET)](api/README.md) - Detailed .NET API documentation.
-- [API Reference (JavaScript)](js/index.html) - JavaScript/TypeScript API documentation.
-- [Quick Reference](QUICK_REFERENCE.md) - A handy cheat sheet for endpoints and types.
+### Getting Started
+- **[Getting Started Guide](GETTING_STARTED.md)** - Complete setup walkthrough
+- **[Integration Paths](INTEGRATION_PATHS.md)** - Choose the right approach for your stack
+- **[Architecture Overview](ARCHITECTURE.md)** - Understand how the pieces fit together
 
+### Tutorials & Examples
+- **[Use Cases & Tutorials](examples/USE_CASES.md)** - Real-world scenarios with step-by-step code
+  - Support/Triage Bot
+  - Form-Based Chat
+  - Streaming/SSE Usage
+  - Widget Actions & Interactions
+- **[Examples](examples/README.md)** - Implementation patterns and code samples
+
+### Widgets
+- **[Widget Gallery](widgets/GALLERY.md)** - Visual showcase of all 14 built-in widgets
+- **[Widget Catalog](widgets/README.md)** - Technical widget documentation
+- **[Widget Types Reference](widgets/WIDGET_TYPES.md)** - Detailed widget specifications
+
+### Advanced Guides
+- **[Guides](guides/README.md)** - In-depth tutorials
+  - Custom Widgets
+  - Action Handlers
+  - Chat History Summarization
+  - Configuration Options
+
+### API Reference
+- **[.NET API Reference](api/README.md)** - Detailed .NET/C# API documentation
+- **[JavaScript/TypeScript API](js/index.html)** - Client library documentation
+- **[Quick Reference](QUICK_REFERENCE.md)** - Cheat sheet for endpoints and types
+
+### Contributing
+- **[Contributing Guide](contributing/README.md)** - How to contribute to the project
+- **[Changelog](../CHANGELOG.md)** - Version history and release notes

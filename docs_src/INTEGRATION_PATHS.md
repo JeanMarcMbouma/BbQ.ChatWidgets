@@ -251,7 +251,7 @@ interface MessageRequest {
 
 interface ChatTurn {
   content: string;
-  widgets?: Widget[];
+  widgets?: Widget[]; // See @bbq-chat/widgets for Widget type definitions
   threadId: string;
 }
 

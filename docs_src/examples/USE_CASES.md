@@ -227,11 +227,11 @@ public class ContactFormHandler : IActionWidgetActionHandler<ContactFormAction, 
         await Task.Delay(500, cancellationToken);
         
         // Return confirmation with a button
-        return """
-            ✅ Thank you, {Name}! We've received your message and will get back to you soon.
+        return $"""
+            ✅ Thank you, {payload.Name}! We've received your message and will get back to you soon.
             
             <widget type="button" label="Submit Another" action="new_contact_form" />
-            """.Replace("{Name}", payload.Name);
+            """;
     }
 }
 ```

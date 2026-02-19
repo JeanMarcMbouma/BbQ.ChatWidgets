@@ -8,3 +8,4 @@ Use this folder for how-to articles that extend BbQ.ChatWidgets. Each guide belo
 - [Custom AI Tools](CUSTOM_AI_TOOLS.md)
 - [Custom Actions](CUSTOM_ACTION_HANDLERS.md)
 - [Typed Action Handlers](TYPED_ACTION_HANDLERS.md)
+- [Triage Agent System](TRIAGE_AGENT.md)

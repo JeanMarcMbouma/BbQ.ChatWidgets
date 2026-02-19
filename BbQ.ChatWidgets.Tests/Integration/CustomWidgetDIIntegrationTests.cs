@@ -54,6 +54,9 @@ public class CustomWidgetDIIntegrationTests
 
         var provider = services.BuildServiceProvider();
 
+        // Resolve the registry to ensure SetCustomWidgetRegistry is called before deserializing.
+        provider.GetRequiredService<IWidgetRegistry>();
+
         // Act
         var json = """{"type":"testdirating","label":"Rate","action":"submit","maxRating":5}""";
         var options = Serialization.Default;
@@ -163,7 +166,9 @@ public class CustomWidgetDIIntegrationTests
 
 
         var provider = services.BuildServiceProvider();
-        var registry = provider.GetService<IWidgetRegistry>();
+
+        // Resolve the registry to ensure SetCustomWidgetRegistry is called before deserializing.
+        provider.GetRequiredService<IWidgetRegistry>();
 
         // Act - Deserialize built-in widget
         var builtInJson = """{"type":"button","label":"Click","action":"submit"}""";

@@ -12,6 +12,7 @@ namespace BbQ.ChatWidgets.Tests.Integration;
 /// <summary>
 /// Integration tests for BbQ.ChatWidgets service registration and composition.
 /// </summary>
+[Collection("WidgetIntegration")]
 public class ServiceCollectionIntegrationTests
 {
     [Fact]

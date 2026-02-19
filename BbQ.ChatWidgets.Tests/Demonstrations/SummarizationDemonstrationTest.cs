@@ -12,6 +12,7 @@ namespace BbQ.ChatWidgets.Tests.Demonstrations;
 /// <summary>
 /// Demonstration test showing chat history summarization in action.
 /// </summary>
+[Collection("WidgetIntegration")]
 public class SummarizationDemonstrationTest
 {
     private readonly ITestOutputHelper _output;

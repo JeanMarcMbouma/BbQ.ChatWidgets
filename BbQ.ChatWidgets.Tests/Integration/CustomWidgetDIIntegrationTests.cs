@@ -10,6 +10,7 @@ namespace BbQ.ChatWidgets.Tests.Integration;
 /// <summary>
 /// Integration tests for custom widget support setup and usage.
 /// </summary>
+[Collection("WidgetIntegration")]
 public class CustomWidgetDIIntegrationTests
 {
     

@@ -11,6 +11,7 @@ namespace BbQ.ChatWidgets.Tests.Integration;
 /// <summary>
 /// Integration tests for chat history summarization with ChatWidgetService.
 /// </summary>
+[Collection("WidgetIntegration")]
 public class SummarizationIntegrationTests
 {
     [Fact]

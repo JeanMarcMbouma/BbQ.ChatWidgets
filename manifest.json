@@ -448,7 +448,35 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Agents.AgentRegistry",
-      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.AgentRegistry.yml\" sourcestartlinenumber=\"1\">Default implementation of the agent registry.</p>\n"
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.AgentRegistry.yml\" sourcestartlinenumber=\"1\">Default implementation of the agent registry backed by the dependency injection container.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.AgentRegistryOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.AgentRegistryOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.AgentRegistryOptions",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.AgentRegistryOptions.yml\" sourcestartlinenumber=\"1\">Options for configuring the agent registry.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.yml\" sourcestartlinenumber=\"1\">Extension methods for registering agents in the service collection.</p>\n"
     },
     {
       "type": "ManagedReference",

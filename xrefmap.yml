@@ -1017,21 +1017,6 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.HasAgent
   fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.HasAgent
   nameWithType: IAgentRegistry.HasAgent
-- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register(System.String,BbQ.ChatWidgets.Agents.Abstractions.IAgent)
-  name: Register(string, IAgent)
-  href: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.html#BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_Register_System_String_BbQ_ChatWidgets_Agents_Abstractions_IAgent_
-  commentId: M:BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register(System.String,BbQ.ChatWidgets.Agents.Abstractions.IAgent)
-  name.vb: Register(String, IAgent)
-  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register(string, BbQ.ChatWidgets.Agents.Abstractions.IAgent)
-  fullName.vb: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register(String, BbQ.ChatWidgets.Agents.Abstractions.IAgent)
-  nameWithType: IAgentRegistry.Register(string, IAgent)
-  nameWithType.vb: IAgentRegistry.Register(String, IAgent)
-- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register*
-  name: Register
-  href: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.html#BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_Register_
-  commentId: Overload:BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register
-  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register
-  nameWithType: IAgentRegistry.Register
 - uid: BbQ.ChatWidgets.Agents.Abstractions.IClassifier`1
   name: IClassifier<TCategory>
   href: BbQ.ChatWidgets.Agents.Abstractions.IClassifier-1.html
@@ -1103,15 +1088,15 @@ references:
   commentId: T:BbQ.ChatWidgets.Agents.AgentRegistry
   fullName: BbQ.ChatWidgets.Agents.AgentRegistry
   nameWithType: AgentRegistry
-- uid: BbQ.ChatWidgets.Agents.AgentRegistry.#ctor
-  name: AgentRegistry()
-  href: BbQ.ChatWidgets.Agents.AgentRegistry.html#BbQ_ChatWidgets_Agents_AgentRegistry__ctor
-  commentId: M:BbQ.ChatWidgets.Agents.AgentRegistry.#ctor
-  name.vb: New()
-  fullName: BbQ.ChatWidgets.Agents.AgentRegistry.AgentRegistry()
-  fullName.vb: BbQ.ChatWidgets.Agents.AgentRegistry.New()
-  nameWithType: AgentRegistry.AgentRegistry()
-  nameWithType.vb: AgentRegistry.New()
+- uid: BbQ.ChatWidgets.Agents.AgentRegistry.#ctor(System.IServiceProvider,Microsoft.Extensions.Options.IOptions{BbQ.ChatWidgets.Agents.AgentRegistryOptions})
+  name: AgentRegistry(IServiceProvider, IOptions<AgentRegistryOptions>)
+  href: BbQ.ChatWidgets.Agents.AgentRegistry.html#BbQ_ChatWidgets_Agents_AgentRegistry__ctor_System_IServiceProvider_Microsoft_Extensions_Options_IOptions_BbQ_ChatWidgets_Agents_AgentRegistryOptions__
+  commentId: M:BbQ.ChatWidgets.Agents.AgentRegistry.#ctor(System.IServiceProvider,Microsoft.Extensions.Options.IOptions{BbQ.ChatWidgets.Agents.AgentRegistryOptions})
+  name.vb: New(IServiceProvider, IOptions(Of AgentRegistryOptions))
+  fullName: BbQ.ChatWidgets.Agents.AgentRegistry.AgentRegistry(System.IServiceProvider, Microsoft.Extensions.Options.IOptions<BbQ.ChatWidgets.Agents.AgentRegistryOptions>)
+  fullName.vb: BbQ.ChatWidgets.Agents.AgentRegistry.New(System.IServiceProvider, Microsoft.Extensions.Options.IOptions(Of BbQ.ChatWidgets.Agents.AgentRegistryOptions))
+  nameWithType: AgentRegistry.AgentRegistry(IServiceProvider, IOptions<AgentRegistryOptions>)
+  nameWithType.vb: AgentRegistry.New(IServiceProvider, IOptions(Of AgentRegistryOptions))
 - uid: BbQ.ChatWidgets.Agents.AgentRegistry.#ctor*
   name: AgentRegistry
   href: BbQ.ChatWidgets.Agents.AgentRegistry.html#BbQ_ChatWidgets_Agents_AgentRegistry__ctor_
@@ -1163,21 +1148,63 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Agents.AgentRegistry.HasAgent
   fullName: BbQ.ChatWidgets.Agents.AgentRegistry.HasAgent
   nameWithType: AgentRegistry.HasAgent
-- uid: BbQ.ChatWidgets.Agents.AgentRegistry.Register(System.String,BbQ.ChatWidgets.Agents.Abstractions.IAgent)
-  name: Register(string, IAgent)
-  href: BbQ.ChatWidgets.Agents.AgentRegistry.html#BbQ_ChatWidgets_Agents_AgentRegistry_Register_System_String_BbQ_ChatWidgets_Agents_Abstractions_IAgent_
-  commentId: M:BbQ.ChatWidgets.Agents.AgentRegistry.Register(System.String,BbQ.ChatWidgets.Agents.Abstractions.IAgent)
-  name.vb: Register(String, IAgent)
-  fullName: BbQ.ChatWidgets.Agents.AgentRegistry.Register(string, BbQ.ChatWidgets.Agents.Abstractions.IAgent)
-  fullName.vb: BbQ.ChatWidgets.Agents.AgentRegistry.Register(String, BbQ.ChatWidgets.Agents.Abstractions.IAgent)
-  nameWithType: AgentRegistry.Register(string, IAgent)
-  nameWithType.vb: AgentRegistry.Register(String, IAgent)
-- uid: BbQ.ChatWidgets.Agents.AgentRegistry.Register*
-  name: Register
-  href: BbQ.ChatWidgets.Agents.AgentRegistry.html#BbQ_ChatWidgets_Agents_AgentRegistry_Register_
-  commentId: Overload:BbQ.ChatWidgets.Agents.AgentRegistry.Register
-  fullName: BbQ.ChatWidgets.Agents.AgentRegistry.Register
-  nameWithType: AgentRegistry.Register
+- uid: BbQ.ChatWidgets.Agents.AgentRegistryOptions
+  name: AgentRegistryOptions
+  href: BbQ.ChatWidgets.Agents.AgentRegistryOptions.html
+  commentId: T:BbQ.ChatWidgets.Agents.AgentRegistryOptions
+  fullName: BbQ.ChatWidgets.Agents.AgentRegistryOptions
+  nameWithType: AgentRegistryOptions
+- uid: BbQ.ChatWidgets.Agents.AgentRegistryOptions.#ctor
+  name: AgentRegistryOptions()
+  href: BbQ.ChatWidgets.Agents.AgentRegistryOptions.html#BbQ_ChatWidgets_Agents_AgentRegistryOptions__ctor
+  commentId: M:BbQ.ChatWidgets.Agents.AgentRegistryOptions.#ctor
+  name.vb: New()
+  fullName: BbQ.ChatWidgets.Agents.AgentRegistryOptions.AgentRegistryOptions()
+  fullName.vb: BbQ.ChatWidgets.Agents.AgentRegistryOptions.New()
+  nameWithType: AgentRegistryOptions.AgentRegistryOptions()
+  nameWithType.vb: AgentRegistryOptions.New()
+- uid: BbQ.ChatWidgets.Agents.AgentRegistryOptions.#ctor*
+  name: AgentRegistryOptions
+  href: BbQ.ChatWidgets.Agents.AgentRegistryOptions.html#BbQ_ChatWidgets_Agents_AgentRegistryOptions__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Agents.AgentRegistryOptions.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Agents.AgentRegistryOptions.AgentRegistryOptions
+  fullName.vb: BbQ.ChatWidgets.Agents.AgentRegistryOptions.New
+  nameWithType: AgentRegistryOptions.AgentRegistryOptions
+  nameWithType.vb: AgentRegistryOptions.New
+- uid: BbQ.ChatWidgets.Agents.AgentRegistryOptions.RegisteredAgentNames
+  name: RegisteredAgentNames
+  href: BbQ.ChatWidgets.Agents.AgentRegistryOptions.html#BbQ_ChatWidgets_Agents_AgentRegistryOptions_RegisteredAgentNames
+  commentId: P:BbQ.ChatWidgets.Agents.AgentRegistryOptions.RegisteredAgentNames
+  fullName: BbQ.ChatWidgets.Agents.AgentRegistryOptions.RegisteredAgentNames
+  nameWithType: AgentRegistryOptions.RegisteredAgentNames
+- uid: BbQ.ChatWidgets.Agents.AgentRegistryOptions.RegisteredAgentNames*
+  name: RegisteredAgentNames
+  href: BbQ.ChatWidgets.Agents.AgentRegistryOptions.html#BbQ_ChatWidgets_Agents_AgentRegistryOptions_RegisteredAgentNames_
+  commentId: Overload:BbQ.ChatWidgets.Agents.AgentRegistryOptions.RegisteredAgentNames
+  fullName: BbQ.ChatWidgets.Agents.AgentRegistryOptions.RegisteredAgentNames
+  nameWithType: AgentRegistryOptions.RegisteredAgentNames
+- uid: BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions
+  name: AgentServiceCollectionExtensions
+  href: BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.html
+  commentId: T:BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions
+  fullName: BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions
+  nameWithType: AgentServiceCollectionExtensions
+- uid: BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.AddAgent*
+  name: AddAgent
+  href: BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.html#BbQ_ChatWidgets_Agents_AgentServiceCollectionExtensions_AddAgent_
+  commentId: Overload:BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.AddAgent
+  fullName: BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.AddAgent
+  nameWithType: AgentServiceCollectionExtensions.AddAgent
+- uid: BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.AddAgent``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,Microsoft.Extensions.DependencyInjection.ServiceLifetime)
+  name: AddAgent<TAgent>(IServiceCollection, string, ServiceLifetime)
+  href: BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.html#BbQ_ChatWidgets_Agents_AgentServiceCollectionExtensions_AddAgent__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_String_Microsoft_Extensions_DependencyInjection_ServiceLifetime_
+  commentId: M:BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.AddAgent``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,Microsoft.Extensions.DependencyInjection.ServiceLifetime)
+  name.vb: AddAgent(Of TAgent)(IServiceCollection, String, ServiceLifetime)
+  fullName: BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.AddAgent<TAgent>(Microsoft.Extensions.DependencyInjection.IServiceCollection, string, Microsoft.Extensions.DependencyInjection.ServiceLifetime)
+  fullName.vb: BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.AddAgent(Of TAgent)(Microsoft.Extensions.DependencyInjection.IServiceCollection, String, Microsoft.Extensions.DependencyInjection.ServiceLifetime)
+  nameWithType: AgentServiceCollectionExtensions.AddAgent<TAgent>(IServiceCollection, string, ServiceLifetime)
+  nameWithType.vb: AgentServiceCollectionExtensions.AddAgent(Of TAgent)(IServiceCollection, String, ServiceLifetime)
 - uid: BbQ.ChatWidgets.Agents.ChatRequest
   name: ChatRequest
   href: BbQ.ChatWidgets.Agents.ChatRequest.html

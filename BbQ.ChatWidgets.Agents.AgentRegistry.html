@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width">
       <meta name="title" content="Class AgentRegistry | BbQ.ChatWidgets ">
     
-    <meta name="description" content="Default implementation of the agent registry.">
+    <meta name="description" content="Default implementation of the agent registry backed by the dependency injection container.">
       <link rel="shortcut icon" href="favicon.ico">
       <link rel="stylesheet" href="styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="styles/docfx.css">
@@ -74,7 +74,7 @@
 
 
   <h1 id="BbQ_ChatWidgets_Agents_AgentRegistry" data-uid="BbQ.ChatWidgets.Agents.AgentRegistry" class="text-break">Class AgentRegistry</h1>
-  <div class="markdown level0 summary"><p>Default implementation of the agent registry.</p>
+  <div class="markdown level0 summary"><p>Default implementation of the agent registry backed by the dependency injection container.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -114,9 +114,11 @@
     <pre><code class="lang-csharp hljs">public sealed class AgentRegistry : IAgentRegistry</code></pre>
   </div>
   <h5 id="BbQ_ChatWidgets_Agents_AgentRegistry_remarks"><strong>Remarks</strong></h5>
-  <div class="markdown level0 remarks"><p>This implementation uses a dictionary to store named agents for simple
-lookup and retrieval. Agents are registered at startup or dynamically
-during application lifecycle.</p>
+  <div class="markdown level0 remarks"><p>Agents are registered as keyed <a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.html">IAgent</a> services via the
+<a class="xref" href="BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.html#BbQ_ChatWidgets_Agents_AgentServiceCollectionExtensions_AddAgent__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_String_Microsoft_Extensions_DependencyInjection_ServiceLifetime_">AddAgent&lt;TAgent&gt;(IServiceCollection, string, ServiceLifetime)</a> extension method.
+This implementation resolves agents on demand from the DI container, fully
+supporting all service lifetimes (singleton, scoped, transient) without requiring
+manual instance management.</p>
 </div>
   <h3 id="constructors">Constructors
 </h3>
@@ -125,13 +127,38 @@ during application lifecycle.</p>
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Agents/AgentRegistry.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Agents_AgentRegistry__ctor_" data-uid="BbQ.ChatWidgets.Agents.AgentRegistry.#ctor*"></a>
-  <h4 id="BbQ_ChatWidgets_Agents_AgentRegistry__ctor" data-uid="BbQ.ChatWidgets.Agents.AgentRegistry.#ctor">AgentRegistry()</h4>
-  <div class="markdown level1 summary"></div>
+  <h4 id="BbQ_ChatWidgets_Agents_AgentRegistry__ctor_System_IServiceProvider_Microsoft_Extensions_Options_IOptions_BbQ_ChatWidgets_Agents_AgentRegistryOptions__" data-uid="BbQ.ChatWidgets.Agents.AgentRegistry.#ctor(System.IServiceProvider,Microsoft.Extensions.Options.IOptions{BbQ.ChatWidgets.Agents.AgentRegistryOptions})">AgentRegistry(IServiceProvider, IOptions&lt;AgentRegistryOptions&gt;)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of <a class="xref" href="BbQ.ChatWidgets.Agents.AgentRegistry.html">AgentRegistry</a>.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public AgentRegistry()</code></pre>
+    <pre><code class="lang-csharp hljs">public AgentRegistry(IServiceProvider serviceProvider, IOptions&lt;AgentRegistryOptions&gt; options)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a></td>
+        <td><span class="parametername">serviceProvider</span></td>
+        <td><p>The service provider used to resolve keyed agents.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Agents.AgentRegistryOptions.html">AgentRegistryOptions</a>&gt;</td>
+        <td><span class="parametername">options</span></td>
+        <td><p>The options containing registered agent names.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="methods">Methods
 </h3>
 
@@ -248,41 +275,6 @@ during application lifecycle.</p>
     <tbody>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Agents/AgentRegistry.cs">View Source</a>
-  </span>
-  <a id="BbQ_ChatWidgets_Agents_AgentRegistry_Register_" data-uid="BbQ.ChatWidgets.Agents.AgentRegistry.Register*"></a>
-  <h4 id="BbQ_ChatWidgets_Agents_AgentRegistry_Register_System_String_BbQ_ChatWidgets_Agents_Abstractions_IAgent_" data-uid="BbQ.ChatWidgets.Agents.AgentRegistry.Register(System.String,BbQ.ChatWidgets.Agents.Abstractions.IAgent)">Register(string, IAgent)</h4>
-  <div class="markdown level1 summary"><p>Registers an agent with a given name.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Register(string name, IAgent agent)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">name</span></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.html">IAgent</a></td>
-        <td><span class="parametername">agent</span></td>
         <td></td>
       </tr>
     </tbody>

@@ -84,9 +84,11 @@
     <pre><code class="lang-csharp hljs">public interface IAgentRegistry</code></pre>
   </div>
   <h5 id="BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_remarks"><strong>Remarks</strong></h5>
-  <div class="markdown level0 remarks"><p>The agent registry maintains a collection of named agents that can be
-invoked based on routing decisions from the triage agent or classifier.
-This enables modular agent composition and dynamic agent selection.</p>
+  <div class="markdown level0 remarks"><p>The agent registry resolves named agents from the dependency injection container.
+Agents are registered by type using <a class="xref" href="BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.html#BbQ_ChatWidgets_Agents_AgentServiceCollectionExtensions_AddAgent__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_String_Microsoft_Extensions_DependencyInjection_ServiceLifetime_">AddAgent&lt;TAgent&gt;(IServiceCollection, string, ServiceLifetime)</a>,
+which stores them as keyed <a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.html">IAgent</a> services. This enables modular agent
+composition, DI-managed lifetimes, and dynamic agent selection without requiring
+manual instance management.</p>
 </div>
   <h3 id="methods">Methods
 </h3>
@@ -209,43 +211,6 @@ This enables modular agent composition and dynamic agent selection.</p>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
         <td><p>True if the agent is registered; otherwise, false.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Agents/Abstractions/IAgentRegistry.cs">View Source</a>
-  </span>
-  <a id="BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_Register_" data-uid="BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register*"></a>
-  <h4 id="BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_Register_System_String_BbQ_ChatWidgets_Agents_Abstractions_IAgent_" data-uid="BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.Register(System.String,BbQ.ChatWidgets.Agents.Abstractions.IAgent)">Register(string, IAgent)</h4>
-  <div class="markdown level1 summary"><p>Registers an agent with a given name.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">void Register(string name, IAgent agent)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
-        <td><span class="parametername">name</span></td>
-        <td><p>The unique identifier for the agent.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.html">IAgent</a></td>
-        <td><span class="parametername">agent</span></td>
-        <td><p>The agent instance to register.</p>
 </td>
       </tr>
     </tbody>

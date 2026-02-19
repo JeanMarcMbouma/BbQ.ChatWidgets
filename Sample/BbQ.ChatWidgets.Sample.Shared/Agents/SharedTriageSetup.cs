@@ -17,8 +17,8 @@ public static class SharedTriageSetup
     /// <remarks>
     /// This extension method registers:
     /// - UserIntentClassifier for AI-based classification
-    /// - AgentRegistry with 4 specialized agents
-    /// - TriageAgent<UserIntent> for routing
+    /// - Specialized agents via AddAgent&lt;TAgent&gt;() (keyed DI services)
+    /// - TriageAgent&lt;UserIntent&gt; for routing
     /// 
     /// Usage:
     /// <code>
@@ -30,19 +30,11 @@ public static class SharedTriageSetup
         // Register classifier
         services.AddScoped<IClassifier<UserIntent>, UserIntentClassifier>();
 
-        // Register agent registry and populate with agents
-        services.AddSingleton<IAgentRegistry>(sp =>
-        {
-            var registry = new AgentRegistry();
-            
-            // Register specialized agents
-            registry.Register("help-agent", new HelpAgent());
-            registry.Register("data-query-agent", new DataQueryAgent());
-            registry.Register("action-agent", new ActionAgent());
-            registry.Register("feedback-agent", new FeedbackAgent());
-            
-            return registry;
-        });
+        // Register specialized agents by type with DI-managed lifetimes
+        services.AddAgent<HelpAgent>("help-agent");
+        services.AddAgent<DataQueryAgent>("data-query-agent");
+        services.AddAgent<ActionAgent>("action-agent");
+        services.AddAgent<FeedbackAgent>("feedback-agent");
 
         // Register triage agent with routing mapping
         services.AddScoped(sp =>

@@ -4,19 +4,14 @@ namespace BbQ.ChatWidgets.Agents.Abstractions;
 /// Registry for managing and routing to specialized agents.
 /// </summary>
 /// <remarks>
-/// The agent registry maintains a collection of named agents that can be
-/// invoked based on routing decisions from the triage agent or classifier.
-/// This enables modular agent composition and dynamic agent selection.
+/// The agent registry resolves named agents from the dependency injection container.
+/// Agents are registered by type using <see cref="AgentServiceCollectionExtensions.AddAgent{TAgent}"/>,
+/// which stores them as keyed <see cref="IAgent"/> services. This enables modular agent
+/// composition, DI-managed lifetimes, and dynamic agent selection without requiring
+/// manual instance management.
 /// </remarks>
 public interface IAgentRegistry
 {
-    /// <summary>
-    /// Registers an agent with a given name.
-    /// </summary>
-    /// <param name="name">The unique identifier for the agent.</param>
-    /// <param name="agent">The agent instance to register.</param>
-    void Register(string name, IAgent agent);
-
     /// <summary>
     /// Retrieves an agent by name.
     /// </summary>

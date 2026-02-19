@@ -99,6 +99,13 @@ public sealed class WidgetRegistry : IWidgetRegistry
     }
 
     /// <summary>
+    /// Gets all registered widget entries as (TypeId, Widget) pairs.
+    /// </summary>
+    /// <returns>An enumeration of (TypeId, Widget) pairs for all registered widgets.</returns>
+    public IEnumerable<(string TypeId, ChatWidget Widget)> GetEntries() =>
+        _instances.Select(kv => (kv.Key, kv.Value));
+
+    /// <summary>
     /// Gets all registered widget instances.
     /// </summary>
     /// <returns>An enumeration of all registered widget instances.</returns>

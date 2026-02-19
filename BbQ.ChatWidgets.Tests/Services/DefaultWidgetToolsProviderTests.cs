@@ -158,4 +158,19 @@ public class DefaultWidgetToolsProviderTests
         // Assert
         Assert.Same(first, second);
     }
+
+    [Fact]
+    public void GetTools_UsesRegistryTypeIdOverride_AsToolName()
+    {
+        // Arrange – use a fresh registry with only a single widget registered under a custom typeId
+        var registry = new WidgetRegistry();
+        registry.Register(new BbQ.ChatWidgets.Models.InputWidget("My Input", "my_action"), "custom_input_id");
+        var provider = new DefaultWidgetToolsProvider(registry);
+
+        // Act
+        var tools = provider.GetTools();
+
+        // Assert – tool name must reflect the registry key, not the class-derived widget.Type
+        Assert.Contains(tools, t => t.Name == "custom_input_id");
+    }
 }

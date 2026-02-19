@@ -6,7 +6,7 @@ namespace BbQ.ChatWidgets.Services;
 /// Options for configuring the widget registry via dependency injection.
 /// </summary>
 /// <remarks>
-/// Use <see cref="Extensions.WidgetServiceCollectionExtensions.AddWidget{TWidget}"/> to populate
+/// Use <see cref="BbQ.ChatWidgets.Extensions.WidgetServiceCollectionExtensions.AddWidget{TWidget}"/> to populate
 /// these options by registering widgets as factory functions resolved from the DI container.
 /// </remarks>
 public sealed class WidgetRegistryOptions

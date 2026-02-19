@@ -14,3 +14,5 @@
   href: TYPED_ACTION_HANDLERS.md
 - name: Chat History Summarization
   href: CHAT_HISTORY_SUMMARIZATION.md
+- name: Triage Agent System
+  href: TRIAGE_AGENT.md

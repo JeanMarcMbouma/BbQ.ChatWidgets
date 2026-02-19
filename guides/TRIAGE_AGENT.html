@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Triage Agent System | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Triage Agent System | BbQ.ChatWidgets ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="triage-agent-system">Triage Agent System</h1>
+
+<p>The triage agent system provides intelligent request routing based on user intent classification. It enables multi-agent architectures where an AI classifier decides which specialized agent handles each user request.</p>
+<h2 id="overview">Overview</h2>
+<pre><code>User Message
+    │
+[TriageAgent&lt;TCategory&gt;]
+    │
+[IClassifier&lt;TCategory&gt;] ──► Classify intent
+    │
+[IAgentRegistry] ──► Look up specialized agent by name
+    │
+[Specialized Agent] ──► Process request
+    │
+ChatTurn response (with optional widgets)
+</code></pre>
+<h2 id="core-components">Core Components</h2>
+<h3 id="iagent">IAgent</h3>
+<p>The fundamental unit of the agent pipeline. Every agent — including <code>TriageAgent</code> itself — implements this interface.</p>
+<pre><code class="lang-csharp">public interface IAgent
+{
+    Task&lt;Outcome&lt;ChatTurn&gt;&gt; InvokeAsync(ChatRequest request, CancellationToken cancellationToken);
+}
+</code></pre>
+<h3 id="chatrequest">ChatRequest</h3>
+<p>Carries the request context through the pipeline. The <code>Metadata</code> dictionary is the primary mechanism for passing data between agents.</p>
+<pre><code class="lang-csharp">public record ChatRequest(string? ThreadId, IServiceProvider RequestServices)
+{
+    public Dictionary&lt;string, object&gt; Metadata { get; init; } = [];
+}
+</code></pre>
+<h3 id="iclassifiertcategory">IClassifier&lt;TCategory&gt;</h3>
+<p>Classifies a string input into one of the enum categories you define.</p>
+<pre><code class="lang-csharp">public interface IClassifier&lt;TCategory&gt; where TCategory : Enum
+{
+    Task&lt;TCategory&gt; ClassifyAsync(string input, CancellationToken ct = default);
+}
+</code></pre>
+<h3 id="iagentregistry">IAgentRegistry</h3>
+<p>Resolves agents from the DI container by name.</p>
+<pre><code class="lang-csharp">public interface IAgentRegistry
+{
+    IAgent? GetAgent(string name);
+    IEnumerable&lt;string&gt; GetRegisteredAgents();
+    bool HasAgent(string name);
+}
+</code></pre>
+<blockquote>
+<p><strong>Note:</strong> Agents are registered in DI as keyed services using <code>services.AddAgent&lt;TAgent&gt;(&quot;name&quot;)</code>.<br>
+The <code>IAgentRegistry</code> implementation reads directly from the DI container — there is no manual <code>Register()</code> method.</p>
+</blockquote>
+<h3 id="triageagenttcategory">TriageAgent&lt;TCategory&gt;</h3>
+<p>Routes requests to specialized agents based on a classification result.</p>
+<pre><code class="lang-csharp">var triageAgent = new TriageAgent&lt;UserIntent&gt;(
+    classifier: serviceProvider.GetRequiredService&lt;IClassifier&lt;UserIntent&gt;&gt;(),
+    agentRegistry: serviceProvider.GetRequiredService&lt;IAgentRegistry&gt;(),
+    routingMapping: category =&gt; category switch
+    {
+        UserIntent.HelpRequest    =&gt; &quot;help-agent&quot;,
+        UserIntent.DataQuery      =&gt; &quot;data-query-agent&quot;,
+        UserIntent.ActionRequest  =&gt; &quot;action-agent&quot;,
+        UserIntent.Feedback       =&gt; &quot;feedback-agent&quot;,
+        _                         =&gt; null            // use fallback
+    },
+    fallbackAgentName: &quot;help-agent&quot;
+);
+</code></pre>
+<p>Constructor parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>classifier</code></td>
+<td>Yes</td>
+<td><code>IClassifier&lt;TCategory&gt;</code> that determines intent</td>
+</tr>
+<tr>
+<td><code>agentRegistry</code></td>
+<td>Yes</td>
+<td><code>IAgentRegistry</code> used to look up agents by name</td>
+</tr>
+<tr>
+<td><code>routingMapping</code></td>
+<td>Yes</td>
+<td><code>Func&lt;TCategory, string?&gt;</code> mapping category → agent name</td>
+</tr>
+<tr>
+<td><code>fallbackAgentName</code></td>
+<td>No</td>
+<td>Name of the agent to use when routing returns <code>null</code></td>
+</tr>
+<tr>
+<td><code>fallbackAgent</code></td>
+<td>No</td>
+<td>Concrete <code>IAgent</code> instance to use as last-resort fallback</td>
+</tr>
+<tr>
+<td><code>threadService</code></td>
+<td>No</td>
+<td><code>IThreadService</code> to create a thread when <code>ThreadId</code> is absent</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interagentcommunicationcontext">InterAgentCommunicationContext</h3>
+<p>Provides structured access to shared metadata so agents can communicate without coupling.</p>
+<pre><code class="lang-csharp">// The triage agent sets these before routing
+InterAgentCommunicationContext.SetUserMessage(request, userMessage);
+InterAgentCommunicationContext.SetClassification(request, category);
+InterAgentCommunicationContext.SetRoutedAgent(request, agentName);
+
+// Specialized agents read them
+var message        = InterAgentCommunicationContext.GetUserMessage(request);
+var classification = InterAgentCommunicationContext.GetClassification&lt;UserIntent&gt;(request);
+var routedAgent    = InterAgentCommunicationContext.GetRoutedAgent(request);
+
+// Agents can also pass results to downstream agents
+InterAgentCommunicationContext.SetPreviousResult(request, someData);
+var previous = InterAgentCommunicationContext.GetPreviousResult(request);
+</code></pre>
+<h3 id="agentpipelinebuilder--iagentmiddleware">AgentPipelineBuilder / IAgentMiddleware</h3>
+<p>Compose multiple middleware components around an inner agent.</p>
+<pre><code class="lang-csharp">// IAgentMiddleware
+public interface IAgentMiddleware
+{
+    Task&lt;Outcome&lt;ChatTurn&gt;&gt; InvokeAsync(
+        ChatRequest request, AgentDelegate next, CancellationToken cancellationToken);
+}
+
+// Pipeline builder
+services.AddAgentPipeline(builder =&gt;
+{
+    builder.Use&lt;LoggingMiddleware&gt;();
+    builder.Use&lt;TriageMiddleware&gt;();   // wraps a TriageAgent
+});
+</code></pre>
+<p><code>TriageMiddleware</code> is a convenience middleware that delegates to a registered <code>IAgent</code> (typically a <code>TriageAgent&lt;TCategory&gt;</code>) and ignores the <code>next</code> delegate so the pipeline short-circuits at the triage point.</p>
+<hr>
+<h2 id="step-by-step-setup">Step-by-Step Setup</h2>
+<h3 id="1-define-an-intent-enum">1. Define an intent enum</h3>
+<pre><code class="lang-csharp">public enum UserIntent
+{
+    HelpRequest,
+    DataQuery,
+    ActionRequest,
+    Feedback,
+    Unknown
+}
+</code></pre>
+<h3 id="2-implement-a-classifier">2. Implement a classifier</h3>
+<pre><code class="lang-csharp">using BbQ.ChatWidgets.Agents.Abstractions;
+using Microsoft.Extensions.AI;
+
+public sealed class UserIntentClassifier : IClassifier&lt;UserIntent&gt;
+{
+    private readonly IChatClient _chatClient;
+
+    public UserIntentClassifier(IChatClient chatClient) =&gt; _chatClient = chatClient;
+
+    public async Task&lt;UserIntent&gt; ClassifyAsync(string input, CancellationToken ct = default)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+            return UserIntent.Unknown;
+
+        var prompt = $&quot;&quot;&quot;
+            Classify the following message into EXACTLY ONE category.
+            Respond with ONLY the category name.
+
+            Categories:
+            - HelpRequest   : user asks for help or support
+            - DataQuery     : user asks for information or data
+            - ActionRequest : user wants an action performed
+            - Feedback      : user provides feedback or suggestions
+            - Unknown       : none of the above
+
+            Message: {input}
+            &quot;&quot;&quot;;
+
+        var options = new ChatOptions { ToolMode = ChatToolMode.None };
+        var response = await _chatClient.GetResponseAsync(
+            [new ChatMessage(ChatRole.User, prompt)], options, ct);
+
+        return Enum.TryParse&lt;UserIntent&gt;(response.Text.Trim(), ignoreCase: true, out var intent)
+            ? intent
+            : UserIntent.Unknown;
+    }
+}
+</code></pre>
+<h3 id="3-create-specialized-agents">3. Create specialized agents</h3>
+<p>Each specialized agent receives context set by the triage agent via <code>InterAgentCommunicationContext</code>.</p>
+<pre><code class="lang-csharp">using BbQ.ChatWidgets.Agents;
+using BbQ.ChatWidgets.Agents.Abstractions;
+using BbQ.ChatWidgets.Models;
+using BbQ.Outcome;
+using Microsoft.Extensions.AI;
+
+public sealed class HelpAgent : IAgent
+{
+    public Task&lt;Outcome&lt;ChatTurn&gt;&gt; InvokeAsync(ChatRequest request, CancellationToken ct)
+    {
+        var message        = InterAgentCommunicationContext.GetUserMessage(request) ?? &quot;&quot;;
+        var classification = InterAgentCommunicationContext.GetClassification&lt;UserIntent&gt;(request);
+
+        var turn = new ChatTurn(
+            Role: ChatRole.Assistant,
+            Content: $&quot;Help desk here! Regarding '{message}' (intent: {classification}): ...&quot;,
+            Widgets: [],
+            ThreadId: request.ThreadId ?? &quot;&quot;
+        );
+
+        return Task.FromResult(Outcome&lt;ChatTurn&gt;.From(turn));
+    }
+}
+
+public sealed class DataQueryAgent : IAgent
+{
+    public Task&lt;Outcome&lt;ChatTurn&gt;&gt; InvokeAsync(ChatRequest request, CancellationToken ct)
+    {
+        var message = InterAgentCommunicationContext.GetUserMessage(request) ?? &quot;&quot;;
+
+        var turn = new ChatTurn(
+            Role: ChatRole.Assistant,
+            Content: $&quot;Data agent: processing query '{message}'...&quot;,
+            Widgets: [],
+            ThreadId: request.ThreadId ?? &quot;&quot;
+        );
+
+        return Task.FromResult(Outcome&lt;ChatTurn&gt;.From(turn));
+    }
+}
+</code></pre>
+<h3 id="4-register-agents-in-di">4. Register agents in DI</h3>
+<p>Use <code>AddAgent&lt;TAgent&gt;(name)</code> to register each agent as a keyed DI service. This makes them resolvable by name through <code>IAgentRegistry</code>.</p>
+<pre><code class="lang-csharp">// Program.cs or a service extension method
+services.AddScoped&lt;IClassifier&lt;UserIntent&gt;, UserIntentClassifier&gt;();
+
+services.AddAgent&lt;HelpAgent&gt;(&quot;help-agent&quot;);
+services.AddAgent&lt;DataQueryAgent&gt;(&quot;data-query-agent&quot;);
+services.AddAgent&lt;ActionAgent&gt;(&quot;action-agent&quot;);
+services.AddAgent&lt;FeedbackAgent&gt;(&quot;feedback-agent&quot;);
+
+// Register the triage agent itself
+services.AddScoped(sp =&gt;
+{
+    var classifier = sp.GetRequiredService&lt;IClassifier&lt;UserIntent&gt;&gt;();
+    var registry   = sp.GetRequiredService&lt;IAgentRegistry&gt;();
+    var threads    = sp.GetService&lt;IThreadService&gt;();
+
+    Func&lt;UserIntent, string?&gt; routingMapping = intent =&gt; intent switch
+    {
+        UserIntent.HelpRequest   =&gt; &quot;help-agent&quot;,
+        UserIntent.DataQuery     =&gt; &quot;data-query-agent&quot;,
+        UserIntent.ActionRequest =&gt; &quot;action-agent&quot;,
+        UserIntent.Feedback      =&gt; &quot;feedback-agent&quot;,
+        _                        =&gt; null
+    };
+
+    return new TriageAgent&lt;UserIntent&gt;(
+        classifier,
+        registry,
+        routingMapping,
+        fallbackAgentName: &quot;help-agent&quot;,
+        threadService: threads);
+});
+</code></pre>
+<h3 id="5-invoke-the-triage-agent">5. Invoke the triage agent</h3>
+<p>The user message <strong>must</strong> be placed in the <code>Metadata</code> dictionary before calling <code>InvokeAsync</code>. Use <code>InterAgentCommunicationContext.SetUserMessage</code> (or the key <code>&quot;UserMessage&quot;</code> directly) to set it.</p>
+<pre><code class="lang-csharp">var triageAgent = serviceProvider.GetRequiredService&lt;TriageAgent&lt;UserIntent&gt;&gt;();
+
+var request = new ChatRequest(ThreadId: threadId, RequestServices: serviceProvider);
+InterAgentCommunicationContext.SetUserMessage(request, &quot;Can you help me reset my password?&quot;);
+
+var outcome = await triageAgent.InvokeAsync(request, CancellationToken.None);
+
+if (outcome.IsSuccess)
+{
+    var classification = InterAgentCommunicationContext.GetClassification&lt;UserIntent&gt;(request);
+    var routedAgent    = InterAgentCommunicationContext.GetRoutedAgent(request);
+
+    Console.WriteLine($&quot;Classified as : {classification}&quot;);
+    Console.WriteLine($&quot;Routed to     : {routedAgent}&quot;);
+    Console.WriteLine($&quot;Response      : {outcome.Value.Content}&quot;);
+}
+else
+{
+    Console.WriteLine($&quot;Error: {outcome.Error}&quot;);
+}
+</code></pre>
+<hr>
+<h2 id="agent-to-agent-communication">Agent-to-Agent Communication</h2>
+<p>All context flows through <code>ChatRequest.Metadata</code>. The <code>InterAgentCommunicationContext</code> helper provides typed access:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Set by</th>
+<th>Read by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&quot;UserMessage&quot;</code></td>
+<td><code>TriageAgent</code></td>
+<td>All specialized agents</td>
+</tr>
+<tr>
+<td><code>&quot;Classification&quot;</code></td>
+<td><code>TriageAgent</code></td>
+<td>All specialized agents</td>
+</tr>
+<tr>
+<td><code>&quot;RoutedAgent&quot;</code></td>
+<td><code>TriageAgent</code></td>
+<td>Logging / debugging code</td>
+</tr>
+<tr>
+<td><code>&quot;PreviousResult&quot;</code></td>
+<td>Any agent</td>
+<td>Next agent in a chain</td>
+</tr>
+</tbody>
+</table>
+<p>Specialized agents can also write their own keys for downstream consumers:</p>
+<pre><code class="lang-csharp">// In a chained agent
+InterAgentCommunicationContext.SetPreviousResult(request, myResult);
+</code></pre>
+<hr>
+<h2 id="error-handling">Error Handling</h2>
+<p><code>TriageAgent</code> returns structured errors rather than throwing:</p>
+<table>
+<thead>
+<tr>
+<th>Error Code</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&quot;NoMessage&quot;</code></td>
+<td><code>UserMessage</code> key not found in <code>request.Metadata</code></td>
+</tr>
+<tr>
+<td><code>&quot;NoAgent&quot;</code></td>
+<td>No registered agent matched the routing key, and no fallback was configured</td>
+</tr>
+<tr>
+<td><code>&quot;TriageFailed&quot;</code></td>
+<td>An unexpected exception was caught during classification or routing</td>
+</tr>
+</tbody>
+</table>
+<p><code>OperationCanceledException</code> is always re-thrown so cancellation is propagated correctly.</p>
+<hr>
+<h2 id="adding-a-custom-intent-category">Adding a Custom Intent Category</h2>
+<pre><code class="lang-csharp">// 1. Extend the enum
+public enum UserIntent
+{
+    HelpRequest,
+    DataQuery,
+    ActionRequest,
+    Feedback,
+    Complaint,   // ← new
+    Unknown
+}
+
+// 2. Add the agent
+public sealed class ComplaintAgent : IAgent
+{
+    public Task&lt;Outcome&lt;ChatTurn&gt;&gt; InvokeAsync(ChatRequest request, CancellationToken ct)
+    {
+        var message = InterAgentCommunicationContext.GetUserMessage(request) ?? &quot;&quot;;
+        var turn = new ChatTurn(ChatRole.Assistant,
+            $&quot;Thank you for your feedback. We have logged: '{message}'&quot;);
+        return Task.FromResult(Outcome&lt;ChatTurn&gt;.From(turn));
+    }
+}
+
+// 3. Register it
+services.AddAgent&lt;ComplaintAgent&gt;(&quot;complaint-agent&quot;);
+
+// 4. Add to routing mapping
+Func&lt;UserIntent, string?&gt; routingMapping = intent =&gt; intent switch
+{
+    UserIntent.HelpRequest   =&gt; &quot;help-agent&quot;,
+    // ...
+    UserIntent.Complaint     =&gt; &quot;complaint-agent&quot;,   // ← new
+    _                        =&gt; null
+};
+</code></pre>
+<hr>
+<h2 id="best-practices">Best Practices</h2>
+<ul>
+<li>Keep the triage agent thin — it only classifies and routes. Business logic belongs in specialized agents.</li>
+<li>Always provide a <code>fallbackAgentName</code> so unknown classifications degrade gracefully.</li>
+<li>Use <code>InterAgentCommunicationContext</code> instead of accessing <code>request.Metadata</code> directly — it provides type safety and avoids key typos.</li>
+<li>Register agents with appropriate lifetimes. <code>Scoped</code> (the default) is safe for most agents. Use <code>Singleton</code> only when the agent has no per-request state.</li>
+<li>Log <code>GetClassification</code> and <code>GetRoutedAgent</code> at <code>Debug</code> or <code>Information</code> level to diagnose routing issues.</li>
+</ul>
+<hr>
+<h2 id="sample-applications">Sample Applications</h2>
+<p>Working examples of the full triage system are available in:</p>
+<table>
+<thead>
+<tr>
+<th>Sample</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Console</td>
+<td><code>Sample/BbQ.ChatWidgets.Sample.Console/</code></td>
+</tr>
+<tr>
+<td>React Web API</td>
+<td><code>Sample/BbQ.ChatWidgets.Sample.React/</code></td>
+</tr>
+<tr>
+<td>Angular Web API</td>
+<td><code>Sample/BbQ.ChatWidgets.Sample.Angular/</code></td>
+</tr>
+<tr>
+<td>Blazor</td>
+<td><code>Sample/BbQ.ChatWidgets.Sample.Blazor/</code></td>
+</tr>
+</tbody>
+</table>
+<p>Shared triage setup (agents + classifier + DI wiring) lives in <code>Sample/BbQ.ChatWidgets.Sample.Shared/Agents/</code>.</p>
+<hr>
+<h2 id="related-topics">Related Topics</h2>
+<ul>
+<li><a href="../api/BbQ.ChatWidgets.Agents.AgentPipelineBuilder.html">Agent Pipeline Builder</a> — advanced middleware composition</li>
+<li><a href="../examples/USE_CASES.html">Use Cases</a> — end-to-end triage bot walkthrough</li>
+<li><a href="../ARCHITECTURE.html">Architecture Overview</a> — where agents fit in the broader system</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/guides/TRIAGE_AGENT.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

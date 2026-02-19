@@ -130,100 +130,98 @@ public class SupportClassifier : IClassifier&lt;UserIntent&gt;
 }
 </code></pre>
 <h4 id="step-3-create-specialized-agents">Step 3: Create Specialized Agents</h4>
-<pre><code class="lang-csharp">public class TechnicalSupportAgent : IAgent
+<p>Use <code>InterAgentCommunicationContext.GetUserMessage(request)</code> to read the user message — the triage agent writes it there automatically.</p>
+<pre><code class="lang-csharp">using BbQ.ChatWidgets.Agents;
+using BbQ.ChatWidgets.Agents.Abstractions;
+using BbQ.ChatWidgets.Models;
+using BbQ.Outcome;
+using Microsoft.Extensions.AI;
+
+public class TechnicalSupportAgent : IAgent
 {
     private readonly IChatClient _chatClient;
-    private readonly IThreadService _threadService;
-    
+
+    public TechnicalSupportAgent(IChatClient chatClient) =&gt; _chatClient = chatClient;
+
     public async Task&lt;Outcome&lt;ChatTurn&gt;&gt; InvokeAsync(ChatRequest request, CancellationToken cancellationToken)
     {
-        // Get user message from metadata
-        var userMessage = request.Metadata.TryGetValue(&quot;user_message&quot;, out var msg) 
-            ? msg?.ToString() ?? string.Empty 
-            : string.Empty;
-        
+        var userMessage = InterAgentCommunicationContext.GetUserMessage(request) ?? string.Empty;
+
         var systemPrompt = &quot;&quot;&quot;
             You are a technical support specialist. Help users troubleshoot issues.
             Use buttons for common actions like 'reset_password', 'clear_cache', 'contact_tech'.
             Wrap widgets in &lt;widget&gt;...&lt;/widget&gt; tags with JSON inside.
             &quot;&quot;&quot;;
-        
+
         var response = await _chatClient.GetResponseAsync(
             [
                 new ChatMessage(ChatRole.System, systemPrompt),
                 new ChatMessage(ChatRole.User, userMessage)
             ],
             cancellationToken: cancellationToken);
-        
-        var turn = new ChatTurn(response.Text, request.ThreadId);
-        return Outcome.Success(turn);
+
+        var turn = new ChatTurn(ChatRole.Assistant, response.Text, ThreadId: request.ThreadId ?? &quot;&quot;);
+        return Outcome&lt;ChatTurn&gt;.From(turn);
     }
 }
 
 public class BillingAgent : IAgent
 {
     private readonly IChatClient _chatClient;
-    private readonly IThreadService _threadService;
-    
+
+    public BillingAgent(IChatClient chatClient) =&gt; _chatClient = chatClient;
+
     public async Task&lt;Outcome&lt;ChatTurn&gt;&gt; InvokeAsync(ChatRequest request, CancellationToken cancellationToken)
     {
-        var userMessage = request.Metadata.TryGetValue(&quot;user_message&quot;, out var msg) 
-            ? msg?.ToString() ?? string.Empty 
-            : string.Empty;
-        
+        var userMessage = InterAgentCommunicationContext.GetUserMessage(request) ?? string.Empty;
+
         var systemPrompt = &quot;&quot;&quot;
             You are a billing specialist. Help with invoices, payments, and subscriptions.
             Use buttons for: 'view_invoices', 'update_payment', 'cancel_subscription'.
             Wrap widgets in &lt;widget&gt;...&lt;/widget&gt; tags with JSON inside.
             &quot;&quot;&quot;;
-        
+
         var response = await _chatClient.GetResponseAsync(
             [
                 new ChatMessage(ChatRole.System, systemPrompt),
                 new ChatMessage(ChatRole.User, userMessage)
             ],
             cancellationToken: cancellationToken);
-        
-        var turn = new ChatTurn(response.Text, request.ThreadId);
-        return Outcome.Success(turn);
+
+        var turn = new ChatTurn(ChatRole.Assistant, response.Text, ThreadId: request.ThreadId ?? &quot;&quot;);
+        return Outcome&lt;ChatTurn&gt;.From(turn);
     }
 }
 </code></pre>
 <h4 id="step-4-register-triage-system">Step 4: Register Triage System</h4>
+<p>Agents are registered as <strong>keyed DI services</strong> via <code>AddAgent&lt;TAgent&gt;(name)</code>. The <code>IAgentRegistry</code> implementation resolves them from the DI container — there is no <code>AgentRegistry</code> constructor or <code>Register()</code> method.</p>
 <pre><code class="lang-csharp">// In Program.cs
+using BbQ.ChatWidgets.Agents;
+using BbQ.ChatWidgets.Agents.Abstractions;
+
 // 1. Register the classifier
 services.AddScoped&lt;IClassifier&lt;UserIntent&gt;, SupportClassifier&gt;();
 
-// 2. Register specialized agents
-services.AddScoped&lt;TechnicalSupportAgent&gt;();
-services.AddScoped&lt;BillingAgent&gt;();
-services.AddScoped&lt;GeneralAgent&gt;();
+// 2. Register specialized agents as keyed DI services
+services.AddAgent&lt;TechnicalSupportAgent&gt;(&quot;tech-support&quot;);
+services.AddAgent&lt;BillingAgent&gt;(&quot;billing&quot;);
+services.AddAgent&lt;GeneralAgent&gt;(&quot;general&quot;);
 
-// 3. Register agent registry and map agents
-services.AddSingleton&lt;IAgentRegistry&gt;(sp =&gt;
+// 3. Register the triage agent with routing mapping
+services.AddScoped(sp =&gt;
 {
-    var registry = new AgentRegistry();
-    registry.Register(&quot;tech-support&quot;, sp.GetRequiredService&lt;TechnicalSupportAgent&gt;());
-    registry.Register(&quot;billing&quot;, sp.GetRequiredService&lt;BillingAgent&gt;());
-    registry.Register(&quot;general&quot;, sp.GetRequiredService&lt;GeneralAgent&gt;());
-    return registry;
-});
-
-// 4. Register triage agent with routing
-services.AddScoped&lt;IAgent&gt;(sp =&gt;
-{
-    var classifier = sp.GetRequiredService&lt;IClassifier&lt;UserIntent&gt;&gt;();
-    var registry = sp.GetRequiredService&lt;IAgentRegistry&gt;();
+    var classifier    = sp.GetRequiredService&lt;IClassifier&lt;UserIntent&gt;&gt;();
+    var registry      = sp.GetRequiredService&lt;IAgentRegistry&gt;();
     var threadService = sp.GetService&lt;IThreadService&gt;();
-    
-    Func&lt;UserIntent, string?&gt; routingMapping = classification =&gt; classification switch
+
+    Func&lt;UserIntent, string?&gt; routingMapping = intent =&gt; intent switch
     {
         UserIntent.TechnicalSupport =&gt; &quot;tech-support&quot;,
-        UserIntent.BillingInquiry =&gt; &quot;billing&quot;,
-        UserIntent.GeneralQuestion =&gt; &quot;general&quot;,
-        _ =&gt; &quot;general&quot;  // fallback
+        UserIntent.BillingInquiry   =&gt; &quot;billing&quot;,
+        UserIntent.GeneralQuestion  =&gt; &quot;general&quot;,
+        _                           =&gt; null   // falls back to fallbackAgentName
     };
-    
+
     return new TriageAgent&lt;UserIntent&gt;(
         classifier,
         registry,
@@ -234,22 +232,22 @@ services.AddScoped&lt;IAgent&gt;(sp =&gt;
 });
 </code></pre>
 <h4 id="step-5-use-the-triage-agent">Step 5: Use the Triage Agent</h4>
+<p>Set the user message via <code>InterAgentCommunicationContext</code> before invoking the triage agent.</p>
 <pre><code class="lang-csharp">// The triage agent automatically classifies and routes
 app.MapPost(&quot;/api/chat/support&quot;, async (
     string message,
     string threadId,
     HttpContext httpContext,
-    IAgent triageAgent) =&gt;
+    TriageAgent&lt;UserIntent&gt; triageAgent) =&gt;
 {
-    // Build request with metadata
     var chatRequest = new ChatRequest(threadId, httpContext.RequestServices);
-    chatRequest.Metadata[&quot;user_message&quot;] = message;
-    
-    var result = await triageAgent.InvokeAsync(chatRequest, CancellationToken.None);
-    
-    return result.IsSuccess 
-        ? Results.Ok(result.Value) 
-        : Results.Problem(result.ErrorMessage);
+    InterAgentCommunicationContext.SetUserMessage(chatRequest, message);
+
+    var outcome = await triageAgent.InvokeAsync(chatRequest, CancellationToken.None);
+
+    return outcome.IsSuccess
+        ? Results.Ok(outcome.Value)
+        : Results.Problem(outcome.Error?.ToString());
 });
 </code></pre>
 <h3 id="try-it-out">Try It Out</h3>

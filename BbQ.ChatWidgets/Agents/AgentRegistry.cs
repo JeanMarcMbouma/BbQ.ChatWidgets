@@ -1,58 +1,47 @@
 namespace BbQ.ChatWidgets.Agents;
 
 using BbQ.ChatWidgets.Agents.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 /// <summary>
-/// Default implementation of the agent registry.
+/// Default implementation of the agent registry backed by the dependency injection container.
 /// </summary>
 /// <remarks>
-/// This implementation uses a dictionary to store named agents for simple
-/// lookup and retrieval. Agents are registered at startup or dynamically
-/// during application lifecycle.
+/// Agents are registered as keyed <see cref="IAgent"/> services via the
+/// <see cref="AgentServiceCollectionExtensions.AddAgent{TAgent}"/> extension method.
+/// This implementation resolves agents on demand from the DI container, fully
+/// supporting all service lifetimes (singleton, scoped, transient) without requiring
+/// manual instance management.
 /// </remarks>
 public sealed class AgentRegistry : IAgentRegistry
 {
-    private readonly Dictionary<string, IAgent> _agents = [];
+    private readonly IServiceProvider _serviceProvider;
+    private readonly AgentRegistryOptions _options;
+
+    /// <summary>
+    /// Initializes a new instance of <see cref="AgentRegistry"/>.
+    /// </summary>
+    /// <param name="serviceProvider">The service provider used to resolve keyed agents.</param>
+    /// <param name="options">The options containing registered agent names.</param>
+    public AgentRegistry(IServiceProvider serviceProvider, IOptions<AgentRegistryOptions> options)
+    {
+        _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+        _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
+    }
 
     /// <summary>
     /// <inheritdoc />
     /// </summary>
-    public void Register(string name, IAgent agent)
-    {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("Agent name cannot be null or empty.", nameof(name));
-
-        if (agent == null)
-            throw new ArgumentNullException(nameof(agent));
-
-        _agents[name] = agent;
-    }
-
+    public IAgent? GetAgent(string name) => _serviceProvider.GetKeyedService<IAgent>(name);
 
     /// <summary>
     /// <inheritdoc />
     /// </summary>
-    public IAgent? GetAgent(string name)
-    {
-        _agents.TryGetValue(name, out var agent);
-        return agent;
-    }
-
+    public IEnumerable<string> GetRegisteredAgents() => _options.RegisteredAgentNames;
 
     /// <summary>
     /// <inheritdoc />
     /// </summary>
-    public IEnumerable<string> GetRegisteredAgents()
-    {
-        return _agents.Keys.AsEnumerable();
-    }
-
-
-    /// <summary>
-    /// <inheritdoc />
-    /// </summary>
-    public bool HasAgent(string name)
-    {
-        return _agents.ContainsKey(name);
-    }
+    public bool HasAgent(string name) => _options.RegisteredAgentNames.Contains(name);
 }

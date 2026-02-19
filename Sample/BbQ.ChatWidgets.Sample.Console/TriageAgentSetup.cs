@@ -20,8 +20,7 @@ public static class TriageAgentSetup
     /// <remarks>
     /// This registers:
     /// - The UserIntentClassifier for intent classification
-    /// - The AgentRegistry for agent storage and retrieval
-    /// - Specialized agents: Help, DataQuery, Action, and Feedback
+    /// - Specialized agents via AddAgent&lt;TAgent&gt;() (keyed DI services): Help, DataQuery, Action, and Feedback
     /// - The TriageAgent that routes requests based on classification
     /// 
     /// Usage:
@@ -36,19 +35,11 @@ public static class TriageAgentSetup
         // Register classifier
         services.AddScoped<IClassifier<UserIntent>, UserIntentClassifier>();
 
-        // Register agent registry as singleton (agents are shared across requests)
-        services.AddSingleton<IAgentRegistry, AgentRegistry>(provider =>
-        {
-            var registry = new AgentRegistry();
-
-            // Register specialized agents
-            registry.Register("""help-agent""", new HelpAgent());
-            registry.Register("""data-query-agent""", new DataQueryAgent());
-            registry.Register("""action-agent""", new ActionAgent());
-            registry.Register("""feedback-agent""", new FeedbackAgent());
-
-            return registry;
-        });
+        // Register specialized agents by type with DI-managed lifetimes
+        services.AddAgent<HelpAgent>("""help-agent""");
+        services.AddAgent<DataQueryAgent>("""data-query-agent""");
+        services.AddAgent<ActionAgent>("""action-agent""");
+        services.AddAgent<FeedbackAgent>("""feedback-agent""");
 
         // Register the triage agent
         services.AddScoped(provider =>

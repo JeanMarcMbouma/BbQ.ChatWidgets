@@ -61,6 +61,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ChatWidgetService>();
         services.AddSingleton<IChatWidgetRenderer, Renderers.SsrWidgetRenderer>();
         services.AddSingleton<IThreadService, DefaultThreadService>();
+        services.AddSingleton<IThreadPersonaStore, DefaultThreadPersonaStore>();
         services.AddSingleton<IWidgetHintParser, DefaultWidgetHintParser>();
         services.AddSingleton<IWidgetHintSanitizer, DefaultWidgetHintParser>();
         
@@ -230,6 +231,11 @@ public static class ServiceCollectionExtensions
             InterAgentCommunicationContext.SetUserMessage(chatRequest, payload.Message);
         }
 
+        if (payload.Persona is not null)
+        {
+            InterAgentCommunicationContext.SetPersona(chatRequest, payload.Persona);
+        }
+
         // Try to get a registered triage agent first, fall back to AgentDelegate
         var triageAgent = context.RequestServices.GetService<IAgent>();
         var outcome = triageAgent != null
@@ -256,7 +262,7 @@ public static class ServiceCollectionExtensions
         context.Response.Headers.Add("Cache-Control", "no-cache");
         context.Response.Headers.Add("Connection", "keep-alive");
 
-        await foreach (var turn in service.StreamResponseAsync(dto.Message, dto.ThreadId, ct))
+        await foreach (var turn in service.StreamResponseAsync(dto.Message, dto.ThreadId, dto.Persona, ct))
         {
             var json = JsonSerializer.Serialize(turn, Serialization.Default);
             await context.Response.WriteAsync($"data: {json}\n\n");
@@ -275,7 +281,7 @@ public static class ServiceCollectionExtensions
     /// <remarks>
     /// This method:
     /// 1. Deserializes the request body to <see cref="UserMessageDto"/>
-    /// 2. Calls <see cref="ChatWidgetService.RespondAsync"/>
+    /// 2. Calls <see cref="ChatWidgetService.RespondAsync(string, string?, string?, CancellationToken)"/>
     /// 3. Serializes the response back to JSON
     /// </remarks>
     private static async Task HandleMessageRequest(HttpContext context)
@@ -284,7 +290,7 @@ public static class ServiceCollectionExtensions
         var dto = await DeserializeRequest<UserMessageDto>(context);
         var ct = context.RequestAborted;
 
-        var turn = await service.RespondAsync(dto.Message, dto.ThreadId, ct);
+        var turn = await service.RespondAsync(dto.Message, dto.ThreadId, dto.Persona, ct);
         await WriteJsonResponse(context, turn);
     }
 

@@ -30,11 +30,13 @@ public class ServiceCollectionIntegrationTests
         var hintParser = serviceProvider.GetRequiredService<IWidgetHintParser>();
         var toolsProvider = serviceProvider.GetRequiredService<IWidgetToolsProvider>();
         var threadService = serviceProvider.GetRequiredService<IThreadService>();
+        var threadPersonaStore = serviceProvider.GetRequiredService<IThreadPersonaStore>();
 
         Assert.NotNull(widgetRegistry);
         Assert.NotNull(hintParser);
         Assert.NotNull(toolsProvider);
         Assert.NotNull(threadService);
+        Assert.NotNull(threadPersonaStore);
     }
 
     [Fact]

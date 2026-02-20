@@ -5,13 +5,15 @@
 /// </summary>
 /// <param name="Message">The user's message text.</param>
 /// <param name="ThreadId">Optional conversation thread ID.</param>
+/// <param name="Persona">Optional persona override. Empty string clears any thread persona.</param>
 /// <remarks>
 /// This DTO is used for the POST /api/chat/message endpoint.
 /// It contains the user's message and optional conversation thread ID.
 /// </remarks>
 public sealed record UserMessageDto(
     string Message, 
-    string? ThreadId);
+    string? ThreadId,
+    string? Persona = null);
 
 /// <summary>
 /// Data transfer object for widget action requests.

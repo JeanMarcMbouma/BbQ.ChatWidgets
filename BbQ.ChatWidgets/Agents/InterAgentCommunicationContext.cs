@@ -12,6 +12,7 @@ public sealed class InterAgentCommunicationContext
 {
     private const string ClassificationKey = "Classification";
     private const string UserMessageKey = "UserMessage";
+    private const string PersonaKey = "Persona";
     private const string RoutedAgentKey = "RoutedAgent";
     private const string PreviousResultKey = "PreviousResult";
 
@@ -62,6 +63,31 @@ public sealed class InterAgentCommunicationContext
     public static string? GetUserMessage(ChatRequest request)
     {
         if (request.Metadata?.TryGetValue(UserMessageKey, out var value) == true)
+        {
+            return value?.ToString();
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Sets the persona override in the request metadata.
+    /// </summary>
+    /// <param name="request">The chat request.</param>
+    /// <param name="persona">The persona text. Use empty string to clear persona.</param>
+    public static void SetPersona(ChatRequest request, string persona)
+    {
+        request.Metadata[PersonaKey] = persona;
+    }
+
+    /// <summary>
+    /// Gets the persona override from the request metadata.
+    /// </summary>
+    /// <param name="request">The chat request.</param>
+    /// <returns>The persona override, or null if not set.</returns>
+    public static string? GetPersona(ChatRequest request)
+    {
+        if (request.Metadata?.TryGetValue(PersonaKey, out var value) == true)
         {
             return value?.ToString();
         }

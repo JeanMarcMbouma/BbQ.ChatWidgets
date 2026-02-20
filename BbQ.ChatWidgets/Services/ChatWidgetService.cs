@@ -38,6 +38,7 @@ public sealed class ChatWidgetService(
     IWidgetToolsProvider widgetToolsProvider,
     IAIToolsProvider aiToolsProvider,
     IThreadService threadService,
+    IThreadPersonaStore threadPersonaStore,
     IAIInstructionProvider instructionProvider,
     IWidgetActionRegistry actionRegistry,
     IWidgetActionHandlerResolver handlerResolver,
@@ -73,12 +74,31 @@ public sealed class ChatWidgetService(
     /// <exception cref="OperationCanceledException">
     /// Thrown if the operation is cancelled via the cancellation token.
     /// </exception>
-    public async Task<ChatTurn> RespondAsync(string userMessage, string? threadId = null, CancellationToken ct = default)
+    public Task<ChatTurn> RespondAsync(string userMessage, string? threadId = null, CancellationToken ct = default)
+    {
+        return RespondAsync(userMessage, threadId, null, ct);
+    }
+
+    /// <summary>
+    /// Processes a user message with an optional persona override and generates an AI response.
+    /// </summary>
+    /// <param name="userMessage">The message from the user to send to the AI.</param>
+    /// <param name="threadId">The conversation thread ID.</param>
+    /// <param name="personaOverride">
+    /// Optional runtime persona override.
+    /// Null leaves existing thread persona unchanged.
+    /// Empty string clears existing thread persona for this thread.
+    /// </param>
+    /// <param name="ct">Cancellation token to cancel the async operation.</param>
+    /// <returns>The assistant response turn.</returns>
+    public async Task<ChatTurn> RespondAsync(string userMessage, string? threadId, string? personaOverride, CancellationToken ct = default)
     {
         if(threadId == null || !threadService.ThreadExists(threadId))
         {
             threadId = threadService.CreateThread();
         }
+
+        var effectivePersona = ResolveAndPersistPersona(threadId, personaOverride);
 
         var getWidgets = AIFunctionFactory.Create(() =>
         {
@@ -94,7 +114,7 @@ public sealed class ChatWidgetService(
             Tools = [..aiToolsProvider.GetAITools(), getWidgets],
             ToolMode = ChatToolMode.Auto,
             AllowMultipleToolCalls = true,
-            Instructions = instructionProvider.GetInstructions()
+            Instructions = BuildInstructions(effectivePersona)
         };
 
         var messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.User, userMessage, ThreadId: threadId));
@@ -138,12 +158,31 @@ public sealed class ChatWidgetService(
     /// <exception cref="OperationCanceledException">
     /// Thrown if the operation is cancelled via the cancellation token.
     /// </exception>
-    public async IAsyncEnumerable<ChatTurn> StreamResponseAsync(string userMessage, string? threadId, [EnumeratorCancellation]CancellationToken cancellationToken = default)
+    public IAsyncEnumerable<ChatTurn> StreamResponseAsync(string userMessage, string? threadId, CancellationToken cancellationToken = default)
+    {
+        return StreamResponseAsync(userMessage, threadId, null, cancellationToken);
+    }
+
+    /// <summary>
+    /// Streams the AI assistant response with an optional persona override.
+    /// </summary>
+    /// <param name="userMessage">The message from the user to send to the AI.</param>
+    /// <param name="threadId">The conversation thread ID.</param>
+    /// <param name="personaOverride">
+    /// Optional runtime persona override.
+    /// Null leaves existing thread persona unchanged.
+    /// Empty string clears existing thread persona for this thread.
+    /// </param>
+    /// <param name="cancellationToken">Cancellation token to cancel the async operation.</param>
+    /// <returns>An async stream of response turns.</returns>
+    public async IAsyncEnumerable<ChatTurn> StreamResponseAsync(string userMessage, string? threadId, string? personaOverride, [EnumeratorCancellation]CancellationToken cancellationToken = default)
     {
         if (threadId == null || !threadService.ThreadExists(threadId))
         {
             threadId = threadService.CreateThread();
         }
+
+        var effectivePersona = ResolveAndPersistPersona(threadId, personaOverride);
 
         var getWidgets = AIFunctionFactory.Create(() =>
         {
@@ -159,7 +198,7 @@ public sealed class ChatWidgetService(
             Tools = [.. aiToolsProvider.GetAITools(), getWidgets],
             ToolMode = ChatToolMode.Auto,
             AllowMultipleToolCalls = true,
-            Instructions = instructionProvider.GetInstructions()
+            Instructions = BuildInstructions(effectivePersona)
         };
 
         var messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.User, userMessage, ThreadId: threadId));
@@ -181,6 +220,47 @@ public sealed class ChatWidgetService(
         messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.Assistant, responseText, chatWidgets, threadId));
 
         yield return messages.Turns[messages.Turns.Count - 1];
+    }
+
+    private string? ResolveAndPersistPersona(string threadId, string? personaOverride)
+    {
+        if (personaOverride is null)
+        {
+            return threadPersonaStore.GetPersona(threadId) ?? options.DefaultPersona;
+        }
+
+        var normalizedPersona = personaOverride.Trim();
+        if (string.IsNullOrWhiteSpace(normalizedPersona))
+        {
+            threadPersonaStore.ClearPersona(threadId);
+            return options.DefaultPersona;
+        }
+
+        threadPersonaStore.SetPersona(threadId, normalizedPersona);
+        return normalizedPersona;
+    }
+
+    private string? BuildInstructions(string? effectivePersona)
+    {
+        var baseInstructions = instructionProvider.GetInstructions();
+        if (string.IsNullOrWhiteSpace(effectivePersona))
+        {
+            return baseInstructions;
+        }
+
+        var personaInstructions = $"""
+            Persona for this conversation:
+            {effectivePersona}
+
+            Always follow this persona while also following all system, safety, tool, and formatting constraints.
+            """;
+
+        if (string.IsNullOrWhiteSpace(baseInstructions))
+        {
+            return personaInstructions;
+        }
+
+        return $"{personaInstructions}\n\n{baseInstructions}";
     }
 
     /// <summary>

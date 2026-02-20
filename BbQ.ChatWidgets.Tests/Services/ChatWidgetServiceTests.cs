@@ -18,6 +18,7 @@ public class ChatWidgetServiceTests
     private readonly Mock<IWidgetToolsProvider> mockToolsProvider = new();
     private readonly Mock<IAIToolsProvider> mockAIToolsProvider = new();
     private readonly Mock<IThreadService> mockThreadService = new();
+    private readonly Mock<IThreadPersonaStore> mockThreadPersonaStore = new();
     private readonly Mock<IAIInstructionProvider> mockAIInstructionsProvider = new();
     private readonly Mock<IWidgetActionRegistry> mockActionRegistry = new();
     private readonly Mock<IWidgetActionHandlerResolver> mockHandlerResolver = new();
@@ -35,12 +36,25 @@ public class ChatWidgetServiceTests
             mockToolsProvider.Object,
             mockAIToolsProvider.Object,
             mockThreadService.Object,
+            mockThreadPersonaStore.Object,
             mockAIInstructionsProvider.Object,
             mockActionRegistry.Object,
             mockHandlerResolver.Object,
             mockHistorySummarizer.Object,
             options
         );
+    }
+
+    private void SetupBasicConversationFlow()
+    {
+        mockThreadService.Setup(ts => ts.ThreadExists(It.IsAny<string>()), () => true);
+        mockThreadService
+            .Setup(ts => ts.AppendMessageToThread(It.IsAny<string>(), It.IsAny<ChatTurn>()), () => new ChatMessages([new ChatTurn(ChatRole.User, "Hello")]));
+
+        mockToolsProvider.Setup(tp => tp.GetTools(), () => []);
+        mockAIToolsProvider.Setup(tp => tp.GetAITools(), () => []);
+        mockThreadPersonaStore.Setup(ps => ps.GetPersona(It.IsAny<string>()), () => null);
+        mockAIInstructionsProvider.Setup(ip => ip.GetInstructions(), () => "Base instructions");
     }
 
     [Fact]
@@ -70,12 +84,8 @@ public class ChatWidgetServiceTests
     public async Task RespondAsync_UsesExistingThread()
     {
         // Arrange
+        SetupBasicConversationFlow();
         mockThreadService.Setup(ts => ts.ThreadExists("thread-123"), () => true);
-        mockThreadService
-            .Setup(ts => ts.AppendMessageToThread(It.IsAny<string>(), It.IsAny<ChatTurn>()), () => new ChatMessages([new ChatTurn(ChatRole.User, "Hello")]));
-
-        mockToolsProvider.Setup(tp => tp.GetTools(), () => []);
-        mockAIToolsProvider.Setup(tp => tp.GetAITools(), () => []);
 
 
         // Act
@@ -89,13 +99,7 @@ public class ChatWidgetServiceTests
     public async Task RespondAsync_AppendsMessageToThread()
     {
         // Arrange
-
-        mockThreadService.Setup(ts => ts.ThreadExists(It.IsAny<string>()), () => true);
-        mockThreadService
-            .Setup(ts => ts.AppendMessageToThread(It.IsAny<string>(), It.IsAny<ChatTurn>()), () => new ChatMessages([new ChatTurn(ChatRole.User, "Hello")]));
-
-        mockToolsProvider.Setup(tp => tp.GetTools(), () => []);
-        mockAIToolsProvider.Setup(tp => tp.GetAITools(), () => []);
+        SetupBasicConversationFlow();
 
 
         // Act
@@ -120,6 +124,8 @@ public class ChatWidgetServiceTests
         var tools = new List<WidgetTool> { new(new ButtonWidget("test", "Test tool")) };
         mockToolsProvider.Setup(tp => tp.GetTools(), () => tools);
         mockAIToolsProvider.Setup(tp => tp.GetAITools(), () => tools);
+        mockAIInstructionsProvider.Setup(ip => ip.GetInstructions(), () => "Base instructions");
+        mockThreadPersonaStore.Setup(ps => ps.GetPersona(It.IsAny<string>()), () => null);
 
         // Act
         await chatWidgetService.RespondAsync("Test", threadId: "thread-123");
@@ -130,11 +136,73 @@ public class ChatWidgetServiceTests
             c => c.GetAITools(),
             Times.Once);
     }
+
+    [Fact]
+    public async Task RespondAsync_PersonaOverride_PersistsAndPrependsInstructions()
+    {
+        // Arrange
+        SetupBasicConversationFlow();
+
+        // Act
+        await chatWidgetService.RespondAsync("Hello", "thread-123", "Friendly pirate");
+
+        // Assert
+        Assert.NotNull(mockChat.LastChatOptions);
+        Assert.Contains("Friendly pirate", mockChat.LastChatOptions!.Instructions);
+        Assert.Contains("Base instructions", mockChat.LastChatOptions.Instructions);
+    }
+
+    [Fact]
+    public async Task RespondAsync_UsesThreadPersona_WhenRequestPersonaIsNotProvided()
+    {
+        // Arrange
+        SetupBasicConversationFlow();
+        mockThreadPersonaStore.Setup(ps => ps.GetPersona("thread-123"), () => "Helpful teacher");
+
+        // Act
+        await chatWidgetService.RespondAsync("Hello", "thread-123");
+
+        // Assert
+        Assert.NotNull(mockChat.LastChatOptions);
+        Assert.Contains("Helpful teacher", mockChat.LastChatOptions!.Instructions);
+    }
+
+    [Fact]
+    public async Task RespondAsync_UsesDefaultPersona_WhenNoRequestOrThreadPersona()
+    {
+        // Arrange
+        SetupBasicConversationFlow();
+        options.DefaultPersona = "Concise architect";
+
+        // Act
+        await chatWidgetService.RespondAsync("Hello", "thread-123");
+
+        // Assert
+        Assert.NotNull(mockChat.LastChatOptions);
+        Assert.Contains("Concise architect", mockChat.LastChatOptions!.Instructions);
+    }
+
+    [Fact]
+    public async Task RespondAsync_EmptyPersonaOverride_ClearsThreadPersona()
+    {
+        // Arrange
+        SetupBasicConversationFlow();
+        options.DefaultPersona = "Default advisor";
+
+        // Act
+        await chatWidgetService.RespondAsync("Hello", "thread-123", "   ");
+
+        // Assert
+        Assert.NotNull(mockChat.LastChatOptions);
+        Assert.Contains("Default advisor", mockChat.LastChatOptions!.Instructions);
+    }
 }
 
 
 class MockChatClient : IChatClient
 {
+    public ChatOptions? LastChatOptions { get; private set; }
+
     public void Dispose()
     {
         throw new NotImplementedException();
@@ -142,6 +210,7 @@ class MockChatClient : IChatClient
 
     public Task<ChatResponse> GetResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default)
     {
+        LastChatOptions = options;
         var input = @"This is a widget: <widget>{""type"":""input"",""label"":""Email"",""action"":""email"",""placeholder"":""user@example.com"",""maxLength"":100}</widget>";
         
         return Task.FromResult(new ChatResponse([new ChatMessage(ChatRole.Assistant, input)]));

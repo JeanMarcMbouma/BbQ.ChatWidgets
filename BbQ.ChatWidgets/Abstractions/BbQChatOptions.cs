@@ -103,6 +103,22 @@ public sealed class BbQChatOptions
     public Func<IServiceProvider, IAIInstructionProvider>? AIInstructionProviderFactory { get; set; }
 
     /// <summary>
+    /// Gets or sets the default AI persona instructions.
+    /// </summary>
+    /// <remarks>
+    /// This value defines a baseline persona that is prepended to system instructions
+    /// for all conversations unless overridden at runtime.
+    ///
+    /// Runtime precedence is:
+    /// 1. Request persona override
+    /// 2. Thread persona override (persisted)
+    /// 3. This default persona
+    ///
+    /// Set to null or empty to disable default persona behavior.
+    /// </remarks>
+    public string? DefaultPersona { get; set; }
+
+    /// <summary>
     /// Gets or sets the factory function for creating custom widget tools providers.
     /// </summary>
     /// <remarks>

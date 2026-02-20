@@ -79,6 +79,8 @@
 {
     options.RoutePrefix = &quot;/api/chat&quot;;
     options.ChatClientFactory = sp =&gt; sp.GetRequiredService&lt;IChatClient&gt;();
+    options.EnablePersona = true; // opt-in: enables request/thread/default persona behavior
+    options.DefaultPersona = &quot;You are a concise assistant.&quot;; // optional
 });
 </code></pre>
 <h3 id="available-options">Available Options</h3>
@@ -100,6 +102,16 @@
 <td><code>ChatClientFactory</code></td>
 <td><code>Func&lt;IServiceProvider, IChatClient&gt;</code></td>
 <td>A factory function that returns the <code>IChatClient</code> to be used for chat completions.</td>
+</tr>
+<tr>
+<td><code>EnablePersona</code></td>
+<td><code>bool</code></td>
+<td>Enables persona support. Default is <code>false</code> (opt-in).</td>
+</tr>
+<tr>
+<td><code>DefaultPersona</code></td>
+<td><code>string?</code></td>
+<td>Baseline persona used when persona support is enabled and no request/thread persona is provided.</td>
 </tr>
 <tr>
 <td><code>WidgetRegistryConfigurator</code></td>
@@ -128,6 +140,8 @@
 </tr>
 </tbody>
 </table>
+<h3 id="persona-opt-in">Persona Opt-In</h3>
+<p>Persona behavior is disabled by default. To accept <code>persona</code> in <code>/api/chat/message</code>, <code>/api/chat/stream/message</code>, and <code>/api/chat/agent</code>, set <code>EnablePersona = true</code> during <code>AddBbQChatWidgets(...)</code> registration.</p>
 <h2 id="advanced-configuration">Advanced Configuration</h2>
 <h3 id="customizing-ai-instructions">Customizing AI Instructions</h3>
 <p>The <code>IAIInstructionProvider</code> is responsible for generating the system prompt that guides the LLM. You can provide a custom implementation to change how the LLM perceives widgets or to add your own global rules.</p>

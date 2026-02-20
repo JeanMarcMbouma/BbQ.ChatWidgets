@@ -140,14 +140,14 @@ and conversation threading.</p>
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Services_ChatWidgetService__ctor_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.#ctor*"></a>
-  <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_BbQChatOptions_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer,BbQChatOptions)">ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)</h4>
+  <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IThreadPersonaStore_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_BbQChatOptions_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IThreadPersonaStore,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer,BbQChatOptions)">ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)</h4>
   <div class="markdown level1 summary"><p>Orchestrates chat widget interactions by managing message processing, widget tool availability,
 and conversation threading.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public ChatWidgetService(IChatClient chat, IWidgetHintParser widgetHintParser, IWidgetHintSanitizer widgetHintSanitizer, IWidgetToolsProvider widgetToolsProvider, IAIToolsProvider aiToolsProvider, IThreadService threadService, IAIInstructionProvider instructionProvider, IWidgetActionRegistry actionRegistry, IWidgetActionHandlerResolver handlerResolver, IChatHistorySummarizer historySummarizer, BbQChatOptions options)</code></pre>
+    <pre><code class="lang-csharp hljs">public ChatWidgetService(IChatClient chat, IWidgetHintParser widgetHintParser, IWidgetHintSanitizer widgetHintSanitizer, IWidgetToolsProvider widgetToolsProvider, IAIToolsProvider aiToolsProvider, IThreadService threadService, IThreadPersonaStore threadPersonaStore, IAIInstructionProvider instructionProvider, IWidgetActionRegistry actionRegistry, IWidgetActionHandlerResolver handlerResolver, IChatHistorySummarizer historySummarizer, BbQChatOptions options)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -190,6 +190,11 @@ and conversation threading.</p>
         <td></td>
       </tr>
       <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.html">IThreadPersonaStore</a></td>
+        <td><span class="parametername">threadPersonaStore</span></td>
+        <td></td>
+      </tr>
+      <tr>
         <td><a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIInstructionProvider.html">IAIInstructionProvider</a></td>
         <td><span class="parametername">instructionProvider</span></td>
         <td></td>
@@ -216,7 +221,7 @@ and conversation threading.</p>
       </tr>
     </tbody>
   </table>
-  <h5 id="BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_BbQChatOptions__remarks">Remarks</h5>
+  <h5 id="BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IThreadPersonaStore_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_BbQChatOptions__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>This service is the central hub for chat widget functionality. It:</p>
 <ul>
 <li>Manages conversation threads and message history</li>
@@ -351,6 +356,73 @@ It:</p>
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Services_ChatWidgetService_RespondAsync_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync*"></a>
+  <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService_RespondAsync_System_String_System_String_System_String_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">RespondAsync(string, string?, string?, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Processes a user message with an optional persona override and generates an AI response.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;ChatTurn&gt; RespondAsync(string userMessage, string? threadId, string? personaOverride, CancellationToken ct = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">userMessage</span></td>
+        <td><p>The message from the user to send to the AI.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">threadId</span></td>
+        <td><p>The conversation thread ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">personaOverride</span></td>
+        <td><p>Optional runtime persona override.
+Null leaves existing thread persona unchanged.
+Empty string clears existing thread persona for this thread.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">ct</span></td>
+        <td><p>Cancellation token to cancel the async operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a>&gt;</td>
+        <td><p>The assistant response turn.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Services_ChatWidgetService_RespondAsync_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync*"></a>
   <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService_RespondAsync_System_String_System_String_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync(System.String,System.String,System.Threading.CancellationToken)">RespondAsync(string, string?, CancellationToken)</h4>
   <div class="markdown level1 summary"><p>Processes a user message and generates an AI response with optional embedded widgets.</p>
 </div>
@@ -435,6 +507,73 @@ in its responses using the <code>&lt;widget&gt;...&lt;/widget&gt;</code> format.
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.operationcanceledexception">OperationCanceledException</a></td>
         <td><p>Thrown if the operation is cancelled via the cancellation token.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/ChatWidgetService.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Services_ChatWidgetService_StreamResponseAsync_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync*"></a>
+  <h4 id="BbQ_ChatWidgets_Services_ChatWidgetService_StreamResponseAsync_System_String_System_String_System_String_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync(System.String,System.String,System.String,System.Threading.CancellationToken)">StreamResponseAsync(string, string?, string?, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Streams the AI assistant response with an optional persona override.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IAsyncEnumerable&lt;ChatTurn&gt; StreamResponseAsync(string userMessage, string? threadId, string? personaOverride, CancellationToken cancellationToken = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">userMessage</span></td>
+        <td><p>The message from the user to send to the AI.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">threadId</span></td>
+        <td><p>The conversation thread ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">personaOverride</span></td>
+        <td><p>Optional runtime persona override.
+Null leaves existing thread persona unchanged.
+Empty string clears existing thread persona for this thread.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">cancellationToken</span></td>
+        <td><p>Cancellation token to cancel the async operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1">IAsyncEnumerable</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a>&gt;</td>
+        <td><p>An async stream of response turns.</p>
 </td>
       </tr>
     </tbody>

@@ -159,6 +159,57 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.ValidatePublishFrequencyAsync
   fullName: BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator.ValidatePublishFrequencyAsync
   nameWithType: IStreamPayloadValidator.ValidatePublishFrequencyAsync
+- uid: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore
+  name: IThreadPersonaStore
+  href: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.html
+  commentId: T:BbQ.ChatWidgets.Abstractions.IThreadPersonaStore
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore
+  nameWithType: IThreadPersonaStore
+- uid: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.ClearPersona(System.String)
+  name: ClearPersona(string)
+  href: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.html#BbQ_ChatWidgets_Abstractions_IThreadPersonaStore_ClearPersona_System_String_
+  commentId: M:BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.ClearPersona(System.String)
+  name.vb: ClearPersona(String)
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.ClearPersona(string)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.ClearPersona(String)
+  nameWithType: IThreadPersonaStore.ClearPersona(string)
+  nameWithType.vb: IThreadPersonaStore.ClearPersona(String)
+- uid: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.ClearPersona*
+  name: ClearPersona
+  href: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.html#BbQ_ChatWidgets_Abstractions_IThreadPersonaStore_ClearPersona_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.ClearPersona
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.ClearPersona
+  nameWithType: IThreadPersonaStore.ClearPersona
+- uid: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.GetPersona(System.String)
+  name: GetPersona(string)
+  href: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.html#BbQ_ChatWidgets_Abstractions_IThreadPersonaStore_GetPersona_System_String_
+  commentId: M:BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.GetPersona(System.String)
+  name.vb: GetPersona(String)
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.GetPersona(string)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.GetPersona(String)
+  nameWithType: IThreadPersonaStore.GetPersona(string)
+  nameWithType.vb: IThreadPersonaStore.GetPersona(String)
+- uid: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.GetPersona*
+  name: GetPersona
+  href: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.html#BbQ_ChatWidgets_Abstractions_IThreadPersonaStore_GetPersona_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.GetPersona
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.GetPersona
+  nameWithType: IThreadPersonaStore.GetPersona
+- uid: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.SetPersona(System.String,System.String)
+  name: SetPersona(string, string)
+  href: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.html#BbQ_ChatWidgets_Abstractions_IThreadPersonaStore_SetPersona_System_String_System_String_
+  commentId: M:BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.SetPersona(System.String,System.String)
+  name.vb: SetPersona(String, String)
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.SetPersona(string, string)
+  fullName.vb: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.SetPersona(String, String)
+  nameWithType: IThreadPersonaStore.SetPersona(string, string)
+  nameWithType.vb: IThreadPersonaStore.SetPersona(String, String)
+- uid: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.SetPersona*
+  name: SetPersona
+  href: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.html#BbQ_ChatWidgets_Abstractions_IThreadPersonaStore_SetPersona_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.SetPersona
+  fullName: BbQ.ChatWidgets.Abstractions.IThreadPersonaStore.SetPersona
+  nameWithType: IThreadPersonaStore.SetPersona
 - uid: BbQ.ChatWidgets.Abstractions.IThreadService
   name: IThreadService
   href: BbQ.ChatWidgets.Abstractions.IThreadService.html
@@ -1475,6 +1526,18 @@ references:
   fullName.vb: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetClassification(Of TCategory)(BbQ.ChatWidgets.Agents.ChatRequest)
   nameWithType: InterAgentCommunicationContext.GetClassification<TCategory>(ChatRequest)
   nameWithType.vb: InterAgentCommunicationContext.GetClassification(Of TCategory)(ChatRequest)
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetPersona(BbQ.ChatWidgets.Agents.ChatRequest)
+  name: GetPersona(ChatRequest)
+  href: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html#BbQ_ChatWidgets_Agents_InterAgentCommunicationContext_GetPersona_BbQ_ChatWidgets_Agents_ChatRequest_
+  commentId: M:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetPersona(BbQ.ChatWidgets.Agents.ChatRequest)
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetPersona(BbQ.ChatWidgets.Agents.ChatRequest)
+  nameWithType: InterAgentCommunicationContext.GetPersona(ChatRequest)
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetPersona*
+  name: GetPersona
+  href: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html#BbQ_ChatWidgets_Agents_InterAgentCommunicationContext_GetPersona_
+  commentId: Overload:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetPersona
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetPersona
+  nameWithType: InterAgentCommunicationContext.GetPersona
 - uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.GetPreviousResult(BbQ.ChatWidgets.Agents.ChatRequest)
   name: GetPreviousResult(ChatRequest)
   href: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html#BbQ_ChatWidgets_Agents_InterAgentCommunicationContext_GetPreviousResult_BbQ_ChatWidgets_Agents_ChatRequest_
@@ -1526,6 +1589,21 @@ references:
   fullName.vb: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetClassification(Of TCategory)(BbQ.ChatWidgets.Agents.ChatRequest, TCategory)
   nameWithType: InterAgentCommunicationContext.SetClassification<TCategory>(ChatRequest, TCategory)
   nameWithType.vb: InterAgentCommunicationContext.SetClassification(Of TCategory)(ChatRequest, TCategory)
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetPersona(BbQ.ChatWidgets.Agents.ChatRequest,System.String)
+  name: SetPersona(ChatRequest, string)
+  href: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html#BbQ_ChatWidgets_Agents_InterAgentCommunicationContext_SetPersona_BbQ_ChatWidgets_Agents_ChatRequest_System_String_
+  commentId: M:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetPersona(BbQ.ChatWidgets.Agents.ChatRequest,System.String)
+  name.vb: SetPersona(ChatRequest, String)
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetPersona(BbQ.ChatWidgets.Agents.ChatRequest, string)
+  fullName.vb: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetPersona(BbQ.ChatWidgets.Agents.ChatRequest, String)
+  nameWithType: InterAgentCommunicationContext.SetPersona(ChatRequest, string)
+  nameWithType.vb: InterAgentCommunicationContext.SetPersona(ChatRequest, String)
+- uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetPersona*
+  name: SetPersona
+  href: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html#BbQ_ChatWidgets_Agents_InterAgentCommunicationContext_SetPersona_
+  commentId: Overload:BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetPersona
+  fullName: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetPersona
+  nameWithType: InterAgentCommunicationContext.SetPersona
 - uid: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.SetPreviousResult(BbQ.ChatWidgets.Agents.ChatRequest,System.Object)
   name: SetPreviousResult(ChatRequest, object)
   href: BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html#BbQ_ChatWidgets_Agents_InterAgentCommunicationContext_SetPreviousResult_BbQ_ChatWidgets_Agents_ChatRequest_System_Object_
@@ -1668,15 +1746,15 @@ references:
   commentId: T:BbQ.ChatWidgets.Endpoints.UserMessageDto
   fullName: BbQ.ChatWidgets.Endpoints.UserMessageDto
   nameWithType: UserMessageDto
-- uid: BbQ.ChatWidgets.Endpoints.UserMessageDto.#ctor(System.String,System.String)
-  name: UserMessageDto(string, string?)
-  href: BbQ.ChatWidgets.Endpoints.UserMessageDto.html#BbQ_ChatWidgets_Endpoints_UserMessageDto__ctor_System_String_System_String_
-  commentId: M:BbQ.ChatWidgets.Endpoints.UserMessageDto.#ctor(System.String,System.String)
-  name.vb: New(String, String)
-  fullName: BbQ.ChatWidgets.Endpoints.UserMessageDto.UserMessageDto(string, string?)
-  fullName.vb: BbQ.ChatWidgets.Endpoints.UserMessageDto.New(String, String)
-  nameWithType: UserMessageDto.UserMessageDto(string, string?)
-  nameWithType.vb: UserMessageDto.New(String, String)
+- uid: BbQ.ChatWidgets.Endpoints.UserMessageDto.#ctor(System.String,System.String,System.String)
+  name: UserMessageDto(string, string?, string?)
+  href: BbQ.ChatWidgets.Endpoints.UserMessageDto.html#BbQ_ChatWidgets_Endpoints_UserMessageDto__ctor_System_String_System_String_System_String_
+  commentId: M:BbQ.ChatWidgets.Endpoints.UserMessageDto.#ctor(System.String,System.String,System.String)
+  name.vb: New(String, String, String)
+  fullName: BbQ.ChatWidgets.Endpoints.UserMessageDto.UserMessageDto(string, string?, string?)
+  fullName.vb: BbQ.ChatWidgets.Endpoints.UserMessageDto.New(String, String, String)
+  nameWithType: UserMessageDto.UserMessageDto(string, string?, string?)
+  nameWithType.vb: UserMessageDto.New(String, String, String)
 - uid: BbQ.ChatWidgets.Endpoints.UserMessageDto.#ctor*
   name: UserMessageDto
   href: BbQ.ChatWidgets.Endpoints.UserMessageDto.html#BbQ_ChatWidgets_Endpoints_UserMessageDto__ctor_
@@ -1686,15 +1764,15 @@ references:
   fullName.vb: BbQ.ChatWidgets.Endpoints.UserMessageDto.New
   nameWithType: UserMessageDto.UserMessageDto
   nameWithType.vb: UserMessageDto.New
-- uid: BbQ.ChatWidgets.Endpoints.UserMessageDto.Deconstruct(System.String@,System.String@)
-  name: Deconstruct(out string, out string?)
-  href: BbQ.ChatWidgets.Endpoints.UserMessageDto.html#BbQ_ChatWidgets_Endpoints_UserMessageDto_Deconstruct_System_String__System_String__
-  commentId: M:BbQ.ChatWidgets.Endpoints.UserMessageDto.Deconstruct(System.String@,System.String@)
-  name.vb: Deconstruct(String, String)
-  fullName: BbQ.ChatWidgets.Endpoints.UserMessageDto.Deconstruct(out string, out string?)
-  fullName.vb: BbQ.ChatWidgets.Endpoints.UserMessageDto.Deconstruct(String, String)
-  nameWithType: UserMessageDto.Deconstruct(out string, out string?)
-  nameWithType.vb: UserMessageDto.Deconstruct(String, String)
+- uid: BbQ.ChatWidgets.Endpoints.UserMessageDto.Deconstruct(System.String@,System.String@,System.String@)
+  name: Deconstruct(out string, out string?, out string?)
+  href: BbQ.ChatWidgets.Endpoints.UserMessageDto.html#BbQ_ChatWidgets_Endpoints_UserMessageDto_Deconstruct_System_String__System_String__System_String__
+  commentId: M:BbQ.ChatWidgets.Endpoints.UserMessageDto.Deconstruct(System.String@,System.String@,System.String@)
+  name.vb: Deconstruct(String, String, String)
+  fullName: BbQ.ChatWidgets.Endpoints.UserMessageDto.Deconstruct(out string, out string?, out string?)
+  fullName.vb: BbQ.ChatWidgets.Endpoints.UserMessageDto.Deconstruct(String, String, String)
+  nameWithType: UserMessageDto.Deconstruct(out string, out string?, out string?)
+  nameWithType.vb: UserMessageDto.Deconstruct(String, String, String)
 - uid: BbQ.ChatWidgets.Endpoints.UserMessageDto.Deconstruct*
   name: Deconstruct
   href: BbQ.ChatWidgets.Endpoints.UserMessageDto.html#BbQ_ChatWidgets_Endpoints_UserMessageDto_Deconstruct_
@@ -1749,6 +1827,18 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Endpoints.UserMessageDto.Message
   fullName: BbQ.ChatWidgets.Endpoints.UserMessageDto.Message
   nameWithType: UserMessageDto.Message
+- uid: BbQ.ChatWidgets.Endpoints.UserMessageDto.Persona
+  name: Persona
+  href: BbQ.ChatWidgets.Endpoints.UserMessageDto.html#BbQ_ChatWidgets_Endpoints_UserMessageDto_Persona
+  commentId: P:BbQ.ChatWidgets.Endpoints.UserMessageDto.Persona
+  fullName: BbQ.ChatWidgets.Endpoints.UserMessageDto.Persona
+  nameWithType: UserMessageDto.Persona
+- uid: BbQ.ChatWidgets.Endpoints.UserMessageDto.Persona*
+  name: Persona
+  href: BbQ.ChatWidgets.Endpoints.UserMessageDto.html#BbQ_ChatWidgets_Endpoints_UserMessageDto_Persona_
+  commentId: Overload:BbQ.ChatWidgets.Endpoints.UserMessageDto.Persona
+  fullName: BbQ.ChatWidgets.Endpoints.UserMessageDto.Persona
+  nameWithType: UserMessageDto.Persona
 - uid: BbQ.ChatWidgets.Endpoints.UserMessageDto.ThreadId
   name: ThreadId
   href: BbQ.ChatWidgets.Endpoints.UserMessageDto.html#BbQ_ChatWidgets_Endpoints_UserMessageDto_ThreadId
@@ -6783,15 +6873,15 @@ references:
   commentId: T:BbQ.ChatWidgets.Services.ChatWidgetService
   fullName: BbQ.ChatWidgets.Services.ChatWidgetService
   nameWithType: ChatWidgetService
-- uid: BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer,BbQChatOptions)
-  name: ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)
-  href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_BbQChatOptions_
-  commentId: M:BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer,BbQChatOptions)
-  name.vb: New(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)
-  fullName: BbQ.ChatWidgets.Services.ChatWidgetService.ChatWidgetService(Microsoft.Extensions.AI.IChatClient, BbQ.ChatWidgets.Abstractions.IWidgetHintParser, BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer, BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider, BbQ.ChatWidgets.Abstractions.IAIToolsProvider, BbQ.ChatWidgets.Abstractions.IThreadService, BbQ.ChatWidgets.Abstractions.IAIInstructionProvider, BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer, BbQChatOptions)
-  fullName.vb: BbQ.ChatWidgets.Services.ChatWidgetService.New(Microsoft.Extensions.AI.IChatClient, BbQ.ChatWidgets.Abstractions.IWidgetHintParser, BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer, BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider, BbQ.ChatWidgets.Abstractions.IAIToolsProvider, BbQ.ChatWidgets.Abstractions.IThreadService, BbQ.ChatWidgets.Abstractions.IAIInstructionProvider, BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer, BbQChatOptions)
-  nameWithType: ChatWidgetService.ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)
-  nameWithType.vb: ChatWidgetService.New(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)
+- uid: BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IThreadPersonaStore,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer,BbQChatOptions)
+  name: ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)
+  href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IThreadPersonaStore_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_BbQChatOptions_
+  commentId: M:BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IThreadPersonaStore,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer,BbQChatOptions)
+  name.vb: New(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)
+  fullName: BbQ.ChatWidgets.Services.ChatWidgetService.ChatWidgetService(Microsoft.Extensions.AI.IChatClient, BbQ.ChatWidgets.Abstractions.IWidgetHintParser, BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer, BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider, BbQ.ChatWidgets.Abstractions.IAIToolsProvider, BbQ.ChatWidgets.Abstractions.IThreadService, BbQ.ChatWidgets.Abstractions.IThreadPersonaStore, BbQ.ChatWidgets.Abstractions.IAIInstructionProvider, BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer, BbQChatOptions)
+  fullName.vb: BbQ.ChatWidgets.Services.ChatWidgetService.New(Microsoft.Extensions.AI.IChatClient, BbQ.ChatWidgets.Abstractions.IWidgetHintParser, BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer, BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider, BbQ.ChatWidgets.Abstractions.IAIToolsProvider, BbQ.ChatWidgets.Abstractions.IThreadService, BbQ.ChatWidgets.Abstractions.IThreadPersonaStore, BbQ.ChatWidgets.Abstractions.IAIInstructionProvider, BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer, BbQChatOptions)
+  nameWithType: ChatWidgetService.ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)
+  nameWithType.vb: ChatWidgetService.New(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)
 - uid: BbQ.ChatWidgets.Services.ChatWidgetService.#ctor*
   name: ChatWidgetService
   href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService__ctor_
@@ -6816,6 +6906,15 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Services.ChatWidgetService.HandleActionAsync
   fullName: BbQ.ChatWidgets.Services.ChatWidgetService.HandleActionAsync
   nameWithType: ChatWidgetService.HandleActionAsync
+- uid: BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync(System.String,System.String,System.String,System.Threading.CancellationToken)
+  name: RespondAsync(string, string?, string?, CancellationToken)
+  href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService_RespondAsync_System_String_System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync(System.String,System.String,System.String,System.Threading.CancellationToken)
+  name.vb: RespondAsync(String, String, String, CancellationToken)
+  fullName: BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync(string, string?, string?, System.Threading.CancellationToken)
+  fullName.vb: BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync(String, String, String, System.Threading.CancellationToken)
+  nameWithType: ChatWidgetService.RespondAsync(string, string?, string?, CancellationToken)
+  nameWithType.vb: ChatWidgetService.RespondAsync(String, String, String, CancellationToken)
 - uid: BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync(System.String,System.String,System.Threading.CancellationToken)
   name: RespondAsync(string, string?, CancellationToken)
   href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService_RespondAsync_System_String_System_String_System_Threading_CancellationToken_
@@ -6831,6 +6930,15 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync
   fullName: BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync
   nameWithType: ChatWidgetService.RespondAsync
+- uid: BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync(System.String,System.String,System.String,System.Threading.CancellationToken)
+  name: StreamResponseAsync(string, string?, string?, CancellationToken)
+  href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService_StreamResponseAsync_System_String_System_String_System_String_System_Threading_CancellationToken_
+  commentId: M:BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync(System.String,System.String,System.String,System.Threading.CancellationToken)
+  name.vb: StreamResponseAsync(String, String, String, CancellationToken)
+  fullName: BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync(string, string?, string?, System.Threading.CancellationToken)
+  fullName.vb: BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync(String, String, String, System.Threading.CancellationToken)
+  nameWithType: ChatWidgetService.StreamResponseAsync(string, string?, string?, CancellationToken)
+  nameWithType.vb: ChatWidgetService.StreamResponseAsync(String, String, String, CancellationToken)
 - uid: BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync(System.String,System.String,System.Threading.CancellationToken)
   name: StreamResponseAsync(string, string?, CancellationToken)
   href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService_StreamResponseAsync_System_String_System_String_System_Threading_CancellationToken_
@@ -7050,6 +7158,75 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.ValidatePublishFrequencyAsync
   fullName: BbQ.ChatWidgets.Services.DefaultStreamPayloadValidator.ValidatePublishFrequencyAsync
   nameWithType: DefaultStreamPayloadValidator.ValidatePublishFrequencyAsync
+- uid: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore
+  name: DefaultThreadPersonaStore
+  href: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.html
+  commentId: T:BbQ.ChatWidgets.Services.DefaultThreadPersonaStore
+  fullName: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore
+  nameWithType: DefaultThreadPersonaStore
+- uid: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.#ctor
+  name: DefaultThreadPersonaStore()
+  href: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.html#BbQ_ChatWidgets_Services_DefaultThreadPersonaStore__ctor
+  commentId: M:BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.#ctor
+  name.vb: New()
+  fullName: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.DefaultThreadPersonaStore()
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.New()
+  nameWithType: DefaultThreadPersonaStore.DefaultThreadPersonaStore()
+  nameWithType.vb: DefaultThreadPersonaStore.New()
+- uid: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.#ctor*
+  name: DefaultThreadPersonaStore
+  href: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.html#BbQ_ChatWidgets_Services_DefaultThreadPersonaStore__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.DefaultThreadPersonaStore
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.New
+  nameWithType: DefaultThreadPersonaStore.DefaultThreadPersonaStore
+  nameWithType.vb: DefaultThreadPersonaStore.New
+- uid: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.ClearPersona(System.String)
+  name: ClearPersona(string)
+  href: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.html#BbQ_ChatWidgets_Services_DefaultThreadPersonaStore_ClearPersona_System_String_
+  commentId: M:BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.ClearPersona(System.String)
+  name.vb: ClearPersona(String)
+  fullName: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.ClearPersona(string)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.ClearPersona(String)
+  nameWithType: DefaultThreadPersonaStore.ClearPersona(string)
+  nameWithType.vb: DefaultThreadPersonaStore.ClearPersona(String)
+- uid: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.ClearPersona*
+  name: ClearPersona
+  href: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.html#BbQ_ChatWidgets_Services_DefaultThreadPersonaStore_ClearPersona_
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.ClearPersona
+  fullName: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.ClearPersona
+  nameWithType: DefaultThreadPersonaStore.ClearPersona
+- uid: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.GetPersona(System.String)
+  name: GetPersona(string)
+  href: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.html#BbQ_ChatWidgets_Services_DefaultThreadPersonaStore_GetPersona_System_String_
+  commentId: M:BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.GetPersona(System.String)
+  name.vb: GetPersona(String)
+  fullName: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.GetPersona(string)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.GetPersona(String)
+  nameWithType: DefaultThreadPersonaStore.GetPersona(string)
+  nameWithType.vb: DefaultThreadPersonaStore.GetPersona(String)
+- uid: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.GetPersona*
+  name: GetPersona
+  href: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.html#BbQ_ChatWidgets_Services_DefaultThreadPersonaStore_GetPersona_
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.GetPersona
+  fullName: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.GetPersona
+  nameWithType: DefaultThreadPersonaStore.GetPersona
+- uid: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.SetPersona(System.String,System.String)
+  name: SetPersona(string, string)
+  href: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.html#BbQ_ChatWidgets_Services_DefaultThreadPersonaStore_SetPersona_System_String_System_String_
+  commentId: M:BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.SetPersona(System.String,System.String)
+  name.vb: SetPersona(String, String)
+  fullName: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.SetPersona(string, string)
+  fullName.vb: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.SetPersona(String, String)
+  nameWithType: DefaultThreadPersonaStore.SetPersona(string, string)
+  nameWithType.vb: DefaultThreadPersonaStore.SetPersona(String, String)
+- uid: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.SetPersona*
+  name: SetPersona
+  href: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.html#BbQ_ChatWidgets_Services_DefaultThreadPersonaStore_SetPersona_
+  commentId: Overload:BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.SetPersona
+  fullName: BbQ.ChatWidgets.Services.DefaultThreadPersonaStore.SetPersona
+  nameWithType: DefaultThreadPersonaStore.SetPersona
 - uid: BbQ.ChatWidgets.Services.DefaultThreadService
   name: DefaultThreadService
   href: BbQ.ChatWidgets.Services.DefaultThreadService.html

@@ -115,13 +115,13 @@ It contains the user's message and optional conversation thread ID.</p>
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Endpoints/WidgetActionDto.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Endpoints_UserMessageDto__ctor_" data-uid="BbQ.ChatWidgets.Endpoints.UserMessageDto.#ctor*"></a>
-  <h4 id="BbQ_ChatWidgets_Endpoints_UserMessageDto__ctor_System_String_System_String_" data-uid="BbQ.ChatWidgets.Endpoints.UserMessageDto.#ctor(System.String,System.String)">UserMessageDto(string, string?)</h4>
+  <h4 id="BbQ_ChatWidgets_Endpoints_UserMessageDto__ctor_System_String_System_String_System_String_" data-uid="BbQ.ChatWidgets.Endpoints.UserMessageDto.#ctor(System.String,System.String,System.String)">UserMessageDto(string, string?, string?)</h4>
   <div class="markdown level1 summary"><p>Data transfer object for user message requests.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public UserMessageDto(string Message, string? ThreadId)</code></pre>
+    <pre><code class="lang-csharp hljs">public UserMessageDto(string Message, string? ThreadId, string? Persona = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -145,9 +145,15 @@ It contains the user's message and optional conversation thread ID.</p>
         <td><p>Optional conversation thread ID.</p>
 </td>
       </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">Persona</span></td>
+        <td><p>Optional persona override. Empty string clears any thread persona.</p>
+</td>
+      </tr>
     </tbody>
   </table>
-  <h5 id="BbQ_ChatWidgets_Endpoints_UserMessageDto__ctor_System_String_System_String__remarks">Remarks</h5>
+  <h5 id="BbQ_ChatWidgets_Endpoints_UserMessageDto__ctor_System_String_System_String_System_String__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>This DTO is used for the POST /api/chat/message endpoint.
 It contains the user's message and optional conversation thread ID.</p>
 </div>
@@ -165,6 +171,34 @@ It contains the user's message and optional conversation thread ID.</p>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public string Message { get; init; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Endpoints/WidgetActionDto.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Endpoints_UserMessageDto_Persona_" data-uid="BbQ.ChatWidgets.Endpoints.UserMessageDto.Persona*"></a>
+  <h4 id="BbQ_ChatWidgets_Endpoints_UserMessageDto_Persona" data-uid="BbQ.ChatWidgets.Endpoints.UserMessageDto.Persona">Persona</h4>
+  <div class="markdown level1 summary"><p>Optional persona override. Empty string clears any thread persona.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? Persona { get; init; }</code></pre>
   </div>
   <h5 class="propertyValue">Property Value</h5>
   <table class="table table-bordered table-condensed">
@@ -216,12 +250,12 @@ It contains the user's message and optional conversation thread ID.</p>
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Endpoints/WidgetActionDto.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Endpoints_UserMessageDto_Deconstruct_" data-uid="BbQ.ChatWidgets.Endpoints.UserMessageDto.Deconstruct*"></a>
-  <h4 id="BbQ_ChatWidgets_Endpoints_UserMessageDto_Deconstruct_System_String__System_String__" data-uid="BbQ.ChatWidgets.Endpoints.UserMessageDto.Deconstruct(System.String@,System.String@)">Deconstruct(out string, out string?)</h4>
+  <h4 id="BbQ_ChatWidgets_Endpoints_UserMessageDto_Deconstruct_System_String__System_String__System_String__" data-uid="BbQ.ChatWidgets.Endpoints.UserMessageDto.Deconstruct(System.String@,System.String@,System.String@)">Deconstruct(out string, out string?, out string?)</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public void Deconstruct(out string Message, out string? ThreadId)</code></pre>
+    <pre><code class="lang-csharp hljs">public void Deconstruct(out string Message, out string? ThreadId, out string? Persona)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -241,6 +275,11 @@ It contains the user's message and optional conversation thread ID.</p>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td><span class="parametername">ThreadId</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">Persona</span></td>
         <td></td>
       </tr>
     </tbody>

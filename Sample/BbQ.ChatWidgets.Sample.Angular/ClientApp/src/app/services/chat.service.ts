@@ -21,7 +21,7 @@ export class ChatService {
 
   constructor(private http: HttpClient) {}
 
-  async sendMessage(text: string, endpoint: string = '/api/chat/message'): Promise<void> {
+  async sendMessage(text: string, endpoint: string = '/api/chat/message', persona: string | null = null): Promise<void> {
     if (!text.trim()) return;
 
     const userMessage: ChatMessage = {
@@ -38,7 +38,8 @@ export class ChatService {
     try {
       const response = await firstValueFrom(this.http.post<any>(endpoint, {
         message: text,
-        threadId: this._threadId()
+        threadId: this._threadId(),
+        persona: persona && persona.trim() ? persona : null
       }));
 
       if (!this._threadId() && response.threadId) {

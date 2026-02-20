@@ -10,6 +10,7 @@ interface StreamingChatPageProps {
 export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
+  const [persona, setPersona] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
   const [currentContent, setCurrentContent] = useState('');
   const [threadId, setThreadId] = useState<string | null>(null);
@@ -47,7 +48,8 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: text,
-          threadId: threadId
+          threadId: threadId,
+          persona: persona.trim() ? persona : null
         })
       });
 
@@ -161,6 +163,14 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
         {error && <div className="error-message">{error}</div>}
 
         <div className="input-area">
+          <input
+            type="text"
+            value={persona}
+            onChange={(e) => setPersona(e.target.value)}
+            disabled={isStreaming}
+            placeholder="Optional persona (blank = default)"
+            className="chat-input"
+          />
           <input
             type="text"
             value={input}

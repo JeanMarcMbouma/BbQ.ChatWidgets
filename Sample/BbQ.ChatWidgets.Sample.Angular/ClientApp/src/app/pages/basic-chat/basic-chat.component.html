@@ -42,6 +42,14 @@
       <input
         type="text"
         class="chat-input"
+        [value]="persona()"
+        (input)="persona.set($any($event.target).value)"
+        [disabled]="chatService.isLoading()"
+        placeholder="Optional persona (blank = default)"
+      />
+      <input
+        type="text"
+        class="chat-input"
         [value]="input()"
         (input)="input.set($any($event.target).value)"
         (keydown)="handleKeyDown($event)"

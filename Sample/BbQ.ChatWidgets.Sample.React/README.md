@@ -137,9 +137,12 @@ Send a user message and get an AI response.
 ```json
 {
   "message": "Hello!",
-  "threadId": "unique-thread-id"
+  "threadId": "unique-thread-id",
+  "persona": "You are a concise travel assistant."
 }
 ```
+
+`persona` is optional. If omitted or blank, the server falls back to the thread persona (if set) and then to the DI-configured default persona.
 
 **Response:**
 ```json

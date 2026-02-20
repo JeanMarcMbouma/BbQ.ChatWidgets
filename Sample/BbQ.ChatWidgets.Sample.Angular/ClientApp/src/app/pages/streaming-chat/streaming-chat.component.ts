@@ -13,6 +13,7 @@ import { WidgetRendererComponent } from '../../components/widget-renderer/widget
 })
 export class StreamingChatComponent implements OnInit {
   input = signal('');
+  persona = signal('');
   @Output() navigateBack = new EventEmitter<void>();
   
   constructor(public streamingService: StreamingChatService) {
@@ -33,7 +34,7 @@ export class StreamingChatComponent implements OnInit {
     if (!text.trim() || this.streamingService.isStreaming()) return;
     
     this.input.set('');
-    await this.streamingService.sendStreamingMessage(text);
+    await this.streamingService.sendStreamingMessage(text, '/api/chat/stream/message', this.persona());
   }
 
   handleKeyDown(event: KeyboardEvent) {

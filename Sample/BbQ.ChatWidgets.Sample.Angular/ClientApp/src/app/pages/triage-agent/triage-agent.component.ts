@@ -12,6 +12,7 @@ import { ChatService } from '../../services/chat.service';
 })
 export class TriageAgentComponent implements OnInit {
   input = signal('');
+  persona = signal('');
   @Output() navigateBack = new EventEmitter<void>();
   
   constructor(public chatService: ChatService) {
@@ -32,7 +33,7 @@ export class TriageAgentComponent implements OnInit {
     if (!text.trim() || this.chatService.isLoading()) return;
     
     this.input.set('');
-    await this.chatService.sendMessage(text, '/api/chat/agent');
+    await this.chatService.sendMessage(text, '/api/chat/agent', this.persona());
   }
 
   handleKeyDown(event: KeyboardEvent) {

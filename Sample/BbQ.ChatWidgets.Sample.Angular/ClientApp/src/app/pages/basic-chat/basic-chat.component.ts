@@ -13,6 +13,7 @@ import { WidgetRendererComponent } from '../../components/widget-renderer/widget
 })
 export class BasicChatComponent implements OnInit, OnDestroy {
   input = signal('');
+  persona = signal('');
   @Output() navigateBack = new EventEmitter<void>();
   
   constructor(public chatService: ChatService) {
@@ -38,7 +39,7 @@ export class BasicChatComponent implements OnInit, OnDestroy {
     if (!text.trim() || this.chatService.isLoading()) return;
     
     this.input.set('');
-    await this.chatService.sendMessage(text, '/api/chat/message');
+    await this.chatService.sendMessage(text, '/api/chat/message', this.persona());
   }
 
   handleKeyDown(event: KeyboardEvent) {

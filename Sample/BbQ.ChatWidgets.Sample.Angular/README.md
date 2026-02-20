@@ -134,9 +134,12 @@ Send a user message and get an AI response.
 ```json
 {
   "message": "Hello!",
-  "threadId": "unique-thread-id"
+  "threadId": "unique-thread-id",
+  "persona": "You are a concise travel assistant."
 }
 ```
+
+`persona` is optional. If omitted or blank, the server falls back to the thread persona (if set) and then to the DI-configured default persona.
 
 **Response:**
 ```json
@@ -208,6 +211,8 @@ this._messages.update(msgs => [...msgs, newMessage]);
 - **ChatService**: Manages chat state with signals for reactive updates
 - **StreamingChatService**: Handles streaming responses
 - **SseService**: Manages Server-Sent Events subscriptions
+
+`ChatService.sendMessage(...)` and `StreamingChatService.sendStreamingMessage(...)` both accept an optional `persona` argument and send `null` when it is blank.
 
 ### Components
 

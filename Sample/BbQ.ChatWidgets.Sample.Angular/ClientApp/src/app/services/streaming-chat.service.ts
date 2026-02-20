@@ -15,7 +15,7 @@ export class StreamingChatService {
   readonly error = this._error.asReadonly();
   readonly threadId = this._threadId.asReadonly();
 
-  async sendStreamingMessage(text: string, endpoint: string = '/api/chat/stream/message'): Promise<void> {
+  async sendStreamingMessage(text: string, endpoint: string = '/api/chat/stream/message', persona: string | null = null): Promise<void> {
     if (!text.trim()) return;
 
     const userMessage: ChatMessage = {
@@ -35,7 +35,8 @@ export class StreamingChatService {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: text,
-          threadId: this._threadId()
+          threadId: this._threadId(),
+          persona: persona && persona.trim() ? persona : null
         })
       });
 

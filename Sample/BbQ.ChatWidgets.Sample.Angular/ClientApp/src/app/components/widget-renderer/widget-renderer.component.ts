@@ -4,10 +4,12 @@ import {
   Input,
   Output,
   EventEmitter,
+  Inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WidgetRendererComponent as BaseWidgetRendererComponent, WidgetRegistryService } from '@bbq-chat/widgets-angular';
-import type { AngularWidgetRenderer, ChatWidget } from '@bbq-chat/widgets-angular';
+import { WidgetRendererComponent as BaseWidgetRendererComponent, WidgetRegistryService, ANGULAR_WIDGET_RENDERER } from '@bbq-chat/widgets-angular';
+import type { AngularWidgetRenderer } from '@bbq-chat/widgets-angular';
+import type { ChatWidget } from '@bbq-chat/widgets';
 import { EChartsWidget } from '../../widgets/EChartsWidget';
 import { ClockWidget } from '../../widgets/ClockWidget';
 import { WeatherWidget } from '../../widgets/WeatherWidget';
@@ -45,7 +47,7 @@ export class WidgetRendererComponent implements OnInit {
   static registered = false;
 
   constructor(private widgetRegistry: WidgetRegistryService,
-    private angularWidgetRenderer: AngularWidgetRenderer
+    @Inject(ANGULAR_WIDGET_RENDERER) private angularWidgetRenderer: AngularWidgetRenderer
   ) { }
 
   ngOnInit() {

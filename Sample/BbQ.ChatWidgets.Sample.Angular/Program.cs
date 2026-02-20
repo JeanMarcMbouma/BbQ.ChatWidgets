@@ -132,7 +132,8 @@ logger.LogInformation("");
 logger.LogInformation("Triage Agent System: Enabled");
 
 // Log registered agents
-var agentRegistry = app.Services.GetRequiredService<IAgentRegistry>();
+using var scope = app.Services.CreateScope();
+var agentRegistry = scope.ServiceProvider.GetRequiredService<IAgentRegistry>();
 logger.LogInformation("Registered specialized agents:");
 foreach (var agentName in agentRegistry.GetRegisteredAgents())
 {

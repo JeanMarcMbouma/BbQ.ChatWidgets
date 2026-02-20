@@ -122,7 +122,7 @@ public sealed record InputWidget(
     string Label,
     string Action,
     string? Placeholder = null,
-    int? MaxLength = null)
+    int? MaxLength = 100)
     : ChatWidget(Label, Action)
 {
 
@@ -133,6 +133,7 @@ public sealed record InputWidget(
            **Input Widget** — Single-line text field (MUST be used inside a `FormWidget`)
            Use when:
            - You need short text (name, email, search query, ID, etc.).
+           - Use 'maxLength' to enforce limits and guide user input. Its value cannot be 0 or negative.
            Avoid when:
            - The input is multi-line; use `TextAreaWidget`.
            - You need multiple fields; use a single `FormWidget` with multiple fields.
@@ -160,8 +161,8 @@ public sealed record TextAreaWidget(
     string Label,
     string Action,
     string? Placeholder = null,
-    int? MaxLength = null,
-    int? Rows = null)
+    int? MaxLength = 500,
+    int? Rows = 3)
     : ChatWidget(Label, Action)
 {
 
@@ -174,6 +175,7 @@ public sealed record TextAreaWidget(
            - You need longer/freeform text (feedback, description, comments, notes, biography, etc.).
            Tips:
            - Use `rows` to guide visible height.
+           - Use 'maxLength' to enforce limits and guide user input. Its value cannot be 0 or negative.
            JSON (field-style, inside a form):
            <widget>{"type":"form","title":"...","action":"form_action","fields":[{"name":"message","label":"Message","type":"textarea","required":true,"validationHint":"..."}],"actions":[{"type":"button","label":"Send"},{"type":"button","label":"Cancel"}]}</widget>
            If used standalone (not recommended), the widget JSON is:

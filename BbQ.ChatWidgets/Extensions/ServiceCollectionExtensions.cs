@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 using System.Text.Json;
 
 namespace BbQ.ChatWidgets.Extensions;
@@ -94,6 +95,16 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IWidgetRegistry>(sp =>
         {
             var registry = sp.GetRequiredService<WidgetRegistry>();
+
+            // Apply widgets registered via AddWidget<TWidget>() (DI-friendly registration)
+            var widgetOptions = sp.GetService<IOptions<WidgetRegistryOptions>>()?.Value;
+            if (widgetOptions is { Widgets.Count: > 0 })
+            {
+                foreach (var (typeId, factory) in widgetOptions.Widgets)
+                    registry.Register(factory(sp), typeId);
+            }
+
+            // Apply explicit configurator (kept for backward compatibility)
             options.WidgetRegistryConfigurator?.Invoke(registry);
             Serialization.SetCustomWidgetRegistry(registry);
             return registry;

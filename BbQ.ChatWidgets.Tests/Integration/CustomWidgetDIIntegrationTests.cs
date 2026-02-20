@@ -10,6 +10,7 @@ namespace BbQ.ChatWidgets.Tests.Integration;
 /// <summary>
 /// Integration tests for custom widget support setup and usage.
 /// </summary>
+[Collection("WidgetIntegration")]
 public class CustomWidgetDIIntegrationTests
 {
     
@@ -52,6 +53,9 @@ public class CustomWidgetDIIntegrationTests
         });
 
         var provider = services.BuildServiceProvider();
+
+        // Resolve the registry to ensure SetCustomWidgetRegistry is called before deserializing.
+        provider.GetRequiredService<IWidgetRegistry>();
 
         // Act
         var json = """{"type":"testdirating","label":"Rate","action":"submit","maxRating":5}""";
@@ -162,7 +166,9 @@ public class CustomWidgetDIIntegrationTests
 
 
         var provider = services.BuildServiceProvider();
-        var registry = provider.GetService<IWidgetRegistry>();
+
+        // Resolve the registry to ensure SetCustomWidgetRegistry is called before deserializing.
+        provider.GetRequiredService<IWidgetRegistry>();
 
         // Act - Deserialize built-in widget
         var builtInJson = """{"type":"button","label":"Click","action":"submit"}""";

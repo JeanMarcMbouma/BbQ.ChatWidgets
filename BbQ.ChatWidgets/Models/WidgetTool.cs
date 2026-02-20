@@ -18,12 +18,19 @@ namespace BbQ.ChatWidgets.Models
     /// - <c>Schema</c>: JSON schema for the widget type
     /// </remarks>
     public sealed class WidgetTool(
-        ChatWidget widget) : AITool
+        ChatWidget widget,
+        string? typeIdOverride = null) : AITool
     {
+        private readonly string _typeId = typeIdOverride ?? widget.Type;
+
         /// <summary>
-        /// Gets the name of this tool, which is the widget type.
+        /// Gets the name of this tool, which is the widget's registry type identifier.
         /// </summary>
-        public override string Name => widget.Type;
+        /// <remarks>
+        /// Uses the registry key (typeIdOverride) when one was specified during registration;
+        /// falls back to the widget's class-derived <c>Type</c> property otherwise.
+        /// </remarks>
+        public override string Name => _typeId;
 
         /// <summary>
         /// Gets a human-readable description of this tool.
@@ -32,7 +39,7 @@ namespace BbQ.ChatWidgets.Models
         /// The description includes the widget type, label, and action,
         /// providing context about what the widget does.
         /// </remarks>
-        public override string Description => $"An interactive widget of type {widget.Type} with label '{widget.Label}' and action '{widget.Action}'.";
+        public override string Description => $"An interactive widget of type {_typeId} with label '{widget.Label}' and action '{widget.Action}'.";
 
         /// <summary>
         /// Gets additional properties for this tool, including the JSON schema.

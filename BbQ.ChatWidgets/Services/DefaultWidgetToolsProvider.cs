@@ -40,8 +40,8 @@ public sealed class DefaultWidgetToolsProvider(IWidgetRegistry registry) : IWidg
 
         var tools = new List<WidgetTool>();
 
-        // Create tools from all registered widget instances
-        tools.AddRange(_registry.GetInstances().Select(instance => new WidgetTool(instance)) ?? []);
+        // Create tools from all registered widget entries, passing the registry key as typeId
+        tools.AddRange(_registry.GetEntries().Select(entry => new WidgetTool(entry.Widget, entry.TypeId)) ?? []);
         _cachedTools = tools.AsReadOnly();
         return _cachedTools;
     }

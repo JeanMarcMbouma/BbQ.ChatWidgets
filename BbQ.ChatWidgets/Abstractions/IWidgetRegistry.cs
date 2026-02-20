@@ -47,10 +47,21 @@ public interface IWidgetRegistry
     void Register(ChatWidget instance, string? typeIdOverride = null);
 
     /// <summary>
+    /// Gets all registered widget entries as (TypeId, Widget) pairs.
+    /// </summary>
+    /// <remarks>
+    /// Unlike <see cref="GetInstances"/>, this method also exposes the registry key (typeId)
+    /// for each widget. Use this when the typeId may differ from <c>widget.Type</c> due to
+    /// a custom registration override.
+    /// </remarks>
+    /// <returns>An enumeration of (TypeId, Widget) pairs for all registered widgets.</returns>
+    IEnumerable<(string TypeId, ChatWidget Widget)> GetEntries();
+
+    /// <summary>
     /// Gets all registered widget instances.
     /// </summary>
     /// <returns>An enumeration of all registered widget instances.</returns>
-    IEnumerable<ChatWidget> GetInstances();
+    IEnumerable<ChatWidget> GetInstances() => GetEntries().Select(e => e.Widget);
 
     /// <summary>
     /// Gets the template instance for a specific widget type.

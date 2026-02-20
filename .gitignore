@@ -405,3 +405,5 @@ Sample/WebApp/wwwroot/assets/*.js
 api/*.*
 /js-angular/.angular
 js-angular/*.tgz
+/Sample/BbQ.ChatWidgets.Sample.React/wwwroot/assets
+/Sample/BbQ.ChatWidgets.Sample.React/wwwroot/index.html

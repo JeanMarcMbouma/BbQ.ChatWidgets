@@ -540,6 +540,18 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetCount
   fullName: BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetCount
   nameWithType: IWidgetRegistry.GetCount
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetEntries
+  name: GetEntries()
+  href: BbQ.ChatWidgets.Abstractions.IWidgetRegistry.html#BbQ_ChatWidgets_Abstractions_IWidgetRegistry_GetEntries
+  commentId: M:BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetEntries
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetEntries()
+  nameWithType: IWidgetRegistry.GetEntries()
+- uid: BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetEntries*
+  name: GetEntries
+  href: BbQ.ChatWidgets.Abstractions.IWidgetRegistry.html#BbQ_ChatWidgets_Abstractions_IWidgetRegistry_GetEntries_
+  commentId: Overload:BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetEntries
+  fullName: BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetEntries
+  nameWithType: IWidgetRegistry.GetEntries
 - uid: BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetInstance(System.String)
   name: GetInstance(string)
   href: BbQ.ChatWidgets.Abstractions.IWidgetRegistry.html#BbQ_ChatWidgets_Abstractions_IWidgetRegistry_GetInstance_System_String_
@@ -2106,6 +2118,27 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.RegisterMultiple
   fullName: BbQ.ChatWidgets.Extensions.WidgetRegistryExtensions.RegisterMultiple
   nameWithType: WidgetRegistryExtensions.RegisterMultiple
+- uid: BbQ.ChatWidgets.Extensions.WidgetServiceCollectionExtensions
+  name: WidgetServiceCollectionExtensions
+  href: BbQ.ChatWidgets.Extensions.WidgetServiceCollectionExtensions.html
+  commentId: T:BbQ.ChatWidgets.Extensions.WidgetServiceCollectionExtensions
+  fullName: BbQ.ChatWidgets.Extensions.WidgetServiceCollectionExtensions
+  nameWithType: WidgetServiceCollectionExtensions
+- uid: BbQ.ChatWidgets.Extensions.WidgetServiceCollectionExtensions.AddWidget*
+  name: AddWidget
+  href: BbQ.ChatWidgets.Extensions.WidgetServiceCollectionExtensions.html#BbQ_ChatWidgets_Extensions_WidgetServiceCollectionExtensions_AddWidget_
+  commentId: Overload:BbQ.ChatWidgets.Extensions.WidgetServiceCollectionExtensions.AddWidget
+  fullName: BbQ.ChatWidgets.Extensions.WidgetServiceCollectionExtensions.AddWidget
+  nameWithType: WidgetServiceCollectionExtensions.AddWidget
+- uid: BbQ.ChatWidgets.Extensions.WidgetServiceCollectionExtensions.AddWidget``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.IServiceProvider,``0},System.String)
+  name: AddWidget<TWidget>(IServiceCollection, Func<IServiceProvider, TWidget>, string?)
+  href: BbQ.ChatWidgets.Extensions.WidgetServiceCollectionExtensions.html#BbQ_ChatWidgets_Extensions_WidgetServiceCollectionExtensions_AddWidget__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Func_System_IServiceProvider___0__System_String_
+  commentId: M:BbQ.ChatWidgets.Extensions.WidgetServiceCollectionExtensions.AddWidget``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.IServiceProvider,``0},System.String)
+  name.vb: AddWidget(Of TWidget)(IServiceCollection, Func(Of IServiceProvider, TWidget), String)
+  fullName: BbQ.ChatWidgets.Extensions.WidgetServiceCollectionExtensions.AddWidget<TWidget>(Microsoft.Extensions.DependencyInjection.IServiceCollection, System.Func<System.IServiceProvider, TWidget>, string?)
+  fullName.vb: BbQ.ChatWidgets.Extensions.WidgetServiceCollectionExtensions.AddWidget(Of TWidget)(Microsoft.Extensions.DependencyInjection.IServiceCollection, System.Func(Of System.IServiceProvider, TWidget), String)
+  nameWithType: WidgetServiceCollectionExtensions.AddWidget<TWidget>(IServiceCollection, Func<IServiceProvider, TWidget>, string?)
+  nameWithType.vb: WidgetServiceCollectionExtensions.AddWidget(Of TWidget)(IServiceCollection, Func(Of IServiceProvider, TWidget), String)
 - uid: BbQ.ChatWidgets.Models
   name: BbQ.ChatWidgets.Models
   href: BbQ.ChatWidgets.Models.html
@@ -6630,15 +6663,15 @@ references:
   commentId: T:BbQ.ChatWidgets.Models.WidgetTool
   fullName: BbQ.ChatWidgets.Models.WidgetTool
   nameWithType: WidgetTool
-- uid: BbQ.ChatWidgets.Models.WidgetTool.#ctor(BbQ.ChatWidgets.Models.ChatWidget)
-  name: WidgetTool(ChatWidget)
-  href: BbQ.ChatWidgets.Models.WidgetTool.html#BbQ_ChatWidgets_Models_WidgetTool__ctor_BbQ_ChatWidgets_Models_ChatWidget_
-  commentId: M:BbQ.ChatWidgets.Models.WidgetTool.#ctor(BbQ.ChatWidgets.Models.ChatWidget)
-  name.vb: New(ChatWidget)
-  fullName: BbQ.ChatWidgets.Models.WidgetTool.WidgetTool(BbQ.ChatWidgets.Models.ChatWidget)
-  fullName.vb: BbQ.ChatWidgets.Models.WidgetTool.New(BbQ.ChatWidgets.Models.ChatWidget)
-  nameWithType: WidgetTool.WidgetTool(ChatWidget)
-  nameWithType.vb: WidgetTool.New(ChatWidget)
+- uid: BbQ.ChatWidgets.Models.WidgetTool.#ctor(BbQ.ChatWidgets.Models.ChatWidget,System.String)
+  name: WidgetTool(ChatWidget, string?)
+  href: BbQ.ChatWidgets.Models.WidgetTool.html#BbQ_ChatWidgets_Models_WidgetTool__ctor_BbQ_ChatWidgets_Models_ChatWidget_System_String_
+  commentId: M:BbQ.ChatWidgets.Models.WidgetTool.#ctor(BbQ.ChatWidgets.Models.ChatWidget,System.String)
+  name.vb: New(ChatWidget, String)
+  fullName: BbQ.ChatWidgets.Models.WidgetTool.WidgetTool(BbQ.ChatWidgets.Models.ChatWidget, string?)
+  fullName.vb: BbQ.ChatWidgets.Models.WidgetTool.New(BbQ.ChatWidgets.Models.ChatWidget, String)
+  nameWithType: WidgetTool.WidgetTool(ChatWidget, string?)
+  nameWithType.vb: WidgetTool.New(ChatWidget, String)
 - uid: BbQ.ChatWidgets.Models.WidgetTool.#ctor*
   name: WidgetTool
   href: BbQ.ChatWidgets.Models.WidgetTool.html#BbQ_ChatWidgets_Models_WidgetTool__ctor_
@@ -7458,6 +7491,18 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Services.WidgetRegistry.GetCount
   fullName: BbQ.ChatWidgets.Services.WidgetRegistry.GetCount
   nameWithType: WidgetRegistry.GetCount
+- uid: BbQ.ChatWidgets.Services.WidgetRegistry.GetEntries
+  name: GetEntries()
+  href: BbQ.ChatWidgets.Services.WidgetRegistry.html#BbQ_ChatWidgets_Services_WidgetRegistry_GetEntries
+  commentId: M:BbQ.ChatWidgets.Services.WidgetRegistry.GetEntries
+  fullName: BbQ.ChatWidgets.Services.WidgetRegistry.GetEntries()
+  nameWithType: WidgetRegistry.GetEntries()
+- uid: BbQ.ChatWidgets.Services.WidgetRegistry.GetEntries*
+  name: GetEntries
+  href: BbQ.ChatWidgets.Services.WidgetRegistry.html#BbQ_ChatWidgets_Services_WidgetRegistry_GetEntries_
+  commentId: Overload:BbQ.ChatWidgets.Services.WidgetRegistry.GetEntries
+  fullName: BbQ.ChatWidgets.Services.WidgetRegistry.GetEntries
+  nameWithType: WidgetRegistry.GetEntries
 - uid: BbQ.ChatWidgets.Services.WidgetRegistry.GetInstance(System.String)
   name: GetInstance(string)
   href: BbQ.ChatWidgets.Services.WidgetRegistry.html#BbQ_ChatWidgets_Services_WidgetRegistry_GetInstance_System_String_
@@ -7536,6 +7581,42 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Services.WidgetRegistry.TryGetInstance
   fullName: BbQ.ChatWidgets.Services.WidgetRegistry.TryGetInstance
   nameWithType: WidgetRegistry.TryGetInstance
+- uid: BbQ.ChatWidgets.Services.WidgetRegistryOptions
+  name: WidgetRegistryOptions
+  href: BbQ.ChatWidgets.Services.WidgetRegistryOptions.html
+  commentId: T:BbQ.ChatWidgets.Services.WidgetRegistryOptions
+  fullName: BbQ.ChatWidgets.Services.WidgetRegistryOptions
+  nameWithType: WidgetRegistryOptions
+- uid: BbQ.ChatWidgets.Services.WidgetRegistryOptions.#ctor
+  name: WidgetRegistryOptions()
+  href: BbQ.ChatWidgets.Services.WidgetRegistryOptions.html#BbQ_ChatWidgets_Services_WidgetRegistryOptions__ctor
+  commentId: M:BbQ.ChatWidgets.Services.WidgetRegistryOptions.#ctor
+  name.vb: New()
+  fullName: BbQ.ChatWidgets.Services.WidgetRegistryOptions.WidgetRegistryOptions()
+  fullName.vb: BbQ.ChatWidgets.Services.WidgetRegistryOptions.New()
+  nameWithType: WidgetRegistryOptions.WidgetRegistryOptions()
+  nameWithType.vb: WidgetRegistryOptions.New()
+- uid: BbQ.ChatWidgets.Services.WidgetRegistryOptions.#ctor*
+  name: WidgetRegistryOptions
+  href: BbQ.ChatWidgets.Services.WidgetRegistryOptions.html#BbQ_ChatWidgets_Services_WidgetRegistryOptions__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Services.WidgetRegistryOptions.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Services.WidgetRegistryOptions.WidgetRegistryOptions
+  fullName.vb: BbQ.ChatWidgets.Services.WidgetRegistryOptions.New
+  nameWithType: WidgetRegistryOptions.WidgetRegistryOptions
+  nameWithType.vb: WidgetRegistryOptions.New
+- uid: BbQ.ChatWidgets.Services.WidgetRegistryOptions.Widgets
+  name: Widgets
+  href: BbQ.ChatWidgets.Services.WidgetRegistryOptions.html#BbQ_ChatWidgets_Services_WidgetRegistryOptions_Widgets
+  commentId: P:BbQ.ChatWidgets.Services.WidgetRegistryOptions.Widgets
+  fullName: BbQ.ChatWidgets.Services.WidgetRegistryOptions.Widgets
+  nameWithType: WidgetRegistryOptions.Widgets
+- uid: BbQ.ChatWidgets.Services.WidgetRegistryOptions.Widgets*
+  name: Widgets
+  href: BbQ.ChatWidgets.Services.WidgetRegistryOptions.html#BbQ_ChatWidgets_Services_WidgetRegistryOptions_Widgets_
+  commentId: Overload:BbQ.ChatWidgets.Services.WidgetRegistryOptions.Widgets
+  fullName: BbQ.ChatWidgets.Services.WidgetRegistryOptions.Widgets
+  nameWithType: WidgetRegistryOptions.Widgets
 - uid: BbQ.ChatWidgets.Services.WidgetSseService
   name: WidgetSseService
   href: BbQ.ChatWidgets.Services.WidgetSseService.html

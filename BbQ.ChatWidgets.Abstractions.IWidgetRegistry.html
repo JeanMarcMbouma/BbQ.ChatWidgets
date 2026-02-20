@@ -131,6 +131,40 @@ becomes the template used to generate AI tools.</p>
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Abstractions/IWidgetRegistry.cs">View Source</a>
   </span>
+  <a id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_GetEntries_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetEntries*"></a>
+  <h4 id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_GetEntries" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetEntries">GetEntries()</h4>
+  <div class="markdown level1 summary"><p>Gets all registered widget entries as (TypeId, Widget) pairs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerable&lt;(string TypeId, ChatWidget Widget)&gt; GetEntries()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,bbq.chatwidgets.models.chatwidget-.typeid">TypeId</a>, <a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,bbq.chatwidgets.models.chatwidget-.widget">Widget</a>)&gt;</td>
+        <td><p>An enumeration of (TypeId, Widget) pairs for all registered widgets.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_GetEntries_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Unlike <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.html#BbQ_ChatWidgets_Abstractions_IWidgetRegistry_GetInstances">GetInstances()</a>, this method also exposes the registry key (typeId)
+for each widget. Use this when the typeId may differ from <code>widget.Type</code> due to
+a custom registration override.</p>
+</div>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Abstractions/IWidgetRegistry.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_GetInstance_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetInstance*"></a>
   <h4 id="BbQ_ChatWidgets_Abstractions_IWidgetRegistry_GetInstance_System_String_" data-uid="BbQ.ChatWidgets.Abstractions.IWidgetRegistry.GetInstance(System.String)">GetInstance(string)</h4>
   <div class="markdown level1 summary"><p>Gets the template instance for a specific widget type.</p>

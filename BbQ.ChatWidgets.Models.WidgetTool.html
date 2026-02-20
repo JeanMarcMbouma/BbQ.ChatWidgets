@@ -138,13 +138,13 @@ allowing AI models to:</p>
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Models/WidgetTool.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Models_WidgetTool__ctor_" data-uid="BbQ.ChatWidgets.Models.WidgetTool.#ctor*"></a>
-  <h4 id="BbQ_ChatWidgets_Models_WidgetTool__ctor_BbQ_ChatWidgets_Models_ChatWidget_" data-uid="BbQ.ChatWidgets.Models.WidgetTool.#ctor(BbQ.ChatWidgets.Models.ChatWidget)">WidgetTool(ChatWidget)</h4>
+  <h4 id="BbQ_ChatWidgets_Models_WidgetTool__ctor_BbQ_ChatWidgets_Models_ChatWidget_System_String_" data-uid="BbQ.ChatWidgets.Models.WidgetTool.#ctor(BbQ.ChatWidgets.Models.ChatWidget,System.String)">WidgetTool(ChatWidget, string?)</h4>
   <div class="markdown level1 summary"><p>Wraps a <a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a> as an <span class="xref">Microsoft.Extensions.AI.AITool</span> for use by language models.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public WidgetTool(ChatWidget widget)</code></pre>
+    <pre><code class="lang-csharp hljs">public WidgetTool(ChatWidget widget, string? typeIdOverride = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -161,9 +161,14 @@ allowing AI models to:</p>
         <td><span class="parametername">widget</span></td>
         <td></td>
       </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">typeIdOverride</span></td>
+        <td></td>
+      </tr>
     </tbody>
   </table>
-  <h5 id="BbQ_ChatWidgets_Models_WidgetTool__ctor_BbQ_ChatWidgets_Models_ChatWidget__remarks">Remarks</h5>
+  <h5 id="BbQ_ChatWidgets_Models_WidgetTool__ctor_BbQ_ChatWidgets_Models_ChatWidget_System_String__remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>This class adapts widget definitions to the Microsoft.Extensions.AI tool format,
 allowing AI models to:</p>
 <ul>
@@ -254,7 +259,7 @@ providing context about what the widget does.</p>
   </span>
   <a id="BbQ_ChatWidgets_Models_WidgetTool_Name_" data-uid="BbQ.ChatWidgets.Models.WidgetTool.Name*"></a>
   <h4 id="BbQ_ChatWidgets_Models_WidgetTool_Name" data-uid="BbQ.ChatWidgets.Models.WidgetTool.Name">Name</h4>
-  <div class="markdown level1 summary"><p>Gets the name of this tool, which is the widget type.</p>
+  <div class="markdown level1 summary"><p>Gets the name of this tool, which is the widget's registry type identifier.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -278,6 +283,10 @@ providing context about what the widget does.</p>
   </table>
   <h5 class="overrides">Overrides</h5>
   <div><span class="xref">Microsoft.Extensions.AI.AITool.Name</span></div>
+  <h5 id="BbQ_ChatWidgets_Models_WidgetTool_Name_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Uses the registry key (typeIdOverride) when one was specified during registration;
+falls back to the widget's class-derived <code>Type</code> property otherwise.</p>
+</div>
 
 </article>
           </div>

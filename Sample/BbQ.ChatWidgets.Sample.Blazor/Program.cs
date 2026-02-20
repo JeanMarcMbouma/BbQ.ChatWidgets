@@ -45,6 +45,7 @@ services.AddBbQChatWidgets(bbqOptions =>
 {
     bbqOptions.RoutePrefix = "/api/chat";
     bbqOptions.ChatClientFactory = sp => chatClient;
+    bbqOptions.EnablePersona = true;
     bbqOptions.WidgetRegistryConfigurator = registry =>
     {
         // Register custom ECharts widget

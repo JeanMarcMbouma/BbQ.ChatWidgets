@@ -11,6 +11,8 @@ builder.Services.AddBbQChatWidgets(options =>
 {
     options.RoutePrefix = "/api/chat";
     options.ChatClientFactory = sp => sp.GetRequiredService<IChatClient>();
+    options.EnablePersona = true; // opt-in: enables request/thread/default persona behavior
+    options.DefaultPersona = "You are a concise assistant."; // optional
 });
 ```
 
@@ -20,11 +22,17 @@ builder.Services.AddBbQChatWidgets(options =>
 | --- | --- | --- |
 | `RoutePrefix` | `string` | The base path for all BbQ API endpoints. Default is `/api/chat`. |
 | `ChatClientFactory` | `Func<IServiceProvider, IChatClient>` | A factory function that returns the `IChatClient` to be used for chat completions. |
+| `EnablePersona` | `bool` | Enables persona support. Default is `false` (opt-in). |
+| `DefaultPersona` | `string?` | Baseline persona used when persona support is enabled and no request/thread persona is provided. |
 | `WidgetRegistryConfigurator` | `Action<WidgetRegistry>` | A callback to register custom widget templates in the `WidgetRegistry`. |
 | `WidgetActionRegistryFactory` | `Action<IServiceProvider, WidgetActionRegistry, IWidgetActionHandlerResolver>` | A callback to register custom action handlers. |
 | `ToolProviderFactory` | `Func<IServiceProvider, IAIToolsProvider>` | A factory to provide a custom `IAIToolsProvider`. |
 | `AIInstructionProviderFactory` | `Func<IServiceProvider, IAIInstructionProvider>` | A factory to provide a custom `IAIInstructionProvider`. |
 | `WidgetToolsProviderFactory` | `Func<IServiceProvider, IWidgetToolsProvider>` | A factory to provide a custom `IWidgetToolsProvider`. |
+
+### Persona Opt-In
+
+Persona behavior is disabled by default. To accept `persona` in `/api/chat/message`, `/api/chat/stream/message`, and `/api/chat/agent`, set `EnablePersona = true` during `AddBbQChatWidgets(...)` registration.
 
 ## Advanced Configuration
 

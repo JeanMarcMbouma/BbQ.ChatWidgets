@@ -142,6 +142,7 @@ public class ChatWidgetServiceTests
     {
         // Arrange
         SetupBasicConversationFlow();
+        options.EnablePersona = true;
 
         // Act
         await chatWidgetService.RespondAsync("Hello", "thread-123", "Friendly pirate");
@@ -157,6 +158,7 @@ public class ChatWidgetServiceTests
     {
         // Arrange
         SetupBasicConversationFlow();
+        options.EnablePersona = true;
         mockThreadPersonaStore.Setup(ps => ps.GetPersona("thread-123"), () => "Helpful teacher");
 
         // Act
@@ -172,6 +174,7 @@ public class ChatWidgetServiceTests
     {
         // Arrange
         SetupBasicConversationFlow();
+        options.EnablePersona = true;
         options.DefaultPersona = "Concise architect";
 
         // Act
@@ -187,6 +190,7 @@ public class ChatWidgetServiceTests
     {
         // Arrange
         SetupBasicConversationFlow();
+        options.EnablePersona = true;
         options.DefaultPersona = "Default advisor";
 
         // Act
@@ -195,6 +199,59 @@ public class ChatWidgetServiceTests
         // Assert
         Assert.NotNull(mockChat.LastChatOptions);
         Assert.Contains("Default advisor", mockChat.LastChatOptions!.Instructions);
+    }
+
+    [Fact]
+    public async Task RespondAsync_TooLongPersonaOverride_ThrowsArgumentException()
+    {
+        // Arrange
+        SetupBasicConversationFlow();
+        options.EnablePersona = true;
+        options.MaxPersonaLength = 10;
+
+        // Act + Assert
+        await Assert.ThrowsAsync<ArgumentException>(() =>
+            chatWidgetService.RespondAsync("Hello", "thread-123", "this persona is way too long"));
+    }
+
+    [Fact]
+    public async Task RespondAsync_PersonaOverrideWithControlCharacters_ThrowsArgumentException()
+    {
+        // Arrange
+        SetupBasicConversationFlow();
+        options.EnablePersona = true;
+
+        // Act + Assert
+        await Assert.ThrowsAsync<ArgumentException>(() =>
+            chatWidgetService.RespondAsync("Hello", "thread-123", "safe\u0001persona"));
+    }
+
+    [Fact]
+    public async Task RespondAsync_WhenPersonaDisabled_PersonaOverrideThrows()
+    {
+        // Arrange
+        SetupBasicConversationFlow();
+        options.EnablePersona = false;
+
+        // Act + Assert
+        await Assert.ThrowsAsync<ArgumentException>(() =>
+            chatWidgetService.RespondAsync("Hello", "thread-123", "Friendly pirate"));
+    }
+
+    [Fact]
+    public async Task RespondAsync_WhenPersonaDisabled_DefaultPersonaIsIgnored()
+    {
+        // Arrange
+        SetupBasicConversationFlow();
+        options.EnablePersona = false;
+        options.DefaultPersona = "Concise architect";
+
+        // Act
+        await chatWidgetService.RespondAsync("Hello", "thread-123");
+
+        // Assert
+        Assert.NotNull(mockChat.LastChatOptions);
+        Assert.Equal("Base instructions", mockChat.LastChatOptions!.Instructions);
     }
 }
 

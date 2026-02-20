@@ -77,6 +77,32 @@ public class ServiceCollectionIntegrationTests
     }
 
     [Fact]
+    public void AddBbQChatWidgets_PersonaIsDisabledByDefault()
+    {
+        // Arrange
+        var services = new ServiceCollection();
+
+        // Act
+        services.AddBbQChatWidgets();
+        var serviceProvider = services.BuildServiceProvider();
+
+        // Assert
+        var chatOptions = serviceProvider.GetRequiredService<BbQChatOptions>();
+        Assert.False(chatOptions.EnablePersona);
+    }
+
+    [Fact]
+    public void AddBbQChatWidgets_WithInvalidMaxPersonaLength_Throws()
+    {
+        // Arrange
+        var services = new ServiceCollection();
+
+        // Act + Assert
+        Assert.Throws<InvalidOperationException>(() =>
+            services.AddBbQChatWidgets(options => options.MaxPersonaLength = 0));
+    }
+
+    [Fact]
     public void AddBbQChatWidgets_DefaultWidgetHintParser_Works()
     {
         // Arrange

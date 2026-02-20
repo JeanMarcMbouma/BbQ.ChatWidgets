@@ -52,6 +52,7 @@ services.AddBbQChatWidgets(bbqOptions =>
 {
     bbqOptions.RoutePrefix = "/api/chat";
     bbqOptions.ChatClientFactory = sp => chatClient;
+    bbqOptions.EnablePersona = true;
     bbqOptions.WidgetRegistryConfigurator = registry =>
     {
         // Additional custom widget registrations can go here

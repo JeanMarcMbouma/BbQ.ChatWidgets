@@ -35,8 +35,12 @@ IChatClient chatClient = new ChatClientBuilder(
     .Build();
 
 // 2. Register BbQ services
-builder.Services.AddBbQChatWidgets(options => 
-    options.ChatClientFactory = _ => chatClient);
+builder.Services.AddBbQChatWidgets(options =>
+{
+  options.ChatClientFactory = _ => chatClient;
+  options.EnablePersona = true; // opt-in: enable request/thread/default persona behavior
+  options.DefaultPersona = "You are a concise assistant."; // optional
+});
 
 var app = builder.Build();
 

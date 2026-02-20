@@ -119,6 +119,38 @@ public sealed class BbQChatOptions
     public string? DefaultPersona { get; set; }
 
     /// <summary>
+    /// Gets or sets whether persona support is enabled.
+    /// </summary>
+    /// <remarks>
+    /// Persona support is opt-in and disabled by default.
+    /// When disabled:
+    /// - Request persona overrides are rejected by HTTP endpoints.
+    /// - Thread/default persona values are ignored by <see cref="BbQ.ChatWidgets.Services.ChatWidgetService"/>.
+    ///
+    /// Set this to true in <c>AddBbQChatWidgets</c> configuration to enable persona behavior.
+    /// </remarks>
+    public bool EnablePersona { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets the maximum allowed persona length for runtime persona overrides.
+    /// </summary>
+    /// <remarks>
+    /// This guardrail reduces prompt-bloat abuse and excessive token usage from untrusted persona input.
+    /// Default: 400 characters.
+    /// </remarks>
+    public int MaxPersonaLength { get; set; } = 400;
+
+    /// <summary>
+    /// Gets or sets whether persona input rejects disallowed control characters.
+    /// </summary>
+    /// <remarks>
+    /// When enabled, persona values containing control characters (except tab/newline/carriage return)
+    /// are rejected.
+    /// Default: true.
+    /// </remarks>
+    public bool RejectPersonaControlCharacters { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the factory function for creating custom widget tools providers.
     /// </summary>
     /// <remarks>
@@ -234,6 +266,11 @@ public sealed class BbQChatOptions
                     $"SummarizationThreshold ({SummarizationThreshold}) must be greater than RecentTurnsToKeep ({RecentTurnsToKeep}). " +
                     "Otherwise, there would be no turns to summarize.");
             }
+        }
+
+        if (MaxPersonaLength <= 0)
+        {
+            throw new InvalidOperationException($"MaxPersonaLength must be positive. Current value: {MaxPersonaLength}");
         }
     }
 }

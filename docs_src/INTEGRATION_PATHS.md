@@ -47,6 +47,7 @@ IChatClient chatClient = new ChatClientBuilder(
 builder.Services.AddBbQChatWidgets(options => {
     options.ChatClientFactory = _ => chatClient;
     options.RoutePrefix = "/api/chat";
+  options.EnablePersona = true; // optional, disabled by default
 });
 
 var app = builder.Build();
@@ -250,6 +251,7 @@ Since BbQ.ChatWidgets' .NET backend provides the widget orchestration layer, you
 interface MessageRequest {
   message: string;
   threadId?: string;
+  persona?: string; // requires options.EnablePersona = true on the backend
 }
 
 interface ChatTurn {

@@ -54,6 +54,7 @@ public static class ServiceCollectionExtensions
         
         // Validate summarization settings
         options.ValidateSummarizationSettings();
+        PersonaGuardrails.ValidateOptions(options);
 
         services.AddSingleton(options);
         services.AddSingleton<WidgetRegistry>();
@@ -212,61 +213,83 @@ public static class ServiceCollectionExtensions
 
     private static async Task HandleAgentRequest(HttpContext context)
     {
-        // Reset stream position for multiple deserializations
-        var metadata = await DeserializeRequest<Dictionary<string, object>>(context) ?? [];
-        var serialization = JsonSerializer.Serialize(metadata, Serialization.Default);
-        var payload = JsonSerializer.Deserialize<UserMessageDto>(serialization, Serialization.Default)
-            ?? throw new InvalidOperationException("Failed to deserialize request payload.");
+        var options = context.RequestServices.GetRequiredService<BbQChatOptions>();
+
+        try
+        {
+
+            // Reset stream position for multiple deserializations
+            var metadata = await DeserializeRequest<Dictionary<string, object>>(context) ?? [];
+            var serialization = JsonSerializer.Serialize(metadata, Serialization.Default);
+            var payload = JsonSerializer.Deserialize<UserMessageDto>(serialization, Serialization.Default)
+                ?? throw new InvalidOperationException("Failed to deserialize request payload.");
+
+            payload = NormalizeAndValidateUserMessageDto(payload, options);
 
         // Reset stream position again for metadata deserialization
 
-        var chatRequest = new ChatRequest(payload.ThreadId, context.RequestServices)
-        {
-            Metadata = metadata
-        };
+            var chatRequest = new ChatRequest(payload.ThreadId, context.RequestServices)
+            {
+                Metadata = metadata
+            };
 
         // Store user message in metadata for triage agent consumption
-        if (!string.IsNullOrWhiteSpace(payload.Message))
-        {
-            InterAgentCommunicationContext.SetUserMessage(chatRequest, payload.Message);
+            if (!string.IsNullOrWhiteSpace(payload.Message))
+            {
+                InterAgentCommunicationContext.SetUserMessage(chatRequest, payload.Message);
+            }
+
+            if (payload.Persona is not null)
+            {
+                InterAgentCommunicationContext.SetPersona(chatRequest, payload.Persona);
+            }
+
+            // Try to get a registered triage agent first, fall back to AgentDelegate
+            var triageAgent = context.RequestServices.GetService<IAgent>();
+            var outcome = triageAgent != null
+                ? await triageAgent.InvokeAsync(chatRequest, context.RequestAborted)
+                : await GetAgentDelegate(context.RequestServices).Invoke(chatRequest, context.RequestAborted);
+
+            await outcome.Match(result =>
+            {
+                return WriteJsonResponse(context, result);
+            }, error =>
+            {
+                context.Response.StatusCode = 500;
+                return context.Response.WriteAsync(JsonSerializer.Serialize(new { Error = error }));
+            });
         }
-
-        if (payload.Persona is not null)
+        catch (ArgumentException ex)
         {
-            InterAgentCommunicationContext.SetPersona(chatRequest, payload.Persona);
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            await context.Response.WriteAsync(ex.Message);
         }
-
-        // Try to get a registered triage agent first, fall back to AgentDelegate
-        var triageAgent = context.RequestServices.GetService<IAgent>();
-        var outcome = triageAgent != null
-            ? await triageAgent.InvokeAsync(chatRequest, context.RequestAborted)
-            : await GetAgentDelegate(context.RequestServices).Invoke(chatRequest, context.RequestAborted);
-
-        await outcome.Match(result =>
-        {
-            return WriteJsonResponse(context, result);
-        }, error =>
-        {
-            context.Response.StatusCode = 500;
-            return context.Response.WriteAsync(JsonSerializer.Serialize(new { Error = error }));
-        });
     }
 
     private static async Task HandleStreamMessageRequest(HttpContext context)
     {
-        var service = context.RequestServices.GetRequiredService<ChatWidgetService>();
-        var dto = await DeserializeRequest<UserMessageDto>(context);
-        var ct = context.RequestAborted;
-
-        context.Response.ContentType = "text/event-stream";
-        context.Response.Headers.Add("Cache-Control", "no-cache");
-        context.Response.Headers.Add("Connection", "keep-alive");
-
-        await foreach (var turn in service.StreamResponseAsync(dto.Message, dto.ThreadId, dto.Persona, ct))
+        try
         {
-            var json = JsonSerializer.Serialize(turn, Serialization.Default);
-            await context.Response.WriteAsync($"data: {json}\n\n");
-            await context.Response.Body.FlushAsync(ct);
+            var service = context.RequestServices.GetRequiredService<ChatWidgetService>();
+            var options = context.RequestServices.GetRequiredService<BbQChatOptions>();
+            var dto = NormalizeAndValidateUserMessageDto(await DeserializeRequest<UserMessageDto>(context), options);
+            var ct = context.RequestAborted;
+
+            context.Response.ContentType = "text/event-stream";
+            context.Response.Headers.Add("Cache-Control", "no-cache");
+            context.Response.Headers.Add("Connection", "keep-alive");
+
+            await foreach (var turn in service.StreamResponseAsync(dto.Message, dto.ThreadId, dto.Persona, ct))
+            {
+                var json = JsonSerializer.Serialize(turn, Serialization.Default);
+                await context.Response.WriteAsync($"data: {json}\n\n");
+                await context.Response.Body.FlushAsync(ct);
+            }
+        }
+        catch (ArgumentException ex)
+        {
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            await context.Response.WriteAsync(ex.Message);
         }
     }
 
@@ -286,12 +309,21 @@ public static class ServiceCollectionExtensions
     /// </remarks>
     private static async Task HandleMessageRequest(HttpContext context)
     {
-        var service = context.RequestServices.GetRequiredService<ChatWidgetService>();
-        var dto = await DeserializeRequest<UserMessageDto>(context);
-        var ct = context.RequestAborted;
+        try
+        {
+            var service = context.RequestServices.GetRequiredService<ChatWidgetService>();
+            var options = context.RequestServices.GetRequiredService<BbQChatOptions>();
+            var dto = NormalizeAndValidateUserMessageDto(await DeserializeRequest<UserMessageDto>(context), options);
+            var ct = context.RequestAborted;
 
-        var turn = await service.RespondAsync(dto.Message, dto.ThreadId, dto.Persona, ct);
-        await WriteJsonResponse(context, turn);
+            var turn = await service.RespondAsync(dto.Message, dto.ThreadId, dto.Persona, ct);
+            await WriteJsonResponse(context, turn);
+        }
+        catch (ArgumentException ex)
+        {
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            await context.Response.WriteAsync(ex.Message);
+        }
     }
 
     /// <summary>
@@ -377,6 +409,33 @@ public static class ServiceCollectionExtensions
         using var reader = new StreamReader(context.Request.Body);
         var body = await reader.ReadToEndAsync();
         return JsonSerializer.Deserialize<T>(body, Serialization.Default) ?? throw new InvalidOperationException("Failed to deserialize request");
+    }
+
+    private static UserMessageDto NormalizeAndValidateUserMessageDto(UserMessageDto dto, BbQChatOptions options)
+    {
+        if (string.IsNullOrWhiteSpace(dto.Message))
+        {
+            throw new ArgumentException("Message cannot be empty.", nameof(dto.Message));
+        }
+
+        if (!options.EnablePersona && dto.Persona is not null)
+        {
+            throw new ArgumentException("Persona support is disabled. Enable BbQChatOptions.EnablePersona to use persona overrides.", nameof(dto.Persona));
+        }
+
+        try
+        {
+            var normalizedPersona = PersonaGuardrails.NormalizeIncoming(dto.Persona, options, nameof(dto.Persona));
+            return dto with
+            {
+                Persona = normalizedPersona,
+                Message = dto.Message.Trim()
+            };
+        }
+        catch (ArgumentException ex)
+        {
+            throw new ArgumentException(ex.Message, nameof(dto.Persona));
+        }
     }
 
     /// <summary>

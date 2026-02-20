@@ -142,7 +142,7 @@ Send a user message and get an AI response.
 }
 ```
 
-`persona` is optional. If omitted or blank, the server falls back to the thread persona (if set) and then to the DI-configured default persona.
+`persona` is optional and only works when persona is enabled at DI registration (`options.EnablePersona = true`). If omitted or blank, the server falls back to the thread persona (if set) and then to the DI-configured default persona.
 
 **Response:**
 ```json

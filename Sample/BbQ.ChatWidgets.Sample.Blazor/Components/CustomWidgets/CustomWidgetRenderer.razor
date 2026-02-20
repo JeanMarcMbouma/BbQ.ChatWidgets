@@ -5,22 +5,13 @@
 <div class="sample-widget-renderer">
     @if (Widget != null)
     {
-        @if (Widget is EChartsWidget echartsWidget)
-        {
-            <EChartsWidgetComponent Widget="echartsWidget" OnAction="OnAction" />
-        }
-        else if (Widget is ClockWidget clockWidget)
-        {
-            <ClockWidgetComponent Widget="clockWidget" OnAction="OnAction" />
-        }
-        else if (Widget is WeatherWidget weatherWidget)
-        {
-            <WeatherWidgetComponent Widget="weatherWidget" OnAction="OnAction" />
-        }
-        else
-        {
-            <BbQ.ChatWidgets.Blazor.Components.WidgetRenderer Widget="Widget" OnAction="OnAction" />
-        }
+        <WidgetRenderer Widget="Widget" OnAction="OnAction">
+            <Overrides>
+                <WidgetOverride Type="typeof(EChartsWidget)" Template="typeof(EChartsWidgetComponent)" />
+                @* <WidgetOverride Type="typeof(ClockWidget)" Template="typeof(ClockWidgetComponent)" /> *@
+                <WidgetOverride Type="typeof(WeatherWidget)" Template="typeof(WeatherWidgetComponent)" />
+            </Overrides>
+        </WidgetRenderer>
     }
 </div>
 

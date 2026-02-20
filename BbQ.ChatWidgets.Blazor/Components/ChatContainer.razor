@@ -17,7 +17,11 @@
                         <div class="bbq-message-widgets">
                             @foreach (var widget in turn.Widgets)
                             {
-                                <WidgetRenderer Widget="widget" OnAction="HandleWidgetAction" />
+                                <WidgetRenderer Widget="widget" OnAction="HandleWidgetAction">
+                                    <Overrides>
+                                        @WidgetOverrides
+                                    </Overrides>
+                                </WidgetRenderer>
                             }
                         </div>
                     }
@@ -118,6 +122,9 @@
 
     [Parameter]
     public EventCallback<(string Action, object? Payload)> OnWidgetAction { get; set; }
+
+    [Parameter]
+    public RenderFragment? WidgetOverrides { get; set; }
 
     private async Task HandleWidgetAction((string Action, object? Payload) args)
     {

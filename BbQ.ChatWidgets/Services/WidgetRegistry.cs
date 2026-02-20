@@ -71,11 +71,9 @@ public sealed class WidgetRegistry : IWidgetRegistry
     /// <exception cref="ArgumentNullException">Thrown if instance is null.</exception>
     public void Register(ChatWidget instance)
     {
-        if (instance == null)
-            throw new ArgumentNullException(nameof(instance));
+        ArgumentNullException.ThrowIfNull(instance);
 
-        var typeId = instance.Type;
-        _instances[typeId] = instance;
+        _instances[instance.Type] = instance;
     }
 
     /// <summary>
@@ -91,11 +89,9 @@ public sealed class WidgetRegistry : IWidgetRegistry
     /// <exception cref="ArgumentNullException">Thrown if instance is null.</exception>
     public void Register(ChatWidget instance, string? typeIdOverride = null)
     {
-        if (instance == null)
-            throw new ArgumentNullException(nameof(instance));
-
-        var typeId = typeIdOverride ?? instance.Type;
-        _instances[typeId] = instance;
+        ArgumentNullException.ThrowIfNull(instance);
+        instance.OverrideTypeId = typeIdOverride; // Store the override in the instance for reference
+        _instances[instance.Type] = instance;
     }
 
     /// <summary>

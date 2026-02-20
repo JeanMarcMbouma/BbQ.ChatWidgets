@@ -64,8 +64,7 @@ public sealed class DefaultWidgetActionHandlerResolver : IWidgetActionHandlerRes
         if (string.IsNullOrWhiteSpace(actionName))
             throw new ArgumentException("Action name cannot be null or empty.", nameof(actionName));
 
-        if (handlerType == null)
-            throw new ArgumentNullException(nameof(handlerType));
+        ArgumentNullException.ThrowIfNull(handlerType);
 
         _handlerMapping[actionName] = handlerType;
     }

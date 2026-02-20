@@ -1,61 +1,80 @@
 @using BbQ.ChatWidgets.Models
+@using BbQ.ChatWidgets.Blazor.Services
 @using Microsoft.AspNetCore.Components
+@using Microsoft.Extensions.DependencyInjection
+@using System.Reflection
+
+@if (Overrides is not null)
+{
+    <CascadingValue Value="overrideCollector" IsFixed="true">
+        <div style="display:none">@Overrides</div>
+    </CascadingValue>
+}
 
 <div class="bbq-widget-renderer">
     @if (Widget != null)
     {
-        @switch (Widget)
+        var overrideComponentType = ResolveOverrideComponentType(Widget);
+
+        if (overrideComponentType is not null)
         {
-            case ButtonWidget buttonWidget:
-                <ButtonWidgetComponent Widget="buttonWidget" OnAction="OnAction" />
-                break;
-            case CardWidget cardWidget:
-                <CardWidgetComponent Widget="cardWidget" OnAction="OnAction" />
-                break;
-            case InputWidget inputWidget:
-                <InputWidgetComponent Widget="inputWidget" OnAction="OnAction" />
-                break;
-            case TextAreaWidget textAreaWidget:
-                <TextAreaWidgetComponent Widget="textAreaWidget" OnAction="OnAction" />
-                break;
-            case DropdownWidget dropdownWidget:
-                <DropdownWidgetComponent Widget="dropdownWidget" OnAction="OnAction" />
-                break;
-            case SliderWidget sliderWidget:
-                <SliderWidgetComponent Widget="sliderWidget" OnAction="OnAction" />
-                break;
-            case ToggleWidget toggleWidget:
-                <ToggleWidgetComponent Widget="toggleWidget" OnAction="OnAction" />
-                break;
-            case FileUploadWidget fileUploadWidget:
-                <FileUploadWidgetComponent Widget="fileUploadWidget" OnAction="OnAction" />
-                break;
-            case DatePickerWidget datePickerWidget:
-                <DatePickerWidgetComponent Widget="datePickerWidget" OnAction="OnAction" />
-                break;
-            case MultiSelectWidget multiSelectWidget:
-                <MultiSelectWidgetComponent Widget="multiSelectWidget" OnAction="OnAction" />
-                break;
-            case ProgressBarWidget progressBarWidget:
-                <ProgressBarWidgetComponent Widget="progressBarWidget" />
-                break;
-            case ThemeSwitcherWidget themeSwitcherWidget:
-                <ThemeSwitcherWidgetComponent Widget="themeSwitcherWidget" OnAction="OnAction" />
-                break;
-            case FormWidget formWidget:
-                <FormWidgetComponent Widget="formWidget" OnAction="OnAction" />
-                break;
-            case ImageWidget imageWidget:
-                <ImageWidgetComponent Widget="imageWidget" OnAction="OnAction" />
-                break;
-            case ImageCollectionWidget imageCollectionWidget:
-                <ImageCollectionWidgetComponent Widget="imageCollectionWidget" OnAction="OnAction" />
-                break;
-            default:
-                <div class="bbq-widget-unknown">
-                    <p>Unknown widget type: @Widget.GetType().Name</p>
-                </div>
-                break;
+            <DynamicComponent Type="overrideComponentType" Parameters="BuildOverrideParameters(overrideComponentType, Widget, OnAction)" />
+        }
+        else
+        {
+            @switch (Widget)
+            {
+                case ButtonWidget buttonWidget:
+                    <ButtonWidgetComponent Widget="buttonWidget" OnAction="OnAction" />
+                    break;
+                case CardWidget cardWidget:
+                    <CardWidgetComponent Widget="cardWidget" OnAction="OnAction" />
+                    break;
+                case InputWidget inputWidget:
+                    <InputWidgetComponent Widget="inputWidget" OnAction="OnAction" />
+                    break;
+                case TextAreaWidget textAreaWidget:
+                    <TextAreaWidgetComponent Widget="textAreaWidget" OnAction="OnAction" />
+                    break;
+                case DropdownWidget dropdownWidget:
+                    <DropdownWidgetComponent Widget="dropdownWidget" OnAction="OnAction" />
+                    break;
+                case SliderWidget sliderWidget:
+                    <SliderWidgetComponent Widget="sliderWidget" OnAction="OnAction" />
+                    break;
+                case ToggleWidget toggleWidget:
+                    <ToggleWidgetComponent Widget="toggleWidget" OnAction="OnAction" />
+                    break;
+                case FileUploadWidget fileUploadWidget:
+                    <FileUploadWidgetComponent Widget="fileUploadWidget" OnAction="OnAction" />
+                    break;
+                case DatePickerWidget datePickerWidget:
+                    <DatePickerWidgetComponent Widget="datePickerWidget" OnAction="OnAction" />
+                    break;
+                case MultiSelectWidget multiSelectWidget:
+                    <MultiSelectWidgetComponent Widget="multiSelectWidget" OnAction="OnAction" />
+                    break;
+                case ProgressBarWidget progressBarWidget:
+                    <ProgressBarWidgetComponent Widget="progressBarWidget" />
+                    break;
+                case ThemeSwitcherWidget themeSwitcherWidget:
+                    <ThemeSwitcherWidgetComponent Widget="themeSwitcherWidget" OnAction="OnAction" />
+                    break;
+                case FormWidget formWidget:
+                    <FormWidgetComponent Widget="formWidget" OnAction="OnAction" LocalOverrides="GetLocalOverrides()" />
+                    break;
+                case ImageWidget imageWidget:
+                    <ImageWidgetComponent Widget="imageWidget" OnAction="OnAction" />
+                    break;
+                case ImageCollectionWidget imageCollectionWidget:
+                    <ImageCollectionWidgetComponent Widget="imageCollectionWidget" OnAction="OnAction" />
+                    break;
+                default:
+                    <div class="bbq-widget-unknown">
+                        <p>Unknown widget type: @Widget.GetType().Name</p>
+                    </div>
+                    break;
+            }
         }
     }
 </div>
@@ -66,4 +85,50 @@
 
     [Parameter]
     public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    [Parameter]
+    public RenderFragment? Overrides { get; set; }
+
+    [Inject]
+    private IServiceProvider ServiceProvider { get; set; } = default!;
+
+    private readonly WidgetOverrideCollector overrideCollector = new();
+
+    private IReadOnlyList<WidgetComponentOverride> GetLocalOverrides() => overrideCollector.Snapshot();
+
+    private IReadOnlyList<WidgetComponentOverride> GetGlobalOverrides()
+    {
+        return ServiceProvider.GetService<IWidgetComponentOverrideProvider>()?.GetOverrides() ?? [];
+    }
+
+    private Type? ResolveOverrideComponentType(ChatWidget widget)
+    {
+        return WidgetOverrideResolver.ResolveComponentType(widget, GetLocalOverrides(), GetGlobalOverrides());
+    }
+
+    private static Dictionary<string, object?> BuildOverrideParameters(
+        Type componentType,
+        ChatWidget widget,
+        EventCallback<(string Action, object? Payload)> onAction)
+    {
+        var componentParameters = componentType
+            .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+            .Where(property => Attribute.IsDefined(property, typeof(ParameterAttribute)))
+            .Select(property => property.Name)
+            .ToHashSet(StringComparer.Ordinal);
+
+        var parameters = new Dictionary<string, object?>();
+
+        if (componentParameters.Contains("Widget"))
+        {
+            parameters["Widget"] = widget;
+        }
+
+        if (componentParameters.Contains("OnAction"))
+        {
+            parameters["OnAction"] = onAction;
+        }
+
+        return parameters;
+    }
 }

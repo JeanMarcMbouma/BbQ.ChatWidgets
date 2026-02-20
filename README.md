@@ -134,6 +134,33 @@ npm install @bbq-chat/widgets
 npm install @bbq-chat/widgets-angular @bbq-chat/widgets
 ```
 
+## Blazor Widget Overrides
+
+Use component overrides to replace built-in widget components without writing `switch`/`if` logic.
+
+### Local (per renderer instance)
+
+```razor
+<WidgetRenderer Widget="widget" OnAction="HandleWidgetAction">
+  <Overrides>
+    <WidgetOverride Type="typeof(InputWidget)" Template="typeof(MyCustomInputComponent)" />
+    <WidgetOverride TypeId="clock" Template="typeof(MyClockWidgetComponent)" />
+  </Overrides>
+</WidgetRenderer>
+```
+
+### Global (DI registration)
+
+```csharp
+services.AddBbQChatWidgetsBlazor(overrides =>
+{
+  overrides.Add<InputWidget, MyCustomInputComponent>();
+  overrides.Add(typeof(MyClockWidgetComponent), widgetTypeId: "clock");
+});
+```
+
+Resolution order is: local exact type -> local type id -> local assignable type -> global exact type -> global type id -> global assignable type -> built-in fallback.
+
 ## 📖 Documentation
 
 - **[Getting Started](docs_src/GETTING_STARTED.md)** - Complete setup guide

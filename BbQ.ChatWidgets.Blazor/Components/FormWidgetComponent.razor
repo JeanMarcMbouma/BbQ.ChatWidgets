@@ -15,6 +15,7 @@
                 {
                     <FormFieldComponent 
                         Field="field" 
+                        LocalOverrides="LocalOverrides"
                         OnValueChanged="HandleFieldValueChanged" 
                         OnValidationChanged="HandleFieldValidationChanged" />
                 }
@@ -53,6 +54,9 @@
 
     [Parameter]
     public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    [Parameter]
+    public IReadOnlyList<WidgetComponentOverride>? LocalOverrides { get; set; }
 
     private readonly Dictionary<string, object?> formData = new();
     private readonly Dictionary<string, bool> fieldValidationState = new();

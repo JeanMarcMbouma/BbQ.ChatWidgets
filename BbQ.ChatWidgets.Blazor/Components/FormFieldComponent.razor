@@ -1,42 +1,54 @@
 @using BbQ.ChatWidgets.Models
+@using BbQ.ChatWidgets.Blazor.Services
 @using Microsoft.AspNetCore.Components
+@using Microsoft.Extensions.DependencyInjection
 @using System.Text.Json
+@using System.Reflection
 
 <div class="bbq-form-field @(Field.Required ? "bbq-form-field-required" : "")">
     @if (widget != null)
     {
-        @switch (widget)
+        var overrideComponentType = ResolveOverrideComponentType(widget);
+
+        if (overrideComponentType is not null)
         {
-            case InputWidget inputWidget:
-                <InputWidgetComponent Widget="inputWidget" OnAction="HandleWidgetAction" />
-                break;
-            case TextAreaWidget textAreaWidget:
-                <TextAreaWidgetComponent Widget="textAreaWidget" OnAction="HandleWidgetAction" />
-                break;
-            case DropdownWidget dropdownWidget:
-                <DropdownWidgetComponent Widget="dropdownWidget" OnAction="HandleWidgetAction" />
-                break;
-            case SliderWidget sliderWidget:
-                <SliderWidgetComponent Widget="sliderWidget" OnAction="HandleWidgetAction" />
-                break;
-            case ToggleWidget toggleWidget:
-                <ToggleWidgetComponent Widget="toggleWidget" OnAction="HandleWidgetAction" />
-                break;
-            case FileUploadWidget fileUploadWidget:
-                <FileUploadWidgetComponent Widget="fileUploadWidget" OnAction="HandleWidgetAction" />
-                break;
-            case DatePickerWidget datePickerWidget:
-                <DatePickerWidgetComponent Widget="datePickerWidget" OnAction="HandleWidgetAction" />
-                break;
-            case MultiSelectWidget multiSelectWidget:
-                <MultiSelectWidgetComponent Widget="multiSelectWidget" OnAction="HandleWidgetAction" />
-                break;
-            default:
-                <div class="bbq-form-field-fallback">
-                    <label class="bbq-form-field-label">@Field.Label</label>
-                    <input type="text" class="bbq-form-input" placeholder="@Field.Label" @onchange="HandleFallbackChange" />
-                </div>
-                break;
+            <DynamicComponent Type="overrideComponentType" Parameters="BuildOverrideParameters(overrideComponentType, widget, EventCallback.Factory.Create<(string Action, object? Payload)>(this, HandleWidgetAction))" />
+        }
+        else
+        {
+            @switch (widget)
+            {
+                case InputWidget inputWidget:
+                    <InputWidgetComponent Widget="inputWidget" OnAction="HandleWidgetAction" />
+                    break;
+                case TextAreaWidget textAreaWidget:
+                    <TextAreaWidgetComponent Widget="textAreaWidget" OnAction="HandleWidgetAction" />
+                    break;
+                case DropdownWidget dropdownWidget:
+                    <DropdownWidgetComponent Widget="dropdownWidget" OnAction="HandleWidgetAction" />
+                    break;
+                case SliderWidget sliderWidget:
+                    <SliderWidgetComponent Widget="sliderWidget" OnAction="HandleWidgetAction" />
+                    break;
+                case ToggleWidget toggleWidget:
+                    <ToggleWidgetComponent Widget="toggleWidget" OnAction="HandleWidgetAction" />
+                    break;
+                case FileUploadWidget fileUploadWidget:
+                    <FileUploadWidgetComponent Widget="fileUploadWidget" OnAction="HandleWidgetAction" />
+                    break;
+                case DatePickerWidget datePickerWidget:
+                    <DatePickerWidgetComponent Widget="datePickerWidget" OnAction="HandleWidgetAction" />
+                    break;
+                case MultiSelectWidget multiSelectWidget:
+                    <MultiSelectWidgetComponent Widget="multiSelectWidget" OnAction="HandleWidgetAction" />
+                    break;
+                default:
+                    <div class="bbq-form-field-fallback">
+                        <label class="bbq-form-field-label">@Field.Label</label>
+                        <input type="text" class="bbq-form-input" placeholder="@Field.Label" @onchange="HandleFallbackChange" />
+                    </div>
+                    break;
+            }
         }
     }
     else
@@ -63,8 +75,50 @@
     [Parameter]
     public EventCallback<(string, bool)> OnValidationChanged { get; set; }
 
+    [Parameter]
+    public IReadOnlyList<WidgetComponentOverride>? LocalOverrides { get; set; }
+
+    [Inject]
+    private IServiceProvider ServiceProvider { get; set; } = default!;
+
     private ChatWidget? widget;
     private bool isValid = true;
+
+    private IReadOnlyList<WidgetComponentOverride> GetGlobalOverrides()
+    {
+        return ServiceProvider.GetService<IWidgetComponentOverrideProvider>()?.GetOverrides() ?? [];
+    }
+
+    private Type? ResolveOverrideComponentType(ChatWidget chatWidget)
+    {
+        return WidgetOverrideResolver.ResolveComponentType(chatWidget, LocalOverrides, GetGlobalOverrides());
+    }
+
+    private static Dictionary<string, object?> BuildOverrideParameters(
+        Type componentType,
+        ChatWidget chatWidget,
+        EventCallback<(string Action, object? Payload)> onAction)
+    {
+        var componentParameters = componentType
+            .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+            .Where(property => Attribute.IsDefined(property, typeof(ParameterAttribute)))
+            .Select(property => property.Name)
+            .ToHashSet(StringComparer.Ordinal);
+
+        var parameters = new Dictionary<string, object?>();
+
+        if (componentParameters.Contains("Widget"))
+        {
+            parameters["Widget"] = chatWidget;
+        }
+
+        if (componentParameters.Contains("OnAction"))
+        {
+            parameters["OnAction"] = onAction;
+        }
+
+        return parameters;
+    }
 
     protected override void OnParametersSet()
     {

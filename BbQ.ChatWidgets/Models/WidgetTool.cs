@@ -18,10 +18,9 @@ namespace BbQ.ChatWidgets.Models
     /// - <c>Schema</c>: JSON schema for the widget type
     /// </remarks>
     public sealed class WidgetTool(
-        ChatWidget widget,
-        string? typeIdOverride = null) : AITool
+        ChatWidget widget) : AITool
     {
-        private readonly string _typeId = typeIdOverride ?? widget.Type;
+        private readonly string _typeId = widget.Type;
 
         /// <summary>
         /// Gets the name of this tool, which is the widget's registry type identifier.

@@ -32,6 +32,8 @@ public abstract record ChatWidget(
     /// </remarks>
     [JsonIgnore] 
     public abstract string Purpose { get; }
+
+    internal string? OverrideTypeId { get; set; }
 }
 
 /// <summary>
@@ -771,7 +773,7 @@ public static class ChatWidgetExtensions
         {
             get
             {
-                return widget.GetType().Name.Replace("Widget", "").ToLowerInvariant();
+                return widget.OverrideTypeId ?? widget.GetType().Name.Replace("Widget", "").ToLowerInvariant();
             }
         }
     }

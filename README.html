@@ -125,26 +125,42 @@ const turn = await response.json();
 
 // 2. Render widgets
 const manager = new WidgetManager();
-turn.widgets?.forEach(widget =&gt; 
-    manager.render(widget, document.getElementById('chat-container'))
-);
+const container = document.getElementById('chat-container');
+if (container &amp;&amp; turn.widgets?.length) {
+    manager.renderInto(container, turn.widgets);
+}
 </code></pre>
 <h3 id="angular-client">Angular (Client)</h3>
-<pre><code class="lang-typescript">import { Component } from '@angular/core';
-import { ChatWidgetsModule } from '@bbq-chat/widgets-angular';
+<pre><code class="lang-typescript">import { Component, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { WidgetRendererComponent } from '@bbq-chat/widgets-angular';
+import type { ChatWidget } from '@bbq-chat/widgets-angular';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [ChatWidgetsModule],
+  imports: [WidgetRendererComponent],
   template: `
-    &lt;bbq-chat-widget 
-      [apiEndpoint]=&quot;'/api/chat'&quot;
-      [threadId]=&quot;'demo-123'&quot;&gt;
-    &lt;/bbq-chat-widget&gt;
+    &lt;bbq-widget-renderer
+      [widgets]=&quot;widgets()&quot;
+      (widgetAction)=&quot;handleWidgetAction($event)&quot;&gt;
+    &lt;/bbq-widget-renderer&gt;
   `
 })
-export class ChatComponent { }
+export class ChatComponent {
+  widgets = signal&lt;ChatWidget[]&gt;([]);
+
+  constructor(private http: HttpClient) {}
+
+  sendMessage(text: string) {
+    this.http.post&lt;{ widgets?: ChatWidget[] }&gt;('/api/chat/message', { message: text, threadId: 'demo-123' })
+      .subscribe(turn =&gt; this.widgets.set(turn.widgets ?? []));
+  }
+
+  handleWidgetAction(event: { actionName: string; payload: any }) {
+    console.log('Action:', event.actionName, event.payload);
+  }
+}
 </code></pre>
 <p>📚 <strong><a href="GETTING_STARTED.html">Full Getting Started Guide →</a></strong> | <strong><a href="widgets/GALLERY.html">Widget Gallery →</a></strong> | <strong><a href="INTEGRATION_PATHS.html">Integration Paths →</a></strong></p>
 <h2 id="features">Features</h2>

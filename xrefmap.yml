@@ -6663,15 +6663,15 @@ references:
   commentId: T:BbQ.ChatWidgets.Models.WidgetTool
   fullName: BbQ.ChatWidgets.Models.WidgetTool
   nameWithType: WidgetTool
-- uid: BbQ.ChatWidgets.Models.WidgetTool.#ctor(BbQ.ChatWidgets.Models.ChatWidget,System.String)
-  name: WidgetTool(ChatWidget, string?)
-  href: BbQ.ChatWidgets.Models.WidgetTool.html#BbQ_ChatWidgets_Models_WidgetTool__ctor_BbQ_ChatWidgets_Models_ChatWidget_System_String_
-  commentId: M:BbQ.ChatWidgets.Models.WidgetTool.#ctor(BbQ.ChatWidgets.Models.ChatWidget,System.String)
-  name.vb: New(ChatWidget, String)
-  fullName: BbQ.ChatWidgets.Models.WidgetTool.WidgetTool(BbQ.ChatWidgets.Models.ChatWidget, string?)
-  fullName.vb: BbQ.ChatWidgets.Models.WidgetTool.New(BbQ.ChatWidgets.Models.ChatWidget, String)
-  nameWithType: WidgetTool.WidgetTool(ChatWidget, string?)
-  nameWithType.vb: WidgetTool.New(ChatWidget, String)
+- uid: BbQ.ChatWidgets.Models.WidgetTool.#ctor(BbQ.ChatWidgets.Models.ChatWidget)
+  name: WidgetTool(ChatWidget)
+  href: BbQ.ChatWidgets.Models.WidgetTool.html#BbQ_ChatWidgets_Models_WidgetTool__ctor_BbQ_ChatWidgets_Models_ChatWidget_
+  commentId: M:BbQ.ChatWidgets.Models.WidgetTool.#ctor(BbQ.ChatWidgets.Models.ChatWidget)
+  name.vb: New(ChatWidget)
+  fullName: BbQ.ChatWidgets.Models.WidgetTool.WidgetTool(BbQ.ChatWidgets.Models.ChatWidget)
+  fullName.vb: BbQ.ChatWidgets.Models.WidgetTool.New(BbQ.ChatWidgets.Models.ChatWidget)
+  nameWithType: WidgetTool.WidgetTool(ChatWidget)
+  nameWithType.vb: WidgetTool.New(ChatWidget)
 - uid: BbQ.ChatWidgets.Models.WidgetTool.#ctor*
   name: WidgetTool
   href: BbQ.ChatWidgets.Models.WidgetTool.html#BbQ_ChatWidgets_Models_WidgetTool__ctor_

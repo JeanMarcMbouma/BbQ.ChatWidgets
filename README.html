@@ -183,6 +183,24 @@ export class ChatComponent {
 <h3 id="npm-angular-native-components">npm (Angular native components)</h3>
 <pre><code class="lang-bash">npm install @bbq-chat/widgets-angular @bbq-chat/widgets
 </code></pre>
+<h2 id="blazor-widget-overrides">Blazor Widget Overrides</h2>
+<p>Use component overrides to replace built-in widget components without writing <code>switch</code>/<code>if</code> logic.</p>
+<h3 id="local-per-renderer-instance">Local (per renderer instance)</h3>
+<pre><code class="lang-razor">&lt;WidgetRenderer Widget=&quot;widget&quot; OnAction=&quot;HandleWidgetAction&quot;&gt;
+  &lt;Overrides&gt;
+    &lt;WidgetOverride Type=&quot;typeof(InputWidget)&quot; Template=&quot;typeof(MyCustomInputComponent)&quot; /&gt;
+    &lt;WidgetOverride TypeId=&quot;clock&quot; Template=&quot;typeof(MyClockWidgetComponent)&quot; /&gt;
+  &lt;/Overrides&gt;
+&lt;/WidgetRenderer&gt;
+</code></pre>
+<h3 id="global-di-registration">Global (DI registration)</h3>
+<pre><code class="lang-csharp">services.AddBbQChatWidgetsBlazor(overrides =&gt;
+{
+  overrides.Add&lt;InputWidget, MyCustomInputComponent&gt;();
+  overrides.Add(typeof(MyClockWidgetComponent), widgetTypeId: &quot;clock&quot;);
+});
+</code></pre>
+<p>Resolution order is: local exact type -&gt; local type id -&gt; local assignable type -&gt; global exact type -&gt; global type id -&gt; global assignable type -&gt; built-in fallback.</p>
 <h2 id="-documentation">📖 Documentation</h2>
 <ul>
 <li><strong><a href="GETTING_STARTED.html">Getting Started</a></strong> - Complete setup guide</li>

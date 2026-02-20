@@ -61,29 +61,45 @@ const turn = await response.json();
 
 // 2. Render widgets
 const manager = new WidgetManager();
-turn.widgets?.forEach(widget => 
-    manager.render(widget, document.getElementById('chat-container'))
-);
+const container = document.getElementById('chat-container');
+if (container && turn.widgets?.length) {
+    manager.renderInto(container, turn.widgets);
+}
 ```
 
 ### Angular (Client)
 
 ```typescript
-import { Component } from '@angular/core';
-import { ChatWidgetsModule } from '@bbq-chat/widgets-angular';
+import { Component, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { WidgetRendererComponent } from '@bbq-chat/widgets-angular';
+import type { ChatWidget } from '@bbq-chat/widgets-angular';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [ChatWidgetsModule],
+  imports: [WidgetRendererComponent],
   template: `
-    <bbq-chat-widget 
-      [apiEndpoint]="'/api/chat'"
-      [threadId]="'demo-123'">
-    </bbq-chat-widget>
+    <bbq-widget-renderer
+      [widgets]="widgets()"
+      (widgetAction)="handleWidgetAction($event)">
+    </bbq-widget-renderer>
   `
 })
-export class ChatComponent { }
+export class ChatComponent {
+  widgets = signal<ChatWidget[]>([]);
+
+  constructor(private http: HttpClient) {}
+
+  sendMessage(text: string) {
+    this.http.post<{ widgets?: ChatWidget[] }>('/api/chat/message', { message: text, threadId: 'demo-123' })
+      .subscribe(turn => this.widgets.set(turn.widgets ?? []));
+  }
+
+  handleWidgetAction(event: { actionName: string; payload: any }) {
+    console.log('Action:', event.actionName, event.payload);
+  }
+}
 ```
 
 📚 **[Full Getting Started Guide →](docs_src/GETTING_STARTED.md)** | **[Widget Gallery →](docs_src/widgets/GALLERY.md)** | **[Integration Paths →](docs_src/INTEGRATION_PATHS.md)**

@@ -82,9 +82,6 @@ internal class Program
                 bbqOptions.ChatClientFactory = sp => client;
                 bbqOptions.WidgetActionRegistryFactory = (sp, registry, handlerResolver) =>
                 {
-                    // Register greeting action
-                    registry.RegisterHandler<GreetingAction, GreetingPayload, GreetingHandler>(handlerResolver);
-
                     // Register feedback action
                     registry.RegisterHandler<FeedbackAction, FeedbackPayload, FeedbackHandler>(handlerResolver);
 
@@ -96,7 +93,7 @@ internal class Program
             .AddSingleton<ChatService>()
             .AddSingleton<ConversationManager>()
             // Register typed action handlers
-            .AddScoped<GreetingHandler>()
+            .AddWidgetActionHandler<GreetingAction, GreetingPayload, GreetingHandler>()
             .AddScoped<FeedbackHandler>()
             .BuildServiceProvider();
 

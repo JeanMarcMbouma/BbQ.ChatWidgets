@@ -1,12 +1,14 @@
 using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Options;
 using BbQ.ChatWidgets.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BbQ.ChatWidgets.Extensions;
 
 /// <summary>
 /// Extension methods for registering typed action handlers.
 /// </summary>
-public static class WidgetActionHandlerExtensions
+public static partial class WidgetActionHandlerExtensions
 {
     extension(IWidgetActionRegistry registry)
     {
@@ -48,5 +50,53 @@ public static class WidgetActionHandlerExtensions
             registry.RegisterAction(metadata);
             resolver.RegisterHandler(action.Name, typeof(THandler));
         }
+    }
+
+    extension(IServiceCollection services)
+    {
+        /// <summary>
+        /// Registers a widget action handler and its associated action metadata
+        /// into the service collection and the <see cref="ActionHandlerOptions"/> registry.
+        /// </summary>
+        /// <typeparam name="TAction">
+        /// The concrete action type implementing <see cref="IWidgetAction{TPayload}"/>.
+        /// A new instance is created to extract name, description, and payload schema.
+        /// </typeparam>
+        /// <typeparam name="TPayload">
+        /// The payload type associated with the action. This type is recorded in the
+        /// generated <see cref="WidgetActionMetadata"/>.
+        /// </typeparam>
+        /// <typeparam name="THandler">
+        /// The handler type implementing <see cref="IActionWidgetActionHandler{TAction, TPayload}"/>.
+        /// This type is registered in DI and linked to the action during metadata registration.
+        /// </typeparam>
+        /// <param name="lifetime">
+        /// The service lifetime to use when registering <typeparamref name="THandler"/>.
+        /// Defaults to <see cref="ServiceLifetime.Scoped"/>.
+        /// </param>
+        /// <returns>
+        /// The same <see cref="IServiceCollection"/> instance, enabling fluent configuration.
+        /// </returns>
+        public IServiceCollection AddWidgetActionHandler<TAction, TPayload, THandler>(ServiceLifetime lifetime = ServiceLifetime.Scoped)
+            where TAction : IWidgetAction<TPayload>, new()
+            where THandler : IActionWidgetActionHandler<TAction, TPayload>
+        {
+            services.Add(new ServiceDescriptor(typeof(THandler), typeof(THandler), lifetime));
+            services.Configure<ActionHandlerOptions>(options => options.Handlers.Add((s, registry) =>
+            {
+                var action = new TAction();
+                var metadata = new WidgetActionMetadata(
+                    action.Name,
+                    action.Description,
+                    action.PayloadSchema,
+                    typeof(TPayload)
+                );
+                registry.RegisterAction(metadata);
+                return new ActionRegistrationMetadata(action.Name, typeof(THandler));
+            }
+            ));
+            return services; 
+        }
+
     }
 }

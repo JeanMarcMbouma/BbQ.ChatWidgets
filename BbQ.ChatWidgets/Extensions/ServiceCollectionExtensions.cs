@@ -3,6 +3,7 @@ using BbQ.ChatWidgets.Agents;
 using BbQ.ChatWidgets.Agents.Abstractions;
 using BbQ.ChatWidgets.Endpoints;
 using BbQ.ChatWidgets.Models;
+using BbQ.ChatWidgets.Options;
 using BbQ.ChatWidgets.Services;
 using BbQ.Outcome;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using System.Text.Json;
+using static BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions;
 
 namespace BbQ.ChatWidgets.Extensions;
 
@@ -116,6 +118,17 @@ public static class ServiceCollectionExtensions
         {
             var registry = sp.GetRequiredService<WidgetActionRegistry>();
             var handlerResolver = sp.GetRequiredService<IWidgetActionHandlerResolver>();
+
+            // Apply widget action handlers via AddWidgetActionHandler<TAction, TPayload, THandler>() (DI-friendly registration)
+            var actionHandlersOptions = sp.GetService<IOptions<ActionHandlerOptions>>()?.Value;
+            if(actionHandlersOptions is { Handlers.Count: > 0 })
+            {
+                foreach(var handler in actionHandlersOptions.Handlers)
+                {
+                    var metadata = handler(sp, registry);
+                    handlerResolver.RegisterHandler(metadata.ActionName, metadata.HandlerType);
+                }
+            }
             options.WidgetActionRegistryFactory?.Invoke(sp, registry, handlerResolver);
             return registry;
         });

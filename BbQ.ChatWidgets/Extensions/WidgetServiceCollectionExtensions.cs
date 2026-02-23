@@ -1,6 +1,6 @@
 using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Models;
-using BbQ.ChatWidgets.Services;
+using BbQ.ChatWidgets.Options;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BbQ.ChatWidgets.Extensions;

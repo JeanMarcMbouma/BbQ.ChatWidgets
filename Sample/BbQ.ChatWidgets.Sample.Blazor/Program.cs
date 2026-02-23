@@ -56,9 +56,6 @@ services.AddBbQChatWidgets(bbqOptions =>
     };
     bbqOptions.WidgetActionRegistryFactory = (sp, actionRegistry, handlerResolver) =>
     {
-        // Register greeting action
-        actionRegistry.RegisterHandler<GreetingAction, GreetingPayload, GreetingHandler>(handlerResolver);
-
         // Register feedback action
         actionRegistry.RegisterHandler<FeedbackAction, FeedbackPayload, FeedbackHandler>(handlerResolver);
 
@@ -75,6 +72,7 @@ services.AddBbQChatWidgets(bbqOptions =>
 
 // Register a server-side Clock widget template used by the SSE demo.
 services.AddWidget(sp => new ClockWidget("Server Clock", "clock_tick", "UTC", "default-stream"), "clock");
+services.AddWidgetActionHandler<GreetingAction, GreetingPayload, GreetingHandler>();
 
 services.AddBbQChatWidgetsBlazor(options =>
 {

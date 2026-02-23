@@ -2145,6 +2145,21 @@ references:
   commentId: T:BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions
   fullName: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions
   nameWithType: WidgetActionHandlerExtensions
+- uid: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.AddWidgetActionHandler*
+  name: AddWidgetActionHandler
+  href: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.html#BbQ_ChatWidgets_Extensions_WidgetActionHandlerExtensions_AddWidgetActionHandler_
+  commentId: Overload:BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.AddWidgetActionHandler
+  fullName: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.AddWidgetActionHandler
+  nameWithType: WidgetActionHandlerExtensions.AddWidgetActionHandler
+- uid: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.AddWidgetActionHandler``3(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.ServiceLifetime)
+  name: AddWidgetActionHandler<TAction, TPayload, THandler>(IServiceCollection, ServiceLifetime)
+  href: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.html#BbQ_ChatWidgets_Extensions_WidgetActionHandlerExtensions_AddWidgetActionHandler__3_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_DependencyInjection_ServiceLifetime_
+  commentId: M:BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.AddWidgetActionHandler``3(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.ServiceLifetime)
+  name.vb: AddWidgetActionHandler(Of TAction, TPayload, THandler)(IServiceCollection, ServiceLifetime)
+  fullName: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.AddWidgetActionHandler<TAction, TPayload, THandler>(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.DependencyInjection.ServiceLifetime)
+  fullName.vb: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.AddWidgetActionHandler(Of TAction, TPayload, THandler)(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.DependencyInjection.ServiceLifetime)
+  nameWithType: WidgetActionHandlerExtensions.AddWidgetActionHandler<TAction, TPayload, THandler>(IServiceCollection, ServiceLifetime)
+  nameWithType.vb: WidgetActionHandlerExtensions.AddWidgetActionHandler(Of TAction, TPayload, THandler)(IServiceCollection, ServiceLifetime)
 - uid: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.RegisterHandler*
   name: RegisterHandler
   href: BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions.html#BbQ_ChatWidgets_Extensions_WidgetActionHandlerExtensions_RegisterHandler_
@@ -6807,6 +6822,48 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Models.WidgetTool.Name
   fullName: BbQ.ChatWidgets.Models.WidgetTool.Name
   nameWithType: WidgetTool.Name
+- uid: BbQ.ChatWidgets.Options
+  name: BbQ.ChatWidgets.Options
+  href: BbQ.ChatWidgets.Options.html
+  commentId: N:BbQ.ChatWidgets.Options
+  fullName: BbQ.ChatWidgets.Options
+  nameWithType: BbQ.ChatWidgets.Options
+- uid: BbQ.ChatWidgets.Options.WidgetRegistryOptions
+  name: WidgetRegistryOptions
+  href: BbQ.ChatWidgets.Options.WidgetRegistryOptions.html
+  commentId: T:BbQ.ChatWidgets.Options.WidgetRegistryOptions
+  fullName: BbQ.ChatWidgets.Options.WidgetRegistryOptions
+  nameWithType: WidgetRegistryOptions
+- uid: BbQ.ChatWidgets.Options.WidgetRegistryOptions.#ctor
+  name: WidgetRegistryOptions()
+  href: BbQ.ChatWidgets.Options.WidgetRegistryOptions.html#BbQ_ChatWidgets_Options_WidgetRegistryOptions__ctor
+  commentId: M:BbQ.ChatWidgets.Options.WidgetRegistryOptions.#ctor
+  name.vb: New()
+  fullName: BbQ.ChatWidgets.Options.WidgetRegistryOptions.WidgetRegistryOptions()
+  fullName.vb: BbQ.ChatWidgets.Options.WidgetRegistryOptions.New()
+  nameWithType: WidgetRegistryOptions.WidgetRegistryOptions()
+  nameWithType.vb: WidgetRegistryOptions.New()
+- uid: BbQ.ChatWidgets.Options.WidgetRegistryOptions.#ctor*
+  name: WidgetRegistryOptions
+  href: BbQ.ChatWidgets.Options.WidgetRegistryOptions.html#BbQ_ChatWidgets_Options_WidgetRegistryOptions__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Options.WidgetRegistryOptions.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Options.WidgetRegistryOptions.WidgetRegistryOptions
+  fullName.vb: BbQ.ChatWidgets.Options.WidgetRegistryOptions.New
+  nameWithType: WidgetRegistryOptions.WidgetRegistryOptions
+  nameWithType.vb: WidgetRegistryOptions.New
+- uid: BbQ.ChatWidgets.Options.WidgetRegistryOptions.Widgets
+  name: Widgets
+  href: BbQ.ChatWidgets.Options.WidgetRegistryOptions.html#BbQ_ChatWidgets_Options_WidgetRegistryOptions_Widgets
+  commentId: P:BbQ.ChatWidgets.Options.WidgetRegistryOptions.Widgets
+  fullName: BbQ.ChatWidgets.Options.WidgetRegistryOptions.Widgets
+  nameWithType: WidgetRegistryOptions.Widgets
+- uid: BbQ.ChatWidgets.Options.WidgetRegistryOptions.Widgets*
+  name: Widgets
+  href: BbQ.ChatWidgets.Options.WidgetRegistryOptions.html#BbQ_ChatWidgets_Options_WidgetRegistryOptions_Widgets_
+  commentId: Overload:BbQ.ChatWidgets.Options.WidgetRegistryOptions.Widgets
+  fullName: BbQ.ChatWidgets.Options.WidgetRegistryOptions.Widgets
+  nameWithType: WidgetRegistryOptions.Widgets
 - uid: BbQ.ChatWidgets.Renderers
   name: BbQ.ChatWidgets.Renderers
   href: BbQ.ChatWidgets.Renderers.html
@@ -7758,42 +7815,6 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Services.WidgetRegistry.TryGetInstance
   fullName: BbQ.ChatWidgets.Services.WidgetRegistry.TryGetInstance
   nameWithType: WidgetRegistry.TryGetInstance
-- uid: BbQ.ChatWidgets.Services.WidgetRegistryOptions
-  name: WidgetRegistryOptions
-  href: BbQ.ChatWidgets.Services.WidgetRegistryOptions.html
-  commentId: T:BbQ.ChatWidgets.Services.WidgetRegistryOptions
-  fullName: BbQ.ChatWidgets.Services.WidgetRegistryOptions
-  nameWithType: WidgetRegistryOptions
-- uid: BbQ.ChatWidgets.Services.WidgetRegistryOptions.#ctor
-  name: WidgetRegistryOptions()
-  href: BbQ.ChatWidgets.Services.WidgetRegistryOptions.html#BbQ_ChatWidgets_Services_WidgetRegistryOptions__ctor
-  commentId: M:BbQ.ChatWidgets.Services.WidgetRegistryOptions.#ctor
-  name.vb: New()
-  fullName: BbQ.ChatWidgets.Services.WidgetRegistryOptions.WidgetRegistryOptions()
-  fullName.vb: BbQ.ChatWidgets.Services.WidgetRegistryOptions.New()
-  nameWithType: WidgetRegistryOptions.WidgetRegistryOptions()
-  nameWithType.vb: WidgetRegistryOptions.New()
-- uid: BbQ.ChatWidgets.Services.WidgetRegistryOptions.#ctor*
-  name: WidgetRegistryOptions
-  href: BbQ.ChatWidgets.Services.WidgetRegistryOptions.html#BbQ_ChatWidgets_Services_WidgetRegistryOptions__ctor_
-  commentId: Overload:BbQ.ChatWidgets.Services.WidgetRegistryOptions.#ctor
-  name.vb: New
-  fullName: BbQ.ChatWidgets.Services.WidgetRegistryOptions.WidgetRegistryOptions
-  fullName.vb: BbQ.ChatWidgets.Services.WidgetRegistryOptions.New
-  nameWithType: WidgetRegistryOptions.WidgetRegistryOptions
-  nameWithType.vb: WidgetRegistryOptions.New
-- uid: BbQ.ChatWidgets.Services.WidgetRegistryOptions.Widgets
-  name: Widgets
-  href: BbQ.ChatWidgets.Services.WidgetRegistryOptions.html#BbQ_ChatWidgets_Services_WidgetRegistryOptions_Widgets
-  commentId: P:BbQ.ChatWidgets.Services.WidgetRegistryOptions.Widgets
-  fullName: BbQ.ChatWidgets.Services.WidgetRegistryOptions.Widgets
-  nameWithType: WidgetRegistryOptions.Widgets
-- uid: BbQ.ChatWidgets.Services.WidgetRegistryOptions.Widgets*
-  name: Widgets
-  href: BbQ.ChatWidgets.Services.WidgetRegistryOptions.html#BbQ_ChatWidgets_Services_WidgetRegistryOptions_Widgets_
-  commentId: Overload:BbQ.ChatWidgets.Services.WidgetRegistryOptions.Widgets
-  fullName: BbQ.ChatWidgets.Services.WidgetRegistryOptions.Widgets
-  nameWithType: WidgetRegistryOptions.Widgets
 - uid: BbQ.ChatWidgets.Services.WidgetSseService
   name: WidgetSseService
   href: BbQ.ChatWidgets.Services.WidgetSseService.html

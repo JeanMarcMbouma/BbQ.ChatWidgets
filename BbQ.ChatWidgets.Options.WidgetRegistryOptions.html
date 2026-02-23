@@ -69,11 +69,11 @@
       <div role="main" class="container body-content hide-when-search">
         <div class="article row grid">
           <div class="col-md-10">
-            <article class="content wrap" id="_content" data-uid="BbQ.ChatWidgets.Services.WidgetRegistryOptions">
+            <article class="content wrap" id="_content" data-uid="BbQ.ChatWidgets.Options.WidgetRegistryOptions">
 
 
 
-  <h1 id="BbQ_ChatWidgets_Services_WidgetRegistryOptions" data-uid="BbQ.ChatWidgets.Services.WidgetRegistryOptions" class="text-break">Class WidgetRegistryOptions</h1>
+  <h1 id="BbQ_ChatWidgets_Options_WidgetRegistryOptions" data-uid="BbQ.ChatWidgets.Options.WidgetRegistryOptions" class="text-break">Class WidgetRegistryOptions</h1>
   <div class="markdown level0 summary"><p>Options for configuring the widget registry via dependency injection.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
@@ -103,13 +103,13 @@
       <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object.gethashcode">object.GetHashCode()</a>
     </div>
   </div>
-  <h6><strong>Namespace</strong>: <a class="xref" href="BbQ.html">BbQ</a>.<a class="xref" href="BbQ.ChatWidgets.html">ChatWidgets</a>.<a class="xref" href="BbQ.ChatWidgets.Services.html">Services</a></h6>
+  <h6><strong>Namespace</strong>: <a class="xref" href="BbQ.html">BbQ</a>.<a class="xref" href="BbQ.ChatWidgets.html">ChatWidgets</a>.<a class="xref" href="BbQ.ChatWidgets.Options.html">Options</a></h6>
   <h6><strong>Assembly</strong>: BbQ.ChatWidgets.dll</h6>
-  <h5 id="BbQ_ChatWidgets_Services_WidgetRegistryOptions_syntax">Syntax</h5>
+  <h5 id="BbQ_ChatWidgets_Options_WidgetRegistryOptions_syntax">Syntax</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public sealed class WidgetRegistryOptions</code></pre>
   </div>
-  <h5 id="BbQ_ChatWidgets_Services_WidgetRegistryOptions_remarks"><strong>Remarks</strong></h5>
+  <h5 id="BbQ_ChatWidgets_Options_WidgetRegistryOptions_remarks"><strong>Remarks</strong></h5>
   <div class="markdown level0 remarks"><p>Use <a class="xref" href="BbQ.ChatWidgets.Extensions.WidgetServiceCollectionExtensions.html#BbQ_ChatWidgets_Extensions_WidgetServiceCollectionExtensions_AddWidget__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Func_System_IServiceProvider___0__System_String_">AddWidget&lt;TWidget&gt;(IServiceCollection, Func&lt;IServiceProvider, TWidget&gt;, string?)</a> to populate
 these options by registering widgets as factory functions resolved from the DI container.</p>
 </div>
@@ -117,10 +117,10 @@ these options by registering widgets as factory functions resolved from the DI c
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/WidgetRegistryOptions.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Options/WidgetRegistryOptions.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Services_WidgetRegistryOptions__ctor_" data-uid="BbQ.ChatWidgets.Services.WidgetRegistryOptions.#ctor*"></a>
-  <h4 id="BbQ_ChatWidgets_Services_WidgetRegistryOptions__ctor" data-uid="BbQ.ChatWidgets.Services.WidgetRegistryOptions.#ctor">WidgetRegistryOptions()</h4>
+  <a id="BbQ_ChatWidgets_Options_WidgetRegistryOptions__ctor_" data-uid="BbQ.ChatWidgets.Options.WidgetRegistryOptions.#ctor*"></a>
+  <h4 id="BbQ_ChatWidgets_Options_WidgetRegistryOptions__ctor" data-uid="BbQ.ChatWidgets.Options.WidgetRegistryOptions.#ctor">WidgetRegistryOptions()</h4>
   <div class="markdown level1 summary"></div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -131,10 +131,10 @@ these options by registering widgets as factory functions resolved from the DI c
 </h3>
 
   <span class="small pull-right mobile-hide">
-    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/WidgetRegistryOptions.cs">View Source</a>
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Options/WidgetRegistryOptions.cs">View Source</a>
   </span>
-  <a id="BbQ_ChatWidgets_Services_WidgetRegistryOptions_Widgets_" data-uid="BbQ.ChatWidgets.Services.WidgetRegistryOptions.Widgets*"></a>
-  <h4 id="BbQ_ChatWidgets_Services_WidgetRegistryOptions_Widgets" data-uid="BbQ.ChatWidgets.Services.WidgetRegistryOptions.Widgets">Widgets</h4>
+  <a id="BbQ_ChatWidgets_Options_WidgetRegistryOptions_Widgets_" data-uid="BbQ.ChatWidgets.Options.WidgetRegistryOptions.Widgets*"></a>
+  <h4 id="BbQ_ChatWidgets_Options_WidgetRegistryOptions_Widgets" data-uid="BbQ.ChatWidgets.Options.WidgetRegistryOptions.Widgets">Widgets</h4>
   <div class="markdown level1 summary"><p>Gets the list of registered widget factories.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
@@ -157,7 +157,7 @@ these options by registering widgets as factory functions resolved from the DI c
       </tr>
     </tbody>
   </table>
-  <h5 id="BbQ_ChatWidgets_Services_WidgetRegistryOptions_Widgets_remarks">Remarks</h5>
+  <h5 id="BbQ_ChatWidgets_Options_WidgetRegistryOptions_Widgets_remarks">Remarks</h5>
   <div class="markdown level1 remarks"><p>Each entry contains a type identifier and a factory function that creates the widget instance
 using the provided <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.iserviceprovider">IServiceProvider</a>. These widgets are applied to the
 widget registry during service initialization.</p>
@@ -171,7 +171,7 @@ widget registry during service initialization.</p>
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/WidgetRegistryOptions.cs" class="contribution-link">View Source</a>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Options/WidgetRegistryOptions.cs" class="contribution-link">View Source</a>
                   </li>
                 </ul>
               </div>

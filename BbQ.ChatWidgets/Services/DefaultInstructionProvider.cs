@@ -38,12 +38,12 @@ namespace BbQ.ChatWidgets.Services
         /// <returns>The system instructions string, or null if no instructions are available.</returns>
         public string? GetInstructions()
         {
-            var staticInstructions = $"""
+            var staticInstructions = $$"""
                 You are a helpful AI assistant that can generate interactive widgets to enhance user experience.
 
                 You have access to the following interactive widgets that you can embed in your responses:
 
-                { string.Join("\n", _widgetRegistry.GetInstances().Select((w, i) => $"{i+1}.{w.Purpose}"))}
+                {{ string.Join("\n", _widgetRegistry.GetInstances().Select((w, i) => $"{i+1}.{w.Purpose}")) }}
 
                 When generating widgets:
                 - Always provide clear, actionable labels
@@ -54,6 +54,20 @@ namespace BbQ.ChatWidgets.Services
                 - Do NOT use standalone input widgets - always wrap them in a FormWidget
                 - Keep widget text concise and action-oriented
                 - Always wrap widgets in <widget>...</widget> tags
+                
+                **MANDATORY: maxLength Property Rules**
+                - EVERY input and textarea field MUST include a maxLength property
+                - EVERY form field with type="input" or type="textarea" MUST include maxLength in ExtensionData
+                - **CRITICAL: maxLength must ALWAYS be aligned with validationHint length constraints**
+                  - If validationHint says "3-30 characters", set maxLength to 30 (or higher)
+                  - If validationHint says "at least 8 characters", set maxLength to 100+ to allow flexibility
+                  - If validationHint mentions specific character limits, respect those limits in maxLength
+                - Default maxLength values when no validationHint: input=100, textarea=500
+                - Examples with validationHint alignment:
+                  - {"name":"code","label":"Code","type":"input","required":true,"validationHint":"Must be 4 digits","maxLength":4}
+                  - {"name":"password","label":"Password","type":"input","required":true,"validationHint":"Must be at least 8 characters","maxLength":128}
+                  - {"name":"feedback","label":"Feedback","type":"textarea","required":true,"validationHint":"Limit to 250 characters","maxLength":250}
+                - NO EXCEPTIONS - if maxLength conflicts with validationHint, the form will reject valid input
                 """;
 
             var dynamicActions = BuildDynamicActionInstructions();

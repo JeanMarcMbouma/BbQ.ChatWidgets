@@ -104,4 +104,4 @@ export {
 export { FormValidationListenerComponent } from './examples/form-validation-listener.component';
 
 // Version
-export const VERSION = '1.0.10';
+export const VERSION = '1.0.11';

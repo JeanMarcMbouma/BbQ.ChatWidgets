@@ -698,6 +698,23 @@ public class FormField
                 }
             }
 
+            // Determine appropriate maxLength for input/textarea fields
+            int? explicitMaxLength = jsonObject.ContainsKey("maxLength") ? 
+                (jsonObject["maxLength"] as int?) ?? (int?)(Convert.ToInt32(jsonObject["maxLength"])) : null;
+
+            if ((Type == "input" || Type == "text" || Type == "email" || Type == "password" || Type == "number") && explicitMaxLength == null)
+            {
+                // Try to extract maxLength from validationHint
+                int? extractedMaxLength = ExtractMaxLengthFromHint(ValidationHint);
+                jsonObject["maxLength"] = extractedMaxLength ?? 100; // Default to 100 for input fields
+            }
+            else if (Type == "textarea" && explicitMaxLength == null)
+            {
+                // Try to extract maxLength from validationHint
+                int? extractedMaxLength = ExtractMaxLengthFromHint(ValidationHint);
+                jsonObject["maxLength"] = extractedMaxLength ?? 500; // Default to 500 for textarea fields
+            }
+
             var json = JsonSerializer.Serialize(jsonObject, Serialization.Default);
             return ChatWidget.FromJson(json);
         }
@@ -707,6 +724,53 @@ public class FormField
             System.Diagnostics.Debug.WriteLine($"Failed to deserialize FormField '{Name}' of type '{Type}': {ex.Message}");
             return null;
         }
+    }
+
+    /// <summary>
+    /// Extracts maximum length constraint from validation hint text.
+    /// </summary>
+    /// <remarks>
+    /// Parses common patterns like:
+    /// - "Must be 3-30 characters" -> 30
+    /// - "Maximum 250 characters" -> 250
+    /// - "Limit to 100 characters" -> 100
+    /// </remarks>
+    private int? ExtractMaxLengthFromHint(string? hint)
+    {
+        if (string.IsNullOrWhiteSpace(hint))
+            return null;
+
+        var hintLower = hint.ToLowerInvariant();
+        
+        // Pattern: "N-M characters" or "N to M characters"
+        var rangeMatch = System.Text.RegularExpressions.Regex.Match(hintLower, @"(\d+)\s*-\s*(\d+)\s*characters");
+        if (rangeMatch.Success && int.TryParse(rangeMatch.Groups[2].Value, out int maxFromRange))
+        {
+            return maxFromRange;
+        }
+
+        // Pattern: "maximum N characters"
+        var maxMatch = System.Text.RegularExpressions.Regex.Match(hintLower, @"maximum\s+(\d+)\s*characters");
+        if (maxMatch.Success && int.TryParse(maxMatch.Groups[1].Value, out int maxValue))
+        {
+            return maxValue;
+        }
+
+        // Pattern: "limit to N characters"
+        var limitMatch = System.Text.RegularExpressions.Regex.Match(hintLower, @"limit\s+to\s+(\d+)\s*characters");
+        if (limitMatch.Success && int.TryParse(limitMatch.Groups[1].Value, out int limitValue))
+        {
+            return limitValue;
+        }
+
+        // Pattern: "up to N characters"
+        var upToMatch = System.Text.RegularExpressions.Regex.Match(hintLower, @"up\s+to\s+(\d+)\s*characters");
+        if (upToMatch.Success && int.TryParse(upToMatch.Groups[1].Value, out int upToValue))
+        {
+            return upToValue;
+        }
+
+        return null;
     }
 }
 

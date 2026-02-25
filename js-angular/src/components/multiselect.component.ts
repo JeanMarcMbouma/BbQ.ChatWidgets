@@ -63,5 +63,10 @@ export class MultiSelectWidgetComponent implements CustomWidgetComponent, OnInit
 
   ngOnInit() {
     this.selectId = `bbq-${this.multiSelectWidget.action.replace(/\s+/g, '-').toLowerCase()}-select`;
+    if ((this.multiSelectWidget as any).defaultValue) {
+      this.values = Array.isArray((this.multiSelectWidget as any).defaultValue) 
+        ? (this.multiSelectWidget as any).defaultValue 
+        : [(this.multiSelectWidget as any).defaultValue];
+    }
   }
 }

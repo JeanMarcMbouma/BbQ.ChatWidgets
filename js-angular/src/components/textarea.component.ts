@@ -59,5 +59,6 @@ export class TextAreaWidgetComponent implements CustomWidgetComponent, OnInit {
 
   ngOnInit() {
     this.textareaId = `bbq-${this.textareaWidget.action.replace(/\s+/g, '-').toLowerCase()}-textarea`;
+    this.value = (this.textareaWidget as any).defaultValue ?? '';
   }
 }

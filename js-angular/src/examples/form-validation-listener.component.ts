@@ -2,11 +2,15 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { FormValidationService, FormValidationEvent } from '../services/form-validation.service';
+import { ANGULAR_WIDGET_RENDERER, angularWidgetRendererFactory } from '../widget-di.tokens';
 
 @Component({
   selector: 'bbq-form-validation-listener',
   standalone: true,
   imports: [JsonPipe],
+  providers: [
+    { provide: ANGULAR_WIDGET_RENDERER, useFactory: angularWidgetRendererFactory },
+  ],
   template: `
     <div class="bbq-validation-listener">
       @if (lastEvent) {

@@ -13,7 +13,7 @@ import { CustomWidgetComponent } from '../custom-widget-renderer.types';
       class="bbq-widget bbq-slider" 
       [attr.data-widget-type]="'slider'">
       <label *ngIf="showLabel" class="bbq-slider-label" [attr.for]="sliderId">
-        {{ sliderWidget.label }}
+        {{ displayLabel }}
       </label>
       <input 
         type="range" 
@@ -63,5 +63,9 @@ export class SliderWidgetComponent implements CustomWidgetComponent, OnInit {
   ngOnInit() {
     this.sliderId = `bbq-${this.sliderWidget.action.replace(/\s+/g, '-').toLowerCase()}-slider`;
     this.value = this.sliderWidget.defaultValue ?? this.sliderWidget.min;
+  }
+
+  get displayLabel(): string {
+    return `${this.sliderWidget.label}: ${this.value}`;
   }
 }

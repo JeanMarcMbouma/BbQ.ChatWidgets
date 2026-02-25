@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import type { DatePickerWidget } from '@bbq-chat/widgets';
 import { CustomWidgetComponent } from '../custom-widget-renderer.types';
+import { typeMap } from './typeMap';
 
 @Component({
   selector: 'bbq-datepicker-widget',
@@ -58,6 +59,8 @@ export class DatePickerWidgetComponent implements CustomWidgetComponent, OnInit 
   }
 
   ngOnInit() {
-    this.inputId = `bbq-${this.datePickerWidget.action.replace(/\s+/g, '-').toLowerCase()}-date`;
+    const type = typeMap[this.datePickerWidget.type] || 'date';
+    this.inputId = `bbq-${this.datePickerWidget.action.replace(/\s+/g, '-').toLowerCase()}-${type}`;
+    this.value = (this.datePickerWidget as any).defaultValue ?? '';
   }
 }

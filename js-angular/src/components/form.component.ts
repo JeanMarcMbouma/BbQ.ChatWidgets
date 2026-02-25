@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit, AfterViewInit, ViewChil
 import { FormValidationService } from '../services/form-validation.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import type { FormWidget, ChatWidget } from '@bbq-chat/widgets';
+import type { FormWidget, ChatWidget, FormField } from '@bbq-chat/widgets';
 import { CustomWidgetComponent } from '../custom-widget-renderer.types';
 import { InputWidgetComponent } from './input.component';
 import { TextAreaWidgetComponent } from './textarea.component';
@@ -12,6 +12,8 @@ import { ToggleWidgetComponent } from './toggle.component';
 import { DatePickerWidgetComponent } from './datepicker.component';
 import { MultiSelectWidgetComponent } from './multiselect.component';
 import { FileUploadWidgetComponent } from './fileupload.component';
+import { typeMap } from './typeMap';
+
 
 /**
  * Helper class to wrap form fields as widgets for dynamic rendering
@@ -33,21 +35,6 @@ class FormFieldWidget implements ChatWidget {
   }
 
   private mapFieldTypeToWidgetType(fieldType: string): string {
-    const typeMap: Record<string, string> = {
-      'input': 'input',
-      'text': 'input',
-      'email': 'input',
-      'number': 'input',
-      'password': 'input',
-      'textarea': 'textarea',
-      'dropdown': 'dropdown',
-      'select': 'dropdown',
-      'slider': 'slider',
-      'toggle': 'toggle',
-      'datepicker': 'datepicker',
-      'multiselect': 'multiselect',
-      'fileupload': 'fileupload'
-    };
     return typeMap[fieldType] || 'input';
   }
 
@@ -135,7 +122,7 @@ class FormFieldWidget implements ChatWidget {
             class="bbq-form-field"
             [class.bbq-form-field-required]="field.required"
             [attr.data-required]="field.required ? 'true' : null">
-            <label class="bbq-form-field-label" [attr.for]="getFieldId(field.name)">
+            <label class="bbq-form-field-label" [attr.for]="getFieldId(field)">
               {{ field.label }}
               @if (field.required) {
                 <span class="bbq-form-required">*</span>
@@ -210,6 +197,7 @@ export class FormWidgetComponent implements CustomWidgetComponent, OnInit, After
     'slider': SliderWidgetComponent,
     'toggle': ToggleWidgetComponent,
     'datepicker': DatePickerWidgetComponent,
+    'date': DatePickerWidgetComponent,
     'multiselect': MultiSelectWidgetComponent,
     'fileupload': FileUploadWidgetComponent,
     'checkbox': ToggleWidgetComponent,
@@ -325,9 +313,9 @@ export class FormWidgetComponent implements CustomWidgetComponent, OnInit, After
     componentRef.changeDetectorRef.detectChanges();
   }
 
-  getFieldId(fieldName: string): string {
+  getFieldId(field: FormField): string {
     // Match the ID format used by dynamically rendered input widgets
-    return `bbq-${this.formId}_${fieldName}-input`;
+    return `bbq-${this.formId}_${field.name.toLowerCase()}-${typeMap[field.type] || 'input'}`;
   }
 
   getFieldProp(field: any, prop: string): any {
@@ -337,6 +325,9 @@ export class FormWidgetComponent implements CustomWidgetComponent, OnInit, After
   onActionClick(actionType: string) {
     if (this.isSubmitted) return;
     if (actionType === 'submit') {
+      // Gather form data from the DOM BEFORE validation (since widgets manage their own state)
+      this.gatherFormData();
+
       // Validate required fields
       const hasErrors = this.validateForm();
 
@@ -357,9 +348,6 @@ export class FormWidgetComponent implements CustomWidgetComponent, OnInit, After
         } catch { }
       });
       this.disableFormInteraction();
-
-      // Gather form data from the DOM (since widgets manage their own state)
-      this.gatherFormData();
 
       if (this.widgetAction) {
         this.widgetAction(this.formWidget.action, this.formData);
@@ -412,10 +400,9 @@ export class FormWidgetComponent implements CustomWidgetComponent, OnInit, After
     // we need to query the DOM to get the current values
     const fields = this.formWidget.fields || [];
     
-    fields.forEach((field: any) => {
-      const fieldId = this.getFieldId(field.name);
+    fields.forEach((field) => {
+      const fieldId = this.getFieldId(field);
       const element = document.getElementById(fieldId) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
-      
       if (element) {
         if (element.type === 'checkbox') {
           this.formData[field.name] = (element as HTMLInputElement).checked;

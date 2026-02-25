@@ -60,6 +60,6 @@ export class DropdownWidgetComponent implements CustomWidgetComponent, OnInit {
 
   ngOnInit() {
     this.selectId = `bbq-${this.dropdownWidget.action.replace(/\s+/g, '-').toLowerCase()}-select`;
-    this.value = this.dropdownWidget.options[0] || '';
+    this.value = (this.dropdownWidget as any).defaultValue ?? this.dropdownWidget.options[0] ?? '';
   }
 }

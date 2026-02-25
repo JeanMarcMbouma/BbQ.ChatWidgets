@@ -59,5 +59,6 @@ export class InputWidgetComponent implements CustomWidgetComponent, OnInit {
 
   ngOnInit() {
     this.inputId = `bbq-${this.inputWidget.action.replace(/\s+/g, '-').toLowerCase()}-input`;
+    this.value = (this.inputWidget as any).defaultValue ?? '';
   }
 }

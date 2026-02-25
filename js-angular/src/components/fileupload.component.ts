@@ -56,7 +56,7 @@ export class FileUploadWidgetComponent implements CustomWidgetComponent, OnInit 
   }
 
   ngOnInit() {
-    this.inputId = `bbq-${this.fileUploadWidget.action.replace(/\s+/g, '-').toLowerCase()}-file`;
+    this.inputId = `bbq-${this.fileUploadWidget.action.replace(/\s+/g, '-').toLowerCase()}-fileupload`;
   }
 
   onFileChange(event: Event) {

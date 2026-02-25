@@ -64,35 +64,27 @@ services.AddBbQChatWidgets(bbqOptions =>
         // Register a server-side Weather widget template used for SSE weather updates demo.
         registry.Register(new WeatherWidget("Weather", "weather_update", "London", "weather-stream"), "weather");
     };
-    bbqOptions.WidgetActionRegistryFactory = (sp, actionRegistry, handlerResolver) =>
-    {
-
-        // Register greeting action
-        actionRegistry.RegisterHandler<GreetingAction, GreetingPayload, GreetingHandler>(handlerResolver);
-
-        // Register feedback action
-        actionRegistry.RegisterHandler<FeedbackAction, FeedbackPayload, FeedbackHandler>(handlerResolver);
-
-        // Register ECharts click action (demonstrates custom widget integration)
-        actionRegistry.RegisterHandler<EChartsClickAction, EChartsClickPayload, EChartsClickHandler>(handlerResolver);
-
-        // Register clock tick action (demonstrates SSE widget integration)
-        actionRegistry.RegisterHandler<ClockTickAction, ClockPayload, ClockTickHandler>(handlerResolver);
-
-        // Register weather update action (demonstrates SSE widget integration)
-        actionRegistry.RegisterHandler<WeatherUpdateAction, WeatherPayload, WeatherUpdateHandler>(handlerResolver);
-    };
 });
 
 // Register triage agent system with specialized agents
 services.AddSharedTriageAgents();
 
-// Register typed action handlers
-services.AddScoped<GreetingHandler>();
-services.AddScoped<FeedbackHandler>();
-services.AddScoped<EChartsClickHandler>();
-services.AddScoped<ClockTickHandler>();
-services.AddScoped<WeatherUpdateHandler>();
+services.AddWidgetActionHandler<TaskAssignmentAction, CreateTaskModel, TaskAssignmentActionHandler>();
+// Register greeting action
+services.AddWidgetActionHandler<GreetingAction, GreetingPayload, GreetingHandler>();
+
+// Register feedback action
+services.AddWidgetActionHandler<FeedbackAction, FeedbackPayload, FeedbackHandler>();
+
+// Register ECharts click action (demonstrates custom widget integration)
+services.AddWidgetActionHandler<EChartsClickAction, EChartsClickPayload, EChartsClickHandler>();
+
+// Register clock tick action (demonstrates SSE widget integration)
+services.AddWidgetActionHandler<ClockTickAction, ClockPayload, ClockTickHandler>();
+
+// Register weather update action (demonstrates SSE widget integration)
+services.AddWidgetActionHandler<WeatherUpdateAction, WeatherPayload, WeatherUpdateHandler>();
+
 
 // Register triage-aware chat service
 //services.AddScoped<TriageAwareChatService>();

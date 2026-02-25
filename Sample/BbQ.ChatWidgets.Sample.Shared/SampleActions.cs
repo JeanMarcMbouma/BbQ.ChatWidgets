@@ -2,6 +2,7 @@ using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Models;
 using Microsoft.Extensions.AI;
 using System.Text.Json;
+using System.Text.Json.Schema;
 
 namespace BbQ.ChatWidgets.Sample.Shared;
 
@@ -271,4 +272,28 @@ public sealed class WeatherUpdateHandler :
             threadId
         );
     }
+}
+
+
+public class TaskAssignmentAction : IWidgetAction<CreateTaskModel>
+{
+    private string? _schema = null;
+    public string Name => "assign_task";
+    public string Description => "Assign a task";
+    public string PayloadSchema => _schema ??= Serialization.Default.GetJsonSchemaAsNode(typeof(CreateTaskModel)).ToString();
+}
+
+public class TaskAssignmentActionHandler : IActionWidgetActionHandler<TaskAssignmentAction, CreateTaskModel>
+{
+    public Task<ChatTurn> HandleActionAsync(CreateTaskModel payload, string threadId, IServiceProvider serviceProvider)
+    {
+        return Task.FromResult(new ChatTurn(ChatRole.Assistant, "The task was assigned successfully.", Array.Empty<ChatWidget>(), threadId));
+    }
+}
+
+public class CreateTaskModel
+{
+    public required string Email { get; set; }
+    public required string Description { get; set; }
+    public DateTime DueDate { get; set; }
 }

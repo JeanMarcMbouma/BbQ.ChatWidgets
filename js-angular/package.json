@@ -1,6 +1,6 @@
 {
   "name": "@bbq-chat/widgets-angular",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Angular components and services for BbQ ChatWidgets",
   "license": "MIT",
   "author": "BbQ ChatWidgets Contributors",

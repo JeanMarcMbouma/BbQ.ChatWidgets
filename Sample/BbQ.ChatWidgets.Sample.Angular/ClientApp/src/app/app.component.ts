@@ -11,6 +11,7 @@ import { SseWidgetsComponent } from './pages/sse-widgets/sse-widgets.component';
 import { SseClockComponent } from './pages/sse-clock/sse-clock.component';
 import { CustomWidgetDemoComponent } from './pages/custom-widget-demo/custom-widget-demo.component';
 import { ScenarioType } from './models/chat.models';
+import { ANGULAR_WIDGET_RENDERER, angularWidgetRendererFactory, FormValidationListenerComponent } from '@bbq-chat/widgets-angular';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,11 @@ import { ScenarioType } from './models/chat.models';
     ActionsDemoComponent,
     SseWidgetsComponent,
     SseClockComponent,
-    CustomWidgetDemoComponent
+    CustomWidgetDemoComponent,
+    FormValidationListenerComponent
+  ],
+   providers: [
+    { provide: ANGULAR_WIDGET_RENDERER, useFactory: angularWidgetRendererFactory },
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

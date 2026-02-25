@@ -131,6 +131,125 @@ export class AppComponent implements OnInit {
 }
 ```
 
+### FormValidationService
+
+Service for monitoring and debugging form validation events. This is useful for:
+- Debugging form validation logic across the application
+- Showing validation state in a centralized UI component
+- Building custom validation handling workflows
+
+The service emits validation events whenever a form is validated, allowing any component in your application to subscribe to validation state changes without direct access to a specific form instance.
+
+**API:**
+
+```typescript
+interface FormValidationEvent {
+  formId: string;
+  valid: boolean;
+  errors: Array<{ field: string; reason?: string }>;
+}
+
+@Injectable({ providedIn: 'root' })
+export class FormValidationService {
+  get validation$(): Observable<FormValidationEvent>
+  emit(event: FormValidationEvent): void
+}
+```
+
+**Example - Direct Service Subscription:**
+
+```typescript
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormValidationService } from '@bbq-chat/widgets-angular';
+import { Subscription } from 'rxjs';
+
+@Component({
+  selector: 'app-validation-monitor',
+  template: `
+    <div *ngIf="lastEvent" class="validation-report">
+      <p>Form: {{ lastEvent.formId }}</p>
+      <p>Valid: {{ lastEvent.valid }}</p>
+      <ul *ngIf="lastEvent.errors.length > 0">
+        <li *ngFor="let error of lastEvent.errors">
+          {{ error.field }}: {{ error.reason }}
+        </li>
+      </ul>
+    </div>
+  `
+})
+export class ValidationMonitorComponent implements OnInit, OnDestroy {
+  lastEvent: any;
+  private sub?: Subscription;
+
+  constructor(private formValidationService: FormValidationService) {}
+
+  ngOnInit() {
+    this.sub = this.formValidationService.validation$.subscribe(event => {
+      this.lastEvent = event;
+      console.log('Form validation state:', event);
+    });
+  }
+
+  ngOnDestroy() {
+    this.sub?.unsubscribe();
+  }
+}
+```
+
+**Example - Using FormValidationListenerComponent:**
+
+For a quick solution, use the built-in `FormValidationListenerComponent`:
+
+```typescript
+import { Component } from '@angular/core';
+import { FormValidationListenerComponent } from '@bbq-chat/widgets-angular';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [FormValidationListenerComponent],
+  template: `
+    <!-- Optional: filter by formId, or omit to see all validation events -->
+    <bbq-form-validation-listener [formId]="'my-form-id'"></bbq-form-validation-listener>
+  `
+})
+export class AppComponent {}
+```
+
+**Overriding Form Field Components:**
+
+You can also override the components used to render form fields by passing a registry override to `FormWidgetComponent`:
+
+```typescript
+import { Component } from '@angular/core';
+import { FormWidgetComponent, CustomWidgetComponent } from '@bbq-chat/widgets-angular';
+import { MyCustomInputComponent } from './my-custom-input.component';
+
+@Component({
+  selector: 'app-form-container',
+  standalone: true,
+  imports: [FormWidgetComponent],
+  template: `
+    <bbq-form-widget
+      [widget]="formWidget"
+      [fieldComponentRegistryOverride]="fieldRegistry"
+      (validationState)="onValidation($event)">
+    </bbq-form-widget>
+  `
+})
+export class FormContainerComponent {
+  formWidget: any;
+  fieldRegistry = {
+    'input': MyCustomInputComponent,
+    // Add other overrides as needed
+  };
+
+  onValidation(event: { valid: boolean; errors: any[] }) {
+    console.log('Form validation:', event);
+  }
+}
+```
+
 ## Widget Types
 
 All standard widget types from `@bbq-chat/widgets` are supported and rendered as native Angular components:

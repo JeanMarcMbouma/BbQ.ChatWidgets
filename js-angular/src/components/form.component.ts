@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, AfterViewInit, ViewChildren, QueryList, ViewContainerRef, ComponentRef, Injector, EnvironmentInjector, createComponent, Type, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, AfterViewInit, ViewChildren, QueryList, ViewContainerRef, ComponentRef, Injector, EnvironmentInjector, createComponent, Type, OnDestroy, ElementRef } from '@angular/core';
+import { FormValidationService } from '../services/form-validation.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import type { FormWidget, ChatWidget } from '@bbq-chat/widgets';
@@ -121,6 +122,8 @@ class FormFieldWidget implements ChatWidget {
   template: `
     <div 
       class="bbq-widget bbq-form" 
+      [class.bbq-form-submitted]="isSubmitted"
+      [attr.aria-disabled]="isSubmitted ? 'true' : null"
       [attr.data-widget-id]="formId"
       [attr.data-widget-type]="'form'"
       [attr.data-action]="formWidget.action">
@@ -161,6 +164,7 @@ class FormFieldWidget implements ChatWidget {
                 [class.bbq-form-cancel]="action.type !== 'submit'"
                 [attr.data-action]="formWidget.action"
                 [attr.data-action-type]="action.type"
+                [disabled]="isSubmitted"
                 (click)="onActionClick(action.type)">
                 {{ action.label }}
               </button>
@@ -174,11 +178,16 @@ class FormFieldWidget implements ChatWidget {
     .bbq-form-field-widget {
       display: contents;
     }
+    .bbq-form-submitted {
+      opacity: 0.7;
+    }
   `]
 })
 export class FormWidgetComponent implements CustomWidgetComponent, OnInit, AfterViewInit, OnDestroy {
   @Input() widget!: any;
   widgetAction?: (actionName: string, payload: unknown) => void;
+  @Input() fieldComponentRegistryOverride?: Record<string, Type<CustomWidgetComponent>>;
+  @Output() validationState = new EventEmitter<{ valid: boolean; errors: Array<{ field: string; reason?: string }> }>();
   
   @ViewChildren('fieldContainer', { read: ViewContainerRef }) 
   fieldContainers!: QueryList<ViewContainerRef>;
@@ -188,7 +197,7 @@ export class FormWidgetComponent implements CustomWidgetComponent, OnInit, After
   showValidationMessage = false;
   private componentRefs: ComponentRef<any>[] = [];
 
-  // Component registry for field types
+  // Component registry for field types (can be extended via `fieldComponentRegistryOverride`)
   private fieldComponentRegistry: Record<string, Type<CustomWidgetComponent>> = {
     'input': InputWidgetComponent,
     'text': InputWidgetComponent,
@@ -207,6 +216,9 @@ export class FormWidgetComponent implements CustomWidgetComponent, OnInit, After
     'radio': ToggleWidgetComponent,
   };
 
+  // Whether the form has been submitted; when true, user interaction is disabled
+  isSubmitted = false;
+
   get formWidget(): FormWidget {
     return this.widget as FormWidget;
   }
@@ -214,6 +226,8 @@ export class FormWidgetComponent implements CustomWidgetComponent, OnInit, After
   constructor(
     private injector: Injector,
     private environmentInjector: EnvironmentInjector
+    , private hostRef: ElementRef
+    , private formValidationService: FormValidationService
   ) {}
 
   ngOnInit() {
@@ -230,6 +244,11 @@ export class FormWidgetComponent implements CustomWidgetComponent, OnInit, After
       } else {
         this.formData[field.name] = '';
       }
+    }
+
+    // Merge any overrides provided by the consumer
+    if (this.fieldComponentRegistryOverride) {
+      this.fieldComponentRegistry = { ...this.fieldComponentRegistry, ...this.fieldComponentRegistryOverride };
     }
   }
 
@@ -271,6 +290,8 @@ export class FormWidgetComponent implements CustomWidgetComponent, OnInit, After
       // Set component inputs
       const instance = componentRef.instance as any;
       instance['widget'] = fieldWidget;
+      // Pass current disabled state so custom components can opt-in to being readonly
+      instance['disabled'] = this.isSubmitted;
       
       // Connect to form data via widgetAction
       instance['widgetAction'] = (actionName: string, payload: unknown) => {
@@ -297,6 +318,7 @@ export class FormWidgetComponent implements CustomWidgetComponent, OnInit, After
 
     const instance = componentRef.instance as any;
     instance['widget'] = fieldWidget;
+    instance['disabled'] = this.isSubmitted;
 
     container.insert(componentRef.hostView);
     this.componentRefs.push(componentRef);
@@ -313,20 +335,32 @@ export class FormWidgetComponent implements CustomWidgetComponent, OnInit, After
   }
 
   onActionClick(actionType: string) {
+    if (this.isSubmitted) return;
     if (actionType === 'submit') {
       // Validate required fields
       const hasErrors = this.validateForm();
-      
+
       if (hasErrors) {
         this.showValidationMessage = true;
         return;
       }
-      
+
       this.showValidationMessage = false;
-      
+
+      // Mark submitted to prevent further interaction
+      this.isSubmitted = true;
+      // Inform child components and disable DOM controls
+      this.componentRefs.forEach(ref => {
+        try {
+          (ref.instance as any)['disabled'] = true;
+          ref.changeDetectorRef.detectChanges();
+        } catch { }
+      });
+      this.disableFormInteraction();
+
       // Gather form data from the DOM (since widgets manage their own state)
       this.gatherFormData();
-      
+
       if (this.widgetAction) {
         this.widgetAction(this.formWidget.action, this.formData);
       }
@@ -339,16 +373,37 @@ export class FormWidgetComponent implements CustomWidgetComponent, OnInit, After
   }
 
   private validateForm(): boolean {
+    const errors: Array<{ field: string; reason?: string }> = [];
     for (const field of this.formWidget.fields || []) {
       if (field.required) {
         const value = this.formData[field.name];
-        if (value === undefined || value === null || value === '' || 
+        if (value === undefined || value === null || value === '' ||
             (Array.isArray(value) && value.length === 0)) {
-          return true; // Has errors
+          errors.push({ field: field.name, reason: 'required' });
         }
       }
     }
-    return false; // No errors
+
+    const hasErrors = errors.length > 0;
+    const payload = { formId: this.formId, valid: !hasErrors, errors };
+    // Emit to the local Output for direct consumers
+    this.validationState.emit({ valid: !hasErrors, errors });
+    // Also publish via the shared service so consumers that don't have direct access
+    // to the component instance can subscribe app-wide.
+    try { this.formValidationService.emit(payload); } catch { }
+    return hasErrors; // true when there are errors
+  }
+
+  private disableFormInteraction() {
+    try {
+      const root: HTMLElement = this.hostRef?.nativeElement;
+      if (!root) return;
+      const controls = root.querySelectorAll('input,select,textarea,button');
+      controls.forEach((el: Element) => {
+        try { (el as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | HTMLButtonElement).disabled = true; } catch {}
+      });
+      root.setAttribute('aria-disabled', 'true');
+    } catch { }
   }
 
   private gatherFormData() {

@@ -15,6 +15,7 @@ export { WidgetRendererComponent } from './widget-renderer.component';
 
 // Export services
 export { WidgetRegistryService } from './widget-registry.service';
+export { FormValidationService } from './services/form-validation.service';
 
 // Export DI tokens and factories
 export {
@@ -99,5 +100,8 @@ export {
   customWidgetRegistry,
 } from '@bbq-chat/widgets';
 
+// Examples
+export { FormValidationListenerComponent } from './examples/form-validation-listener.component';
+
 // Version
-export const VERSION = '1.0.8';
+export const VERSION = '1.0.9';

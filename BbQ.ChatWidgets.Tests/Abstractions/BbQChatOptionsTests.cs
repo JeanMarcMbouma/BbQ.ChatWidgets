@@ -1,4 +1,3 @@
-using BbQ.ChatWidgets.Abstractions;
 using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Abstractions;

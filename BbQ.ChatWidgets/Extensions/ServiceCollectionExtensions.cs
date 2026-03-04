@@ -13,7 +13,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using System.Text.Json;
-using static BbQ.ChatWidgets.Extensions.WidgetActionHandlerExtensions;
 
 namespace BbQ.ChatWidgets.Extensions;
 

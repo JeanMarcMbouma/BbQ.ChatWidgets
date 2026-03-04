@@ -18,7 +18,7 @@ public class WidgetServiceCollectionExtensionsTests
         // Arrange
         var services = new ServiceCollection();
         services.AddBbQChatWidgets();
-        services.AddWidget<RatingWidget>(
+        services.AddWidget(
             sp => new RatingWidget("Rate this", "submit", 10));
 
         var provider = services.BuildServiceProvider();
@@ -37,7 +37,7 @@ public class WidgetServiceCollectionExtensionsTests
         // Arrange
         var services = new ServiceCollection();
         services.AddBbQChatWidgets();
-        services.AddWidget<RatingWidget>(
+        services.AddWidget(
             sp => new RatingWidget("Rate this", "submit"), "my_rating");
 
         var provider = services.BuildServiceProvider();
@@ -56,8 +56,8 @@ public class WidgetServiceCollectionExtensionsTests
         // Arrange
         var services = new ServiceCollection();
         services.AddBbQChatWidgets();
-        services.AddWidget<RatingWidget>(sp => new RatingWidget("Rate", "rate"));
-        services.AddWidget<SurveyWidget>(sp => new SurveyWidget("Poll", "poll_answer"));
+        services.AddWidget(sp => new RatingWidget("Rate", "rate"));
+        services.AddWidget(sp => new SurveyWidget("Poll", "poll_answer"));
 
         var provider = services.BuildServiceProvider();
 
@@ -75,7 +75,7 @@ public class WidgetServiceCollectionExtensionsTests
         // Arrange
         var services = new ServiceCollection();
         services.AddBbQChatWidgets();
-        services.AddWidget<RatingWidget>(sp => new RatingWidget("Rate", "rate"));
+        services.AddWidget(sp => new RatingWidget("Rate", "rate"));
 
         var provider = services.BuildServiceProvider();
 
@@ -98,7 +98,7 @@ public class WidgetServiceCollectionExtensionsTests
             options.WidgetRegistryConfigurator = registry =>
                 registry.Register(new SurveyWidget("Poll", "poll"), "configurator_survey");
         });
-        services.AddWidget<RatingWidget>(sp => new RatingWidget("Rate", "rate"));
+        services.AddWidget(sp => new RatingWidget("Rate", "rate"));
 
         var provider = services.BuildServiceProvider();
 

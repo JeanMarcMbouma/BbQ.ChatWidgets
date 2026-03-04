@@ -76,7 +76,7 @@ Focus on:
 Keep the summary concise (2-4 sentences) while preserving essential information.
 Do not include greetings, pleasantries, or meta-commentary.";
 
-        var messages = new List<Microsoft.Extensions.AI.ChatMessage>
+        var messages = new List<ChatMessage>
         {
             new(ChatRole.System, systemPrompt),
             new(ChatRole.User, conversationText.ToString())

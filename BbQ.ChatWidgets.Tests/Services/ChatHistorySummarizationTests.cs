@@ -1,4 +1,3 @@
-using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Exceptions;
 using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Services;

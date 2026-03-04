@@ -164,7 +164,7 @@ public class DefaultWidgetToolsProviderTests
     {
         // Arrange – use a fresh registry with only a single widget registered under a custom typeId
         var registry = new WidgetRegistry();
-        registry.Register(new BbQ.ChatWidgets.Models.InputWidget("My Input", "my_action"), "custom_input_id");
+        registry.Register(new ChatWidgets.Models.InputWidget("My Input", "my_action"), "custom_input_id");
         var provider = new DefaultWidgetToolsProvider(registry);
 
         // Act

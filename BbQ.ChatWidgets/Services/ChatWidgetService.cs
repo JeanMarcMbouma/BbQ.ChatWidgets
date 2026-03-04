@@ -297,7 +297,7 @@ public sealed class ChatWidgetService(
     /// <param name="threadId">The conversation thread ID.</param>
     /// <param name="ct">Cancellation token.</param>
     /// <returns>AI messages ready to send to the chat client.</returns>
-    private async Task<IReadOnlyList<Microsoft.Extensions.AI.ChatMessage>> PrepareMessagesWithSummarizationAsync(
+    private async Task<IReadOnlyList<ChatMessage>> PrepareMessagesWithSummarizationAsync(
         ChatMessages messages,
         string threadId,
         CancellationToken ct)
@@ -411,13 +411,8 @@ public sealed class ChatWidgetService(
         // Invoke handler via reflection
         var handleMethod = handler.GetType()
             .GetMethods(BindingFlags.Public | BindingFlags.Instance)
-            .FirstOrDefault(m => m.Name == "HandleActionAsync" && m.IsGenericMethodDefinition == false);
-
-        if (handleMethod == null)
-        {
-            throw new InvalidOperationException($"Handler for action '{action}' does not have HandleActionAsync method");
-        }
-
+            .FirstOrDefault(m => m.Name == "HandleActionAsync" && m.IsGenericMethodDefinition == false) 
+            ?? throw new InvalidOperationException($"Handler for action '{action}' does not have HandleActionAsync method");
         var result = await (Task<ChatTurn>)handleMethod.Invoke(handler, [typedPayload, threadId, serviceProvider])!;
 
         // Append to thread history

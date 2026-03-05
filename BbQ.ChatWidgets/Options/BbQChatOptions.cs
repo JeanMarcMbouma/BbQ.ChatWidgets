@@ -194,6 +194,32 @@ public sealed class BbQChatOptions
     public Action<IServiceProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver>? WidgetActionRegistryFactory { get; set; }
 
     /// <summary>
+    /// Gets or sets whether voice input/output support is enabled.
+    /// </summary>
+    /// <remarks>
+    /// When <c>true</c>, the <c>POST {RoutePrefix}/voice/transcribe</c> endpoint is activated.
+    /// Clients may submit audio blobs and receive a text transcript in return.
+    ///
+    /// The endpoint requires an <see cref="Microsoft.Extensions.AI.ISpeechToTextClient"/> to be
+    /// registered in the DI container.  If the client is not registered the endpoint returns
+    /// <c>501 Not Implemented</c>.
+    ///
+    /// Default: <c>false</c>.
+    /// </remarks>
+    public bool EnableVoice { get; set; } = false;
+
+    /// <summary>
+    /// Gets or sets the factory function for creating <see cref="Microsoft.Extensions.AI.ISpeechToTextClient"/> instances.
+    /// </summary>
+    /// <remarks>
+    /// When <see cref="EnableVoice"/> is <c>true</c> and this factory is set, the produced client
+    /// is registered as a singleton and used by the <c>/voice/transcribe</c> endpoint.
+    /// </remarks>
+#pragma warning disable MEAI001
+    public Func<IServiceProvider, Microsoft.Extensions.AI.ISpeechToTextClient>? SpeechToTextClientFactory { get; set; }
+#pragma warning restore MEAI001
+
+    /// <summary>
     /// Gets or sets whether automatic chat history summarization is enabled.
     /// </summary>
     /// <remarks>

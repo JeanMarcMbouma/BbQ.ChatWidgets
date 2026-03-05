@@ -1,0 +1,152 @@
+/* Multi-Turn Agent Page Styles */
+@import './BasicChat.css';
+
+/* Pipeline trace */
+.agent-pipeline-trace {
+  margin: 10px 0;
+  padding: 16px;
+  background: #f5f0ff;
+  border-radius: 10px;
+  border-left: 4px solid #764ba2;
+  animation: slideIn 0.3s ease;
+}
+
+.trace-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: #764ba2;
+}
+
+.trace-icon {
+  font-size: 1.2rem;
+}
+
+.trace-turns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.trace-turn {
+  background: white;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 1px 4px rgba(118, 75, 162, 0.1);
+  border: 1px solid rgba(118, 75, 162, 0.15);
+}
+
+.trace-turn-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.round-badge {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-family: monospace;
+}
+
+.agent-name {
+  font-weight: 600;
+  color: #764ba2;
+  font-size: 0.9rem;
+}
+
+.trace-content {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+/* Feature list */
+.feature-list {
+  margin: 20px 0;
+  padding: 20px;
+  background: #f9f0ff;
+  border-radius: 8px;
+  border-left: 4px solid #764ba2;
+}
+
+.feature-list h4 {
+  margin-top: 0;
+  color: #764ba2;
+}
+
+.feature-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feature-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(118, 75, 162, 0.1);
+  line-height: 1.5;
+}
+
+.feature-list li:last-child {
+  border-bottom: none;
+}
+
+/* Quick test section */
+.quick-test {
+  margin: 20px 0;
+  padding: 20px;
+  background: #f0fff4;
+  border-radius: 8px;
+  border-left: 4px solid #4caf50;
+}
+
+.quick-test h4 {
+  margin-top: 0;
+  color: #2e7d32;
+}
+
+.sample-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.sample-button {
+  padding: 10px 16px;
+  background: white;
+  border: 2px solid #4caf50;
+  color: #2e7d32;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.sample-button:hover:not(:disabled) {
+  background: #4caf50;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.sample-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .sample-buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .trace-turn-header {
+    flex-wrap: wrap;
+  }
+}

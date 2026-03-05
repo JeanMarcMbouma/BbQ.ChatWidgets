@@ -21,6 +21,8 @@ export enum ScenarioType {
   BasicChat = 'basic',
   StreamingChat = 'streaming',
   TriageAgent = 'triage',
+  MultiTurnAgent = 'multi-turn',
+  VoiceChat = 'voice',
   WidgetsDemo = 'widgets',
   ActionsDemo = 'actions',
   SseWidgets = 'sse-widgets',

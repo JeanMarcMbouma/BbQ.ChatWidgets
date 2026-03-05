@@ -59,6 +59,11 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton(options);
         services.AddSingleton<WidgetRegistry>();
+#pragma warning disable MEAI001
+        if (options.EnableVoice && options.SpeechToTextClientFactory is not null)
+            services.AddSingleton(sp => options.SpeechToTextClientFactory(sp));
+#pragma warning restore MEAI001
+
         services.AddSingleton<WidgetActionRegistry>();
         services.AddScoped<ChatWidgetService>();
         services.AddSingleton<IChatWidgetRenderer, Renderers.SsrWidgetRenderer>();
@@ -200,6 +205,12 @@ public static class ServiceCollectionExtensions
             if (context.Request.Method == HttpMethods.Post && path == $"{prefix}/stream/message")
             {
                 await HandleStreamMessageRequest(context);
+                return;
+            }
+
+            if (options.EnableVoice && context.Request.Method == HttpMethods.Post && path == $"{prefix}/voice/transcribe")
+            {
+                await HandleVoiceTranscribeRequest(context);
                 return;
             }
 
@@ -355,6 +366,55 @@ public static class ServiceCollectionExtensions
 
         var turn = await service.HandleActionAsync(dto.Action, dto.Payload ?? [], dto.ThreadId, context.RequestServices, ct);
         await WriteJsonResponse(context, turn);
+    }
+
+    private static async Task HandleVoiceTranscribeRequest(HttpContext context)
+    {
+#pragma warning disable MEAI001
+        var speechClient = context.RequestServices.GetService<Microsoft.Extensions.AI.ISpeechToTextClient>();
+#pragma warning restore MEAI001
+        if (speechClient is null)
+        {
+            context.Response.StatusCode = StatusCodes.Status501NotImplemented;
+            await context.Response.WriteAsync(
+                "Voice transcription is not available. Register an ISpeechToTextClient in the DI container " +
+                "via BbQChatOptions.SpeechToTextClientFactory.");
+            return;
+        }
+
+        IFormFile? audioFile = null;
+        try
+        {
+            if (!context.Request.HasFormContentType)
+            {
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                await context.Response.WriteAsync("Request must be multipart/form-data with an 'audio' field.");
+                return;
+            }
+
+            var form = await context.Request.ReadFormAsync(context.RequestAborted);
+            audioFile = form.Files.GetFile("audio");
+            if (audioFile is null || audioFile.Length == 0)
+            {
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                await context.Response.WriteAsync("No 'audio' file found in form data.");
+                return;
+            }
+        }
+        catch (Exception ex)
+        {
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            await context.Response.WriteAsync($"Failed to read audio file from request: {ex.Message}");
+            return;
+        }
+
+        await using var audioStream = audioFile.OpenReadStream();
+
+#pragma warning disable MEAI001
+        var transcription = await speechClient.GetTextAsync(audioStream, cancellationToken: context.RequestAborted);
+#pragma warning restore MEAI001
+
+        await WriteJsonResponse(context, new { transcript = transcription.Text });
     }
 
     private static async Task HandleWidgetStreamSubscribe(HttpContext context, string prefix)

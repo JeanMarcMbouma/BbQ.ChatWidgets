@@ -1,0 +1,254 @@
+/* Classified Multi-Turn Agent Page Styles */
+@import './BasicChat.css';
+
+/* Classification panel */
+.classification-panel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+  padding: 10px 14px;
+  background: #f5f0ff;
+  border-radius: 8px;
+  animation: slideIn 0.3s ease;
+  flex-wrap: wrap;
+}
+
+.intent-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  color: white;
+  font-weight: 700;
+  font-size: 0.85rem;
+  font-family: monospace;
+}
+
+.routed-badge {
+  padding: 5px 14px;
+  border-radius: 20px;
+  background: #f0f0f0;
+  color: #555;
+  font-size: 0.85rem;
+  font-family: monospace;
+}
+
+/* Pipeline trace */
+.pipeline-trace {
+  margin: 10px 0;
+  border-radius: 12px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  overflow: hidden;
+  animation: slideIn 0.3s ease;
+}
+
+.pipeline-trace-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.pipeline-steps {
+  padding: 12px 16px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pipeline-step {
+  padding: 12px;
+  background: #fafafe;
+  border-radius: 8px;
+  border: 1px solid rgba(102, 126, 234, 0.12);
+}
+
+.pipeline-step-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.step-icon {
+  font-size: 1.1rem;
+}
+
+.step-name {
+  font-weight: 600;
+  color: #667eea;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+}
+
+.step-round {
+  margin-left: auto;
+  font-size: 0.75rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-family: monospace;
+}
+
+.step-content {
+  margin: 0;
+  font-size: 0.87rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+.step-arrow {
+  text-align: center;
+  color: #667eea;
+  font-size: 1.2rem;
+  padding: 4px 0;
+  font-weight: bold;
+}
+
+/* Flow diagram */
+.flow-diagram {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.flow-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 18px;
+  background: #f9f0ff;
+  border-left: 4px solid #764ba2;
+  border-radius: 6px;
+}
+
+.flow-step.pipeline-highlight {
+  background: #f0f8ff;
+  border-left-color: #667eea;
+}
+
+.flow-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.flow-step strong {
+  display: block;
+  color: #764ba2;
+  margin-bottom: 4px;
+}
+
+.flow-step.pipeline-highlight strong {
+  color: #667eea;
+}
+
+.flow-step p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.flow-arrow {
+  text-align: center;
+  color: #764ba2;
+  font-size: 1.3rem;
+  padding: 2px 0;
+  font-weight: bold;
+}
+
+/* Quick test */
+.quick-test {
+  margin: 20px 0;
+  padding: 20px;
+  background: #f0fff4;
+  border-radius: 8px;
+  border-left: 4px solid #4caf50;
+}
+
+.quick-test h4 {
+  margin-top: 0;
+  color: #2e7d32;
+}
+
+.hint {
+  color: #555;
+  font-size: 0.88rem;
+  margin: 0 0 12px 0;
+}
+
+.sample-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.sample-button {
+  padding: 10px 14px;
+  background: white;
+  border: 2px solid #4caf50;
+  color: #2e7d32;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.sample-button:hover:not(:disabled) {
+  background: #4caf50;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.sample-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Intent legend */
+.intent-legend {
+  margin: 20px 0;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.intent-legend h4 {
+  margin-top: 0;
+  color: #667eea;
+}
+
+.legend-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.legend-item {
+  padding: 4px 14px;
+  border-radius: 20px;
+  border: 2px solid;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: monospace;
+}
+
+@media (max-width: 768px) {
+  .sample-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .classification-panel {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -29,6 +29,14 @@ export function VoiceChatPage({ onBack }: VoiceChatPageProps) {
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  // Cleanup: abort recognition and cancel TTS when the component unmounts
+  useEffect(() => {
+    return () => {
+      recognitionRef.current?.abort();
+      if (hasSpeechSynthesis) window.speechSynthesis.cancel();
+    };
+  }, []);
+
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, []);

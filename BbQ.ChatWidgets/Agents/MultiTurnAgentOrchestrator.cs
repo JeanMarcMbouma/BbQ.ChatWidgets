@@ -102,9 +102,11 @@ public sealed class MultiTurnAgentOrchestrator : IAgent
             if (agentRoundCount >= maxRoundsForAgent)
                 continue;
 
-            // Inject per-agent persona if set
+            // Inject per-agent persona if set, otherwise clear any persona left by a previous agent
             if (!string.IsNullOrWhiteSpace(agentOptions.Persona))
                 InterAgentCommunicationContext.SetPersona(request, agentOptions.Persona);
+            else
+                InterAgentCommunicationContext.SetPersona(request, string.Empty);
 
             // Inject accumulated conversation summary into metadata
             var summary = conversationContext.BuildSummary();

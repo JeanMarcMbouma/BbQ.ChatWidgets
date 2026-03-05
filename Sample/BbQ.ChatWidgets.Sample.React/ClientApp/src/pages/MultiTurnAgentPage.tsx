@@ -70,8 +70,8 @@ export function MultiTurnAgentPage({ onBack }: MultiTurnAgentPageProps) {
         setThreadId(data.threadId);
       }
 
-      // Extract agent conversation context from metadata
-      const agentConvCtx = data.metadata?.agentConversationContext as AgentConversationContext | undefined;
+      // Extract agent pipeline from the enriched response (added by HandleAgentRequest)
+      const agentConvCtx = data.agentPipeline as AgentConversationContext | undefined;
       if (agentConvCtx?.turns?.length) {
         setAgentContext(agentConvCtx);
       }

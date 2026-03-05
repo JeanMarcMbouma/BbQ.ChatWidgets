@@ -342,7 +342,40 @@ public class MultiTurnAgentOrchestratorTests
     }
 
     [Fact]
-    public async Task NoPersonaSet_PersonaNotInjectedIntoRequest()
+    public async Task PersonaDoesNotLeakFromFirstAgentToSecondAgent()
+    {
+        // Agent 1 has a persona; Agent 2 does not.
+        // After fix, Agent 2 should receive an empty/cleared persona, not Agent 1's.
+        var personaA = new PersonaRecordingAgent();
+        var personaB = new PersonaRecordingAgent();
+
+        using var provider = BuildProvider(s =>
+        {
+            s.AddAgent<PersonaRecordingAgent>("a1", _ => personaA);
+            s.AddAgent<PersonaRecordingAgent>("a2", _ => personaB);
+        });
+
+        using var scope = provider.CreateScope();
+        var registry = scope.ServiceProvider.GetRequiredService<IAgentRegistry>();
+
+        var orchestrator = new MultiTurnAgentOrchestrator(
+            registry,
+            [
+                ("a1", new AgentConversationOptions { Persona = "You are agent A." }),
+                ("a2", new AgentConversationOptions())  // no Persona
+            ]);
+
+        var request = CreateRequest("persona leak test");
+        await orchestrator.InvokeAsync(request, default);
+
+        // Agent 1 should have received its persona
+        Assert.Equal("You are agent A.", personaA.LastPersona);
+        // Agent 2 should have received an empty/cleared persona (not Agent 1's)
+        Assert.True(personaB.LastPersona is null or { Length: 0 });
+    }
+
+    [Fact]
+    public async Task NoPersonaSet_PersonaClearedBetweenAgents()
     {
         var personaAgent = new PersonaRecordingAgent();
 
@@ -359,8 +392,9 @@ public class MultiTurnAgentOrchestratorTests
         var request = CreateRequest("no persona");
         await orchestrator.InvokeAsync(request, default);
 
-        // Persona should not have been injected
-        Assert.Null(personaAgent.LastPersona);
+        // When no persona is configured the orchestrator explicitly clears the persona
+        // (sets it to empty string) to prevent leakage from a previous agent's turn.
+        Assert.True(personaAgent.LastPersona is null or { Length: 0 });
     }
 
     // ---- Missing agent ----
@@ -440,6 +474,26 @@ public class MultiTurnAgentOrchestratorTests
 
         using var scope = provider.CreateScope();
         var agent = scope.ServiceProvider.GetService<IAgent>();
+
+        Assert.NotNull(agent);
+        Assert.IsType<MultiTurnAgentOrchestrator>(agent);
+    }
+
+    [Fact]
+    public void AddMultiTurnAgentOrchestrator_Named_RegistersAsKeyedAgent()
+    {
+        using var provider = BuildProvider(s =>
+        {
+            s.AddAgent<EchoAgent>("echo");
+            s.AddMultiTurnAgentOrchestrator(
+                "my-pipeline",
+                [("echo", new AgentConversationOptions())]);
+        });
+
+        using var scope = provider.CreateScope();
+        var registry = scope.ServiceProvider.GetRequiredService<IAgentRegistry>();
+
+        var agent = registry.GetAgent("my-pipeline");
 
         Assert.NotNull(agent);
         Assert.IsType<MultiTurnAgentOrchestrator>(agent);

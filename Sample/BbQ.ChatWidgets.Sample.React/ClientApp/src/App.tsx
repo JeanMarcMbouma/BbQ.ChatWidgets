@@ -5,6 +5,7 @@ import { BasicChatPage } from './pages/BasicChatPage';
 import { StreamingChatPage } from './pages/StreamingChatPage';
 import { TriageAgentPage } from './pages/TriageAgentPage';
 import { MultiTurnAgentPage } from './pages/MultiTurnAgentPage';
+import { ClassifiedMultiTurnPage } from './pages/ClassifiedMultiTurnPage';
 import { VoiceChatPage } from './pages/VoiceChatPage';
 import { WidgetsDemoPage } from './pages/WidgetsDemoPage';
 import { ActionsDemoPage } from './pages/ActionsDemoPage';
@@ -42,6 +43,10 @@ function App() {
 
   if (currentPage === ScenarioType.MultiTurnAgent) {
     return <MultiTurnAgentPage onBack={handleBack} />;
+  }
+
+  if (currentPage === ScenarioType.ClassifiedMultiTurn) {
+    return <ClassifiedMultiTurnPage onBack={handleBack} />;
   }
 
   if (currentPage === ScenarioType.VoiceChat) {

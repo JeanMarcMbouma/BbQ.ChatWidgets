@@ -275,6 +275,30 @@ public static class ServiceCollectionExtensions
 
             await outcome.Match(result =>
             {
+                // Enrich the response with the agent pipeline trace when available (MultiTurnAgentOrchestrator)
+                var agentCtx = BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.GetConversationContext(chatRequest);
+                if (agentCtx is { Turns.Count: > 0 })
+                {
+                    var pipelineTurns = agentCtx.Turns
+                        .Select(t => new AgentPipelineTurn(t.AgentName, t.Round, t.Content))
+                        .ToList();
+
+                    // Collect any response-level metadata (e.g. classification, routed agent)
+                    IReadOnlyDictionary<string, object>? responseMeta = null;
+                    if (result is BbQ.ChatWidgets.Agents.IHasMetadata metaHolder)
+                        responseMeta = metaHolder.Metadata;
+
+                    var enriched = new AgentChatResponse(
+                        result.Role,
+                        result.Content,
+                        result.Widgets,
+                        result.ThreadId,
+                        responseMeta,
+                        new AgentPipelineTrace(pipelineTurns));
+
+                    return WriteJsonResponse(context, enriched);
+                }
+
                 return WriteJsonResponse(context, result);
             }, error =>
             {

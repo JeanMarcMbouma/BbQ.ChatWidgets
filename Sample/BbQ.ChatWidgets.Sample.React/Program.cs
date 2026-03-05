@@ -84,8 +84,10 @@ services.AddBbQChatWidgets(bbqOptions =>
     };
 });
 
-// Register triage agent system with specialized agents
-services.AddSharedTriageAgents();
+// Register triage + multi-turn agent system.
+// DataQuery intent routes through a Researcher → Analyst → Summarizer pipeline;
+// all other intents route to single-turn specialist agents.
+services.AddClassifiedMultiTurnAgents();
 
 // Register typed action handlers
 services.AddScoped<GreetingHandler>();

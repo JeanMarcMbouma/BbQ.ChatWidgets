@@ -45,6 +45,45 @@ export const SCENARIOS: ScenarioConfig[] = [
     icon: '🎯'
   },
   {
+    id: ScenarioType.MultiTurnAgent,
+    name: 'Multi-Turn Agent',
+    description: 'Multi-agent orchestration. One orchestrator queries multiple specialist agents in sequence.',
+    endpoint: '/api/chat/agent',
+    features: [
+      'Sequential agent pipeline',
+      'Accumulated context',
+      'Per-agent persona',
+      'Max-rounds guard'
+    ],
+    icon: '🔄'
+  },
+  {
+    id: ScenarioType.ClassifiedMultiTurn,
+    name: 'Classifier + Multi-Turn',
+    description: 'Combines a TriageAgent classifier with a multi-turn pipeline. DataQuery routes through Researcher → Analyst → Summariser.',
+    endpoint: '/api/chat/agent',
+    features: [
+      'Intent classification',
+      'Dynamic routing',
+      'Multi-turn pipeline for data queries',
+      'Single-turn agents for other intents'
+    ],
+    icon: '🎯🔄'
+  },
+  {
+    id: ScenarioType.VoiceChat,
+    name: 'Voice Chat',
+    description: 'Talk to the AI using your microphone. Browser Web Speech API for input and output.',
+    endpoint: '/api/chat/message',
+    features: [
+      'Voice input (Web Speech API)',
+      'Text-to-speech output',
+      'Multi-language support',
+      'No extra dependencies'
+    ],
+    icon: '🎙️'
+  },
+  {
     id: ScenarioType.WidgetsDemo,
     name: 'Widgets Demo',
     description: 'Explore all available widgets. Buttons, forms, dropdowns, sliders, and more.',

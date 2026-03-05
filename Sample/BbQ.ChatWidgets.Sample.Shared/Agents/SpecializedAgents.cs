@@ -116,7 +116,10 @@ public sealed class FeedbackAgent : IAgent
 }
 
 public sealed record SampleChatTurn(ChatRole Role, string Message, IReadOnlyList<ChatWidget> Widgets, string ThreadId, Dictionary<string, object> Metadata) : 
-        ChatTurn(Role, Message, Widgets, ThreadId);
+        ChatTurn(Role, Message, Widgets, ThreadId), BbQ.ChatWidgets.Agents.IHasMetadata
+{
+    IReadOnlyDictionary<string, object> IHasMetadata.Metadata => Metadata;
+}
 
 static class Helpers
 {

@@ -37,6 +37,20 @@ export function HomePage({ onSelectScenario }: HomePageProps) {
             </div>
           </div>
           <div className="feature">
+            <span className="icon">🔄</span>
+            <div>
+              <h3>Multi-Turn Agents</h3>
+              <p>Sequential agent pipelines with accumulated context</p>
+            </div>
+          </div>
+          <div className="feature">
+            <span className="icon">🎙️</span>
+            <div>
+              <h3>Voice Support</h3>
+              <p>Speak your questions, hear the answers</p>
+            </div>
+          </div>
+          <div className="feature">
             <span className="icon">⚡</span>
             <div>
               <h3>Real-time Streaming</h3>

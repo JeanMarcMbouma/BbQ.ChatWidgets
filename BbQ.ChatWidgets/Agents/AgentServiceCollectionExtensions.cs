@@ -52,4 +52,119 @@ public static class AgentServiceCollectionExtensions
 
         return services;
     }
+
+    /// <summary>
+    /// Registers a <see cref="MultiTurnAgentOrchestrator"/> as a <strong>named keyed agent</strong>
+    /// so that a <see cref="TriageAgent{TCategory}"/> (or any other routing agent) can delegate to it
+    /// by name.
+    /// </summary>
+    /// <param name="services">The service collection.</param>
+    /// <param name="name">
+    /// The unique name used to look up this orchestrator via <see cref="IAgentRegistry.GetAgent"/>.
+    /// </param>
+    /// <param name="pipeline">
+    /// Ordered sequence of <c>(agentName, options)</c> pairs.  Each agent must already be
+    /// registered via <see cref="AddAgent{TAgent}"/>.
+    /// </param>
+    /// <param name="orchestratorOptions">
+    /// Optional global max-rounds configuration.  Defaults to
+    /// <see cref="MultiTurnAgentOrchestratorOptions"/> defaults if <c>null</c>.
+    /// </param>
+    /// <returns>The service collection for method chaining.</returns>
+    /// <example>
+    /// <code>
+    /// // Register individual step agents
+    /// services.AddAgent&lt;ResearchAgent&gt;("researcher");
+    /// services.AddAgent&lt;AnalystAgent&gt;("analyst");
+    ///
+    /// // Register the pipeline as a named agent the triage can route to
+    /// services.AddMultiTurnAgentOrchestrator(
+    ///     "data-pipeline",
+    ///     pipeline: [
+    ///         ("researcher", new AgentConversationOptions { Persona = "You are a research analyst." }),
+    ///         ("analyst",    new AgentConversationOptions { Persona = "You are a data analyst." })
+    ///     ]
+    /// );
+    ///
+    /// // Route DataQuery intent to the multi-turn pipeline
+    /// Func&lt;UserIntent, string?&gt; routing = intent => intent switch {
+    ///     UserIntent.DataQuery => "data-pipeline",
+    ///     _                    => "help-agent"
+    /// };
+    /// </code>
+    /// </example>
+    public static IServiceCollection AddMultiTurnAgentOrchestrator(
+        this IServiceCollection services,
+        string name,
+        IEnumerable<(string AgentName, AgentConversationOptions Options)> pipeline,
+        MultiTurnAgentOrchestratorOptions? orchestratorOptions = null)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+        ArgumentNullException.ThrowIfNull(pipeline);
+
+        // Track the agent name for enumeration via IAgentRegistry.GetRegisteredAgents()
+        services.Configure<AgentRegistryOptions>(opts => opts.RegisteredAgentNames.Add(name));
+
+        // Ensure IAgentRegistry is available
+        services.TryAddScoped<IAgentRegistry, AgentRegistry>();
+
+        var frozenPipeline = pipeline.ToList();
+
+        // Register as a keyed scoped service so IAgentRegistry can resolve it by name
+        services.AddKeyedScoped<IAgent>(name, (sp, _) =>
+        {
+            var registry = sp.GetRequiredService<IAgentRegistry>();
+            return new MultiTurnAgentOrchestrator(registry, frozenPipeline, orchestratorOptions);
+        });
+
+        return services;
+    }
+
+    /// <summary>
+    /// Registers a <see cref="MultiTurnAgentOrchestrator"/> as the primary <see cref="IAgent"/>
+    /// (scoped) that will be resolved by the <c>/api/chat/agent</c> endpoint.
+    /// </summary>
+    /// <param name="services">The service collection.</param>
+    /// <param name="pipeline">
+    /// Ordered sequence of <c>(agentName, options)</c> pairs.  Agents are queried in order;
+    /// each must have been registered via <see cref="AddAgent{TAgent}"/>.
+    /// </param>
+    /// <param name="orchestratorOptions">
+    /// Optional global max-rounds configuration.  Pass <c>null</c> to use defaults
+    /// (<see cref="MultiTurnAgentOrchestratorOptions"/>).
+    /// </param>
+    /// <returns>The service collection for method chaining.</returns>
+    /// <example>
+    /// <code>
+    /// services.AddAgent&lt;ResearchAgent&gt;("research");
+    /// services.AddAgent&lt;SummaryAgent&gt;("summary");
+    ///
+    /// services.AddMultiTurnAgentOrchestrator(
+    ///     pipeline: [
+    ///         ("research", new AgentConversationOptions { Persona = "You are a research assistant." }),
+    ///         ("summary",  new AgentConversationOptions { Persona = "You are a concise summariser." })
+    ///     ],
+    ///     orchestratorOptions: new MultiTurnAgentOrchestratorOptions { MaxRoundsPerAgent = 3, MaxTotalRounds = 10 }
+    /// );
+    /// </code>
+    /// </example>
+    public static IServiceCollection AddMultiTurnAgentOrchestrator(
+        this IServiceCollection services,
+        IEnumerable<(string AgentName, AgentConversationOptions Options)> pipeline,
+        MultiTurnAgentOrchestratorOptions? orchestratorOptions = null)
+    {
+        ArgumentNullException.ThrowIfNull(pipeline);
+
+        // Ensure IAgentRegistry is available
+        services.TryAddScoped<IAgentRegistry, AgentRegistry>();
+
+        var frozenPipeline = pipeline.ToList();
+        services.AddScoped<IAgent>(sp =>
+        {
+            var registry = sp.GetRequiredService<IAgentRegistry>();
+            return new MultiTurnAgentOrchestrator(registry, frozenPipeline, orchestratorOptions);
+        });
+
+        return services;
+    }
 }

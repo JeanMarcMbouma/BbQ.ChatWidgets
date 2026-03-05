@@ -438,6 +438,62 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.AgentChatResponse.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.AgentChatResponse.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.AgentChatResponse",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.AgentChatResponse.yml\" sourcestartlinenumber=\"1\">HTTP response DTO returned by the <code>POST /api/chat/agent</code> endpoint.\nWraps the underlying <xref href=\"BbQ.ChatWidgets.Models.ChatTurn\" data-throw-if-not-resolved=\"false\"></xref> and, when the request was\nprocessed by a <xref href=\"BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator\" data-throw-if-not-resolved=\"false\"></xref>, also includes\nthe step-by-step agent pipeline trace.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.AgentConversationContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.AgentConversationContext.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.AgentConversationContext",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.AgentConversationContext.yml\" sourcestartlinenumber=\"1\">Tracks the conversation history exchanged between agents during a single\nmulti-turn orchestration run.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.AgentConversationOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.AgentConversationOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.AgentConversationOptions",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.AgentConversationOptions.yml\" sourcestartlinenumber=\"1\">Options for configuring per-agent behavior in a multi-turn orchestrated conversation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.AgentConversationTurn.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.AgentConversationTurn.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.AgentConversationTurn",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.AgentConversationTurn.yml\" sourcestartlinenumber=\"1\">A single recorded turn in an agent-to-agent conversation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Agents.AgentPipelineBuilder.yml",
       "output": {
         ".html": {
@@ -449,6 +505,34 @@
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Agents.AgentPipelineBuilder",
       "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.AgentPipelineBuilder.yml\" sourcestartlinenumber=\"1\">Builder for constructing an agent middleware pipeline.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.AgentPipelineTrace.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.AgentPipelineTrace.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.AgentPipelineTrace",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.AgentPipelineTrace.yml\" sourcestartlinenumber=\"1\">Summarises the step-by-step interactions performed by a <xref href=\"BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.AgentPipelineTurn.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.AgentPipelineTurn.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.AgentPipelineTurn",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.AgentPipelineTurn.yml\" sourcestartlinenumber=\"1\">A single invocation step within an orchestrated agent pipeline.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -536,6 +620,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.IHasMetadata.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.IHasMetadata.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.IHasMetadata",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.IHasMetadata.yml\" sourcestartlinenumber=\"1\">Optional interface that agent response types may implement to expose arbitrary\nkey/value metadata to the <code>/api/chat/agent</code> HTTP endpoint.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.yml",
       "output": {
         ".html": {
@@ -575,6 +673,34 @@
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Agents.Middleware",
       "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.yml\" sourcestartlinenumber=\"1\">An <xref href=\"BbQ.ChatWidgets.Agents.Abstractions.IAgent\" data-throw-if-not-resolved=\"false\"></xref> that orchestrates multi-turn conversations across\nmultiple specialist agents before returning a final response to the user.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions.yml\" sourcestartlinenumber=\"1\">Global options for <xref href=\"BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator\" data-throw-if-not-resolved=\"false\"></xref> behaviour.</p>\n"
     },
     {
       "type": "ManagedReference",

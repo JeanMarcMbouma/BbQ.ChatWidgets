@@ -78,8 +78,30 @@
     <h3 id="classes">
 Classes
 </h3>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Agents.AgentChatResponse.html">AgentChatResponse</a></h4>
+      <section><p>HTTP response DTO returned by the <code>POST /api/chat/agent</code> endpoint.
+Wraps the underlying <a class="xref" href="BbQ.ChatWidgets.Models.ChatTurn.html">ChatTurn</a> and, when the request was
+processed by a <a class="xref" href="BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.html">MultiTurnAgentOrchestrator</a>, also includes
+the step-by-step agent pipeline trace.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Agents.AgentConversationContext.html">AgentConversationContext</a></h4>
+      <section><p>Tracks the conversation history exchanged between agents during a single
+multi-turn orchestration run.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Agents.AgentConversationOptions.html">AgentConversationOptions</a></h4>
+      <section><p>Options for configuring per-agent behavior in a multi-turn orchestrated conversation.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Agents.AgentConversationTurn.html">AgentConversationTurn</a></h4>
+      <section><p>A single recorded turn in an agent-to-agent conversation.</p>
+</section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Agents.AgentPipelineBuilder.html">AgentPipelineBuilder</a></h4>
       <section><p>Builder for constructing an agent middleware pipeline.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Agents.AgentPipelineTrace.html">AgentPipelineTrace</a></h4>
+      <section><p>Summarises the step-by-step interactions performed by a <a class="xref" href="BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.html">MultiTurnAgentOrchestrator</a>.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Agents.AgentPipelineTurn.html">AgentPipelineTurn</a></h4>
+      <section><p>A single invocation step within an orchestrated agent pipeline.</p>
 </section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Agents.AgentRegistry.html">AgentRegistry</a></h4>
       <section><p>Default implementation of the agent registry backed by the dependency injection container.</p>
@@ -96,8 +118,22 @@ Classes
       <h4><a class="xref" href="BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html">InterAgentCommunicationContext</a></h4>
       <section><p>Context for facilitating communication between agents in the pipeline.</p>
 </section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.html">MultiTurnAgentOrchestrator</a></h4>
+      <section><p>An <a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.html">IAgent</a> that orchestrates multi-turn conversations across
+multiple specialist agents before returning a final response to the user.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions.html">MultiTurnAgentOrchestratorOptions</a></h4>
+      <section><p>Global options for <a class="xref" href="BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.html">MultiTurnAgentOrchestrator</a> behaviour.</p>
+</section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Agents.TriageAgent-1.html">TriageAgent&lt;TCategory&gt;</a></h4>
       <section><p>Triage agent that classifies requests and routes to appropriate handlers.</p>
+</section>
+    <h3 id="interfaces">
+Interfaces
+</h3>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Agents.IHasMetadata.html">IHasMetadata</a></h4>
+      <section><p>Optional interface that agent response types may implement to expose arbitrary
+key/value metadata to the <code>/api/chat/agent</code> HTTP endpoint.</p>
 </section>
 
 

@@ -215,6 +215,169 @@ services.AddAgent&lt;DataQueryAgent&gt;("data-query-agent", ServiceLifetime.Sing
     </tbody>
   </table>
 
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Agents/AgentServiceCollectionExtensions.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Agents_AgentServiceCollectionExtensions_AddMultiTurnAgentOrchestrator_" data-uid="BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.AddMultiTurnAgentOrchestrator*"></a>
+  <h4 id="BbQ_ChatWidgets_Agents_AgentServiceCollectionExtensions_AddMultiTurnAgentOrchestrator_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Collections_Generic_IEnumerable_System_ValueTuple_System_String_BbQ_ChatWidgets_Agents_AgentConversationOptions___BbQ_ChatWidgets_Agents_MultiTurnAgentOrchestratorOptions_" data-uid="BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.AddMultiTurnAgentOrchestrator(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,BbQ.ChatWidgets.Agents.AgentConversationOptions}},BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions)">AddMultiTurnAgentOrchestrator(IServiceCollection, IEnumerable&lt;(string AgentName, AgentConversationOptions Options)&gt;, MultiTurnAgentOrchestratorOptions?)</h4>
+  <div class="markdown level1 summary"><p>Registers a <a class="xref" href="BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.html">MultiTurnAgentOrchestrator</a> as the primary <a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgent.html">IAgent</a>
+(scoped) that will be resolved by the <code>/api/chat/agent</code> endpoint.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IServiceCollection AddMultiTurnAgentOrchestrator(this IServiceCollection services, IEnumerable&lt;(string AgentName, AgentConversationOptions Options)&gt; pipeline, MultiTurnAgentOrchestratorOptions? orchestratorOptions = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
+        <td><span class="parametername">services</span></td>
+        <td><p>The service collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,bbq.chatwidgets.agents.agentconversationoptions-.agentname">AgentName</a>, <a class="xref" href="BbQ.ChatWidgets.Agents.AgentConversationOptions.html">AgentConversationOptions</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,bbq.chatwidgets.agents.agentconversationoptions-.options">Options</a>)&gt;</td>
+        <td><span class="parametername">pipeline</span></td>
+        <td><p>Ordered sequence of <code>(agentName, options)</code> pairs.  Agents are queried in order;
+each must have been registered via <a class="xref" href="BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.html#BbQ_ChatWidgets_Agents_AgentServiceCollectionExtensions_AddAgent__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_String_Microsoft_Extensions_DependencyInjection_ServiceLifetime_">AddAgent&lt;TAgent&gt;(IServiceCollection, string, ServiceLifetime)</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions.html">MultiTurnAgentOrchestratorOptions</a></td>
+        <td><span class="parametername">orchestratorOptions</span></td>
+        <td><p>Optional global max-rounds configuration.  Pass <code>null</code> to use defaults
+(<a class="xref" href="BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions.html">MultiTurnAgentOrchestratorOptions</a>).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
+        <td><p>The service collection for method chaining.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="BbQ_ChatWidgets_Agents_AgentServiceCollectionExtensions_AddMultiTurnAgentOrchestrator_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Collections_Generic_IEnumerable_System_ValueTuple_System_String_BbQ_ChatWidgets_Agents_AgentConversationOptions___BbQ_ChatWidgets_Agents_MultiTurnAgentOrchestratorOptions__examples">Examples</h5>
+  <pre><code class="lang-csharp">services.AddAgent&lt;ResearchAgent&gt;("research");
+services.AddAgent&lt;SummaryAgent&gt;("summary");
+
+services.AddMultiTurnAgentOrchestrator(
+    pipeline: [
+        ("research", new AgentConversationOptions { Persona = "You are a research assistant." }),
+        ("summary",  new AgentConversationOptions { Persona = "You are a concise summariser." })
+    ],
+    orchestratorOptions: new MultiTurnAgentOrchestratorOptions { MaxRoundsPerAgent = 3, MaxTotalRounds = 10 }
+);</code></pre>
+
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Agents/AgentServiceCollectionExtensions.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Agents_AgentServiceCollectionExtensions_AddMultiTurnAgentOrchestrator_" data-uid="BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.AddMultiTurnAgentOrchestrator*"></a>
+  <h4 id="BbQ_ChatWidgets_Agents_AgentServiceCollectionExtensions_AddMultiTurnAgentOrchestrator_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_String_System_Collections_Generic_IEnumerable_System_ValueTuple_System_String_BbQ_ChatWidgets_Agents_AgentConversationOptions___BbQ_ChatWidgets_Agents_MultiTurnAgentOrchestratorOptions_" data-uid="BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.AddMultiTurnAgentOrchestrator(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,BbQ.ChatWidgets.Agents.AgentConversationOptions}},BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions)">AddMultiTurnAgentOrchestrator(IServiceCollection, string, IEnumerable&lt;(string AgentName, AgentConversationOptions Options)&gt;, MultiTurnAgentOrchestratorOptions?)</h4>
+  <div class="markdown level1 summary"><p>Registers a <a class="xref" href="BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.html">MultiTurnAgentOrchestrator</a> as a <strong>named keyed agent</strong>
+so that a <a class="xref" href="BbQ.ChatWidgets.Agents.TriageAgent-1.html">TriageAgent&lt;TCategory&gt;</a> (or any other routing agent) can delegate to it
+by name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IServiceCollection AddMultiTurnAgentOrchestrator(this IServiceCollection services, string name, IEnumerable&lt;(string AgentName, AgentConversationOptions Options)&gt; pipeline, MultiTurnAgentOrchestratorOptions? orchestratorOptions = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
+        <td><span class="parametername">services</span></td>
+        <td><p>The service collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The unique name used to look up this orchestrator via <a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry.html#BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_GetAgent_System_String_">GetAgent(string)</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;(<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,bbq.chatwidgets.agents.agentconversationoptions-.agentname">AgentName</a>, <a class="xref" href="BbQ.ChatWidgets.Agents.AgentConversationOptions.html">AgentConversationOptions</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-system.string,bbq.chatwidgets.agents.agentconversationoptions-.options">Options</a>)&gt;</td>
+        <td><span class="parametername">pipeline</span></td>
+        <td><p>Ordered sequence of <code>(agentName, options)</code> pairs.  Each agent must already be
+registered via <a class="xref" href="BbQ.ChatWidgets.Agents.AgentServiceCollectionExtensions.html#BbQ_ChatWidgets_Agents_AgentServiceCollectionExtensions_AddAgent__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_String_Microsoft_Extensions_DependencyInjection_ServiceLifetime_">AddAgent&lt;TAgent&gt;(IServiceCollection, string, ServiceLifetime)</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions.html">MultiTurnAgentOrchestratorOptions</a></td>
+        <td><span class="parametername">orchestratorOptions</span></td>
+        <td><p>Optional global max-rounds configuration.  Defaults to
+<a class="xref" href="BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions.html">MultiTurnAgentOrchestratorOptions</a> defaults if <code>null</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
+        <td><p>The service collection for method chaining.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="BbQ_ChatWidgets_Agents_AgentServiceCollectionExtensions_AddMultiTurnAgentOrchestrator_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_String_System_Collections_Generic_IEnumerable_System_ValueTuple_System_String_BbQ_ChatWidgets_Agents_AgentConversationOptions___BbQ_ChatWidgets_Agents_MultiTurnAgentOrchestratorOptions__examples">Examples</h5>
+  <pre><code class="lang-csharp">// Register individual step agents
+services.AddAgent&lt;ResearchAgent&gt;("researcher");
+services.AddAgent&lt;AnalystAgent&gt;("analyst");
+
+// Register the pipeline as a named agent the triage can route to
+services.AddMultiTurnAgentOrchestrator(
+    "data-pipeline",
+    pipeline: [
+        ("researcher", new AgentConversationOptions { Persona = "You are a research analyst." }),
+        ("analyst",    new AgentConversationOptions { Persona = "You are a data analyst." })
+    ]
+);
+
+// Route DataQuery intent to the multi-turn pipeline
+Func&lt;UserIntent, string?&gt; routing = intent =&gt; intent switch {
+    UserIntent.DataQuery =&gt; "data-pipeline",
+    _                    =&gt; "help-agent"
+};</code></pre>
+
+
 </article>
           </div>
 

@@ -115,7 +115,7 @@ public sealed class ChatWidgetService(
 
         var chatOptions = new ChatOptions
         {
-            Tools = [..aiToolsProvider.GetAITools(), getWidgets],
+            Tools = WrapWithEventFiring([..aiToolsProvider.GetAITools(), getWidgets], eventDispatcher, threadId),
             ToolMode = ChatToolMode.Auto,
             AllowMultipleToolCalls = true,
             Instructions = BuildInstructions(effectivePersona)
@@ -201,7 +201,7 @@ public sealed class ChatWidgetService(
 
         var chatOptions = new ChatOptions
         {
-            Tools = [.. aiToolsProvider.GetAITools(), getWidgets],
+            Tools = WrapWithEventFiring([.. aiToolsProvider.GetAITools(), getWidgets], eventDispatcher, threadId),
             ToolMode = ChatToolMode.Auto,
             AllowMultipleToolCalls = true,
             Instructions = BuildInstructions(effectivePersona)
@@ -349,6 +349,23 @@ public sealed class ChatWidgetService(
             // Use default behavior without summarization
             return messages.ToAIMessages();
         }
+    }
+
+    /// <summary>
+    /// Wraps every <see cref="AIFunction"/> in <paramref name="tools"/> with an
+    /// <see cref="EventFiringAIFunction"/> so that <see cref="AgentEventType.ToolCallStarted"/>
+    /// and <see cref="AgentEventType.ToolCallCompleted"/> events are fired whenever the AI model
+    /// invokes a tool.  Non-<see cref="AIFunction"/> tools are passed through unchanged.
+    /// </summary>
+    private static List<AITool> WrapWithEventFiring(
+        IEnumerable<AITool> tools,
+        IAgentEventDispatcher dispatcher,
+        string? threadId)
+    {
+        return [.. tools.Select(t =>
+            t is AIFunction func
+                ? (AITool)new EventFiringAIFunction(func, dispatcher, threadId)
+                : t)];
     }
 
     /// <summary>

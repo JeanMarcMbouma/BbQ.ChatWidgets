@@ -16,13 +16,19 @@ public enum AgentEventType
     Thinking,
 
     /// <summary>
-    /// Raised when the AI model initiates a tool call (e.g. <c>get_widget_tools</c> or any
-    /// custom tool registered via <see cref="BbQ.ChatWidgets.Abstractions.IAIToolsProvider"/>).
+    /// Raised just before the AI model invokes a registered tool function.
+    /// The <see cref="AgentEvent.Message"/> property contains the tool's name.
     /// </summary>
+    /// <remarks>
+    /// Implemented by wrapping every <see cref="Microsoft.Extensions.AI.AIFunction"/> in
+    /// <see cref="BbQ.ChatWidgets.Services.ChatWidgetService"/> with an event-firing decorator.
+    /// Fires once per individual tool invocation — the AI may call multiple tools per response turn.
+    /// </remarks>
     ToolCallStarted,
 
     /// <summary>
-    /// Raised when a tool call initiated by the AI model has completed.
+    /// Raised when a tool invocation has finished (whether successfully or with an exception).
+    /// The <see cref="AgentEvent.Message"/> property contains the tool's name.
     /// </summary>
     ToolCallCompleted,
 

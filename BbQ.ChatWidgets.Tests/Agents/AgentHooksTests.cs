@@ -2,6 +2,7 @@ using Xunit;
 using BbQ.ChatWidgets.Agents;
 using BbQ.ChatWidgets.Agents.Abstractions;
 using BbQ.ChatWidgets.Models;
+using BbQ.ChatWidgets.Services;
 using BbQ.Outcome;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -295,6 +296,93 @@ public class AgentHooksTests
         var handler = scope.ServiceProvider.GetServices<IAgentEventHandler>().OfType<RecordingHandler>().Single();
         Assert.Single(handler.Received);
         Assert.Equal(AgentEventType.Thinking, handler.Received[0].EventType);
+    }
+
+    // ---- EventFiringAIFunction (ToolCallStarted / ToolCallCompleted) ----
+
+    [Fact]
+    public async Task EventFiringAIFunction_FiresToolCallStartedBeforeInvocation()
+    {
+        var handler = new RecordingHandler();
+        var dispatcher = new DefaultAgentEventDispatcher([handler]);
+
+        var inner = AIFunctionFactory.Create(() => "result", new AIFunctionFactoryOptions { Name = "my_tool" });
+        var wrapper = new EventFiringAIFunction(inner, dispatcher, "t1");
+
+        await wrapper.InvokeAsync(new AIFunctionArguments(), CancellationToken.None);
+
+        Assert.Contains(handler.Received, e => e.EventType == AgentEventType.ToolCallStarted);
+        var started = handler.Received.First(e => e.EventType == AgentEventType.ToolCallStarted);
+        Assert.Equal("my_tool", started.Message);
+        Assert.Equal("t1", started.ThreadId);
+    }
+
+    [Fact]
+    public async Task EventFiringAIFunction_FiresToolCallCompletedAfterInvocation()
+    {
+        var handler = new RecordingHandler();
+        var dispatcher = new DefaultAgentEventDispatcher([handler]);
+
+        var inner = AIFunctionFactory.Create(() => "result", new AIFunctionFactoryOptions { Name = "my_tool" });
+        var wrapper = new EventFiringAIFunction(inner, dispatcher, "t1");
+
+        await wrapper.InvokeAsync(new AIFunctionArguments(), CancellationToken.None);
+
+        Assert.Contains(handler.Received, e => e.EventType == AgentEventType.ToolCallCompleted);
+        var completed = handler.Received.First(e => e.EventType == AgentEventType.ToolCallCompleted);
+        Assert.Equal("my_tool", completed.Message);
+    }
+
+    [Fact]
+    public async Task EventFiringAIFunction_EventOrder_StartedBeforeCompleted()
+    {
+        var handler = new RecordingHandler();
+        var dispatcher = new DefaultAgentEventDispatcher([handler]);
+
+        var inner = AIFunctionFactory.Create(() => "result", new AIFunctionFactoryOptions { Name = "tool" });
+        var wrapper = new EventFiringAIFunction(inner, dispatcher, null);
+
+        await wrapper.InvokeAsync(new AIFunctionArguments(), CancellationToken.None);
+
+        var toolEvents = handler.Received
+            .Where(e => e.EventType is AgentEventType.ToolCallStarted or AgentEventType.ToolCallCompleted)
+            .ToList();
+
+        Assert.Equal(2, toolEvents.Count);
+        Assert.Equal(AgentEventType.ToolCallStarted, toolEvents[0].EventType);
+        Assert.Equal(AgentEventType.ToolCallCompleted, toolEvents[1].EventType);
+    }
+
+    [Fact]
+    public async Task EventFiringAIFunction_FiresToolCallCompleted_EvenOnException()
+    {
+        var handler = new RecordingHandler();
+        var dispatcher = new DefaultAgentEventDispatcher([handler]);
+
+        var inner = AIFunctionFactory.Create(
+            new Func<string>(() => throw new InvalidOperationException("tool failed")),
+            new AIFunctionFactoryOptions { Name = "failing_tool" });
+        var wrapper = new EventFiringAIFunction(inner, dispatcher, null);
+
+        await Assert.ThrowsAsync<InvalidOperationException>(
+            () => wrapper.InvokeAsync(new AIFunctionArguments(), CancellationToken.None).AsTask());
+
+        Assert.Contains(handler.Received, e => e.EventType == AgentEventType.ToolCallStarted);
+        Assert.Contains(handler.Received, e => e.EventType == AgentEventType.ToolCallCompleted);
+    }
+
+    [Fact]
+    public void EventFiringAIFunction_PreservesNameAndDescription()
+    {
+        var inner = AIFunctionFactory.Create(
+            () => "x",
+            new AIFunctionFactoryOptions { Name = "test_func", Description = "does something" });
+
+        var dispatcher = new DefaultAgentEventDispatcher([]);
+        var wrapper = new EventFiringAIFunction(inner, dispatcher, null);
+
+        Assert.Equal("test_func", wrapper.Name);
+        Assert.Equal("does something", wrapper.Description);
     }
 }
 

@@ -96,6 +96,9 @@ public static class ServiceCollectionExtensions
         // Register chat history summarizer (use TryAdd to allow custom implementations)
         services.TryAddSingleton<IChatHistorySummarizer, DefaultChatHistorySummarizer>();
 
+        // Register event dispatcher (scoped to match ChatWidgetService)
+        services.TryAddScoped<IAgentEventDispatcher, DefaultAgentEventDispatcher>();
+
         // Register Widget SSE service for server-side widget streams
         services.AddSingleton<IWidgetSseService, WidgetSseService>();
         services.AddSingleton<IStreamPayloadValidator, DefaultStreamPayloadValidator>();
@@ -137,6 +140,34 @@ public static class ServiceCollectionExtensions
             return registry;
         });
 
+        return services;
+    }
+
+    /// <summary>
+    /// Registers an <see cref="IAgentEventHandler"/> implementation so that it receives
+    /// agent lifecycle events (thinking, triaging, agent started/completed, etc.).
+    /// </summary>
+    /// <typeparam name="THandler">The handler implementation type.</typeparam>
+    /// <param name="services">The service collection.</param>
+    /// <param name="lifetime">
+    /// The service lifetime. Defaults to <see cref="ServiceLifetime.Scoped"/>.
+    /// </param>
+    /// <returns>The service collection for method chaining.</returns>
+    /// <remarks>
+    /// Multiple handlers can be registered; they are invoked sequentially in registration order.
+    ///
+    /// Example:
+    /// <code>
+    /// services.AddBbQChatWidgets(options => { … });
+    /// services.AddAgentEventHandler&lt;MyThinkingIndicatorHandler&gt;();
+    /// </code>
+    /// </remarks>
+    public static IServiceCollection AddAgentEventHandler<THandler>(
+        this IServiceCollection services,
+        ServiceLifetime lifetime = ServiceLifetime.Scoped)
+        where THandler : class, IAgentEventHandler
+    {
+        services.Add(new ServiceDescriptor(typeof(IAgentEventHandler), typeof(THandler), lifetime));
         return services;
     }
 

@@ -114,7 +114,8 @@ public static class AgentServiceCollectionExtensions
         services.AddKeyedScoped<IAgent>(name, (sp, _) =>
         {
             var registry = sp.GetRequiredService<IAgentRegistry>();
-            return new MultiTurnAgentOrchestrator(registry, frozenPipeline, orchestratorOptions);
+            var dispatcher = sp.GetService<IAgentEventDispatcher>();
+            return new MultiTurnAgentOrchestrator(registry, frozenPipeline, orchestratorOptions, dispatcher);
         });
 
         return services;
@@ -162,7 +163,8 @@ public static class AgentServiceCollectionExtensions
         services.AddScoped<IAgent>(sp =>
         {
             var registry = sp.GetRequiredService<IAgentRegistry>();
-            return new MultiTurnAgentOrchestrator(registry, frozenPipeline, orchestratorOptions);
+            var dispatcher = sp.GetService<IAgentEventDispatcher>();
+            return new MultiTurnAgentOrchestrator(registry, frozenPipeline, orchestratorOptions, dispatcher);
         });
 
         return services;

@@ -28,6 +28,7 @@ public sealed class TriageAgent<TCategory> : IAgent
     private readonly string? _fallbackAgentName;
     private readonly IAgent? _fallbackAgent;
     private readonly IThreadService? _threadService;
+    private readonly IAgentEventDispatcher? _eventDispatcher;
 
     /// <summary>
     /// Initializes a new instance of the TriageAgent.
@@ -38,13 +39,15 @@ public sealed class TriageAgent<TCategory> : IAgent
     /// <param name="fallbackAgentName">Optional name of the fallback agent if routing fails.</param>
     /// <param name="fallbackAgent">Optional fallback agent if routing fails.</param>
     /// <param name="threadService">Optional thread service for managing conversation threads.</param>
+    /// <param name="eventDispatcher">Optional dispatcher for agent lifecycle events.</param>
     public TriageAgent(
         IClassifier<TCategory> classifier,
         IAgentRegistry agentRegistry,
         Func<TCategory, string?> routingMapping,
         string? fallbackAgentName = null,
         IAgent? fallbackAgent = null,
-        IThreadService? threadService = null)
+        IThreadService? threadService = null,
+        IAgentEventDispatcher? eventDispatcher = null)
     {
         _classifier = classifier ?? throw new ArgumentNullException(nameof(classifier));
         _agentRegistry = agentRegistry ?? throw new ArgumentNullException(nameof(agentRegistry));
@@ -52,6 +55,7 @@ public sealed class TriageAgent<TCategory> : IAgent
         _fallbackAgentName = fallbackAgentName;
         _fallbackAgent = fallbackAgent;
         _threadService = threadService;
+        _eventDispatcher = eventDispatcher;
     }
 
     /// <summary>
@@ -67,6 +71,9 @@ public sealed class TriageAgent<TCategory> : IAgent
             {
                 return Outcome<ChatTurn>.FromError("NoMessage", "No user message found in request context");
             }
+
+            if (_eventDispatcher is not null)
+                await _eventDispatcher.DispatchAsync(new AgentEvent(AgentEventType.Triaging, request.ThreadId), cancellationToken);
 
             // Classify the request
             var category = await _classifier.ClassifyAsync(userMessage, cancellationToken);
@@ -89,6 +96,10 @@ public sealed class TriageAgent<TCategory> : IAgent
             if (_threadService is not null)
                 if (request.ThreadId is null || !_threadService.ThreadExists(request.ThreadId))
                     request = request with { ThreadId = _threadService.CreateThread() };
+
+            if (_eventDispatcher is not null)
+                await _eventDispatcher.DispatchAsync(new AgentEvent(AgentEventType.TriageCompleted, request.ThreadId, agentName), cancellationToken);
+
             // Invoke the routed agent
             return await targetAgent.InvokeAsync(request, cancellationToken);
         }

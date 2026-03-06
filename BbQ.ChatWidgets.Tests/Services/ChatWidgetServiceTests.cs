@@ -1,4 +1,6 @@
 using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Agents;
+using BbQ.ChatWidgets.Agents.Abstractions;
 using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Services;
 using BbQ.MockLite;
@@ -23,12 +25,14 @@ public class ChatWidgetServiceTests
     private readonly Mock<IWidgetActionRegistry> mockActionRegistry = new();
     private readonly Mock<IWidgetActionHandlerResolver> mockHandlerResolver = new();
     private readonly Mock<IChatHistorySummarizer> mockHistorySummarizer = new();
+    private readonly Mock<IAgentEventDispatcher> mockEventDispatcher = new();
     private readonly BbQChatOptions options = new();
 
     private readonly ChatWidgetService chatWidgetService;
 
     public ChatWidgetServiceTests()
     {
+        mockEventDispatcher.Setup(d => d.DispatchAsync(It.IsAny<AgentEvent>(), It.IsAny<CancellationToken>()), () => Task.CompletedTask);
         chatWidgetService = new ChatWidgetService(
             mockChat,
             mockWidgetHintParser.Object,
@@ -41,6 +45,7 @@ public class ChatWidgetServiceTests
             mockActionRegistry.Object,
             mockHandlerResolver.Object,
             mockHistorySummarizer.Object,
+            mockEventDispatcher.Object,
             options
         );
     }

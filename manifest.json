@@ -382,6 +382,34 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher.yml\" sourcestartlinenumber=\"1\">Dispatches <xref href=\"BbQ.ChatWidgets.Agents.AgentEvent\" data-throw-if-not-resolved=\"false\"></xref> instances to all registered <xref href=\"BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler\" data-throw-if-not-resolved=\"false\"></xref>s.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler.yml\" sourcestartlinenumber=\"1\">Handles agent lifecycle events raised during chat processing.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Agents.Abstractions.IAgentMiddleware.yml",
       "output": {
         ".html": {
@@ -494,6 +522,34 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.AgentEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.AgentEvent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.AgentEvent",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.AgentEvent.yml\" sourcestartlinenumber=\"1\">Represents an event raised during agent processing.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.AgentEventType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.AgentEventType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.AgentEventType",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.AgentEventType.yml\" sourcestartlinenumber=\"1\">Defines the types of internal events that can be raised during agent processing.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Agents.AgentPipelineBuilder.yml",
       "output": {
         ".html": {
@@ -589,6 +645,20 @@
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Agents.ChatRequest",
       "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.ChatRequest.yml\" sourcestartlinenumber=\"1\">Represents a chat request for agent processing.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.yml\" sourcestartlinenumber=\"1\">Default implementation of <xref href=\"BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher\" data-throw-if-not-resolved=\"false\"></xref> that sequentially\ninvokes every registered <xref href=\"BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler\" data-throw-if-not-resolved=\"false\"></xref>.</p>\n"
     },
     {
       "type": "ManagedReference",

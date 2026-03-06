@@ -146,13 +146,13 @@ Downstream agents that honour the persona key (e.g.
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Agents/MultiTurnAgentOrchestrator.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Agents_MultiTurnAgentOrchestrator__ctor_" data-uid="BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.#ctor*"></a>
-  <h4 id="BbQ_ChatWidgets_Agents_MultiTurnAgentOrchestrator__ctor_BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_System_Collections_Generic_IEnumerable_System_ValueTuple_System_String_BbQ_ChatWidgets_Agents_AgentConversationOptions___BbQ_ChatWidgets_Agents_MultiTurnAgentOrchestratorOptions_" data-uid="BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.#ctor(BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry,System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,BbQ.ChatWidgets.Agents.AgentConversationOptions}},BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions)">MultiTurnAgentOrchestrator(IAgentRegistry, IEnumerable&lt;(string AgentName, AgentConversationOptions Options)&gt;, MultiTurnAgentOrchestratorOptions?)</h4>
+  <h4 id="BbQ_ChatWidgets_Agents_MultiTurnAgentOrchestrator__ctor_BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_System_Collections_Generic_IEnumerable_System_ValueTuple_System_String_BbQ_ChatWidgets_Agents_AgentConversationOptions___BbQ_ChatWidgets_Agents_MultiTurnAgentOrchestratorOptions_BbQ_ChatWidgets_Agents_Abstractions_IAgentEventDispatcher_" data-uid="BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.#ctor(BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry,System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,BbQ.ChatWidgets.Agents.AgentConversationOptions}},BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions,BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher)">MultiTurnAgentOrchestrator(IAgentRegistry, IEnumerable&lt;(string AgentName, AgentConversationOptions Options)&gt;, MultiTurnAgentOrchestratorOptions?, IAgentEventDispatcher?)</h4>
   <div class="markdown level1 summary"><p>Initialises a new orchestrator with the specified pipeline.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public MultiTurnAgentOrchestrator(IAgentRegistry registry, IEnumerable&lt;(string AgentName, AgentConversationOptions Options)&gt; pipeline, MultiTurnAgentOrchestratorOptions? orchestratorOptions = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public MultiTurnAgentOrchestrator(IAgentRegistry registry, IEnumerable&lt;(string AgentName, AgentConversationOptions Options)&gt; pipeline, MultiTurnAgentOrchestratorOptions? orchestratorOptions = null, IAgentEventDispatcher? eventDispatcher = null)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -181,6 +181,12 @@ Agents are queried in the order they appear.</p>
         <td><a class="xref" href="BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions.html">MultiTurnAgentOrchestratorOptions</a></td>
         <td><span class="parametername">orchestratorOptions</span></td>
         <td><p>Global max-rounds configuration.  Pass <code>null</code> to use defaults.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher.html">IAgentEventDispatcher</a></td>
+        <td><span class="parametername">eventDispatcher</span></td>
+        <td><p>Optional dispatcher for agent lifecycle events.</p>
 </td>
       </tr>
     </tbody>

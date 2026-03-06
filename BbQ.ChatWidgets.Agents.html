@@ -94,6 +94,9 @@ multi-turn orchestration run.</p>
       <h4><a class="xref" href="BbQ.ChatWidgets.Agents.AgentConversationTurn.html">AgentConversationTurn</a></h4>
       <section><p>A single recorded turn in an agent-to-agent conversation.</p>
 </section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Agents.AgentEvent.html">AgentEvent</a></h4>
+      <section><p>Represents an event raised during agent processing.</p>
+</section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Agents.AgentPipelineBuilder.html">AgentPipelineBuilder</a></h4>
       <section><p>Builder for constructing an agent middleware pipeline.</p>
 </section>
@@ -115,6 +118,10 @@ multi-turn orchestration run.</p>
       <h4><a class="xref" href="BbQ.ChatWidgets.Agents.ChatRequest.html">ChatRequest</a></h4>
       <section><p>Represents a chat request for agent processing.</p>
 </section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.html">DefaultAgentEventDispatcher</a></h4>
+      <section><p>Default implementation of <a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher.html">IAgentEventDispatcher</a> that sequentially
+invokes every registered <a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler.html">IAgentEventHandler</a>.</p>
+</section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Agents.InterAgentCommunicationContext.html">InterAgentCommunicationContext</a></h4>
       <section><p>Context for facilitating communication between agents in the pipeline.</p>
 </section>
@@ -134,6 +141,12 @@ Interfaces
       <h4><a class="xref" href="BbQ.ChatWidgets.Agents.IHasMetadata.html">IHasMetadata</a></h4>
       <section><p>Optional interface that agent response types may implement to expose arbitrary
 key/value metadata to the <code>/api/chat/agent</code> HTTP endpoint.</p>
+</section>
+    <h3 id="enums">
+Enums
+</h3>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Agents.AgentEventType.html">AgentEventType</a></h4>
+      <section><p>Defines the types of internal events that can be raised during agent processing.</p>
 </section>
 
 

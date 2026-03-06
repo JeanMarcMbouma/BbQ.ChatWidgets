@@ -1014,6 +1014,42 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Agents.Abstractions.IAgent.InvokeAsync
   fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgent.InvokeAsync
   nameWithType: IAgent.InvokeAsync
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher
+  name: IAgentEventDispatcher
+  href: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher.html
+  commentId: T:BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher
+  nameWithType: IAgentEventDispatcher
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher.DispatchAsync(BbQ.ChatWidgets.Agents.AgentEvent,System.Threading.CancellationToken)
+  name: DispatchAsync(AgentEvent, CancellationToken)
+  href: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher.html#BbQ_ChatWidgets_Agents_Abstractions_IAgentEventDispatcher_DispatchAsync_BbQ_ChatWidgets_Agents_AgentEvent_System_Threading_CancellationToken_
+  commentId: M:BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher.DispatchAsync(BbQ.ChatWidgets.Agents.AgentEvent,System.Threading.CancellationToken)
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher.DispatchAsync(BbQ.ChatWidgets.Agents.AgentEvent, System.Threading.CancellationToken)
+  nameWithType: IAgentEventDispatcher.DispatchAsync(AgentEvent, CancellationToken)
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher.DispatchAsync*
+  name: DispatchAsync
+  href: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher.html#BbQ_ChatWidgets_Agents_Abstractions_IAgentEventDispatcher_DispatchAsync_
+  commentId: Overload:BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher.DispatchAsync
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher.DispatchAsync
+  nameWithType: IAgentEventDispatcher.DispatchAsync
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler
+  name: IAgentEventHandler
+  href: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler.html
+  commentId: T:BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler
+  nameWithType: IAgentEventHandler
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler.HandleAsync(BbQ.ChatWidgets.Agents.AgentEvent,System.Threading.CancellationToken)
+  name: HandleAsync(AgentEvent, CancellationToken)
+  href: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler.html#BbQ_ChatWidgets_Agents_Abstractions_IAgentEventHandler_HandleAsync_BbQ_ChatWidgets_Agents_AgentEvent_System_Threading_CancellationToken_
+  commentId: M:BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler.HandleAsync(BbQ.ChatWidgets.Agents.AgentEvent,System.Threading.CancellationToken)
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler.HandleAsync(BbQ.ChatWidgets.Agents.AgentEvent, System.Threading.CancellationToken)
+  nameWithType: IAgentEventHandler.HandleAsync(AgentEvent, CancellationToken)
+- uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler.HandleAsync*
+  name: HandleAsync
+  href: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler.html#BbQ_ChatWidgets_Agents_Abstractions_IAgentEventHandler_HandleAsync_
+  commentId: Overload:BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler.HandleAsync
+  fullName: BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler.HandleAsync
+  nameWithType: IAgentEventHandler.HandleAsync
 - uid: BbQ.ChatWidgets.Agents.Abstractions.IAgentMiddleware
   name: IAgentMiddleware
   href: BbQ.ChatWidgets.Agents.Abstractions.IAgentMiddleware.html
@@ -1571,6 +1607,258 @@ references:
   fullName.vb: BbQ.ChatWidgets.Agents.AgentConversationTurn.<>
   nameWithType: AgentConversationTurn.operator !=
   nameWithType.vb: AgentConversationTurn.<>
+- uid: BbQ.ChatWidgets.Agents.AgentEvent
+  name: AgentEvent
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html
+  commentId: T:BbQ.ChatWidgets.Agents.AgentEvent
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent
+  nameWithType: AgentEvent
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.#ctor(BbQ.ChatWidgets.Agents.AgentEvent)
+  name: AgentEvent(AgentEvent)
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent__ctor_BbQ_ChatWidgets_Agents_AgentEvent_
+  commentId: M:BbQ.ChatWidgets.Agents.AgentEvent.#ctor(BbQ.ChatWidgets.Agents.AgentEvent)
+  name.vb: New(AgentEvent)
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.AgentEvent(BbQ.ChatWidgets.Agents.AgentEvent)
+  fullName.vb: BbQ.ChatWidgets.Agents.AgentEvent.New(BbQ.ChatWidgets.Agents.AgentEvent)
+  nameWithType: AgentEvent.AgentEvent(AgentEvent)
+  nameWithType.vb: AgentEvent.New(AgentEvent)
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.#ctor(BbQ.ChatWidgets.Agents.AgentEventType,System.String,System.String,System.String)
+  name: AgentEvent(AgentEventType, string?, string?, string?)
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent__ctor_BbQ_ChatWidgets_Agents_AgentEventType_System_String_System_String_System_String_
+  commentId: M:BbQ.ChatWidgets.Agents.AgentEvent.#ctor(BbQ.ChatWidgets.Agents.AgentEventType,System.String,System.String,System.String)
+  name.vb: New(AgentEventType, String, String, String)
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.AgentEvent(BbQ.ChatWidgets.Agents.AgentEventType, string?, string?, string?)
+  fullName.vb: BbQ.ChatWidgets.Agents.AgentEvent.New(BbQ.ChatWidgets.Agents.AgentEventType, String, String, String)
+  nameWithType: AgentEvent.AgentEvent(AgentEventType, string?, string?, string?)
+  nameWithType.vb: AgentEvent.New(AgentEventType, String, String, String)
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.#ctor*
+  name: AgentEvent
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Agents.AgentEvent.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.AgentEvent
+  fullName.vb: BbQ.ChatWidgets.Agents.AgentEvent.New
+  nameWithType: AgentEvent.AgentEvent
+  nameWithType.vb: AgentEvent.New
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.AgentName
+  name: AgentName
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_AgentName
+  commentId: P:BbQ.ChatWidgets.Agents.AgentEvent.AgentName
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.AgentName
+  nameWithType: AgentEvent.AgentName
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.AgentName*
+  name: AgentName
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_AgentName_
+  commentId: Overload:BbQ.ChatWidgets.Agents.AgentEvent.AgentName
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.AgentName
+  nameWithType: AgentEvent.AgentName
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.Deconstruct(BbQ.ChatWidgets.Agents.AgentEventType@,System.String@,System.String@,System.String@)
+  name: Deconstruct(out AgentEventType, out string?, out string?, out string?)
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_Deconstruct_BbQ_ChatWidgets_Agents_AgentEventType__System_String__System_String__System_String__
+  commentId: M:BbQ.ChatWidgets.Agents.AgentEvent.Deconstruct(BbQ.ChatWidgets.Agents.AgentEventType@,System.String@,System.String@,System.String@)
+  name.vb: Deconstruct(AgentEventType, String, String, String)
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.Deconstruct(out BbQ.ChatWidgets.Agents.AgentEventType, out string?, out string?, out string?)
+  fullName.vb: BbQ.ChatWidgets.Agents.AgentEvent.Deconstruct(BbQ.ChatWidgets.Agents.AgentEventType, String, String, String)
+  nameWithType: AgentEvent.Deconstruct(out AgentEventType, out string?, out string?, out string?)
+  nameWithType.vb: AgentEvent.Deconstruct(AgentEventType, String, String, String)
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Agents.AgentEvent.Deconstruct
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.Deconstruct
+  nameWithType: AgentEvent.Deconstruct
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.EqualityContract
+  name: EqualityContract
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_EqualityContract
+  commentId: P:BbQ.ChatWidgets.Agents.AgentEvent.EqualityContract
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.EqualityContract
+  nameWithType: AgentEvent.EqualityContract
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.EqualityContract*
+  name: EqualityContract
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_EqualityContract_
+  commentId: Overload:BbQ.ChatWidgets.Agents.AgentEvent.EqualityContract
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.EqualityContract
+  nameWithType: AgentEvent.EqualityContract
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.Equals(BbQ.ChatWidgets.Agents.AgentEvent)
+  name: Equals(AgentEvent?)
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_Equals_BbQ_ChatWidgets_Agents_AgentEvent_
+  commentId: M:BbQ.ChatWidgets.Agents.AgentEvent.Equals(BbQ.ChatWidgets.Agents.AgentEvent)
+  name.vb: Equals(AgentEvent)
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.Equals(BbQ.ChatWidgets.Agents.AgentEvent?)
+  fullName.vb: BbQ.ChatWidgets.Agents.AgentEvent.Equals(BbQ.ChatWidgets.Agents.AgentEvent)
+  nameWithType: AgentEvent.Equals(AgentEvent?)
+  nameWithType.vb: AgentEvent.Equals(AgentEvent)
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Agents.AgentEvent.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Agents.AgentEvent.Equals(Object)
+  nameWithType: AgentEvent.Equals(object?)
+  nameWithType.vb: AgentEvent.Equals(Object)
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Agents.AgentEvent.Equals
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.Equals
+  nameWithType: AgentEvent.Equals
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.EventType
+  name: EventType
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_EventType
+  commentId: P:BbQ.ChatWidgets.Agents.AgentEvent.EventType
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.EventType
+  nameWithType: AgentEvent.EventType
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.EventType*
+  name: EventType
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_EventType_
+  commentId: Overload:BbQ.ChatWidgets.Agents.AgentEvent.EventType
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.EventType
+  nameWithType: AgentEvent.EventType
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Agents.AgentEvent.GetHashCode
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.GetHashCode()
+  nameWithType: AgentEvent.GetHashCode()
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Agents.AgentEvent.GetHashCode
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.GetHashCode
+  nameWithType: AgentEvent.GetHashCode
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.Message
+  name: Message
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_Message
+  commentId: P:BbQ.ChatWidgets.Agents.AgentEvent.Message
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.Message
+  nameWithType: AgentEvent.Message
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.Message*
+  name: Message
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_Message_
+  commentId: Overload:BbQ.ChatWidgets.Agents.AgentEvent.Message
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.Message
+  nameWithType: AgentEvent.Message
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.PrintMembers(System.Text.StringBuilder)
+  name: PrintMembers(StringBuilder)
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_PrintMembers_System_Text_StringBuilder_
+  commentId: M:BbQ.ChatWidgets.Agents.AgentEvent.PrintMembers(System.Text.StringBuilder)
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.PrintMembers(System.Text.StringBuilder)
+  nameWithType: AgentEvent.PrintMembers(StringBuilder)
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.PrintMembers*
+  name: PrintMembers
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_PrintMembers_
+  commentId: Overload:BbQ.ChatWidgets.Agents.AgentEvent.PrintMembers
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.PrintMembers
+  nameWithType: AgentEvent.PrintMembers
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.ThreadId
+  name: ThreadId
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_ThreadId
+  commentId: P:BbQ.ChatWidgets.Agents.AgentEvent.ThreadId
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.ThreadId
+  nameWithType: AgentEvent.ThreadId
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.ThreadId*
+  name: ThreadId
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_ThreadId_
+  commentId: Overload:BbQ.ChatWidgets.Agents.AgentEvent.ThreadId
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.ThreadId
+  nameWithType: AgentEvent.ThreadId
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_ToString
+  commentId: M:BbQ.ChatWidgets.Agents.AgentEvent.ToString
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.ToString()
+  nameWithType: AgentEvent.ToString()
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Agents.AgentEvent.ToString
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.ToString
+  nameWithType: AgentEvent.ToString
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.op_Equality(BbQ.ChatWidgets.Agents.AgentEvent,BbQ.ChatWidgets.Agents.AgentEvent)
+  name: operator ==(AgentEvent?, AgentEvent?)
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_op_Equality_BbQ_ChatWidgets_Agents_AgentEvent_BbQ_ChatWidgets_Agents_AgentEvent_
+  commentId: M:BbQ.ChatWidgets.Agents.AgentEvent.op_Equality(BbQ.ChatWidgets.Agents.AgentEvent,BbQ.ChatWidgets.Agents.AgentEvent)
+  name.vb: =(AgentEvent, AgentEvent)
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.operator ==(BbQ.ChatWidgets.Agents.AgentEvent?, BbQ.ChatWidgets.Agents.AgentEvent?)
+  fullName.vb: BbQ.ChatWidgets.Agents.AgentEvent.=(BbQ.ChatWidgets.Agents.AgentEvent, BbQ.ChatWidgets.Agents.AgentEvent)
+  nameWithType: AgentEvent.operator ==(AgentEvent?, AgentEvent?)
+  nameWithType.vb: AgentEvent.=(AgentEvent, AgentEvent)
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Agents.AgentEvent.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.operator ==
+  fullName.vb: BbQ.ChatWidgets.Agents.AgentEvent.=
+  nameWithType: AgentEvent.operator ==
+  nameWithType.vb: AgentEvent.=
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.op_Inequality(BbQ.ChatWidgets.Agents.AgentEvent,BbQ.ChatWidgets.Agents.AgentEvent)
+  name: operator !=(AgentEvent?, AgentEvent?)
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_op_Inequality_BbQ_ChatWidgets_Agents_AgentEvent_BbQ_ChatWidgets_Agents_AgentEvent_
+  commentId: M:BbQ.ChatWidgets.Agents.AgentEvent.op_Inequality(BbQ.ChatWidgets.Agents.AgentEvent,BbQ.ChatWidgets.Agents.AgentEvent)
+  name.vb: <>(AgentEvent, AgentEvent)
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.operator !=(BbQ.ChatWidgets.Agents.AgentEvent?, BbQ.ChatWidgets.Agents.AgentEvent?)
+  fullName.vb: BbQ.ChatWidgets.Agents.AgentEvent.<>(BbQ.ChatWidgets.Agents.AgentEvent, BbQ.ChatWidgets.Agents.AgentEvent)
+  nameWithType: AgentEvent.operator !=(AgentEvent?, AgentEvent?)
+  nameWithType.vb: AgentEvent.<>(AgentEvent, AgentEvent)
+- uid: BbQ.ChatWidgets.Agents.AgentEvent.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Agents.AgentEvent.html#BbQ_ChatWidgets_Agents_AgentEvent_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Agents.AgentEvent.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Agents.AgentEvent.operator !=
+  fullName.vb: BbQ.ChatWidgets.Agents.AgentEvent.<>
+  nameWithType: AgentEvent.operator !=
+  nameWithType.vb: AgentEvent.<>
+- uid: BbQ.ChatWidgets.Agents.AgentEventType
+  name: AgentEventType
+  href: BbQ.ChatWidgets.Agents.AgentEventType.html
+  commentId: T:BbQ.ChatWidgets.Agents.AgentEventType
+  fullName: BbQ.ChatWidgets.Agents.AgentEventType
+  nameWithType: AgentEventType
+- uid: BbQ.ChatWidgets.Agents.AgentEventType.AgentCompleted
+  name: AgentCompleted
+  href: BbQ.ChatWidgets.Agents.AgentEventType.html#BbQ_ChatWidgets_Agents_AgentEventType_AgentCompleted
+  commentId: F:BbQ.ChatWidgets.Agents.AgentEventType.AgentCompleted
+  fullName: BbQ.ChatWidgets.Agents.AgentEventType.AgentCompleted
+  nameWithType: AgentEventType.AgentCompleted
+- uid: BbQ.ChatWidgets.Agents.AgentEventType.AgentStarted
+  name: AgentStarted
+  href: BbQ.ChatWidgets.Agents.AgentEventType.html#BbQ_ChatWidgets_Agents_AgentEventType_AgentStarted
+  commentId: F:BbQ.ChatWidgets.Agents.AgentEventType.AgentStarted
+  fullName: BbQ.ChatWidgets.Agents.AgentEventType.AgentStarted
+  nameWithType: AgentEventType.AgentStarted
+- uid: BbQ.ChatWidgets.Agents.AgentEventType.Thinking
+  name: Thinking
+  href: BbQ.ChatWidgets.Agents.AgentEventType.html#BbQ_ChatWidgets_Agents_AgentEventType_Thinking
+  commentId: F:BbQ.ChatWidgets.Agents.AgentEventType.Thinking
+  fullName: BbQ.ChatWidgets.Agents.AgentEventType.Thinking
+  nameWithType: AgentEventType.Thinking
+- uid: BbQ.ChatWidgets.Agents.AgentEventType.ToolCallCompleted
+  name: ToolCallCompleted
+  href: BbQ.ChatWidgets.Agents.AgentEventType.html#BbQ_ChatWidgets_Agents_AgentEventType_ToolCallCompleted
+  commentId: F:BbQ.ChatWidgets.Agents.AgentEventType.ToolCallCompleted
+  fullName: BbQ.ChatWidgets.Agents.AgentEventType.ToolCallCompleted
+  nameWithType: AgentEventType.ToolCallCompleted
+- uid: BbQ.ChatWidgets.Agents.AgentEventType.ToolCallStarted
+  name: ToolCallStarted
+  href: BbQ.ChatWidgets.Agents.AgentEventType.html#BbQ_ChatWidgets_Agents_AgentEventType_ToolCallStarted
+  commentId: F:BbQ.ChatWidgets.Agents.AgentEventType.ToolCallStarted
+  fullName: BbQ.ChatWidgets.Agents.AgentEventType.ToolCallStarted
+  nameWithType: AgentEventType.ToolCallStarted
+- uid: BbQ.ChatWidgets.Agents.AgentEventType.TriageCompleted
+  name: TriageCompleted
+  href: BbQ.ChatWidgets.Agents.AgentEventType.html#BbQ_ChatWidgets_Agents_AgentEventType_TriageCompleted
+  commentId: F:BbQ.ChatWidgets.Agents.AgentEventType.TriageCompleted
+  fullName: BbQ.ChatWidgets.Agents.AgentEventType.TriageCompleted
+  nameWithType: AgentEventType.TriageCompleted
+- uid: BbQ.ChatWidgets.Agents.AgentEventType.Triaging
+  name: Triaging
+  href: BbQ.ChatWidgets.Agents.AgentEventType.html#BbQ_ChatWidgets_Agents_AgentEventType_Triaging
+  commentId: F:BbQ.ChatWidgets.Agents.AgentEventType.Triaging
+  fullName: BbQ.ChatWidgets.Agents.AgentEventType.Triaging
+  nameWithType: AgentEventType.Triaging
 - uid: BbQ.ChatWidgets.Agents.AgentPipelineBuilder
   name: AgentPipelineBuilder
   href: BbQ.ChatWidgets.Agents.AgentPipelineBuilder.html
@@ -2243,6 +2531,42 @@ references:
   fullName.vb: BbQ.ChatWidgets.Agents.ChatRequest.<>
   nameWithType: ChatRequest.operator !=
   nameWithType.vb: ChatRequest.<>
+- uid: BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher
+  name: DefaultAgentEventDispatcher
+  href: BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.html
+  commentId: T:BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher
+  fullName: BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher
+  nameWithType: DefaultAgentEventDispatcher
+- uid: BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.#ctor(System.Collections.Generic.IEnumerable{BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler})
+  name: DefaultAgentEventDispatcher(IEnumerable<IAgentEventHandler>)
+  href: BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.html#BbQ_ChatWidgets_Agents_DefaultAgentEventDispatcher__ctor_System_Collections_Generic_IEnumerable_BbQ_ChatWidgets_Agents_Abstractions_IAgentEventHandler__
+  commentId: M:BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.#ctor(System.Collections.Generic.IEnumerable{BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler})
+  name.vb: New(IEnumerable(Of IAgentEventHandler))
+  fullName: BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.DefaultAgentEventDispatcher(System.Collections.Generic.IEnumerable<BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler>)
+  fullName.vb: BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.New(System.Collections.Generic.IEnumerable(Of BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler))
+  nameWithType: DefaultAgentEventDispatcher.DefaultAgentEventDispatcher(IEnumerable<IAgentEventHandler>)
+  nameWithType.vb: DefaultAgentEventDispatcher.New(IEnumerable(Of IAgentEventHandler))
+- uid: BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.#ctor*
+  name: DefaultAgentEventDispatcher
+  href: BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.html#BbQ_ChatWidgets_Agents_DefaultAgentEventDispatcher__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.DefaultAgentEventDispatcher
+  fullName.vb: BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.New
+  nameWithType: DefaultAgentEventDispatcher.DefaultAgentEventDispatcher
+  nameWithType.vb: DefaultAgentEventDispatcher.New
+- uid: BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.DispatchAsync(BbQ.ChatWidgets.Agents.AgentEvent,System.Threading.CancellationToken)
+  name: DispatchAsync(AgentEvent, CancellationToken)
+  href: BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.html#BbQ_ChatWidgets_Agents_DefaultAgentEventDispatcher_DispatchAsync_BbQ_ChatWidgets_Agents_AgentEvent_System_Threading_CancellationToken_
+  commentId: M:BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.DispatchAsync(BbQ.ChatWidgets.Agents.AgentEvent,System.Threading.CancellationToken)
+  fullName: BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.DispatchAsync(BbQ.ChatWidgets.Agents.AgentEvent, System.Threading.CancellationToken)
+  nameWithType: DefaultAgentEventDispatcher.DispatchAsync(AgentEvent, CancellationToken)
+- uid: BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.DispatchAsync*
+  name: DispatchAsync
+  href: BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.html#BbQ_ChatWidgets_Agents_DefaultAgentEventDispatcher_DispatchAsync_
+  commentId: Overload:BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.DispatchAsync
+  fullName: BbQ.ChatWidgets.Agents.DefaultAgentEventDispatcher.DispatchAsync
+  nameWithType: DefaultAgentEventDispatcher.DispatchAsync
 - uid: BbQ.ChatWidgets.Agents.Extensions
   name: BbQ.ChatWidgets.Agents.Extensions
   href: BbQ.ChatWidgets.Agents.Extensions.html
@@ -2498,15 +2822,15 @@ references:
   commentId: T:BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator
   fullName: BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator
   nameWithType: MultiTurnAgentOrchestrator
-- uid: BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.#ctor(BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry,System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,BbQ.ChatWidgets.Agents.AgentConversationOptions}},BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions)
-  name: MultiTurnAgentOrchestrator(IAgentRegistry, IEnumerable<(string AgentName, AgentConversationOptions Options)>, MultiTurnAgentOrchestratorOptions?)
-  href: BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.html#BbQ_ChatWidgets_Agents_MultiTurnAgentOrchestrator__ctor_BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_System_Collections_Generic_IEnumerable_System_ValueTuple_System_String_BbQ_ChatWidgets_Agents_AgentConversationOptions___BbQ_ChatWidgets_Agents_MultiTurnAgentOrchestratorOptions_
-  commentId: M:BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.#ctor(BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry,System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,BbQ.ChatWidgets.Agents.AgentConversationOptions}},BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions)
-  name.vb: New(IAgentRegistry, IEnumerable(Of (AgentName As String, Options As AgentConversationOptions)), MultiTurnAgentOrchestratorOptions)
-  fullName: BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.MultiTurnAgentOrchestrator(BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry, System.Collections.Generic.IEnumerable<(string AgentName, BbQ.ChatWidgets.Agents.AgentConversationOptions Options)>, BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions?)
-  fullName.vb: BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.New(BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry, System.Collections.Generic.IEnumerable(Of (AgentName As String, Options As BbQ.ChatWidgets.Agents.AgentConversationOptions)), BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions)
-  nameWithType: MultiTurnAgentOrchestrator.MultiTurnAgentOrchestrator(IAgentRegistry, IEnumerable<(string AgentName, AgentConversationOptions Options)>, MultiTurnAgentOrchestratorOptions?)
-  nameWithType.vb: MultiTurnAgentOrchestrator.New(IAgentRegistry, IEnumerable(Of (AgentName As String, Options As AgentConversationOptions)), MultiTurnAgentOrchestratorOptions)
+- uid: BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.#ctor(BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry,System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,BbQ.ChatWidgets.Agents.AgentConversationOptions}},BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions,BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher)
+  name: MultiTurnAgentOrchestrator(IAgentRegistry, IEnumerable<(string AgentName, AgentConversationOptions Options)>, MultiTurnAgentOrchestratorOptions?, IAgentEventDispatcher?)
+  href: BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.html#BbQ_ChatWidgets_Agents_MultiTurnAgentOrchestrator__ctor_BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_System_Collections_Generic_IEnumerable_System_ValueTuple_System_String_BbQ_ChatWidgets_Agents_AgentConversationOptions___BbQ_ChatWidgets_Agents_MultiTurnAgentOrchestratorOptions_BbQ_ChatWidgets_Agents_Abstractions_IAgentEventDispatcher_
+  commentId: M:BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.#ctor(BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry,System.Collections.Generic.IEnumerable{System.ValueTuple{System.String,BbQ.ChatWidgets.Agents.AgentConversationOptions}},BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions,BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher)
+  name.vb: New(IAgentRegistry, IEnumerable(Of (AgentName As String, Options As AgentConversationOptions)), MultiTurnAgentOrchestratorOptions, IAgentEventDispatcher)
+  fullName: BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.MultiTurnAgentOrchestrator(BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry, System.Collections.Generic.IEnumerable<(string AgentName, BbQ.ChatWidgets.Agents.AgentConversationOptions Options)>, BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions?, BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher?)
+  fullName.vb: BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.New(BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry, System.Collections.Generic.IEnumerable(Of (AgentName As String, Options As BbQ.ChatWidgets.Agents.AgentConversationOptions)), BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestratorOptions, BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher)
+  nameWithType: MultiTurnAgentOrchestrator.MultiTurnAgentOrchestrator(IAgentRegistry, IEnumerable<(string AgentName, AgentConversationOptions Options)>, MultiTurnAgentOrchestratorOptions?, IAgentEventDispatcher?)
+  nameWithType.vb: MultiTurnAgentOrchestrator.New(IAgentRegistry, IEnumerable(Of (AgentName As String, Options As AgentConversationOptions)), MultiTurnAgentOrchestratorOptions, IAgentEventDispatcher)
 - uid: BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.#ctor*
   name: MultiTurnAgentOrchestrator
   href: BbQ.ChatWidgets.Agents.MultiTurnAgentOrchestrator.html#BbQ_ChatWidgets_Agents_MultiTurnAgentOrchestrator__ctor_
@@ -2597,15 +2921,15 @@ references:
   fullName.vb: BbQ.ChatWidgets.Agents.TriageAgent(Of TCategory)
   nameWithType: TriageAgent<TCategory>
   nameWithType.vb: TriageAgent(Of TCategory)
-- uid: BbQ.ChatWidgets.Agents.TriageAgent`1.#ctor(BbQ.ChatWidgets.Agents.Abstractions.IClassifier{`0},BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry,System.Func{`0,System.String},System.String,BbQ.ChatWidgets.Agents.Abstractions.IAgent,BbQ.ChatWidgets.Abstractions.IThreadService)
-  name: TriageAgent(IClassifier<TCategory>, IAgentRegistry, Func<TCategory, string?>, string?, IAgent?, IThreadService?)
-  href: BbQ.ChatWidgets.Agents.TriageAgent-1.html#BbQ_ChatWidgets_Agents_TriageAgent_1__ctor_BbQ_ChatWidgets_Agents_Abstractions_IClassifier__0__BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_System_Func__0_System_String__System_String_BbQ_ChatWidgets_Agents_Abstractions_IAgent_BbQ_ChatWidgets_Abstractions_IThreadService_
-  commentId: M:BbQ.ChatWidgets.Agents.TriageAgent`1.#ctor(BbQ.ChatWidgets.Agents.Abstractions.IClassifier{`0},BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry,System.Func{`0,System.String},System.String,BbQ.ChatWidgets.Agents.Abstractions.IAgent,BbQ.ChatWidgets.Abstractions.IThreadService)
-  name.vb: New(IClassifier(Of TCategory), IAgentRegistry, Func(Of TCategory, String), String, IAgent, IThreadService)
-  fullName: BbQ.ChatWidgets.Agents.TriageAgent<TCategory>.TriageAgent(BbQ.ChatWidgets.Agents.Abstractions.IClassifier<TCategory>, BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry, System.Func<TCategory, string?>, string?, BbQ.ChatWidgets.Agents.Abstractions.IAgent?, BbQ.ChatWidgets.Abstractions.IThreadService?)
-  fullName.vb: BbQ.ChatWidgets.Agents.TriageAgent(Of TCategory).New(BbQ.ChatWidgets.Agents.Abstractions.IClassifier(Of TCategory), BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry, System.Func(Of TCategory, String), String, BbQ.ChatWidgets.Agents.Abstractions.IAgent, BbQ.ChatWidgets.Abstractions.IThreadService)
-  nameWithType: TriageAgent<TCategory>.TriageAgent(IClassifier<TCategory>, IAgentRegistry, Func<TCategory, string?>, string?, IAgent?, IThreadService?)
-  nameWithType.vb: TriageAgent(Of TCategory).New(IClassifier(Of TCategory), IAgentRegistry, Func(Of TCategory, String), String, IAgent, IThreadService)
+- uid: BbQ.ChatWidgets.Agents.TriageAgent`1.#ctor(BbQ.ChatWidgets.Agents.Abstractions.IClassifier{`0},BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry,System.Func{`0,System.String},System.String,BbQ.ChatWidgets.Agents.Abstractions.IAgent,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher)
+  name: TriageAgent(IClassifier<TCategory>, IAgentRegistry, Func<TCategory, string?>, string?, IAgent?, IThreadService?, IAgentEventDispatcher?)
+  href: BbQ.ChatWidgets.Agents.TriageAgent-1.html#BbQ_ChatWidgets_Agents_TriageAgent_1__ctor_BbQ_ChatWidgets_Agents_Abstractions_IClassifier__0__BbQ_ChatWidgets_Agents_Abstractions_IAgentRegistry_System_Func__0_System_String__System_String_BbQ_ChatWidgets_Agents_Abstractions_IAgent_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Agents_Abstractions_IAgentEventDispatcher_
+  commentId: M:BbQ.ChatWidgets.Agents.TriageAgent`1.#ctor(BbQ.ChatWidgets.Agents.Abstractions.IClassifier{`0},BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry,System.Func{`0,System.String},System.String,BbQ.ChatWidgets.Agents.Abstractions.IAgent,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher)
+  name.vb: New(IClassifier(Of TCategory), IAgentRegistry, Func(Of TCategory, String), String, IAgent, IThreadService, IAgentEventDispatcher)
+  fullName: BbQ.ChatWidgets.Agents.TriageAgent<TCategory>.TriageAgent(BbQ.ChatWidgets.Agents.Abstractions.IClassifier<TCategory>, BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry, System.Func<TCategory, string?>, string?, BbQ.ChatWidgets.Agents.Abstractions.IAgent?, BbQ.ChatWidgets.Abstractions.IThreadService?, BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher?)
+  fullName.vb: BbQ.ChatWidgets.Agents.TriageAgent(Of TCategory).New(BbQ.ChatWidgets.Agents.Abstractions.IClassifier(Of TCategory), BbQ.ChatWidgets.Agents.Abstractions.IAgentRegistry, System.Func(Of TCategory, String), String, BbQ.ChatWidgets.Agents.Abstractions.IAgent, BbQ.ChatWidgets.Abstractions.IThreadService, BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher)
+  nameWithType: TriageAgent<TCategory>.TriageAgent(IClassifier<TCategory>, IAgentRegistry, Func<TCategory, string?>, string?, IAgent?, IThreadService?, IAgentEventDispatcher?)
+  nameWithType.vb: TriageAgent(Of TCategory).New(IClassifier(Of TCategory), IAgentRegistry, Func(Of TCategory, String), String, IAgent, IThreadService, IAgentEventDispatcher)
 - uid: BbQ.ChatWidgets.Agents.TriageAgent`1.#ctor*
   name: TriageAgent
   href: BbQ.ChatWidgets.Agents.TriageAgent-1.html#BbQ_ChatWidgets_Agents_TriageAgent_1__ctor_
@@ -3009,6 +3333,21 @@ references:
   commentId: T:BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions
   fullName: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions
   nameWithType: ServiceCollectionExtensions
+- uid: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddAgentEventHandler*
+  name: AddAgentEventHandler
+  href: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.html#BbQ_ChatWidgets_Extensions_ServiceCollectionExtensions_AddAgentEventHandler_
+  commentId: Overload:BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddAgentEventHandler
+  fullName: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddAgentEventHandler
+  nameWithType: ServiceCollectionExtensions.AddAgentEventHandler
+- uid: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddAgentEventHandler``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.ServiceLifetime)
+  name: AddAgentEventHandler<THandler>(IServiceCollection, ServiceLifetime)
+  href: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.html#BbQ_ChatWidgets_Extensions_ServiceCollectionExtensions_AddAgentEventHandler__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_DependencyInjection_ServiceLifetime_
+  commentId: M:BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddAgentEventHandler``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.ServiceLifetime)
+  name.vb: AddAgentEventHandler(Of THandler)(IServiceCollection, ServiceLifetime)
+  fullName: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddAgentEventHandler<THandler>(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.DependencyInjection.ServiceLifetime)
+  fullName.vb: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddAgentEventHandler(Of THandler)(Microsoft.Extensions.DependencyInjection.IServiceCollection, Microsoft.Extensions.DependencyInjection.ServiceLifetime)
+  nameWithType: ServiceCollectionExtensions.AddAgentEventHandler<THandler>(IServiceCollection, ServiceLifetime)
+  nameWithType.vb: ServiceCollectionExtensions.AddAgentEventHandler(Of THandler)(IServiceCollection, ServiceLifetime)
 - uid: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddBbQChatWidgets(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{BbQChatOptions})
   name: AddBbQChatWidgets(IServiceCollection, Action<BbQChatOptions>?)
   href: BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.html#BbQ_ChatWidgets_Extensions_ServiceCollectionExtensions_AddBbQChatWidgets_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_BbQChatOptions__
@@ -7827,15 +8166,15 @@ references:
   commentId: T:BbQ.ChatWidgets.Services.ChatWidgetService
   fullName: BbQ.ChatWidgets.Services.ChatWidgetService
   nameWithType: ChatWidgetService
-- uid: BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IThreadPersonaStore,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer,BbQChatOptions)
-  name: ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)
-  href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IThreadPersonaStore_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_BbQChatOptions_
-  commentId: M:BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IThreadPersonaStore,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer,BbQChatOptions)
-  name.vb: New(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)
-  fullName: BbQ.ChatWidgets.Services.ChatWidgetService.ChatWidgetService(Microsoft.Extensions.AI.IChatClient, BbQ.ChatWidgets.Abstractions.IWidgetHintParser, BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer, BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider, BbQ.ChatWidgets.Abstractions.IAIToolsProvider, BbQ.ChatWidgets.Abstractions.IThreadService, BbQ.ChatWidgets.Abstractions.IThreadPersonaStore, BbQ.ChatWidgets.Abstractions.IAIInstructionProvider, BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer, BbQChatOptions)
-  fullName.vb: BbQ.ChatWidgets.Services.ChatWidgetService.New(Microsoft.Extensions.AI.IChatClient, BbQ.ChatWidgets.Abstractions.IWidgetHintParser, BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer, BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider, BbQ.ChatWidgets.Abstractions.IAIToolsProvider, BbQ.ChatWidgets.Abstractions.IThreadService, BbQ.ChatWidgets.Abstractions.IThreadPersonaStore, BbQ.ChatWidgets.Abstractions.IAIInstructionProvider, BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer, BbQChatOptions)
-  nameWithType: ChatWidgetService.ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)
-  nameWithType.vb: ChatWidgetService.New(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, BbQChatOptions)
+- uid: BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IThreadPersonaStore,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer,BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher,BbQChatOptions)
+  name: ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, IAgentEventDispatcher, BbQChatOptions)
+  href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IThreadPersonaStore_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_BbQ_ChatWidgets_Agents_Abstractions_IAgentEventDispatcher_BbQChatOptions_
+  commentId: M:BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IThreadPersonaStore,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer,BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher,BbQChatOptions)
+  name.vb: New(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, IAgentEventDispatcher, BbQChatOptions)
+  fullName: BbQ.ChatWidgets.Services.ChatWidgetService.ChatWidgetService(Microsoft.Extensions.AI.IChatClient, BbQ.ChatWidgets.Abstractions.IWidgetHintParser, BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer, BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider, BbQ.ChatWidgets.Abstractions.IAIToolsProvider, BbQ.ChatWidgets.Abstractions.IThreadService, BbQ.ChatWidgets.Abstractions.IThreadPersonaStore, BbQ.ChatWidgets.Abstractions.IAIInstructionProvider, BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer, BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher, BbQChatOptions)
+  fullName.vb: BbQ.ChatWidgets.Services.ChatWidgetService.New(Microsoft.Extensions.AI.IChatClient, BbQ.ChatWidgets.Abstractions.IWidgetHintParser, BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer, BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider, BbQ.ChatWidgets.Abstractions.IAIToolsProvider, BbQ.ChatWidgets.Abstractions.IThreadService, BbQ.ChatWidgets.Abstractions.IThreadPersonaStore, BbQ.ChatWidgets.Abstractions.IAIInstructionProvider, BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer, BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher, BbQChatOptions)
+  nameWithType: ChatWidgetService.ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, IAgentEventDispatcher, BbQChatOptions)
+  nameWithType.vb: ChatWidgetService.New(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, IAgentEventDispatcher, BbQChatOptions)
 - uid: BbQ.ChatWidgets.Services.ChatWidgetService.#ctor*
   name: ChatWidgetService
   href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService__ctor_

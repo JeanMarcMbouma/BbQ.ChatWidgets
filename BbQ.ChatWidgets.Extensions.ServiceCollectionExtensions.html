@@ -118,6 +118,82 @@
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Extensions/ServiceCollectionExtensions.cs">View Source</a>
   </span>
+  <a id="BbQ_ChatWidgets_Extensions_ServiceCollectionExtensions_AddAgentEventHandler_" data-uid="BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddAgentEventHandler*"></a>
+  <h4 id="BbQ_ChatWidgets_Extensions_ServiceCollectionExtensions_AddAgentEventHandler__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_DependencyInjection_ServiceLifetime_" data-uid="BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddAgentEventHandler``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.ServiceLifetime)">AddAgentEventHandler&lt;THandler&gt;(IServiceCollection, ServiceLifetime)</h4>
+  <div class="markdown level1 summary"><p>Registers an <a class="xref" href="BbQ.ChatWidgets.Agents.Abstractions.IAgentEventHandler.html">IAgentEventHandler</a> implementation so that it receives
+agent lifecycle events (thinking, triaging, agent started/completed, etc.).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IServiceCollection AddAgentEventHandler&lt;THandler&gt;(this IServiceCollection services, ServiceLifetime lifetime = ServiceLifetime.Scoped) where THandler : class, IAgentEventHandler</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
+        <td><span class="parametername">services</span></td>
+        <td><p>The service collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.servicelifetime">ServiceLifetime</a></td>
+        <td><span class="parametername">lifetime</span></td>
+        <td><p>The service lifetime. Defaults to <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.servicelifetime#microsoft-extensions-dependencyinjection-servicelifetime-scoped">Scoped</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.iservicecollection">IServiceCollection</a></td>
+        <td><p>The service collection for method chaining.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">THandler</span></td>
+        <td><p>The handler implementation type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="BbQ_ChatWidgets_Extensions_ServiceCollectionExtensions_AddAgentEventHandler__1_Microsoft_Extensions_DependencyInjection_IServiceCollection_Microsoft_Extensions_DependencyInjection_ServiceLifetime__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Multiple handlers can be registered; they are invoked sequentially in registration order.</p>
+<p>Example:</p>
+<pre><code class="lang-csharp">services.AddBbQChatWidgets(options =&gt; { … });
+services.AddAgentEventHandler&lt;MyThinkingIndicatorHandler&gt;();</code></pre>
+</div>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Extensions/ServiceCollectionExtensions.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Extensions_ServiceCollectionExtensions_AddBbQChatWidgets_" data-uid="BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddBbQChatWidgets*"></a>
   <h4 id="BbQ_ChatWidgets_Extensions_ServiceCollectionExtensions_AddBbQChatWidgets_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_BbQChatOptions__" data-uid="BbQ.ChatWidgets.Extensions.ServiceCollectionExtensions.AddBbQChatWidgets(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{BbQChatOptions})">AddBbQChatWidgets(IServiceCollection, Action&lt;BbQChatOptions&gt;?)</h4>
   <div class="markdown level1 summary"><p>Registers BbQ ChatWidgets services in the dependency injection container.</p>

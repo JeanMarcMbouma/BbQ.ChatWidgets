@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.AI;
 using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Agents;
+using BbQ.ChatWidgets.Agents.Abstractions;
 using System.Text.Json;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -30,6 +32,7 @@ namespace BbQ.ChatWidgets.Services;
 /// - <see cref="IWidgetActionRegistry"/> for action metadata
 /// - <see cref="IWidgetActionHandlerResolver"/> for handler resolution
 /// - <see cref="IChatHistorySummarizer"/> for chat history summarization
+/// - <see cref="IAgentEventDispatcher"/> for dispatching agent lifecycle events
 /// </remarks>
 public sealed class ChatWidgetService(
     IChatClient chat,
@@ -43,6 +46,7 @@ public sealed class ChatWidgetService(
     IWidgetActionRegistry actionRegistry,
     IWidgetActionHandlerResolver handlerResolver,
     IChatHistorySummarizer historySummarizer,
+    IAgentEventDispatcher eventDispatcher,
     BbQChatOptions options)
 {
     /// <summary>
@@ -120,6 +124,8 @@ public sealed class ChatWidgetService(
         var messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.User, userMessage, ThreadId: threadId));
 
         var aiMessages = await PrepareMessagesWithSummarizationAsync(messages, threadId, ct);
+
+        await eventDispatcher.DispatchAsync(new AgentEvent(AgentEventType.Thinking, threadId), ct);
 
         var completion = await chat.GetResponseAsync(aiMessages, chatOptions, ct);
 
@@ -204,6 +210,8 @@ public sealed class ChatWidgetService(
         var messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.User, userMessage, ThreadId: threadId));
 
         var aiMessages = await PrepareMessagesWithSummarizationAsync(messages, threadId, cancellationToken);
+
+        await eventDispatcher.DispatchAsync(new AgentEvent(AgentEventType.Thinking, threadId), cancellationToken);
 
         string responseText = string.Empty;
         var chatWidgets = new List<ChatWidget>();

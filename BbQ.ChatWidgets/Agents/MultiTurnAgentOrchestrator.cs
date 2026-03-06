@@ -40,6 +40,7 @@ public sealed class MultiTurnAgentOrchestrator : IAgent
     private readonly IAgentRegistry _registry;
     private readonly IReadOnlyList<(string AgentName, AgentConversationOptions Options)> _pipeline;
     private readonly MultiTurnAgentOrchestratorOptions _orchestratorOptions;
+    private readonly IAgentEventDispatcher? _eventDispatcher;
 
     /// <summary>
     /// Initialises a new orchestrator with the specified pipeline.
@@ -52,10 +53,12 @@ public sealed class MultiTurnAgentOrchestrator : IAgent
     /// <param name="orchestratorOptions">
     /// Global max-rounds configuration.  Pass <c>null</c> to use defaults.
     /// </param>
+    /// <param name="eventDispatcher">Optional dispatcher for agent lifecycle events.</param>
     public MultiTurnAgentOrchestrator(
         IAgentRegistry registry,
         IEnumerable<(string AgentName, AgentConversationOptions Options)> pipeline,
-        MultiTurnAgentOrchestratorOptions? orchestratorOptions = null)
+        MultiTurnAgentOrchestratorOptions? orchestratorOptions = null,
+        IAgentEventDispatcher? eventDispatcher = null)
     {
         _registry = registry ?? throw new ArgumentNullException(nameof(registry));
 
@@ -71,6 +74,8 @@ public sealed class MultiTurnAgentOrchestrator : IAgent
             throw new ArgumentException("MaxRoundsPerAgent must be at least 1.");
         if (_orchestratorOptions.MaxTotalRounds < 1)
             throw new ArgumentException("MaxTotalRounds must be at least 1.");
+
+        _eventDispatcher = eventDispatcher;
     }
 
     /// <inheritdoc/>
@@ -116,7 +121,13 @@ public sealed class MultiTurnAgentOrchestrator : IAgent
             // Track which agent is about to be called
             InterAgentCommunicationContext.SetRoutedAgent(request, agentName);
 
+            if (_eventDispatcher is not null)
+                await _eventDispatcher.DispatchAsync(new AgentEvent(AgentEventType.AgentStarted, request.ThreadId, agentName), cancellationToken);
+
             var outcome = await agent.InvokeAsync(request, cancellationToken);
+
+            if (_eventDispatcher is not null)
+                await _eventDispatcher.DispatchAsync(new AgentEvent(AgentEventType.AgentCompleted, request.ThreadId, agentName), cancellationToken);
 
             // Record the turn regardless of success/failure
             var content = outcome.IsSuccess

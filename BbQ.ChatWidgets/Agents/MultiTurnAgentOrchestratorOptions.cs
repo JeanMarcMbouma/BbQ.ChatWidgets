@@ -17,4 +17,14 @@ public sealed class MultiTurnAgentOrchestratorOptions
     /// agents are chained.  Must be at least 1.  Defaults to 20.
     /// </summary>
     public int MaxTotalRounds { get; init; } = 20;
+
+    /// <summary>
+    /// When <c>true</c>, the orchestrator repeats the agent pipeline from the
+    /// beginning after the last agent finishes, allowing agents to review and
+    /// rework each other's output in a loop.  The loop continues until
+    /// <see cref="MaxTotalRounds"/> or per-agent <see cref="MaxRoundsPerAgent"/>
+    /// limits are exhausted, or until no agent in a full cycle is eligible to
+    /// run.  Defaults to <c>false</c>.
+    /// </summary>
+    public bool Loop { get; init; }
 }

@@ -521,6 +521,160 @@ public class MultiTurnAgentOrchestratorTests
         Assert.Equal(string.Empty, ctx.BuildSummary());
     }
 
+    // ---- Loop mode ----
+
+    [Fact]
+    public async Task Loop_AgentsInvokedMultipleTimes_UntilMaxTotalRounds()
+    {
+        int callCountA = 0, callCountB = 0;
+
+        using var provider = BuildProvider(s =>
+        {
+            s.AddAgent<EchoAgent>("a", _ => { callCountA++; return new EchoAgent("A"); });
+            s.AddAgent<EchoAgent>("b", _ => { callCountB++; return new EchoAgent("B"); });
+        });
+
+        using var scope = provider.CreateScope();
+        var registry = scope.ServiceProvider.GetRequiredService<IAgentRegistry>();
+
+        // Loop = true, MaxTotalRounds = 4 → expects 2 full cycles: A, B, A, B
+        var orchestrator = new MultiTurnAgentOrchestrator(
+            registry,
+            [("a", new AgentConversationOptions()), ("b", new AgentConversationOptions())],
+            new MultiTurnAgentOrchestratorOptions { MaxRoundsPerAgent = 5, MaxTotalRounds = 4, Loop = true });
+
+        var request = CreateRequest("loop test");
+        var outcome = await orchestrator.InvokeAsync(request, default);
+
+        Assert.True(outcome.IsSuccess);
+
+        var ctx = MultiTurnAgentOrchestrator.GetConversationContext(request);
+        Assert.NotNull(ctx);
+        Assert.Equal(4, ctx.Turns.Count);
+        Assert.Equal("a", ctx.Turns[0].AgentName);
+        Assert.Equal("b", ctx.Turns[1].AgentName);
+        Assert.Equal("a", ctx.Turns[2].AgentName);
+        Assert.Equal("b", ctx.Turns[3].AgentName);
+    }
+
+    [Fact]
+    public async Task Loop_StopsWhenAllAgentsHitPerAgentCap()
+    {
+        using var provider = BuildProvider(s =>
+        {
+            s.AddAgent<EchoAgent>("a", _ => new EchoAgent("A"));
+            s.AddAgent<EchoAgent>("b", _ => new EchoAgent("B"));
+        });
+
+        using var scope = provider.CreateScope();
+        var registry = scope.ServiceProvider.GetRequiredService<IAgentRegistry>();
+
+        // Loop = true, MaxRoundsPerAgent = 2, MaxTotalRounds = 100
+        // Each agent should be invoked exactly 2 times → 4 total turns
+        var orchestrator = new MultiTurnAgentOrchestrator(
+            registry,
+            [("a", new AgentConversationOptions()), ("b", new AgentConversationOptions())],
+            new MultiTurnAgentOrchestratorOptions { MaxRoundsPerAgent = 2, MaxTotalRounds = 100, Loop = true });
+
+        var request = CreateRequest("per-agent cap loop");
+        var outcome = await orchestrator.InvokeAsync(request, default);
+
+        Assert.True(outcome.IsSuccess);
+
+        var ctx = MultiTurnAgentOrchestrator.GetConversationContext(request);
+        Assert.NotNull(ctx);
+        Assert.Equal(4, ctx.Turns.Count);
+        Assert.Equal(2, ctx.Turns.Count(t => t.AgentName == "a"));
+        Assert.Equal(2, ctx.Turns.Count(t => t.AgentName == "b"));
+    }
+
+    [Fact]
+    public async Task Loop_False_PipelineRunsExactlyOnce()
+    {
+        using var provider = BuildProvider(s =>
+        {
+            s.AddAgent<EchoAgent>("a", _ => new EchoAgent("A"));
+            s.AddAgent<EchoAgent>("b", _ => new EchoAgent("B"));
+        });
+
+        using var scope = provider.CreateScope();
+        var registry = scope.ServiceProvider.GetRequiredService<IAgentRegistry>();
+
+        // Loop = false (default), large max rounds → pipeline runs once
+        var orchestrator = new MultiTurnAgentOrchestrator(
+            registry,
+            [("a", new AgentConversationOptions()), ("b", new AgentConversationOptions())],
+            new MultiTurnAgentOrchestratorOptions { MaxRoundsPerAgent = 5, MaxTotalRounds = 20, Loop = false });
+
+        var request = CreateRequest("no loop");
+        var outcome = await orchestrator.InvokeAsync(request, default);
+
+        Assert.True(outcome.IsSuccess);
+
+        var ctx = MultiTurnAgentOrchestrator.GetConversationContext(request);
+        Assert.NotNull(ctx);
+        Assert.Equal(2, ctx.Turns.Count);
+    }
+
+    [Fact]
+    public async Task Loop_ContextAccumulatesAcrossCycles()
+    {
+        var contextInspector = new ContextInspectingAgent();
+
+        using var provider = BuildProvider(s =>
+        {
+            s.AddAgent<EchoAgent>("writer", _ => new EchoAgent("Writer"));
+            s.AddAgent<ContextInspectingAgent>("reviewer", _ => contextInspector);
+        });
+
+        using var scope = provider.CreateScope();
+        var registry = scope.ServiceProvider.GetRequiredService<IAgentRegistry>();
+
+        // Loop = true, MaxTotalRounds = 4 → 2 cycles: writer, reviewer, writer, reviewer
+        var orchestrator = new MultiTurnAgentOrchestrator(
+            registry,
+            [
+                ("writer",   new AgentConversationOptions()),
+                ("reviewer", new AgentConversationOptions())
+            ],
+            new MultiTurnAgentOrchestratorOptions { MaxRoundsPerAgent = 5, MaxTotalRounds = 4, Loop = true });
+
+        var request = CreateRequest("review me");
+        await orchestrator.InvokeAsync(request, default);
+
+        // The reviewer on its second invocation (round 3) should see context
+        // from all 3 prior turns: writer(0), reviewer(1), writer(2)
+        Assert.NotNull(contextInspector.LastPriorContext);
+        Assert.Contains("Writer:", contextInspector.LastPriorContext);
+        Assert.Contains("context-checked", contextInspector.LastPriorContext);
+    }
+
+    [Fact]
+    public async Task Loop_DefaultOptionsDoNotLoop()
+    {
+        // Verify that the default MultiTurnAgentOrchestratorOptions (no Loop set) behaves
+        // the same as before — pipeline runs once even with room for more total rounds.
+        using var provider = BuildProvider(s =>
+        {
+            s.AddAgent<EchoAgent>("x", _ => new EchoAgent("X"));
+        });
+
+        using var scope = provider.CreateScope();
+        var registry = scope.ServiceProvider.GetRequiredService<IAgentRegistry>();
+
+        var orchestrator = new MultiTurnAgentOrchestrator(
+            registry,
+            [("x", new AgentConversationOptions())]);
+
+        var request = CreateRequest("default");
+        var outcome = await orchestrator.InvokeAsync(request, default);
+
+        Assert.True(outcome.IsSuccess);
+        var ctx = MultiTurnAgentOrchestrator.GetConversationContext(request);
+        Assert.NotNull(ctx);
+        Assert.Single(ctx.Turns);
+    }
+
     // ---- DI helper for AddAgent with factory ----
     // (The TestDouble helpers above use a factory overload; make sure the test extension exists)
     // We provide a tiny extension here rather than modifying production code.

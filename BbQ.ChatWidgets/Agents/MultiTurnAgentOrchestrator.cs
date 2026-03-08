@@ -16,6 +16,14 @@ namespace BbQ.ChatWidgets.Agents;
 /// exchanges.
 /// </para>
 /// <para>
+/// <strong>Looping.</strong>  When
+/// <see cref="MultiTurnAgentOrchestratorOptions.Loop"/> is <c>true</c>, the
+/// orchestrator repeats the pipeline from the beginning after the last agent
+/// finishes, enabling iterative review/rework cycles between agents.  The
+/// loop continues until max-rounds limits are exhausted or no agent in a
+/// full cycle is eligible to run.
+/// </para>
+/// <para>
 /// <strong>Max-rounds guard.</strong>  Each agent is queried at most
 /// <see cref="AgentConversationOptions.MaxRoundsOverride"/> times (falling
 /// back to <see cref="MultiTurnAgentOrchestratorOptions.MaxRoundsPerAgent"/>).
@@ -90,62 +98,76 @@ public sealed class MultiTurnAgentOrchestrator : IAgent
         // Track how many rounds each agent has been called
         var roundsPerAgent = new Dictionary<string, int>(StringComparer.Ordinal);
 
-        foreach (var (agentName, agentOptions) in _pipeline)
+        // When Loop is true, repeat the pipeline until max-rounds limits are
+        // exhausted or no agent in a full cycle is eligible to run.
+        while (totalRounds < _orchestratorOptions.MaxTotalRounds)
         {
-            cancellationToken.ThrowIfCancellationRequested();
+            bool anyAgentInvokedThisCycle = false;
 
-            if (totalRounds >= _orchestratorOptions.MaxTotalRounds)
+            foreach (var (agentName, agentOptions) in _pipeline)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+
+                if (totalRounds >= _orchestratorOptions.MaxTotalRounds)
+                    break;
+
+                var agent = _registry.GetAgent(agentName);
+                if (agent == null)
+                    return Outcome<ChatTurn>.FromError("AgentNotFound", $"Agent '{agentName}' not found in registry.");
+
+                roundsPerAgent.TryGetValue(agentName, out var agentRoundCount);
+                var maxRoundsForAgent = agentOptions.MaxRoundsOverride ?? _orchestratorOptions.MaxRoundsPerAgent;
+
+                if (agentRoundCount >= maxRoundsForAgent)
+                    continue;
+
+                // Inject per-agent persona if set, otherwise clear any persona left by a previous agent
+                if (!string.IsNullOrWhiteSpace(agentOptions.Persona))
+                    InterAgentCommunicationContext.SetPersona(request, agentOptions.Persona);
+                else
+                    InterAgentCommunicationContext.SetPersona(request, string.Empty);
+
+                // Inject accumulated conversation summary into metadata
+                var summary = conversationContext.BuildSummary();
+                if (!string.IsNullOrWhiteSpace(summary))
+                    request.Metadata["PriorAgentContext"] = summary;
+
+                // Track which agent is about to be called
+                InterAgentCommunicationContext.SetRoutedAgent(request, agentName);
+
+                if (_eventDispatcher is not null)
+                    await _eventDispatcher.DispatchAsync(new AgentEvent(AgentEventType.AgentStarted, request.ThreadId, agentName), cancellationToken);
+
+                var outcome = await agent.InvokeAsync(request, cancellationToken);
+
+                if (_eventDispatcher is not null)
+                    await _eventDispatcher.DispatchAsync(new AgentEvent(AgentEventType.AgentCompleted, request.ThreadId, agentName), cancellationToken);
+
+                // Record the turn regardless of success/failure
+                var content = outcome.IsSuccess
+                    ? outcome.Value?.Content ?? string.Empty
+                    : $"[Error: {outcome.GetError<string>()?.Description ?? "unknown"}]";
+                conversationContext.AddTurn(agentName, totalRounds, content);
+
+                lastOutcome = outcome;
+                roundsPerAgent[agentName] = agentRoundCount + 1;
+                totalRounds++;
+                anyAgentInvokedThisCycle = true;
+
+                // Store the conversation context back into metadata so the next
+                // agent can read the accumulated turns
+                request.Metadata[ConversationContextKey] = conversationContext;
+
+                // Propagate previous result for inter-agent communication
+                if (outcome.IsSuccess && outcome.Value is not null)
+                    InterAgentCommunicationContext.SetPreviousResult(request, outcome.Value);
+            }
+
+            // When Loop is false (default) the pipeline runs exactly once.
+            // When Loop is true but no agent was eligible this cycle, stop to
+            // avoid an infinite loop (all per-agent caps are exhausted).
+            if (!_orchestratorOptions.Loop || !anyAgentInvokedThisCycle)
                 break;
-
-            var agent = _registry.GetAgent(agentName);
-            if (agent == null)
-                return Outcome<ChatTurn>.FromError("AgentNotFound", $"Agent '{agentName}' not found in registry.");
-
-            roundsPerAgent.TryGetValue(agentName, out var agentRoundCount);
-            var maxRoundsForAgent = agentOptions.MaxRoundsOverride ?? _orchestratorOptions.MaxRoundsPerAgent;
-
-            if (agentRoundCount >= maxRoundsForAgent)
-                continue;
-
-            // Inject per-agent persona if set, otherwise clear any persona left by a previous agent
-            if (!string.IsNullOrWhiteSpace(agentOptions.Persona))
-                InterAgentCommunicationContext.SetPersona(request, agentOptions.Persona);
-            else
-                InterAgentCommunicationContext.SetPersona(request, string.Empty);
-
-            // Inject accumulated conversation summary into metadata
-            var summary = conversationContext.BuildSummary();
-            if (!string.IsNullOrWhiteSpace(summary))
-                request.Metadata["PriorAgentContext"] = summary;
-
-            // Track which agent is about to be called
-            InterAgentCommunicationContext.SetRoutedAgent(request, agentName);
-
-            if (_eventDispatcher is not null)
-                await _eventDispatcher.DispatchAsync(new AgentEvent(AgentEventType.AgentStarted, request.ThreadId, agentName), cancellationToken);
-
-            var outcome = await agent.InvokeAsync(request, cancellationToken);
-
-            if (_eventDispatcher is not null)
-                await _eventDispatcher.DispatchAsync(new AgentEvent(AgentEventType.AgentCompleted, request.ThreadId, agentName), cancellationToken);
-
-            // Record the turn regardless of success/failure
-            var content = outcome.IsSuccess
-                ? outcome.Value?.Content ?? string.Empty
-                : $"[Error: {outcome.GetError<string>()?.Description ?? "unknown"}]";
-            conversationContext.AddTurn(agentName, totalRounds, content);
-
-            lastOutcome = outcome;
-            roundsPerAgent[agentName] = agentRoundCount + 1;
-            totalRounds++;
-
-            // Store the conversation context back into metadata so the next
-            // agent can read the accumulated turns
-            request.Metadata[ConversationContextKey] = conversationContext;
-
-            // Propagate previous result for inter-agent communication
-            if (outcome.IsSuccess && outcome.Value is not null)
-                InterAgentCommunicationContext.SetPreviousResult(request, outcome.Value);
         }
 
         return lastOutcome

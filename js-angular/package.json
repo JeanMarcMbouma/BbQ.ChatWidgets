@@ -32,6 +32,9 @@
     "publish:lib": "cd dist && npm publish"
   },
   "packageManager": "npm@10.9.0",
+  "overrides": {
+    "undici": "^7.24.0"
+  },
   "peerDependencies": {
     "@angular/common": ">=17.0.0",
     "@angular/compiler": ">=17.0.0",

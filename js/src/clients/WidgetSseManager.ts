@@ -50,7 +50,7 @@ export class WidgetSseManager {
     let data: any;
     try {
       data = JSON.parse(e.data);
-    } catch (err) {
+    } catch {
       return;
     }
 

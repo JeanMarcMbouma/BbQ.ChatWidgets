@@ -95,7 +95,7 @@ export abstract class ChatWidget {
       case 'image':
       case 'imagecollection': {
         // Dynamic import to avoid ESM circular dependency (ImageWidgets imports ChatWidget)
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const mod = require('./ImageWidgets') as typeof import('./ImageWidgets');
         if (obj.type === 'image') {
           return new mod.ImageWidget(

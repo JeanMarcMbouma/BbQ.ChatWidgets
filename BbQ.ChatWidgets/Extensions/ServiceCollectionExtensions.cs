@@ -121,6 +121,11 @@ public static class ServiceCollectionExtensions
             return registry;
         });
 
+        // Snapshot the fully configured registry into an immutable, canonical
+        // schema catalogue. Consumers can use the same definitions for model
+        // schemas, validation, documentation, and generated client contracts.
+        services.AddSingleton<IWidgetSchemaCatalogue, WidgetSchemaCatalogue>();
+
         services.AddSingleton<IWidgetActionRegistry>(sp =>
         {
             var registry = sp.GetRequiredService<WidgetActionRegistry>();

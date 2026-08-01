@@ -1,6 +1,7 @@
 using Xunit;
 using BbQ.ChatWidgets.Services;
 using BbQ.ChatWidgets.Abstractions;
+using System.Text.Json;
 
 namespace BbQ.ChatWidgets.Tests.Services;
 
@@ -145,7 +146,11 @@ public class DefaultWidgetToolsProviderTests
         var tools = _provider.GetTools();
 
         // Assert
-        Assert.All(tools, tool => Assert.NotNull(tool.AdditionalProperties["schema"]));
+        Assert.All(tools, tool =>
+        {
+            var schema = Assert.IsType<JsonElement>(tool.AdditionalProperties["schema"]);
+            Assert.Equal(JsonValueKind.Object, schema.ValueKind);
+        });
     }
 
     [Fact]

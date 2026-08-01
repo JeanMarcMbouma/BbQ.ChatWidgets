@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using System.Text.Json.Schema;
 using System.Text.Json.Serialization;
 
 namespace BbQ.ChatWidgets.Models;
@@ -800,11 +799,16 @@ public static class ChatWidgetExtensions
         /// enabling tools and utilities to understand widget requirements.
         /// </remarks>
         /// <returns>
-        /// A JSON schema as a string representing the structure of this widget type.
+        /// A <see cref="JsonElement"/> representing the structure of this widget type.
+        /// The method retains its original <see cref="object"/> return type for source
+        /// and binary compatibility.
         /// </returns>
         public object GetSchema()
         {
-            return Serialization.Default.GetJsonSchemaAsNode(widget.GetType()).ToString();
+            return WidgetSchemaBuilder.Build(
+                widget.Type,
+                widget.GetType(),
+                WidgetDefinition.CurrentSchemaVersion);
         }
 
         /// <summary>

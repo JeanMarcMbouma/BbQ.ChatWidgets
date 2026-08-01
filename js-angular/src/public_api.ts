@@ -102,6 +102,7 @@ export {
 
 // Examples
 export { FormValidationListenerComponent } from './examples/form-validation-listener.component';
+export { AngularSchemaFirstWidgetConsumer } from './schema-first-widget-consumer';
 
 // Version
 export const VERSION = '1.0.11';

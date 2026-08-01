@@ -53,7 +53,8 @@ public sealed class WidgetSseService : IWidgetSseService
 
         lock (state.Sync)
         {
-            foreach (var frame in ReplayAfter(state, streamId, lastEventId)) subscriber.Channel.Writer.TryWrite(frame);
+            foreach (var frame in ReplayAfter(state, streamId, lastEventId))
+                if (!subscriber.Channel.Writer.TryWrite(frame)) subscriber.Overflowed = true;
             state.Subscribers.Add(subscriber);
         }
 

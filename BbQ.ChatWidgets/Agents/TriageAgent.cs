@@ -1,7 +1,7 @@
-using BbQ.ChatWidgets.Models;
-using BbQ.ChatWidgets.Agents.Abstractions;
-using BbQ.Outcome;
 using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Agents.Abstractions;
+using BbQ.ChatWidgets.Models;
+using BbQ.Outcome;
 
 namespace BbQ.ChatWidgets.Agents;
 

@@ -1,10 +1,13 @@
 import { WidgetManager } from '../renderers/WidgetManager';
+import { WidgetStreamEvent, WidgetStreamReducer } from './WidgetStreamReducer';
 
 export interface WidgetSseOptions {
   /**
    * Optional event source factory for tests / environments without global EventSource
    */
   createEventSource?: (url: string) => EventSource;
+  /** Called when a revision gap, invalid patch, or server resync event is observed. */
+  onResyncRequired?: (reason: string) => void;
 }
 
 /**
@@ -17,12 +20,15 @@ export interface WidgetSseOptions {
 export class WidgetSseManager {
   private es: EventSource | null = null;
   private handlers: Map<string, (payload: any) => void> = new Map();
+  private readonly reducer = new WidgetStreamReducer();
 
   constructor(private widgetManager: WidgetManager, private opts?: WidgetSseOptions) {}
 
   connect(url: string): void {
     this.es = this.opts?.createEventSource ? this.opts.createEventSource(url) : new EventSource(url);
     this.es.addEventListener('message', (e: MessageEvent) => this.onMessage(e));
+    for (const name of ['widget.snapshot', 'widget.upsert', 'widget.patch', 'widget.remove', 'widget.status', 'widget.action-result', 'stream.resync-required', 'stream.heartbeat'])
+      this.es.addEventListener(name, (e: MessageEvent) => this.onProtocolEvent(name, e));
     this.es.addEventListener('error', () => {
       // swallow for now — consumers can reconnect externally
     });
@@ -77,6 +83,17 @@ export class WidgetSseManager {
         }
       }
     }
+  }
+
+  private onProtocolEvent(kind: string, e: MessageEvent): void {
+    let event: WidgetStreamEvent;
+    try { event = JSON.parse(e.data); } catch { this.opts?.onResyncRequired?.('invalid-json'); return; }
+    event.kind = (event.kind ?? kind) as WidgetStreamEvent['kind'];
+    const result = this.reducer.reduce(event);
+    if (result.status === 'resync-required') { this.opts?.onResyncRequired?.(result.reason); return; }
+    if (result.status !== 'applied') return;
+    if (!result.state) { this.widgetManager.unmountWidget(result.instanceId); return; }
+    this.widgetManager.updateWidget(result.instanceId, result.state.widget);
   }
 }
 

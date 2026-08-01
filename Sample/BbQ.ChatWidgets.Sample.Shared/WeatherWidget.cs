@@ -16,7 +16,7 @@ public sealed record WeatherWidget(
     public override string Purpose =>
         """
         ***Weather Widget***
-        Format: <widget>{"type":"weather","label":"Weather","action":"on_weather_update","city":"San Francisco","streamId":"weather-stream-1"}</widget>
+        Emitted through the schema-constrained emit_widgets tool as complete weather state.
         Displays weather data via SSE (Server-Sent Events) for real-time updates.
         Use when you need to show live weather conditions that update from the server.
         """;

@@ -1,17 +1,18 @@
+using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Agents;
+using BbQ.ChatWidgets.Agents.Abstractions;
+using BbQ.ChatWidgets.Extensions;
+using BbQ.ChatWidgets.Models;
+using BbQ.ChatWidgets.Options;
+using BbQ.ChatWidgets.Sample;
+using BbQ.ChatWidgets.Sample.Actions;
+using BbQ.ChatWidgets.Sample.Agents;
+using BbQ.ChatWidgets.Services;
+using BbQ.Outcome;
+using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.AI;
-using BbQ.ChatWidgets.Extensions;
-using BbQ.ChatWidgets.Sample;
-using BbQ.ChatWidgets.Models;
-using BbQ.ChatWidgets.Services;
-using BbQ.ChatWidgets.Sample.Actions;
-using BbQ.ChatWidgets.Abstractions;
-using BbQ.Outcome;
-using BbQ.ChatWidgets.Agents.Abstractions;
-using BbQ.ChatWidgets.Agents;
-using BbQ.ChatWidgets.Sample.Agents;
 
 /// <summary>
 /// BbQ.ChatWidgets Console Sample Application
@@ -73,11 +74,12 @@ internal class Program
         IChatClient client = new ChatClientBuilder(openaiClient)
             .UseFunctionInvocation()
             .Build();
-        
+
         // Register BbQ.ChatWidgets services
         var serviceProvider = services
             .AddBbQChatWidgets(bbqOptions =>
             {
+                bbqOptions.WidgetGenerationMode = WidgetGenerationMode.StrictToolCall;
                 bbqOptions.RoutePrefix = """/api/chat""";
                 bbqOptions.ChatClientFactory = sp => client;
                 bbqOptions.WidgetActionRegistryFactory = (sp, registry, handlerResolver) =>
@@ -350,7 +352,8 @@ namespace BbQ.ChatWidgets.Sample
             var outcome = await triageAgent.InvokeAsync(request, CancellationToken.None);
 
             return outcome.Match(
-                success => {
+                success =>
+                {
                     var classification = InterAgentCommunicationContext.GetClassification<UserIntent>(request);
                     var routedAgent = InterAgentCommunicationContext.GetRoutedAgent(request);
 

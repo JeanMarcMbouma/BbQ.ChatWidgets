@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.AI;
+using Microsoft.Extensions.AI;
 
 namespace BbQ.ChatWidgets.Models;
 
@@ -40,4 +40,4 @@ public record StreamChatTurn(
     ChatRole Role,
     string Content,
     string ThreadId,
-    bool IsDelta = false) :  ChatTurn(Role, Content, [], ThreadId);
+    bool IsDelta = false) : ChatTurn(Role, Content, [], ThreadId);

@@ -1,7 +1,7 @@
-using BbQ.ChatWidgets.Abstractions;
-using BbQ.ChatWidgets.Models;
 using System.Collections.Concurrent;
 using System.Text.Json;
+using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Models;
 
 namespace BbQ.ChatWidgets.Services;
 
@@ -21,13 +21,13 @@ public sealed class DefaultStreamPayloadValidator : IStreamPayloadValidator
 {
     private readonly ConcurrentDictionary<string, StreamValidationRules> _rulesPerStream;
     private readonly StreamValidationRules _defaultRules;
-    
+
     // Track publish timestamps per (streamId, publisherId) for rate limiting
     private readonly ConcurrentDictionary<string, Queue<DateTime>> _publishHistory = new();
-    
+
     // Track concurrent subscriber counts per stream
     private readonly ConcurrentDictionary<string, int> _subscriberCounts = new();
-    
+
     private readonly ReaderWriterLockSlim _publishHistoryLock = new();
 
     /// <summary>
@@ -53,7 +53,7 @@ public sealed class DefaultStreamPayloadValidator : IStreamPayloadValidator
     {
         ArgumentNullException.ThrowIfNull(streamId);
         ArgumentNullException.ThrowIfNull(rules);
-        
+
         _rulesPerStream[streamId] = rules;
     }
 

@@ -1,4 +1,4 @@
-﻿namespace BbQ.ChatWidgets.Agents;
+namespace BbQ.ChatWidgets.Agents;
 
 /// <summary>
 /// Represents a chat request for agent processing.
@@ -11,7 +11,7 @@
 /// Used internally by the agent pipeline for request routing and handling.
 /// </remarks>
 public record ChatRequest(
-    string? ThreadId, 
+    string? ThreadId,
     IServiceProvider RequestServices
     )
 {

@@ -1,5 +1,5 @@
-using BbQ.ChatWidgets.Models;
 using System.Text.Json.Serialization;
+using BbQ.ChatWidgets.Models;
 
 namespace BbQ.ChatWidgets.Sample.Shared;
 
@@ -18,7 +18,7 @@ public sealed record EChartsWidget(
     public override string Purpose =>
         """
         ***EChart Widget***
-        Format: <widget>{"type":"echarts","label":"Sales Chart","action":"on_chart_click","chartType":"bar","jsonData":"{...}"}</widget>
+        Emitted through the schema-constrained emit_widgets tool as complete chart state.
         Renders interactive charts using Apache ECharts.
         Use when you need to visualize data interactively within the chat interface.
         Note: The 'jsonData' field must contain valid ECharts options in JSON string.

@@ -95,7 +95,7 @@ public static partial class WidgetActionHandlerExtensions
                 return new ActionRegistrationMetadata(action.Name, typeof(THandler));
             }
             ));
-            return services; 
+            return services;
         }
 
     }

@@ -1,4 +1,4 @@
-﻿namespace BbQ.ChatWidgets.Abstractions;
+namespace BbQ.ChatWidgets.Abstractions;
 
 /// <summary>
 /// Provides system instructions for the AI chat client.

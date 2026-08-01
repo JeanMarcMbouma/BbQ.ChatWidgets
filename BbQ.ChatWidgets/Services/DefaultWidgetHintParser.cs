@@ -1,7 +1,7 @@
-﻿using BbQ.ChatWidgets.Abstractions;
-using BbQ.ChatWidgets.Models;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Models;
 
 namespace BbQ.ChatWidgets.Services;
 

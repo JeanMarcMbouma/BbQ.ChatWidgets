@@ -95,17 +95,17 @@ public static class ClassifiedMultiTurnSetup
         // Routes classifications to the appropriate (possibly multi-turn) agent.
         services.AddScoped(sp =>
         {
-            var classifier  = sp.GetRequiredService<IClassifier<UserIntent>>();
-            var registry    = sp.GetRequiredService<IAgentRegistry>();
+            var classifier = sp.GetRequiredService<IClassifier<UserIntent>>();
+            var registry = sp.GetRequiredService<IAgentRegistry>();
             var threadService = sp.GetService<IThreadService>();
 
             Func<UserIntent, string?> routing = intent => intent switch
             {
-                UserIntent.DataQuery     => "data-pipeline",   // ← multi-turn orchestrator
-                UserIntent.HelpRequest   => "help-agent",
+                UserIntent.DataQuery => "data-pipeline",   // ← multi-turn orchestrator
+                UserIntent.HelpRequest => "help-agent",
                 UserIntent.ActionRequest => "action-agent",
-                UserIntent.Feedback      => "feedback-agent",
-                _                        => null               // falls back to help-agent
+                UserIntent.Feedback => "feedback-agent",
+                _ => null               // falls back to help-agent
             };
 
             return new TriageAgent<UserIntent>(

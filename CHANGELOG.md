@@ -5,6 +5,19 @@ All notable changes to BbQ.ChatWidgets will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- Widget protocol 1.0: canonical versioned schemas, strict `emit_widgets` generation, validation diagnostics, and one bounded repair attempt.
+- Server-owned widget instance IDs and revisions with deterministic RFC 6902 patches.
+- Bounded SSE delivery with named events, event IDs, reconnect replay, heartbeats, and deterministic resynchronisation.
+- A keyed JavaScript reducer and renderer lifecycle hooks that preserve unrelated component state.
+
+### Deprecated
+
+- Embedded `<widget>` markup and snapshot-only SSE remain available as compatibility fallbacks; new integrations should use strict tool emission and protocol 1.0 events.
+
 ## [1.0.0] - 2024-01-01
 
 ### Added

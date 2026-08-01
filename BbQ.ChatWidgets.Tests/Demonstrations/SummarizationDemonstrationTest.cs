@@ -27,10 +27,10 @@ public class SummarizationDemonstrationTest
     {
         // Arrange
         _output.WriteLine("=== Chat History Summarization Demonstration ===\n");
-        
+
         var services = new ServiceCollection();
         var mockChatClient = new DemoChatClient();
-        
+
         services.AddBbQChatWidgets(options =>
         {
             options.ChatClientFactory = _ => mockChatClient;
@@ -38,19 +38,19 @@ public class SummarizationDemonstrationTest
             options.SummarizationThreshold = 8;  // Trigger after 8 turns
             options.RecentTurnsToKeep = 4;        // Keep last 4 turns
         });
-        
+
         var serviceProvider = services.BuildServiceProvider();
         var chatService = serviceProvider.GetRequiredService<ChatWidgetService>();
         var threadService = serviceProvider.GetRequiredService<IThreadService>();
-        
+
         _output.WriteLine("Configuration:");
         _output.WriteLine("  - Summarization Threshold: 8 turns");
         _output.WriteLine("  - Recent Turns to Keep: 4 turns");
         _output.WriteLine("");
-        
+
         // Act - Simulate a long conversation
         _output.WriteLine("Starting conversation...\n");
-        
+
         string? threadId = null;
         var messages = new[]
         {
@@ -63,25 +63,25 @@ public class SummarizationDemonstrationTest
             "Can I do it right now?",
             "Great, let's proceed"
         };
-        
+
         for (int i = 0; i < messages.Length; i++)
         {
             var response = await chatService.RespondAsync(messages[i], threadId);
             threadId = response.ThreadId;
-            
+
             _output.WriteLine($"Turn {i + 1}:");
             _output.WriteLine($"  User: {messages[i]}");
             _output.WriteLine($"  Assistant: {response.Content}");
             _output.WriteLine("");
         }
-        
+
         // Check summaries
         var summaries = threadService.GetSummaries(threadId!);
-        
+
         _output.WriteLine($"Conversation exceeded threshold of 8 turns!");
         _output.WriteLine($"Total summaries created: {summaries.Count}");
         _output.WriteLine("");
-        
+
         if (summaries.Count > 0)
         {
             _output.WriteLine("Summary Details:");
@@ -92,30 +92,30 @@ public class SummarizationDemonstrationTest
                 _output.WriteLine("");
             }
         }
-        
+
         // Add one more message to show it uses the summary
         _output.WriteLine("Adding one more message to demonstrate summary usage...\n");
         var finalResponse = await chatService.RespondAsync("Thank you for your help!", threadId);
-        
+
         _output.WriteLine($"Turn {messages.Length + 1}:");
         _output.WriteLine($"  User: Thank you for your help!");
         _output.WriteLine($"  Assistant: {finalResponse.Content}");
         _output.WriteLine("");
-        
+
         // Get the full conversation history
         var fullHistory = threadService.GetMessage(threadId!);
         _output.WriteLine($"Total conversation turns: {fullHistory.Turns.Count}");
-        
+
         // Demonstrate what gets sent to AI
         var aiMessages = fullHistory.ToAIMessages(4, summaries);
         _output.WriteLine($"Messages sent to AI (with summaries): {aiMessages.Count}");
         _output.WriteLine("  - 1 system message (summaries)");
         _output.WriteLine("  - 4 recent turns (full detail)");
-        
+
         // Assert
         Assert.NotEmpty(summaries);
         Assert.True(fullHistory.Turns.Count > 8);
-        
+
         _output.WriteLine("\n=== Demonstration Complete ===");
     }
 }
@@ -150,12 +150,12 @@ internal class DemoChatClient : IChatClient
         ChatOptions? options = null,
         CancellationToken cancellationToken = default)
     {
-        var response = _callCount < _responses.Length 
-            ? _responses[_callCount] 
+        var response = _callCount < _responses.Length
+            ? _responses[_callCount]
             : "Thank you!";
-        
+
         _callCount++;
-        
+
         return Task.FromResult(new ChatResponse([new ChatMessage(ChatRole.Assistant, response)]));
     }
 

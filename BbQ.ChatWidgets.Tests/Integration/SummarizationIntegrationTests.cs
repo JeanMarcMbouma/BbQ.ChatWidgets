@@ -19,9 +19,9 @@ public class SummarizationIntegrationTests
     {
         // Arrange
         var services = new ServiceCollection();
-        
+
         var mockChatClient = new TestChatClient("Summary response");
-        
+
         services.AddBbQChatWidgets(options =>
         {
             options.ChatClientFactory = _ => mockChatClient;
@@ -29,31 +29,31 @@ public class SummarizationIntegrationTests
             options.SummarizationThreshold = 5; // Trigger after 5 turns
             options.RecentTurnsToKeep = 2; // Keep only 2 recent turns
         });
-        
+
         var serviceProvider = services.BuildServiceProvider();
         var chatService = serviceProvider.GetRequiredService<ChatWidgetService>();
         var threadService = serviceProvider.GetRequiredService<IThreadService>();
-        
+
         // Act - Create conversation with more than threshold turns
         string? threadId = null;
-        
+
         // Add 6 messages (3 exchanges) to exceed threshold of 5
         threadId = (await chatService.RespondAsync("Message 1", threadId)).ThreadId;
         threadId = (await chatService.RespondAsync("Message 2", threadId)).ThreadId;
         threadId = (await chatService.RespondAsync("Message 3", threadId)).ThreadId;
         threadId = (await chatService.RespondAsync("Message 4", threadId)).ThreadId;
         threadId = (await chatService.RespondAsync("Message 5", threadId)).ThreadId;
-        
+
         // This should trigger summarization
         var finalResponse = await chatService.RespondAsync("Message 6", threadId);
-        
+
         // Assert
         Assert.NotNull(finalResponse.ThreadId);
         var summaries = threadService.GetSummaries(finalResponse.ThreadId);
-        
+
         // Should have created at least one summary
         Assert.NotEmpty(summaries);
-        
+
         // Verify summary covers appropriate range
         var summary = summaries[0];
         Assert.True(summary.EndTurnIndex >= 0);
@@ -65,27 +65,27 @@ public class SummarizationIntegrationTests
     {
         // Arrange
         var services = new ServiceCollection();
-        
+
         var mockChatClient = new TestChatClient("Response");
-        
+
         services.AddBbQChatWidgets(options =>
         {
             options.ChatClientFactory = _ => mockChatClient;
             options.EnableAutoSummarization = false; // Disable summarization
             options.SummarizationThreshold = 3;
         });
-        
+
         var serviceProvider = services.BuildServiceProvider();
         var chatService = serviceProvider.GetRequiredService<ChatWidgetService>();
         var threadService = serviceProvider.GetRequiredService<IThreadService>();
-        
+
         // Act - Create conversation with more than threshold turns
         string? threadId = null;
         threadId = (await chatService.RespondAsync("Message 1", threadId)).ThreadId;
         threadId = (await chatService.RespondAsync("Message 2", threadId)).ThreadId;
         threadId = (await chatService.RespondAsync("Message 3", threadId)).ThreadId;
         threadId = (await chatService.RespondAsync("Message 4", threadId)).ThreadId;
-        
+
         // Assert
         var summaries = threadService.GetSummaries(threadId);
         Assert.Empty(summaries); // No summaries should be created when disabled
@@ -96,9 +96,9 @@ public class SummarizationIntegrationTests
     {
         // Arrange
         var services = new ServiceCollection();
-        
+
         var mockChatClient = new TestChatClient("Response");
-        
+
         services.AddBbQChatWidgets(options =>
         {
             options.ChatClientFactory = _ => mockChatClient;
@@ -106,16 +106,16 @@ public class SummarizationIntegrationTests
             options.SummarizationThreshold = 20; // Must be greater than RecentTurnsToKeep
             options.RecentTurnsToKeep = 10;
         });
-        
+
         var serviceProvider = services.BuildServiceProvider();
         var chatService = serviceProvider.GetRequiredService<ChatWidgetService>();
         var threadService = serviceProvider.GetRequiredService<IThreadService>();
-        
+
         // Act - Create conversation below threshold
         string? threadId = null;
         threadId = (await chatService.RespondAsync("Message 1", threadId)).ThreadId;
         threadId = (await chatService.RespondAsync("Message 2", threadId)).ThreadId;
-        
+
         // Assert
         var summaries = threadService.GetSummaries(threadId);
         Assert.Empty(summaries); // No summaries when below threshold
@@ -126,9 +126,9 @@ public class SummarizationIntegrationTests
     {
         // Arrange
         var mockChatClient = new TestChatClient("This is a summary of the conversation about testing and integration.");
-        
+
         var summarizer = new DefaultChatHistorySummarizer(mockChatClient);
-        
+
         var turns = new List<ChatTurn>
         {
             new(ChatRole.User, "What is integration testing?"),
@@ -136,10 +136,10 @@ public class SummarizationIntegrationTests
             new(ChatRole.User, "Can you give an example?"),
             new(ChatRole.Assistant, "Sure, testing a database connection with your application is integration testing."),
         };
-        
+
         // Act
         var summary = await summarizer.SummarizeAsync(turns);
-        
+
         // Assert
         Assert.NotEmpty(summary);
         Assert.Contains("summary", summary.ToLower());
@@ -152,10 +152,10 @@ public class SummarizationIntegrationTests
         var mockChatClient = new TestChatClient("");
         var summarizer = new DefaultChatHistorySummarizer(mockChatClient);
         var turns = new List<ChatTurn>();
-        
+
         // Act
         var summary = await summarizer.SummarizeAsync(turns);
-        
+
         // Assert
         Assert.Empty(summary);
     }

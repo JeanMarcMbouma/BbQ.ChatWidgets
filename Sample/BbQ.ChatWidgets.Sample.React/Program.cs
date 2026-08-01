@@ -1,9 +1,10 @@
-using Microsoft.Extensions.AI;
-using BbQ.ChatWidgets.Extensions;
-using BbQ.ChatWidgets.Sample.Shared;
 using BbQ.ChatWidgets.Agents.Abstractions;
+using BbQ.ChatWidgets.Extensions;
+using BbQ.ChatWidgets.Options;
+using BbQ.ChatWidgets.Sample.Shared;
 using BbQ.ChatWidgets.Sample.Shared.Agents;
 using BbQ.ChatWidgets.Sample.Shared.Services;
+using Microsoft.Extensions.AI;
 
 /// <summary>
 /// BbQ.ChatWidgets Web API Sample Application
@@ -51,6 +52,7 @@ IChatClient chatClient = new ChatClientBuilder(openaiClient)
 services.AddBbQChatWidgets(bbqOptions =>
 {
     bbqOptions.RoutePrefix = "/api/chat";
+    bbqOptions.WidgetGenerationMode = WidgetGenerationMode.StrictToolCall;
     bbqOptions.ChatClientFactory = sp => chatClient;
     bbqOptions.EnablePersona = true;
     bbqOptions.WidgetRegistryConfigurator = registry =>

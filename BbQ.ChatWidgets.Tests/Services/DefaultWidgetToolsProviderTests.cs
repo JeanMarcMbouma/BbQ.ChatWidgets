@@ -1,6 +1,7 @@
-using Xunit;
-using BbQ.ChatWidgets.Services;
+using System.Text.Json;
 using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Services;
+using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Services;
 
@@ -110,17 +111,17 @@ public class DefaultWidgetToolsProviderTests
 
         // Assert - verify all registered widgets have tools
         Assert.Equal(15, tools.Count());
-        
+
         // Expected widget type IDs
-        var expectedWidgetIds = new[] 
-        { 
-            "button", "card", "input", "dropdown", "slider", "toggle", 
+        var expectedWidgetIds = new[]
+        {
+            "button", "card", "input", "dropdown", "slider", "toggle",
             "fileupload", "datepicker", "multiselect", "progressbar", "themeswitcher",
             "image", "imagecollection"
         };
-        
+
         var toolNames = tools.Select(t => t.Name).ToHashSet(StringComparer.OrdinalIgnoreCase);
-        
+
         // All expected widgets should have tools
         foreach (var typeId in expectedWidgetIds)
         {
@@ -145,7 +146,11 @@ public class DefaultWidgetToolsProviderTests
         var tools = _provider.GetTools();
 
         // Assert
-        Assert.All(tools, tool => Assert.NotNull(tool.AdditionalProperties["schema"]));
+        Assert.All(tools, tool =>
+        {
+            var schema = Assert.IsType<JsonElement>(tool.AdditionalProperties["schema"]);
+            Assert.Equal(JsonValueKind.Object, schema.ValueKind);
+        });
     }
 
     [Fact]

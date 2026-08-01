@@ -60,7 +60,7 @@ public sealed class UserIntentClassifier : IClassifier<UserIntent>
 
         try
         {
-            _logger.LogDebug("Classifying user intent for message: {Message}", 
+            _logger.LogDebug("Classifying user intent for message: {Message}",
                 input.Length > 50 ? input.Substring(0, 50) + "..." : input);
 
             var prompt = $"""
@@ -79,7 +79,7 @@ public sealed class UserIntentClassifier : IClassifier<UserIntent>
                 
                 Your response (category name only):
                 """;
-            
+
             var options = new ChatOptions { ToolMode = ChatToolMode.None };
             var response = await _chatClient.GetResponseAsync(
                 [new ChatMessage(ChatRole.User, prompt)],

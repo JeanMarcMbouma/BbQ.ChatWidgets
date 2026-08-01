@@ -16,7 +16,7 @@ public sealed record ClockWidget(
     public override string Purpose =>
         """
         ***Clock Widget***
-        Format: <widget>{"type":"clock","label":"Server Clock","action":"on_tick","timeZone":"UTC","streamId":"clock-stream-1"}</widget>
+        Emitted through the schema-constrained emit_widgets tool as complete clock state.
         Displays server time via SSE (Server-Sent Events) for real-time updates.
         Use when you need a live clock that updates from the server.
         """;

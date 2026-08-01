@@ -1,9 +1,9 @@
 using System.Text.Json;
-using Xunit;
-using Microsoft.Extensions.DependencyInjection;
-using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Extensions;
+using BbQ.ChatWidgets.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Integration;
 
@@ -13,7 +13,7 @@ namespace BbQ.ChatWidgets.Tests.Integration;
 [Collection("WidgetIntegration")]
 public class CustomWidgetDIIntegrationTests
 {
-    
+
     [Fact]
     public void AddCustomWidgetSupport_WithConfiguration_RegistersCustomWidgets()
     {
@@ -132,7 +132,7 @@ public class CustomWidgetDIIntegrationTests
         });
 
         var provider = services.BuildServiceProvider();
-        
+
         // Ensure the registry is initialized by resolving it
         // This triggers Serialization.SetCustomWidgetRegistry()
         var registry = provider.GetRequiredService<IWidgetRegistry>();
@@ -181,7 +181,7 @@ public class CustomWidgetDIIntegrationTests
         // Assert
         Assert.NotNull(builtIn);
         Assert.IsType<ButtonWidget>(builtIn);
-        
+
         Assert.NotNull(custom);
         Assert.IsType<TestDIRatingWidget>(custom);
     }

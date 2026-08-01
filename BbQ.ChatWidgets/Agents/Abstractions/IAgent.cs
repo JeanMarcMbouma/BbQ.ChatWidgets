@@ -1,4 +1,4 @@
-﻿using BbQ.ChatWidgets.Models;
+using BbQ.ChatWidgets.Models;
 using BbQ.Outcome;
 
 namespace BbQ.ChatWidgets.Agents.Abstractions;

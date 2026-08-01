@@ -1,4 +1,4 @@
-﻿using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Abstractions;
 using Microsoft.Extensions.AI;
 
 /// <summary>
@@ -11,6 +11,30 @@ using Microsoft.Extensions.AI;
 /// </remarks>
 public sealed class BbQChatOptions
 {
+    /// <summary>Gets the buffering, replay, and heartbeat settings for widget SSE streams.</summary>
+    public BbQ.ChatWidgets.Options.WidgetSseOptions WidgetSse { get; } = new();
+
+    /// <summary>
+    /// Gets or sets how models emit widgets.
+    /// </summary>
+    /// <remarks>
+    /// The default is <see cref="BbQ.ChatWidgets.Options.WidgetGenerationMode.StrictToolCall"/>.
+    /// Strict tool mode requires a function-capable provider and
+    /// function invocation middleware in the consuming application.
+    /// </remarks>
+    public BbQ.ChatWidgets.Options.WidgetGenerationMode WidgetGenerationMode { get; set; } =
+        BbQ.ChatWidgets.Options.WidgetGenerationMode.StrictToolCall;
+
+    /// <summary>
+    /// Gets or sets whether strict widget generation rejects action identifiers
+    /// that are not present in <see cref="IWidgetActionRegistry"/>.
+    /// </summary>
+    /// <remarks>
+    /// Enabled by default for strict generation. Disable only when action routing
+    /// is intentionally handled outside ChatWidgets.
+    /// </remarks>
+    public bool RequireRegisteredWidgetActions { get; set; } = true;
+
     /// <summary>
     /// Gets or sets the route prefix for chat widget API endpoints.
     /// </summary>
@@ -274,6 +298,7 @@ public sealed class BbQChatOptions
     /// </exception>
     public void ValidateSummarizationSettings()
     {
+        WidgetSse.Validate();
         if (EnableAutoSummarization)
         {
             if (SummarizationThreshold <= 0)

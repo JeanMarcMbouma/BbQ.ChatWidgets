@@ -12,10 +12,11 @@ public sealed record EChartsWidget(
     string ChartType,      // 'bar', 'line', 'pie', etc.
     string JsonData        // Raw ECharts options JSON
 ) : ChatWidget(Label, Action)
-{    public override string Purpose =>
+{
+    public override string Purpose =>
         $$"""
         ***EChart Widget***
-        Format: <widget>{
+        Emitted through the schema-constrained emit_widgets tool. Example state: {
           "type": "echarts",
           "label": "Sales Chart",
           "action": "on_chart_click",

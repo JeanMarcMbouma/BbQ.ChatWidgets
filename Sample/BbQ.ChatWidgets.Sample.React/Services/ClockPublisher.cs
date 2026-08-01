@@ -20,7 +20,7 @@ public class ClockPublisher
     public ClockPublisher(IWidgetSseService sse, IStreamPayloadValidator validator)
     {
         _sse = sse;
-        _validator = validator; 
+        _validator = validator;
     }
 
     /// <summary>

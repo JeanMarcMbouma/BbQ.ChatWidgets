@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using System.Text.Json.Schema;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace BbQ.ChatWidgets.Models;
@@ -30,7 +29,7 @@ public abstract record ChatWidget(
     /// <remarks>
     /// This property provides a brief description of the widget's functionality and intended use cases.
     /// </remarks>
-    [JsonIgnore] 
+    [JsonIgnore]
     public abstract string Purpose { get; }
 
     internal string? OverrideTypeId { get; set; }
@@ -699,7 +698,7 @@ public class FormField
             }
 
             // Determine appropriate maxLength for input/textarea fields
-            int? explicitMaxLength = jsonObject.ContainsKey("maxLength") ? 
+            int? explicitMaxLength = jsonObject.ContainsKey("maxLength") ?
                 (jsonObject["maxLength"] as int?) ?? (int?)(Convert.ToInt32(jsonObject["maxLength"])) : null;
 
             if ((Type == "input" || Type == "text" || Type == "email" || Type == "password" || Type == "number") && explicitMaxLength == null)
@@ -741,7 +740,7 @@ public class FormField
             return null;
 
         var hintLower = hint.ToLowerInvariant();
-        
+
         // Pattern: "N-M characters" or "N to M characters"
         var rangeMatch = System.Text.RegularExpressions.Regex.Match(hintLower, @"(\d+)\s*-\s*(\d+)\s*characters");
         if (rangeMatch.Success && int.TryParse(rangeMatch.Groups[2].Value, out int maxFromRange))
@@ -781,7 +780,7 @@ public class FormField
 /// associated with the form action.</param>
 /// <param name="Label">The display label for the action, typically shown on a button or user interface element.</param>
 public record FormAction(
-    string Type,  
+    string Type,
     string Label
 );
 
@@ -800,11 +799,16 @@ public static class ChatWidgetExtensions
         /// enabling tools and utilities to understand widget requirements.
         /// </remarks>
         /// <returns>
-        /// A JSON schema as a string representing the structure of this widget type.
+        /// A <see cref="JsonElement"/> representing the structure of this widget type.
+        /// The method retains its original <see cref="object"/> return type for source
+        /// and binary compatibility.
         /// </returns>
         public object GetSchema()
         {
-            return Serialization.Default.GetJsonSchemaAsNode(widget.GetType()).ToString();
+            return WidgetSchemaBuilder.Build(
+                widget.Type,
+                widget.GetType(),
+                WidgetDefinition.CurrentSchemaVersion);
         }
 
         /// <summary>

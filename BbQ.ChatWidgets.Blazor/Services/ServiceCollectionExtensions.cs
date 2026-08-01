@@ -1,5 +1,5 @@
-using Microsoft.Extensions.DependencyInjection;
 using BbQ.ChatWidgets.Blazor.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BbQ.ChatWidgets.Blazor;
 

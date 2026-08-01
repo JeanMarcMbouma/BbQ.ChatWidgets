@@ -1,11 +1,12 @@
-﻿using Microsoft.Extensions.AI;
-using BbQ.ChatWidgets.Models;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
 using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Agents;
 using BbQ.ChatWidgets.Agents.Abstractions;
-using System.Text.Json;
-using System.Reflection;
-using System.Runtime.CompilerServices;
+using BbQ.ChatWidgets.Models;
+using BbQ.ChatWidgets.Options;
+using Microsoft.Extensions.AI;
 
 namespace BbQ.ChatWidgets.Services;
 
@@ -47,7 +48,9 @@ public sealed class ChatWidgetService(
     IWidgetActionHandlerResolver handlerResolver,
     IChatHistorySummarizer historySummarizer,
     IAgentEventDispatcher eventDispatcher,
-    BbQChatOptions options)
+    BbQChatOptions options,
+    IWidgetSchemaCatalogue? schemaCatalogue = null,
+    IWidgetValidator? widgetValidator = null)
 {
     /// <summary>
     /// Processes a user message and generates an AI response with optional embedded widgets.
@@ -97,29 +100,15 @@ public sealed class ChatWidgetService(
     /// <returns>The assistant response turn.</returns>
     public async Task<ChatTurn> RespondAsync(string userMessage, string? threadId, string? personaOverride, CancellationToken ct = default)
     {
-        if(threadId == null || !threadService.ThreadExists(threadId))
+        if (threadId == null || !threadService.ThreadExists(threadId))
         {
             threadId = threadService.CreateThread();
         }
 
         var effectivePersona = ResolveAndPersistPersona(threadId, personaOverride);
 
-        var getWidgets = AIFunctionFactory.Create(() =>
-        {
-            return widgetToolsProvider.GetTools();
-        }, new AIFunctionFactoryOptions
-        {
-            Name = "get_widget_tools",
-            Description = "Retrieves the available widgets for the chat session."
-        });
-
-        var chatOptions = new ChatOptions
-        {
-            Tools = WrapWithEventFiring([..aiToolsProvider.GetAITools(), getWidgets], eventDispatcher, threadId),
-            ToolMode = ChatToolMode.Auto,
-            AllowMultipleToolCalls = true,
-            Instructions = BuildInstructions(effectivePersona)
-        };
+        var emittedWidgets = new List<ChatWidget>();
+        var chatOptions = CreateChatOptions(threadId, effectivePersona, emittedWidgets);
 
         var messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.User, userMessage, ThreadId: threadId));
 
@@ -129,14 +118,17 @@ public sealed class ChatWidgetService(
 
         var completion = await chat.GetResponseAsync(aiMessages, chatOptions, ct);
 
-        var (content, widgets) = widgetHintParser.Parse(completion.Text);
+        var (content, legacyWidgets) = widgetHintParser.Parse(completion.Text);
+        var widgets = options.WidgetGenerationMode is WidgetGenerationMode.StrictToolCall
+            ? emittedWidgets
+            : legacyWidgets;
 
         messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.Assistant, content, widgets, threadId));
 
         return messages.Turns[messages.Turns.Count - 1];
     }
 
-    
+
     /// <summary>
     /// Streams the AI assistant's response to a user message, yielding incremental <see cref="ChatTurn"/> deltas as content is generated.
     /// </summary>
@@ -181,7 +173,7 @@ public sealed class ChatWidgetService(
     /// </param>
     /// <param name="cancellationToken">Cancellation token to cancel the async operation.</param>
     /// <returns>An async stream of response turns.</returns>
-    public async IAsyncEnumerable<ChatTurn> StreamResponseAsync(string userMessage, string? threadId, string? personaOverride, [EnumeratorCancellation]CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<ChatTurn> StreamResponseAsync(string userMessage, string? threadId, string? personaOverride, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         if (threadId == null || !threadService.ThreadExists(threadId))
         {
@@ -190,22 +182,8 @@ public sealed class ChatWidgetService(
 
         var effectivePersona = ResolveAndPersistPersona(threadId, personaOverride);
 
-        var getWidgets = AIFunctionFactory.Create(() =>
-        {
-            return widgetToolsProvider.GetTools();
-        }, new AIFunctionFactoryOptions
-        {
-            Name = "get_widget_tools",
-            Description = "Retrieves the available widgets for the chat session."
-        });
-
-        var chatOptions = new ChatOptions
-        {
-            Tools = WrapWithEventFiring([.. aiToolsProvider.GetAITools(), getWidgets], eventDispatcher, threadId),
-            ToolMode = ChatToolMode.Auto,
-            AllowMultipleToolCalls = true,
-            Instructions = BuildInstructions(effectivePersona)
-        };
+        var emittedWidgets = new List<ChatWidget>();
+        var chatOptions = CreateChatOptions(threadId, effectivePersona, emittedWidgets);
 
         var messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.User, userMessage, ThreadId: threadId));
 
@@ -215,7 +193,7 @@ public sealed class ChatWidgetService(
 
         string responseText = string.Empty;
         var chatWidgets = new List<ChatWidget>();
-        await foreach(var responseUpdate in chat.GetStreamingResponseAsync(aiMessages, chatOptions, cancellationToken))
+        await foreach (var responseUpdate in chat.GetStreamingResponseAsync(aiMessages, chatOptions, cancellationToken))
         {
             responseText += responseUpdate.Text;
             var (content, widgets) = widgetHintParser.Parse(responseText);
@@ -225,9 +203,63 @@ public sealed class ChatWidgetService(
             yield return new StreamChatTurn(ChatRole.Assistant, widgetHintSanitizer.Sanitize(content), threadId, IsDelta: true);
         }
 
-        messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.Assistant, responseText, chatWidgets, threadId));
+        var finalWidgets = options.WidgetGenerationMode is WidgetGenerationMode.StrictToolCall
+            ? emittedWidgets
+            : chatWidgets;
+        messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.Assistant, responseText, finalWidgets, threadId));
 
         yield return messages.Turns[messages.Turns.Count - 1];
+    }
+
+    private ChatOptions CreateChatOptions(
+        string threadId,
+        string? effectivePersona,
+        List<ChatWidget> emittedWidgets)
+    {
+        var tools = new List<AITool>(aiToolsProvider.GetAITools());
+        switch (options.WidgetGenerationMode)
+        {
+            case WidgetGenerationMode.StrictToolCall:
+                if (schemaCatalogue is null)
+                {
+                    throw new InvalidOperationException(
+                        $"{nameof(IWidgetSchemaCatalogue)} must be registered when strict widget tool generation is enabled.");
+                }
+
+                tools.Add(new EmitWidgetsAIFunction(
+                    schemaCatalogue,
+                    (widgets, _) =>
+                    {
+                        emittedWidgets.AddRange(widgets);
+                        return ValueTask.CompletedTask;
+                    },
+                    widgetValidator ?? new DefaultWidgetValidator(),
+                    new WidgetValidationContext(
+                        schemaCatalogue,
+                        actionRegistry,
+                        options.RequireRegisteredWidgetActions)));
+                break;
+
+            case WidgetGenerationMode.StructuredResponse:
+                throw new NotSupportedException(
+                    "Structured widget response generation is not yet available. Use StrictToolCall when the provider supports tools, or EmbeddedMarkupLegacy as a compatibility fallback.");
+
+            default:
+                tools.Add(AIFunctionFactory.Create(() => widgetToolsProvider.GetTools(), new AIFunctionFactoryOptions
+                {
+                    Name = "get_widget_tools",
+                    Description = "Retrieves the available widgets for the chat session."
+                }));
+                break;
+        }
+
+        return new ChatOptions
+        {
+            Tools = WrapWithEventFiring(tools, eventDispatcher, threadId),
+            ToolMode = ChatToolMode.Auto,
+            AllowMultipleToolCalls = true,
+            Instructions = BuildInstructions(effectivePersona)
+        };
     }
 
     private string? ResolveAndPersistPersona(string threadId, string? personaOverride)
@@ -328,7 +360,7 @@ public sealed class ChatWidgetService(
                 if (turnsForSummary.Count > 0)
                 {
                     var summaryText = await historySummarizer.SummarizeAsync(turnsForSummary, ct);
-                    
+
                     // Only store the summary if we actually received non-empty content.
                     // This avoids marking turns as summarized when the summarizer fails
                     // or returns an empty response, which would otherwise lose context.
@@ -436,7 +468,7 @@ public sealed class ChatWidgetService(
         // Invoke handler via reflection
         var handleMethod = handler.GetType()
             .GetMethods(BindingFlags.Public | BindingFlags.Instance)
-            .FirstOrDefault(m => m.Name == "HandleActionAsync" && m.IsGenericMethodDefinition == false) 
+            .FirstOrDefault(m => m.Name == "HandleActionAsync" && m.IsGenericMethodDefinition == false)
             ?? throw new InvalidOperationException($"Handler for action '{action}' does not have HandleActionAsync method");
         var result = await (Task<ChatTurn>)handleMethod.Invoke(handler, [typedPayload, threadId, serviceProvider])!;
 

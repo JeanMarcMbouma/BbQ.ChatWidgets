@@ -1,5 +1,6 @@
-using Xunit;
+using System.Text.Json;
 using BbQ.ChatWidgets.Models;
+using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Models;
 
@@ -8,6 +9,17 @@ namespace BbQ.ChatWidgets.Tests.Models;
 /// </summary>
 public class ChatWidgetExtensionTests
 {
+    [Fact]
+    public void GetSchema_ReturnsFirstClassJsonSchemaInsteadOfEncodedString()
+    {
+        ChatWidget widget = new ButtonWidget("Click", "action");
+
+        var schema = Assert.IsType<JsonElement>(widget.GetSchema());
+
+        Assert.Equal(JsonValueKind.Object, schema.ValueKind);
+        Assert.Equal("button", schema.GetProperty("properties").GetProperty("type").GetProperty("const").GetString());
+    }
+
     [Fact]
     public void GetSchema_ButtonWidget_ReturnsSchema()
     {

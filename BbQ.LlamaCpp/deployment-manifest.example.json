@@ -1,0 +1,30 @@
+{
+  "manifestVersion": "1",
+  "artifacts": [
+    {
+      "artifactId": "llama-server-win-x64-cpu",
+      "kind": "runtime",
+      "version": "replace-with-pinned-llama.cpp-release",
+      "source": "https://downloads.example.invalid/llama-server-win-x64.zip",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "sizeBytes": 1,
+      "fileName": "llama-server-win-x64.zip",
+      "runtimeIdentifier": "win-x64",
+      "backend": "cpu",
+      "archiveKind": "zip",
+      "executableRelativePath": "llama-server.exe",
+      "license": "MIT"
+    },
+    {
+      "artifactId": "generation-model",
+      "kind": "generationModel",
+      "version": "replace-with-pinned-model-revision",
+      "source": "https://models.example.invalid/model.gguf",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "sizeBytes": 1,
+      "fileName": "model.gguf",
+      "archiveKind": "none",
+      "license": "replace-with-model-license"
+    }
+  ]
+}

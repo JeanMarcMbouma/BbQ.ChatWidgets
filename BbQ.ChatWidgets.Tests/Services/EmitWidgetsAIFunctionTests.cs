@@ -2,6 +2,7 @@ using System.Text.Json;
 using BbQ.ChatWidgets.Agents;
 using BbQ.ChatWidgets.Agents.Abstractions;
 using BbQ.ChatWidgets.Models;
+using BbQ.ChatWidgets.Services;
 using Microsoft.Extensions.AI;
 using Xunit;
 

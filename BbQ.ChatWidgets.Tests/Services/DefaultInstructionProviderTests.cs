@@ -1,4 +1,5 @@
 using BbQ.ChatWidgets.Options;
+using BbQ.ChatWidgets.Services;
 using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Services;
@@ -25,7 +26,7 @@ public sealed class DefaultInstructionProviderTests
     [Fact]
     public void GetInstructions_LegacyMode_PreservesEmbeddedMarkupProtocol()
     {
-        var options = new BbQChatOptions();
+        var options = new BbQChatOptions { WidgetGenerationMode = WidgetGenerationMode.EmbeddedMarkupLegacy };
         var provider = new DefaultInstructionProvider(
             new WidgetActionRegistry(),
             new WidgetRegistry(),

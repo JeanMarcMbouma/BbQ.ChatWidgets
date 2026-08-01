@@ -1,4 +1,4 @@
-﻿namespace BbQ.ChatWidgets.Exceptions
+namespace BbQ.ChatWidgets.Exceptions
 {
     /// <summary>
     /// Thrown when a conversation thread with the specified ID is not found.

@@ -1,8 +1,8 @@
-using Xunit;
-using Microsoft.Extensions.DependencyInjection;
-using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Extensions;
+using BbQ.ChatWidgets.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Integration;
 

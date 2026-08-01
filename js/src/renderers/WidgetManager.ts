@@ -6,6 +6,13 @@ import { WidgetEventManager, IWidgetActionHandler, DefaultWidgetActionHandler } 
 export interface WidgetManagerOptions {
   framework?: string;
   actionHandler?: IWidgetActionHandler;
+  lifecycle?: WidgetRendererLifecycle;
+}
+
+export interface WidgetRendererLifecycle {
+  mount?(instanceId: string, element: Element): void;
+  update?(instanceId: string, element: Element, widget: ChatWidget): boolean | void;
+  unmount?(instanceId: string, element: Element): void;
 }
 
 /**
@@ -16,11 +23,13 @@ export class WidgetManager {
   private renderingService: WidgetRenderingService;
   private eventManager: WidgetEventManager;
   private framework: string;
+  private lifecycle?: WidgetRendererLifecycle;
 
   constructor(options?: WidgetManagerOptions) {
     this.renderingService = new WidgetRenderingService();
     this.framework = options?.framework ?? 'SSR';
     this.eventManager = new WidgetEventManager(options?.actionHandler ?? new DefaultWidgetActionHandler());
+    this.lifecycle = options?.lifecycle;
   }
 
   /**
@@ -67,6 +76,30 @@ export class WidgetManager {
     const html = Array.isArray(widgets) ? this.renderWidgets(widgets, framework) : this.renderWidget(widgets, framework);
     container.innerHTML = html;
     this.attachHandlers(container);
+  }
+
+  /** Mounts or replaces one protocol widget while leaving unrelated DOM/state intact. */
+  updateWidget(instanceId: string, value: unknown, framework?: string): void {
+    const widget = value instanceof ChatWidget ? value : ChatWidget.fromObject(value);
+    if (!widget) return;
+    const existing = document.querySelector(`[data-widget-instance-id="${instanceId}"]`);
+    if (existing && this.lifecycle?.update?.(instanceId, existing, widget) === true) return;
+    const template = document.createElement('template');
+    template.innerHTML = this.renderWidget(widget, framework).trim();
+    const next = template.content.firstElementChild;
+    if (!next) return;
+    next.setAttribute('data-widget-instance-id', instanceId);
+    if (existing) { this.lifecycle?.unmount?.(instanceId, existing); existing.replaceWith(next); }
+    else document.querySelector('[data-widget-stream]')?.appendChild(next);
+    this.attachHandlers(next);
+    this.lifecycle?.mount?.(instanceId, next);
+  }
+
+  unmountWidget(instanceId: string): void {
+    const existing = document.querySelector(`[data-widget-instance-id="${instanceId}"]`);
+    if (!existing) return;
+    this.lifecycle?.unmount?.(instanceId, existing);
+    existing.remove();
   }
 
   /**

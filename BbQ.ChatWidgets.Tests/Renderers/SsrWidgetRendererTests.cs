@@ -1,6 +1,6 @@
-using Xunit;
 using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Renderers;
+using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Renderers;
 

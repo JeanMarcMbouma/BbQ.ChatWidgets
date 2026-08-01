@@ -1,7 +1,7 @@
+using System.Text.Json;
 using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Options;
 using BbQ.ChatWidgets.Services;
-using System.Text.Json;
 using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Services;
@@ -122,8 +122,8 @@ public sealed class WidgetStreamEventFactoryTests
             4,
             4,
             WidgetStreamEventKind.Patch,
-            Parse("[]"),
-            _occurredAt));
+            _occurredAt,
+            Parse("[]")));
     }
 
     [Fact]

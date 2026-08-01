@@ -1,6 +1,6 @@
-﻿using BbQ.ChatWidgets.Abstractions;
-using BbQ.ChatWidgets.Models;
 using System.Web;
+using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Models;
 
 namespace BbQ.ChatWidgets.Renderers
 {
@@ -255,7 +255,7 @@ namespace BbQ.ChatWidgets.Renderers
             html += "</label></div>";
 
             return html;
-            }
+        }
 
         private static string RenderFileUpload(FileUploadWidget fu)
         {

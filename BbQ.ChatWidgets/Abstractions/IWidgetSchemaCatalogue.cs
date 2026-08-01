@@ -1,5 +1,5 @@
-using BbQ.ChatWidgets.Models;
 using System.Diagnostics.CodeAnalysis;
+using BbQ.ChatWidgets.Models;
 
 namespace BbQ.ChatWidgets.Abstractions;
 

@@ -1,5 +1,5 @@
-using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Agents;
+using BbQ.ChatWidgets.Models;
 
 namespace BbQ.ChatWidgets.Sample.WebApp.Services;
 
@@ -60,7 +60,7 @@ public class TriageAwareChatService
     {
         try
         {
-            _logger.LogDebug("Processing message through triage agent: {Message}", 
+            _logger.LogDebug("Processing message through triage agent: {Message}",
                 userMessage.Length > 50 ? userMessage.Substring(0, 50) + "..." : userMessage);
 
             // Create request with user message in metadata
@@ -69,8 +69,8 @@ public class TriageAwareChatService
                 RequestServices: _serviceProvider
             )
             {
-                Metadata = new Dictionary<string, object> 
-                { 
+                Metadata = new Dictionary<string, object>
+                {
                     { "UserMessage", userMessage }
                 }
             };

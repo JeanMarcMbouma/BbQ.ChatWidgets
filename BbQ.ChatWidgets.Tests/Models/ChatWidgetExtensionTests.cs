@@ -1,6 +1,6 @@
-using Xunit;
-using BbQ.ChatWidgets.Models;
 using System.Text.Json;
+using BbQ.ChatWidgets.Models;
+using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Models;
 

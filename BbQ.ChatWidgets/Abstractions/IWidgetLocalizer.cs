@@ -1,4 +1,4 @@
-﻿namespace BbQ.ChatWidgets.Abstractions
+namespace BbQ.ChatWidgets.Abstractions
 {
     /// <summary>
     /// Provides localization support for widget text and labels.

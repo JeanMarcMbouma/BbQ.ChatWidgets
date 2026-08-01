@@ -15,6 +15,6 @@ public sealed record WeatherWidget(
 {
     public override string Purpose => """
            **Weather Widget** - Displays weather data pushed via SSE
-           Format: <widget>{"type":"weather","label":"LABEL","action":"weather_update","city":"London","streamId":"weather-stream"}</widget>
+           Emitted through the schema-constrained emit_widgets tool as complete weather state.
         """;
 }

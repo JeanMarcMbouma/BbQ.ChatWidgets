@@ -1,7 +1,7 @@
-using BbQ.ChatWidgets.Models;
-using Json.Schema;
 using System.Collections.Concurrent;
 using System.Text.Json;
+using BbQ.ChatWidgets.Models;
+using Json.Schema;
 
 namespace BbQ.ChatWidgets.Services;
 
@@ -157,6 +157,7 @@ public sealed class DefaultWidgetValidator(
         }
 
         foreach (var validator in _actionCompatibilityValidators)
-            diagnostics.AddRange(validator.Validate(widgetType, action, candidate, metadata));
+            foreach (var diagnostic in validator.Validate(widgetType, action, candidate, metadata))
+                diagnostics.Add(diagnostic);
     }
 }

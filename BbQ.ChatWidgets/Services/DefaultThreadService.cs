@@ -1,7 +1,7 @@
-﻿using BbQ.ChatWidgets.Abstractions;
+using System.Collections.Concurrent;
+using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Exceptions;
 using BbQ.ChatWidgets.Models;
-using System.Collections.Concurrent;
 
 namespace BbQ.ChatWidgets.Services;
 
@@ -51,8 +51,8 @@ public sealed class DefaultThreadService : IThreadService
     {
         if (_threads.TryGetValue(threadId, out var chatMessage))
         {
-            _threads[threadId] = new ChatMessages([..chatMessage.Turns.Append(chatTurn)]);
-            if(chatTurn.Widgets?.Any(x => x is IRecyclableWidget) == true)
+            _threads[threadId] = new ChatMessages([.. chatMessage.Turns.Append(chatTurn)]);
+            if (chatTurn.Widgets?.Any(x => x is IRecyclableWidget) == true)
             {
                 foreach (var widget in chatTurn.Widgets)
                 {

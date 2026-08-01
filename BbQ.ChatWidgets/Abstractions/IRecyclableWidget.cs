@@ -1,4 +1,4 @@
-﻿namespace BbQ.ChatWidgets.Abstractions;
+namespace BbQ.ChatWidgets.Abstractions;
 
 /// <summary>
 /// Interface for widgets that need to perform cleanup or resource deallocation.

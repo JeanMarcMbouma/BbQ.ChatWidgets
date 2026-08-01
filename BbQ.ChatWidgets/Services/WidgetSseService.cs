@@ -1,167 +1,188 @@
-using BbQ.ChatWidgets.Abstractions;
-using Microsoft.AspNetCore.Http;
 using System.Collections.Concurrent;
+using System.Globalization;
 using System.Text.Json;
 using System.Threading.Channels;
+using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Models;
+using BbQ.ChatWidgets.Options;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 
 namespace BbQ.ChatWidgets.Services;
 
-/// <summary>
-/// Service that manages Server-Sent Events (SSE) subscriptions and publishing
-/// for named widget streams. Each connected client receives JSON payloads as
-/// SSE `data:` messages.
-/// </summary>
+/// <summary>Bounded, replayable SSE transport for widget protocol events.</summary>
 public sealed class WidgetSseService : IWidgetSseService
 {
-    // streamId -> list of writers (one per connected client)
-    private readonly ConcurrentDictionary<string, ConcurrentBag<ChannelWriter<string>>> _streams = new();
-    
-    // Lock for coordinating bag removals to prevent race conditions
-    private readonly ReaderWriterLockSlim _streamsLock = new();
+    private sealed record Frame(string Id, string EventName, string Json);
+    private sealed class Subscriber(int capacity)
+    {
+        public Channel<Frame> Channel { get; } = System.Threading.Channels.Channel.CreateBounded<Frame>(
+            new BoundedChannelOptions(capacity) { SingleReader = true, SingleWriter = false, FullMode = BoundedChannelFullMode.Wait });
+        public volatile bool Overflowed;
+    }
+    private sealed class StreamState
+    {
+        public object Sync { get; } = new();
+        public LinkedList<Frame> Replay { get; } = new();
+        public HashSet<Subscriber> Subscribers { get; } = new();
+        public long Sequence;
+    }
 
-    /// <summary>
-    /// Subscribes the current HTTP context to the specified <paramref name="streamId"/>.
-    /// The response is configured for SSE and this method writes events until the
-    /// connection is closed or the provided <paramref name="ct"/> is cancelled.
-    /// </summary>
-    /// <param name="streamId">Logical identifier for the event stream.</param>
-    /// <param name="context">The current <see cref="HttpContext"/> for the request.</param>
-    /// <param name="ct">Cancellation token used to terminate the subscription.</param>
+    private readonly ConcurrentDictionary<string, StreamState> _streams = new();
+    private readonly WidgetSseOptions _options;
+
+    /// <summary>Initializes the SSE transport with validated buffering and liveness options.</summary>
+    /// <param name="options">Optional configured SSE options.</param>
+    public WidgetSseService(IOptions<WidgetSseOptions>? options = null)
+    {
+        _options = options?.Value ?? new WidgetSseOptions();
+        _options.Validate();
+    }
+
+    /// <inheritdoc />
     public async Task SubscribeAsync(string streamId, HttpContext context, CancellationToken ct = default)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(streamId);
         context.Response.ContentType = "text/event-stream";
-        context.Response.Headers.Add("Cache-Control", "no-cache");
-        context.Response.Headers.Add("Connection", "keep-alive");
+        context.Response.Headers["Cache-Control"] = "no-cache";
+        context.Response.Headers["Connection"] = "keep-alive";
 
-        var channel = Channel.CreateUnbounded<string>(new UnboundedChannelOptions { SingleReader = true, SingleWriter = false });
-        var writer = channel.Writer;
-        var reader = channel.Reader;
+        var state = _streams.GetOrAdd(streamId, _ => new StreamState());
+        var subscriber = new Subscriber(_options.SubscriberBufferCapacity);
+        var lastEventId = context.Request.Headers["Last-Event-ID"].FirstOrDefault();
 
-        var bag = _streams.GetOrAdd(streamId, _ => new ConcurrentBag<ChannelWriter<string>>());
-        bag.Add(writer);
+        lock (state.Sync)
+        {
+            foreach (var frame in ReplayAfter(state, streamId, lastEventId)) subscriber.Channel.Writer.TryWrite(frame);
+            state.Subscribers.Add(subscriber);
+        }
 
         try
         {
-            await foreach (var message in reader.ReadAllAsync(ct))
+            while (!ct.IsCancellationRequested)
             {
-                var payload = message;
-                try
+                var read = subscriber.Channel.Reader.WaitToReadAsync(ct).AsTask();
+                var tick = Task.Delay(_options.HeartbeatInterval, ct);
+                var completed = await Task.WhenAny(read, tick);
+                if (completed == tick)
                 {
-                    await context.Response.WriteAsync($"data: {payload}\n\n", ct);
-                    await context.Response.Body.FlushAsync(ct);
+                    await tick;
+                    await WriteFrameAsync(context, CreateHeartbeat(streamId, state), ct);
+                    continue;
                 }
-                catch
+
+                if (!await read) break;
+                while (subscriber.Channel.Reader.TryRead(out var frame))
+                    await WriteFrameAsync(context, frame, ct);
+
+                if (subscriber.Overflowed)
                 {
-                    // writing failed - likely disconnected; break to cleanup
-                    break;
+                    subscriber.Overflowed = false;
+                    await WriteFrameAsync(context, CreateResync(streamId, state, "subscriber-buffer-overflow"), ct);
                 }
             }
         }
+        catch (OperationCanceledException) when (ct.IsCancellationRequested) { }
+        catch (IOException) { }
         finally
         {
-            // Atomically remove the writer from the bag
-            _streamsLock.EnterWriteLock();
-            try
-            {
-                if (_streams.TryGetValue(streamId, out var existing))
-                {
-                    var newBag = new ConcurrentBag<ChannelWriter<string>>(existing.Where(w => w != writer));
-                    
-                    // Clean up empty streams to prevent memory leaks
-                    if (newBag.Count == 0)
-                    {
-                        _streams.TryRemove(streamId, out _);
-                    }
-                    else
-                    {
-                        _streams[streamId] = newBag;
-                    }
-                }
-            }
-            finally
-            {
-                _streamsLock.ExitWriteLock();
-            }
-            
-            try { writer.TryComplete(); } catch { }
+            lock (state.Sync) state.Subscribers.Remove(subscriber);
+            subscriber.Channel.Writer.TryComplete();
         }
     }
 
-    /// <summary>
-    /// Publishes a JSON-serializable <paramref name="message"/> to the named stream.
-    /// The message will be serialized and written to all current subscribers in a
-    /// best-effort fashion.
-    /// </summary>
-    /// <param name="streamId">Logical identifier for the event stream.</param>
-    /// <param name="message">The message payload to publish (will be serialized to JSON).</param>
-    /// <returns>A completed <see cref="Task"/> when the publish requests have been queued.</returns>
-    private Task PublishAsync(string streamId, object message)
+    /// <inheritdoc />
+    public Task PublishEventAsync(WidgetStreamEvent streamEvent, CancellationToken ct = default)
     {
-        var json = JsonSerializer.Serialize(message, Serialization.Default);
-
-        _streamsLock.EnterReadLock();
-        try
-        {
-            if (!_streams.TryGetValue(streamId, out var bag))
-            {
-                return Task.CompletedTask;
-            }
-
-            // Take a snapshot to avoid issues if bag is modified
-            var writers = bag.ToList();
-            
-            // Attempt synchronous write on all writers and collect those that fail.
-            // Note: TryWrite has side effects - it actually writes when successful.
-            // Writers where TryWrite succeeds are excluded; only failed writers are collected.
-            var failedWriters = writers.Where(w => !w.TryWrite(json)).ToList();
-            
-            // Handle failed writes asynchronously as fallback
-            foreach (var w in failedWriters)
-            {
-                _ = Task.Run(async () =>
-                {
-                    try
-                    {
-                        await w.WriteAsync(json);
-                    }
-                    catch
-                    {
-                        // ignore - subscriber is unresponsive
-                    }
-                });
-            }
-        }
-        finally
-        {
-            _streamsLock.ExitReadLock();
-        }
-
+        ArgumentNullException.ThrowIfNull(streamEvent);
+        ct.ThrowIfCancellationRequested();
+        PublishFrame(streamEvent.StreamId, new Frame(streamEvent.EventId, EventName(streamEvent.Kind), JsonSerializer.Serialize(streamEvent, Serialization.Default)), retain: true);
         return Task.CompletedTask;
     }
 
-    /// <summary>
-    /// Publishes a JSON-serializable <paramref name="message"/> to the named stream with payload validation.
-    /// The message will be validated against configured rules before being sent to subscribers.
-    /// </summary>
-    /// <param name="streamId">Logical identifier for the event stream.</param>
-    /// <param name="message">The message payload to publish (will be serialized to JSON).</param>
-    /// <param name="validator">The payload validator to use for validation.</param>
-    /// <param name="publisherId">Optional: Identifier for the publisher (used for rate limiting).</param>
-    /// <returns>A completed <see cref="Task"/> when the publish requests have been queued.</returns>
-    /// <exception cref="PayloadValidationException">Thrown if payload validation fails.</exception>
-    /// <exception cref="PublishRateLimitExceededException">Thrown if publish rate limit is exceeded.</exception>
+    /// <inheritdoc />
     public async Task PublishAsync(string streamId, object message, IStreamPayloadValidator validator, string? publisherId = null)
     {
+        ArgumentException.ThrowIfNullOrWhiteSpace(streamId);
+        ArgumentNullException.ThrowIfNull(message);
         ArgumentNullException.ThrowIfNull(validator);
-        
-        // Validate payload before publishing
         await validator.ValidateAsync(streamId, message);
-        
-        // Check publish frequency limits
         await validator.ValidatePublishFrequencyAsync(streamId, publisherId);
+        if (message is WidgetStreamEvent streamEvent)
+        {
+            if (!StringComparer.Ordinal.Equals(streamId, streamEvent.StreamId))
+                throw new ArgumentException("The route stream ID must match the event stream ID.", nameof(streamId));
+            await PublishEventAsync(streamEvent);
+            return;
+        }
 
-        // Publish after validation passes
-        await PublishAsync(streamId, message);
+        var state = _streams.GetOrAdd(streamId, _ => new StreamState());
+        string id;
+        lock (state.Sync) id = (++state.Sequence).ToString(CultureInfo.InvariantCulture);
+        PublishFrame(streamId, new Frame(id, "message", JsonSerializer.Serialize(message, Serialization.Default)), retain: true);
     }
+
+    private void PublishFrame(string streamId, Frame frame, bool retain)
+    {
+        var state = _streams.GetOrAdd(streamId, _ => new StreamState());
+        lock (state.Sync)
+        {
+            if (retain)
+            {
+                if (state.Replay.Any(item => StringComparer.Ordinal.Equals(item.Id, frame.Id))) return;
+                state.Replay.AddLast(frame);
+                while (state.Replay.Count > _options.ReplayCapacity) state.Replay.RemoveFirst();
+            }
+            foreach (var subscriber in state.Subscribers)
+                if (!subscriber.Channel.Writer.TryWrite(frame)) subscriber.Overflowed = true;
+        }
+    }
+
+    private IEnumerable<Frame> ReplayAfter(StreamState state, string streamId, string? lastEventId)
+    {
+        if (string.IsNullOrWhiteSpace(lastEventId)) yield break;
+        var node = state.Replay.First;
+        while (node is not null && !StringComparer.Ordinal.Equals(node.Value.Id, lastEventId)) node = node.Next;
+        if (node is null)
+        {
+            yield return CreateResync(streamId, state, "replay-gap");
+            yield break;
+        }
+        for (node = node.Next; node is not null; node = node.Next) yield return node.Value;
+    }
+
+    private static Frame CreateHeartbeat(string streamId, StreamState state)
+    {
+        long id;
+        lock (state.Sync) id = ++state.Sequence;
+        var json = JsonSerializer.Serialize(new { protocolVersion = WidgetStreamEvent.CurrentProtocolVersion, streamId, occurredAtUtc = DateTimeOffset.UtcNow }, Serialization.Default);
+        return new Frame($"heartbeat-{id}", "stream.heartbeat", json);
+    }
+
+    private static Frame CreateResync(string streamId, StreamState state, string reason)
+    {
+        long revision;
+        lock (state.Sync) revision = state.Sequence;
+        var json = JsonSerializer.Serialize(new { protocolVersion = WidgetStreamEvent.CurrentProtocolVersion, streamId, reason, currentRevision = revision }, Serialization.Default);
+        return new Frame($"resync-{revision}", "stream.resync-required", json);
+    }
+
+    private static async Task WriteFrameAsync(HttpContext context, Frame frame, CancellationToken ct)
+    {
+        await context.Response.WriteAsync($"event: {frame.EventName}\nid: {frame.Id}\ndata: {frame.Json}\n\n", ct);
+        await context.Response.Body.FlushAsync(ct);
+    }
+
+    private static string EventName(WidgetStreamEventKind kind) => kind switch
+    {
+        WidgetStreamEventKind.Snapshot => "widget.snapshot",
+        WidgetStreamEventKind.Upsert => "widget.upsert",
+        WidgetStreamEventKind.Patch => "widget.patch",
+        WidgetStreamEventKind.Remove => "widget.remove",
+        WidgetStreamEventKind.Status => "widget.status",
+        WidgetStreamEventKind.ActionResult => "widget.action-result",
+        WidgetStreamEventKind.ResyncRequired => "stream.resync-required",
+        WidgetStreamEventKind.Heartbeat => "stream.heartbeat",
+        _ => throw new ArgumentOutOfRangeException(nameof(kind))
+    };
 }

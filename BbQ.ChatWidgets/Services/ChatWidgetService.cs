@@ -1,12 +1,12 @@
-﻿using Microsoft.Extensions.AI;
-using BbQ.ChatWidgets.Models;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
 using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Agents;
 using BbQ.ChatWidgets.Agents.Abstractions;
-using System.Text.Json;
-using System.Reflection;
-using System.Runtime.CompilerServices;
+using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Options;
+using Microsoft.Extensions.AI;
 
 namespace BbQ.ChatWidgets.Services;
 
@@ -100,7 +100,7 @@ public sealed class ChatWidgetService(
     /// <returns>The assistant response turn.</returns>
     public async Task<ChatTurn> RespondAsync(string userMessage, string? threadId, string? personaOverride, CancellationToken ct = default)
     {
-        if(threadId == null || !threadService.ThreadExists(threadId))
+        if (threadId == null || !threadService.ThreadExists(threadId))
         {
             threadId = threadService.CreateThread();
         }
@@ -128,7 +128,7 @@ public sealed class ChatWidgetService(
         return messages.Turns[messages.Turns.Count - 1];
     }
 
-    
+
     /// <summary>
     /// Streams the AI assistant's response to a user message, yielding incremental <see cref="ChatTurn"/> deltas as content is generated.
     /// </summary>
@@ -173,7 +173,7 @@ public sealed class ChatWidgetService(
     /// </param>
     /// <param name="cancellationToken">Cancellation token to cancel the async operation.</param>
     /// <returns>An async stream of response turns.</returns>
-    public async IAsyncEnumerable<ChatTurn> StreamResponseAsync(string userMessage, string? threadId, string? personaOverride, [EnumeratorCancellation]CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<ChatTurn> StreamResponseAsync(string userMessage, string? threadId, string? personaOverride, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         if (threadId == null || !threadService.ThreadExists(threadId))
         {
@@ -193,7 +193,7 @@ public sealed class ChatWidgetService(
 
         string responseText = string.Empty;
         var chatWidgets = new List<ChatWidget>();
-        await foreach(var responseUpdate in chat.GetStreamingResponseAsync(aiMessages, chatOptions, cancellationToken))
+        await foreach (var responseUpdate in chat.GetStreamingResponseAsync(aiMessages, chatOptions, cancellationToken))
         {
             responseText += responseUpdate.Text;
             var (content, widgets) = widgetHintParser.Parse(responseText);
@@ -360,7 +360,7 @@ public sealed class ChatWidgetService(
                 if (turnsForSummary.Count > 0)
                 {
                     var summaryText = await historySummarizer.SummarizeAsync(turnsForSummary, ct);
-                    
+
                     // Only store the summary if we actually received non-empty content.
                     // This avoids marking turns as summarized when the summarizer fails
                     // or returns an empty response, which would otherwise lose context.
@@ -468,7 +468,7 @@ public sealed class ChatWidgetService(
         // Invoke handler via reflection
         var handleMethod = handler.GetType()
             .GetMethods(BindingFlags.Public | BindingFlags.Instance)
-            .FirstOrDefault(m => m.Name == "HandleActionAsync" && m.IsGenericMethodDefinition == false) 
+            .FirstOrDefault(m => m.Name == "HandleActionAsync" && m.IsGenericMethodDefinition == false)
             ?? throw new InvalidOperationException($"Handler for action '{action}' does not have HandleActionAsync method");
         var result = await (Task<ChatTurn>)handleMethod.Invoke(handler, [typedPayload, threadId, serviceProvider])!;
 

@@ -1,5 +1,5 @@
-using BbQ.ChatWidgets.Models;
 using System.Text.Json;
+using BbQ.ChatWidgets.Models;
 
 namespace BbQ.ChatWidgets.Services;
 
@@ -8,6 +8,12 @@ namespace BbQ.ChatWidgets.Services;
 /// </summary>
 public sealed class WidgetStreamEventFactory
 {
+    /// <summary>Creates a complete snapshot event for validated revisioned state.</summary>
+    /// <param name="streamId">Logical stream identifier.</param>
+    /// <param name="state">Complete validated state.</param>
+    /// <param name="eventId">Optional replay identifier.</param>
+    /// <param name="occurredAtUtc">Optional occurrence time.</param>
+    /// <returns>A snapshot event.</returns>
     public WidgetStreamEvent CreateSnapshot(
         string streamId,
         WidgetRevisionedState state,
@@ -23,6 +29,14 @@ public sealed class WidgetStreamEventFactory
             eventId,
             occurredAtUtc);
 
+    /// <summary>Reconciles complete desired state against a known base revision.</summary>
+    /// <param name="streamId">Logical stream identifier.</param>
+    /// <param name="current">Current validated state.</param>
+    /// <param name="expectedBaseRevision">Revision on which the caller based its transition.</param>
+    /// <param name="nextCompleteState">Next complete validated state.</param>
+    /// <param name="eventId">Optional replay identifier.</param>
+    /// <param name="occurredAtUtc">Optional occurrence time.</param>
+    /// <returns>An applied patch, no-change result, or resynchronisation request.</returns>
     public WidgetTransitionResult Transition(
         string streamId,
         WidgetRevisionedState current,
@@ -54,6 +68,13 @@ public sealed class WidgetStreamEventFactory
         return new(WidgetTransitionOutcome.Applied, patchEvent, next);
     }
 
+    /// <summary>Creates a revision-checked widget removal transition.</summary>
+    /// <param name="streamId">Logical stream identifier.</param>
+    /// <param name="current">Current validated state.</param>
+    /// <param name="expectedBaseRevision">Revision on which the caller based removal.</param>
+    /// <param name="eventId">Optional replay identifier.</param>
+    /// <param name="occurredAtUtc">Optional occurrence time.</param>
+    /// <returns>An applied removal or resynchronisation request.</returns>
     public WidgetTransitionResult Remove(
         string streamId,
         WidgetRevisionedState current,

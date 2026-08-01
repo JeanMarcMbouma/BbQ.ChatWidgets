@@ -17,3 +17,4 @@ export const VERSION = '1.0.0';
 
 // Clients
 export { WidgetSseManager } from './clients/WidgetSseManager';
+export * from './clients/WidgetStreamReducer';

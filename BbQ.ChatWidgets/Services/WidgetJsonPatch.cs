@@ -1,5 +1,5 @@
-using BbQ.ChatWidgets.Models;
 using System.Text.Json;
+using BbQ.ChatWidgets.Models;
 
 namespace BbQ.ChatWidgets.Services;
 
@@ -8,6 +8,10 @@ namespace BbQ.ChatWidgets.Services;
 /// </summary>
 public static class WidgetJsonPatch
 {
+    /// <summary>Creates a deterministic RFC 6902 patch between complete JSON states.</summary>
+    /// <param name="previous">Previous complete widget state.</param>
+    /// <param name="next">Next complete widget state.</param>
+    /// <returns>An immutable, deterministically ordered operation list.</returns>
     public static IReadOnlyList<WidgetJsonPatchOperation> Create(JsonElement previous, JsonElement next)
     {
         var operations = new List<WidgetJsonPatchOperation>();

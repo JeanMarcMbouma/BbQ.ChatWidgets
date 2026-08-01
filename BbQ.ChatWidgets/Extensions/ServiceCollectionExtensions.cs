@@ -1,4 +1,5 @@
-﻿using BbQ.ChatWidgets.Abstractions;
+using System.Text.Json;
+using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Agents;
 using BbQ.ChatWidgets.Agents.Abstractions;
 using BbQ.ChatWidgets.Endpoints;
@@ -12,7 +13,6 @@ using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using System.Text.Json;
 
 namespace BbQ.ChatWidgets.Extensions;
 
@@ -52,12 +52,13 @@ public static class ServiceCollectionExtensions
     {
         var options = new BbQChatOptions();
         configure?.Invoke(options);
-        
+
         // Validate summarization settings
         options.ValidateSummarizationSettings();
         PersonaGuardrails.ValidateOptions(options);
 
         services.AddSingleton(options);
+        services.AddSingleton<IOptions<WidgetSseOptions>>(Microsoft.Extensions.Options.Options.Create(options.WidgetSse));
         services.AddSingleton<WidgetRegistry>();
 #pragma warning disable MEAI001
         if (options.EnableVoice && options.SpeechToTextClientFactory is not null)
@@ -71,7 +72,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IThreadPersonaStore, DefaultThreadPersonaStore>();
         services.AddSingleton<IWidgetHintParser, DefaultWidgetHintParser>();
         services.AddSingleton<IWidgetHintSanitizer, DefaultWidgetHintParser>();
-        
+
         // Register action registry and handler resolver
         services.AddSingleton<IWidgetActionHandlerResolver, DefaultWidgetActionHandlerResolver>();
 
@@ -87,7 +88,7 @@ public static class ServiceCollectionExtensions
             services.AddScoped(sp => options.AIInstructionProviderFactory(sp));
         else
             services.AddScoped<IAIInstructionProvider, DefaultInstructionProvider>();
-            
+
         if (options.WidgetToolsProviderFactory is not null)
             services.AddSingleton(sp => options.WidgetToolsProviderFactory(sp));
         else
@@ -126,7 +127,8 @@ public static class ServiceCollectionExtensions
         // Snapshot the fully configured registry into an immutable, canonical
         // schema catalogue. Consumers can use the same definitions for model
         // schemas, validation, documentation, and generated client contracts.
-        services.AddSingleton<IWidgetSchemaCatalogue, WidgetSchemaCatalogue>();
+        services.AddSingleton<IWidgetSchemaCatalogue>(sp =>
+            new WidgetSchemaCatalogue(sp.GetRequiredService<IWidgetRegistry>()));
         services.AddSingleton<IWidgetSemanticValidator, BuiltInWidgetSemanticValidator>();
         services.AddSingleton<IWidgetValidator, DefaultWidgetValidator>();
 
@@ -137,9 +139,9 @@ public static class ServiceCollectionExtensions
 
             // Apply widget action handlers via AddWidgetActionHandler<TAction, TPayload, THandler>() (DI-friendly registration)
             var actionHandlersOptions = sp.GetService<IOptions<ActionHandlerOptions>>()?.Value;
-            if(actionHandlersOptions is { Handlers.Count: > 0 })
+            if (actionHandlersOptions is { Handlers.Count: > 0 })
             {
-                foreach(var handler in actionHandlersOptions.Handlers)
+                foreach (var handler in actionHandlersOptions.Handlers)
                 {
                     var metadata = handler(sp, registry);
                     handlerResolver.RegisterHandler(metadata.ActionName, metadata.HandlerType);
@@ -236,7 +238,7 @@ public static class ServiceCollectionExtensions
                 return;
             }
 
-            if(context.Request.Method == HttpMethods.Post && path == $"{prefix}/agent" )
+            if (context.Request.Method == HttpMethods.Post && path == $"{prefix}/agent")
             {
                 await HandleAgentRequest(context);
                 return;
@@ -289,14 +291,14 @@ public static class ServiceCollectionExtensions
 
             payload = NormalizeAndValidateUserMessageDto(payload, options);
 
-        // Reset stream position again for metadata deserialization
+            // Reset stream position again for metadata deserialization
 
             var chatRequest = new ChatRequest(payload.ThreadId, context.RequestServices)
             {
                 Metadata = metadata
             };
 
-        // Store user message in metadata for triage agent consumption
+            // Store user message in metadata for triage agent consumption
             if (!string.IsNullOrWhiteSpace(payload.Message))
             {
                 InterAgentCommunicationContext.SetUserMessage(chatRequest, payload.Message);
@@ -525,7 +527,7 @@ public static class ServiceCollectionExtensions
 
         // Accept arbitrary JSON message and forward
         var obj = JsonSerializer.Deserialize<object>(body, Serialization.Default);
-        await svc.PublishAsync(streamId, obj ?? new {}, validation);
+        await svc.PublishAsync(streamId, obj ?? new { }, validation);
 
         context.Response.StatusCode = 202;
         await context.Response.WriteAsync("Published");

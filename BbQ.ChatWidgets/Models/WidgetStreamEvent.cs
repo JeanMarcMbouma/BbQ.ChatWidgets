@@ -9,13 +9,21 @@ namespace BbQ.ChatWidgets.Models;
 [JsonConverter(typeof(WidgetStreamEventKindJsonConverter))]
 public enum WidgetStreamEventKind
 {
+    /// <summary>Replaces the complete state of one widget instance.</summary>
     Snapshot,
+    /// <summary>Adds or replaces one widget instance with complete state.</summary>
     Upsert,
+    /// <summary>Applies an RFC 6902 patch to a known base revision.</summary>
     Patch,
+    /// <summary>Removes one widget instance.</summary>
     Remove,
+    /// <summary>Reports lifecycle or operational status for one widget instance.</summary>
     Status,
+    /// <summary>Reports the result of a widget action.</summary>
     ActionResult,
+    /// <summary>Requires the client to obtain a fresh snapshot.</summary>
     ResyncRequired,
+    /// <summary>Reports stream liveness without changing widget state.</summary>
     Heartbeat
 }
 
@@ -24,8 +32,19 @@ public enum WidgetStreamEventKind
 /// </summary>
 public sealed record WidgetStreamEvent
 {
+    /// <summary>Gets the protocol version emitted by this library.</summary>
     public const string CurrentProtocolVersion = "1.0";
 
+    /// <summary>Initializes a validated widget stream event.</summary>
+    /// <param name="protocolVersion">Wire protocol version.</param>
+    /// <param name="eventId">Unique replay identifier.</param>
+    /// <param name="streamId">Logical stream identifier.</param>
+    /// <param name="instanceId">Server-owned widget instance identifier, when applicable.</param>
+    /// <param name="baseRevision">Revision to which a delta applies.</param>
+    /// <param name="revision">Revision produced or described by the event.</param>
+    /// <param name="kind">Event kind.</param>
+    /// <param name="occurredAtUtc">Event occurrence time.</param>
+    /// <param name="payload">Kind-specific JSON payload.</param>
     [JsonConstructor]
     public WidgetStreamEvent(
         string protocolVersion,
@@ -63,14 +82,23 @@ public sealed record WidgetStreamEvent
         Payload = payload.Clone();
     }
 
+    /// <summary>Gets the wire protocol version.</summary>
     public string ProtocolVersion { get; }
+    /// <summary>Gets the unique replay identifier.</summary>
     public string EventId { get; }
+    /// <summary>Gets the logical stream identifier.</summary>
     public string StreamId { get; }
+    /// <summary>Gets the server-owned widget instance identifier.</summary>
     public Guid? InstanceId { get; }
+    /// <summary>Gets the revision to which a delta applies.</summary>
     public long? BaseRevision { get; }
+    /// <summary>Gets the revision produced or described by this event.</summary>
     public long? Revision { get; }
+    /// <summary>Gets the event kind.</summary>
     public WidgetStreamEventKind Kind { get; }
+    /// <summary>Gets the UTC occurrence time.</summary>
     public DateTimeOffset OccurredAtUtc { get; }
+    /// <summary>Gets the kind-specific payload.</summary>
     public JsonElement Payload { get; }
 
     private static void ValidateKind(
@@ -148,6 +176,7 @@ public sealed record WidgetStreamEvent
 /// </summary>
 public sealed class WidgetStreamEventKindJsonConverter : JsonConverter<WidgetStreamEventKind>
 {
+    /// <inheritdoc />
     public override WidgetStreamEventKind Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
@@ -168,6 +197,7 @@ public sealed class WidgetStreamEventKindJsonConverter : JsonConverter<WidgetStr
         };
     }
 
+    /// <inheritdoc />
     public override void Write(
         Utf8JsonWriter writer,
         WidgetStreamEventKind value,

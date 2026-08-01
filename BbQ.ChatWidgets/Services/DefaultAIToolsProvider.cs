@@ -1,4 +1,4 @@
-﻿using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Abstractions;
 using Microsoft.Extensions.AI;
 
 namespace BbQ.ChatWidgets.Services
@@ -31,7 +31,7 @@ namespace BbQ.ChatWidgets.Services
         /// </returns>
         public IReadOnlyList<AITool> GetAITools()
         {
-            if(_tools is not null)
+            if (_tools is not null)
                 return _tools;
 
             var retryTool = AIFunctionFactory.Create(() =>

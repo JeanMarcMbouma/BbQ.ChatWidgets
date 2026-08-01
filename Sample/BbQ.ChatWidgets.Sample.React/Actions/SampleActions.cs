@@ -1,7 +1,7 @@
+using System.Text.Json;
 using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Models;
 using Microsoft.Extensions.AI;
-using System.Text.Json;
 
 namespace BbQ.ChatWidgets.Sample.WebApp.Actions;
 
@@ -20,7 +20,7 @@ public sealed class GreetingAction : IWidgetAction<GreetingPayload>
 {
     public string Name => "greet";
 
-    public string Description => 
+    public string Description =>
         "Sends a greeting with a name and optional message.";
 
     public string PayloadSchema =>
@@ -34,7 +34,7 @@ public sealed class GreetingAction : IWidgetAction<GreetingPayload>
 /// <summary>
 /// Handler for greeting actions.
 /// </summary>
-public sealed class GreetingHandler : 
+public sealed class GreetingHandler :
     IActionWidgetActionHandler<GreetingAction, GreetingPayload>
 {
     public async Task<ChatTurn> HandleActionAsync(
@@ -158,10 +158,10 @@ public sealed class EChartsClickHandler :
         IServiceProvider serviceProvider)
     {
         var message = $"Chart interaction detected: You clicked on '{payload.Name}' ";
-        
+
         if (payload.Value is not null)
             message += $"with value {payload.Value}";
-        
+
         if (!string.IsNullOrEmpty(payload.SeriesName))
             message += $" from series '{payload.SeriesName}'";
 

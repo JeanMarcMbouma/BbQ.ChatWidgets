@@ -13,6 +13,9 @@ namespace BbQ.ChatWidgets.Abstractions
         /// </summary>
         Task SubscribeAsync(string streamId, HttpContext context, CancellationToken ct = default);
 
+        /// <summary>Publishes a protocol event and retains it for reconnect replay.</summary>
+        Task PublishEventAsync(BbQ.ChatWidgets.Models.WidgetStreamEvent streamEvent, CancellationToken ct = default);
+
 
         /// <summary>
         /// Publish a JSON-serializable message to a named stream with payload validation.

@@ -1,12 +1,12 @@
+using System.Text.Json;
 using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Agents;
 using BbQ.ChatWidgets.Agents.Abstractions;
 using BbQ.ChatWidgets.Models;
-using BbQ.ChatWidgets.Services;
 using BbQ.ChatWidgets.Options;
+using BbQ.ChatWidgets.Services;
 using BbQ.MockLite;
 using Microsoft.Extensions.AI;
-using System.Text.Json;
 using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Services;
@@ -28,7 +28,7 @@ public class ChatWidgetServiceTests
     private readonly Mock<IWidgetActionHandlerResolver> mockHandlerResolver = new();
     private readonly Mock<IChatHistorySummarizer> mockHistorySummarizer = new();
     private readonly Mock<IAgentEventDispatcher> mockEventDispatcher = new();
-    private readonly BbQChatOptions options = new();
+    private readonly BbQChatOptions options = new() { WidgetGenerationMode = WidgetGenerationMode.EmbeddedMarkupLegacy };
 
     private readonly ChatWidgetService chatWidgetService;
 
@@ -295,7 +295,7 @@ class MockChatClient : IChatClient
     {
         LastChatOptions = options;
         var input = @"This is a widget: <widget>{""type"":""input"",""label"":""Email"",""action"":""email"",""placeholder"":""user@example.com"",""maxLength"":100}</widget>";
-        
+
         return Task.FromResult(new ChatResponse([new ChatMessage(ChatRole.Assistant, input)]));
     }
 

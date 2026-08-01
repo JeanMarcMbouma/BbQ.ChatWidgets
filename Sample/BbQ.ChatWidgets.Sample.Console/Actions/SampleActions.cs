@@ -1,7 +1,7 @@
-﻿using BbQ.ChatWidgets.Abstractions;
+using System.Text.Json;
+using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Models;
 using Microsoft.Extensions.AI;
-using System.Text.Json;
 
 namespace BbQ.ChatWidgets.Sample.Actions;
 
@@ -20,7 +20,7 @@ public sealed class GreetingAction : IWidgetAction<GreetingPayload>
 {
     public string Name => """greet""";
 
-    public string Description => 
+    public string Description =>
         """Sends a greeting with a name and optional message.""";
 
     public string PayloadSchema =>
@@ -34,7 +34,7 @@ public sealed class GreetingAction : IWidgetAction<GreetingPayload>
 /// <summary>
 /// Handler for greeting actions.
 /// </summary>
-public sealed class GreetingHandler : 
+public sealed class GreetingHandler :
     IActionWidgetActionHandler<GreetingAction, GreetingPayload>
 {
     public async Task<ChatTurn> HandleActionAsync(

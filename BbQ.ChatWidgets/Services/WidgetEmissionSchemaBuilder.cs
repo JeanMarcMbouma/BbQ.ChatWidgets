@@ -1,6 +1,6 @@
-using BbQ.ChatWidgets.Abstractions;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using BbQ.ChatWidgets.Abstractions;
 
 namespace BbQ.ChatWidgets.Services;
 

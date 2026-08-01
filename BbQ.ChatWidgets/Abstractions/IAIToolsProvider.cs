@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.AI;
+using Microsoft.Extensions.AI;
 
 namespace BbQ.ChatWidgets.Abstractions;
 

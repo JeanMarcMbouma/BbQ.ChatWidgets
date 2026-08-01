@@ -7,6 +7,10 @@ namespace BbQ.ChatWidgets.Models;
 /// </summary>
 public sealed record WidgetRevisionedState
 {
+    /// <summary>Initializes validated state at a server-owned revision.</summary>
+    /// <param name="instanceId">Stable widget instance identifier.</param>
+    /// <param name="revision">Non-negative state revision.</param>
+    /// <param name="state">Complete validated widget JSON object.</param>
     public WidgetRevisionedState(Guid instanceId, long revision, JsonElement state)
     {
         if (instanceId == Guid.Empty)
@@ -21,15 +25,22 @@ public sealed record WidgetRevisionedState
         State = state.Clone();
     }
 
+    /// <summary>Gets the stable widget instance identifier.</summary>
     public Guid InstanceId { get; }
+    /// <summary>Gets the current server-owned revision.</summary>
     public long Revision { get; }
+    /// <summary>Gets the complete validated widget state.</summary>
     public JsonElement State { get; }
 }
 
+/// <summary>Describes the result of reconciling a requested state transition.</summary>
 public enum WidgetTransitionOutcome
 {
+    /// <summary>The transition produced a new revision and event.</summary>
     Applied,
+    /// <summary>The requested state was equivalent to current state.</summary>
     NoChange,
+    /// <summary>The supplied base revision did not match current state.</summary>
     ResyncRequired
 }
 

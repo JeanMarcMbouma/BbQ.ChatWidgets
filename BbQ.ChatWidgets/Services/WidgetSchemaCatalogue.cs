@@ -1,7 +1,7 @@
-using BbQ.ChatWidgets.Abstractions;
-using BbQ.ChatWidgets.Models;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Models;
 
 namespace BbQ.ChatWidgets.Services;
 

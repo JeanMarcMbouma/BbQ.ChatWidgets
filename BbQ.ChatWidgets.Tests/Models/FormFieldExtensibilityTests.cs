@@ -1,6 +1,6 @@
-using Xunit;
-using BbQ.ChatWidgets.Models;
 using System.Text.Json;
+using BbQ.ChatWidgets.Models;
+using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Models;
 
@@ -36,7 +36,7 @@ public class FormFieldExtensibilityTests
         Assert.Equal("input", field.Type);
         Assert.True(field.Required);
         Assert.Equal("Enter a valid email", field.ValidationHint);
-        
+
         Assert.NotNull(widget);
         Assert.IsType<InputWidget>(widget);
         var inputWidget = (InputWidget)widget;
@@ -68,7 +68,7 @@ public class FormFieldExtensibilityTests
         Assert.Equal("Select Size", field.Label);
         Assert.Equal("dropdown", field.Type);
         Assert.True(field.Required);
-        
+
         Assert.NotNull(widget);
         Assert.IsType<DropdownWidget>(widget);
         var dropdownWidget = (DropdownWidget)widget;
@@ -103,7 +103,7 @@ public class FormFieldExtensibilityTests
         Assert.Equal("Volume Level", field.Label);
         Assert.Equal("slider", field.Type);
         Assert.False(field.Required);
-        
+
         Assert.NotNull(widget);
         Assert.IsType<SliderWidget>(widget);
         var sliderWidget = (SliderWidget)widget;
@@ -137,7 +137,7 @@ public class FormFieldExtensibilityTests
         Assert.Equal("Enable Notifications", field.Label);
         Assert.Equal("toggle", field.Type);
         Assert.False(field.Required);
-        
+
         Assert.NotNull(widget);
         Assert.IsType<ToggleWidget>(widget);
         var toggleWidget = (ToggleWidget)widget;
@@ -171,7 +171,7 @@ public class FormFieldExtensibilityTests
         Assert.Equal("datepicker", field.Type);
         Assert.True(field.Required);
         Assert.Equal("Must be at least 18 years old", field.ValidationHint);
-        
+
         Assert.NotNull(widget);
         Assert.IsType<DatePickerWidget>(widget);
         var datePickerWidget = (DatePickerWidget)widget;
@@ -204,7 +204,7 @@ public class FormFieldExtensibilityTests
         Assert.Equal("Upload Resume", field.Label);
         Assert.Equal("fileupload", field.Type);
         Assert.True(field.Required);
-        
+
         Assert.NotNull(widget);
         Assert.IsType<FileUploadWidget>(widget);
         var fileUploadWidget = (FileUploadWidget)widget;
@@ -236,7 +236,7 @@ public class FormFieldExtensibilityTests
         Assert.Equal("Select Your Interests", field.Label);
         Assert.Equal("multiselect", field.Type);
         Assert.False(field.Required);
-        
+
         Assert.NotNull(widget);
         Assert.IsType<MultiSelectWidget>(widget);
         var multiSelectWidget = (MultiSelectWidget)widget;
@@ -270,7 +270,7 @@ public class FormFieldExtensibilityTests
         Assert.Equal("Description", field.Label);
         Assert.Equal("textarea", field.Type);
         Assert.True(field.Required);
-        
+
         Assert.NotNull(widget);
         Assert.IsType<TextAreaWidget>(widget);
         var textAreaWidget = (TextAreaWidget)widget;

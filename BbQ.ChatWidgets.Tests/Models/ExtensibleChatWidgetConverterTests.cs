@@ -1,5 +1,5 @@
-using Xunit;
 using BbQ.ChatWidgets.Models;
+using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Models;
 

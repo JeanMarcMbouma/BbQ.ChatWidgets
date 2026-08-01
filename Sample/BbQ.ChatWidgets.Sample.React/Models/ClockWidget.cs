@@ -15,6 +15,6 @@ public sealed record ClockWidget(
 {
     public override string Purpose => """
            **Clock Widget** - Displays server time pushed via SSE
-           Format: <widget>{"type":"clock","label":"LABEL","action":"clock_tick","streamId":"default-stream"}</widget>
+           Emitted through the schema-constrained emit_widgets tool as complete clock state.
         """;
 }

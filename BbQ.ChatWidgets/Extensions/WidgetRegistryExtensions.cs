@@ -71,7 +71,7 @@ public static class WidgetRegistryExtensions
             .OrderBy(n => n)
             .ToList();
 
-        return $"Registered Widgets ({instances.Count}):\n  " + 
+        return $"Registered Widgets ({instances.Count}):\n  " +
                string.Join("\n  ", typeIds);
     }
 }

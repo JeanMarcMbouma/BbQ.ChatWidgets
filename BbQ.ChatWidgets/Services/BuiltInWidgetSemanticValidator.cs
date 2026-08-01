@@ -1,5 +1,5 @@
-using BbQ.ChatWidgets.Models;
 using System.Text.Json;
+using BbQ.ChatWidgets.Models;
 
 namespace BbQ.ChatWidgets.Services;
 

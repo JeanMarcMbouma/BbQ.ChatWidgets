@@ -1,7 +1,7 @@
-using Microsoft.Extensions.AI;
+using System.Text.Json;
 using BbQ.ChatWidgets.Agents;
 using BbQ.ChatWidgets.Agents.Abstractions;
-using System.Text.Json;
+using Microsoft.Extensions.AI;
 
 namespace BbQ.ChatWidgets.Services;
 

@@ -1,4 +1,4 @@
-﻿namespace BbQ.ChatWidgets.Endpoints;
+namespace BbQ.ChatWidgets.Endpoints;
 
 /// <summary>
 /// Data transfer object for user message requests.
@@ -11,7 +11,7 @@
 /// It contains the user's message and optional conversation thread ID.
 /// </remarks>
 public sealed record UserMessageDto(
-    string Message, 
+    string Message,
     string? ThreadId,
     string? Persona = null);
 
@@ -26,6 +26,6 @@ public sealed record UserMessageDto(
 /// It contains the action identifier, optional payload data, and conversation thread ID.
 /// </remarks>
 public sealed record WidgetActionDto(
-    string Action, 
+    string Action,
     Dictionary<string, object?>? Payload,
     string ThreadId);

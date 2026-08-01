@@ -1,13 +1,13 @@
-using Xunit;
 using BbQ.ChatWidgets.Agents;
 using BbQ.ChatWidgets.Agents.Abstractions;
+using BbQ.ChatWidgets.Extensions;
 using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Services;
 using BbQ.Outcome;
+using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.AI;
-using BbQ.ChatWidgets.Extensions;
+using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Agents;
 

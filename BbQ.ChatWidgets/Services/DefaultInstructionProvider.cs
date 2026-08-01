@@ -1,5 +1,5 @@
-﻿using BbQ.ChatWidgets.Abstractions;
 using System.Text;
+using BbQ.ChatWidgets.Abstractions;
 
 namespace BbQ.ChatWidgets.Services
 {
@@ -58,7 +58,7 @@ namespace BbQ.ChatWidgets.Services
                 You are a helpful AI assistant that can use registered interactive widgets when they improve the response.
 
                 Available widget types:
-                {{ string.Join("\n", _widgetRegistry.GetEntries().Select(entry => $"- {entry.TypeId}")) }}
+                {{string.Join("\n", _widgetRegistry.GetEntries().Select(entry => $"- {entry.TypeId}"))}}
 
                 Widget generation rules:
                 - Emit widgets only by invoking the `emit_widgets` tool.
@@ -79,7 +79,7 @@ namespace BbQ.ChatWidgets.Services
 
                 You have access to the following interactive widgets that you can embed in your responses:
 
-                {{ string.Join("\n", _widgetRegistry.GetInstances().Select((w, i) => $"{i+1}.{w.Purpose}")) }}
+                {{string.Join("\n", _widgetRegistry.GetInstances().Select((w, i) => $"{i + 1}.{w.Purpose}"))}}
 
                 When generating widgets:
                 - Always provide clear, actionable labels

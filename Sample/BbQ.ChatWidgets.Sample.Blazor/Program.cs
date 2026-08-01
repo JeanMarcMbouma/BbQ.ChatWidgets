@@ -1,10 +1,11 @@
-using Microsoft.Extensions.AI;
 using BbQ.ChatWidgets.Blazor;
 using BbQ.ChatWidgets.Extensions;
+using BbQ.ChatWidgets.Options;
+using BbQ.ChatWidgets.Sample.Blazor.Components.CustomWidgets;
 using BbQ.ChatWidgets.Sample.Shared;
 using BbQ.ChatWidgets.Sample.Shared.Agents;
 using BbQ.ChatWidgets.Sample.Shared.Services;
-using BbQ.ChatWidgets.Sample.Blazor.Components.CustomWidgets;
+using Microsoft.Extensions.AI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,7 @@ IChatClient chatClient = new ChatClientBuilder(openaiClient)
 // Register BbQ.ChatWidgets services
 services.AddBbQChatWidgets(bbqOptions =>
 {
+    bbqOptions.WidgetGenerationMode = WidgetGenerationMode.StrictToolCall;
     bbqOptions.RoutePrefix = "/api/chat";
     bbqOptions.ChatClientFactory = sp => chatClient;
     bbqOptions.EnablePersona = true;
@@ -50,7 +52,7 @@ services.AddBbQChatWidgets(bbqOptions =>
     {
         // Register custom ECharts widget
         registry.Register(new EChartsWidget("Sales Chart", "on_chart_click", "bar", "{\"xAxis\": {\"type\": \"category\", \"data\": [\"Jan\", \"Feb\", \"Mar\"]}, \"yAxis\": {\"type\": \"value\"}, \"series\": [{\"data\": [100, 200, 150], \"type\": \"bar\"}]}"));
-       
+
         // Register a server-side Weather widget template used for SSE weather updates demo.
         registry.Register(new WeatherWidget("Weather", "weather_update", "London", "weather-stream"), "weather");
     };
@@ -76,8 +78,8 @@ services.AddWidgetActionHandler<GreetingAction, GreetingPayload, GreetingHandler
 
 services.AddBbQChatWidgetsBlazor(options =>
 {
-        // Example of overriding a default/custom widget with a custom Blazor component
-        options.Add<ClockWidget, ClockWidgetComponent>("clock");
+    // Example of overriding a default/custom widget with a custom Blazor component
+    options.Add<ClockWidget, ClockWidgetComponent>("clock");
 });
 
 // Register triage agent system with specialized agents

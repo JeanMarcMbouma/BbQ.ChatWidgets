@@ -1,8 +1,8 @@
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Models;
 using Microsoft.Extensions.AI;
-using System.Text.Json;
-using System.Text.Json.Nodes;
 
 namespace BbQ.ChatWidgets.Services;
 
@@ -27,6 +27,8 @@ public sealed class EmitWidgetsAIFunction : AIFunction
     /// </summary>
     /// <param name="catalogue">Canonical definitions allowed in tool calls.</param>
     /// <param name="onEmitted">Per-request callback that receives deserialized widget candidates.</param>
+    /// <param name="validator">Optional validator; the default validation pipeline is used when omitted.</param>
+    /// <param name="validationContext">Optional validation context; one based on <paramref name="catalogue"/> is used when omitted.</param>
     public EmitWidgetsAIFunction(
         IWidgetSchemaCatalogue catalogue,
         Func<IReadOnlyList<ChatWidget>, CancellationToken, ValueTask> onEmitted,

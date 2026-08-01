@@ -1,4 +1,4 @@
-﻿namespace BbQ.ChatWidgets.Agents.Abstractions;
+namespace BbQ.ChatWidgets.Agents.Abstractions;
 
 /// <summary>
 /// Interface for classifying input into predefined categories.

@@ -1,6 +1,6 @@
-using Xunit;
 using BbQ.ChatWidgets.Models;
 using Microsoft.Extensions.AI;
+using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Models;
 

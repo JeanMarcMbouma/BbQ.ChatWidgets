@@ -1,11 +1,11 @@
-using Xunit;
-using Microsoft.Extensions.DependencyInjection;
-using BbQ.ChatWidgets.Extensions;
-using BbQ.ChatWidgets.Services;
-using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Abstractions;
+using BbQ.ChatWidgets.Extensions;
+using BbQ.ChatWidgets.Models;
+using BbQ.ChatWidgets.Services;
 using BbQ.MockLite;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.DependencyInjection;
+using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Integration;
 
@@ -152,7 +152,7 @@ public class ServiceCollectionIntegrationTests
 
         // Assert
         Assert.Equal(15, instances.Count());
-        
+
         var types = instances.Select(w => w.GetType()).Distinct().ToList();
         Assert.Contains(typeof(ButtonWidget), types);
         Assert.Contains(typeof(CardWidget), types);

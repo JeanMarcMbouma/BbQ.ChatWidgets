@@ -1,7 +1,7 @@
-﻿// Services/WidgetRegistry.cs
+// Services/WidgetRegistry.cs
+using System.Collections.Concurrent;
 using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Models;
-using System.Collections.Concurrent;
 
 namespace BbQ.ChatWidgets.Services;
 

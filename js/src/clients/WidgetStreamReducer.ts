@@ -74,7 +74,11 @@ function applyPatch(source: any, operations: any[]): any {
     const key = parts[parts.length - 1];
     if (operation.op === 'remove') {
       if (!(key in target)) throw new Error('Invalid path');
-      Array.isArray(target) ? target.splice(Number(key), 1) : delete target[key];
+      if (Array.isArray(target)) {
+        target.splice(Number(key), 1);
+      } else {
+        delete target[key];
+      }
     } else {
       if (operation.op === 'replace' && !(key in target)) throw new Error('Invalid path');
       target[key] = structuredClone(operation.value);

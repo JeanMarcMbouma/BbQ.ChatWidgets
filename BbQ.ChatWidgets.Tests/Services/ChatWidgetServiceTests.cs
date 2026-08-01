@@ -3,8 +3,10 @@ using BbQ.ChatWidgets.Agents;
 using BbQ.ChatWidgets.Agents.Abstractions;
 using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Services;
+using BbQ.ChatWidgets.Options;
 using BbQ.MockLite;
 using Microsoft.Extensions.AI;
+using System.Text.Json;
 using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Services;
@@ -33,7 +35,10 @@ public class ChatWidgetServiceTests
     public ChatWidgetServiceTests()
     {
         mockEventDispatcher.Setup(d => d.DispatchAsync(It.IsAny<AgentEvent>(), It.IsAny<CancellationToken>()), () => Task.CompletedTask);
-        chatWidgetService = new ChatWidgetService(
+        chatWidgetService = CreateService();
+    }
+
+    private ChatWidgetService CreateService(IWidgetSchemaCatalogue? catalogue = null) => new(
             mockChat,
             mockWidgetHintParser.Object,
             mockWidgetHintSanitizer.Object,
@@ -46,9 +51,8 @@ public class ChatWidgetServiceTests
             mockHandlerResolver.Object,
             mockHistorySummarizer.Object,
             mockEventDispatcher.Object,
-            options
-        );
-    }
+            options,
+            catalogue);
 
     private void SetupBasicConversationFlow()
     {
@@ -140,6 +144,23 @@ public class ChatWidgetServiceTests
         mockAIToolsProvider.Verify(
             c => c.GetAITools(),
             Times.Once);
+    }
+
+    [Fact]
+    public async Task RespondAsync_StrictMode_ProvidesOnlySchemaConstrainedWidgetEmissionTool()
+    {
+        SetupBasicConversationFlow();
+        options.WidgetGenerationMode = WidgetGenerationMode.StrictToolCall;
+        var service = CreateService(new WidgetSchemaCatalogue(new WidgetRegistry()));
+
+        await service.RespondAsync("Show an approval button", threadId: "thread-123");
+
+        var chatOptions = Assert.IsType<ChatOptions>(mockChat.LastChatOptions);
+        var emissionTool = Assert.Single(chatOptions.Tools!, tool => tool.Name == EmitWidgetsAIFunction.FunctionName);
+        var declaration = Assert.IsAssignableFrom<AIFunctionDeclaration>(emissionTool);
+        Assert.Equal(JsonValueKind.Object, declaration.JsonSchema.ValueKind);
+        Assert.True(Assert.IsType<bool>(declaration.AdditionalProperties["strict"]));
+        Assert.DoesNotContain(chatOptions.Tools!, tool => tool.Name == "get_widget_tools");
     }
 
     [Fact]

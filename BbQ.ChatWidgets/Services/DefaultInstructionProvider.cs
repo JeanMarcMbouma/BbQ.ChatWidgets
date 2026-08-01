@@ -17,10 +17,14 @@ namespace BbQ.ChatWidgets.Services
     /// The instructions are generated dynamically based on registered widgets and actions,
     /// ensuring the AI always has accurate information about what's available.
     /// </remarks>
-    internal class DefaultInstructionProvider(IWidgetActionRegistry actionRegistry, IWidgetRegistry widgetRegistry) : IAIInstructionProvider
+    internal class DefaultInstructionProvider(
+        IWidgetActionRegistry actionRegistry,
+        IWidgetRegistry widgetRegistry,
+        BbQChatOptions options) : IAIInstructionProvider
     {
         private readonly IWidgetActionRegistry _actionRegistry = actionRegistry ?? throw new ArgumentNullException(nameof(actionRegistry));
         private readonly IWidgetRegistry _widgetRegistry = widgetRegistry ?? throw new ArgumentNullException(nameof(widgetRegistry));
+        private readonly BbQChatOptions _options = options ?? throw new ArgumentNullException(nameof(options));
 
         /// <summary>
         /// Gets the system instructions for the AI model.
@@ -38,7 +42,39 @@ namespace BbQ.ChatWidgets.Services
         /// <returns>The system instructions string, or null if no instructions are available.</returns>
         public string? GetInstructions()
         {
-            var staticInstructions = $$"""
+            var staticInstructions = _options.WidgetGenerationMode switch
+            {
+                BbQ.ChatWidgets.Options.WidgetGenerationMode.StrictToolCall => BuildStrictToolInstructions(),
+                BbQ.ChatWidgets.Options.WidgetGenerationMode.StructuredResponse => BuildStructuredResponseInstructions(),
+                _ => BuildLegacyInstructions()
+            };
+
+            var dynamicActions = BuildDynamicActionInstructions();
+
+            return staticInstructions + (string.IsNullOrEmpty(dynamicActions) ? "" : $"\n\n## Registered Actions\n\n{dynamicActions}");
+        }
+
+        private string BuildStrictToolInstructions() => $$"""
+                You are a helpful AI assistant that can use registered interactive widgets when they improve the response.
+
+                Available widget types:
+                {{ string.Join("\n", _widgetRegistry.GetEntries().Select(entry => $"- {entry.TypeId}")) }}
+
+                Widget generation rules:
+                - Emit widgets only by invoking the `emit_widgets` tool.
+                - Follow the tool JSON Schema exactly; do not invent types, properties, nesting, or actions.
+                - Send complete desired widget state, never patches.
+                - Never generate instance IDs, revisions, lifecycle state, authorization decisions, or transport metadata.
+                - Do not include widget JSON or `<widget>` markers in assistant text.
+                - Keep labels concise and action-oriented.
+                """;
+
+        private static string BuildStructuredResponseInstructions() => """
+                You are a helpful AI assistant that can produce schema-constrained widget responses.
+                Follow the response JSON Schema exactly and never invent widget types, properties, actions, or transport metadata.
+                """;
+
+        private string BuildLegacyInstructions() => $$"""
                 You are a helpful AI assistant that can generate interactive widgets to enhance user experience.
 
                 You have access to the following interactive widgets that you can embed in your responses:
@@ -69,11 +105,6 @@ namespace BbQ.ChatWidgets.Services
                   - {"name":"feedback","label":"Feedback","type":"textarea","required":true,"validationHint":"Limit to 250 characters","maxLength":250}
                 - NO EXCEPTIONS - if maxLength conflicts with validationHint, the form will reject valid input
                 """;
-
-            var dynamicActions = BuildDynamicActionInstructions();
-
-            return staticInstructions + (string.IsNullOrEmpty(dynamicActions) ? "" : $"\n\n## Registered Actions\n\n{dynamicActions}");
-        }
 
         /// <summary>
         /// Builds the action-related instructions by iterating through registered actions.

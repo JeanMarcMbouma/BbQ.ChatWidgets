@@ -12,6 +12,17 @@ using Microsoft.Extensions.AI;
 public sealed class BbQChatOptions
 {
     /// <summary>
+    /// Gets or sets how models emit widgets.
+    /// </summary>
+    /// <remarks>
+    /// The default remains <see cref="BbQ.ChatWidgets.Options.WidgetGenerationMode.EmbeddedMarkupLegacy"/>
+    /// for backward compatibility. Strict tool mode requires a function-capable provider and
+    /// function invocation middleware in the consuming application.
+    /// </remarks>
+    public BbQ.ChatWidgets.Options.WidgetGenerationMode WidgetGenerationMode { get; set; } =
+        BbQ.ChatWidgets.Options.WidgetGenerationMode.EmbeddedMarkupLegacy;
+
+    /// <summary>
     /// Gets or sets the route prefix for chat widget API endpoints.
     /// </summary>
     /// <remarks>

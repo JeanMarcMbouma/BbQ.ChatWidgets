@@ -1,6 +1,7 @@
 using Microsoft.Extensions.AI;
 using BbQ.ChatWidgets.Agents;
 using BbQ.ChatWidgets.Agents.Abstractions;
+using System.Text.Json;
 
 namespace BbQ.ChatWidgets.Services;
 
@@ -33,6 +34,12 @@ internal sealed class EventFiringAIFunction : AIFunction
 
     /// <inheritdoc />
     public override string Description => _inner.Description;
+
+    /// <inheritdoc />
+    public override JsonElement JsonSchema => _inner.JsonSchema;
+
+    /// <inheritdoc />
+    public override IReadOnlyDictionary<string, object?> AdditionalProperties => _inner.AdditionalProperties;
 
     /// <inheritdoc />
     protected override async ValueTask<object?> InvokeCoreAsync(

@@ -125,6 +125,8 @@ public static class ServiceCollectionExtensions
         // schema catalogue. Consumers can use the same definitions for model
         // schemas, validation, documentation, and generated client contracts.
         services.AddSingleton<IWidgetSchemaCatalogue, WidgetSchemaCatalogue>();
+        services.AddSingleton<IWidgetSemanticValidator, BuiltInWidgetSemanticValidator>();
+        services.AddSingleton<IWidgetValidator, DefaultWidgetValidator>();
 
         services.AddSingleton<IWidgetActionRegistry>(sp =>
         {

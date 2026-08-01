@@ -49,7 +49,8 @@ public sealed class ChatWidgetService(
     IChatHistorySummarizer historySummarizer,
     IAgentEventDispatcher eventDispatcher,
     BbQChatOptions options,
-    IWidgetSchemaCatalogue? schemaCatalogue = null)
+    IWidgetSchemaCatalogue? schemaCatalogue = null,
+    IWidgetValidator? widgetValidator = null)
 {
     /// <summary>
     /// Processes a user message and generates an AI response with optional embedded widgets.
@@ -231,7 +232,12 @@ public sealed class ChatWidgetService(
                     {
                         emittedWidgets.AddRange(widgets);
                         return ValueTask.CompletedTask;
-                    }));
+                    },
+                    widgetValidator ?? new DefaultWidgetValidator(),
+                    new WidgetValidationContext(
+                        schemaCatalogue,
+                        actionRegistry,
+                        options.RequireRegisteredWidgetActions)));
                 break;
 
             case WidgetGenerationMode.StructuredResponse:

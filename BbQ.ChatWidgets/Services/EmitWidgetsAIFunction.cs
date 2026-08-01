@@ -18,6 +18,9 @@ public sealed class EmitWidgetsAIFunction : AIFunction
     public const string FunctionName = "emit_widgets";
 
     private readonly Func<IReadOnlyList<ChatWidget>, CancellationToken, ValueTask> _onEmitted;
+    private readonly IWidgetValidator _validator;
+    private readonly WidgetValidationContext _validationContext;
+    private int _invalidEmissionCount;
 
     /// <summary>
     /// Initializes the emission tool.
@@ -26,12 +29,16 @@ public sealed class EmitWidgetsAIFunction : AIFunction
     /// <param name="onEmitted">Per-request callback that receives deserialized widget candidates.</param>
     public EmitWidgetsAIFunction(
         IWidgetSchemaCatalogue catalogue,
-        Func<IReadOnlyList<ChatWidget>, CancellationToken, ValueTask> onEmitted)
+        Func<IReadOnlyList<ChatWidget>, CancellationToken, ValueTask> onEmitted,
+        IWidgetValidator? validator = null,
+        WidgetValidationContext? validationContext = null)
     {
         ArgumentNullException.ThrowIfNull(catalogue);
         ArgumentNullException.ThrowIfNull(onEmitted);
 
         _onEmitted = onEmitted;
+        _validator = validator ?? new DefaultWidgetValidator();
+        _validationContext = validationContext ?? new WidgetValidationContext(catalogue);
         JsonSchema = WidgetEmissionSchemaBuilder.Build(catalogue);
     }
 
@@ -57,18 +64,57 @@ public sealed class EmitWidgetsAIFunction : AIFunction
         ArgumentNullException.ThrowIfNull(arguments);
 
         if (!arguments.TryGetValue("widgets", out var value) || value is null)
-            throw new JsonException("The emit_widgets call must contain a 'widgets' array.");
+        {
+            return Reject([
+                new WidgetValidationDiagnostic(
+                    WidgetValidationCodes.EmissionArrayRequired,
+                    "The emit_widgets call must contain a 'widgets' array.",
+                    "/widgets",
+                    WidgetValidationStage.Schema)
+            ]);
+        }
 
         var element = ToJsonElement(value);
         if (element.ValueKind is not JsonValueKind.Array)
-            throw new JsonException("The emit_widgets 'widgets' value must be a JSON array.");
-
-        var widgets = new List<ChatWidget>();
-        foreach (var candidate in element.EnumerateArray())
         {
-            if (candidate.ValueKind is not JsonValueKind.Object)
-                throw new JsonException("Every emitted widget must be a JSON object.");
+            return Reject([
+                new WidgetValidationDiagnostic(
+                    WidgetValidationCodes.EmissionArrayRequired,
+                    "The emit_widgets 'widgets' value must be a JSON array.",
+                    "/widgets",
+                    WidgetValidationStage.Schema)
+            ]);
+        }
 
+        var diagnostics = new List<WidgetValidationDiagnostic>();
+        var candidates = element.EnumerateArray().Select(candidate => candidate.Clone()).ToArray();
+        if (candidates.Length == 0 && _validationContext.Catalogue.Definitions.Count > 0)
+        {
+            return Reject([
+                new WidgetValidationDiagnostic(
+                    WidgetValidationCodes.SchemaViolation,
+                    "At least one widget must be emitted when the catalogue is not empty.",
+                    "/widgets",
+                    WidgetValidationStage.Schema)
+            ]);
+        }
+
+        for (var index = 0; index < candidates.Length; index++)
+        {
+            var result = _validator.Validate(candidates[index], _validationContext);
+            diagnostics.AddRange(result.Diagnostics.Select(diagnostic => diagnostic with
+            {
+                Path = $"/widgets/{index}{diagnostic.Path}"
+            }));
+        }
+
+        if (diagnostics.Any(diagnostic => diagnostic.Severity is WidgetDiagnosticSeverity.Error))
+            return Reject(diagnostics);
+
+        // Only validated candidates may cross the deserialization boundary.
+        var widgets = new List<ChatWidget>();
+        foreach (var candidate in candidates)
+        {
             var widget = JsonSerializer.Deserialize<ChatWidget>(candidate, Serialization.Default)
                 ?? throw new JsonException("An emitted widget could not be deserialized.");
             widgets.Add(widget);
@@ -77,6 +123,26 @@ public sealed class EmitWidgetsAIFunction : AIFunction
         var accepted = Array.AsReadOnly(widgets.ToArray());
         await _onEmitted(accepted, cancellationToken);
         return new WidgetEmissionResult(accepted.Count);
+    }
+
+    private WidgetEmissionResult Reject(IEnumerable<WidgetValidationDiagnostic> diagnostics)
+    {
+        var diagnosticList = diagnostics.ToList();
+        var invalidAttempt = Interlocked.Increment(ref _invalidEmissionCount);
+        var repairAllowed = invalidAttempt == 1;
+        if (!repairAllowed)
+        {
+            diagnosticList.Add(new(
+                WidgetValidationCodes.RepairLimitReached,
+                "The single widget repair attempt has been exhausted.",
+                "/widgets",
+                WidgetValidationStage.Schema));
+        }
+
+        return new WidgetEmissionResult(
+            0,
+            Array.AsReadOnly(diagnosticList.ToArray()),
+            repairAllowed);
     }
 
     private static JsonElement ToJsonElement(object value) => value switch

@@ -23,6 +23,16 @@ public sealed class BbQChatOptions
         BbQ.ChatWidgets.Options.WidgetGenerationMode.EmbeddedMarkupLegacy;
 
     /// <summary>
+    /// Gets or sets whether strict widget generation rejects action identifiers
+    /// that are not present in <see cref="IWidgetActionRegistry"/>.
+    /// </summary>
+    /// <remarks>
+    /// Enabled by default for strict generation. Disable only when action routing
+    /// is intentionally handled outside ChatWidgets.
+    /// </remarks>
+    public bool RequireRegisteredWidgetActions { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets the route prefix for chat widget API endpoints.
     /// </summary>
     /// <remarks>

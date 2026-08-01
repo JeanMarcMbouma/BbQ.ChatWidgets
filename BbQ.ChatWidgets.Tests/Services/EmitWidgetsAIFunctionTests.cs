@@ -102,17 +102,66 @@ public sealed class EmitWidgetsAIFunctionTests
     }
 
     [Fact]
-    public async Task InvokeAsync_RejectsDoubleEncodedWidgetArray()
+    public async Task InvokeAsync_BoundsStructuredRepairToOneAttempt()
     {
         var function = CreateFunction(new WidgetSchemaCatalogue(new WidgetRegistry()));
         var doubleEncoded = JsonSerializer.SerializeToElement(
             "[{\"type\":\"button\",\"label\":\"Approve\",\"action\":\"approve\"}]");
         var arguments = new AIFunctionArguments { ["widgets"] = doubleEncoded };
 
-        await Assert.ThrowsAsync<JsonException>(async () =>
-        {
-            await function.InvokeAsync(arguments);
-        });
+        var first = Assert.IsType<WidgetEmissionResult>(await function.InvokeAsync(arguments));
+        var second = Assert.IsType<WidgetEmissionResult>(await function.InvokeAsync(arguments));
+
+        Assert.False(first.Accepted);
+        Assert.True(first.RepairAllowed);
+        Assert.Contains(first.Diagnostics!, diagnostic => diagnostic.Code == WidgetValidationCodes.EmissionArrayRequired);
+        Assert.False(second.RepairAllowed);
+        Assert.Contains(second.Diagnostics!, diagnostic => diagnostic.Code == WidgetValidationCodes.RepairLimitReached);
+    }
+
+    [Fact]
+    public async Task InvokeAsync_ValidatesEveryCandidateBeforeDeserialization()
+    {
+        var emitted = false;
+        var function = new EmitWidgetsAIFunction(
+            new WidgetSchemaCatalogue(new WidgetRegistry()),
+            (_, _) =>
+            {
+                emitted = true;
+                return ValueTask.CompletedTask;
+            },
+            new AlwaysRejectingValidator());
+        var widgetsJson = JsonSerializer.Deserialize<JsonElement>(
+            """[{"type":"invented","hallucinated":true}]""");
+
+        var result = Assert.IsType<WidgetEmissionResult>(await function.InvokeAsync(
+            new AIFunctionArguments { ["widgets"] = widgetsJson }));
+
+        Assert.False(result.Accepted);
+        Assert.False(emitted);
+        Assert.Contains(result.Diagnostics!, diagnostic =>
+            diagnostic.Code == WidgetValidationCodes.TypeNotRegistered &&
+            diagnostic.Path == "/widgets/0/type");
+    }
+
+    [Fact]
+    public async Task InvokeAsync_EmptyCatalogueAcceptsItsSchemaDefinedEmptyArray()
+    {
+        IReadOnlyList<ChatWidget>? emitted = null;
+        var function = new EmitWidgetsAIFunction(
+            new WidgetSchemaCatalogue([]),
+            (widgets, _) =>
+            {
+                emitted = widgets;
+                return ValueTask.CompletedTask;
+            });
+
+        var result = Assert.IsType<WidgetEmissionResult>(await function.InvokeAsync(
+            new AIFunctionArguments { ["widgets"] = JsonSerializer.Deserialize<JsonElement>("[]") }));
+
+        Assert.True(result.Accepted);
+        Assert.Equal(0, result.AcceptedCount);
+        Assert.Empty(emitted!);
     }
 
     [Fact]
@@ -140,5 +189,17 @@ public sealed class EmitWidgetsAIFunctionTests
     {
         public Task DispatchAsync(AgentEvent agentEvent, CancellationToken cancellationToken = default) =>
             Task.CompletedTask;
+    }
+
+    private sealed class AlwaysRejectingValidator : IWidgetValidator
+    {
+        public WidgetValidationResult Validate(JsonElement candidate, WidgetValidationContext context) =>
+            new([
+                new WidgetValidationDiagnostic(
+                    WidgetValidationCodes.TypeNotRegistered,
+                    "Rejected before deserialization for this test.",
+                    "/type",
+                    WidgetValidationStage.RegisteredType)
+            ]);
     }
 }

@@ -78,6 +78,9 @@
     <h3 id="classes">
 Classes
 </h3>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Services.BuiltInWidgetSemanticValidator.html">BuiltInWidgetSemanticValidator</a></h4>
+      <section><p>Validates cross-property invariants for built-in widgets.</p>
+</section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Services.ChatWidgetService.html">ChatWidgetService</a></h4>
       <section><p>Orchestrates chat widget interactions by managing message processing, widget tool availability,
 and conversation threading.</p>
@@ -109,19 +112,33 @@ from AI model output using XML-style markers.</p>
       <section><p>Default implementation of <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider.html">IWidgetToolsProvider</a> that provides AI tools
 for all available widget instances registered in the widget registry.</p>
 </section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Services.DefaultWidgetValidator.html">DefaultWidgetValidator</a></h4>
+      <section><p>Default layered validator for model-authored widget candidates.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.html">EmitWidgetsAIFunction</a></h4>
+      <section><p>Invocable model tool that accepts complete widget states constrained by the
+canonical widget schema catalogue.</p>
+</section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Services.WidgetActionMetadata.html">WidgetActionMetadata</a></h4>
       <section><p>Default implementation of <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionMetadata.html">IWidgetActionMetadata</a>.</p>
 </section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Services.WidgetActionRegistry.html">WidgetActionRegistry</a></h4>
       <section><p>Default in-memory implementation of <a class="xref" href="BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry.html">IWidgetActionRegistry</a>.</p>
 </section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Services.WidgetJsonPatch.html">WidgetJsonPatch</a></h4>
+      <section><p>Creates deterministic RFC 6902 patches from validated complete widget states.</p>
+</section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Services.WidgetRegistry.html">WidgetRegistry</a></h4>
       <section><p>Central registry for widget instances.</p>
 </section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Services.WidgetSchemaCatalogue.html">WidgetSchemaCatalogue</a></h4>
+      <section><p>Immutable catalogue of canonical widget schemas.</p>
+</section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Services.WidgetSseService.html">WidgetSseService</a></h4>
-      <section><p>Service that manages Server-Sent Events (SSE) subscriptions and publishing
-for named widget streams. Each connected client receives JSON payloads as
-SSE <code>data:</code> messages.</p>
+      <section><p>Bounded, replayable SSE transport for widget protocol events.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Services.WidgetStreamEventFactory.html">WidgetStreamEventFactory</a></h4>
+      <section><p>Produces server-owned stream events from validated complete widget states.</p>
 </section>
 
 

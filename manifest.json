@@ -256,6 +256,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue.yml\" sourcestartlinenumber=\"1\">Read-only source of canonical widget schema definitions.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Abstractions.IWidgetSseService.yml",
       "output": {
         ".html": {
@@ -1152,6 +1166,48 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.IWidgetActionCompatibilityValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.IWidgetActionCompatibilityValidator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.IWidgetActionCompatibilityValidator",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.IWidgetActionCompatibilityValidator.yml\" sourcestartlinenumber=\"1\">Extensible rule for checking whether a widget's interaction payload is compatible with a registered action.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.IWidgetSemanticValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.IWidgetSemanticValidator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.IWidgetSemanticValidator",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.IWidgetSemanticValidator.yml\" sourcestartlinenumber=\"1\">Extensible semantic rule for relationships that JSON Schema cannot express conveniently.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.IWidgetValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.IWidgetValidator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.IWidgetValidator",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.IWidgetValidator.yml\" sourcestartlinenumber=\"1\">Contract for validating a complete, model-authored widget candidate before deserialization.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Models.ImageCollectionWidget.yml",
       "output": {
         ".html": {
@@ -1320,6 +1376,118 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.WidgetDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.WidgetDefinition.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.WidgetDefinition",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.WidgetDefinition.yml\" sourcestartlinenumber=\"1\">Describes one version of a registered widget contract.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.WidgetDiagnosticSeverity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.WidgetDiagnosticSeverity.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.WidgetDiagnosticSeverity",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.WidgetDiagnosticSeverity.yml\" sourcestartlinenumber=\"1\">Severity assigned to a widget validation diagnostic.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.WidgetEmissionResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.WidgetEmissionResult.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.WidgetEmissionResult",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.WidgetEmissionResult.yml\" sourcestartlinenumber=\"1\">Result returned to a model after a widget emission tool call is accepted.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.WidgetJsonPatchOperation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.WidgetJsonPatchOperation.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.WidgetJsonPatchOperation",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.WidgetJsonPatchOperation.yml\" sourcestartlinenumber=\"1\">One server-generated RFC 6902 JSON Patch operation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.WidgetRevisionedState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.WidgetRevisionedState.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.WidgetRevisionedState",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.WidgetRevisionedState.yml\" sourcestartlinenumber=\"1\">Validated complete widget state paired with its server-owned revision.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.WidgetStreamEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.WidgetStreamEvent.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.WidgetStreamEvent",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.WidgetStreamEvent.yml\" sourcestartlinenumber=\"1\">A transport-neutral, revision-aware widget stream event.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.WidgetStreamEventKind.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.WidgetStreamEventKind.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.WidgetStreamEventKind",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.WidgetStreamEventKind.yml\" sourcestartlinenumber=\"1\">Versioned event kinds used by the transport-neutral widget stream protocol.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.WidgetStreamEventKindJsonConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.WidgetStreamEventKindJsonConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.WidgetStreamEventKindJsonConverter",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.WidgetStreamEventKindJsonConverter.yml\" sourcestartlinenumber=\"1\">Serializes event kinds to the stable dotted protocol names.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Models.WidgetTool.yml",
       "output": {
         ".html": {
@@ -1331,6 +1499,104 @@
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Models.WidgetTool",
       "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.WidgetTool.yml\" sourcestartlinenumber=\"1\">Wraps a <xref href=\"BbQ.ChatWidgets.Models.ChatWidget\" data-throw-if-not-resolved=\"false\"></xref> as an <xref href=\"Microsoft.Extensions.AI.AITool\" data-throw-if-not-resolved=\"false\"></xref> for use by language models.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.WidgetTransitionOutcome.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.WidgetTransitionOutcome.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.WidgetTransitionOutcome",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.WidgetTransitionOutcome.yml\" sourcestartlinenumber=\"1\">Describes the result of reconciling a requested state transition.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.WidgetTransitionResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.WidgetTransitionResult.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.WidgetTransitionResult",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.WidgetTransitionResult.yml\" sourcestartlinenumber=\"1\">Result of reconciling validated complete widget state against a current revision.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.WidgetValidationCodes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.WidgetValidationCodes.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.WidgetValidationCodes",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.WidgetValidationCodes.yml\" sourcestartlinenumber=\"1\">Stable diagnostic identifiers emitted by the default validation pipeline.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.WidgetValidationContext.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.WidgetValidationContext.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.WidgetValidationContext",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.WidgetValidationContext.yml\" sourcestartlinenumber=\"1\">Context shared across validation stages.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.WidgetValidationDiagnostic.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.WidgetValidationDiagnostic.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.WidgetValidationDiagnostic",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.WidgetValidationDiagnostic.yml\" sourcestartlinenumber=\"1\">Stable validation diagnostic suitable for logs and model repair feedback.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.WidgetValidationResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.WidgetValidationResult.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.WidgetValidationResult",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.WidgetValidationResult.yml\" sourcestartlinenumber=\"1\">Result of validating one complete widget candidate.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.WidgetValidationStage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.WidgetValidationStage.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.WidgetValidationStage",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.WidgetValidationStage.yml\" sourcestartlinenumber=\"1\">Identifies the validation layer that produced a diagnostic.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1348,6 +1614,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Options.WidgetGenerationMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Options.WidgetGenerationMode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Options.WidgetGenerationMode",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Options.WidgetGenerationMode.yml\" sourcestartlinenumber=\"1\">Selects the protocol used by a model to emit widgets.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Options.WidgetRegistryOptions.yml",
       "output": {
         ".html": {
@@ -1359,6 +1639,34 @@
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Options.WidgetRegistryOptions",
       "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Options.WidgetRegistryOptions.yml\" sourcestartlinenumber=\"1\">Options for configuring the widget registry via dependency injection.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Options.WidgetSnapshotPolicy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Options.WidgetSnapshotPolicy.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Options.WidgetSnapshotPolicy",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Options.WidgetSnapshotPolicy.yml\" sourcestartlinenumber=\"1\">Bounds patch-chain length and age by requiring periodic complete snapshots.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Options.WidgetSseOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Options.WidgetSseOptions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Options.WidgetSseOptions",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Options.WidgetSseOptions.yml\" sourcestartlinenumber=\"1\">Controls buffering, replay, and liveness for widget SSE streams.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1401,6 +1709,20 @@
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Renderers",
       "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.BuiltInWidgetSemanticValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.BuiltInWidgetSemanticValidator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.BuiltInWidgetSemanticValidator",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.BuiltInWidgetSemanticValidator.yml\" sourcestartlinenumber=\"1\">Validates cross-property invariants for built-in widgets.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1530,6 +1852,34 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.DefaultWidgetValidator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.DefaultWidgetValidator.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.DefaultWidgetValidator",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.DefaultWidgetValidator.yml\" sourcestartlinenumber=\"1\">Default layered validator for model-authored widget candidates.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.EmitWidgetsAIFunction",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.yml\" sourcestartlinenumber=\"1\">Invocable model tool that accepts complete widget states constrained by the\ncanonical widget schema catalogue.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Services.WidgetActionMetadata.yml",
       "output": {
         ".html": {
@@ -1558,6 +1908,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.WidgetJsonPatch.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.WidgetJsonPatch.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.WidgetJsonPatch",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.WidgetJsonPatch.yml\" sourcestartlinenumber=\"1\">Creates deterministic RFC 6902 patches from validated complete widget states.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Services.WidgetRegistry.yml",
       "output": {
         ".html": {
@@ -1572,6 +1936,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.WidgetSchemaCatalogue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.WidgetSchemaCatalogue.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.WidgetSchemaCatalogue",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.WidgetSchemaCatalogue.yml\" sourcestartlinenumber=\"1\">Immutable catalogue of canonical widget schemas.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Services.WidgetSseService.yml",
       "output": {
         ".html": {
@@ -1582,7 +1960,21 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Services.WidgetSseService",
-      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.WidgetSseService.yml\" sourcestartlinenumber=\"1\">Service that manages Server-Sent Events (SSE) subscriptions and publishing\nfor named widget streams. Each connected client receives JSON payloads as\nSSE <code sourcefile=\"api/BbQ.ChatWidgets.Services.WidgetSseService.yml\" sourcestartlinenumber=\"3\">data:</code> messages.</p>\n"
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.WidgetSseService.yml\" sourcestartlinenumber=\"1\">Bounded, replayable SSE transport for widget protocol events.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Services.WidgetStreamEventFactory.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Services.WidgetStreamEventFactory.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Services.WidgetStreamEventFactory",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Services.WidgetStreamEventFactory.yml\" sourcestartlinenumber=\"1\">Produces server-owned stream events from validated complete widget states.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1640,10 +2032,30 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "docs_src/LLAMA_CPP_LOCAL_TESTING.md",
+      "output": {
+        ".html": {
+          "relative_path": "LLAMA_CPP_LOCAL_TESTING.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "docs_src/QUICK_REFERENCE.md",
       "output": {
         ".html": {
           "relative_path": "QUICK_REFERENCE.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/SCHEMA_FIRST_MIGRATION.md",
+      "output": {
+        ".html": {
+          "relative_path": "SCHEMA_FIRST_MIGRATION.html"
         }
       },
       "version": ""

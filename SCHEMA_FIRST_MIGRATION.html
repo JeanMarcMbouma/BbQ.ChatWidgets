@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Schema-first widget protocol migration | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Schema-first widget protocol migration | BbQ.ChatWidgets ">
+    
+    
+      <link rel="shortcut icon" href="favicon.ico">
+      <link rel="stylesheet" href="styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="styles/docfx.css">
+      <link rel="stylesheet" href="styles/main.css">
+      <meta property="docfx:navrel" content="toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="index.html">
+                <img id="logo" class="svg" src="logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="schema-first-widget-protocol-migration">Schema-first widget protocol migration</h1>
+
+<p>Protocol version <code>1.0</code> adds strict model emission and revisioned incremental updates while keeping the original wire path available.</p>
+<h2 id="generation-compatibility">Generation compatibility</h2>
+<p><code>BbQChatOptions.WidgetGenerationMode</code> controls the model boundary:</p>
+<ul>
+<li><code>StrictToolCall</code> exposes the canonical catalogue as the <code>emit_widgets</code> JSON Schema function. Use this with function-capable providers.</li>
+<li><code>StructuredResponse</code> is reserved for providers that support schema-constrained response bodies.</li>
+<li><code>EmbeddedMarkupLegacy</code> retains the existing <code>&lt;widget&gt;...&lt;/widget&gt;</code> parser only for applications that explicitly select it.</li>
+</ul>
+<p><code>StrictToolCall</code> is the default. Unknown types/properties and invalid registered actions are rejected before rendering. Set <code>RequireRegisteredWidgetActions = false</code> only when action routing is deliberately external.</p>
+<h2 id="streaming-compatibility">Streaming compatibility</h2>
+<p>The SSE endpoint now emits <code>event:</code>, <code>id:</code>, and <code>data:</code> fields. Protocol clients reconcile <code>widget.snapshot</code>, <code>widget.upsert</code>, <code>widget.patch</code>, and <code>widget.remove</code> by <code>instanceId</code> and revision. They ignore stale/duplicate events and request a fresh snapshot after <code>stream.resync-required</code>, an invalid patch, or a revision gap.</p>
+<p>Reconnect using the browser-provided <code>Last-Event-ID</code>. The server replays retained events; when retention no longer covers the requested ID it emits <code>stream.resync-required</code>. Configure <code>options.WidgetSse.SubscriberBufferCapacity</code>, <code>ReplayCapacity</code>, and <code>HeartbeatInterval</code> to match expected traffic.</p>
+<p>Legacy <code>message</code> payloads use the existing full-rerender path when legacy generation is explicitly configured.</p>
+<h2 id="stateful-renderer-adoption">Stateful renderer adoption</h2>
+<p>The JavaScript <code>WidgetStreamReducer</code> is the reference reconciliation contract. <code>WidgetManager</code> exposes keyed <code>updateWidget</code>/<code>unmountWidget</code> operations and optional <code>mount</code>, <code>update</code>, and <code>unmount</code> lifecycle hooks. An update hook may return <code>true</code> after changing a component in place; this preserves focus, selection, and renderer-local state. Angular and Blazor integrations can consume the same event envelope and keyed lifecycle rules.</p>
+<h2 id="end-to-end-rollout-proof">End-to-end rollout proof</h2>
+<ol>
+<li>Enable <code>StrictToolCall</code> and register the form actions used by a schema-constrained <code>FormWidget</code>.</li>
+<li>Publish an initial <code>ProgressBarWidget</code> snapshot with revision <code>0</code>.</li>
+<li>Publish server-generated patches with matching base revisions.</li>
+<li>Keep focus in a form field while progress revisions arrive; the keyed reducer updates only the progress widget.</li>
+<li>Intentionally omit a revision and confirm the client requests resynchronisation and accepts the replacement snapshot.</li>
+</ol>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/SCHEMA_FIRST_MIGRATION.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>

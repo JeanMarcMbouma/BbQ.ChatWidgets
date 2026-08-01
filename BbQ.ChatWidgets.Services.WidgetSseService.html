@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width">
       <meta name="title" content="Class WidgetSseService | BbQ.ChatWidgets ">
     
-    <meta name="description" content="Service that manages Server-Sent Events (SSE) subscriptions and publishing for named widget streams. Each connected client receives JSON payloads as SSE data: messages.">
+    <meta name="description" content="Bounded, replayable SSE transport for widget protocol events.">
       <link rel="shortcut icon" href="favicon.ico">
       <link rel="stylesheet" href="styles/docfx.vendor.min.css">
       <link rel="stylesheet" href="styles/docfx.css">
@@ -74,9 +74,7 @@
 
 
   <h1 id="BbQ_ChatWidgets_Services_WidgetSseService" data-uid="BbQ.ChatWidgets.Services.WidgetSseService" class="text-break">Class WidgetSseService</h1>
-  <div class="markdown level0 summary"><p>Service that manages Server-Sent Events (SSE) subscriptions and publishing
-for named widget streams. Each connected client receives JSON payloads as
-SSE <code>data:</code> messages.</p>
+  <div class="markdown level0 summary"><p>Bounded, replayable SSE transport for widget protocol events.</p>
 </div>
   <div class="markdown level0 conceptual"></div>
   <div class="inheritance">
@@ -122,13 +120,32 @@ SSE <code>data:</code> messages.</p>
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/WidgetSseService.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Services_WidgetSseService__ctor_" data-uid="BbQ.ChatWidgets.Services.WidgetSseService.#ctor*"></a>
-  <h4 id="BbQ_ChatWidgets_Services_WidgetSseService__ctor" data-uid="BbQ.ChatWidgets.Services.WidgetSseService.#ctor">WidgetSseService()</h4>
-  <div class="markdown level1 summary"></div>
+  <h4 id="BbQ_ChatWidgets_Services_WidgetSseService__ctor_Microsoft_Extensions_Options_IOptions_BbQ_ChatWidgets_Options_WidgetSseOptions__" data-uid="BbQ.ChatWidgets.Services.WidgetSseService.#ctor(Microsoft.Extensions.Options.IOptions{BbQ.ChatWidgets.Options.WidgetSseOptions})">WidgetSseService(IOptions&lt;WidgetSseOptions&gt;?)</h4>
+  <div class="markdown level1 summary"><p>Initializes the SSE transport with validated buffering and liveness options.</p>
+</div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public WidgetSseService()</code></pre>
+    <pre><code class="lang-csharp hljs">public WidgetSseService(IOptions&lt;WidgetSseOptions&gt;? options = null)</code></pre>
   </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.options.ioptions-1">IOptions</a>&lt;<a class="xref" href="BbQ.ChatWidgets.Options.WidgetSseOptions.html">WidgetSseOptions</a>&gt;</td>
+        <td><span class="parametername">options</span></td>
+        <td><p>Optional configured SSE options.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="methods">Methods
 </h3>
 
@@ -137,8 +154,7 @@ SSE <code>data:</code> messages.</p>
   </span>
   <a id="BbQ_ChatWidgets_Services_WidgetSseService_PublishAsync_" data-uid="BbQ.ChatWidgets.Services.WidgetSseService.PublishAsync*"></a>
   <h4 id="BbQ_ChatWidgets_Services_WidgetSseService_PublishAsync_System_String_System_Object_BbQ_ChatWidgets_Abstractions_IStreamPayloadValidator_System_String_" data-uid="BbQ.ChatWidgets.Services.WidgetSseService.PublishAsync(System.String,System.Object,BbQ.ChatWidgets.Abstractions.IStreamPayloadValidator,System.String)">PublishAsync(string, object, IStreamPayloadValidator, string?)</h4>
-  <div class="markdown level1 summary"><p>Publishes a JSON-serializable <code class="paramref">message</code> to the named stream with payload validation.
-The message will be validated against configured rules before being sent to subscribers.</p>
+  <div class="markdown level1 summary"><p>Publish a JSON-serializable message to a named stream with payload validation.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -158,13 +174,13 @@ The message will be validated against configured rules before being sent to subs
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td><span class="parametername">streamId</span></td>
-        <td><p>Logical identifier for the event stream.</p>
+        <td><p>The stream identifier.</p>
 </td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
         <td><span class="parametername">message</span></td>
-        <td><p>The message payload to publish (will be serialized to JSON).</p>
+        <td><p>The message object to publish.</p>
 </td>
       </tr>
       <tr>
@@ -192,11 +208,19 @@ The message will be validated against configured rules before being sent to subs
     <tbody>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
-        <td><p>A completed <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a> when the publish requests have been queued.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>
+  <h5 id="BbQ_ChatWidgets_Services_WidgetSseService_PublishAsync_System_String_System_Object_BbQ_ChatWidgets_Abstractions_IStreamPayloadValidator_System_String__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method validates the payload against configured rules before publishing.
+Use this overload to protect against DoS attacks via:</p>
+<ul>
+<li>Large payload attacks (size limits)</li>
+<li>Rapid-fire publish attacks (rate limiting)</li>
+<li>Custom content validation</li>
+</ul>
+</div>
   <h5 class="exceptions">Exceptions</h5>
   <table class="table table-bordered table-condensed">
     <thead>
@@ -222,11 +246,60 @@ The message will be validated against configured rules before being sent to subs
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/WidgetSseService.cs">View Source</a>
   </span>
+  <a id="BbQ_ChatWidgets_Services_WidgetSseService_PublishEventAsync_" data-uid="BbQ.ChatWidgets.Services.WidgetSseService.PublishEventAsync*"></a>
+  <h4 id="BbQ_ChatWidgets_Services_WidgetSseService_PublishEventAsync_BbQ_ChatWidgets_Models_WidgetStreamEvent_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.WidgetSseService.PublishEventAsync(BbQ.ChatWidgets.Models.WidgetStreamEvent,System.Threading.CancellationToken)">PublishEventAsync(WidgetStreamEvent, CancellationToken)</h4>
+  <div class="markdown level1 summary"><p>Publishes a protocol event and retains it for reconnect replay.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task PublishEventAsync(WidgetStreamEvent streamEvent, CancellationToken ct = default)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.WidgetStreamEvent.html">WidgetStreamEvent</a></td>
+        <td><span class="parametername">streamEvent</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
+        <td><span class="parametername">ct</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/WidgetSseService.cs">View Source</a>
+  </span>
   <a id="BbQ_ChatWidgets_Services_WidgetSseService_SubscribeAsync_" data-uid="BbQ.ChatWidgets.Services.WidgetSseService.SubscribeAsync*"></a>
   <h4 id="BbQ_ChatWidgets_Services_WidgetSseService_SubscribeAsync_System_String_Microsoft_AspNetCore_Http_HttpContext_System_Threading_CancellationToken_" data-uid="BbQ.ChatWidgets.Services.WidgetSseService.SubscribeAsync(System.String,Microsoft.AspNetCore.Http.HttpContext,System.Threading.CancellationToken)">SubscribeAsync(string, HttpContext, CancellationToken)</h4>
-  <div class="markdown level1 summary"><p>Subscribes the current HTTP context to the specified <code class="paramref">streamId</code>.
-The response is configured for SSE and this method writes events until the
-connection is closed or the provided <code class="paramref">ct</code> is cancelled.</p>
+  <div class="markdown level1 summary"><p>Subscribe the current HTTP context to a named stream; this method completes
+when the connection is closed.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
@@ -246,20 +319,17 @@ connection is closed or the provided <code class="paramref">ct</code> is cancell
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
         <td><span class="parametername">streamId</span></td>
-        <td><p>Logical identifier for the event stream.</p>
-</td>
+        <td></td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.http.httpcontext">HttpContext</a></td>
         <td><span class="parametername">context</span></td>
-        <td><p>The current <a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.http.httpcontext">HttpContext</a> for the request.</p>
-</td>
+        <td></td>
       </tr>
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken">CancellationToken</a></td>
         <td><span class="parametername">ct</span></td>
-        <td><p>Cancellation token used to terminate the subscription.</p>
-</td>
+        <td></td>
       </tr>
     </tbody>
   </table>

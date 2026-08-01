@@ -161,8 +161,68 @@ associated actions such as submit and cancel.</p>
       <h4><a class="xref" href="BbQ.ChatWidgets.Models.ToggleWidget.html">ToggleWidget</a></h4>
       <section><p>A toggle widget for boolean (yes/no, on/off) selection.</p>
 </section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.WidgetDefinition.html">WidgetDefinition</a></h4>
+      <section><p>Describes one version of a registered widget contract.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.WidgetEmissionResult.html">WidgetEmissionResult</a></h4>
+      <section><p>Result returned to a model after a widget emission tool call is accepted.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.WidgetJsonPatchOperation.html">WidgetJsonPatchOperation</a></h4>
+      <section><p>One server-generated RFC 6902 JSON Patch operation.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.WidgetRevisionedState.html">WidgetRevisionedState</a></h4>
+      <section><p>Validated complete widget state paired with its server-owned revision.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.WidgetStreamEvent.html">WidgetStreamEvent</a></h4>
+      <section><p>A transport-neutral, revision-aware widget stream event.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.WidgetStreamEventKindJsonConverter.html">WidgetStreamEventKindJsonConverter</a></h4>
+      <section><p>Serializes event kinds to the stable dotted protocol names.</p>
+</section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Models.WidgetTool.html">WidgetTool</a></h4>
       <section><p>Wraps a <a class="xref" href="BbQ.ChatWidgets.Models.ChatWidget.html">ChatWidget</a> as an <span class="xref">Microsoft.Extensions.AI.AITool</span> for use by language models.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.WidgetTransitionResult.html">WidgetTransitionResult</a></h4>
+      <section><p>Result of reconciling validated complete widget state against a current revision.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.WidgetValidationCodes.html">WidgetValidationCodes</a></h4>
+      <section><p>Stable diagnostic identifiers emitted by the default validation pipeline.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.WidgetValidationContext.html">WidgetValidationContext</a></h4>
+      <section><p>Context shared across validation stages.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.WidgetValidationDiagnostic.html">WidgetValidationDiagnostic</a></h4>
+      <section><p>Stable validation diagnostic suitable for logs and model repair feedback.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.WidgetValidationResult.html">WidgetValidationResult</a></h4>
+      <section><p>Result of validating one complete widget candidate.</p>
+</section>
+    <h3 id="interfaces">
+Interfaces
+</h3>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.IWidgetActionCompatibilityValidator.html">IWidgetActionCompatibilityValidator</a></h4>
+      <section><p>Extensible rule for checking whether a widget's interaction payload is compatible with a registered action.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.IWidgetSemanticValidator.html">IWidgetSemanticValidator</a></h4>
+      <section><p>Extensible semantic rule for relationships that JSON Schema cannot express conveniently.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.IWidgetValidator.html">IWidgetValidator</a></h4>
+      <section><p>Contract for validating a complete, model-authored widget candidate before deserialization.</p>
+</section>
+    <h3 id="enums">
+Enums
+</h3>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.WidgetDiagnosticSeverity.html">WidgetDiagnosticSeverity</a></h4>
+      <section><p>Severity assigned to a widget validation diagnostic.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.WidgetStreamEventKind.html">WidgetStreamEventKind</a></h4>
+      <section><p>Versioned event kinds used by the transport-neutral widget stream protocol.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.WidgetTransitionOutcome.html">WidgetTransitionOutcome</a></h4>
+      <section><p>Describes the result of reconciling a requested state transition.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Models.WidgetValidationStage.html">WidgetValidationStage</a></h4>
+      <section><p>Identifies the validation layer that produced a diagnostic.</p>
 </section>
 
 

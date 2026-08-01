@@ -22,6 +22,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BbQ.ChatWidgets\BbQ.ChatWidgets.csproj" />
+    <ProjectReference Include="..\BbQ.ChatWidgets.Blazor\BbQ.ChatWidgets.Blazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\test-fixtures\schema-first-lifecycle.json" Link="test-fixtures\schema-first-lifecycle.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

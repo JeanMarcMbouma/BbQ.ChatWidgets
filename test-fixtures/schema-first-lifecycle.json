@@ -1,0 +1,10 @@
+{
+  "form": { "protocolVersion": "1.0", "eventId": "form-0", "streamId": "proof", "instanceId": "11111111-1111-1111-1111-111111111111", "revision": 0, "kind": "widget.snapshot", "payload": { "type": "form", "label": "Profile", "action": "save_profile", "title": "Profile", "fields": [{ "type": "input", "name": "name", "label": "Name", "required": true }], "actions": [{ "label": "Save", "type": "submit" }] } },
+  "events": [
+    { "protocolVersion": "1.0", "eventId": "progress-0", "streamId": "proof", "instanceId": "22222222-2222-2222-2222-222222222222", "revision": 0, "kind": "widget.snapshot", "payload": { "type": "progressbar", "label": "Upload", "action": "upload_progress", "value": 10, "max": 100 } },
+    { "protocolVersion": "1.0", "eventId": "progress-1", "streamId": "proof", "instanceId": "22222222-2222-2222-2222-222222222222", "baseRevision": 0, "revision": 1, "kind": "widget.patch", "payload": [{ "op": "replace", "path": "/value", "value": 50 }] },
+    { "protocolVersion": "1.0", "eventId": "progress-gap", "streamId": "proof", "instanceId": "22222222-2222-2222-2222-222222222222", "baseRevision": 2, "revision": 3, "kind": "widget.patch", "payload": [{ "op": "replace", "path": "/value", "value": 75 }] },
+    { "protocolVersion": "1.0", "eventId": "progress-resync", "streamId": "proof", "instanceId": "22222222-2222-2222-2222-222222222222", "revision": 3, "kind": "widget.snapshot", "payload": { "type": "progressbar", "label": "Upload", "action": "upload_progress", "value": 75, "max": 100 } },
+    { "protocolVersion": "1.0", "eventId": "progress-remove", "streamId": "proof", "instanceId": "22222222-2222-2222-2222-222222222222", "baseRevision": 3, "revision": 4, "kind": "widget.remove", "payload": {} }
+  ]
+}

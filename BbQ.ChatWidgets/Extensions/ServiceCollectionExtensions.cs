@@ -102,6 +102,8 @@ public static class ServiceCollectionExtensions
         // Register Widget SSE service for server-side widget streams
         services.AddSingleton<IWidgetSseService, WidgetSseService>();
         services.AddSingleton<IStreamPayloadValidator, DefaultStreamPayloadValidator>();
+        services.TryAddSingleton<WidgetStreamEventFactory>();
+        services.TryAddSingleton(new WidgetSnapshotPolicy());
 
         services.AddSingleton<IWidgetRegistry>(sp =>
         {

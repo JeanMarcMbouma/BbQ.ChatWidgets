@@ -3,6 +3,21 @@
 @layer demos {
 /* Streaming Chat Page Styles */
 
+.streaming-chat-page .input-area {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.streaming-chat-page .input-area > label,
+.streaming-chat-page .input-area > input:first-of-type {
+  grid-column: 1 / -1;
+}
+
+.streaming-chat-page .chat-input {
+  min-width: 0;
+  width: 100%;
+}
+
 .message.streaming {
   align-items: flex-start;
 }

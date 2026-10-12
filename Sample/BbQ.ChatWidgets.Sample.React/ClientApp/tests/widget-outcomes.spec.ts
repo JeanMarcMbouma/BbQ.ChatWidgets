@@ -23,6 +23,9 @@ for (const streaming of [false, true]) {
     for (const outcome of outcomes) {
       if (outcome.status === 'none') await page.getByLabel('Include a widget').uncheck();
       await page.getByPlaceholder(streaming ? 'Type a message to stream...' : 'Type a message...', { exact: true }).fill('Show a widget');
+      if (streaming) {
+        expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+      }
       await page.locator('.input-area button').last().click();
       await expect(page.getByRole('status').last()).toContainText(outcome.text);
     }

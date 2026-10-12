@@ -76,12 +76,13 @@
 <a href="https://www.npmjs.com/package/@bbq-chat/widgets"><img src="https://img.shields.io/npm/v/@bbq-chat/widgets.svg" alt="npm Version"></a></p>
 <p><strong>Turn AI conversations into useful actions.</strong> Give your assistant forms, choices and cards so people can book, decide and resolve problems inside the conversation.</p>
 <p>Try the <a href="guides/PRODUCTION.html#try-the-product-without-an-ai-account">local playground</a>: booking, customer support and approval flows run with the real widget library and sample responses, without an API key.</p>
-<p>Build on .NET, TypeScript, Angular or Blazor. Keep your application logic and AI provider; ChatWidgets supplies the interactive layer.</p>
+<p>Build on .NET, TypeScript, React, Angular or Blazor. Keep your application logic and AI provider; ChatWidgets supplies the interactive layer.</p>
 <p>This repository contains these packages:</p>
 <ul>
 <li>NuGet: <code>BbQ.ChatWidgets</code> (the .NET library: services, renderers, endpoints)</li>
 <li>npm: <code>@bbq-chat/widgets</code> (the JavaScript/TypeScript client library: widgets, client helpers)</li>
 <li>npm: <code>@bbq-chat/widgets-angular</code> (Angular-native components and services)</li>
+<li>npm: <code>@bbq-chat/widgets-react</code> (React-native components, forms and streaming; <a href="js-react/README.md">usage and Angular feature parity</a>)</li>
 <li>NuGet: <code>BbQ.ChatWidgets.Blazor</code> (Blazor widget components)</li>
 </ul>
 <blockquote>
@@ -190,6 +191,10 @@ export class ChatComponent {
 <h3 id="npm-angular-native-components">npm (Angular native components)</h3>
 <pre><code class="lang-bash">npm install @bbq-chat/widgets-angular @bbq-chat/widgets
 </code></pre>
+<h3 id="npm-react-native-components">npm (React native components)</h3>
+<pre><code class="lang-bash">npm install @bbq-chat/widgets-react @bbq-chat/widgets
+</code></pre>
+<p>See the <a href="js-react/README.md">React package guide</a> for forms, custom renderers and streaming.</p>
 <h2 id="blazor-widget-overrides">Blazor Widget Overrides</h2>
 <p>Use component overrides to replace built-in widget components without writing <code>switch</code>/<code>if</code> logic.</p>
 <h3 id="local-per-renderer-instance">Local (per renderer instance)</h3>
@@ -226,6 +231,7 @@ export class ChatComponent {
 <li>.NET: <code>dotnet test</code></li>
 <li>JS/TS: <code>npm test</code> and <code>npm run test:package</code> (run from <code>js</code>)</li>
 <li>Angular: <code>npm test</code> (run from <code>js-angular</code>)</li>
+<li>React library: <code>npm test</code> and <code>npm run test:package</code> (run from <code>js-react</code>, after building <code>js</code>)</li>
 <li>Playground: <code>npm run test:e2e</code> (run from <code>Sample/BbQ.ChatWidgets.Sample.React/ClientApp</code>, after building and installing Playwright Chromium)</li>
 </ul>
 <h2 id="-changelog">📋 Changelog</h2>

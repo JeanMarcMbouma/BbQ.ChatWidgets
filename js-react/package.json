@@ -1,6 +1,6 @@
 {
   "name": "@bbq-chat/widgets-react",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Native React components, forms and streaming for BbQ ChatWidgets",
   "license": "MIT",
   "type": "module",

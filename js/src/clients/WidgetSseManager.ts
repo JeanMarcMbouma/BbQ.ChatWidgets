@@ -20,7 +20,7 @@ export interface WidgetSseOptions {
 export class WidgetSseManager {
   private es: EventSource | null = null;
   private handlers: Map<string, (payload: any) => void> = new Map();
-  private readonly reducer = new WidgetStreamReducer();
+  private reducer = new WidgetStreamReducer();
 
   constructor(
     private widgetManager: WidgetManager,
@@ -29,10 +29,14 @@ export class WidgetSseManager {
 
   connect(url: string): void {
     this.disconnect();
+    this.reducer = new WidgetStreamReducer();
     this.es = this.opts?.createEventSource
       ? this.opts.createEventSource(url)
       : new EventSource(url);
-    this.es.addEventListener('message', (e: MessageEvent) => this.onMessage(e));
+    const source = this.es;
+    source.addEventListener('message', (e: MessageEvent) => {
+      if (this.es === source) this.onMessage(e);
+    });
     for (const name of [
       'widget.snapshot',
       'widget.upsert',
@@ -43,7 +47,9 @@ export class WidgetSseManager {
       'stream.resync-required',
       'stream.heartbeat',
     ])
-      this.es.addEventListener(name, (e: MessageEvent) => this.onProtocolEvent(name, e));
+      source.addEventListener(name, (e: MessageEvent) => {
+        if (this.es === source) this.onProtocolEvent(name, e);
+      });
     this.es.addEventListener('error', () => {
       // swallow for now — consumers can reconnect externally
     });

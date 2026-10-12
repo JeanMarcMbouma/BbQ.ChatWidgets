@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { WidgetRendererComponent } from './widget-renderer.component';
+import { WidgetRegistryService } from '@bbq-chat/widgets-angular';
+import { ClockWidgetComponent } from '../clock-widget/clock-widget.component';
 
 describe('WidgetRendererComponent', () => {
   let component: WidgetRendererComponent;
@@ -18,11 +20,17 @@ describe('WidgetRendererComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('registers custom renderers and tolerates repeated initialization', () => {
+    component.ngOnInit();
+    component.ngOnInit();
+    expect(TestBed.inject(WidgetRegistryService).getRenderer('clock')).toBe(ClockWidgetComponent);
+  });
+
   it('should render empty container when no widgets provided', () => {
     component.widgets = null;
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const container = compiled.querySelector('.widgets-container');
+    const container = compiled.querySelector('.bbq-widgets-container');
     expect(container).toBeTruthy();
     expect(container?.children.length).toBe(0);
   });
@@ -31,7 +39,7 @@ describe('WidgetRendererComponent', () => {
     component.widgets = [];
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const container = compiled.querySelector('.widgets-container');
+    const container = compiled.querySelector('.bbq-widgets-container');
     expect(container).toBeTruthy();
     expect(container?.children.length).toBe(0);
   });

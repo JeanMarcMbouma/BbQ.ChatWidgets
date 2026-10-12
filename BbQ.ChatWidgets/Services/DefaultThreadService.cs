@@ -49,9 +49,13 @@ public sealed class DefaultThreadService : IThreadService
     /// <exception cref="ThreadNotFoundException">Thrown if the thread does not exist.</exception>
     public ChatMessages AppendMessageToThread(string threadId, ChatTurn chatTurn)
     {
-        if (_threads.TryGetValue(threadId, out var chatMessage))
+        while (_threads.TryGetValue(threadId, out var chatMessage))
         {
-            _threads[threadId] = new ChatMessages([.. chatMessage.Turns.Append(chatTurn)]);
+            var updated = new ChatMessages([.. chatMessage.Turns.Append(chatTurn)]);
+            if (!_threads.TryUpdate(threadId, updated, chatMessage))
+            {
+                continue;
+            }
             if (chatTurn.Widgets?.Any(x => x is IRecyclableWidget) == true)
             {
                 foreach (var widget in chatTurn.Widgets)
@@ -62,12 +66,9 @@ public sealed class DefaultThreadService : IThreadService
                     }
                 }
             }
-            return _threads[threadId];
+            return updated;
         }
-        else
-        {
-            throw new ThreadNotFoundException(threadId);
-        }
+        throw new ThreadNotFoundException(threadId);
     }
 
     /// <summary>

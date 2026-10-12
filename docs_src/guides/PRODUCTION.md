@@ -90,4 +90,10 @@ Run `dotnet test BbQ.ChatWidgets.slnx -c Release /p:SkipClientBuild=true` (front
 
 Choose new package versions before tagging. The core and Angular versions do not need to match, but the Angular peer dependency must accept the released core version. Angular publishes its compiled `dist` directory, not the workspace root. Publishing requires the existing npm/NuGet credentials or trusted publishing configuration. The .NET package uses the ASP.NET Core shared framework; console hosts must include that runtime. The NuGet workflow publishes both the core and Blazor UI packages plus the optional llama.cpp integration.
 
+The prepared 1.1.0 release aligns all three NuGet packages and both npm packages at 1.1.0. The Angular package requires core `^1.1.0`; sample lockfiles resolve the local 1.1.0 builds. Release notes are in `CHANGELOG.md`.
+
+After the release commit is merged and its required CI checks pass, `v1.1.0` triggers NuGet publishing and `npm-v1.1.0` triggers npm publishing. Both tags must identify that validated commit. The NuGet workflow uses the `production` environment and trusted publishing; npm uses the existing publishing token and provenance. Creating or pushing these tags is a publication step, separate from local release preparation. Confirm every intended package is available in its registry after the workflows finish.
+
+Local package preparation must build the optional llama.cpp project explicitly because it is outside the main solution. Then pack each .NET project with `--no-build -c Release`. For npm, pack `js` and `js-angular/dist`; do not publish the Angular source workspace. Local candidate artifacts are kept under ignored `artifacts/release-1.1.0/`.
+
 A green build does not certify your host's identity, isolation, AI provider, load handling or deployment configuration. Exercise those with real accounts and representative traffic before enabling production live APIs.

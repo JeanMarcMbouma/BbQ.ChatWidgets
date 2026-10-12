@@ -4,11 +4,10 @@ import {
   Input,
   Output,
   EventEmitter,
-  Inject,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WidgetRendererComponent as BaseWidgetRendererComponent, WidgetRegistryService, ANGULAR_WIDGET_RENDERER } from '@bbq-chat/widgets-angular';
-import type { AngularWidgetRenderer } from '@bbq-chat/widgets-angular';
+import { WidgetRendererComponent as BaseWidgetRendererComponent, WidgetRegistryService } from '@bbq-chat/widgets-angular';
 import type { ChatWidget } from '@bbq-chat/widgets';
 import { EChartsWidget } from '../../widgets/EChartsWidget';
 import { ClockWidget } from '../../widgets/ClockWidget';
@@ -44,11 +43,8 @@ export class WidgetRendererComponent implements OnInit {
     payload: unknown;
   }>();
 
-  static registered = false;
+  private readonly widgetRegistry = inject(WidgetRegistryService);
 
-  constructor(private widgetRegistry: WidgetRegistryService,
-    @Inject(ANGULAR_WIDGET_RENDERER) private angularWidgetRenderer: AngularWidgetRenderer
-  ) { }
 
   ngOnInit() {
     this.registerCustomWidgets();
@@ -59,7 +55,7 @@ export class WidgetRendererComponent implements OnInit {
    */
   private registerCustomWidgets() {
     // Register widget factories for deserialization
-    this.widgetRegistry.registerFactory('echarts', (obj: any) => {
+    if (!this.widgetRegistry.getFactory('echarts')) this.widgetRegistry.registerFactory('echarts', (obj: any) => {
       if (obj.type === 'echarts') {
         return new EChartsWidget(
           obj.label || '',
@@ -71,7 +67,7 @@ export class WidgetRendererComponent implements OnInit {
       return null;
     });
 
-    this.widgetRegistry.registerFactory('clock', (obj: any) => {
+    if (!this.widgetRegistry.getFactory('clock')) this.widgetRegistry.registerFactory('clock', (obj: any) => {
       if (obj.type === 'clock') {
         return new ClockWidget(
           obj.label || 'Clock',
@@ -83,7 +79,7 @@ export class WidgetRendererComponent implements OnInit {
       return null;
     });
 
-    this.widgetRegistry.registerFactory('weather', (obj: any) => {
+    if (!this.widgetRegistry.getFactory('weather')) this.widgetRegistry.registerFactory('weather', (obj: any) => {
       if (obj.type === 'weather') {
         return new WeatherWidget(
           obj.label || 'Weather',
@@ -95,18 +91,14 @@ export class WidgetRendererComponent implements OnInit {
       return null;
     });
 
-    if (WidgetRendererComponent.registered)
-      return;
-    WidgetRendererComponent.registered = true;
-
     // Register component-based renderers using the new API
     // ECharts: Complex widget with chart initialization, event handlers, resize listeners
-    this.angularWidgetRenderer.registerComponent('echarts', EChartsWidgetComponent);
+    this.widgetRegistry.registerRenderer('echarts', EChartsWidgetComponent);
 
     // Clock: SSE-based widget with real-time updates
-    this.angularWidgetRenderer.registerComponent('clock', ClockWidgetComponent);
+    this.widgetRegistry.registerRenderer('clock', ClockWidgetComponent);
 
     // Weather: SSE-based widget with real-time weather data
-    this.angularWidgetRenderer.registerComponent('weather', WeatherWidgetComponent);
+    this.widgetRegistry.registerRenderer('weather', WeatherWidgetComponent);
   }
 }

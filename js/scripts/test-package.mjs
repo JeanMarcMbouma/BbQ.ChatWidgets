@@ -4,18 +4,23 @@ import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
+// npm supplies its CLI path when running package scripts. Invoke it through
+// Node so Windows does not need to execute the npm.cmd shell wrapper.
+const npmCli = process.env.npm_execpath;
+assert.ok(npmCli, 'Run this check with npm run test:package');
+
 // Test the tarball an end user installs, not source files or workspace symlinks.
 const temp = mkdtempSync(path.join(tmpdir(), 'bbq-package-'));
 try {
   const [pack] = JSON.parse(
-    execFileSync('npm', ['pack', '--ignore-scripts', '--json', '--pack-destination', temp], {
+    execFileSync(process.execPath, [npmCli, 'pack', '--ignore-scripts', '--json', '--pack-destination', temp], {
       encoding: 'utf8',
     })
   );
   writeFileSync(path.join(temp, 'package.json'), JSON.stringify({ private: true, type: 'module' }));
   execFileSync(
-    'npm',
-    ['install', '--ignore-scripts', '--no-audit', '--no-fund', path.join(temp, pack.filename)],
+    process.execPath,
+    [npmCli, 'install', '--ignore-scripts', '--no-audit', '--no-fund', path.join(temp, pack.filename)],
     { cwd: temp, stdio: 'pipe' }
   );
   const checks = `

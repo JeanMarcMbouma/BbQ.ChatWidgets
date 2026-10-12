@@ -57,8 +57,14 @@ if (string.IsNullOrWhiteSpace(openaiApiKey) ||
     return;
 }
 
+var clientOptions = new OpenAI.OpenAIClientOptions();
+if (!string.IsNullOrWhiteSpace(configuration["OpenAI:Endpoint"]))
+{
+    clientOptions.Endpoint = new Uri(configuration["OpenAI:Endpoint"]!, UriKind.Absolute);
+}
+
 IChatClient openaiClient =
-    new OpenAI.Chat.ChatClient(openaiModelId, openaiApiKey)
+    new OpenAI.Chat.ChatClient(openaiModelId, new System.ClientModel.ApiKeyCredential(openaiApiKey), clientOptions)
     .AsIChatClient();
 
 IChatClient chatClient = new ChatClientBuilder(openaiClient)

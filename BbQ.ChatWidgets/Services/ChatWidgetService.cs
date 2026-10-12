@@ -192,21 +192,21 @@ public sealed class ChatWidgetService(
         await eventDispatcher.DispatchAsync(new AgentEvent(AgentEventType.Thinking, threadId), cancellationToken);
 
         string responseText = string.Empty;
+        string displayText = string.Empty;
         var chatWidgets = new List<ChatWidget>();
         await foreach (var responseUpdate in chat.GetStreamingResponseAsync(aiMessages, chatOptions, cancellationToken))
         {
             responseText += responseUpdate.Text;
             var (content, widgets) = widgetHintParser.Parse(responseText);
-            responseText = content.Trim();
-            if (widgets != null && widgets.Count > 0)
-                chatWidgets.AddRange(widgets);
-            yield return new StreamChatTurn(ChatRole.Assistant, widgetHintSanitizer.Sanitize(content), threadId, IsDelta: true);
+            displayText = widgetHintSanitizer.Sanitize(content);
+            chatWidgets = widgets?.ToList() ?? [];
+            yield return new StreamChatTurn(ChatRole.Assistant, displayText, threadId, IsDelta: true);
         }
 
         var finalWidgets = options.WidgetGenerationMode is WidgetGenerationMode.StrictToolCall
             ? emittedWidgets
             : chatWidgets;
-        messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.Assistant, responseText, finalWidgets, threadId));
+        messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.Assistant, displayText, finalWidgets, threadId));
 
         yield return messages.Turns[messages.Turns.Count - 1];
     }

@@ -91,6 +91,13 @@ export function BasicChatPage({ onBack }: BasicChatPageProps) {
 
       <div className="chat-container">
         <div className="messages-list">
+          {messages.length === 0 && !isLoading && (
+            <div className="demo-welcome">
+              <span className="welcome-mark" aria-hidden="true">B</span>
+              <h2>Start a conversation</h2>
+              <p>Ask a question or try “Show me a button labelled Say hello with action greet.”</p>
+            </div>
+          )}
           {messages.map(msg => (
             <div key={msg.id} className={`message ${msg.role}`}>
               <div className="message-content">

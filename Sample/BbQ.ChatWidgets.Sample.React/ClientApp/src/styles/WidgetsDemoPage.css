@@ -1,3 +1,4 @@
+@layer demos {
 /* Widgets Demo Page Styles */
 
 .widgets-demo-page {
@@ -48,17 +49,17 @@
 }
 
 .widget-card:hover {
-  border-color: #667eea;
+  border-color: var(--demo-accent);
   background: linear-gradient(135deg, #f0f4ff 0%, #e8ecff 100%);
   transform: translateY(-8px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 8px 20px rgba(34, 101, 72, 0.3);
 }
 
 .widget-card.selected {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-color: #764ba2;
+  background: linear-gradient(135deg, var(--demo-accent) 0%, var(--demo-accent-hover) 100%);
+  border-color: var(--demo-accent-hover);
   color: white;
-  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 10px 25px rgba(34, 101, 72, 0.4);
 }
 
 .widget-icon {
@@ -83,7 +84,7 @@
 }
 
 .widget-card:hover h3 {
-  color: #667eea;
+  color: var(--demo-accent);
 }
 
 .widget-card.selected h3,
@@ -113,7 +114,7 @@
 
 .details-content h2 {
   margin-top: 0;
-  color: #667eea;
+  color: var(--demo-accent);
 }
 
 .description {
@@ -127,7 +128,7 @@
 }
 
 .json-example h3 {
-  color: #667eea;
+  color: var(--demo-accent);
   margin-bottom: 10px;
 }
 
@@ -137,7 +138,7 @@
   padding: 15px;
   border-radius: 8px;
   overflow-x: auto;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid var(--demo-accent);
   font-size: 0.85rem;
   line-height: 1.4;
 }
@@ -147,7 +148,7 @@
 }
 
 .widget-features h3 {
-  color: #667eea;
+  color: var(--demo-accent);
 }
 
 .widget-features ul {
@@ -193,7 +194,7 @@
 
 .scenario-info h3 {
   margin-top: 0;
-  color: #667eea;
+  color: var(--demo-accent);
 }
 
 .scenario-info p {
@@ -210,7 +211,7 @@
 }
 
 .widget-categories h4 {
-  color: #764ba2;
+  color: var(--demo-accent-hover);
   margin-bottom: 15px;
 }
 
@@ -224,12 +225,12 @@
   background: #f9f9f9;
   padding: 20px;
   border-radius: 8px;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid var(--demo-accent);
 }
 
 .category h5 {
   margin-top: 0;
-  color: #667eea;
+  color: var(--demo-accent);
 }
 
 .category ul {
@@ -385,4 +386,6 @@
   margin-top: 8px;
   text-align: center;
   font-weight: 500;
+}
+
 }

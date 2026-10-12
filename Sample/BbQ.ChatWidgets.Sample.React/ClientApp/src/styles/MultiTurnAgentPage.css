@@ -1,3 +1,4 @@
+@layer demos {
 /* Multi-Turn Agent Page Styles */
 @import './BasicChat.css';
 
@@ -7,7 +8,7 @@
   padding: 16px;
   background: #f5f0ff;
   border-radius: 10px;
-  border-left: 4px solid #764ba2;
+  border-left: 4px solid var(--demo-accent-hover);
   animation: slideIn 0.3s ease;
 }
 
@@ -16,7 +17,7 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 12px;
-  color: #764ba2;
+  color: var(--demo-accent-hover);
 }
 
 .trace-icon {
@@ -45,7 +46,7 @@
 }
 
 .round-badge {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--demo-accent) 0%, var(--demo-accent-hover) 100%);
   color: white;
   padding: 2px 10px;
   border-radius: 20px;
@@ -56,7 +57,7 @@
 
 .agent-name {
   font-weight: 600;
-  color: #764ba2;
+  color: var(--demo-accent-hover);
   font-size: 0.9rem;
 }
 
@@ -73,12 +74,12 @@
   padding: 20px;
   background: #f9f0ff;
   border-radius: 8px;
-  border-left: 4px solid #764ba2;
+  border-left: 4px solid var(--demo-accent-hover);
 }
 
 .feature-list h4 {
   margin-top: 0;
-  color: #764ba2;
+  color: var(--demo-accent-hover);
 }
 
 .feature-list ul {
@@ -149,4 +150,6 @@
   .trace-turn-header {
     flex-wrap: wrap;
   }
+}
+
 }

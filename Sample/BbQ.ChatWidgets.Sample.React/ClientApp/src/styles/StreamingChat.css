@@ -1,3 +1,4 @@
+@layer demos {
 /* Streaming Chat Page Styles */
 @import './BasicChat.css';
 
@@ -21,7 +22,7 @@
 .cursor {
   display: inline-block;
   animation: blink 1s infinite;
-  color: #667eea;
+  color: var(--demo-accent);
   font-weight: bold;
 }
 
@@ -33,4 +34,6 @@
 .streaming-text {
   word-wrap: break-word;
   white-space: pre-wrap;
+}
+
 }

@@ -1,3 +1,4 @@
+@layer landing {
 .home-page {
   --ink: #182820;
   --muted: #58675f;
@@ -674,4 +675,6 @@
   background: #194b35;
   color: white;
   transform: none;
+}
+
 }

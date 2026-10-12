@@ -59,17 +59,19 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsc && node scripts/build.mjs",
+    "build": "node scripts/clean.mjs && tsc && node scripts/build.mjs",
     "docs:js": "npx typedoc --out ../docs/js src --tsconfig tsconfig.json --options typedoc.json",
     "build:watch": "tsc --watch",
-    "test": "vitest",
+    "test": "vitest run",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --write \"src/**/*.ts\"",
     "type-check": "tsc --noEmit",
-    "prepublishOnly": "npm run build && npm run test && npm run lint"
+    "prepublishOnly": "npm run build && npm test && npm run lint && npm run test:package",
+    "test:watch": "vitest",
+    "test:package": "node scripts/test-package.mjs"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
@@ -86,7 +88,7 @@
     "vitest": "^4.0.16"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=20.19.0"
   },
   "overrides": {
     "flatted": "^3.4.2"

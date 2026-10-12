@@ -1,19 +1,59 @@
-import { useState } from 'react';
-import { ScenarioType } from './types';
-import { HomePage } from './pages/HomePage';
-import { BasicChatPage } from './pages/BasicChatPage';
-import { StreamingChatPage } from './pages/StreamingChatPage';
-import { TriageAgentPage } from './pages/TriageAgentPage';
-import { MultiTurnAgentPage } from './pages/MultiTurnAgentPage';
-import { ClassifiedMultiTurnPage } from './pages/ClassifiedMultiTurnPage';
-import { VoiceChatPage } from './pages/VoiceChatPage';
-import { WidgetsDemoPage } from './pages/WidgetsDemoPage';
-import { ActionsDemoPage } from './pages/ActionsDemoPage';
-import { SseWidgetsPage } from './pages/SseWidgetsPage';
-import { SseClockPage } from './pages/SseClockPage';
-import './styles/App.css';
+import { lazy, Suspense, useState } from "react";
+import { ScenarioType } from "./types";
+import { HomePage } from "./pages/HomePage";
+const BasicChatPage = lazy(() =>
+  import("./pages/BasicChatPage").then((module) => ({
+    default: module.BasicChatPage,
+  })),
+);
+const StreamingChatPage = lazy(() =>
+  import("./pages/StreamingChatPage").then((module) => ({
+    default: module.StreamingChatPage,
+  })),
+);
+const TriageAgentPage = lazy(() =>
+  import("./pages/TriageAgentPage").then((module) => ({
+    default: module.TriageAgentPage,
+  })),
+);
+const MultiTurnAgentPage = lazy(() =>
+  import("./pages/MultiTurnAgentPage").then((module) => ({
+    default: module.MultiTurnAgentPage,
+  })),
+);
+const ClassifiedMultiTurnPage = lazy(() =>
+  import("./pages/ClassifiedMultiTurnPage").then((module) => ({
+    default: module.ClassifiedMultiTurnPage,
+  })),
+);
+const VoiceChatPage = lazy(() =>
+  import("./pages/VoiceChatPage").then((module) => ({
+    default: module.VoiceChatPage,
+  })),
+);
+const WidgetsDemoPage = lazy(() =>
+  import("./pages/WidgetsDemoPage").then((module) => ({
+    default: module.WidgetsDemoPage,
+  })),
+);
+const ActionsDemoPage = lazy(() =>
+  import("./pages/ActionsDemoPage").then((module) => ({
+    default: module.ActionsDemoPage,
+  })),
+);
+const SseWidgetsPage = lazy(() =>
+  import("./pages/SseWidgetsPage").then((module) => ({
+    default: module.SseWidgetsPage,
+  })),
+);
+const SseClockPage = lazy(() =>
+  import("./pages/SseClockPage").then((module) => ({
+    default: module.SseClockPage,
+  })),
+);
+import "./styles/App.css";
 
-function App() {
+function ScenarioRouter() {
   const [currentPage, setCurrentPage] = useState<ScenarioType | null>(null);
 
   const handleBack = () => {
@@ -72,4 +112,17 @@ function App() {
   return <HomePage onSelectScenario={handleSelectScenario} />;
 }
 
+function App() {
+  return (
+    <Suspense
+      fallback={
+        <div className="page-loading" role="status">
+          Loading example…
+        </div>
+      }
+    >
+      <ScenarioRouter />
+    </Suspense>
+  );
+}
 export default App;

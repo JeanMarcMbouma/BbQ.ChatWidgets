@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
-import { ChatWidget } from '@bbq/chatwidgets';
-import type { ChatTurn } from '@bbq/chatwidgets';
+import { ChatWidget } from '@bbq-chat/widgets';
+import type { ChatTurn } from '@bbq-chat/widgets';
 
 export interface ChatMessage extends ChatTurn {
   id: string;

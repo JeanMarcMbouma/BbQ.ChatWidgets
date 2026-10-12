@@ -24,8 +24,8 @@ export const renderImage: RenderFn = (widget: any) => {
   const imageUrl = escapeHtml(widget.imageUrl);
   const alt = escapeHtml(widget.alt || widget.label || '');
 
-  const width = widget.width ? ` width="${widget.width}"` : '';
-  const height = widget.height ? ` height="${widget.height}"` : '';
+  const width = widget.width ? ` width="${escapeHtml(String(widget.width))}"` : '';
+  const height = widget.height ? ` height="${escapeHtml(String(widget.height))}"` : '';
 
   // Match Blazor `ImageWidgetComponent.razor`
   let html = `<div class="bbq-widget bbq-image-widget" data-widget-id="${id}" data-widget-type="image" data-action="${action}">`;

@@ -3,19 +3,24 @@
 [![NuGet Version](https://img.shields.io/nuget/v/BbQ.ChatWidgets.svg)](https://www.nuget.org/packages/BbQ.ChatWidgets/)
 [![npm Version](https://img.shields.io/npm/v/@bbq-chat/widgets.svg)](https://www.npmjs.com/package/@bbq-chat/widgets)
 
-A compact library of UI chat widgets and helpers for server and client integrations.
+**Turn AI conversations into useful actions.** Give your assistant forms, choices and cards so people can book, decide and resolve problems inside the conversation.
 
-This repository ships three distributable packages:
+Try the [local playground](docs_src/guides/PRODUCTION.md#try-the-product-without-an-ai-account): booking, customer support and approval flows run with the real widget library and sample responses, without an API key.
+
+Build on .NET, TypeScript, Angular or Blazor. Keep your application logic and AI provider; ChatWidgets supplies the interactive layer.
+
+This repository contains these packages:
 
 - NuGet: `BbQ.ChatWidgets` (the .NET library: services, renderers, endpoints)
 - npm: `@bbq-chat/widgets` (the JavaScript/TypeScript client library: widgets, client helpers)
 - npm: `@bbq-chat/widgets-angular` (Angular-native components and services)
+- NuGet: `BbQ.ChatWidgets.Blazor` (Blazor widget components)
 
 > Note: the .NET package no longer bundles the JavaScript client or theme CSS. Install the npm package (or bring your own UI) to render widgets in a browser.
 
 ## 🚀 30-Second Demos
 
-Get a working button widget in under 30 seconds!
+Start with a button widget. The server example requires an AI provider key; the local playground works without one.
 
 ### C# / .NET (Server)
 
@@ -167,6 +172,7 @@ Resolution order is: local exact type -> local type id -> local assignable type 
 
 ## 📖 Documentation
 
+- **[Production Deployment](docs_src/guides/PRODUCTION.md)** - Authorization, request limits, hosting and release verification
 - **[Getting Started](docs_src/GETTING_STARTED.md)** - Complete setup guide
 - **[Widget Gallery](docs_src/widgets/GALLERY.md)** - Visual showcase of all widgets
 - **[Integration Paths](docs_src/INTEGRATION_PATHS.md)** - Choose the right approach for your stack
@@ -183,7 +189,9 @@ Resolution order is: local exact type -> local type id -> local assignable type 
 ## 🧪 Tests
 
 - .NET: `dotnet test`
-- JS/TS: `npm test` (run from `Sample/WebApp/ClientApp`)
+- JS/TS: `npm test` and `npm run test:package` (run from `js`)
+- Angular: `npm test` (run from `js-angular`)
+- Playground: `npm run test:e2e` (run from `Sample/BbQ.ChatWidgets.Sample.React/ClientApp`, after building and installing Playwright Chromium)
 
 ## 📋 Changelog
 

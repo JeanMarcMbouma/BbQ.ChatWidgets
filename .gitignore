@@ -407,3 +407,6 @@ api/*.*
 js-angular/*.tgz
 /Sample/BbQ.ChatWidgets.Sample.React/wwwroot/assets
 /Sample/BbQ.ChatWidgets.Sample.React/wwwroot/index.html
+
+playwright-report/
+*.tgz

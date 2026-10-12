@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -24,38 +24,20 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
-  <!-- Build the SPA (Single Page App / React) -->
-  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
-    <!-- As part of publishing, ensure the JS resources are freshly built -->
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  <Target Name="BuildClientApp" BeforeTargets="PrepareForBuild" Condition="'$(SkipClientBuild)' != 'true'">
+    <Exec WorkingDirectory="../../js" Command="npm ci" />
+    <Exec WorkingDirectory="../../js" Command="npm run build" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm ci" />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
+  </Target>
 
-    <!-- Include the newly-built files in the publish output -->
+  <!-- Discover generated assets after Vite has replaced the previous build. -->
+  <ItemGroup>
+    <Content Remove="wwwroot/**" />
+  </ItemGroup>
+  <Target Name="IncludeClientFiles" BeforeTargets="AssignTargetPaths" DependsOnTargets="BuildClientApp">
     <ItemGroup>
-      <DistFiles Include="$(SpaRoot)dist\**" />
-      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
-        <RelativePath>wwwroot\%(Filename)%(Extension)</RelativePath>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </ResolvedFileToPublish>
+      <Content Include="wwwroot/**" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     </ItemGroup>
   </Target>
-
-  <!-- Build the React app during development builds as well -->
-  <Target Name="BuildClientApp" BeforeTargets="Build">
-    <Message Text="Building React ClientApp..." Importance="high" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" ContinueOnError="true" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" ContinueOnError="true" />
-    
-    <!-- Copy built files to wwwroot -->
-    <ItemGroup>
-      <ClientAppFiles Include="$(SpaRoot)dist\**\*" />
-    </ItemGroup>
-    <Copy SourceFiles="@(ClientAppFiles)" DestinationFolder="wwwroot\%(RecursiveDir)" />
-  </Target>
-
-  <!-- Ensure wwwroot exists -->
-  <Target Name="EnsureWwwRootExists" BeforeTargets="BuildClientApp">
-    <MakeDir Directories="wwwroot" />
-  </Target>
-
 </Project>

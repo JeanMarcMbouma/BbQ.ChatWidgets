@@ -1,90 +1,61 @@
-﻿import esbuild from 'esbuild';
-import fs from 'fs';
-import path from 'path';
+import esbuild from 'esbuild';
+import fs from 'node:fs';
+import path from 'node:path';
 
-const buildOptions = {
-  entryPoints: [
-    'dist/index.js',
-    'dist/models/index.js',
-    'dist/renderers/index.js',
-    'dist/handlers/index.js',
-  ],
-  outdir: 'dist',
-  outExtension: { '.js': '.cjs' },
-  bundle: false,
-  format: 'cjs',
-  platform: 'browser',
-  target: 'es2020',
-};
-
-async function build() {
-  try {
-    // Build CJS versions
-    await esbuild.build(buildOptions);
-    console.log('✓ Built CommonJS versions');
-
-    // Copy CSS files
-    const cssDir = 'src/styles';
-    const distCssDir = 'dist/styles';
-
-    if (!fs.existsSync(distCssDir)) {
-      fs.mkdirSync(distCssDir, { recursive: true });
-    }
-
-    const cssFiles = fs.readdirSync(cssDir).filter((f) => f.endsWith('.css'));
-    cssFiles.forEach((file) => {
-      const srcPath = path.join(cssDir, file);
-      const destPath = path.join(distCssDir, file);
-      fs.copyFileSync(srcPath, destPath);
-    });
-    console.log(`✓ Copied ${cssFiles.length} CSS files`);
-
-    // Ensure package.json is in dist
-    const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
-    const distPackageJson = {
-      name: packageJson.name,
-      version: packageJson.version,
-      description: packageJson.description,
-      license: packageJson.license,
-      main: './index.js',
-      module: './index.js',
-      types: './index.d.ts',
-      exports: {
-        '.': {
-          types: './index.d.ts',
-          import: './index.js',
-          require: './index.cjs'
-        },
-        './styles': './styles/index.css',
-        './styles/light': './styles/light.css',
-        './styles/dark': './styles/dark.css',
-        './styles/corporate': './styles/corporate.css',
-      },
-    };
-
-    fs.writeFileSync(
-      'dist/package.json',
-      JSON.stringify(distPackageJson, null, 2)
-    );
-    console.log('✓ Created dist/package.json');
-
-    // Copy README
-    if (fs.existsSync('README.md')) {
-      fs.copyFileSync('README.md', 'dist/README.md');
-      console.log('✓ Copied README.md');
-    }
-
-    // Copy LICENSE
-    if (fs.existsSync('LICENSE')) {
-      fs.copyFileSync('LICENSE', 'dist/LICENSE');
-      console.log('✓ Copied LICENSE');
-    }
-
-    console.log('✓ Build complete!');
-  } catch (error) {
-    console.error('Build failed:', error);
-    process.exit(1);
-  }
+function sources(directory) {
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const filename = path.join(directory, entry.name);
+    return entry.isDirectory()
+      ? sources(filename)
+      : filename.endsWith('.ts') && !/\.(spec|test)\.ts$/.test(filename)
+        ? [filename]
+        : [];
+  });
 }
 
-build();
+// TypeScript emits declarations before this script runs. Keep them in dist.
+fs.rmSync('dist/package.json', { force: true });
+const common = { outdir: 'dist', platform: 'browser', target: 'es2020' };
+// Shared chunks preserve model/registry identity across public ESM subpaths.
+await esbuild.build({
+  ...common,
+  entryPoints: [
+    'src/index.ts',
+    'src/models/index.ts',
+    'src/renderers/index.ts',
+    'src/handlers/index.ts',
+  ],
+  outbase: 'src',
+  bundle: true,
+  splitting: true,
+  format: 'esm',
+  chunkNames: 'chunks/[name]-[hash]',
+});
+// CommonJS uses a shared module graph rather than four independent model copies.
+await esbuild.build({
+  ...common,
+  entryPoints: sources('src'),
+  outbase: 'src',
+  bundle: false,
+  format: 'cjs',
+  outExtension: { '.js': '.cjs' },
+});
+for (const source of sources('src')) {
+  const output = source.replace(/^src/, 'dist').replace(/\.ts$/, '.cjs');
+  const content = fs
+    .readFileSync(output, 'utf8')
+    .replace(/require\("(\.[^"]+)"\)/g, (_match, specifier) => {
+      const location = path.resolve(path.dirname(output), specifier);
+      const target = fs.existsSync(`${location}.cjs`)
+        ? `${specifier}.cjs`
+        : `${specifier}/index.cjs`;
+      return `require(${JSON.stringify(target)})`;
+    });
+  fs.writeFileSync(output, content);
+}
+fs.mkdirSync('dist/styles', { recursive: true });
+for (const file of fs.readdirSync('src/styles').filter((file) => file.endsWith('.css')))
+  fs.copyFileSync(`src/styles/${file}`, `dist/styles/${file}`);
+for (const file of ['README.md', 'LICENSE'])
+  if (fs.existsSync(file)) fs.copyFileSync(file, `dist/${file}`);
+console.log('✓ Built ESM/CommonJS module graphs, declarations and themes');

@@ -92,4 +92,3 @@ export const EXAMPLES: PlaygroundExample[] = [
         : "Follow-up action received. Your app can ask the requester for the missing details.",
   },
 ];
-

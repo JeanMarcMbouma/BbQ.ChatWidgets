@@ -1,6 +1,7 @@
+@import './BasicChat.css';
+
 @layer demos {
 /* Classified Multi-Turn Agent Page Styles */
-@import './BasicChat.css';
 
 /* Classification panel */
 .classification-panel {

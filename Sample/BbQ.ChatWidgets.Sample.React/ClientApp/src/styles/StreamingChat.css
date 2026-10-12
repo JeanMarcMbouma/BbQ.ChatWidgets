@@ -1,6 +1,7 @@
+@import './BasicChat.css';
+
 @layer demos {
 /* Streaming Chat Page Styles */
-@import './BasicChat.css';
 
 .message.streaming {
   align-items: flex-start;

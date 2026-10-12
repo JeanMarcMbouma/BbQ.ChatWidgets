@@ -1,6 +1,7 @@
+@import './BasicChat.css';
+
 @layer demos {
 /* Multi-Turn Agent Page Styles */
-@import './BasicChat.css';
 
 /* Pipeline trace */
 .agent-pipeline-trace {

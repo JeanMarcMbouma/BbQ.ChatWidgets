@@ -1,6 +1,7 @@
+@import './BasicChat.css';
+
 @layer demos {
 /* Triage Agent Page Styles */
-@import './BasicChat.css';
 
 .classification-info {
   display: flex;

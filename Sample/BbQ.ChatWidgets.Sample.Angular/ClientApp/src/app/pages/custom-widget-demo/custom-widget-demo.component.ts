@@ -18,7 +18,7 @@ import { DemoCustomWidgetComponent, ProductWidget } from '../../components/demo-
   template: `
     <div class="custom-widget-demo">
       <h1>Custom Widget Renderers Demo</h1>
-      
+
       <div class="info-box">
         <h3>About This Demo</h3>
         <p>
@@ -38,7 +38,7 @@ import { DemoCustomWidgetComponent, ProductWidget } from '../../components/demo-
           Simple function that returns HTML strings. No Angular features, but lightweight.
         </p>
         <div class="widget-container">
-          <bbq-widget-renderer 
+          <bbq-widget-renderer
             [widgets]="htmlRendererWidgets"
             (widgetAction)="handleAction($event)">
           </bbq-widget-renderer>
@@ -48,11 +48,11 @@ import { DemoCustomWidgetComponent, ProductWidget } from '../../components/demo-
       <div class="demo-section">
         <h2>Angular Component Renderer (Recommended)</h2>
         <p class="description">
-          Uses Angular components with full features: data binding, change detection, 
+          Uses Angular components with full features: data binding, change detection,
           dependency injection, and more. Best for complex widgets.
         </p>
         <div class="widget-container">
-          <bbq-widget-renderer 
+          <bbq-widget-renderer
             [widgets]="componentRendererWidgets"
             (widgetAction)="handleAction($event)">
           </bbq-widget-renderer>
@@ -66,7 +66,7 @@ import { DemoCustomWidgetComponent, ProductWidget } from '../../components/demo-
           but don't warrant a separate component.
         </p>
         <div class="widget-container">
-          <bbq-widget-renderer 
+          <bbq-widget-renderer
             [widgets]="templateRendererWidgets"
             (widgetAction)="handleAction($event)">
           </bbq-widget-renderer>
@@ -102,7 +102,8 @@ import { DemoCustomWidgetComponent, ProductWidget } from '../../components/demo-
       </ng-template>
     </div>
   `,
-  styles: [`
+  styles: [`@layer demos {
+
     .custom-widget-demo {
       max-width: 1200px;
       margin: 0 auto;
@@ -229,7 +230,8 @@ import { DemoCustomWidgetComponent, ProductWidget } from '../../components/demo-
     .product-template button:hover {
       background: #1976d2;
     }
-  `]
+
+}`]
 })
 export class CustomWidgetDemoComponent implements OnInit {
   @ViewChild('productTemplate', { static: true })
@@ -264,13 +266,13 @@ export class CustomWidgetDemoComponent implements OnInit {
       }
       return null;
     };
-    
+
     this.widgetRegistry.registerFactory('product-html', productFactory);
     this.widgetRegistry.registerFactory('product-component', productFactory);
     this.widgetRegistry.registerFactory('product-template', productFactory);
 
     // Register different renderers for different demo types
-    
+
     // 1. HTML Function Renderer - simple product card
     this.widgetRegistry.registerRenderer('product-html', (widget: ChatWidget) => {
       const w = widget as ProductWidget;
@@ -281,8 +283,8 @@ export class CustomWidgetDemoComponent implements OnInit {
           <p style="color: ${w.inStock ? 'green' : 'red'};">
             ${w.inStock ? 'In Stock' : 'Out of Stock'}
           </p>
-          <button 
-            data-action="${w.action}" 
+          <button
+            data-action="${w.action}"
             data-payload='{"type":"html", "product":"${w.productName}"}'
             style="padding: 0.5rem 1rem; background: #2196f3; color: white; border: none; border-radius: 4px; cursor: pointer;">
             HTML Function Action
@@ -350,7 +352,7 @@ export class CustomWidgetDemoComponent implements OnInit {
   handleAction(event: { actionName: string; payload: any }) {
     const time = new Date().toLocaleTimeString();
     const payload = JSON.stringify(event.payload);
-    
+
     this.actionLog.unshift({
       time,
       action: event.actionName,

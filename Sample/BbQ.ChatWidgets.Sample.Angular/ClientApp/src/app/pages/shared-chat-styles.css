@@ -1,3 +1,4 @@
+@layer demos {
 /* Shared Styles for Chat Pages */
 
 .page {
@@ -293,4 +294,6 @@
   .scenario-info {
     padding: 20px;
   }
+}
+
 }

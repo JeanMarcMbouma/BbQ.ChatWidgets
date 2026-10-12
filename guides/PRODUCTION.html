@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Deploying ChatWidgets | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Deploying ChatWidgets | BbQ.ChatWidgets ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="deploying-chatwidgets">Deploying ChatWidgets</h1>
+
+<p>ChatWidgets supplies widget contracts, rendering, action dispatch and conversation/stream services. Your application owns identity, business permissions, AI credentials, data retention and deployment. The local playground is suitable for public hosting; the live sample APIs are development examples.</p>
+<h2 id="try-the-product-without-an-ai-account">Try the product without an AI account</h2>
+<p>Use Node 22.12 or later and the .NET 10 SDK (the projects currently target .NET 8; install its runtime too). From the repository root:</p>
+<pre><code class="lang-sh">cd js
+npm ci
+npm run build
+cd ../Sample/BbQ.ChatWidgets.Sample.React/ClientApp
+npm ci
+npm run dev
+</code></pre>
+<p>Open the Vite address. Booking, support and approval examples run locally using the public library. They use sample responses; no booking, approval, external API call or persistent write occurs. Inspect or copy the emitted widget JSON to connect the same contract to your own backend.</p>
+<p>For a deployable ASP.NET host:</p>
+<pre><code class="lang-sh">dotnet publish Sample/BbQ.ChatWidgets.Sample.React -c Release -o artifacts/playground
+</code></pre>
+<p>Publishing builds the core npm package and React frontend, and preserves nested assets under <code>wwwroot/assets</code>. With no AI key, the host serves the playground and returns 503 for live APIs. <code>/health</code> reports host readiness and its mode; it does not test the AI provider.</p>
+<p>For local live examples, set <code>OpenAI__ApiKey</code> through environment variables or .NET user secrets and run in Development. In Production, live APIs also require <code>Demo__EnableLiveApi=true</code>. Only enable them behind application authentication and authorization. The demo includes agent execution and stream publisher controls that can consume resources.</p>
+<h2 id="protect-api-requests">Protect API requests</h2>
+<p><code>MapBbQChatEndpoints</code> currently installs middleware rather than endpoint-routing metadata. Do not assume <code>.RequireAuthorization()</code> or endpoint-specific rate limiter metadata protects it. Install authentication and any path-based gates before calling it.</p>
+<p>The new <code>AuthorizeRequestAsync</code> option is invoked for every recognized chat, action, voice and widget stream request before its body is read. Return false to stop the request with 403. The host may use scoped services through <code>context.RequestServices</code>:</p>
+<pre><code class="lang-csharp">services.AddBbQChatWidgets(options =&gt;
+{
+    options.MaxRequestBodyBytes = 64 * 1024;
+    options.AuthorizeRequestAsync = (context, cancellationToken) =&gt;
+        ValueTask.FromResult(context.User.Identity?.IsAuthenticated == true);
+    // Register your IChatClient factory and business action handlers here.
+});
+
+// After building the app, and configuring its authentication scheme:
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapBbQChatEndpoints();
+</code></pre>
+<p>This snippet checks identity only. Also validate thread and stream ownership, tenant boundaries and business permissions. Thread IDs and stream IDs are identifiers, not authorization tokens. Check payload permissions inside action handlers; never let model-generated actions authorize a purchase or an approval. Restrict the client stream publish route (<code>POST .../widgets/streams/{streamId}/events</code>) to trusted publishers. Deny it from browser identities unless your application explicitly needs it.</p>
+<p>JSON bodies have a default 1 MiB limit, enforced for both content-length and chunked requests. Invalid JSON and null bodies produce 400, oversized bodies produce 413. Voice multipart uploads need separate host/proxy form and file size limits. Configure request deadlines, per-user rate limits, active-stream limits and AI budgets in the host. Configure cookie CSRF protection if your app uses cookie-based authentication. Keep AI secrets on the server. The React sample uses same-origin APIs and has no wildcard CORS policy.</p>
+<h2 id="data-and-scale">Data and scale</h2>
+<p>The default thread/persona stores and widget stream state live in the process. They are intended for a prototype or a bounded single-instance application. Before hosting a multi-user, long-lived application:</p>
+<ul>
+<li>Replace the thread store with a tenant-aware durable implementation and explicit retention/expiry.</li>
+<li>Set SSE buffer/replay limits through <code>WidgetSseOptions</code>; proxy buffering must be disabled for SSE. Verify reconnect behavior and idle timeouts with your proxy.</li>
+<li>Use sticky routing or implement shared stream state for multiple instances; the default service is not a distributed broker.</li>
+<li>Keep logs free of credentials and sensitive conversation content; define deletion and retention behavior.</li>
+<li>Treat custom renderers as trusted application code. Built-in text and numeric attributes are escaped; do not inject unsanitized HTML or permit arbitrary remote resources in your custom widgets.</li>
+</ul>
+<p>On the client, pass a <code>container</code> to <code>WidgetManager</code> to keep streamed updates scoped to one conversation. Call <code>detachHandlers</code> when disposing a rendered container and <code>disconnect</code> when leaving a stream. Browser form validation is feedback for users; validate all fields again on the server.</p>
+<h2 id="verify-a-release">Verify a release</h2>
+<p>Run the checks used by CI:</p>
+<pre><code class="lang-sh">cd js
+npm ci
+npm run lint
+npm run build
+npm test
+npm run test:package
+cd ../js-angular
+npm ci
+npm run build
+npm test
+cd ../Sample/BbQ.ChatWidgets.Sample.React/ClientApp
+npm ci
+npm run build
+npx playwright install chromium
+npm run test:e2e
+</code></pre>
+<p>Run <code>dotnet test BbQ.ChatWidgets.slnx -c Release /p:SkipClientBuild=true</code> (frontend checks run separately) and publish the React host. Check the published HTML and nested assets, <code>/health</code>, disabled live API responses, and your configured authenticated live workflows. The browser suite covers desktop/mobile playground flows, required field validation, reset, JSON inspection, no API traffic and no horizontal overflow. A mocked live response also checks chart rendering, single action dispatch and disposal when leaving the page.</p>
+<p>Choose new package versions before tagging. The core and Angular versions do not need to match, but the Angular peer dependency must accept the released core version. Angular publishes its compiled <code>dist</code> directory, not the workspace root. Publishing requires the existing npm/NuGet credentials or trusted publishing configuration. The .NET package uses the ASP.NET Core shared framework; console hosts must include that runtime. The NuGet workflow publishes both the core and Blazor UI packages plus the optional llama.cpp integration.</p>
+<p>A green build does not certify your host's identity, isolation, AI provider, load handling or deployment configuration. Exercise those with real accounts and representative traffic before enabling production live APIs.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/guides/PRODUCTION.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

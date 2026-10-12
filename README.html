@@ -74,18 +74,21 @@
 
 <p><a href="https://www.nuget.org/packages/BbQ.ChatWidgets/"><img src="https://img.shields.io/nuget/v/BbQ.ChatWidgets.svg" alt="NuGet Version"></a>
 <a href="https://www.npmjs.com/package/@bbq-chat/widgets"><img src="https://img.shields.io/npm/v/@bbq-chat/widgets.svg" alt="npm Version"></a></p>
-<p>A compact library of UI chat widgets and helpers for server and client integrations.</p>
-<p>This repository ships three distributable packages:</p>
+<p><strong>Turn AI conversations into useful actions.</strong> Give your assistant forms, choices and cards so people can book, decide and resolve problems inside the conversation.</p>
+<p>Try the <a href="guides/PRODUCTION.html#try-the-product-without-an-ai-account">local playground</a>: booking, customer support and approval flows run with the real widget library and sample responses, without an API key.</p>
+<p>Build on .NET, TypeScript, Angular or Blazor. Keep your application logic and AI provider; ChatWidgets supplies the interactive layer.</p>
+<p>This repository contains these packages:</p>
 <ul>
 <li>NuGet: <code>BbQ.ChatWidgets</code> (the .NET library: services, renderers, endpoints)</li>
 <li>npm: <code>@bbq-chat/widgets</code> (the JavaScript/TypeScript client library: widgets, client helpers)</li>
 <li>npm: <code>@bbq-chat/widgets-angular</code> (Angular-native components and services)</li>
+<li>NuGet: <code>BbQ.ChatWidgets.Blazor</code> (Blazor widget components)</li>
 </ul>
 <blockquote>
 <p>Note: the .NET package no longer bundles the JavaScript client or theme CSS. Install the npm package (or bring your own UI) to render widgets in a browser.</p>
 </blockquote>
 <h2 id="-30-second-demos">🚀 30-Second Demos</h2>
-<p>Get a working button widget in under 30 seconds!</p>
+<p>Start with a button widget. The server example requires an AI provider key; the local playground works without one.</p>
 <h3 id="c--net-server">C# / .NET (Server)</h3>
 <pre><code class="lang-csharp">using Microsoft.Extensions.AI;
 using BbQ.ChatWidgets.Extensions;
@@ -207,6 +210,7 @@ export class ChatComponent {
 <p>Resolution order is: local exact type -&gt; local type id -&gt; local assignable type -&gt; global exact type -&gt; global type id -&gt; global assignable type -&gt; built-in fallback.</p>
 <h2 id="-documentation">📖 Documentation</h2>
 <ul>
+<li><strong><a href="guides/PRODUCTION.html">Production Deployment</a></strong> - Authorization, request limits, hosting and release verification</li>
 <li><strong><a href="GETTING_STARTED.html">Getting Started</a></strong> - Complete setup guide</li>
 <li><strong><a href="widgets/GALLERY.html">Widget Gallery</a></strong> - Visual showcase of all widgets</li>
 <li><strong><a href="INTEGRATION_PATHS.html">Integration Paths</a></strong> - Choose the right approach for your stack</li>
@@ -220,7 +224,9 @@ export class ChatComponent {
 <h2 id="-tests">🧪 Tests</h2>
 <ul>
 <li>.NET: <code>dotnet test</code></li>
-<li>JS/TS: <code>npm test</code> (run from <code>Sample/WebApp/ClientApp</code>)</li>
+<li>JS/TS: <code>npm test</code> and <code>npm run test:package</code> (run from <code>js</code>)</li>
+<li>Angular: <code>npm test</code> (run from <code>js-angular</code>)</li>
+<li>Playground: <code>npm run test:e2e</code> (run from <code>Sample/BbQ.ChatWidgets.Sample.React/ClientApp</code>, after building and installing Playwright Chromium)</li>
 </ul>
 <h2 id="-changelog">📋 Changelog</h2>
 <p>See <strong><a href="CHANGELOG.md">CHANGELOG.md</a></strong> for version history and release notes.</p>

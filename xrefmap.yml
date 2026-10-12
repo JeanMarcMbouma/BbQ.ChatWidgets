@@ -3129,6 +3129,18 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Endpoints.UserMessageDto.Persona
   fullName: BbQ.ChatWidgets.Endpoints.UserMessageDto.Persona
   nameWithType: UserMessageDto.Persona
+- uid: BbQ.ChatWidgets.Endpoints.UserMessageDto.RequireWidgets
+  name: RequireWidgets
+  href: BbQ.ChatWidgets.Endpoints.UserMessageDto.html#BbQ_ChatWidgets_Endpoints_UserMessageDto_RequireWidgets
+  commentId: P:BbQ.ChatWidgets.Endpoints.UserMessageDto.RequireWidgets
+  fullName: BbQ.ChatWidgets.Endpoints.UserMessageDto.RequireWidgets
+  nameWithType: UserMessageDto.RequireWidgets
+- uid: BbQ.ChatWidgets.Endpoints.UserMessageDto.RequireWidgets*
+  name: RequireWidgets
+  href: BbQ.ChatWidgets.Endpoints.UserMessageDto.html#BbQ_ChatWidgets_Endpoints_UserMessageDto_RequireWidgets_
+  commentId: Overload:BbQ.ChatWidgets.Endpoints.UserMessageDto.RequireWidgets
+  fullName: BbQ.ChatWidgets.Endpoints.UserMessageDto.RequireWidgets
+  nameWithType: UserMessageDto.RequireWidgets
 - uid: BbQ.ChatWidgets.Endpoints.UserMessageDto.ThreadId
   name: ThreadId
   href: BbQ.ChatWidgets.Endpoints.UserMessageDto.html#BbQ_ChatWidgets_Endpoints_UserMessageDto_ThreadId
@@ -4479,6 +4491,18 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Models.ChatTurn.ToString
   fullName: BbQ.ChatWidgets.Models.ChatTurn.ToString
   nameWithType: ChatTurn.ToString
+- uid: BbQ.ChatWidgets.Models.ChatTurn.WidgetGeneration
+  name: WidgetGeneration
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_WidgetGeneration
+  commentId: P:BbQ.ChatWidgets.Models.ChatTurn.WidgetGeneration
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.WidgetGeneration
+  nameWithType: ChatTurn.WidgetGeneration
+- uid: BbQ.ChatWidgets.Models.ChatTurn.WidgetGeneration*
+  name: WidgetGeneration
+  href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_WidgetGeneration_
+  commentId: Overload:BbQ.ChatWidgets.Models.ChatTurn.WidgetGeneration
+  fullName: BbQ.ChatWidgets.Models.ChatTurn.WidgetGeneration
+  nameWithType: ChatTurn.WidgetGeneration
 - uid: BbQ.ChatWidgets.Models.ChatTurn.Widgets
   name: Widgets
   href: BbQ.ChatWidgets.Models.ChatTurn.html#BbQ_ChatWidgets_Models_ChatTurn_Widgets
@@ -8508,6 +8532,153 @@ references:
   fullName.vb: BbQ.ChatWidgets.Models.WidgetEmissionResult.<>
   nameWithType: WidgetEmissionResult.operator !=
   nameWithType.vb: WidgetEmissionResult.<>
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome
+  name: WidgetGenerationOutcome
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html
+  commentId: T:BbQ.ChatWidgets.Models.WidgetGenerationOutcome
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome
+  nameWithType: WidgetGenerationOutcome
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.#ctor(System.String,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.WidgetValidationDiagnostic})
+  name: WidgetGenerationOutcome(string, IReadOnlyList<WidgetValidationDiagnostic>?)
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome__ctor_System_String_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_WidgetValidationDiagnostic__
+  commentId: M:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.#ctor(System.String,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.WidgetValidationDiagnostic})
+  name.vb: New(String, IReadOnlyList(Of WidgetValidationDiagnostic))
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.WidgetGenerationOutcome(string, System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.WidgetValidationDiagnostic>?)
+  fullName.vb: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.New(String, System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.WidgetValidationDiagnostic))
+  nameWithType: WidgetGenerationOutcome.WidgetGenerationOutcome(string, IReadOnlyList<WidgetValidationDiagnostic>?)
+  nameWithType.vb: WidgetGenerationOutcome.New(String, IReadOnlyList(Of WidgetValidationDiagnostic))
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.#ctor*
+  name: WidgetGenerationOutcome
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.WidgetGenerationOutcome
+  fullName.vb: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.New
+  nameWithType: WidgetGenerationOutcome.WidgetGenerationOutcome
+  nameWithType.vb: WidgetGenerationOutcome.New
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Deconstruct(System.String@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.WidgetValidationDiagnostic}@)
+  name: Deconstruct(out string, out IReadOnlyList<WidgetValidationDiagnostic>?)
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome_Deconstruct_System_String__System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_WidgetValidationDiagnostic___
+  commentId: M:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Deconstruct(System.String@,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.WidgetValidationDiagnostic}@)
+  name.vb: Deconstruct(String, IReadOnlyList(Of WidgetValidationDiagnostic))
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Deconstruct(out string, out System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.WidgetValidationDiagnostic>?)
+  fullName.vb: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Deconstruct(String, System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.WidgetValidationDiagnostic))
+  nameWithType: WidgetGenerationOutcome.Deconstruct(out string, out IReadOnlyList<WidgetValidationDiagnostic>?)
+  nameWithType.vb: WidgetGenerationOutcome.Deconstruct(String, IReadOnlyList(Of WidgetValidationDiagnostic))
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Deconstruct
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Deconstruct
+  nameWithType: WidgetGenerationOutcome.Deconstruct
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Diagnostics
+  name: Diagnostics
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome_Diagnostics
+  commentId: P:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Diagnostics
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Diagnostics
+  nameWithType: WidgetGenerationOutcome.Diagnostics
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Diagnostics*
+  name: Diagnostics
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome_Diagnostics_
+  commentId: Overload:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Diagnostics
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Diagnostics
+  nameWithType: WidgetGenerationOutcome.Diagnostics
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Equals(BbQ.ChatWidgets.Models.WidgetGenerationOutcome)
+  name: Equals(WidgetGenerationOutcome?)
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome_Equals_BbQ_ChatWidgets_Models_WidgetGenerationOutcome_
+  commentId: M:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Equals(BbQ.ChatWidgets.Models.WidgetGenerationOutcome)
+  name.vb: Equals(WidgetGenerationOutcome)
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Equals(BbQ.ChatWidgets.Models.WidgetGenerationOutcome?)
+  fullName.vb: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Equals(BbQ.ChatWidgets.Models.WidgetGenerationOutcome)
+  nameWithType: WidgetGenerationOutcome.Equals(WidgetGenerationOutcome?)
+  nameWithType.vb: WidgetGenerationOutcome.Equals(WidgetGenerationOutcome)
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Equals(Object)
+  nameWithType: WidgetGenerationOutcome.Equals(object?)
+  nameWithType.vb: WidgetGenerationOutcome.Equals(Object)
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Equals
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Equals
+  nameWithType: WidgetGenerationOutcome.Equals
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.GetHashCode()
+  nameWithType: WidgetGenerationOutcome.GetHashCode()
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.GetHashCode
+  nameWithType: WidgetGenerationOutcome.GetHashCode
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Status
+  name: Status
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome_Status
+  commentId: P:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Status
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Status
+  nameWithType: WidgetGenerationOutcome.Status
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Status*
+  name: Status
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome_Status_
+  commentId: Overload:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Status
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.Status
+  nameWithType: WidgetGenerationOutcome.Status
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome_ToString
+  commentId: M:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.ToString
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.ToString()
+  nameWithType: WidgetGenerationOutcome.ToString()
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.ToString
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.ToString
+  nameWithType: WidgetGenerationOutcome.ToString
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.op_Equality(BbQ.ChatWidgets.Models.WidgetGenerationOutcome,BbQ.ChatWidgets.Models.WidgetGenerationOutcome)
+  name: operator ==(WidgetGenerationOutcome?, WidgetGenerationOutcome?)
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome_op_Equality_BbQ_ChatWidgets_Models_WidgetGenerationOutcome_BbQ_ChatWidgets_Models_WidgetGenerationOutcome_
+  commentId: M:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.op_Equality(BbQ.ChatWidgets.Models.WidgetGenerationOutcome,BbQ.ChatWidgets.Models.WidgetGenerationOutcome)
+  name.vb: =(WidgetGenerationOutcome, WidgetGenerationOutcome)
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.operator ==(BbQ.ChatWidgets.Models.WidgetGenerationOutcome?, BbQ.ChatWidgets.Models.WidgetGenerationOutcome?)
+  fullName.vb: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.=(BbQ.ChatWidgets.Models.WidgetGenerationOutcome, BbQ.ChatWidgets.Models.WidgetGenerationOutcome)
+  nameWithType: WidgetGenerationOutcome.operator ==(WidgetGenerationOutcome?, WidgetGenerationOutcome?)
+  nameWithType.vb: WidgetGenerationOutcome.=(WidgetGenerationOutcome, WidgetGenerationOutcome)
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.operator ==
+  fullName.vb: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.=
+  nameWithType: WidgetGenerationOutcome.operator ==
+  nameWithType.vb: WidgetGenerationOutcome.=
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.op_Inequality(BbQ.ChatWidgets.Models.WidgetGenerationOutcome,BbQ.ChatWidgets.Models.WidgetGenerationOutcome)
+  name: operator !=(WidgetGenerationOutcome?, WidgetGenerationOutcome?)
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome_op_Inequality_BbQ_ChatWidgets_Models_WidgetGenerationOutcome_BbQ_ChatWidgets_Models_WidgetGenerationOutcome_
+  commentId: M:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.op_Inequality(BbQ.ChatWidgets.Models.WidgetGenerationOutcome,BbQ.ChatWidgets.Models.WidgetGenerationOutcome)
+  name.vb: <>(WidgetGenerationOutcome, WidgetGenerationOutcome)
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.operator !=(BbQ.ChatWidgets.Models.WidgetGenerationOutcome?, BbQ.ChatWidgets.Models.WidgetGenerationOutcome?)
+  fullName.vb: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.<>(BbQ.ChatWidgets.Models.WidgetGenerationOutcome, BbQ.ChatWidgets.Models.WidgetGenerationOutcome)
+  nameWithType: WidgetGenerationOutcome.operator !=(WidgetGenerationOutcome?, WidgetGenerationOutcome?)
+  nameWithType.vb: WidgetGenerationOutcome.<>(WidgetGenerationOutcome, WidgetGenerationOutcome)
+- uid: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.html#BbQ_ChatWidgets_Models_WidgetGenerationOutcome_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Models.WidgetGenerationOutcome.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.operator !=
+  fullName.vb: BbQ.ChatWidgets.Models.WidgetGenerationOutcome.<>
+  nameWithType: WidgetGenerationOutcome.operator !=
+  nameWithType.vb: WidgetGenerationOutcome.<>
 - uid: BbQ.ChatWidgets.Models.WidgetJsonPatchOperation
   name: WidgetJsonPatchOperation
   href: BbQ.ChatWidgets.Models.WidgetJsonPatchOperation.html
@@ -10335,15 +10506,15 @@ references:
   commentId: T:BbQ.ChatWidgets.Services.ChatWidgetService
   fullName: BbQ.ChatWidgets.Services.ChatWidgetService
   nameWithType: ChatWidgetService
-- uid: BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IThreadPersonaStore,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer,BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher,BbQChatOptions,BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue,BbQ.ChatWidgets.Models.IWidgetValidator)
-  name: ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, IAgentEventDispatcher, BbQChatOptions, IWidgetSchemaCatalogue?, IWidgetValidator?)
-  href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IThreadPersonaStore_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_BbQ_ChatWidgets_Agents_Abstractions_IAgentEventDispatcher_BbQChatOptions_BbQ_ChatWidgets_Abstractions_IWidgetSchemaCatalogue_BbQ_ChatWidgets_Models_IWidgetValidator_
-  commentId: M:BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IThreadPersonaStore,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer,BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher,BbQChatOptions,BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue,BbQ.ChatWidgets.Models.IWidgetValidator)
-  name.vb: New(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, IAgentEventDispatcher, BbQChatOptions, IWidgetSchemaCatalogue, IWidgetValidator)
-  fullName: BbQ.ChatWidgets.Services.ChatWidgetService.ChatWidgetService(Microsoft.Extensions.AI.IChatClient, BbQ.ChatWidgets.Abstractions.IWidgetHintParser, BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer, BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider, BbQ.ChatWidgets.Abstractions.IAIToolsProvider, BbQ.ChatWidgets.Abstractions.IThreadService, BbQ.ChatWidgets.Abstractions.IThreadPersonaStore, BbQ.ChatWidgets.Abstractions.IAIInstructionProvider, BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer, BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher, BbQChatOptions, BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue?, BbQ.ChatWidgets.Models.IWidgetValidator?)
-  fullName.vb: BbQ.ChatWidgets.Services.ChatWidgetService.New(Microsoft.Extensions.AI.IChatClient, BbQ.ChatWidgets.Abstractions.IWidgetHintParser, BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer, BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider, BbQ.ChatWidgets.Abstractions.IAIToolsProvider, BbQ.ChatWidgets.Abstractions.IThreadService, BbQ.ChatWidgets.Abstractions.IThreadPersonaStore, BbQ.ChatWidgets.Abstractions.IAIInstructionProvider, BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer, BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher, BbQChatOptions, BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue, BbQ.ChatWidgets.Models.IWidgetValidator)
-  nameWithType: ChatWidgetService.ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, IAgentEventDispatcher, BbQChatOptions, IWidgetSchemaCatalogue?, IWidgetValidator?)
-  nameWithType.vb: ChatWidgetService.New(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, IAgentEventDispatcher, BbQChatOptions, IWidgetSchemaCatalogue, IWidgetValidator)
+- uid: BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IThreadPersonaStore,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer,BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher,BbQChatOptions,BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue,BbQ.ChatWidgets.Models.IWidgetValidator,Microsoft.Extensions.Logging.ILogger{BbQ.ChatWidgets.Services.ChatWidgetService})
+  name: ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, IAgentEventDispatcher, BbQChatOptions, IWidgetSchemaCatalogue?, IWidgetValidator?, ILogger<ChatWidgetService>?)
+  href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService__ctor_Microsoft_Extensions_AI_IChatClient_BbQ_ChatWidgets_Abstractions_IWidgetHintParser_BbQ_ChatWidgets_Abstractions_IWidgetHintSanitizer_BbQ_ChatWidgets_Abstractions_IWidgetToolsProvider_BbQ_ChatWidgets_Abstractions_IAIToolsProvider_BbQ_ChatWidgets_Abstractions_IThreadService_BbQ_ChatWidgets_Abstractions_IThreadPersonaStore_BbQ_ChatWidgets_Abstractions_IAIInstructionProvider_BbQ_ChatWidgets_Abstractions_IWidgetActionRegistry_BbQ_ChatWidgets_Abstractions_IWidgetActionHandlerResolver_BbQ_ChatWidgets_Abstractions_IChatHistorySummarizer_BbQ_ChatWidgets_Agents_Abstractions_IAgentEventDispatcher_BbQChatOptions_BbQ_ChatWidgets_Abstractions_IWidgetSchemaCatalogue_BbQ_ChatWidgets_Models_IWidgetValidator_Microsoft_Extensions_Logging_ILogger_BbQ_ChatWidgets_Services_ChatWidgetService__
+  commentId: M:BbQ.ChatWidgets.Services.ChatWidgetService.#ctor(Microsoft.Extensions.AI.IChatClient,BbQ.ChatWidgets.Abstractions.IWidgetHintParser,BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer,BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider,BbQ.ChatWidgets.Abstractions.IAIToolsProvider,BbQ.ChatWidgets.Abstractions.IThreadService,BbQ.ChatWidgets.Abstractions.IThreadPersonaStore,BbQ.ChatWidgets.Abstractions.IAIInstructionProvider,BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry,BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver,BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer,BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher,BbQChatOptions,BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue,BbQ.ChatWidgets.Models.IWidgetValidator,Microsoft.Extensions.Logging.ILogger{BbQ.ChatWidgets.Services.ChatWidgetService})
+  name.vb: New(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, IAgentEventDispatcher, BbQChatOptions, IWidgetSchemaCatalogue, IWidgetValidator, ILogger(Of ChatWidgetService))
+  fullName: BbQ.ChatWidgets.Services.ChatWidgetService.ChatWidgetService(Microsoft.Extensions.AI.IChatClient, BbQ.ChatWidgets.Abstractions.IWidgetHintParser, BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer, BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider, BbQ.ChatWidgets.Abstractions.IAIToolsProvider, BbQ.ChatWidgets.Abstractions.IThreadService, BbQ.ChatWidgets.Abstractions.IThreadPersonaStore, BbQ.ChatWidgets.Abstractions.IAIInstructionProvider, BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer, BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher, BbQChatOptions, BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue?, BbQ.ChatWidgets.Models.IWidgetValidator?, Microsoft.Extensions.Logging.ILogger<BbQ.ChatWidgets.Services.ChatWidgetService>?)
+  fullName.vb: BbQ.ChatWidgets.Services.ChatWidgetService.New(Microsoft.Extensions.AI.IChatClient, BbQ.ChatWidgets.Abstractions.IWidgetHintParser, BbQ.ChatWidgets.Abstractions.IWidgetHintSanitizer, BbQ.ChatWidgets.Abstractions.IWidgetToolsProvider, BbQ.ChatWidgets.Abstractions.IAIToolsProvider, BbQ.ChatWidgets.Abstractions.IThreadService, BbQ.ChatWidgets.Abstractions.IThreadPersonaStore, BbQ.ChatWidgets.Abstractions.IAIInstructionProvider, BbQ.ChatWidgets.Abstractions.IWidgetActionRegistry, BbQ.ChatWidgets.Abstractions.IWidgetActionHandlerResolver, BbQ.ChatWidgets.Abstractions.IChatHistorySummarizer, BbQ.ChatWidgets.Agents.Abstractions.IAgentEventDispatcher, BbQChatOptions, BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue, BbQ.ChatWidgets.Models.IWidgetValidator, Microsoft.Extensions.Logging.ILogger(Of BbQ.ChatWidgets.Services.ChatWidgetService))
+  nameWithType: ChatWidgetService.ChatWidgetService(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, IAgentEventDispatcher, BbQChatOptions, IWidgetSchemaCatalogue?, IWidgetValidator?, ILogger<ChatWidgetService>?)
+  nameWithType.vb: ChatWidgetService.New(IChatClient, IWidgetHintParser, IWidgetHintSanitizer, IWidgetToolsProvider, IAIToolsProvider, IThreadService, IThreadPersonaStore, IAIInstructionProvider, IWidgetActionRegistry, IWidgetActionHandlerResolver, IChatHistorySummarizer, IAgentEventDispatcher, BbQChatOptions, IWidgetSchemaCatalogue, IWidgetValidator, ILogger(Of ChatWidgetService))
 - uid: BbQ.ChatWidgets.Services.ChatWidgetService.#ctor*
   name: ChatWidgetService
   href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService__ctor_
@@ -10377,6 +10548,15 @@ references:
   fullName.vb: BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync(String, String, String, System.Threading.CancellationToken)
   nameWithType: ChatWidgetService.RespondAsync(string, string?, string?, CancellationToken)
   nameWithType.vb: ChatWidgetService.RespondAsync(String, String, String, CancellationToken)
+- uid: BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync(System.String,System.String,System.String,System.Threading.CancellationToken,System.Boolean)
+  name: RespondAsync(string, string?, string?, CancellationToken, bool)
+  href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService_RespondAsync_System_String_System_String_System_String_System_Threading_CancellationToken_System_Boolean_
+  commentId: M:BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync(System.String,System.String,System.String,System.Threading.CancellationToken,System.Boolean)
+  name.vb: RespondAsync(String, String, String, CancellationToken, Boolean)
+  fullName: BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync(string, string?, string?, System.Threading.CancellationToken, bool)
+  fullName.vb: BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync(String, String, String, System.Threading.CancellationToken, Boolean)
+  nameWithType: ChatWidgetService.RespondAsync(string, string?, string?, CancellationToken, bool)
+  nameWithType.vb: ChatWidgetService.RespondAsync(String, String, String, CancellationToken, Boolean)
 - uid: BbQ.ChatWidgets.Services.ChatWidgetService.RespondAsync(System.String,System.String,System.Threading.CancellationToken)
   name: RespondAsync(string, string?, CancellationToken)
   href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService_RespondAsync_System_String_System_String_System_Threading_CancellationToken_
@@ -10401,6 +10581,15 @@ references:
   fullName.vb: BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync(String, String, String, System.Threading.CancellationToken)
   nameWithType: ChatWidgetService.StreamResponseAsync(string, string?, string?, CancellationToken)
   nameWithType.vb: ChatWidgetService.StreamResponseAsync(String, String, String, CancellationToken)
+- uid: BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync(System.String,System.String,System.String,System.Threading.CancellationToken,System.Boolean)
+  name: StreamResponseAsync(string, string?, string?, CancellationToken, bool)
+  href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService_StreamResponseAsync_System_String_System_String_System_String_System_Threading_CancellationToken_System_Boolean_
+  commentId: M:BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync(System.String,System.String,System.String,System.Threading.CancellationToken,System.Boolean)
+  name.vb: StreamResponseAsync(String, String, String, CancellationToken, Boolean)
+  fullName: BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync(string, string?, string?, System.Threading.CancellationToken, bool)
+  fullName.vb: BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync(String, String, String, System.Threading.CancellationToken, Boolean)
+  nameWithType: ChatWidgetService.StreamResponseAsync(string, string?, string?, CancellationToken, bool)
+  nameWithType.vb: ChatWidgetService.StreamResponseAsync(String, String, String, CancellationToken, Boolean)
 - uid: BbQ.ChatWidgets.Services.ChatWidgetService.StreamResponseAsync(System.String,System.String,System.Threading.CancellationToken)
   name: StreamResponseAsync(string, string?, CancellationToken)
   href: BbQ.ChatWidgets.Services.ChatWidgetService.html#BbQ_ChatWidgets_Services_ChatWidgetService_StreamResponseAsync_System_String_System_String_System_Threading_CancellationToken_
@@ -11001,15 +11190,15 @@ references:
   commentId: T:BbQ.ChatWidgets.Services.EmitWidgetsAIFunction
   fullName: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction
   nameWithType: EmitWidgetsAIFunction
-- uid: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.#ctor(BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue,System.Func{System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget},System.Threading.CancellationToken,System.Threading.Tasks.ValueTask},BbQ.ChatWidgets.Models.IWidgetValidator,BbQ.ChatWidgets.Models.WidgetValidationContext)
-  name: EmitWidgetsAIFunction(IWidgetSchemaCatalogue, Func<IReadOnlyList<ChatWidget>, CancellationToken, ValueTask>, IWidgetValidator?, WidgetValidationContext?)
-  href: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.html#BbQ_ChatWidgets_Services_EmitWidgetsAIFunction__ctor_BbQ_ChatWidgets_Abstractions_IWidgetSchemaCatalogue_System_Func_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatWidget__System_Threading_CancellationToken_System_Threading_Tasks_ValueTask__BbQ_ChatWidgets_Models_IWidgetValidator_BbQ_ChatWidgets_Models_WidgetValidationContext_
-  commentId: M:BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.#ctor(BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue,System.Func{System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget},System.Threading.CancellationToken,System.Threading.Tasks.ValueTask},BbQ.ChatWidgets.Models.IWidgetValidator,BbQ.ChatWidgets.Models.WidgetValidationContext)
-  name.vb: New(IWidgetSchemaCatalogue, Func(Of IReadOnlyList(Of ChatWidget), CancellationToken, ValueTask), IWidgetValidator, WidgetValidationContext)
-  fullName: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.EmitWidgetsAIFunction(BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue, System.Func<System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.ChatWidget>, System.Threading.CancellationToken, System.Threading.Tasks.ValueTask>, BbQ.ChatWidgets.Models.IWidgetValidator?, BbQ.ChatWidgets.Models.WidgetValidationContext?)
-  fullName.vb: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.New(BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue, System.Func(Of System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.ChatWidget), System.Threading.CancellationToken, System.Threading.Tasks.ValueTask), BbQ.ChatWidgets.Models.IWidgetValidator, BbQ.ChatWidgets.Models.WidgetValidationContext)
-  nameWithType: EmitWidgetsAIFunction.EmitWidgetsAIFunction(IWidgetSchemaCatalogue, Func<IReadOnlyList<ChatWidget>, CancellationToken, ValueTask>, IWidgetValidator?, WidgetValidationContext?)
-  nameWithType.vb: EmitWidgetsAIFunction.New(IWidgetSchemaCatalogue, Func(Of IReadOnlyList(Of ChatWidget), CancellationToken, ValueTask), IWidgetValidator, WidgetValidationContext)
+- uid: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.#ctor(BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue,System.Func{System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget},System.Threading.CancellationToken,System.Threading.Tasks.ValueTask},BbQ.ChatWidgets.Models.IWidgetValidator,BbQ.ChatWidgets.Models.WidgetValidationContext,Microsoft.Extensions.Logging.ILogger,System.Boolean)
+  name: EmitWidgetsAIFunction(IWidgetSchemaCatalogue, Func<IReadOnlyList<ChatWidget>, CancellationToken, ValueTask>, IWidgetValidator?, WidgetValidationContext?, ILogger?, bool)
+  href: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.html#BbQ_ChatWidgets_Services_EmitWidgetsAIFunction__ctor_BbQ_ChatWidgets_Abstractions_IWidgetSchemaCatalogue_System_Func_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatWidget__System_Threading_CancellationToken_System_Threading_Tasks_ValueTask__BbQ_ChatWidgets_Models_IWidgetValidator_BbQ_ChatWidgets_Models_WidgetValidationContext_Microsoft_Extensions_Logging_ILogger_System_Boolean_
+  commentId: M:BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.#ctor(BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue,System.Func{System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget},System.Threading.CancellationToken,System.Threading.Tasks.ValueTask},BbQ.ChatWidgets.Models.IWidgetValidator,BbQ.ChatWidgets.Models.WidgetValidationContext,Microsoft.Extensions.Logging.ILogger,System.Boolean)
+  name.vb: New(IWidgetSchemaCatalogue, Func(Of IReadOnlyList(Of ChatWidget), CancellationToken, ValueTask), IWidgetValidator, WidgetValidationContext, ILogger, Boolean)
+  fullName: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.EmitWidgetsAIFunction(BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue, System.Func<System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Models.ChatWidget>, System.Threading.CancellationToken, System.Threading.Tasks.ValueTask>, BbQ.ChatWidgets.Models.IWidgetValidator?, BbQ.ChatWidgets.Models.WidgetValidationContext?, Microsoft.Extensions.Logging.ILogger?, bool)
+  fullName.vb: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.New(BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue, System.Func(Of System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Models.ChatWidget), System.Threading.CancellationToken, System.Threading.Tasks.ValueTask), BbQ.ChatWidgets.Models.IWidgetValidator, BbQ.ChatWidgets.Models.WidgetValidationContext, Microsoft.Extensions.Logging.ILogger, Boolean)
+  nameWithType: EmitWidgetsAIFunction.EmitWidgetsAIFunction(IWidgetSchemaCatalogue, Func<IReadOnlyList<ChatWidget>, CancellationToken, ValueTask>, IWidgetValidator?, WidgetValidationContext?, ILogger?, bool)
+  nameWithType.vb: EmitWidgetsAIFunction.New(IWidgetSchemaCatalogue, Func(Of IReadOnlyList(Of ChatWidget), CancellationToken, ValueTask), IWidgetValidator, WidgetValidationContext, ILogger, Boolean)
 - uid: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.#ctor*
   name: EmitWidgetsAIFunction
   href: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.html#BbQ_ChatWidgets_Services_EmitWidgetsAIFunction__ctor_
@@ -11073,6 +11262,18 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.JsonSchema
   fullName: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.JsonSchema
   nameWithType: EmitWidgetsAIFunction.JsonSchema
+- uid: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.LastResult
+  name: LastResult
+  href: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.html#BbQ_ChatWidgets_Services_EmitWidgetsAIFunction_LastResult
+  commentId: P:BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.LastResult
+  fullName: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.LastResult
+  nameWithType: EmitWidgetsAIFunction.LastResult
+- uid: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.LastResult*
+  name: LastResult
+  href: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.html#BbQ_ChatWidgets_Services_EmitWidgetsAIFunction_LastResult_
+  commentId: Overload:BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.LastResult
+  fullName: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.LastResult
+  nameWithType: EmitWidgetsAIFunction.LastResult
 - uid: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.Name
   name: Name
   href: BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.html#BbQ_ChatWidgets_Services_EmitWidgetsAIFunction_Name

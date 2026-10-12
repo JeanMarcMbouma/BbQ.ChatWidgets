@@ -114,9 +114,8 @@
     <pre><code class="lang-csharp hljs">public sealed class DefaultAIToolsProvider : IAIToolsProvider</code></pre>
   </div>
   <h5 id="BbQ_ChatWidgets_Services_DefaultAIToolsProvider_remarks"><strong>Remarks</strong></h5>
-  <div class="markdown level0 remarks"><p>This provider supplies a basic set of AI-callable tools that extend the AI's capabilities
-beyond the standard widget tools. Currently provides a retry tool to allow the AI to
-explicitly request retry operations when needed.</p>
+  <div class="markdown level0 remarks"><p>Applications can supply additional callable tools. No placeholder tools are
+exposed by default: widget repair is handled by emit_widgets diagnostics.</p>
 <p>Implements <a class="xref" href="BbQ.ChatWidgets.Abstractions.IAIToolsProvider.html">IAIToolsProvider</a> and can be overridden by custom implementations
 via <a class="xref" href="BbQChatOptions.html#BbQChatOptions_ToolProviderFactory">ToolProviderFactory</a>.</p>
 </div>
@@ -166,11 +165,8 @@ via <a class="xref" href="BbQChatOptions.html#BbQChatOptions_ToolProviderFactory
     </tbody>
   </table>
   <h5 id="BbQ_ChatWidgets_Services_DefaultAIToolsProvider_GetAITools_remarks">Remarks</h5>
-  <div class="markdown level1 remarks"><p>This method returns a cached list of AI tools. On first call, it creates the tools
-and caches them for subsequent calls. The current implementation includes:</p>
-<ul>
-<li><code>retry_tool</code>: Instructs the AI to retry the previous logic or generation</li>
-</ul>
+  <div class="markdown level1 remarks"><p>The default list is empty. A retry tool that only returns an instruction
+cannot perform a repair and can distract a model from the real widget tool.</p>
 </div>
   <h3 id="implements">Implements</h3>
   <div>

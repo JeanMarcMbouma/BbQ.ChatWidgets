@@ -141,13 +141,13 @@ canonical widget schema catalogue.</p>
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/EmitWidgetsAIFunction.cs">View Source</a>
   </span>
   <a id="BbQ_ChatWidgets_Services_EmitWidgetsAIFunction__ctor_" data-uid="BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.#ctor*"></a>
-  <h4 id="BbQ_ChatWidgets_Services_EmitWidgetsAIFunction__ctor_BbQ_ChatWidgets_Abstractions_IWidgetSchemaCatalogue_System_Func_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatWidget__System_Threading_CancellationToken_System_Threading_Tasks_ValueTask__BbQ_ChatWidgets_Models_IWidgetValidator_BbQ_ChatWidgets_Models_WidgetValidationContext_" data-uid="BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.#ctor(BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue,System.Func{System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget},System.Threading.CancellationToken,System.Threading.Tasks.ValueTask},BbQ.ChatWidgets.Models.IWidgetValidator,BbQ.ChatWidgets.Models.WidgetValidationContext)">EmitWidgetsAIFunction(IWidgetSchemaCatalogue, Func&lt;IReadOnlyList&lt;ChatWidget&gt;, CancellationToken, ValueTask&gt;, IWidgetValidator?, WidgetValidationContext?)</h4>
+  <h4 id="BbQ_ChatWidgets_Services_EmitWidgetsAIFunction__ctor_BbQ_ChatWidgets_Abstractions_IWidgetSchemaCatalogue_System_Func_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Models_ChatWidget__System_Threading_CancellationToken_System_Threading_Tasks_ValueTask__BbQ_ChatWidgets_Models_IWidgetValidator_BbQ_ChatWidgets_Models_WidgetValidationContext_Microsoft_Extensions_Logging_ILogger_System_Boolean_" data-uid="BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.#ctor(BbQ.ChatWidgets.Abstractions.IWidgetSchemaCatalogue,System.Func{System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Models.ChatWidget},System.Threading.CancellationToken,System.Threading.Tasks.ValueTask},BbQ.ChatWidgets.Models.IWidgetValidator,BbQ.ChatWidgets.Models.WidgetValidationContext,Microsoft.Extensions.Logging.ILogger,System.Boolean)">EmitWidgetsAIFunction(IWidgetSchemaCatalogue, Func&lt;IReadOnlyList&lt;ChatWidget&gt;, CancellationToken, ValueTask&gt;, IWidgetValidator?, WidgetValidationContext?, ILogger?, bool)</h4>
   <div class="markdown level1 summary"><p>Initializes the emission tool.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public EmitWidgetsAIFunction(IWidgetSchemaCatalogue catalogue, Func&lt;IReadOnlyList&lt;ChatWidget&gt;, CancellationToken, ValueTask&gt; onEmitted, IWidgetValidator? validator = null, WidgetValidationContext? validationContext = null)</code></pre>
+    <pre><code class="lang-csharp hljs">public EmitWidgetsAIFunction(IWidgetSchemaCatalogue catalogue, Func&lt;IReadOnlyList&lt;ChatWidget&gt;, CancellationToken, ValueTask&gt; onEmitted, IWidgetValidator? validator = null, WidgetValidationContext? validationContext = null, ILogger? logger = null, bool allowEmpty = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -181,6 +181,18 @@ canonical widget schema catalogue.</p>
         <td><a class="xref" href="BbQ.ChatWidgets.Models.WidgetValidationContext.html">WidgetValidationContext</a></td>
         <td><span class="parametername">validationContext</span></td>
         <td><p>Optional validation context; one based on <code class="paramref">catalogue</code> is used when omitted.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/microsoft.extensions.logging.ilogger">ILogger</a></td>
+        <td><span class="parametername">logger</span></td>
+        <td><p>Receives rejection codes, paths and repair status without logging complete widget payloads.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">allowEmpty</span></td>
+        <td><p>Whether an empty array is an explicit no-widget decision.</p>
 </td>
       </tr>
     </tbody>
@@ -330,6 +342,34 @@ method's parameters using the configured <a class="xref" href="https://learn.mic
 When no schema is specified, consuming chat clients should assume the "{}" or "true" schema, indicating that any JSON input is admissible.
 </p>
 </div>
+
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/EmitWidgetsAIFunction.cs">View Source</a>
+  </span>
+  <a id="BbQ_ChatWidgets_Services_EmitWidgetsAIFunction_LastResult_" data-uid="BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.LastResult*"></a>
+  <h4 id="BbQ_ChatWidgets_Services_EmitWidgetsAIFunction_LastResult" data-uid="BbQ.ChatWidgets.Services.EmitWidgetsAIFunction.LastResult">LastResult</h4>
+  <div class="markdown level1 summary"><p>The most recent invocation result; null means the model never invoked this tool.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public WidgetEmissionResult? LastResult { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="BbQ.ChatWidgets.Models.WidgetEmissionResult.html">WidgetEmissionResult</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 
   <span class="small pull-right mobile-hide">
     <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/BbQ.ChatWidgets/Services/EmitWidgetsAIFunction.cs">View Source</a>

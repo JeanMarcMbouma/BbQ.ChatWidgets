@@ -20,6 +20,9 @@ on:
       - '.github/workflows/npm-*.yml'
       - 'test-fixtures/**'
 
+permissions:
+  contents: read
+
 jobs:
   build-and-test-core:
     runs-on: ubuntu-latest

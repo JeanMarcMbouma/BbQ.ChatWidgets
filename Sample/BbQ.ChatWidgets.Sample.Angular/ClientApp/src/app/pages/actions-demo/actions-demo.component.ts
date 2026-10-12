@@ -27,14 +27,14 @@ interface ActionLog {
             <div class="message" [class.assistant]="msg.role === 'assistant'">
               <p>{{ msg.content }}</p>
               @if (msg.widgets && msg.widgets.length > 0) {
-                <app-widget-renderer 
-                  [widgets]="msg.widgets" 
+                <app-widget-renderer
+                  [widgets]="msg.widgets"
                   (widgetAction)="handleWidgetAction($event)">
                 </app-widget-renderer>
               }
             </div>
           }
-          
+
           @if (chatService.isLoading()) {
             <div class="loading">
               <div class="spinner"></div>
@@ -64,7 +64,7 @@ interface ActionLog {
       <div class="scenario-info">
         <h3>About This Demo</h3>
         <p>
-          <strong>Widget Actions</strong> demonstrate how widgets trigger actions 
+          <strong>Widget Actions</strong> demonstrate how widgets trigger actions
           and how the server responds to them.
         </p>
         <ul>
@@ -76,7 +76,8 @@ interface ActionLog {
       </div>
     </div>
   `,
-  styles: [`
+  styles: [`@layer demos {
+
     .demo-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -167,13 +168,14 @@ interface ActionLog {
         grid-template-columns: 1fr;
       }
     }
-  `],
+
+}`],
   styleUrls: ['../shared-chat-styles.css']
 })
 export class ActionsDemoComponent implements OnInit {
   @Output() navigateBack = new EventEmitter<void>();
   actionLog = signal<ActionLog[]>([]);
-  
+
   private readonly MAX_ACTION_LOG_ENTRIES = 20;
 
   constructor(public chatService: ChatService) {}
@@ -187,7 +189,7 @@ export class ActionsDemoComponent implements OnInit {
   handleWidgetAction(event: { actionName: string; payload: any }) {
     const time = new Date().toLocaleTimeString();
     const payload = JSON.stringify(event.payload);
-    
+
     this.actionLog.update(log => [{
       time,
       action: event.actionName,

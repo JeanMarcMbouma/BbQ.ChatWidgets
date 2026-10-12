@@ -1,4 +1,4 @@
-import { Type, TemplateRef } from '@angular/core';
+import { Type, TemplateRef, reflectComponentType } from '@angular/core';
 import { ChatWidget } from '@bbq-chat/widgets';
 
 /**
@@ -77,34 +77,9 @@ export function isTemplateRenderer(
   );
 }
 
-/**
- * Type guard to check if a renderer is an Angular Component
- * 
- * Note: This uses a heuristic check based on the following assumptions:
- * 1. Components are constructor functions
- * 2. Components have a prototype with a constructor property
- * 3. Components typically use dependency injection (no required constructor params)
- * 
- * Limitation: This may not detect components with required constructor parameters.
- * For edge cases, explicitly check your component's constructor signature.
- * 
- * Alternative: You can always register a wrapper component that has no required params.
- */
-export function isComponentRenderer(
-  renderer: CustomWidgetRenderer
-): renderer is Type<CustomWidgetComponent> {
-  // Check if it's a function (constructor) but not a regular function renderer
-  if (typeof renderer !== 'function') {
-    return false;
-  }
-  
-  // Check for Angular component characteristics
-  // Components typically have prototype with constructor property
-  return (
-    renderer.prototype !== undefined &&
-    renderer.prototype.constructor === renderer &&
-    renderer.length === 0 // Constructor with no required params (Angular DI)
-  );
+/** Identify Angular components independently of constructor arity. */
+export function isComponentRenderer(renderer: CustomWidgetRenderer): renderer is Type<CustomWidgetComponent> {
+  return typeof renderer === 'function' && reflectComponentType(renderer as Type<unknown>) !== null;
 }
 
 /**
@@ -116,5 +91,5 @@ export function isComponentRenderer(
 export function isHtmlRenderer(
   renderer: CustomWidgetRenderer
 ): renderer is CustomWidgetHtmlRenderer {
-  return typeof renderer === 'function';
+  return typeof renderer === 'function' && !isComponentRenderer(renderer);
 }

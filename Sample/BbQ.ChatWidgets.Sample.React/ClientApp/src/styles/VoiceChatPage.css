@@ -1,6 +1,7 @@
+@import './BasicChat.css';
+
 @layer demos {
 /* Voice Chat Page Styles */
-@import './BasicChat.css';
 
 /* Browser warning banner */
 .browser-warning {

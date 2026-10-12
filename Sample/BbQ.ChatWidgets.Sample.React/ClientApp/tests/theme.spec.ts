@@ -2,6 +2,18 @@ import { expect, test } from '@playwright/test';
 
 for (const colorScheme of ['light', 'dark'] as const) {
   test(`landing and demos retain the shared theme with ${colorScheme} OS preference`, async ({ page }) => {
+    const pageErrors: string[] = [];
+    const failedStylesheets: string[] = [];
+    page.on('pageerror', error => pageErrors.push(error.message));
+    page.on('requestfailed', request => {
+      if (request.resourceType() === 'stylesheet') failedStylesheets.push(request.url());
+    });
+    page.on('response', response => {
+      if (response.request().resourceType() === 'stylesheet' && !response.ok()) failedStylesheets.push(response.url());
+    });
+    await page.route('**/api/chat/message', route => route.fulfill({ json: {
+      content: 'Demo response', threadId: 'theme-test', widgets: [],
+    } }));
     await page.emulateMedia({ colorScheme });
     await page.goto('/');
     const form = page.locator('.preview-widgets fieldset');
@@ -22,6 +34,8 @@ for (const colorScheme of ['light', 'dark'] as const) {
       await page.getByRole('button', { name: '← Back', exact: true }).click();
     }
     await expect(form).toHaveCSS('background-color', 'rgb(250, 251, 248)');
+    expect(pageErrors).toEqual([]);
+    expect(failedStylesheets).toEqual([]);
     await expect(page.locator('.preview-widgets .bbq-form')).toHaveCSS('padding', '20px');
     await page.locator('.playground').screenshot({ path: test.info().outputPath(`playground-${colorScheme}.png`) });
   });

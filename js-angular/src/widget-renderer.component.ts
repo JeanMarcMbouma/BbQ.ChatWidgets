@@ -46,19 +46,19 @@ import { AngularWidgetRenderer } from './renderers/AngularWidgetRenderer';
 
 /**
  * Angular component for rendering chat widgets
- * 
+ *
  * This component handles rendering of chat widgets using the BbQ ChatWidgets library.
- * It manages widget lifecycle, event handling, and cleanup. 
- * 
+ * It manages widget lifecycle, event handling, and cleanup.
+ *
  * Supports three types of custom widget renderers:
  * 1. HTML function renderers (return HTML strings)
  * 2. Angular Component renderers (render as dynamic components)
  * 3. Angular TemplateRef renderers (render as embedded views)
- * 
+ *
  * @example
  * ```typescript
- * <bbq-widget-renderer 
- *   [widgets]="messageWidgets" 
+ * <bbq-widget-renderer
+ *   [widgets]="messageWidgets"
  *   (widgetAction)="handleWidgetAction($event)">
  * </bbq-widget-renderer>
  * ```
@@ -251,12 +251,12 @@ export class WidgetRendererComponent
         container.querySelectorAll('.bbq-widget')
       ) as HTMLElement[];
 
-      let dynamicIndex = 0;
+
       this.widgetItems.forEach((item) => {
         if (!item.isHtml) {
           const customRenderer = this.widgetRegistry.getRenderer(item.widget.type);
 
-          const targetDiv = dynamicWidgetDivs[dynamicIndex];
+          const targetDiv = dynamicWidgetDivs[item.index];
           if (!targetDiv) return;
 
           // Clear the div content before rendering
@@ -277,7 +277,7 @@ export class WidgetRendererComponent
             }
           }
 
-          dynamicIndex++;
+
         }
       });
     });
@@ -285,7 +285,7 @@ export class WidgetRendererComponent
 
   /**
    * Render an Angular component for a custom widget
-   * 
+   *
    * Note: This method safely assigns properties to component instances
    * by checking for property existence at runtime. This approach is necessary
    * because we cannot statically verify that all components implement

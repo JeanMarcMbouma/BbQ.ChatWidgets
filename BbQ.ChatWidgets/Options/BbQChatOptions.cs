@@ -43,6 +43,14 @@ public sealed class BbQChatOptions
     public bool RequireRegisteredWidgetActions { get; set; } = true;
 
     /// <summary>
+    /// In strict mode, require an emit_widgets decision before a text reply.
+    /// An empty array explicitly means no widget is appropriate. Requires a provider
+    /// supporting required tool choice (named when additional tools are present)
+    /// and function invocation middleware.
+    /// </summary>
+    public bool RequireWidgetDecision { get; set; }
+
+    /// <summary>
     /// Gets or sets the route prefix for chat widget API endpoints.
     /// </summary>
     /// <remarks>

@@ -9,7 +9,15 @@ namespace BbQ.ChatWidgets.Services;
 /// </summary>
 internal static class WidgetEmissionSchemaBuilder
 {
-    public static JsonElement Build(IWidgetSchemaCatalogue catalogue)
+    public static JsonElement BuildResponse(IWidgetSchemaCatalogue catalogue, bool requireWidgets = false)
+    {
+        var schema = JsonNode.Parse(Build(catalogue, allowEmpty: !requireWidgets).GetRawText())!.AsObject();
+        schema["properties"]!.AsObject().Insert(0, "content", new JsonObject { ["type"] = "string" });
+        schema["required"]!.AsArray().Add("content");
+        return JsonSerializer.SerializeToElement(schema);
+    }
+
+    public static JsonElement Build(IWidgetSchemaCatalogue catalogue, bool allowEmpty = false)
     {
         ArgumentNullException.ThrowIfNull(catalogue);
 
@@ -56,7 +64,7 @@ internal static class WidgetEmissionSchemaBuilder
             ["type"] = "array",
             ["description"] = "Complete desired widget states. Never include instance IDs, revisions, lifecycle state, permissions, or transport patches.",
             ["items"] = items,
-            ["minItems"] = definitions.Count == 0 ? 0 : 1
+            ["minItems"] = definitions.Count == 0 || allowEmpty ? 0 : 1
         };
         if (definitions.Count == 0)
             widgets["maxItems"] = 0;

@@ -364,7 +364,7 @@ public static class ServiceCollectionExtensions
             context.Response.Headers["Cache-Control"] = "no-cache";
             context.Response.Headers["Connection"] = "keep-alive";
 
-            await foreach (var turn in service.StreamResponseAsync(dto.Message, dto.ThreadId, dto.Persona, ct))
+            await foreach (var turn in service.StreamResponseAsync(dto.Message, dto.ThreadId, dto.Persona, ct, dto.RequireWidgets))
             {
                 var json = JsonSerializer.Serialize(turn, turn.GetType(), Serialization.Default);
                 await context.Response.WriteAsync($"data: {json}\n\n");
@@ -389,7 +389,7 @@ public static class ServiceCollectionExtensions
     /// <remarks>
     /// This method:
     /// 1. Deserializes the request body to <see cref="UserMessageDto"/>
-    /// 2. Calls <see cref="ChatWidgetService.RespondAsync(string, string?, string?, CancellationToken)"/>
+    /// 2. Calls <see cref="ChatWidgetService.RespondAsync(string, string?, string?, CancellationToken, bool)"/>
     /// 3. Serializes the response back to JSON
     /// </remarks>
     private static async Task HandleMessageRequest(HttpContext context)
@@ -401,7 +401,7 @@ public static class ServiceCollectionExtensions
             var service = context.RequestServices.GetRequiredService<ChatWidgetService>();
             var ct = context.RequestAborted;
 
-            var turn = await service.RespondAsync(dto.Message, dto.ThreadId, dto.Persona, ct);
+            var turn = await service.RespondAsync(dto.Message, dto.ThreadId, dto.Persona, ct, dto.RequireWidgets);
             await WriteJsonResponse(context, turn);
         }
         catch (ArgumentException ex)

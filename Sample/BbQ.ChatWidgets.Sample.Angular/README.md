@@ -288,6 +288,10 @@ This is a sample application. Feel free to:
 - Modify the UI styling
 - Integrate additional AI features
 
+## Troubleshooting local model widgets
+
+For local-model widget failures, see the shared [widget troubleshooting guidance](../BbQ.ChatWidgets.Sample.React/README.md#troubleshooting-local-model-widgets). Both demos use the same instruction and validation pipeline, including actionable rejection warnings in server logs.
+
 ## License
 
 Same as BbQ.ChatWidgets library.

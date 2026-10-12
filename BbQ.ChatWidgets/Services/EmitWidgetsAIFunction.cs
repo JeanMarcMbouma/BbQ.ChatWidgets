@@ -3,6 +3,7 @@ using System.Text.Json.Nodes;
 using BbQ.ChatWidgets.Abstractions;
 using BbQ.ChatWidgets.Models;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Logging;
 
 namespace BbQ.ChatWidgets.Services;
 
@@ -21,6 +22,11 @@ public sealed class EmitWidgetsAIFunction : AIFunction
     private readonly IWidgetValidator _validator;
     private readonly WidgetValidationContext _validationContext;
     private int _invalidEmissionCount;
+    private readonly ILogger? _logger;
+    private readonly bool _allowEmpty;
+
+    /// <summary>The most recent invocation result; null means the model never invoked this tool.</summary>
+    public WidgetEmissionResult? LastResult { get; private set; }
 
     /// <summary>
     /// Initializes the emission tool.
@@ -29,19 +35,25 @@ public sealed class EmitWidgetsAIFunction : AIFunction
     /// <param name="onEmitted">Per-request callback that receives deserialized widget candidates.</param>
     /// <param name="validator">Optional validator; the default validation pipeline is used when omitted.</param>
     /// <param name="validationContext">Optional validation context; one based on <paramref name="catalogue"/> is used when omitted.</param>
+    /// <param name="logger">Receives rejection codes, paths and repair status without logging complete widget payloads.</param>
+    /// <param name="allowEmpty">Whether an empty array is an explicit no-widget decision.</param>
     public EmitWidgetsAIFunction(
         IWidgetSchemaCatalogue catalogue,
         Func<IReadOnlyList<ChatWidget>, CancellationToken, ValueTask> onEmitted,
         IWidgetValidator? validator = null,
-        WidgetValidationContext? validationContext = null)
+        WidgetValidationContext? validationContext = null,
+        ILogger? logger = null,
+        bool allowEmpty = false)
     {
         ArgumentNullException.ThrowIfNull(catalogue);
         ArgumentNullException.ThrowIfNull(onEmitted);
 
         _onEmitted = onEmitted;
+        _logger = logger;
+        _allowEmpty = allowEmpty;
         _validator = validator ?? new DefaultWidgetValidator();
         _validationContext = validationContext ?? new WidgetValidationContext(catalogue);
-        JsonSchema = WidgetEmissionSchemaBuilder.Build(catalogue);
+        JsonSchema = WidgetEmissionSchemaBuilder.Build(catalogue, allowEmpty);
     }
 
     /// <inheritdoc />
@@ -90,7 +102,7 @@ public sealed class EmitWidgetsAIFunction : AIFunction
 
         var diagnostics = new List<WidgetValidationDiagnostic>();
         var candidates = element.EnumerateArray().Select(candidate => candidate.Clone()).ToArray();
-        if (candidates.Length == 0 && _validationContext.Catalogue.Definitions.Count > 0)
+        if (!_allowEmpty && candidates.Length == 0 && _validationContext.Catalogue.Definitions.Count > 0)
         {
             return Reject([
                 new WidgetValidationDiagnostic(
@@ -124,7 +136,7 @@ public sealed class EmitWidgetsAIFunction : AIFunction
 
         var accepted = Array.AsReadOnly(widgets.ToArray());
         await _onEmitted(accepted, cancellationToken);
-        return new WidgetEmissionResult(accepted.Count);
+        return LastResult = new WidgetEmissionResult(accepted.Count);
     }
 
     private WidgetEmissionResult Reject(IEnumerable<WidgetValidationDiagnostic> diagnostics)
@@ -141,7 +153,11 @@ public sealed class EmitWidgetsAIFunction : AIFunction
                 WidgetValidationStage.Schema));
         }
 
-        return new WidgetEmissionResult(
+        foreach (var diagnostic in diagnosticList)
+            _logger?.LogWarning("Widget emission rejected: {Code} at {Path}: {Reason}. Repair allowed: {RepairAllowed}",
+                diagnostic.Code, diagnostic.Path, diagnostic.Message, repairAllowed);
+
+        return LastResult = new WidgetEmissionResult(
             0,
             Array.AsReadOnly(diagnosticList.ToArray()),
             repairAllowed);

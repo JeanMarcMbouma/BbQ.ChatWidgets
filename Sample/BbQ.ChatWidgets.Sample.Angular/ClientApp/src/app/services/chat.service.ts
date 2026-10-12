@@ -21,7 +21,7 @@ export class ChatService {
 
   constructor(private http: HttpClient) {}
 
-  async sendMessage(text: string, endpoint: string = '/api/chat/message', persona: string | null = null): Promise<void> {
+  async sendMessage(text: string, endpoint: string = '/api/chat/message', persona: string | null = null, requireWidgets = false): Promise<void> {
     if (!text.trim()) return;
 
     const userMessage: ChatMessage = {
@@ -38,6 +38,7 @@ export class ChatService {
     try {
       const response = await firstValueFrom(this.http.post<any>(endpoint, {
         message: text,
+        requireWidgets,
         threadId: this._threadId(),
         persona: persona && persona.trim() ? persona : null
       }));
@@ -51,6 +52,7 @@ export class ChatService {
         role: 'assistant',
         content: response.content,
         widgets: response.widgets,
+        widgetGeneration: response.widgetGeneration,
         timestamp: new Date()
       };
 

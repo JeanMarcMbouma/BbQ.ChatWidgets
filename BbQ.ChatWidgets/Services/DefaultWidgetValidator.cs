@@ -150,7 +150,7 @@ public sealed class DefaultWidgetValidator(
         {
             diagnostics.Add(new(
                 WidgetValidationCodes.ActionNotRegistered,
-                $"Widget action '{action}' is not registered.",
+                $"Widget action '{action}' is not registered. Choose an appropriate registered action: {string.Join(", ", (context.ActionRegistry?.GetActions().Select(item => item.Name) ?? []).Order())}.",
                 "/action",
                 WidgetValidationStage.RegisteredAction));
             return;

@@ -38,13 +38,13 @@ public class ChatWidgetServiceTests
         chatWidgetService = CreateService();
     }
 
-    private ChatWidgetService CreateService(IWidgetSchemaCatalogue? catalogue = null) => new(
+    private ChatWidgetService CreateService(IWidgetSchemaCatalogue? catalogue = null, IThreadService? threads = null) => new(
             mockChat,
             mockWidgetHintParser.Object,
             mockWidgetHintSanitizer.Object,
             mockToolsProvider.Object,
             mockAIToolsProvider.Object,
-            mockThreadService.Object,
+            threads ?? mockThreadService.Object,
             mockThreadPersonaStore.Object,
             mockAIInstructionsProvider.Object,
             mockActionRegistry.Object,
@@ -161,6 +161,79 @@ public class ChatWidgetServiceTests
         Assert.Equal(JsonValueKind.Object, declaration.JsonSchema.ValueKind);
         Assert.True(Assert.IsType<bool>(declaration.AdditionalProperties["strict"]));
         Assert.DoesNotContain(chatOptions.Tools!, tool => tool.Name == "get_widget_tools");
+    }
+
+    [Fact]
+    public async Task RequiredDecision_UsesRequiredToolModeAndAllowsExplicitEmptyDecision()
+    {
+        SetupBasicConversationFlow();
+        options.WidgetGenerationMode = WidgetGenerationMode.StrictToolCall;
+        options.RequireWidgetDecision = true;
+        await CreateService(new WidgetSchemaCatalogue(new WidgetRegistry())).RespondAsync("Hello", "thread-123");
+        var settings = mockChat.LastChatOptions!;
+        Assert.Equal(ChatToolMode.RequireAny, settings.ToolMode);
+        var tool = Assert.IsAssignableFrom<AIFunctionDeclaration>(Assert.Single(settings.Tools!));
+        Assert.Equal(0, tool.JsonSchema.GetProperty("properties").GetProperty("widgets").GetProperty("minItems").GetInt32());
+    }
+
+    [Theory]
+    [InlineData(null, "not_called", 0)]
+    [InlineData("[]", "none", 0)]
+    [InlineData("[{\"type\":\"button\",\"label\":\"Hello\",\"action\":\"greet\"}]", "emitted", 1)]
+    [InlineData("[{\"type\":\"invented\"}]", "rejected", 0)]
+    public async Task StrictOutcome_ReportsActualToolResultDespiteAssistantClaim(string? emission, string status, int count)
+    {
+        SetupBasicConversationFlow();
+        options.WidgetGenerationMode = WidgetGenerationMode.StrictToolCall;
+        options.RequireWidgetDecision = true;
+        options.RequireRegisteredWidgetActions = false;
+        mockChat.EmissionJson = emission;
+        var threads = new DefaultThreadService();
+        var service = CreateService(new WidgetSchemaCatalogue(new WidgetRegistry()), threads);
+        var turn = await service.RespondAsync("Show a widget", threads.CreateThread());
+        Assert.Equal(status, turn.WidgetGeneration!.Status);
+        Assert.Equal(count, turn.Widgets!.Count);
+        if (status == "rejected") Assert.NotEmpty(turn.WidgetGeneration.Diagnostics!);
+    }
+
+    [Theory]
+    [InlineData("{\"content\":\"Hello\",\"widgets\":[{\"type\":\"button\",\"label\":\"Hello\",\"action\":\"greet\"}]}", true, "emitted", 1)]
+    [InlineData("{\"content\":\"Hello\",\"widgets\":[]}", false, "none", 0)]
+    [InlineData("{\"content\":\"Hello\",\"widgets\":[]}", true, "rejected", 0)]
+    [InlineData("not JSON", true, "rejected", 0)]
+    public async Task StructuredResponse_ValidatesWidgetsAndEnforcesExplicitRequirement(string response, bool required, string status, int count)
+    {
+        SetupBasicConversationFlow();
+        options.WidgetGenerationMode = WidgetGenerationMode.StructuredResponse;
+        options.RequireRegisteredWidgetActions = false;
+        mockChat.ResponseText = response;
+        var threads = new DefaultThreadService();
+        var service = CreateService(new WidgetSchemaCatalogue(new WidgetRegistry()), threads);
+        var turn = await service.RespondAsync("Hello", threads.CreateThread(), null, default, requireWidgets: required);
+        Assert.Equal(status, turn.WidgetGeneration!.Status);
+        Assert.Equal(count, turn.Widgets!.Count);
+        Assert.Empty(mockChat.LastChatOptions!.Tools!);
+        var format = Assert.IsType<ChatResponseFormatJson>(mockChat.LastChatOptions.ResponseFormat);
+        Assert.Equal(required ? 1 : 0, format.Schema!.Value.GetProperty("properties").GetProperty("widgets").GetProperty("minItems").GetInt32());
+        Assert.DoesNotContain("\"widgets\"", turn.Content);
+    }
+
+    [Fact]
+    public async Task StructuredStreaming_BuffersJsonAndReturnsOnlyValidatedFinalTurn()
+    {
+        SetupBasicConversationFlow();
+        options.WidgetGenerationMode = WidgetGenerationMode.StructuredResponse;
+        options.RequireRegisteredWidgetActions = false;
+        mockChat.ResponseText = """{"content":"Hello","widgets":[{"type":"button","label":"Hello","action":"greet"}]}""";
+        var threads = new DefaultThreadService();
+        var service = CreateService(new WidgetSchemaCatalogue(new WidgetRegistry()), threads);
+        var turns = new List<ChatTurn>();
+        await foreach (var turn in service.StreamResponseAsync("Show a button", threads.CreateThread(), null, default, requireWidgets: true))
+            turns.Add(turn);
+        var final = Assert.Single(turns);
+        Assert.Equal("Hello", final.Content);
+        Assert.Equal("emitted", final.WidgetGeneration!.Status);
+        Assert.Single(final.Widgets!);
     }
 
     [Fact]
@@ -284,6 +357,8 @@ public class ChatWidgetServiceTests
 
 class MockChatClient : IChatClient
 {
+    public string? EmissionJson { get; set; }
+    public string? ResponseText { get; set; }
     public ChatOptions? LastChatOptions { get; private set; }
 
     public void Dispose()
@@ -291,12 +366,17 @@ class MockChatClient : IChatClient
         throw new NotImplementedException();
     }
 
-    public Task<ChatResponse> GetResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default)
+    public async Task<ChatResponse> GetResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default)
     {
         LastChatOptions = options;
+        if (EmissionJson is not null)
+        {
+            var tool = options!.Tools!.OfType<AIFunction>().Single(item => item.Name == EmitWidgetsAIFunction.FunctionName);
+            await tool.InvokeAsync(new AIFunctionArguments { ["widgets"] = JsonSerializer.Deserialize<JsonElement>(EmissionJson) }, cancellationToken);
+        }
         var input = @"This is a widget: <widget>{""type"":""input"",""label"":""Email"",""action"":""email"",""placeholder"":""user@example.com"",""maxLength"":100}</widget>";
 
-        return Task.FromResult(new ChatResponse([new ChatMessage(ChatRole.Assistant, input)]));
+        return new ChatResponse([new ChatMessage(ChatRole.Assistant, ResponseText ?? input)]);
     }
 
     public object? GetService(Type serviceType, object? serviceKey = null)
@@ -304,8 +384,12 @@ class MockChatClient : IChatClient
         return null;
     }
 
-    public IAsyncEnumerable<ChatResponseUpdate> GetStreamingResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default)
+    public async IAsyncEnumerable<ChatResponseUpdate> GetStreamingResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, [System.Runtime.CompilerServices.EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        LastChatOptions = options;
+        var text = ResponseText ?? "Hello";
+        await Task.Yield();
+        yield return new ChatResponseUpdate(ChatRole.Assistant, text[..(text.Length / 2)]);
+        yield return new ChatResponseUpdate(ChatRole.Assistant, text[(text.Length / 2)..]);
     }
 }

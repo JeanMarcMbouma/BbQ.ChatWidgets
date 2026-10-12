@@ -3,17 +3,19 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StreamingChatService } from '../../services/streaming-chat.service';
 import { WidgetRendererComponent } from '../../components/widget-renderer/widget-renderer.component';
+import { WidgetGenerationNoticeComponent } from '../../components/widget-generation-notice.component';
 
 @Component({
   selector: 'app-streaming-chat',
   standalone: true,
-  imports: [CommonModule, FormsModule, WidgetRendererComponent],
+  imports: [CommonModule, FormsModule, WidgetRendererComponent, WidgetGenerationNoticeComponent],
   templateUrl: './streaming-chat.component.html',
   styleUrls: ['../shared-chat-styles.css']
 })
 export class StreamingChatComponent implements OnInit {
   input = signal('');
   persona = signal('');
+  requireWidgets = signal(true);
   @Output() navigateBack = new EventEmitter<void>();
   
   constructor(public streamingService: StreamingChatService) {
@@ -34,7 +36,7 @@ export class StreamingChatComponent implements OnInit {
     if (!text.trim() || this.streamingService.isStreaming()) return;
     
     this.input.set('');
-    await this.streamingService.sendStreamingMessage(text, '/api/chat/stream/message', this.persona());
+    await this.streamingService.sendStreamingMessage(text, '/api/chat/stream/message', this.persona(), this.requireWidgets());
   }
 
   handleKeyDown(event: KeyboardEvent) {

@@ -16,7 +16,7 @@ export class StreamingChatService {
   readonly error = this._error.asReadonly();
   readonly threadId = this._threadId.asReadonly();
 
-  async sendStreamingMessage(text: string, endpoint: string = '/api/chat/stream/message', persona: string | null = null): Promise<void> {
+  async sendStreamingMessage(text: string, endpoint: string = '/api/chat/stream/message', persona: string | null = null, requireWidgets = false): Promise<void> {
     if (!text.trim() || this.activeRequest) return;
     const request = new AbortController();
     this.activeRequest = request;
@@ -40,6 +40,7 @@ export class StreamingChatService {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: text,
+        requireWidgets,
           threadId: this._threadId(),
           persona: persona && persona.trim() ? persona : null
         })
@@ -94,6 +95,7 @@ export class StreamingChatService {
                   role: 'assistant',
                   content: currentContent,
                   widgets: parsed.widgets ?? previous?.widgets,
+                  widgetGeneration: parsed.widgetGeneration ?? previous?.widgetGeneration,
                   timestamp: new Date()
                 };
 

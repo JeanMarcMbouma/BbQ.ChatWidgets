@@ -35,6 +35,15 @@ internal static class WidgetEmissionSchemaBuilder
                 // and provider schema subsets commonly reject nested dialect IDs.
                 branch.Remove("$schema");
                 branch.Remove("$id");
+                // Grammar-based providers commonly generate properties in schema
+                // order. Choose the union branch before its branch-specific fields;
+                // otherwise small models can commit to a form while requesting a slider.
+                if (branch["properties"] is JsonObject properties && properties.ContainsKey("type"))
+                {
+                    var discriminator = properties["type"];
+                    properties.Remove("type");
+                    properties.Insert(0, "type", discriminator);
+                }
                 MakeStrict(branch);
                 oneOf.Add(branch);
             }

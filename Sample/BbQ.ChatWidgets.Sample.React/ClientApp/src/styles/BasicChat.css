@@ -1,3 +1,4 @@
+@layer demos {
 /* Shared Styles for Chat Pages */
 
 .page {
@@ -8,7 +9,7 @@
 }
 
 .page-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--demo-accent) 0%, var(--demo-accent-hover) 100%);
   color: white;
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -126,7 +127,7 @@
 }
 
 .message.user .message-content {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--demo-accent) 0%, var(--demo-accent-hover) 100%);
   color: white;
 }
 
@@ -171,7 +172,7 @@
 }
 
 .widget-item code {
-  color: #667eea;
+  color: var(--demo-accent);
 }
 
 /* Loading State */
@@ -187,8 +188,8 @@
   display: inline-block;
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(102, 126, 234, 0.2);
-  border-top-color: #667eea;
+  border: 2px solid rgba(34, 101, 72, 0.2);
+  border-top-color: var(--demo-accent);
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
 }
@@ -221,8 +222,8 @@
 
 .chat-input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: var(--demo-accent);
+  box-shadow: 0 0 0 3px rgba(34, 101, 72, 0.1);
 }
 
 .chat-input:disabled {
@@ -232,7 +233,7 @@
 
 .send-button {
   padding: 12px 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--demo-accent) 0%, var(--demo-accent-hover) 100%);
   color: white;
   border: none;
   border-radius: 8px;
@@ -244,7 +245,7 @@
 
 .send-button:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 5px 15px rgba(34, 101, 72, 0.4);
 }
 
 .send-button:disabled {
@@ -276,7 +277,7 @@
 
 .scenario-info h3 {
   margin-top: 0;
-  color: #667eea;
+  color: var(--demo-accent);
 }
 
 .scenario-info p {
@@ -332,10 +333,10 @@
 
 @keyframes clockPulse {
   0%, 100% {
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+    box-shadow: 0 4px 15px rgba(34, 101, 72, 0.1);
   }
   50% {
-    box-shadow: 0 4px 25px rgba(102, 126, 234, 0.2);
+    box-shadow: 0 4px 25px rgba(34, 101, 72, 0.2);
   }
 }
 
@@ -351,11 +352,11 @@
 }
 
 .bbq-widget.bbq-clock {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--demo-accent) 0%, var(--demo-accent-hover) 100%);
   border-radius: 16px;
   padding: 24px;
   color: white;
-  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.15);
+  box-shadow: 0 8px 32px rgba(34, 101, 72, 0.15);
   animation: clockFadeIn 0.6s ease-out, clockPulse 3s ease-in-out infinite 0.6s;
   overflow: hidden;
   position: relative;
@@ -412,11 +413,11 @@
 }
 /* Beautiful Weather Widget Styles */
 .bbq-widget.bbq-weather {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--demo-accent) 0%, var(--demo-accent-hover) 100%);
   border-radius: 16px;
   padding: 24px;
   color: white;
-  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.15);
+  box-shadow: 0 8px 32px rgba(34, 101, 72, 0.15);
   animation: weatherFadeIn 0.6s ease-out, weatherPulse 3s ease-in-out infinite 0.6s;
   overflow: hidden;
   position: relative;
@@ -538,10 +539,10 @@
 
 @keyframes weatherPulse {
   0%, 100% {
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+    box-shadow: 0 4px 15px rgba(34, 101, 72, 0.1);
   }
   50% {
-    box-shadow: 0 4px 25px rgba(102, 126, 234, 0.2);
+    box-shadow: 0 4px 25px rgba(34, 101, 72, 0.2);
   }
 }
 
@@ -570,4 +571,6 @@
 .basic-chat-page .chat-input {
   min-width: 0;
   width: 100%;
+}
+
 }

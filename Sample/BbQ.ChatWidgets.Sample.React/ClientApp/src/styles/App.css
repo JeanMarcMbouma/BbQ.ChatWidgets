@@ -1,9 +1,10 @@
+@layer demos {
 .app {
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--demo-accent) 0%, var(--demo-accent-hover) 100%);
 }
 
 .chat-window {
@@ -24,7 +25,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--demo-accent) 0%, var(--demo-accent-hover) 100%);
   color: white;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -128,7 +129,7 @@
 }
 
 .message-user .message-content {
-  background-color: #667eea;
+  background-color: var(--demo-accent);
   color: white;
 }
 
@@ -205,9 +206,9 @@
 .widget select:focus,
 .widget textarea:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: var(--demo-accent);
   background-color: #fff;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 3px rgba(34, 101, 72, 0.1);
 }
 
 .widget label {
@@ -221,7 +222,7 @@
 .widget button {
   padding: 10px 20px;
   margin: 8px 4px 8px 0;
-  background-color: #667eea;
+  background-color: var(--demo-accent);
   color: white;
   border: none;
   border-radius: 6px;
@@ -229,12 +230,12 @@
   font-size: 0.9rem;
   font-weight: 500;
   transition: all 0.2s;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+  box-shadow: 0 2px 8px rgba(34, 101, 72, 0.2);
 }
 
 .widget button:hover {
-  background-color: #5568d3;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  background-color: var(--demo-accent-hover);
+  box-shadow: 0 4px 12px rgba(34, 101, 72, 0.3);
   transform: translateY(-1px);
 }
 
@@ -283,8 +284,8 @@
 
 .input-textarea:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: var(--demo-accent);
+  box-shadow: 0 0 0 3px rgba(34, 101, 72, 0.1);
 }
 
 .input-textarea:disabled {
@@ -295,7 +296,7 @@
 
 .send-button {
   padding: 12px 24px;
-  background-color: #667eea;
+  background-color: var(--demo-accent);
   color: white;
   border: none;
   border-radius: 8px;
@@ -306,9 +307,9 @@
 }
 
 .send-button:hover:not(:disabled) {
-  background-color: #5568d3;
+  background-color: var(--demo-accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 12px rgba(34, 101, 72, 0.3);
 }
 
 .send-button:disabled {
@@ -321,7 +322,7 @@
   background-color: #ffffff;
   border-radius: 8px;
   border: 2px solid #e8e8e8;
-  padding: 0 !important;
+  padding: 0;
   overflow: hidden;
 }
 
@@ -337,7 +338,7 @@
   color: #333;
   margin: 0 0 20px 0;
   padding-bottom: 12px;
-  border-bottom: 2px solid #667eea;
+  border-bottom: 2px solid var(--demo-accent);
 }
 
 .bbq-form-field {
@@ -390,9 +391,9 @@
 .bbq-form-textarea:focus,
 .bbq-form-select:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: var(--demo-accent);
   background-color: #fff;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 0 0 3px rgba(34, 101, 72, 0.1);
 }
 
 .bbq-form-input:disabled,
@@ -410,7 +411,7 @@
   margin: 0 8px 0 0;
   padding: 0;
   cursor: pointer;
-  accent-color: #667eea;
+  accent-color: var(--demo-accent);
 }
 
 .bbq-form-checkbox + label,
@@ -445,14 +446,14 @@
 }
 
 .bbq-form-submit {
-  background-color: #667eea;
+  background-color: var(--demo-accent);
   color: white;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+  box-shadow: 0 2px 8px rgba(34, 101, 72, 0.2);
 }
 
 .bbq-form-submit:hover {
-  background-color: #5568d3;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  background-color: var(--demo-accent-hover);
+  box-shadow: 0 4px 12px rgba(34, 101, 72, 0.3);
   transform: translateY(-1px);
 }
 
@@ -543,4 +544,6 @@
   .echarts-container {
     height: 250px !important;
   }
+}
+
 }

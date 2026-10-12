@@ -1,3 +1,4 @@
+@layer demos {
 /* Classified Multi-Turn Agent Page Styles */
 @import './BasicChat.css';
 
@@ -39,13 +40,13 @@
 .pipeline-trace {
   margin: 10px 0;
   border-radius: 12px;
-  border: 1px solid rgba(102, 126, 234, 0.2);
+  border: 1px solid rgba(34, 101, 72, 0.2);
   overflow: hidden;
   animation: slideIn 0.3s ease;
 }
 
 .pipeline-trace-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--demo-accent) 0%, var(--demo-accent-hover) 100%);
   color: white;
   padding: 10px 16px;
   font-weight: 600;
@@ -64,7 +65,7 @@
   padding: 12px;
   background: #fafafe;
   border-radius: 8px;
-  border: 1px solid rgba(102, 126, 234, 0.12);
+  border: 1px solid rgba(34, 101, 72, 0.12);
 }
 
 .pipeline-step-label {
@@ -80,7 +81,7 @@
 
 .step-name {
   font-weight: 600;
-  color: #667eea;
+  color: var(--demo-accent);
   font-size: 0.9rem;
   text-transform: capitalize;
 }
@@ -88,7 +89,7 @@
 .step-round {
   margin-left: auto;
   font-size: 0.75rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--demo-accent) 0%, var(--demo-accent-hover) 100%);
   color: white;
   padding: 2px 8px;
   border-radius: 12px;
@@ -104,7 +105,7 @@
 
 .step-arrow {
   text-align: center;
-  color: #667eea;
+  color: var(--demo-accent);
   font-size: 1.2rem;
   padding: 4px 0;
   font-weight: bold;
@@ -124,13 +125,13 @@
   gap: 14px;
   padding: 14px 18px;
   background: #f9f0ff;
-  border-left: 4px solid #764ba2;
+  border-left: 4px solid var(--demo-accent-hover);
   border-radius: 6px;
 }
 
 .flow-step.pipeline-highlight {
   background: #f0f8ff;
-  border-left-color: #667eea;
+  border-left-color: var(--demo-accent);
 }
 
 .flow-icon {
@@ -141,12 +142,12 @@
 
 .flow-step strong {
   display: block;
-  color: #764ba2;
+  color: var(--demo-accent-hover);
   margin-bottom: 4px;
 }
 
 .flow-step.pipeline-highlight strong {
-  color: #667eea;
+  color: var(--demo-accent);
 }
 
 .flow-step p {
@@ -158,7 +159,7 @@
 
 .flow-arrow {
   text-align: center;
-  color: #764ba2;
+  color: var(--demo-accent-hover);
   font-size: 1.3rem;
   padding: 2px 0;
   font-weight: bold;
@@ -219,12 +220,12 @@
   padding: 20px;
   background: #f9f9f9;
   border-radius: 8px;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid var(--demo-accent);
 }
 
 .intent-legend h4 {
   margin-top: 0;
-  color: #667eea;
+  color: var(--demo-accent);
 }
 
 .legend-items {
@@ -251,4 +252,6 @@
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
 }

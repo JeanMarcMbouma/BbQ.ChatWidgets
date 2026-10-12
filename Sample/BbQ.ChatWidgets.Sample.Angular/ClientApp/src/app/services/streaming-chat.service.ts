@@ -5,6 +5,7 @@ import { ChatMessage } from '../models/chat.models';
   providedIn: 'root'
 })
 export class StreamingChatService {
+  private activeRequest: AbortController | null = null;
   private _messages = signal<ChatMessage[]>([]);
   private _isStreaming = signal<boolean>(false);
   private _error = signal<string | null>(null);
@@ -16,7 +17,10 @@ export class StreamingChatService {
   readonly threadId = this._threadId.asReadonly();
 
   async sendStreamingMessage(text: string, endpoint: string = '/api/chat/stream/message', persona: string | null = null): Promise<void> {
-    if (!text.trim()) return;
+    if (!text.trim() || this.activeRequest) return;
+    const request = new AbortController();
+    this.activeRequest = request;
+    let reader: ReadableStreamDefaultReader<Uint8Array> | undefined;
 
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
@@ -32,6 +36,7 @@ export class StreamingChatService {
     try {
       const response = await fetch(endpoint, {
         method: 'POST',
+        signal: request.signal,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: text,
@@ -44,26 +49,29 @@ export class StreamingChatService {
         throw new Error(`HTTP ${response.status}`);
       }
 
-      const reader = response.body?.getReader();
+      reader = response.body?.getReader();
       const decoder = new TextDecoder();
 
       if (!response || !reader) {
         throw new Error('Response body is null');
       }
 
-      let assistantMessageId = (Date.now() + 1).toString();
+      const assistantMessageId = crypto.randomUUID();
+      let buffer = "";
       let receivedThreadId = false;
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
-        const chunk = decoder.decode(value, { stream: true });
-        const lines = chunk.split('\n');
+        if (this.activeRequest !== request) return;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() ?? '';
 
         for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            const data = line.substring(6);
+          if (line.startsWith('data:')) {
+            const data = line.substring(5).trim();
             if (data === '[DONE]') continue;
 
             try {
@@ -74,17 +82,18 @@ export class StreamingChatService {
                 receivedThreadId = true;
               }
 
-              if (parsed.content) {
+              if (typeof parsed.content === 'string' || Array.isArray(parsed.widgets)) {
                 // Note: Streaming returns delta and each delta has the current text
                 // So we use parsed.content directly, not accumulated
-                const currentContent = parsed.content;
+                const previous = this._messages().find(m => m.id === assistantMessageId);
+                const currentContent = parsed.content ?? previous?.content ?? '';
 
                 const existingIndex = this._messages().findIndex(m => m.id === assistantMessageId);
                 const updatedMessage: ChatMessage = {
                   id: assistantMessageId,
                   role: 'assistant',
                   content: currentContent,
-                  widgets: parsed.widgets,
+                  widgets: parsed.widgets ?? previous?.widgets,
                   timestamp: new Date()
                 };
 
@@ -105,14 +114,22 @@ export class StreamingChatService {
         }
       }
     } catch (err: any) {
+      if (request.signal.aborted || this.activeRequest !== request) return;
       console.error('Failed to get streaming response:', err);
       this._error.set('Failed to get streaming response. Please try again.');
     } finally {
-      this._isStreaming.set(false);
+      reader?.releaseLock();
+      if (this.activeRequest === request) {
+        this.activeRequest = null;
+        this._isStreaming.set(false);
+      }
     }
   }
 
   clearMessages(): void {
+    this.activeRequest?.abort();
+    this.activeRequest = null;
+    this._isStreaming.set(false);
     this._messages.set([]);
     this._threadId.set(null);
     this._error.set(null);

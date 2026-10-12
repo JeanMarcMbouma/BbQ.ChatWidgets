@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { WidgetManager } from '../renderers/WidgetManager';
 import { ButtonWidget } from '../models/ChatWidget';
 import WidgetSseManager from './WidgetSseManager';
@@ -14,9 +14,49 @@ class FakeEventSource {
     (this.listeners['message'] || []).forEach((cb) => cb(ev));
   }
   close() {}
+  dispatchEvent(name: string, data: any) {
+    (this.listeners[name] || []).forEach((cb) => cb({ data: JSON.stringify(data) }));
+  }
 }
 
 describe('WidgetSseManager', () => {
+  it('ignores queued messages from disconnected sources', () => {
+    const sources = [new FakeEventSource(''), new FakeEventSource('')];
+    let index = 0;
+    const manager = new WidgetSseManager(new WidgetManager(), {
+      createEventSource: () => sources[index++] as any,
+    });
+    const handler = vi.fn();
+    manager.registerHandler('widget', handler);
+    manager.connect('/first');
+    manager.connect('/second');
+    sources[0].dispatchMessage({ widgetId: 'widget', payload: 'stale' });
+    sources[1].dispatchMessage({ widgetId: 'widget', payload: 'current' });
+    manager.disconnect();
+    sources[1].dispatchMessage({ widgetId: 'widget', payload: 'closed' });
+    expect(handler).toHaveBeenCalledExactlyOnceWith('current');
+  });
+
+  it('starts fresh revision and event tracking on an explicit connection', () => {
+    const sources = [new FakeEventSource(''), new FakeEventSource('')];
+    let index = 0;
+    const widgets = new WidgetManager();
+    const update = vi.spyOn(widgets, 'updateWidget');
+    const manager = new WidgetSseManager(widgets, {
+      createEventSource: () => sources[index++] as any,
+    });
+    const event = {
+      protocolVersion: '1.0', eventId: '1', streamId: 'stream',
+      instanceId: 'widget', revision: 1, kind: 'widget.snapshot',
+      payload: { type: 'button', label: 'Hello', action: 'hello' },
+    };
+    manager.connect('/first');
+    sources[0].dispatchEvent(event.kind, event);
+    manager.connect('/second');
+    sources[0].dispatchEvent(event.kind, { ...event, eventId: '2', revision: 2 });
+    sources[1].dispatchEvent(event.kind, event);
+    expect(update).toHaveBeenCalledTimes(2);
+  });
   beforeEach(() => {
     document.body.innerHTML = '';
   });

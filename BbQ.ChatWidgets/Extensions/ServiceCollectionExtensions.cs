@@ -366,7 +366,7 @@ public static class ServiceCollectionExtensions
 
             await foreach (var turn in service.StreamResponseAsync(dto.Message, dto.ThreadId, dto.Persona, ct))
             {
-                var json = JsonSerializer.Serialize(turn, Serialization.Default);
+                var json = JsonSerializer.Serialize(turn, turn.GetType(), Serialization.Default);
                 await context.Response.WriteAsync($"data: {json}\n\n");
                 await context.Response.Body.FlushAsync(ct);
             }

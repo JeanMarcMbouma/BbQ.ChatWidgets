@@ -16,6 +16,12 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
   const [threadId, setThreadId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const activeRequest = useRef<AbortController | null>(null);
+
+  useEffect(() => () => {
+    activeRequest.current?.abort();
+    activeRequest.current = null;
+  }, []);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -26,7 +32,10 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
   }, [messages, currentContent, scrollToBottom]);
 
   const handleStreamMessage = async (text: string) => {
-    if (!text.trim()) return;
+    if (!text.trim() || activeRequest.current) return;
+    const request = new AbortController();
+    activeRequest.current = request;
+    let reader: ReadableStreamDefaultReader<Uint8Array> | undefined;
 
     // Add user message
     const userMessage: ChatMessage = {
@@ -45,6 +54,7 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
     try {
       const response = await fetch('/api/chat/stream/message', {
         method: 'POST',
+        signal: request.signal,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: text,
@@ -57,7 +67,7 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
         throw new Error(`HTTP ${response.status}`);
       }
 
-      const reader = response.body?.getReader();
+      reader = response.body?.getReader();
       if (!reader) {
         throw new Error('Response body not readable');
       }
@@ -68,6 +78,7 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
 
       while (true) {
         const { done, value } = await reader.read();
+        if (activeRequest.current !== request) return;
         if (done) break;
 
         buffer += decoder.decode(value, { stream: true });
@@ -76,19 +87,18 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
         // Process complete lines
         for (let i = 0; i < lines.length - 1; i++) {
           const line = lines[i];
-          if (line.startsWith('data: ')) {
-            const json = line.substring(6);
+          if (line.startsWith('data:')) {
+            const json = line.substring(5).trim();
+            if (json === '[DONE]') continue;
             try {
               const turn = JSON.parse(json);
-              lastTurn = turn;
-
-              if (!turn.isDelta) {
-                // Final event
-                setCurrentContent(turn.content);
-              } else {
-                // Intermediate update
-                setCurrentContent(turn.content);
-              }
+              lastTurn = {
+                ...lastTurn,
+                ...turn,
+                content: turn.content ?? lastTurn?.content ?? '',
+                widgets: turn.widgets ?? lastTurn?.widgets,
+              };
+              setCurrentContent(lastTurn.content);
             } catch (e) {
               console.error('Failed to parse event:', json);
             }
@@ -116,10 +126,15 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
         setCurrentContent('');
       }
     } catch (err) {
+      if (request.signal.aborted || activeRequest.current !== request) return;
       const errorMsg = err instanceof Error ? err.message : 'Unknown error';
       setError(`Stream failed: ${errorMsg}`);
     } finally {
-      setIsStreaming(false);
+      reader?.releaseLock();
+      if (activeRequest.current === request) {
+        activeRequest.current = null;
+        setIsStreaming(false);
+      }
     }
   };
 

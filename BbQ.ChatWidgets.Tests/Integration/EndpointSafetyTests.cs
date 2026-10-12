@@ -1,4 +1,6 @@
 using System.Text;
+using System.Text.Json;
+using Microsoft.Extensions.AI;
 using BbQ.ChatWidgets.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +11,45 @@ namespace BbQ.ChatWidgets.Tests.Integration;
 
 public class EndpointSafetyTests
 {
+    [Fact]
+    public async Task Streaming_PreservesDeltaFlagWhitespaceAndSplitWidgetMarkup()
+    {
+        using var provider = CreateServices(options =>
+        {
+            options.ChatClientFactory = _ => new StreamingClient();
+            options.WidgetGenerationMode = BbQ.ChatWidgets.Options.WidgetGenerationMode.EmbeddedMarkupLegacy;
+        });
+        var context = CreateContext(provider, "/api/chat/stream/message", "{\"message\":\"Hello\"}");
+        await CreatePipeline(provider)(context);
+        context.Response.Body.Position = 0;
+        var body = await new StreamReader(context.Response.Body).ReadToEndAsync();
+        var turns = body.Split('\n').Where(line => line.StartsWith("data: "))
+            .Select(line => JsonDocument.Parse(line[6..]).RootElement.Clone()).ToArray();
+
+        Assert.True(turns[0].GetProperty("isDelta").GetBoolean());
+        Assert.Equal("Hello world", turns[^1].GetProperty("content").GetString());
+        Assert.Single(turns[^1].GetProperty("widgets").EnumerateArray());
+        Assert.Equal("button", turns[^1].GetProperty("widgets")[0].GetProperty("type").GetString());
+    }
+
+    private sealed class StreamingClient : IChatClient
+    {
+        public void Dispose() { }
+        public object? GetService(Type type, object? key = null) => null;
+        public Task<ChatResponse> GetResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default)
+            => throw new NotSupportedException();
+        public async IAsyncEnumerable<ChatResponseUpdate> GetStreamingResponseAsync(
+            IEnumerable<ChatMessage> messages, ChatOptions? options = null,
+            [System.Runtime.CompilerServices.EnumeratorCancellation] CancellationToken cancellationToken = default)
+        {
+            foreach (var text in new[] { "Hello", " ", "world", " <wid", "get>{\"type\":\"button\",\"label\":\"Go\",\"action\":\"go\"}</widget>", " " })
+            {
+                yield return new ChatResponseUpdate(ChatRole.Assistant, text);
+                await Task.Yield();
+            }
+        }
+    }
+
     [Theory]
     [InlineData("/api/chat/message")]
     [InlineData("/api/chat/action")]

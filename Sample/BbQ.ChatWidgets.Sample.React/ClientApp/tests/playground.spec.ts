@@ -1,5 +1,35 @@
 import { expect, test } from '@playwright/test';
 
+test('native React form validates and submits once', async ({ page }) => {
+  const actions: string[] = [];
+  const errors: string[] = [];
+  page.on('console', message => {
+    if (message.text().startsWith('Widget action: save_profile')) actions.push(message.text());
+  });
+  page.on('pageerror', error => errors.push(error.message));
+  await page.route('**/api/chat/message', route => route.fulfill({ json: {
+    role: 'assistant', content: 'Complete your profile.', threadId: 'native-form-test',
+    widgets: [{ type: 'form', label: 'Profile', action: 'save_profile', fields: [
+      { name: 'name', type: 'input', label: 'Profile name', required: true },
+      { name: 'email', type: 'email', label: 'Profile email', required: true },
+    ], actions: [{ type: 'submit', label: 'Save profile' }] }],
+  } }));
+  await page.goto('/');
+  await page.getByRole('button', { name: /^Basic Chat/ }).click();
+  await page.getByPlaceholder('Type a message...', { exact: true }).fill('Profile');
+  await page.getByRole('button', { name: 'Send', exact: true }).click();
+  await page.getByRole('button', { name: 'Save profile', exact: true }).click();
+  await expect(page.getByRole('alert')).toHaveCount(2);
+  expect(actions).toHaveLength(0);
+  await page.getByRole('textbox', { name: 'Profile name', exact: true }).fill('Ada');
+  await page.getByRole('textbox', { name: 'Profile email', exact: true }).fill('ada@example.com');
+  await page.getByRole('button', { name: 'Save profile', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Save profile', exact: true })).toBeDisabled();
+  await expect(page.getByRole('textbox', { name: 'Profile name', exact: true })).toBeDisabled();
+  expect(actions).toHaveLength(1);
+  expect(errors).toEqual([]);
+});
+
 test('visitors can complete a local workflow, inspect JSON and reset', async ({ page }) => {
   const errors: string[] = [];
   const apiRequests: string[] = [];

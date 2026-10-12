@@ -6,6 +6,7 @@ on:
     paths:
       - 'js/**'
       - 'js-angular/**'
+      - 'js-react/**'
       - 'Sample/BbQ.ChatWidgets.Sample.React/**'
       - 'Sample/BbQ.ChatWidgets.Sample.Angular/**'
       - '.github/workflows/npm-*.yml'
@@ -15,6 +16,7 @@ on:
     paths:
       - 'js/**'
       - 'js-angular/**'
+      - 'js-react/**'
       - 'Sample/BbQ.ChatWidgets.Sample.React/**'
       - 'Sample/BbQ.ChatWidgets.Sample.Angular/**'
       - '.github/workflows/npm-*.yml'
@@ -24,6 +26,34 @@ permissions:
   contents: read
 
 jobs:
+  build-and-test-react:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        react: ['18', '19']
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '22.x'
+    - name: Build core
+      working-directory: js
+      run: |
+        npm ci
+        npm run build
+    - name: Validate React library
+      working-directory: js-react
+      run: |
+        npm ci
+        npx --yes npm@11 install --no-save --package-lock=false react@${{ matrix.react }} react-dom@${{ matrix.react }} @types/react@${{ matrix.react }} @types/react-dom@${{ matrix.react }}
+        npm run build
+        npm test
+        npm audit --omit=dev
+    - name: Verify installed package on React 18 and 19
+      if: matrix.react == '18'
+      working-directory: js-react
+      run: npm run test:package
+
   build-and-test-core:
     runs-on: ubuntu-latest
     defaults:
@@ -102,6 +132,11 @@ jobs:
         node-version: '22.x'
     - name: Build core
       working-directory: js
+      run: |
+        npm ci
+        npm run build
+    - name: Build React library
+      working-directory: js-react
       run: |
         npm ci
         npm run build

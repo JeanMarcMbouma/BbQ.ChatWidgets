@@ -1,0 +1,39 @@
+name: NPM Publish React
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish-react:
+    runs-on: ubuntu-latest
+    environment: production
+    defaults:
+      run:
+        working-directory: js-react
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Build core dependency
+        working-directory: js
+        run: |
+          npm ci
+          npm run build
+      - name: Install and validate React package
+        run: |
+          npm ci
+          npm run build
+          npm test
+          npm run test:package
+          npm audit --omit=dev
+      - name: Publish React package
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

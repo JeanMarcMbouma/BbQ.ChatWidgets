@@ -27,6 +27,8 @@
   <Target Name="BuildClientApp" BeforeTargets="PrepareForBuild" Condition="'$(SkipClientBuild)' != 'true'">
     <Exec WorkingDirectory="../../js" Command="npm ci" />
     <Exec WorkingDirectory="../../js" Command="npm run build" />
+    <Exec WorkingDirectory="../../js-react" Command="npm ci" />
+    <Exec WorkingDirectory="../../js-react" Command="npm run build" />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm ci" />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
   </Target>

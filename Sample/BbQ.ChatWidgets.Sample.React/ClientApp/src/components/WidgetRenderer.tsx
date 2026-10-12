@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { SsrWidgetRenderer, WidgetEventManager, customWidgetRegistry } from '@bbq-chat/widgets';
+import { customWidgetRegistry } from '@bbq-chat/widgets';
+import { WidgetRenderer as NativeWidgetRenderer } from '@bbq-chat/widgets-react';
 import type { ChatWidget } from '@bbq-chat/widgets';
 import * as echarts from 'echarts';
 import { EChartsWidget } from '../widgets/EChartsWidget';
@@ -74,18 +75,14 @@ export const WidgetRenderer: React.FC<WidgetRendererProps> = ({ widgets, onWidge
   useEffect(() => {
     ensureCustomRegistrations();
 
-    if (!containerRef.current || !onWidgetAction) return;
+    if (!containerRef.current) return;
 
     // Create a custom action handler that calls onWidgetAction
     const actionHandler = {
       handle: async (action: string, payload: any) => {
-        onWidgetAction(action, payload);
+        onWidgetAction?.(action, payload);
       },
     };
-
-    // Attach event handlers using WidgetEventManager
-    const eventManager = new WidgetEventManager(actionHandler);
-    eventManager.attachHandlers(containerRef.current);
 
     // Initialize ECharts widgets
     const disposeCharts = initializeECharts(containerRef.current);
@@ -100,9 +97,7 @@ export const WidgetRenderer: React.FC<WidgetRendererProps> = ({ widgets, onWidge
     const closeWeatherStreams = initializeWeatherWidgets(containerRef.current);
 
     // Cleanup function to close all SSE streams when component unmounts or widgets change
-    const container = containerRef.current;
     return () => {
-      eventManager.detachHandlers(container);
       disposeCharts();
       closeClockStreams();
       closeWeatherStreams();
@@ -112,8 +107,6 @@ export const WidgetRenderer: React.FC<WidgetRendererProps> = ({ widgets, onWidge
   if (!widgets || widgets.length === 0) {
     return null;
   }
-
-  const renderer = new SsrWidgetRenderer();
 
   return (
     <div ref={containerRef} className="widgets-container">
@@ -148,10 +141,9 @@ export const WidgetRenderer: React.FC<WidgetRendererProps> = ({ widgets, onWidge
           );
         }
 
-        // Render all other built-in widgets using library renderer
-        const html = renderer.renderWidget(widget);
+        // Built-in widgets use the published native React package.
         const widgetId = `${widget.type}-${widget.action}-${index}`;
-        return <div key={widgetId} className="widget" dangerouslySetInnerHTML={{ __html: html }} />;
+        return <div key={widgetId} className="widget"><NativeWidgetRenderer widgets={[widget]} onWidgetAction={onWidgetAction} /></div>;
       })}
     </div>
   );

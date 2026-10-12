@@ -7,6 +7,14 @@ on:
       - 'npm-v*' # Triggers on tags like npm-v1.0.0
 
 jobs:
+  publish-react:
+    needs: publish-core
+    uses: ./.github/workflows/npm-react-publish.yml
+    secrets: inherit
+    permissions:
+      contents: read
+      id-token: write
+
   publish-core:
     runs-on: ubuntu-latest
     environment: production

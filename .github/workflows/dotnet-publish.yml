@@ -43,7 +43,9 @@ jobs:
       run: dotnet pack BbQ.ChatWidgets.Blazor/BbQ.ChatWidgets.Blazor.csproj --no-build --configuration Release --output ./nupkg /p:PackageVersion=${{ steps.version.outputs.version }}
 
     - name: Pack llama.cpp integration
-      run: dotnet pack BbQ.LlamaCpp/BbQ.LlamaCpp.csproj --configuration Release --output ./nupkg /p:PackageVersion=${{ steps.version.outputs.version }}
+      run: |
+        dotnet build BbQ.LlamaCpp/BbQ.LlamaCpp.csproj --configuration Release /p:Version=${{ steps.version.outputs.version }}
+        dotnet pack BbQ.LlamaCpp/BbQ.LlamaCpp.csproj --no-build --configuration Release --output ./nupkg /p:PackageVersion=${{ steps.version.outputs.version }}
 
     - name: NuGet login (OIDC -> temp API key)
       uses: NuGet/login@v1

@@ -7,13 +7,14 @@
 
 Try the [local playground](docs_src/guides/PRODUCTION.md#try-the-product-without-an-ai-account): booking, customer support and approval flows run with the real widget library and sample responses, without an API key.
 
-Build on .NET, TypeScript, Angular or Blazor. Keep your application logic and AI provider; ChatWidgets supplies the interactive layer.
+Build on .NET, TypeScript, React, Angular or Blazor. Keep your application logic and AI provider; ChatWidgets supplies the interactive layer.
 
 This repository contains these packages:
 
 - NuGet: `BbQ.ChatWidgets` (the .NET library: services, renderers, endpoints)
 - npm: `@bbq-chat/widgets` (the JavaScript/TypeScript client library: widgets, client helpers)
 - npm: `@bbq-chat/widgets-angular` (Angular-native components and services)
+- npm: `@bbq-chat/widgets-react` (React-native components, forms and streaming; [usage and Angular feature parity](js-react/README.md))
 - NuGet: `BbQ.ChatWidgets.Blazor` (Blazor widget components)
 
 > Note: the .NET package no longer bundles the JavaScript client or theme CSS. Install the npm package (or bring your own UI) to render widgets in a browser.
@@ -143,6 +144,14 @@ npm install @bbq-chat/widgets
 npm install @bbq-chat/widgets-angular @bbq-chat/widgets
 ```
 
+### npm (React native components)
+
+```bash
+npm install @bbq-chat/widgets-react @bbq-chat/widgets
+```
+
+See the [React package guide](js-react/README.md) for forms, custom renderers and streaming.
+
 ## Blazor Widget Overrides
 
 Use component overrides to replace built-in widget components without writing `switch`/`if` logic.
@@ -191,6 +200,7 @@ Resolution order is: local exact type -> local type id -> local assignable type 
 - .NET: `dotnet test`
 - JS/TS: `npm test` and `npm run test:package` (run from `js`)
 - Angular: `npm test` (run from `js-angular`)
+- React library: `npm test` and `npm run test:package` (run from `js-react`, after building `js`)
 - Playground: `npm run test:e2e` (run from `Sample/BbQ.ChatWidgets.Sample.React/ClientApp`, after building and installing Playwright Chromium)
 
 ## 📋 Changelog

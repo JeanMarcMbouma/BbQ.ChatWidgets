@@ -109,10 +109,10 @@ function applyPatch(source: any, operations: any[]): any {
       .slice(1)
       .split('/')
       .map((x: string) => x.replace(/~1/g, '/').replace(/~0/g, '~'));
-    if (parts.some((part: string) => ['__proto__', 'constructor', 'prototype'].includes(part)))
-      throw new Error('Unsafe path');
     let target = result;
     for (const part of parts.slice(0, -1)) {
+      if (part === '__proto__' || part === 'constructor' || part === 'prototype')
+        throw new Error('Unsafe path');
       if (
         target === null ||
         typeof target !== 'object' ||
@@ -123,6 +123,8 @@ function applyPatch(source: any, operations: any[]): any {
     }
     if (target === null || typeof target !== 'object') throw new Error('Invalid target');
     const key = parts[parts.length - 1];
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype')
+      throw new Error('Unsafe path');
     if (Array.isArray(target)) {
       const append = key === '-' && operation.op === 'add';
       if (!append && !/^(0|[1-9]\d*)$/.test(key)) throw new Error('Invalid index');
@@ -147,7 +149,7 @@ function applyPatch(source: any, operations: any[]): any {
 }
 
 // Own data properties cannot invoke inherited setters, including the legacy
-// __proto__ setter. Reserved pointer components remain rejected above.
+// __proto__ setter. Reserved pointer components are rejected at every property access above.
 function definePatchValue(target: object, key: string | number, value: unknown): void {
   Object.defineProperty(target, key, {
     value: structuredClone(value),

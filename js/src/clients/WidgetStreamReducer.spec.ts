@@ -117,6 +117,9 @@ describe('untrusted stream patches', () => {
     reducer.reduce(event({}));
     for (const path of [
       '/__proto__/polluted',
+      '/__proto__',
+      '/constructor',
+      '/prototype',
       '/constructor/prototype/polluted',
       'value',
       '/value~2',

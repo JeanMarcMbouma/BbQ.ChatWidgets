@@ -135,13 +135,24 @@ function applyPatch(source: any, operations: any[]): any {
         throw new Error('Invalid index');
       if (operation.op === 'remove') target.splice(index, 1);
       else if (operation.op === 'add') target.splice(index, 0, structuredClone(operation.value));
-      else target[index] = structuredClone(operation.value);
+      else definePatchValue(target, index, operation.value);
     } else {
       if (operation.op !== 'add' && !Object.prototype.hasOwnProperty.call(target, key))
         throw new Error('Invalid path');
       if (operation.op === 'remove') delete target[key];
-      else target[key] = structuredClone(operation.value);
+      else definePatchValue(target, key, operation.value);
     }
   }
   return result;
+}
+
+// Own data properties cannot invoke inherited setters, including the legacy
+// __proto__ setter. Reserved pointer components remain rejected above.
+function definePatchValue(target: object, key: string | number, value: unknown): void {
+  Object.defineProperty(target, key, {
+    value: structuredClone(value),
+    writable: true,
+    enumerable: true,
+    configurable: true,
+  });
 }

@@ -166,6 +166,38 @@ describe('untrusted stream patches', () => {
     ).toBe('resync-required');
   });
 
+  it('adds own properties without invoking inherited setters', () => {
+    const key = 'bbqPatchSetterProbe';
+    const previous = Object.getOwnPropertyDescriptor(Object.prototype, key);
+    let setterCalls = 0;
+    Object.defineProperty(Object.prototype, key, {
+      configurable: true,
+      set: () => {
+        setterCalls++;
+      },
+    });
+    try {
+      const reducer = new WidgetStreamReducer();
+      reducer.reduce(event({ payload: { type: 'progressbar', value: 10 } }));
+      expect(
+        reducer.reduce(
+          event({
+            kind: 'widget.patch',
+            baseRevision: 0,
+            revision: 1,
+            payload: [{ op: 'add', path: `/${key}`, value: 42 }],
+          })
+        ).status
+      ).toBe('applied');
+      expect(setterCalls).toBe(0);
+      expect(Object.prototype.hasOwnProperty.call(reducer.get('widget-1')?.widget, key)).toBe(true);
+      expect(reducer.get('widget-1')?.widget[key]).toBe(42);
+    } finally {
+      if (previous) Object.defineProperty(Object.prototype, key, previous);
+      else Reflect.deleteProperty(Object.prototype, key);
+    }
+  });
+
   it('does not resurrect a removed widget from stale snapshots', () => {
     const reducer = new WidgetStreamReducer();
     reducer.reduce(event({}));

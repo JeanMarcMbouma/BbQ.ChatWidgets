@@ -1,4 +1,7 @@
 @layer theme {
+  .page .input-area > label { display: flex; align-items: center; gap: 8px; flex-basis: 100%; font-size: 14px; }
+  .page .input-area input[type="checkbox"] { width: auto; min-height: 0; flex: none; margin: 0; accent-color: var(--demo-accent); }
+  .widget-generation-notice { margin-top: 12px; padding: 12px; border: 1px solid var(--demo-line); border-radius: 8px; background: var(--demo-soft); color: var(--demo-ink); font-size: 14px; }
   :root {
     --demo-canvas: #f7f8f2;
     --demo-surface: #fff;

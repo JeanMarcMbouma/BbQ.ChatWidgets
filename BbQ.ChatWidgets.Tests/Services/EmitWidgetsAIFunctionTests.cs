@@ -4,12 +4,56 @@ using BbQ.ChatWidgets.Agents.Abstractions;
 using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Services;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Logging;
 using Xunit;
 
 namespace BbQ.ChatWidgets.Tests.Services;
 
 public sealed class EmitWidgetsAIFunctionTests
 {
+    [Fact]
+    public async Task ExplicitEmptyDecision_IsAcceptedAndObservable()
+    {
+        var function = new EmitWidgetsAIFunction(new WidgetSchemaCatalogue(new WidgetRegistry()),
+            (_, _) => ValueTask.CompletedTask, allowEmpty: true);
+        Assert.Null(function.LastResult);
+        var result = Assert.IsType<WidgetEmissionResult>(await function.InvokeAsync(new AIFunctionArguments
+        {
+            ["widgets"] = JsonSerializer.Deserialize<JsonElement>("[]")
+        }));
+        Assert.True(result.Accepted);
+        Assert.Equal(0, result.AcceptedCount);
+        Assert.Same(result, function.LastResult);
+        Assert.Empty(new DefaultAIToolsProvider().GetAITools());
+    }
+    [Fact]
+    public async Task RejectedAction_LogsFieldAndListsRegisteredActionsForRepair()
+    {
+        var catalogue = new WidgetSchemaCatalogue(new WidgetRegistry());
+        var actions = new WidgetActionRegistry();
+        actions.RegisterAction(new WidgetActionMetadata("greet", "Greet", "{}", typeof(object)));
+        var logger = new CapturingLogger();
+        var function = new EmitWidgetsAIFunction(catalogue, (_, _) => ValueTask.CompletedTask,
+            validationContext: new WidgetValidationContext(catalogue, actions, true), logger: logger);
+        var result = Assert.IsType<WidgetEmissionResult>(await function.InvokeAsync(new AIFunctionArguments
+        {
+            ["widgets"] = JsonSerializer.Deserialize<JsonElement>("""[{"type":"button","label":"Hello","action":"invented"}]""")
+        }));
+        Assert.False(result.Accepted);
+        Assert.True(result.RepairAllowed);
+        Assert.Contains(result.Diagnostics!, item => item.Message.Contains("greet"));
+        Assert.Contains(logger.Messages, message => message.Contains("widget.action.unregistered") && message.Contains("/widgets/0/action") && message.Contains("greet"));
+    }
+
+    private sealed class CapturingLogger : ILogger
+    {
+        public List<string> Messages { get; } = [];
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+        public bool IsEnabled(LogLevel logLevel) => true;
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
+            => Messages.Add(formatter(state, exception));
+    }
+
     [Fact]
     public void JsonSchema_NumericPatternsUsePortableDigitsIncludingNestedItems()
     {

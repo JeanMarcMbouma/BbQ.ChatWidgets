@@ -25,7 +25,15 @@ public record ChatTurn(
     string Content,
     IReadOnlyList<ChatWidget>? Widgets = null,
     string ThreadId = ""
-);
+)
+{
+    /// <summary>Strict-mode widget outcome, independent of the model's prose.</summary>
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public WidgetGenerationOutcome? WidgetGeneration { get; init; }
+}
+
+/// <summary>Actual widget outcome: emitted, none, rejected, or not_called.</summary>
+public sealed record WidgetGenerationOutcome(string Status, IReadOnlyList<WidgetValidationDiagnostic>? Diagnostics = null);
 
 
 /// <summary>

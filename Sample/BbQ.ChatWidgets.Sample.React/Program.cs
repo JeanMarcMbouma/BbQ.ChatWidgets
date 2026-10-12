@@ -68,6 +68,23 @@ IChatClient openaiClient =
     .AsIChatClient();
 
 IChatClient chatClient = new ChatClientBuilder(openaiClient)
+    .ConfigureOptions(options =>
+    {
+        options.Temperature = configuration.GetValue<float?>("OpenAI:Temperature") ?? 0;
+        options.MaxOutputTokens = configuration.GetValue<int?>("OpenAI:MaxOutputTokens") ?? 1024;
+        if (options.ResponseFormat is ChatResponseFormatJson { Schema: { } schema }
+            && Uri.TryCreate(configuration["OpenAI:Endpoint"], UriKind.Absolute, out var endpoint) && endpoint.IsLoopback)
+        {
+            // The OpenAI adapter rewrites constraints such as minItems into prose.
+            // Local grammar servers need the original schema to enforce them.
+            options.RawRepresentationFactory = _ => new OpenAI.Chat.ChatCompletionOptions
+            {
+                ResponseFormat = OpenAI.Chat.ChatResponseFormat.CreateJsonSchemaFormat(
+                    "widget_response", BinaryData.FromString(schema.GetRawText()), jsonSchemaIsStrict: true)
+            };
+            options.ResponseFormat = null;
+        }
+    })
     .UseFunctionInvocation()
     .Build();
 
@@ -75,13 +92,16 @@ IChatClient chatClient = new ChatClientBuilder(openaiClient)
 services.AddBbQChatWidgets(bbqOptions =>
 {
     bbqOptions.RoutePrefix = "/api/chat";
-    bbqOptions.WidgetGenerationMode = WidgetGenerationMode.StrictToolCall;
+    bbqOptions.WidgetGenerationMode = (configuration.GetValue<bool?>("OpenAI:UseStructuredResponses")
+        ?? (Uri.TryCreate(configuration["OpenAI:Endpoint"], UriKind.Absolute, out var endpoint) && endpoint.IsLoopback))
+        ? WidgetGenerationMode.StructuredResponse : WidgetGenerationMode.StrictToolCall;
+    bbqOptions.RequireWidgetDecision = true;
     bbqOptions.ChatClientFactory = sp => chatClient;
     bbqOptions.EnablePersona = true;
     bbqOptions.WidgetRegistryConfigurator = registry =>
     {
         // Additional custom widget registrations can go here
-        // e.g., registry.Register(new CustomWidget(...));
+        registry.Register(new BbQ.ChatWidgets.Models.ButtonWidget("Say hello", "greet"));
         registry.Register(new EChartsWidget("Sales Chart", "on_chart_click", "bar", "{\"xAxis\": {\"type\": \"category\", \"data\": [\"Jan\", \"Feb\", \"Mar\"]}, \"yAxis\": {\"type\": \"value\"}, \"series\": [{\"data\": [100, 200, 150], \"type\": \"bar\"}]}"));
         // Register a server-side Clock widget template used by the SSE demo.
         // Specify a stream ID so the widget knows which SSE stream to subscribe to on the client.

@@ -7,6 +7,7 @@ export interface ChatMessage {
   role: 'user' | 'assistant';
   content: string;
   widgets?: any[];
+  widgetGeneration?: { status: string; diagnostics?: { code: string; path: string; message: string }[] };
   timestamp: Date;
 }
 

@@ -18,6 +18,7 @@
         <div class="message" [class.user]="msg.role === 'user'" [class.assistant]="msg.role === 'assistant'">
           <div class="message-content">
             <p>{{ msg.content }}</p>
+            <app-widget-generation-notice [outcome]="msg.widgetGeneration" />
             @if (msg.widgets && msg.widgets.length > 0) {
               <app-widget-renderer 
                 [widgets]="msg.widgets" 
@@ -35,6 +36,7 @@
     }
 
     <div class="input-area">
+      <label><input type="checkbox" [checked]="requireWidgets()" (change)="requireWidgets.set($any($event.target).checked)" /> Include a widget</label>
       <input
         type="text"
         class="chat-input"

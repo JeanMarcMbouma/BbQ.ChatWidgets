@@ -13,7 +13,11 @@ namespace BbQ.ChatWidgets.Endpoints;
 public sealed record UserMessageDto(
     string Message,
     string? ThreadId,
-    string? Persona = null);
+    string? Persona = null)
+{
+    /// <summary>Require at least one widget in schema-constrained chat responses.</summary>
+    public bool RequireWidgets { get; init; }
+}
 
 /// <summary>
 /// Data transfer object for widget action requests.

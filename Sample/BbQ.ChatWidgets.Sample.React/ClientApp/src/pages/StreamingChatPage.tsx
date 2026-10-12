@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { ChatMessage } from '../types';
 import { WidgetRenderer } from '../components/WidgetRenderer';
+import { WidgetGenerationNotice } from '../components/WidgetGenerationNotice';
 import '../styles/StreamingChat.css';
 
 interface StreamingChatPageProps {
@@ -11,6 +12,7 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [persona, setPersona] = useState('');
+  const [requireWidgets, setRequireWidgets] = useState(true);
   const [isStreaming, setIsStreaming] = useState(false);
   const [currentContent, setCurrentContent] = useState('');
   const [threadId, setThreadId] = useState<string | null>(null);
@@ -58,6 +60,7 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: text,
+          requireWidgets,
           threadId: threadId,
           persona: persona.trim() ? persona : null
         })
@@ -119,6 +122,7 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
           role: 'assistant',
           content: lastTurn.content,
           widgets: lastTurn.widgets,
+          widgetGeneration: lastTurn.widgetGeneration,
           timestamp: new Date()
         };
 
@@ -155,6 +159,7 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
             <div key={msg.id} className={`message ${msg.role}`}>
               <div className="message-content">
                 <p>{msg.content}</p>
+                <WidgetGenerationNotice outcome={msg.widgetGeneration} />
                 {msg.widgets && msg.widgets.length > 0 && (
                   <div className="widgets">
                     <WidgetRenderer widgets={msg.widgets} />
@@ -178,6 +183,7 @@ export function StreamingChatPage({ onBack }: StreamingChatPageProps) {
         {error && <div className="error-message">{error}</div>}
 
         <div className="input-area">
+          <label><input type="checkbox" checked={requireWidgets} onChange={event => setRequireWidgets(event.target.checked)} /> Include a widget</label>
           <input
             type="text"
             value={persona}

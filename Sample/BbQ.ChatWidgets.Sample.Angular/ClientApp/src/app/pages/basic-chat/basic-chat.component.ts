@@ -3,17 +3,19 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChatService } from '../../services/chat.service';
 import { WidgetRendererComponent } from '../../components/widget-renderer/widget-renderer.component';
+import { WidgetGenerationNoticeComponent } from '../../components/widget-generation-notice.component';
 
 @Component({
   selector: 'app-basic-chat',
   standalone: true,
-  imports: [CommonModule, FormsModule, WidgetRendererComponent],
+  imports: [CommonModule, FormsModule, WidgetRendererComponent, WidgetGenerationNoticeComponent],
   templateUrl: './basic-chat.component.html',
   styleUrls: ['../shared-chat-styles.css', './basic-chat.component.css']
 })
 export class BasicChatComponent implements OnInit, OnDestroy {
   input = signal('');
   persona = signal('');
+  requireWidgets = signal(true);
   @Output() navigateBack = new EventEmitter<void>();
   
   constructor(public chatService: ChatService) {
@@ -39,7 +41,7 @@ export class BasicChatComponent implements OnInit, OnDestroy {
     if (!text.trim() || this.chatService.isLoading()) return;
     
     this.input.set('');
-    await this.chatService.sendMessage(text, '/api/chat/message', this.persona());
+    await this.chatService.sendMessage(text, '/api/chat/message', this.persona(), this.requireWidgets());
   }
 
   handleKeyDown(event: KeyboardEvent) {

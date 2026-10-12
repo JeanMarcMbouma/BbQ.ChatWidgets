@@ -314,6 +314,26 @@ npm run build
 4. **Backend**: Handles `greet` action with payload
 5. **Assistant**: Returns personalized greeting
 
+## Troubleshooting local model widgets
+
+Try a new conversation with `Show me a weather widget for London.`, `Show me a live clock widget.`, or `Show me a button labelled Say hello.` These use registered templates with working action and stream IDs. Rebuild and restart the server after changing widget registrations or instructions.
+
+Strict mode sends template examples to the model and requires it to call `emit_widgets`. Action IDs such as `weather_update` are widget properties, not model tools. When adding a custom widget, register its action handler and provide a template with the correct action and any stream defaults. Built-in placeholder actions are excluded from examples when registered actions are required.
+
+Both demos enable `RequireWidgetDecision`: with the default tool list, the provider receives `tool_choice: required`. The model must emit widgets or explicitly return an empty array for ordinary chat. The default no-op `retry_tool` has been removed; repair uses the actual emission tool. Applications with additional custom tools use a named emission-tool choice and need a provider that honors it. This option is opt-in for library consumers.
+
+For loopback model endpoints, both demos instead default to `StructuredResponse`. Override with `OpenAI:UseStructuredResponses`. This generates a single schema-constrained `{content, widgets}` response and validates every widget before returning it. Local schemas are forwarded unchanged: the OpenAI adapter otherwise rewrites constraints such as `minItems` into descriptions, which local grammar engines cannot enforce. Structured streaming buffers the JSON until complete, then emits the validated final turn; it does not stream JSON fragments into the chat UI.
+
+Basic and streaming chat enable **Include a widget** by default. This sends `requireWidgets: true` and requires a nonempty widget array in the schema and validator. Clear it for ordinary text-only chat. API clients can set the same request property explicitly; it defaults to false. A schema guarantees structure, not that a small model chooses the right widget or writes accurate prose.
+
+Demo generation defaults to temperature 0 and a 1024-token output limit, configurable through `OpenAI:Temperature` and `OpenAI:MaxOutputTokens`. Increase the limit for large widget forms or charts.
+
+Basic and streaming chat display a notice for unsuccessful or empty widget outcomes. The API returns `widgetGeneration.status`: `emitted`, `none` (explicit empty decision), `rejected` (with validation diagnostics), or `not_called` (provider/model skipped the tool or invocation middleware was absent). These outcomes are independent of the assistant's claims. A required tool choice cannot guarantee a model chooses the correct widget; inspect the returned state as well as the status.
+
+If a widget does not appear, check the server output for `Widget emission rejected` under `BbQ.ChatWidgets.Services.ChatWidgetService`. Each warning includes a diagnostic code, JSON path, reason, and whether another repair is allowed. For example, `widget.action.unregistered` at `/widgets/0/action` lists the registered alternatives. A rejected call accepts no widgets; the model gets one repair opportunity. Keep warning-level logging enabled for this category.
+
+The chat API's `widgets` array is the source of truth: prose claiming a widget was displayed does not create one. Small local models can still fail to follow instructions; the server never silently substitutes an invented action.
+
 ## Contributing
 
 This is a sample application. Feel free to:

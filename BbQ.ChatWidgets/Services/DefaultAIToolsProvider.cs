@@ -7,44 +7,24 @@ namespace BbQ.ChatWidgets.Services
     /// Provides default AI tools for the chat widget system.
     /// </summary>
     /// <remarks>
-    /// This provider supplies a basic set of AI-callable tools that extend the AI's capabilities
-    /// beyond the standard widget tools. Currently provides a retry tool to allow the AI to
-    /// explicitly request retry operations when needed.
+    /// Applications can supply additional callable tools. No placeholder tools are
+    /// exposed by default: widget repair is handled by emit_widgets diagnostics.
     /// 
     /// Implements <see cref="IAIToolsProvider"/> and can be overridden by custom implementations
     /// via <see cref="BbQChatOptions.ToolProviderFactory"/>.
     /// </remarks>
     public sealed class DefaultAIToolsProvider : IAIToolsProvider
     {
-        private AITool[]? _tools;
-
         /// <summary>
         /// Gets the list of available AI tools.
         /// </summary>
         /// <remarks>
-        /// This method returns a cached list of AI tools. On first call, it creates the tools
-        /// and caches them for subsequent calls. The current implementation includes:
-        /// - <c>retry_tool</c>: Instructs the AI to retry the previous logic or generation
+        /// The default list is empty. A retry tool that only returns an instruction
+        /// cannot perform a repair and can distract a model from the real widget tool.
         /// </remarks>
         /// <returns>
         /// A read-only list of <see cref="AITool"/> instances representing available tools.
         /// </returns>
-        public IReadOnlyList<AITool> GetAITools()
-        {
-            if (_tools is not null)
-                return _tools;
-
-            var retryTool = AIFunctionFactory.Create(() =>
-            {
-                return "please retry the previous logic";
-            }, new AIFunctionFactoryOptions
-            {
-                Name = "retry_tool",
-                Description = "Instruction to LLM to retry the previous instruction or generation"
-            });
-
-            _tools = [retryTool];
-            return _tools;
-        }
+        public IReadOnlyList<AITool> GetAITools() => [];
     }
 }

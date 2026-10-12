@@ -1,4 +1,7 @@
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Abstractions;
 
 namespace BbQ.ChatWidgets.Services
@@ -49,7 +52,9 @@ namespace BbQ.ChatWidgets.Services
                 _ => BuildLegacyInstructions()
             };
 
-            var dynamicActions = BuildDynamicActionInstructions();
+            var dynamicActions = _options.WidgetGenerationMode is BbQ.ChatWidgets.Options.WidgetGenerationMode.StructuredResponse
+                ? "Action IDs: " + string.Join(", ", _actionRegistry.GetActions().Select(action => action.Name))
+                : BuildDynamicActionInstructions();
 
             return staticInstructions + (string.IsNullOrEmpty(dynamicActions) ? "" : $"\n\n## Registered Actions\n\n{dynamicActions}");
         }
@@ -61,17 +66,49 @@ namespace BbQ.ChatWidgets.Services
                 {{string.Join("\n", _widgetRegistry.GetEntries().Select(entry => $"- {entry.TypeId}"))}}
 
                 Widget generation rules:
+                {{(_options.RequireWidgetDecision ? "- Every turn requires an emit_widgets decision before answering. For a requested or useful widget, emit its complete state. For ordinary text-only conversation, call emit_widgets with widgets: []. Never use an empty decision for an explicitly requested supported widget." : "")}}
                 - Emit widgets only by invoking the `emit_widgets` tool.
+                - When the user explicitly requests a supported widget, invoke emit_widgets; do not merely describe how to create it or claim you cannot display it.
+                - Registered action IDs are values for widget action properties, NOT callable tools. Choose an appropriate registered action; never invent one.
+                - If emit_widgets returns accepted false and repairAllowed true, correct the reported diagnostics and invoke emit_widgets again before answering. Never claim a rejected widget was displayed.
                 - Follow the tool JSON Schema exactly; do not invent types, properties, nesting, or actions.
                 - Send complete desired widget state, never patches.
                 - Never generate instance IDs, revisions, lifecycle state, authorization decisions, or transport metadata.
                 - Do not include widget JSON or `<widget>` markers in assistant text.
+                - After successful emission, briefly confirm what was displayed. Do not print HTML, code examples, or setup instructions for the widget.
                 - Keep labels concise and action-oriented.
+
+                Registered widget examples (adapt labels and requested content; preserve the action and streamId unless another registered configuration is requested):
+                {{BuildWidgetExamples()}}
                 """;
 
-        private static string BuildStructuredResponseInstructions() => """
+        private string BuildWidgetExamples()
+        {
+            var examples = new List<string>();
+            foreach (var (typeId, widget) in _widgetRegistry.GetEntries().OrderBy(entry => entry.TypeId))
+            {
+                // Built-in templates can contain placeholder actions. Do not teach the
+                // model to emit those when the application requires registered actions.
+                if (_options.RequireRegisteredWidgetActions && _actionRegistry.GetAction(widget.Action) is null)
+                    continue;
+
+                var example = JsonSerializer.SerializeToNode(widget, widget.GetType(), Serialization.Default)!.AsObject();
+                example["type"] = typeId;
+                // Purpose contains legacy markup instructions on some widget types.
+                example["purpose"] = null;
+                examples.Add(example.ToJsonString());
+            }
+            return string.Join("\n", examples);
+        }
+
+        private string BuildStructuredResponseInstructions() => $$"""
                 You are a helpful AI assistant that can produce schema-constrained widget responses.
                 Follow the response JSON Schema exactly and never invent widget types, properties, actions, or transport metadata.
+                Return one JSON object with content and widgets. First write a brief reply in content, then put the complete requested widget states in widgets.
+                For an explicitly requested supported widget, include it in widgets. For ordinary conversation use an empty widgets array.
+                Action IDs are widget property values, not callable tools. Do not print widget markup or setup instructions in content.
+                Use these registered examples, adapting requested labels and content while preserving action and stream defaults:
+                {{BuildWidgetExamples()}}
                 """;
 
         private string BuildLegacyInstructions() => $$"""

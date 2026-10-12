@@ -7,6 +7,7 @@ using BbQ.ChatWidgets.Agents.Abstractions;
 using BbQ.ChatWidgets.Models;
 using BbQ.ChatWidgets.Options;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Logging;
 
 namespace BbQ.ChatWidgets.Services;
 
@@ -50,7 +51,8 @@ public sealed class ChatWidgetService(
     IAgentEventDispatcher eventDispatcher,
     BbQChatOptions options,
     IWidgetSchemaCatalogue? schemaCatalogue = null,
-    IWidgetValidator? widgetValidator = null)
+    IWidgetValidator? widgetValidator = null,
+    ILogger<ChatWidgetService>? logger = null)
 {
     /// <summary>
     /// Processes a user message and generates an AI response with optional embedded widgets.
@@ -98,7 +100,8 @@ public sealed class ChatWidgetService(
     /// </param>
     /// <param name="ct">Cancellation token to cancel the async operation.</param>
     /// <returns>The assistant response turn.</returns>
-    public async Task<ChatTurn> RespondAsync(string userMessage, string? threadId, string? personaOverride, CancellationToken ct = default)
+    /// <param name="requireWidgets">Require at least one validated widget in this response.</param>
+    public async Task<ChatTurn> RespondAsync(string userMessage, string? threadId, string? personaOverride, CancellationToken ct, bool requireWidgets)
     {
         if (threadId == null || !threadService.ThreadExists(threadId))
         {
@@ -108,7 +111,7 @@ public sealed class ChatWidgetService(
         var effectivePersona = ResolveAndPersistPersona(threadId, personaOverride);
 
         var emittedWidgets = new List<ChatWidget>();
-        var chatOptions = CreateChatOptions(threadId, effectivePersona, emittedWidgets);
+        var chatOptions = CreateChatOptions(threadId, effectivePersona, emittedWidgets, out var emissionTool, requireWidgets);
 
         var messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.User, userMessage, ThreadId: threadId));
 
@@ -119,11 +122,16 @@ public sealed class ChatWidgetService(
         var completion = await chat.GetResponseAsync(aiMessages, chatOptions, ct);
 
         var (content, legacyWidgets) = widgetHintParser.Parse(completion.Text);
-        var widgets = options.WidgetGenerationMode is WidgetGenerationMode.StrictToolCall
+        if (options.WidgetGenerationMode is WidgetGenerationMode.StructuredResponse)
+            content = await AcceptStructuredResponseAsync(completion.Text, emissionTool!, ct);
+        var widgets = options.WidgetGenerationMode is WidgetGenerationMode.StrictToolCall or WidgetGenerationMode.StructuredResponse
             ? emittedWidgets
             : legacyWidgets;
 
-        messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.Assistant, content, widgets, threadId));
+        messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.Assistant, content, widgets, threadId)
+        {
+            WidgetGeneration = GetWidgetOutcome(emissionTool, emittedWidgets.Count, threadId)
+        });
 
         return messages.Turns[messages.Turns.Count - 1];
     }
@@ -173,7 +181,8 @@ public sealed class ChatWidgetService(
     /// </param>
     /// <param name="cancellationToken">Cancellation token to cancel the async operation.</param>
     /// <returns>An async stream of response turns.</returns>
-    public async IAsyncEnumerable<ChatTurn> StreamResponseAsync(string userMessage, string? threadId, string? personaOverride, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    /// <param name="requireWidgets">Require at least one validated widget in this response.</param>
+    public async IAsyncEnumerable<ChatTurn> StreamResponseAsync(string userMessage, string? threadId, string? personaOverride, [EnumeratorCancellation] CancellationToken cancellationToken, bool requireWidgets)
     {
         if (threadId == null || !threadService.ThreadExists(threadId))
         {
@@ -183,7 +192,7 @@ public sealed class ChatWidgetService(
         var effectivePersona = ResolveAndPersistPersona(threadId, personaOverride);
 
         var emittedWidgets = new List<ChatWidget>();
-        var chatOptions = CreateChatOptions(threadId, effectivePersona, emittedWidgets);
+        var chatOptions = CreateChatOptions(threadId, effectivePersona, emittedWidgets, out var emissionTool, requireWidgets);
 
         var messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.User, userMessage, ThreadId: threadId));
 
@@ -197,36 +206,57 @@ public sealed class ChatWidgetService(
         await foreach (var responseUpdate in chat.GetStreamingResponseAsync(aiMessages, chatOptions, cancellationToken))
         {
             responseText += responseUpdate.Text;
+            if (options.WidgetGenerationMode is WidgetGenerationMode.StructuredResponse)
+                continue; // Never expose partial JSON as assistant text.
             var (content, widgets) = widgetHintParser.Parse(responseText);
             displayText = widgetHintSanitizer.Sanitize(content);
             chatWidgets = widgets?.ToList() ?? [];
             yield return new StreamChatTurn(ChatRole.Assistant, displayText, threadId, IsDelta: true);
         }
 
-        var finalWidgets = options.WidgetGenerationMode is WidgetGenerationMode.StrictToolCall
+        if (options.WidgetGenerationMode is WidgetGenerationMode.StructuredResponse)
+            displayText = await AcceptStructuredResponseAsync(responseText, emissionTool!, cancellationToken);
+        var finalWidgets = options.WidgetGenerationMode is WidgetGenerationMode.StrictToolCall or WidgetGenerationMode.StructuredResponse
             ? emittedWidgets
             : chatWidgets;
-        messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.Assistant, displayText, finalWidgets, threadId));
+        messages = threadService.AppendMessageToThread(threadId, new ChatTurn(ChatRole.Assistant, displayText, finalWidgets, threadId)
+        {
+            WidgetGeneration = GetWidgetOutcome(emissionTool, emittedWidgets.Count, threadId)
+        });
 
         yield return messages.Turns[messages.Turns.Count - 1];
     }
 
+    /// <inheritdoc cref="RespondAsync(string, string?, string?, CancellationToken, bool)"/>
+    public Task<ChatTurn> RespondAsync(string userMessage, string? threadId, string? personaOverride, CancellationToken ct = default)
+        => RespondAsync(userMessage, threadId, personaOverride, ct, false);
+
+    /// <inheritdoc cref="StreamResponseAsync(string, string?, string?, CancellationToken, bool)"/>
+    public IAsyncEnumerable<ChatTurn> StreamResponseAsync(string userMessage, string? threadId, string? personaOverride, CancellationToken cancellationToken = default)
+        => StreamResponseAsync(userMessage, threadId, personaOverride, cancellationToken, false);
+
     private ChatOptions CreateChatOptions(
         string threadId,
         string? effectivePersona,
-        List<ChatWidget> emittedWidgets)
+        List<ChatWidget> emittedWidgets,
+        out EmitWidgetsAIFunction? emissionTool,
+        bool requireWidgets)
     {
+        emissionTool = null;
+        if (requireWidgets && (options.WidgetGenerationMode is WidgetGenerationMode.EmbeddedMarkupLegacy || schemaCatalogue?.Definitions.Count == 0))
+            throw new ArgumentException("Requiring widgets needs a schema-constrained mode and at least one registered widget.", nameof(requireWidgets));
         var tools = new List<AITool>(aiToolsProvider.GetAITools());
         switch (options.WidgetGenerationMode)
         {
             case WidgetGenerationMode.StrictToolCall:
+            case WidgetGenerationMode.StructuredResponse:
                 if (schemaCatalogue is null)
                 {
                     throw new InvalidOperationException(
                         $"{nameof(IWidgetSchemaCatalogue)} must be registered when strict widget tool generation is enabled.");
                 }
 
-                tools.Add(new EmitWidgetsAIFunction(
+                emissionTool = new EmitWidgetsAIFunction(
                     schemaCatalogue,
                     (widgets, _) =>
                     {
@@ -237,12 +267,14 @@ public sealed class ChatWidgetService(
                     new WidgetValidationContext(
                         schemaCatalogue,
                         actionRegistry,
-                        options.RequireRegisteredWidgetActions)));
+                        options.RequireRegisteredWidgetActions),
+                    logger,
+                    allowEmpty: !requireWidgets && (options.RequireWidgetDecision || options.WidgetGenerationMode is WidgetGenerationMode.StructuredResponse));
+                if (options.WidgetGenerationMode is WidgetGenerationMode.StrictToolCall)
+                    tools.Add(emissionTool);
+                else
+                    tools.Clear(); // Structured output is validated locally, not invoked as a model tool.
                 break;
-
-            case WidgetGenerationMode.StructuredResponse:
-                throw new NotSupportedException(
-                    "Structured widget response generation is not yet available. Use StrictToolCall when the provider supports tools, or EmbeddedMarkupLegacy as a compatibility fallback.");
 
             default:
                 tools.Add(AIFunctionFactory.Create(() => widgetToolsProvider.GetTools(), new AIFunctionFactoryOptions
@@ -255,11 +287,49 @@ public sealed class ChatWidgetService(
 
         return new ChatOptions
         {
+            ResponseFormat = options.WidgetGenerationMode is WidgetGenerationMode.StructuredResponse
+                ? ChatResponseFormat.ForJsonSchema(WidgetEmissionSchemaBuilder.BuildResponse(schemaCatalogue!, requireWidgets), "widget_response") : null,
             Tools = WrapWithEventFiring(tools, eventDispatcher, threadId),
-            ToolMode = ChatToolMode.Auto,
+            ToolMode = options.WidgetGenerationMode is WidgetGenerationMode.StrictToolCall && (options.RequireWidgetDecision || requireWidgets)
+                // With only the emission tool, generic required mode has broader
+                // provider support than a named choice (notably local grammar providers).
+                ? tools.Count == 1 ? ChatToolMode.RequireAny : ChatToolMode.RequireSpecific(EmitWidgetsAIFunction.FunctionName)
+                : ChatToolMode.Auto,
             AllowMultipleToolCalls = true,
-            Instructions = BuildInstructions(effectivePersona)
+            Instructions = BuildInstructions(effectivePersona) + (requireWidgets
+                ? "\nThis request requires at least one widget. Generate the requested widget state; an empty widgets array is not allowed." : "")
         };
+    }
+
+    private static async Task<string> AcceptStructuredResponseAsync(string json, EmitWidgetsAIFunction tool, CancellationToken ct)
+    {
+        try
+        {
+            using var document = JsonDocument.Parse(json);
+            var root = document.RootElement;
+            if (root.ValueKind != JsonValueKind.Object || !root.TryGetProperty("content", out var content) || content.ValueKind != JsonValueKind.String)
+                throw new JsonException("The response must contain string content.");
+            var arguments = new AIFunctionArguments();
+            if (root.TryGetProperty("widgets", out var widgets)) arguments["widgets"] = widgets.Clone();
+            await tool.InvokeAsync(arguments, ct);
+            return content.GetString()!;
+        }
+        catch (JsonException)
+        {
+            // Reuse structured diagnostics; never display malformed model JSON.
+            await tool.InvokeAsync(new AIFunctionArguments(), ct);
+            return "The model returned an invalid widget response. Please try again.";
+        }
+    }
+
+    private WidgetGenerationOutcome? GetWidgetOutcome(EmitWidgetsAIFunction? tool, int widgetCount, string threadId)
+    {
+        if (tool is null) return null;
+        var status = widgetCount > 0 ? "emitted" : tool.LastResult is null ? "not_called"
+            : tool.LastResult.Accepted ? "none" : "rejected";
+        if (status == "not_called")
+            logger?.LogWarning("No widget tool was invoked for thread {ThreadId}. Model text does not confirm widget delivery. Check provider tool-choice support and function invocation middleware.", threadId);
+        return new WidgetGenerationOutcome(status, tool.LastResult?.Diagnostics);
     }
 
     private string? ResolveAndPersistPersona(string threadId, string? personaOverride)

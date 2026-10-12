@@ -1,6 +1,7 @@
 name: NPM Publish
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - 'npm-v*' # Triggers on tags like npm-v1.0.0
@@ -8,6 +9,7 @@ on:
 jobs:
   publish-core:
     runs-on: ubuntu-latest
+    environment: production
     defaults:
       run:
         working-directory: js
@@ -43,6 +45,7 @@ jobs:
 
   publish-angular:
     runs-on: ubuntu-latest
+    environment: production
     needs: publish-core # Wait for core package to be published first
     if: ${{ needs.publish-core.result == 'success' }}
     defaults:

@@ -220,57 +220,53 @@ public static class ServiceCollectionExtensions
     public static IApplicationBuilder MapBbQChatEndpoints(this IApplicationBuilder app)
     {
         var options = app.ApplicationServices.GetRequiredService<BbQChatOptions>();
-        var prefix = options.RoutePrefix ?? "/api/chat";
+        var prefix = (options.RoutePrefix ?? "/api/chat").TrimEnd('/');
 
         app.Use(async (context, next) =>
         {
             var path = context.Request.Path.Value ?? string.Empty;
-
-            if (context.Request.Method == HttpMethods.Post && path == $"{prefix}/message")
+            Func<HttpContext, Task>? handler = null;
+            if (context.Request.Method == HttpMethods.Post)
             {
-                await HandleMessageRequest(context);
+                if (path == $"{prefix}/message") handler = HandleMessageRequest;
+                else if (path == $"{prefix}/action") handler = HandleActionRequest;
+                else if (path == $"{prefix}/agent") handler = HandleAgentRequest;
+                else if (path == $"{prefix}/stream/message") handler = HandleStreamMessageRequest;
+                else if (options.EnableVoice && path == $"{prefix}/voice/transcribe") handler = HandleVoiceTranscribeRequest;
+            }
+
+            if (path.StartsWith($"{prefix}/widgets/streams/", StringComparison.Ordinal) && path.EndsWith("/events", StringComparison.Ordinal))
+            {
+                if (context.Request.Method == HttpMethods.Get) handler = ctx => HandleWidgetStreamSubscribe(ctx, prefix);
+                else if (context.Request.Method == HttpMethods.Post) handler = ctx => HandleWidgetStreamPublish(ctx, prefix);
+            }
+
+            if (handler is null)
+            {
+                await next();
                 return;
             }
 
-            if (context.Request.Method == HttpMethods.Post && path == $"{prefix}/action")
+            if (options.AuthorizeRequestAsync is not null && !await options.AuthorizeRequestAsync(context, context.RequestAborted))
             {
-                await HandleActionRequest(context);
+                context.Response.StatusCode = StatusCodes.Status403Forbidden;
                 return;
             }
 
-            if (context.Request.Method == HttpMethods.Post && path == $"{prefix}/agent")
+            try
             {
-                await HandleAgentRequest(context);
-                return;
+                await handler(context);
             }
-
-            if (context.Request.Method == HttpMethods.Post && path == $"{prefix}/stream/message")
+            catch (JsonException) when (!context.Response.HasStarted)
             {
-                await HandleStreamMessageRequest(context);
-                return;
+                context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                await WriteJsonResponse(context, new { error = "Request body must contain valid JSON." });
             }
-
-            if (options.EnableVoice && context.Request.Method == HttpMethods.Post && path == $"{prefix}/voice/transcribe")
+            catch (BadHttpRequestException ex) when (!context.Response.HasStarted)
             {
-                await HandleVoiceTranscribeRequest(context);
-                return;
+                context.Response.StatusCode = ex.StatusCode;
+                await WriteJsonResponse(context, new { error = ex.Message });
             }
-
-            // Widget SSE subscription: GET {prefix}/widgets/streams/{streamId}/events
-            if (context.Request.Method == HttpMethods.Get && path.StartsWith($"{prefix}/widgets/streams/") && path.EndsWith("/events"))
-            {
-                await HandleWidgetStreamSubscribe(context, prefix);
-                return;
-            }
-
-            // Widget SSE publish: POST {prefix}/widgets/streams/{streamId}/events
-            if (context.Request.Method == HttpMethods.Post && path.StartsWith($"{prefix}/widgets/streams/") && path.EndsWith("/events"))
-            {
-                await HandleWidgetStreamPublish(context, prefix);
-                return;
-            }
-
-            await next();
         });
 
         return app;
@@ -359,14 +355,14 @@ public static class ServiceCollectionExtensions
     {
         try
         {
-            var service = context.RequestServices.GetRequiredService<ChatWidgetService>();
             var options = context.RequestServices.GetRequiredService<BbQChatOptions>();
             var dto = NormalizeAndValidateUserMessageDto(await DeserializeRequest<UserMessageDto>(context), options);
+            var service = context.RequestServices.GetRequiredService<ChatWidgetService>();
             var ct = context.RequestAborted;
 
             context.Response.ContentType = "text/event-stream";
-            context.Response.Headers.Add("Cache-Control", "no-cache");
-            context.Response.Headers.Add("Connection", "keep-alive");
+            context.Response.Headers["Cache-Control"] = "no-cache";
+            context.Response.Headers["Connection"] = "keep-alive";
 
             await foreach (var turn in service.StreamResponseAsync(dto.Message, dto.ThreadId, dto.Persona, ct))
             {
@@ -400,9 +396,9 @@ public static class ServiceCollectionExtensions
     {
         try
         {
-            var service = context.RequestServices.GetRequiredService<ChatWidgetService>();
             var options = context.RequestServices.GetRequiredService<BbQChatOptions>();
             var dto = NormalizeAndValidateUserMessageDto(await DeserializeRequest<UserMessageDto>(context), options);
+            var service = context.RequestServices.GetRequiredService<ChatWidgetService>();
             var ct = context.RequestAborted;
 
             var turn = await service.RespondAsync(dto.Message, dto.ThreadId, dto.Persona, ct);
@@ -426,10 +422,13 @@ public static class ServiceCollectionExtensions
     /// </remarks>
     private static async Task HandleActionRequest(HttpContext context)
     {
-        var service = context.RequestServices.GetRequiredService<ChatWidgetService>();
         var dto = await DeserializeRequest<WidgetActionDto>(context);
         var ct = context.RequestAborted;
 
+        if (string.IsNullOrWhiteSpace(dto.Action))
+            throw new BadHttpRequestException("Action cannot be empty.", StatusCodes.Status400BadRequest);
+
+        var service = context.RequestServices.GetRequiredService<ChatWidgetService>();
         var turn = await service.HandleActionAsync(dto.Action, dto.Payload ?? [], dto.ThreadId, context.RequestServices, ct);
         await WriteJsonResponse(context, turn);
     }
@@ -516,8 +515,7 @@ public static class ServiceCollectionExtensions
 
         var streamId = segments[^2];
 
-        using var reader = new StreamReader(context.Request.Body);
-        var body = await reader.ReadToEndAsync();
+        var body = await ReadRequestBodyAsync(context);
         if (string.IsNullOrWhiteSpace(body))
         {
             context.Response.StatusCode = 400;
@@ -544,9 +542,29 @@ public static class ServiceCollectionExtensions
     /// </exception>
     private static async Task<T> DeserializeRequest<T>(HttpContext context)
     {
-        using var reader = new StreamReader(context.Request.Body);
-        var body = await reader.ReadToEndAsync();
-        return JsonSerializer.Deserialize<T>(body, Serialization.Default) ?? throw new InvalidOperationException("Failed to deserialize request");
+        var body = await ReadRequestBodyAsync(context);
+        return JsonSerializer.Deserialize<T>(body, Serialization.Default)
+            ?? throw new BadHttpRequestException("Request body cannot be null.", StatusCodes.Status400BadRequest);
+    }
+
+    private static async Task<string> ReadRequestBodyAsync(HttpContext context)
+    {
+        var limit = context.RequestServices.GetRequiredService<BbQChatOptions>().MaxRequestBodyBytes;
+        if (limit <= 0) throw new InvalidOperationException("MaxRequestBodyBytes must be positive.");
+        if (context.Request.ContentLength > limit)
+            throw new BadHttpRequestException("Request body is too large.", StatusCodes.Status413PayloadTooLarge);
+
+        using var body = new MemoryStream();
+        var buffer = new byte[8192];
+        int count;
+        while ((count = await context.Request.Body.ReadAsync(buffer, context.RequestAborted)) > 0)
+        {
+            if (body.Length + count > limit)
+                throw new BadHttpRequestException("Request body is too large.", StatusCodes.Status413PayloadTooLarge);
+            await body.WriteAsync(buffer.AsMemory(0, count), context.RequestAborted);
+        }
+
+        return System.Text.Encoding.UTF8.GetString(body.GetBuffer(), 0, (int)body.Length);
     }
 
     private static UserMessageDto NormalizeAndValidateUserMessageDto(UserMessageDto dto, BbQChatOptions options)

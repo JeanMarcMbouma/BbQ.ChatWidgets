@@ -41,7 +41,7 @@
   </Target>
 
   <!-- Build the Angular app during development builds as well -->
-  <Target Name="BuildClientApp" BeforeTargets="Build">
+  <Target Name="BuildClientApp" BeforeTargets="Build" Condition="'$(SkipClientBuild)' != 'true'">
     <Message Text="Building Angular ClientApp..." Importance="high" />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" ContinueOnError="true" />
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" ContinueOnError="true" />

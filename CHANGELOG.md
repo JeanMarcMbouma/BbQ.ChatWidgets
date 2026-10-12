@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+- New responsive React entry page and local booking/support/approval playground, with JSON inspection and action feedback.
+- Lazy-load live examples; correct the React package name, asset publishing, mobile chat input layout, duplicate action dispatch, and chart/stream resource cleanup.
+- Repair native ESM/CommonJS exports, shared model identity, and image deserialization; verify installed npm tarballs.
+- Scope widget updates to a container, attach root handlers, and replace duplicate listeners with explicit cleanup.
+- Escape numeric rendering attributes, validate email fields, and reject unsafe JSON Patch paths and stale snapshots after removal.
+- Bound JSON requests, return 400/413 for malformed/oversized bodies, and expose an authorization gate before every library request.
+- Serve the sample playground without an AI key; production live APIs need explicit opt-in.
+- Update ECharts and align Angular tooling/runtime to patched releases; audit consuming apps in CI.
+- Use the SDK-provided Source Link tooling instead of the vulnerable legacy build package.
+- Publish the Angular compiled package, include README/license, and stop swallowing release failures. Require supported Node/SDK versions in CI.
+- Document production hosting responsibilities and add mobile/desktop playground checks.
+
 All notable changes to BbQ.ChatWidgets will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),

@@ -11,6 +11,13 @@ using Microsoft.Extensions.AI;
 /// </remarks>
 public sealed class BbQChatOptions
 {
+    /// <summary>Gets or sets the maximum JSON request size in bytes, including chunked bodies.</summary>
+    public int MaxRequestBodyBytes { get; set; } = 1024 * 1024;
+
+    /// <summary>Gets or sets an optional authorization gate applied to every ChatWidgets request before its body is read.</summary>
+    /// <remarks>The host must validate identity, thread/stream ownership and permissions. No authentication scheme is imposed by the library.</remarks>
+    public Func<Microsoft.AspNetCore.Http.HttpContext, CancellationToken, ValueTask<bool>>? AuthorizeRequestAsync { get; set; }
+
     /// <summary>Gets the buffering, replay, and heartbeat settings for widget SSE streams.</summary>
     public BbQ.ChatWidgets.Options.WidgetSseOptions WidgetSse { get; } = new();
 

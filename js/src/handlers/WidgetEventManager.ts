@@ -1,3 +1,6 @@
+// A DOM element has one active handler per event, even across manager replacements.
+const bindings = new WeakMap<Element, Map<string, EventListener>>();
+
 /**
  * Interface for handling widget actions
  */
@@ -42,9 +45,7 @@ export class DefaultWidgetActionHandler implements IWidgetActionHandler {
  * Widget event manager for automatic action dispatch
  */
 export class WidgetEventManager {
-  constructor(
-    private actionHandler: IWidgetActionHandler = new DefaultWidgetActionHandler()
-  ) {}
+  constructor(private actionHandler: IWidgetActionHandler = new DefaultWidgetActionHandler()) {}
 
   /**
    * Attach event listeners to widgets in a container
@@ -64,9 +65,34 @@ export class WidgetEventManager {
     this.attachFormHandlers(container);
   }
 
+  private select(container: Element, selector: string): Element[] {
+    return [
+      ...(container.matches(selector) ? [container] : []),
+      ...container.querySelectorAll(selector),
+    ];
+  }
+
+  private listen(element: Element, event: string, listener: EventListener): void {
+    const events = bindings.get(element) ?? new Map<string, EventListener>();
+    const previous = events.get(event);
+    if (previous) element.removeEventListener(event, previous);
+    element.addEventListener(event, listener);
+    events.set(event, listener);
+    bindings.set(element, events);
+  }
+
+  /** Remove handlers before disposing a rendered container. */
+  detachHandlers(container: Element): void {
+    for (const element of [container, ...container.querySelectorAll('*')]) {
+      for (const [event, listener] of bindings.get(element) ?? [])
+        element.removeEventListener(event, listener);
+      bindings.delete(element);
+    }
+  }
+
   private attachButtonHandlers(container: Element): void {
-    container.querySelectorAll('[data-widget-type="button"]').forEach((btn) => {
-      btn.addEventListener('click', () => {
+    this.select(container, '[data-widget-type="button"]').forEach((btn) => {
+      this.listen(btn, 'click', () => {
         const action = btn.getAttribute('data-action');
         if (action) this.actionHandler.handle(action, {});
       });
@@ -74,8 +100,8 @@ export class WidgetEventManager {
   }
 
   private attachInputHandlers(container: Element): void {
-    container.querySelectorAll('[data-widget-type="input"] input[type="text"]').forEach((input) => {
-      (input as HTMLInputElement).addEventListener('change', (e: Event) => {
+    this.select(container, '[data-widget-type="input"] input[type="text"]').forEach((input) => {
+      this.listen(input, 'change', (e: Event) => {
         const action = (e.target as HTMLInputElement).getAttribute('data-action');
         const value = (e.target as HTMLInputElement).value;
         if (action) this.actionHandler.handle(action, { value });
@@ -84,8 +110,8 @@ export class WidgetEventManager {
   }
 
   private attachTextAreaHandlers(container: Element): void {
-    container.querySelectorAll('[data-widget-type="textarea"] textarea').forEach((textarea) => {
-      (textarea as HTMLTextAreaElement).addEventListener('change', (e: Event) => {
+    this.select(container, '[data-widget-type="textarea"] textarea').forEach((textarea) => {
+      this.listen(textarea, 'change', (e: Event) => {
         const action = (e.target as HTMLTextAreaElement).getAttribute('data-action');
         const value = (e.target as HTMLTextAreaElement).value;
         if (action) this.actionHandler.handle(action, { value });
@@ -94,8 +120,8 @@ export class WidgetEventManager {
   }
 
   private attachDropdownHandlers(container: Element): void {
-    container.querySelectorAll('[data-widget-type="dropdown"] select').forEach((select) => {
-      (select as HTMLSelectElement).addEventListener('change', (e: Event) => {
+    this.select(container, '[data-widget-type="dropdown"] select').forEach((select) => {
+      this.listen(select, 'change', (e: Event) => {
         const action = (e.target as HTMLSelectElement).getAttribute('data-action');
         const value = (e.target as HTMLSelectElement).value;
         if (action) this.actionHandler.handle(action, { value });
@@ -104,47 +130,46 @@ export class WidgetEventManager {
   }
 
   private attachSliderHandlers(container: Element): void {
-    container
-      .querySelectorAll('[data-widget-type="slider"] input[type="range"]')
-      .forEach((slider) => {
-        (slider as HTMLInputElement).addEventListener('change', (e: Event) => {
-          const action = (e.target as HTMLInputElement).getAttribute('data-action');
-          const value = parseInt((e.target as HTMLInputElement).value, 10);
+    this.select(container, '[data-widget-type="slider"] input[type="range"]').forEach((slider) => {
+      this.listen(slider, 'change', (e: Event) => {
+        const action = (e.target as HTMLInputElement).getAttribute('data-action');
+        const value = parseInt((e.target as HTMLInputElement).value, 10);
 
-          // Update display value
-          const valueSpan = (e.target as HTMLInputElement)
-            .parentElement?.querySelector('.bbq-slider-value');
-          if (valueSpan) valueSpan.textContent = value.toString();
+        // Update display value
+        const valueSpan = (e.target as HTMLInputElement).parentElement?.querySelector(
+          '.bbq-slider-value'
+        );
+        if (valueSpan) valueSpan.textContent = value.toString();
 
-          if (action) this.actionHandler.handle(action, { value });
-        });
-
-        // Real-time value display
-        (slider as HTMLInputElement).addEventListener('input', (e: Event) => {
-          const valueSpan = (e.target as HTMLInputElement)
-            .parentElement?.querySelector('.bbq-slider-value');
-          if (valueSpan) valueSpan.textContent = (e.target as HTMLInputElement).value;
-        });
+        if (action) this.actionHandler.handle(action, { value });
       });
+
+      // Real-time value display
+      this.listen(slider, 'input', (e: Event) => {
+        const valueSpan = (e.target as HTMLInputElement).parentElement?.querySelector(
+          '.bbq-slider-value'
+        );
+        if (valueSpan) valueSpan.textContent = (e.target as HTMLInputElement).value;
+      });
+    });
   }
 
   private attachToggleHandlers(container: Element): void {
-    container
-      .querySelectorAll('[data-widget-type="toggle"] input[type="checkbox"]')
-      .forEach((toggle) => {
-        (toggle as HTMLInputElement).addEventListener('change', (e: Event) => {
+    this.select(container, '[data-widget-type="toggle"] input[type="checkbox"]').forEach(
+      (toggle) => {
+        this.listen(toggle, 'change', (e: Event) => {
           const action = (e.target as HTMLInputElement).getAttribute('data-action');
           const checked = (e.target as HTMLInputElement).checked;
           if (action) this.actionHandler.handle(action, { checked });
         });
-      });
+      }
+    );
   }
 
   private attachFileUploadHandlers(container: Element): void {
-    container
-      .querySelectorAll('[data-widget-type="fileupload"] input[type="file"]')
-      .forEach((fileInput) => {
-        (fileInput as HTMLInputElement).addEventListener('change', (e: Event) => {
+    this.select(container, '[data-widget-type="fileupload"] input[type="file"]').forEach(
+      (fileInput) => {
+        this.listen(fileInput, 'change', (e: Event) => {
           const action = (e.target as HTMLInputElement).getAttribute('data-action');
           const files = (e.target as HTMLInputElement).files;
           if (action && files) {
@@ -156,12 +181,13 @@ export class WidgetEventManager {
             this.actionHandler.handle(action, { files: fileInfo });
           }
         });
-      });
+      }
+    );
   }
 
   private attachMultiSelectHandlers(container: Element): void {
-    container.querySelectorAll('[data-widget-type="multiselect"] select').forEach((select) => {
-      (select as HTMLSelectElement).addEventListener('change', (e: Event) => {
+    this.select(container, '[data-widget-type="multiselect"] select').forEach((select) => {
+      this.listen(select, 'change', (e: Event) => {
         const action = (e.target as HTMLSelectElement).getAttribute('data-action');
         const selected = Array.from((e.target as HTMLSelectElement).selectedOptions).map(
           (o) => o.value
@@ -172,8 +198,8 @@ export class WidgetEventManager {
   }
 
   private attachCardHandlers(container: Element): void {
-    container.querySelectorAll('[data-widget-type="card"] button').forEach((btn) => {
-      btn.addEventListener('click', () => {
+    this.select(container, '[data-widget-type="card"] button').forEach((btn) => {
+      this.listen(btn, 'click', () => {
         const action = btn.getAttribute('data-action');
         if (action) this.actionHandler.handle(action, {});
       });
@@ -181,31 +207,29 @@ export class WidgetEventManager {
   }
 
   private attachThemeSwitcherHandlers(container: Element): void {
-    container
-      .querySelectorAll('[data-widget-type="themeswitcher"] select')
-      .forEach((select) => {
-        (select as HTMLSelectElement).addEventListener('change', (e: Event) => {
-          const action = (e.target as HTMLSelectElement).getAttribute('data-action');
-          const theme = (e.target as HTMLSelectElement).value;
-          if (action) this.actionHandler.handle(action, { theme });
-        });
+    this.select(container, '[data-widget-type="themeswitcher"] select').forEach((select) => {
+      this.listen(select, 'change', (e: Event) => {
+        const action = (e.target as HTMLSelectElement).getAttribute('data-action');
+        const theme = (e.target as HTMLSelectElement).value;
+        if (action) this.actionHandler.handle(action, { theme });
       });
+    });
   }
 
   private attachDatePickerHandlers(container: Element): void {
-    container
-      .querySelectorAll('[data-widget-type="datepicker"] input[type="date"]')
-      .forEach((input) => {
-        (input as HTMLInputElement).addEventListener('change', (e: Event) => {
+    this.select(container, '[data-widget-type="datepicker"] input[type="date"]').forEach(
+      (input) => {
+        this.listen(input, 'change', (e: Event) => {
           const action = (e.target as HTMLInputElement).getAttribute('data-action');
           const date = (e.target as HTMLInputElement).value;
           if (action) this.actionHandler.handle(action, { date });
         });
-      });
+      }
+    );
   }
 
   private attachFormHandlers(container: Element): void {
-    container.querySelectorAll('[data-widget-type="form"]').forEach((form) => {
+    this.select(container, '[data-widget-type="form"]').forEach((form) => {
       // Track validation state for the form
       const validationState = new Map<string, boolean>();
       let hasAttemptedSubmit = false;
@@ -213,7 +237,10 @@ export class WidgetEventManager {
       // Initialize validation state for all required fields
       const requiredFields = form.querySelectorAll('[data-required="true"]');
       requiredFields.forEach((fieldContainer) => {
-        const input = fieldContainer.querySelector('input, select, textarea') as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+        const input = fieldContainer.querySelector('input, select, textarea') as
+          | HTMLInputElement
+          | HTMLSelectElement
+          | HTMLTextAreaElement;
         if (input) {
           const name = input.getAttribute('name');
           if (name) {
@@ -255,15 +282,15 @@ export class WidgetEventManager {
 
         // Attach appropriate event listeners
         if (field instanceof HTMLInputElement && field.type === 'range') {
-          field.addEventListener('input', updateValidation);
+          this.listen(field, 'input', updateValidation);
         }
-        field.addEventListener('change', updateValidation);
-        field.addEventListener('blur', updateValidation);
+        this.listen(field, 'change', updateValidation);
+        this.listen(field, 'blur', updateValidation);
       });
 
       // Attach click handlers to form buttons
       form.querySelectorAll('button[data-action]').forEach((button) => {
-        button.addEventListener('click', (e: Event) => {
+        this.listen(button, 'click', (e: Event) => {
           e.preventDefault();
           const actionType = button.getAttribute('data-action-type');
           const action = button.getAttribute('data-action');
@@ -276,7 +303,9 @@ export class WidgetEventManager {
             // Check if form is valid
             if (!this.isFormValid(validationState)) {
               // Show validation message
-              const validationMsg = form.querySelector('.bbq-form-validation-message') as HTMLElement;
+              const validationMsg = form.querySelector(
+                '.bbq-form-validation-message'
+              ) as HTMLElement;
               if (validationMsg) {
                 validationMsg.style.display = 'block';
               }
@@ -312,11 +341,13 @@ export class WidgetEventManager {
                   payload[name] = field.value;
                 }
               } else if (field.type === 'file') {
-                payload[name] = field.files ? Array.from(field.files).map((f) => ({
-                  name: f.name,
-                  size: f.size,
-                  type: f.type,
-                })) : [];
+                payload[name] = field.files
+                  ? Array.from(field.files).map((f) => ({
+                      name: f.name,
+                      size: f.size,
+                      type: f.type,
+                    }))
+                  : [];
               } else {
                 payload[name] = field.value;
               }
@@ -341,6 +372,8 @@ export class WidgetEventManager {
    * Check if a field value is valid (not empty for required fields)
    */
   private isFieldValid(field: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement): boolean {
+    if (!(field instanceof HTMLInputElement && field.type === 'file') && !field.checkValidity())
+      return false;
     // For text inputs and textareas, check if value is not empty
     if (field instanceof HTMLInputElement) {
       if (field.type === 'checkbox' || field.type === 'radio') {

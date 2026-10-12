@@ -113,7 +113,8 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
       const imageUrl = this.escape(widget.imageUrl);
       const imageAlt = this.escape(widget.title);
       // Inline styles ensure the image never exceeds the card bounds even if consumer CSS is missing
-      const imgStyle = 'display:block;max-width:100%;height:auto;object-fit:cover;max-height:200px;border-radius:6px;margin-bottom:12px;';
+      const imgStyle =
+        'display:block;max-width:100%;height:auto;object-fit:cover;max-height:200px;border-radius:6px;margin-bottom:12px;';
       html += `<img class="bbq-card-image" src="${imageUrl}" alt="${imageAlt}" loading="lazy" style="${imgStyle}" />`;
     }
 
@@ -131,10 +132,14 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     let html = `<div class="bbq-widget bbq-input" data-widget-id="${id}" data-widget-type="input">`;
     html += `<label class="bbq-input-label" for="${inputId}">${label}</label>`;
 
-    const placeholder = widget.placeholder ? ` placeholder="${this.escape(widget.placeholder)}"` : '';
-    const maxLength = widget.maxLength ? ` maxlength="${widget.maxLength}"` : '';
+    const placeholder = widget.placeholder
+      ? ` placeholder="${this.escape(widget.placeholder)}"`
+      : '';
+    const maxLength = widget.maxLength
+      ? ` maxlength="${this.escape(String(widget.maxLength))}"`
+      : '';
 
-    html += `<input type="text" id="${inputId}" class="bbq-input-field" data-action="${action}"${placeholder}${maxLength} aria-labelledby="${inputId}" />`;
+    html += `<input type="text" id="${inputId}" class="bbq-input-field" data-action="${action}"${placeholder}${maxLength} aria-label="${label}" />`;
     html += '</div>';
 
     return html;
@@ -149,11 +154,15 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     let html = `<div class="bbq-widget bbq-textarea" data-widget-id="${id}" data-widget-type="textarea">`;
     html += `<label class="bbq-textarea-label" for="${textareaId}">${label}</label>`;
 
-    const placeholder = widget.placeholder ? ` placeholder="${this.escape(widget.placeholder)}"` : '';
-    const maxLength = widget.maxLength ? ` maxlength="${widget.maxLength}"` : '';
-    const rows = widget.rows ? ` rows="${widget.rows}"` : ' rows="4"';
+    const placeholder = widget.placeholder
+      ? ` placeholder="${this.escape(widget.placeholder)}"`
+      : '';
+    const maxLength = widget.maxLength
+      ? ` maxlength="${this.escape(String(widget.maxLength))}"`
+      : '';
+    const rows = widget.rows ? ` rows="${this.escape(String(widget.rows))}"` : ' rows="4"';
 
-    html += `<textarea id="${textareaId}" class="bbq-textarea-field" data-action="${action}"${placeholder}${maxLength}${rows} aria-labelledby="${textareaId}"></textarea>`;
+    html += `<textarea id="${textareaId}" class="bbq-textarea-field" data-action="${action}"${placeholder}${maxLength}${rows} aria-label="${label}"></textarea>`;
     html += '</div>';
 
     return html;
@@ -167,7 +176,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
 
     let html = `<div class="bbq-widget bbq-dropdown" data-widget-id="${id}" data-widget-type="dropdown">`;
     html += `<label class="bbq-dropdown-label" for="${selectId}">${label}</label>`;
-    html += `<select id="${selectId}" class="bbq-dropdown-select" data-action="${action}" aria-labelledby="${selectId}">`;
+    html += `<select id="${selectId}" class="bbq-dropdown-select" data-action="${action}" aria-label="${label}">`;
 
     for (const option of widget.options) {
       const escapedOption = this.escape(option);
@@ -188,10 +197,10 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     let html = `<div class="bbq-widget bbq-slider" data-widget-id="${id}" data-widget-type="slider">`;
     html += `<label class="bbq-slider-label" for="${sliderId}">${label}</label>`;
 
-    const defaultValue = widget.default ?? widget.min;
+    const defaultValue = widget.defaultValue ?? widget.default ?? widget.min;
 
-    html += `<input type="range" id="${sliderId}" class="bbq-slider-input" min="${widget.min}" max="${widget.max}" step="${widget.step}" value="${defaultValue}" data-action="${action}" aria-label="${label}" />`;
-    html += `<span class="bbq-slider-value" aria-live="polite">${defaultValue}</span>`;
+    html += `<input type="range" id="${sliderId}" class="bbq-slider-input" min="${this.escape(String(widget.min))}" max="${this.escape(String(widget.max))}" step="${this.escape(String(widget.step))}" value="${this.escape(String(defaultValue))}" data-action="${action}" aria-label="${label}" />`;
+    html += `<span class="bbq-slider-value" aria-live="polite">${this.escape(String(defaultValue))}</span>`;
     html += '</div>';
 
     return html;
@@ -223,9 +232,11 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     html += `<label class="bbq-file-label" for="${inputId}">${label}</label>`;
 
     const accept = widget.accept ? ` accept="${this.escape(widget.accept)}"` : '';
-    const maxBytes = widget.maxBytes ? ` data-max-bytes="${widget.maxBytes}"` : '';
+    const maxBytes = widget.maxBytes
+      ? ` data-max-bytes="${this.escape(String(widget.maxBytes))}"`
+      : '';
 
-    html += `<input type="file" id="${inputId}" class="bbq-file-input" data-action="${action}"${accept}${maxBytes} aria-labelledby="${inputId}" />`;
+    html += `<input type="file" id="${inputId}" class="bbq-file-input" data-action="${action}"${accept}${maxBytes} aria-label="${label}" />`;
     html += '</div>';
 
     return html;
@@ -239,7 +250,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
 
     let html = `<div class="bbq-widget bbq-theme-switcher" data-widget-id="${id}" data-widget-type="themeswitcher">`;
     html += `<label class="bbq-theme-switcher-label" for="${selectId}">${label}</label>`;
-    html += `<select id="${selectId}" class="bbq-theme-switcher-select" data-action="${action}" aria-labelledby="${selectId}">`;
+    html += `<select id="${selectId}" class="bbq-theme-switcher-select" data-action="${action}" aria-label="${label}">`;
 
     for (const theme of widget.themes) {
       const escapedTheme = this.escape(theme);
@@ -263,7 +274,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     const minDate = widget.minDate ? ` min="${this.escape(widget.minDate)}"` : '';
     const maxDate = widget.maxDate ? ` max="${this.escape(widget.maxDate)}"` : '';
 
-    html += `<input type="date" id="${inputId}" class="bbq-date-picker-input" data-action="${action}"${minDate}${maxDate} aria-labelledby="${inputId}" />`;
+    html += `<input type="date" id="${inputId}" class="bbq-date-picker-input" data-action="${action}"${minDate}${maxDate} aria-label="${label}" />`;
     html += '</div>';
 
     return html;
@@ -277,7 +288,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
 
     let html = `<div class="bbq-widget bbq-multi-select" data-widget-id="${id}" data-widget-type="multiselect">`;
     html += `<label class="bbq-multi-select-label" for="${selectId}">${label}</label>`;
-    html += `<select id="${selectId}" class="bbq-multi-select-select" data-action="${action}" multiple aria-labelledby="${selectId}">`;
+    html += `<select id="${selectId}" class="bbq-multi-select-select" data-action="${action}" multiple aria-label="${label}">`;
 
     for (const option of widget.options) {
       const escapedOption = this.escape(option);
@@ -297,7 +308,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
 
     let html = `<div class="bbq-widget bbq-progress-bar" data-widget-id="${id}" data-widget-type="progressbar">`;
     html += `<label class="bbq-progress-bar-label" for="${id}-progress">${label}</label>`;
-    html += `<progress id="${id}-progress" class="bbq-progress-bar-element" value="${widget.value}" max="${widget.max}" data-action="${action}" aria-label="${label}" aria-valuenow="${widget.value}" aria-valuemin="0" aria-valuemax="${widget.max}">${percentage}%</progress>`;
+    html += `<progress id="${id}-progress" class="bbq-progress-bar-element" value="${this.escape(String(widget.value))}" max="${this.escape(String(widget.max))}" data-action="${action}" aria-label="${label}" aria-valuenow="${this.escape(String(widget.value))}" aria-valuemin="0" aria-valuemax="${this.escape(String(widget.max))}">${percentage}%</progress>`;
     html += `<span class="bbq-progress-bar-value" aria-live="polite">${percentage}%</span>`;
     html += '</div>';
 
@@ -359,8 +370,8 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
             const max = field.max ?? 100;
             const step = field.step ?? 1;
             const defaultValue = field.default ?? field.defaultValue ?? min;
-            html += `<input type="range" id="${fieldId}" class="bbq-form-slider" name="${this.escape(field.name)}" min="${min}" max="${max}" step="${step}" value="${defaultValue}"${required} data-field-type="${fieldType}" />`;
-            html += `<span class="bbq-form-slider-value" aria-live="polite">${defaultValue}</span>`;
+            html += `<input type="range" id="${fieldId}" class="bbq-form-slider" name="${this.escape(field.name)}" min="${this.escape(String(min))}" max="${this.escape(String(max))}" step="${this.escape(String(step))}" value="${this.escape(String(defaultValue))}"${required} data-field-type="${fieldType}" />`;
+            html += `<span class="bbq-form-slider-value" aria-live="polite">${this.escape(String(defaultValue))}</span>`;
             break;
           }
           case 'toggle': {
@@ -387,7 +398,9 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
             break;
           case 'fileupload': {
             const accept = field.accept ? ` accept="${this.escape(field.accept)}"` : '';
-            const maxBytes = field.maxBytes ? ` data-max-bytes="${field.maxBytes}"` : '';
+            const maxBytes = field.maxBytes
+              ? ` data-max-bytes="${this.escape(String(field.maxBytes))}"`
+              : '';
             html += `<input type="file" id="${fieldId}" class="bbq-form-fileupload" name="${this.escape(field.name)}"${accept}${maxBytes}${required} data-field-type="${fieldType}" />`;
             break;
           }
@@ -405,7 +418,8 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     }
 
     // Add validation message container (hidden by default)
-    html += '<div class="bbq-form-validation-message" style="display: none;">Please fill in all required fields before submitting.</div>';
+    html +=
+      '<div class="bbq-form-validation-message" style="display: none;">Please fill in all required fields before submitting.</div>';
 
     // Render form actions
     if (widget.actions && Array.isArray(widget.actions)) {

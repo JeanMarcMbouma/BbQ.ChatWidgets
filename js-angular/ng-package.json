@@ -5,5 +5,9 @@
     "entryFile": "src/public_api.ts",
     "flatModuleFile": "index"
   },
-  "deleteDestPath": true
+  "deleteDestPath": true,
+  "assets": [
+    "README.md",
+    "LICENSE"
+  ]
 }

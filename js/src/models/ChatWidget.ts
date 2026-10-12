@@ -40,7 +40,7 @@ export abstract class ChatWidget {
    * Deserialize a widget from plain object
    */
   static fromObject(obj: any): ChatWidget | null {
-    if (!obj.type) return null;
+    if (!obj || typeof obj !== 'object' || typeof obj.type !== 'string') return null;
 
     // Try runtime-registered custom widgets first
     const factory = customWidgetRegistry.getFactory(obj.type);
@@ -50,13 +50,7 @@ export abstract class ChatWidget {
       case 'button':
         return new ButtonWidget(obj.label, obj.action);
       case 'card':
-        return new CardWidget(
-          obj.label,
-          obj.action,
-          obj.title,
-          obj.description,
-          obj.imageUrl
-        );
+        return new CardWidget(obj.label, obj.action, obj.title, obj.description, obj.imageUrl);
       case 'input':
         return new InputWidget(obj.label, obj.action, obj.placeholder, obj.maxLength);
       case 'textarea':
@@ -94,11 +88,8 @@ export abstract class ChatWidget {
         );
       case 'image':
       case 'imagecollection': {
-        // Dynamic import to avoid ESM circular dependency (ImageWidgets imports ChatWidget)
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const mod = require('./ImageWidgets') as typeof import('./ImageWidgets');
         if (obj.type === 'image') {
-          return new mod.ImageWidget(
+          return new ImageWidget(
             obj.label,
             obj.action,
             obj.imageUrl,
@@ -107,7 +98,7 @@ export abstract class ChatWidget {
             obj.height
           );
         }
-        return new mod.ImageCollectionWidget(obj.label, obj.action, obj.images || []);
+        return new ImageCollectionWidget(obj.label, obj.action, obj.images || []);
       }
       default:
         return null;
@@ -239,7 +230,11 @@ export class TextAreaWidget extends ChatWidget {
  * Dropdown widget - single select from options
  */
 export class DropdownWidget extends ChatWidget {
-  constructor(label: string, action: string, readonly options: string[]) {
+  constructor(
+    label: string,
+    action: string,
+    readonly options: string[]
+  ) {
     super('dropdown', label, action);
   }
 
@@ -285,7 +280,11 @@ export class SliderWidget extends ChatWidget {
  * Toggle widget - boolean on/off switch
  */
 export class ToggleWidget extends ChatWidget {
-  constructor(label: string, action: string, readonly defaultValue: boolean = false) {
+  constructor(
+    label: string,
+    action: string,
+    readonly defaultValue: boolean = false
+  ) {
     super('toggle', label, action);
   }
 
@@ -327,7 +326,11 @@ export class FileUploadWidget extends ChatWidget {
  * Theme switcher widget - theme selection
  */
 export class ThemeSwitcherWidget extends ChatWidget {
-  constructor(label: string, action: string, readonly themes: string[]) {
+  constructor(
+    label: string,
+    action: string,
+    readonly themes: string[]
+  ) {
     super('themeswitcher', label, action);
   }
 
@@ -369,7 +372,11 @@ export class DatePickerWidget extends ChatWidget {
  * Multi-select widget - select multiple options
  */
 export class MultiSelectWidget extends ChatWidget {
-  constructor(label: string, action: string, readonly options: string[]) {
+  constructor(
+    label: string,
+    action: string,
+    readonly options: string[]
+  ) {
     super('multiselect', label, action);
   }
 
@@ -387,7 +394,12 @@ export class MultiSelectWidget extends ChatWidget {
  * Progress bar widget - display task progress
  */
 export class ProgressBarWidget extends ChatWidget {
-  constructor(label: string, action: string, readonly value: number, readonly max: number) {
+  constructor(
+    label: string,
+    action: string,
+    readonly value: number,
+    readonly max: number
+  ) {
     super('progressbar', label, action);
   }
 
@@ -449,3 +461,54 @@ export class FormWidget extends ChatWidget {
   }
 }
 
+export class ImageWidget extends ChatWidget {
+  constructor(
+    label: string,
+    action: string,
+    readonly imageUrl: string,
+    readonly alt?: string,
+    readonly width?: number,
+    readonly height?: number
+  ) {
+    super('image', label, action);
+  }
+
+  toObject() {
+    return {
+      type: this.type,
+      label: this.label,
+      action: this.action,
+      imageUrl: this.imageUrl,
+      alt: this.alt,
+      width: this.width,
+      height: this.height,
+    };
+  }
+}
+
+export interface ImageItem {
+  imageUrl: string;
+  alt?: string;
+  action?: string;
+  width?: number;
+  height?: number;
+}
+
+export class ImageCollectionWidget extends ChatWidget {
+  constructor(
+    label: string,
+    action: string,
+    readonly images: ImageItem[]
+  ) {
+    super('imagecollection', label, action);
+  }
+
+  toObject() {
+    return {
+      type: this.type,
+      label: this.label,
+      action: this.action,
+      images: this.images,
+    };
+  }
+}

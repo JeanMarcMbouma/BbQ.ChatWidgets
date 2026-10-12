@@ -22,12 +22,27 @@ export class WidgetSseManager {
   private handlers: Map<string, (payload: any) => void> = new Map();
   private readonly reducer = new WidgetStreamReducer();
 
-  constructor(private widgetManager: WidgetManager, private opts?: WidgetSseOptions) {}
+  constructor(
+    private widgetManager: WidgetManager,
+    private opts?: WidgetSseOptions
+  ) {}
 
   connect(url: string): void {
-    this.es = this.opts?.createEventSource ? this.opts.createEventSource(url) : new EventSource(url);
+    this.disconnect();
+    this.es = this.opts?.createEventSource
+      ? this.opts.createEventSource(url)
+      : new EventSource(url);
     this.es.addEventListener('message', (e: MessageEvent) => this.onMessage(e));
-    for (const name of ['widget.snapshot', 'widget.upsert', 'widget.patch', 'widget.remove', 'widget.status', 'widget.action-result', 'stream.resync-required', 'stream.heartbeat'])
+    for (const name of [
+      'widget.snapshot',
+      'widget.upsert',
+      'widget.patch',
+      'widget.remove',
+      'widget.status',
+      'widget.action-result',
+      'stream.resync-required',
+      'stream.heartbeat',
+    ])
       this.es.addEventListener(name, (e: MessageEvent) => this.onProtocolEvent(name, e));
     this.es.addEventListener('error', () => {
       // swallow for now — consumers can reconnect externally
@@ -60,6 +75,7 @@ export class WidgetSseManager {
       return;
     }
 
+    if (!data || typeof data !== 'object') return;
     const widgetId = data.widgetId as string | undefined;
 
     // Call any registered handler first
@@ -71,14 +87,15 @@ export class WidgetSseManager {
 
     // If event contains a full widget object, update the DOM by rendering the widget
     if (widgetId && data.widget) {
-      const el = document.querySelector(`[data-widget-id="${widgetId}"]`);
+      const el = this.widgetManager.findWidget('data-widget-id', widgetId);
       if (el) {
         const html = this.widgetManager.renderWidget(data.widget);
         // Replace the widget element HTML and reattach handlers within the parent
         const parent = el.parentElement;
+        this.widgetManager.detachHandlers(el);
         el.outerHTML = html;
         if (parent) {
-          const newEl = parent.querySelector(`[data-widget-id="${widgetId}"]`);
+          const newEl = this.widgetManager.findWidget('data-widget-id', widgetId);
           if (newEl) this.widgetManager.attachHandlers(parent);
         }
       }
@@ -87,12 +104,27 @@ export class WidgetSseManager {
 
   private onProtocolEvent(kind: string, e: MessageEvent): void {
     let event: WidgetStreamEvent;
-    try { event = JSON.parse(e.data); } catch { this.opts?.onResyncRequired?.('invalid-json'); return; }
+    try {
+      event = JSON.parse(e.data);
+    } catch {
+      this.opts?.onResyncRequired?.('invalid-json');
+      return;
+    }
+    if (!event || typeof event !== 'object') {
+      this.opts?.onResyncRequired?.('invalid-envelope');
+      return;
+    }
     event.kind = (event.kind ?? kind) as WidgetStreamEvent['kind'];
     const result = this.reducer.reduce(event);
-    if (result.status === 'resync-required') { this.opts?.onResyncRequired?.(result.reason); return; }
+    if (result.status === 'resync-required') {
+      this.opts?.onResyncRequired?.(result.reason);
+      return;
+    }
     if (result.status !== 'applied') return;
-    if (!result.state) { this.widgetManager.unmountWidget(result.instanceId); return; }
+    if (!result.state) {
+      this.widgetManager.unmountWidget(result.instanceId);
+      return;
+    }
     this.widgetManager.updateWidget(result.instanceId, result.state.widget);
   }
 }
@@ -103,7 +135,11 @@ export default WidgetSseManager;
  * Convenience: create and connect a WidgetSseManager for a given URL.
  * Returns the manager instance so the caller can register handlers or disconnect.
  */
-export function connectWidgetSse(widgetManager: import('../renderers/WidgetManager').WidgetManager, url: string, opts?: WidgetSseOptions) {
+export function connectWidgetSse(
+  widgetManager: import('../renderers/WidgetManager').WidgetManager,
+  url: string,
+  opts?: WidgetSseOptions
+) {
   const mgr = new WidgetSseManager(widgetManager, opts);
   mgr.connect(url);
   return mgr;

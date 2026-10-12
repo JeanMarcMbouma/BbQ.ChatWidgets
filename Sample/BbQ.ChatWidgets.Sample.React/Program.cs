@@ -34,10 +34,27 @@ var services = builder.Services;
 var openaiModelId = configuration["OpenAI:ModelId"] ?? "gpt-4o-mini";
 var openaiApiKey = configuration["OpenAI:ApiKey"];
 
-if (string.IsNullOrEmpty(openaiApiKey))
+// The public playground works without a provider. Live APIs need explicit production opt-in.
+if (string.IsNullOrWhiteSpace(openaiApiKey) ||
+    (!builder.Environment.IsDevelopment() && !configuration.GetValue<bool>("Demo:EnableLiveApi")))
 {
-    throw new InvalidOperationException(
-        "OpenAI API key not found. Please set 'OpenAI:ApiKey' in appsettings.Development.json or environment variables.");
+    var playgroundApp = builder.Build();
+    playgroundApp.UseDefaultFiles();
+    playgroundApp.UseStaticFiles();
+    playgroundApp.Use(async (context, next) =>
+    {
+        if (context.Request.Path.StartsWithSegments("/api") || context.Request.Path.StartsWithSegments("/sample"))
+        {
+            context.Response.StatusCode = StatusCodes.Status503ServiceUnavailable;
+            await context.Response.WriteAsJsonAsync(new { error = "Live examples are disabled. Configure an AI provider and enable the live API in a protected environment." });
+            return;
+        }
+        await next();
+    });
+    playgroundApp.MapGet("/health", () => Results.Ok(new { status = "healthy", mode = "playground" }));
+    playgroundApp.MapFallbackToFile("index.html");
+    playgroundApp.Run();
+    return;
 }
 
 IChatClient openaiClient =
@@ -107,23 +124,12 @@ services.AddSingleton<ClockPublisher>();
 // Register sample weather publisher for SSE demo
 services.AddSingleton<WeatherPublisher>();
 
-// Add CORS for React frontend
-services.AddCors(options =>
-{
-    options.AddDefaultPolicy(builder =>
-    {
-        builder
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader();
-    });
-});
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
 app.UseRouting();
-app.UseCors();
+app.MapGet("/health", () => Results.Ok(new { status = "healthy", mode = "live" }));
 app.UseDefaultFiles();
 app.UseStaticFiles();
 

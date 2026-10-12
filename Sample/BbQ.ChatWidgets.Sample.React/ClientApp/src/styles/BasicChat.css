@@ -555,3 +555,19 @@
     transform: translateY(0);
   }
 }
+/* Keep the persona and message controls usable on narrow screens. */
+.basic-chat-page,
+.basic-chat-page * {
+  box-sizing: border-box;
+}
+.basic-chat-page .input-area {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+.basic-chat-page .input-area > input:first-child {
+  grid-column: 1 / -1;
+}
+.basic-chat-page .chat-input {
+  min-width: 0;
+  width: 100%;
+}

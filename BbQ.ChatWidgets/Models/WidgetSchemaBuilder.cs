@@ -29,7 +29,26 @@ internal static class WidgetSchemaBuilder
         if (widgetConverter is not null)
             exporterOptions.Converters.Remove(widgetConverter);
 
-        var generated = exporterOptions.GetJsonSchemaAsNode(runtimeType);
+        var generated = exporterOptions.GetJsonSchemaAsNode(runtimeType, new JsonSchemaExporterOptions
+        {
+            TransformSchemaNode = (_, node) =>
+            {
+                // AllowReadingFromString exports numeric string patterns using \d.
+                // Grammar-based providers (including llama.cpp) do not support that
+                // shorthand and silently fall back to accepting any string. Spell
+                // out the equivalent JSON-number digits without loosening validation.
+                if (node is JsonObject numericSchema &&
+                    numericSchema["type"] is JsonArray types &&
+                    types.Any(type => type?.GetValue<string>() is "integer" or "number") &&
+                    numericSchema["pattern"] is JsonValue pattern &&
+                    pattern.TryGetValue<string>(out var expression))
+                {
+                    numericSchema["pattern"] = expression.Replace(@"\d", "[0-9]", StringComparison.Ordinal);
+                }
+
+                return node;
+            }
+        });
         if (generated is not JsonObject schema)
             throw new InvalidOperationException($"Schema generation for '{runtimeType}' did not produce an object schema.");
 

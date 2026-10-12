@@ -11,6 +11,52 @@ namespace BbQ.ChatWidgets.Tests.Services;
 public sealed class EmitWidgetsAIFunctionTests
 {
     [Fact]
+    public void JsonSchema_NumericPatternsUsePortableDigitsIncludingNestedItems()
+    {
+        var catalogue = new WidgetSchemaCatalogue(new WidgetRegistry());
+        var schema = CreateFunction(catalogue).JsonSchema;
+        var patternCount = 0;
+
+        void Inspect(JsonElement node)
+        {
+            if (node.ValueKind == JsonValueKind.Object)
+            {
+                if (node.TryGetProperty("pattern", out var pattern))
+                {
+                    Assert.DoesNotContain(@"\d", pattern.GetString()!);
+                    Assert.Contains("[0-9]", pattern.GetString()!);
+                    patternCount++;
+                }
+                foreach (var property in node.EnumerateObject()) Inspect(property.Value);
+            }
+            else if (node.ValueKind == JsonValueKind.Array)
+                foreach (var item in node.EnumerateArray()) Inspect(item);
+        }
+
+        Inspect(schema);
+        Assert.True(patternCount > 10, "Inspect numeric fields throughout the built-in catalogue, including image collection items.");
+    }
+
+    [Theory]
+    [InlineData("25", true)]
+    [InlineData("\"25\"", true)]
+    [InlineData("\"twenty-five\"", false)]
+    [InlineData("\"2x\"", false)]
+    public async Task InvokeAsync_NumericSchemaStillValidatesNumbersAndNumericStrings(string value, bool valid)
+    {
+        var emitted = false;
+        var function = new EmitWidgetsAIFunction(
+            new WidgetSchemaCatalogue(new WidgetRegistry()),
+            (_, _) => { emitted = true; return ValueTask.CompletedTask; });
+        var widgets = JsonSerializer.Deserialize<JsonElement>(
+            $$"""[{"type":"slider","label":"Value","action":"set_value","min":0,"max":100,"step":1,"default":{{value}}}]""");
+
+        await function.InvokeAsync(new AIFunctionArguments { ["widgets"] = widgets });
+
+        Assert.Equal(valid, emitted);
+    }
+
+    [Fact]
     public void JsonSchema_UsesDiscriminatedUnionOfCanonicalDefinitions()
     {
         var catalogue = new WidgetSchemaCatalogue(new WidgetRegistry());
@@ -33,6 +79,8 @@ public sealed class EmitWidgetsAIFunctionTests
         {
             Assert.False(branch.GetProperty("additionalProperties").GetBoolean());
             var properties = branch.GetProperty("properties");
+            Assert.Equal("type", properties.EnumerateObject().First().Name);
+            Assert.Equal("type", branch.GetProperty("required")[0].GetString());
             Assert.Equal(properties.EnumerateObject().Count(), branch.GetProperty("required").GetArrayLength());
             Assert.True(properties.GetProperty("type").TryGetProperty("const", out _));
             Assert.False(branch.TryGetProperty("$id", out _));

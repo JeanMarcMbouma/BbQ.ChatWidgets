@@ -61,10 +61,18 @@
     private readonly Dictionary<string, object?> formData = new();
     private readonly Dictionary<string, bool> fieldValidationState = new();
     private bool hasAttemptedSubmit = false;
+    private FormWidget? initializedWidget;
 
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+        // Parent updates (such as displaying an action result) must not reset
+        // validation for the form the user just completed.
+        if (ReferenceEquals(Widget, initializedWidget)) return;
+        initializedWidget = Widget;
+        formData.Clear();
+        fieldValidationState.Clear();
+        hasAttemptedSubmit = false;
         
         // Initialize validation state for all fields
         if (Widget?.Fields != null)

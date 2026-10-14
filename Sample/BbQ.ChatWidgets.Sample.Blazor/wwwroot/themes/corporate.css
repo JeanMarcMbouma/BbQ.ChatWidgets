@@ -1,0 +1,3 @@
+/* Keep library themes below the shared demo and landing styles. */
+@layer widgets, demos, theme, landing;
+@import url('/_content/BbQ.ChatWidgets.Blazor/themes/bbq-chat-corporate.css') layer(widgets);

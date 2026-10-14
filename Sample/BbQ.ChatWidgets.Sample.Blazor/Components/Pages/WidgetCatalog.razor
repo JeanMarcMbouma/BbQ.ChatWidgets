@@ -58,6 +58,7 @@
 </div>
 
 <style>
+@@layer demos {
     .catalog-container {
         display: flex;
         flex-direction: column;
@@ -226,9 +227,11 @@
         background: none;
         padding: 0;
     }
+}
 </style>
 
 <style>
+@@layer demos {
     @@media (max-width: 1024px) {
         .catalog-content {
             grid-template-columns: 1fr;
@@ -241,6 +244,7 @@
             height: auto;
         }
     }
+}
 </style>
 
 @code {

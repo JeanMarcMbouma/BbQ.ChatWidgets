@@ -9,9 +9,10 @@
             {
                 <div class="bbq-chat-message bbq-message-@turn.Role.ToString().ToLower()">
                     <div class="bbq-message-content">
-                        @((MarkupString)turn.Content)
+                        @turn.Content
                     </div>
                     
+                    <WidgetGenerationNotice Outcome="turn.WidgetGeneration" />
                     @if (turn.Widgets != null && turn.Widgets.Count > 0)
                     {
                         <div class="bbq-message-widgets">
@@ -36,6 +37,7 @@
 </div>
 
 <style>
+@@layer demos {
     .bbq-chat-container {
         display: flex;
         flex-direction: column;
@@ -114,6 +116,7 @@
         border-radius: 50%;
         transition: border-color 0.3s ease;
     }
+}
 </style>
 
 @code {

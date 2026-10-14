@@ -1,0 +1,62 @@
+@using BbQ.ChatWidgets.Models
+@using BbQ.ChatWidgets.Blazor.Components
+<section class="playground" id="playground" aria-labelledby="playground-title">
+    <div class="section-heading"><div><p class="eyebrow">TRY IT YOURSELF</p><h2 id="playground-title">A conversation with a next step.</h2></div><span class="demo-badge">Local demo · no AI provider</span></div>
+    <div class="playground-layout">
+        <div class="example-list" aria-label="Choose a use case">
+            @for (var i = 0; i < Examples.Length; i++)
+            {
+                var index = i;
+                <button aria-pressed="@((selected == index).ToString().ToLowerInvariant())" @onclick="() => Select(index)"><span>@Examples[index].Category</span><strong>@Examples[index].Title</strong><span aria-hidden="true">↗</span></button>
+            }
+            <p>Real widgets. Sample responses.<br />Nothing is sent or saved.</p>
+        </div>
+        <div class="conversation-preview">
+            <div class="preview-heading"><span><span class="status-dot"></span> Interactive preview</span><button @onclick="() => Select(selected)">Reset</button></div>
+            <div class="preview-user">@Examples[selected].Prompt</div>
+            <div class="preview-assistant"><span class="assistant-mark" aria-hidden="true">B</span><div><p>@Examples[selected].Reply</p>
+                <div class="preview-widgets" @key="revision">
+                    @foreach (var widget in Examples[selected].Widgets)
+                    {
+                        <WidgetRenderer Widget="widget" OnAction="HandleAction" />
+                    }
+                </div>
+            </div></div>
+            <div role="status" class="action-result @(result.Length > 0 ? "visible" : "")">@(result.Length > 0 ? result : "Interact with a widget to see its action result.")</div>
+            <div class="preview-toolbar"><button aria-expanded="@showJson.ToString().ToLowerInvariant()" @onclick="() => showJson = !showJson">@(showJson ? "Hide" : "View") widget JSON</button></div>
+            @if (showJson) { <pre class="widget-json"><code>@System.Text.Json.JsonSerializer.Serialize(Examples[selected].Widgets, Serialization.Default)</code></pre> }
+        </div>
+    </div>
+</section>
+@code {
+    private int selected;
+    private int revision;
+    private bool showJson;
+    private string result = "";
+    private static readonly (string Category, string Title, string Prompt, string Reply, ChatWidget[] Widgets)[] Examples = [
+        ("Scheduling", "Book a visit", "I'd like to book a product walkthrough.", "Share a few details to get started.", [
+            new FormWidget("Your walkthrough", "book_visit", [
+                new FormField { Name = "name", Label = "Your name", Type = "input", Required = true },
+                new FormField { Name = "email", Label = "Email address", Type = "input", Required = true }
+            ], [new FormAction("submit", "Request walkthrough"), new FormAction("cancel", "Cancel")])
+        ]),
+        ("Customer support", "Resolve a problem", "I need help with my order.", "What would you like to do?", [
+            new ButtonWidget("Track my order", "track_order"), new ButtonWidget("Contact support", "contact_support")
+        ]),
+        ("Internal tools", "Make a decision", "The request is ready for review.", "Choose the next step for this sample request.", [
+            new ButtonWidget("Approve request", "approve"), new ButtonWidget("Request changes", "request_changes")
+        ])
+    ];
+    private void Select(int index) { selected = index; result = ""; revision++; }
+    private void HandleAction((string Action, object? Payload) action)
+    {
+        result = action.Action switch {
+            "book_visit" => "Your demo walkthrough request is ready. Nothing was booked or saved.",
+            "track_order" => "Demo update: your order is on its way.",
+            "contact_support" => "Demo request: a support conversation would start here.",
+            "approve" => "Demo request approved.",
+            "request_changes" => "Demo request returned for changes.",
+            _ => "Demo action received. Nothing was sent or saved."
+        };
+    }
+}

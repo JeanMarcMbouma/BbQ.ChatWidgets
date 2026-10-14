@@ -36,12 +36,6 @@ export function initializeTheme() {
         console.warn('Could not read theme from localStorage:', e);
     }
     
-    // Check for system preference for dark mode
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        applyThemeClass('dark');
-        return;
-    }
-    
     // Default to light theme
     applyThemeClass('light');
 }
@@ -51,4 +45,12 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initializeTheme);
 } else {
     initializeTheme();
+}
+
+// Sample wrappers keep dynamically selected library themes in the widgets layer.
+export function switchTheme(themeName) {
+    if (!['light', 'dark', 'corporate'].includes(themeName)) return;
+    const link = document.getElementById('bbq-theme-link');
+    if (link) link.href = new URL('themes/' + themeName + '.css', document.baseURI).href;
+    applyThemeClass(themeName);
 }

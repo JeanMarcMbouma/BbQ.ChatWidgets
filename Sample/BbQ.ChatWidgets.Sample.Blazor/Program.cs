@@ -33,19 +33,47 @@ if (string.IsNullOrEmpty(openaiApiKey))
         "OpenAI API key not found. Please set 'OpenAI:ApiKey' in appsettings.Development.json or environment variables.");
 }
 
+var clientOptions = new OpenAI.OpenAIClientOptions();
+if (!string.IsNullOrWhiteSpace(configuration["OpenAI:Endpoint"]))
+{
+    clientOptions.Endpoint = new Uri(configuration["OpenAI:Endpoint"]!, UriKind.Absolute);
+}
+
 IChatClient openaiClient =
-    new OpenAI.Chat.ChatClient(openaiModelId, openaiApiKey)
+    new OpenAI.Chat.ChatClient(openaiModelId, new System.ClientModel.ApiKeyCredential(openaiApiKey), clientOptions)
     .AsIChatClient();
 
+
 IChatClient chatClient = new ChatClientBuilder(openaiClient)
+    .ConfigureOptions(options =>
+    {
+        options.Temperature = configuration.GetValue<float?>("OpenAI:Temperature") ?? 0;
+        options.MaxOutputTokens = configuration.GetValue<int?>("OpenAI:MaxOutputTokens") ?? 1024;
+        if (options.ResponseFormat is ChatResponseFormatJson { Schema: { } schema }
+            && Uri.TryCreate(configuration["OpenAI:Endpoint"], UriKind.Absolute, out var endpoint) && endpoint.IsLoopback)
+        {
+            // The OpenAI adapter rewrites constraints such as minItems into prose.
+            // Local grammar servers need the original schema to enforce them.
+            options.RawRepresentationFactory = _ => new OpenAI.Chat.ChatCompletionOptions
+            {
+                ResponseFormat = OpenAI.Chat.ChatResponseFormat.CreateJsonSchemaFormat(
+                    "widget_response", BinaryData.FromString(schema.GetRawText()), jsonSchemaIsStrict: true)
+            };
+            options.ResponseFormat = null;
+        }
+    })
     .UseFunctionInvocation()
     .Build();
+
 
 // Register BbQ.ChatWidgets services
 services.AddBbQChatWidgets(bbqOptions =>
 {
-    bbqOptions.WidgetGenerationMode = WidgetGenerationMode.StrictToolCall;
     bbqOptions.RoutePrefix = "/api/chat";
+    bbqOptions.WidgetGenerationMode = (configuration.GetValue<bool?>("OpenAI:UseStructuredResponses")
+        ?? (Uri.TryCreate(configuration["OpenAI:Endpoint"], UriKind.Absolute, out var endpoint) && endpoint.IsLoopback))
+        ? WidgetGenerationMode.StructuredResponse : WidgetGenerationMode.StrictToolCall;
+    bbqOptions.RequireWidgetDecision = true;
     bbqOptions.ChatClientFactory = sp => chatClient;
     bbqOptions.EnablePersona = true;
     bbqOptions.WidgetRegistryConfigurator = registry =>
@@ -113,6 +141,17 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+// Linked shared styles are copied into wwwroot when published. During development,
+// serve their source directory so changes stay in sync with React and Angular.
+var sharedStylesPath = Path.GetFullPath(Path.Combine(app.Environment.ContentRootPath, "..", "shared-ui"));
+if (app.Environment.IsDevelopment() && Directory.Exists(sharedStylesPath))
+{
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(sharedStylesPath),
+        RequestPath = "/shared-ui"
+    });
+}
 app.UseAntiforgery();
 
 // Map BbQ Chat Widget endpoints

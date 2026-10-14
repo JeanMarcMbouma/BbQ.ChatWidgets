@@ -16,7 +16,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/JeanMarcMbouma/BbQ.ChatWidgets</PackageProjectUrl>
     <PackageTags>chat;widgets;ai;ui;aspnetcore;chat-ui;interactive-widgets;blazor</PackageTags>
-    <Version>1.1.0</Version>
+    <Version>1.1.2</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <LangVersion>Latest</LangVersion>
   </PropertyGroup>

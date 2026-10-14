@@ -1,159 +1,174 @@
-@rendermode @(new InteractiveServerRenderMode())
 @page "/"
-@using BbQ.ChatWidgets.Models
-@using BbQ.ChatWidgets.Blazor.Components
-@using Microsoft.Extensions.AI
-@using Microsoft.AspNetCore.Components.Web
-@inject NavigationManager NavigationManager
-
-<PageTitle>BbQ Chat Widgets - Blazor Sample</PageTitle>
-
-<div class="home-page">
-    <div class="header">
-        <h1>💬 BbQ.ChatWidgets Blazor Sample</h1>
-        <p class="tagline">Explore all supported chat scenarios</p>
-    </div>
-
-    <div class="intro-section">
-        <h2>Welcome to BbQ.ChatWidgets</h2>
-        <p>
-            A powerful library for building interactive chat applications with widgets, real-time streaming,
-            and advanced AI interactions. This Blazor sample demonstrates feature parity with the React implementation.
-        </p>
-
-        <div class="features">
-            <div class="feature">
-                <span class="icon">🧩</span>
-                <div>
-                    <h3>13+ Widgets</h3>
-                    <p>Interactive UI components (buttons, forms, sliders, etc.)</p>
-                </div>
+@rendermode InteractiveServer
+<PageTitle>BbQ ChatWidgets — Blazor</PageTitle>
+    <div class="home-page">
+      <a class="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      <header class="site-nav">
+        <a class="wordmark" href="#">
+          <span aria-hidden="true">B</span> BbQ
+          <span class="wordmark-detail">ChatWidgets</span>
+        </a>
+        <nav aria-label="Main navigation">
+          <a href="#playground">Playground</a>
+          <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/GETTING_STARTED.md">Docs</a>
+          <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets">GitHub ↗</a>
+        </nav>
+      </header>
+      <main id="main-content">
+        <section class="hero">
+          <div>
+            <p class="eyebrow">THE INTERACTIVE LAYER FOR AI CHAT</p>
+            <h1>
+              Less back-and-forth.
+              <br />
+              <span>More done.</span>
+            </h1>
+            <p class="hero-description">
+              Give your assistant more than a text box. Bring forms, choices,
+              and useful actions into the conversation, with a .NET backend and
+              the frontend you already use.
+            </p>
+            <div class="hero-actions">
+              <a class="primary-link" href="#playground">
+                Try the playground ↗
+              </a>
+              <a
+                class="secondary-link"
+                href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/GETTING_STARTED.md"
+              >
+                Start building →
+              </a>
             </div>
-            <div class="feature">
-                <span class="icon">⚡</span>
-                <div>
-                    <h3>Real-time Chat</h3>
-                    <p>Full conversation history with widget support</p>
-                </div>
+            <p class="hero-caption">
+              Open source · TypeScript + .NET · Your AI provider
+            </p>
+          </div>
+          <div class="hero-art" aria-label="From conversation to action">
+            <span class="art-label">A BETTER NEXT MESSAGE</span>
+            <p>“Let’s get that sorted.”</p>
+            <div class="art-card">
+              <span class="art-check" aria-hidden="true">
+                ✓
+              </span>
+              <div>
+                <strong>Choose. Confirm. Continue.</strong>
+                <span>Your workflow, inside the chat.</span>
+              </div>
             </div>
-            <div class="feature">
-                <span class="icon">🎯</span>
-                <div>
-                    <h3>Multi-Scenario</h3>
-                    <p>Widget demo, basic chat, streaming responses</p>
-                </div>
+            <div class="art-tags">
+              <span>Forms</span>
+              <span>Cards</span>
+              <span>Live updates</span>
             </div>
-            <div class="feature">
-                <span class="icon">🔒</span>
-                <div>
-                    <h3>Type-Safe</h3>
-                    <p>Full C# integration with automatic serialization</p>
-                </div>
-            </div>
+            <span class="art-caption">
+              Built for the moment after the answer.
+            </span>
+          </div>
+        </section>
+        <div class="stack-strip" aria-label="Supported integrations">
+          <span>ONE WIDGET CONTRACT.</span>
+          <strong>.NET</strong>
+          <strong>TypeScript</strong>
+          <strong>React</strong>
+          <strong>Angular</strong>
+          <strong>Blazor</strong>
         </div>
+        <Playground />
+        <section class="principles" aria-label="Why ChatWidgets">
+          <article>
+            <span>01 / FIT YOUR PRODUCT</span>
+            <h2>Your UI. Your rules.</h2>
+            <p>
+              Use built-in widgets or register your own renderers. Keep your
+              design system and application logic.
+            </p>
+          </article>
+          <article>
+            <span>02 / CONNECT THE ACTION</span>
+            <h2>From answer to outcome.</h2>
+            <p>
+              Collect structured input and route named actions to typed handlers
+              in your .NET application.
+            </p>
+          </article>
+          <article>
+            <span>03 / KEEP IT LIVE</span>
+            <h2>Updates that stay in context.</h2>
+            <p>
+              Stream widget changes as work progresses, without replacing the
+              entire conversation.
+            </p>
+          </article>
+        </section>
+        <section class="integration">
+          <div>
+            <p class="eyebrow">BUILD ON YOUR STACK</p>
+            <h2>
+              A small first step.
+              <br />
+              Room to make it yours.
+            </h2>
+            <p>
+              Start with one widget. Add live AI responses, custom actions, and
+              streaming when your workflow needs them.
+            </p>
+            <a
+              class="secondary-link"
+              href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/INTEGRATION_PATHS.md"
+            >
+              Choose your integration →
+            </a>
+          </div>
+          <div class="install-card">
+            <p>Install the client</p>
+            <pre>
+              <code>dotnet add package BbQ.ChatWidgets.Blazor</code>
+            </pre>
+            <p>Add the .NET backend</p>
+            <pre>
+              <code>dotnet add package BbQ.ChatWidgets</code>
+            </pre>
+            <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/guides/PRODUCTION.md">
+              Production deployment guide →
+            </a>
+          </div>
+        </section>
+        <section class="advanced-demos" aria-labelledby="advanced-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">GO DEEPER</p>
+              <h2 id="advanced-title">Explore the live integrations.</h2>
+              <p>
+                These examples require the sample backend and a configured AI
+                provider.
+              </p>
+            </div>
+          </div>
+          <div class="demo-grid">
+            @foreach (var scenario in Scenarios)
+            {
+                <a class="demo-card" href="@scenario.Path"><strong>@scenario.Name<span aria-hidden="true">↗</span></strong><span>@scenario.Description</span></a>
+            }
+          </div>
+        </section>
+      </main>
+      <footer class="site-footer">
+        <span>BbQ.ChatWidgets · Make the next message useful.</span>
+        <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/issues">Feedback & contributions ↗</a>
+      </footer>
     </div>
-
-    <div class="scenarios-section">
-        <h2>Explore Scenarios</h2>
-        <p class="section-intro">
-            Each scenario demonstrates a different aspect of BbQ.ChatWidgets functionality.
-        </p>
-
-        <div class="scenarios-grid">
-            <ScenarioCard 
-                Title="Widget Showcase" 
-                Description="See all available widgets in action"
-                Icon="●"
-                OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("widgets")))" />
-            
-            <ScenarioCard 
-                Title="Extensible Form Demo" 
-                Description="Forms with any widget type and validation"
-                Icon="📋"
-                OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("extensible-form")))" />
-            
-            <ScenarioCard 
-                Title="Basic Chat" 
-                Description="Simple conversation with AI responses"
-                Icon="✓"
-                OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("basic")))" />
-            
-            <ScenarioCard 
-                Title="Streaming Chat" 
-                Description="Real-time streaming responses"
-                Icon="»"
-                OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("streaming")))" />
-
-            <ScenarioCard 
-                Title="Triage Agent" 
-                Description="Automatic message classification and routing"
-                Icon="🎯"
-                OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("triage")))" />
-
-            <ScenarioCard 
-                Title="SSE Widget Updates" 
-                Description="Subscribe/publish widget updates over SSE"
-                Icon="📡"
-                OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("sse-widgets")))" />
-
-            <ScenarioCard 
-                Title="SSE Clock" 
-                Description="Live clock updates pushed from server"
-                Icon="⏰"
-                OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("sse-clock")))" />
-            
-            <ScenarioCard 
-                Title="Widget Demo Catalog" 
-                Description="Browse and learn about all widgets"
-                Icon="≡"
-                OnClick="@(EventCallback.Factory.Create(this, () => SelectScenario("catalog")))" />
-        </div>
-    </div>
-
-    <div class="documentation-section">
-        <h2>📚 Resources</h2>
-        <div class="docs-grid">
-            <div class="doc-card">
-                <h3>Getting Started</h3>
-                <p>Learn the basics of BbQ.ChatWidgets in 5 minutes</p>
-                <a href="https://github.com" target="_blank">View Guide →</a>
-            </div>
-            <div class="doc-card">
-                <h3>API Reference</h3>
-                <p>Complete API documentation for all endpoints</p>
-                <a href="https://github.com" target="_blank">View API →</a>
-            </div>
-            <div class="doc-card">
-                <h3>Widget Catalog</h3>
-                <p>All available widgets with examples</p>
-                <a href="https://github.com" target="_blank">Browse Widgets →</a>
-            </div>
-            <div class="doc-card">
-                <h3>Source Code</h3>
-                <p>Open-source on GitHub</p>
-                <a href="https://github.com" target="_blank">View Repository →</a>
-            </div>
-        </div>
-    </div>
-</div>
 
 @code {
-    private void SelectScenario(string scenario)
-    {
-        Console.WriteLine($"SelectScenario called with: {scenario}");
-        var url = scenario switch
-        {
-            "widgets" => "/widget-showcase",
-            "extensible-form" => "/extensible-form-demo",
-            "basic" => "/basic-chat",
-            "streaming" => "/streaming-chat",
-            "triage" => "/triage-agent",
-            "sse-widgets" => "/sse-widgets",
-            "sse-clock" => "/sse-clock",
-            "catalog" => "/widget-catalog",
-            _ => "/"
-        };
-        Console.WriteLine($"Navigating to: {url}");
-        NavigationManager.NavigateTo(url);
-    }
+    private static readonly (string Name, string Path, string Description)[] Scenarios = [
+        ("Basic Chat", "/basic-chat", "Have a conversation with AI and interactive widgets."),
+        ("Streaming Chat", "/streaming-chat", "Watch responses arrive as they are generated."),
+        ("Triage Agent", "/triage-agent", "Classify messages and route them to an agent."),
+        ("Widget Showcase", "/widget-showcase", "Try the native Blazor widget components."),
+        ("Extensible Form Demo", "/extensible-form-demo", "Explore forms, validation, and custom fields."),
+        ("SSE Widget Updates", "/sse-widgets", "Publish and subscribe to live widget updates."),
+        ("SSE Clock", "/sse-clock", "See a clock updated by server events."),
+        ("Widget Catalog", "/widget-catalog", "Browse the available widget types.")
+    ];
 }

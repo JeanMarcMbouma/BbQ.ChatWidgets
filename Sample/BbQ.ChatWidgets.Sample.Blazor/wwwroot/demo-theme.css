@@ -1,0 +1,60 @@
+@layer theme {
+  :root {
+    color-scheme: light;
+    --color-bg-primary: #f7f8f2; --color-bg-secondary: #fff;
+    --color-text-primary: #182820; --color-text-secondary: #58675f;
+    --color-border: #dce3dd; --color-border-light: #dce3dd;
+    --color-accent: #226548; --color-accent-hover: #194e37;
+    --color-accent-gradient: #226548; --color-header-gradient: #f7f8f2;
+    --color-message-user-bg: #eef2e9; --color-message-assistant-bg: #fff;
+    --color-card-bg: #fff; --color-card-hover-bg: #eef2e9;
+    --color-input-bg: #fff; --color-input-border: #cbd6cc;
+  }
+  .theme-dark { color-scheme: dark; --color-header-gradient: #0f172a; }
+  body { font-family: Inter, system-ui, sans-serif; }
+  button, input, textarea, select { font: inherit; }
+  button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }
+  .sample-shell > :is(.chat-container, .demo-container, .showcase-container, .catalog-container, .sse-container) { height: auto; min-height: calc(100dvh - 60px); }
+  .sample-shell :is(.chat-header, .demo-header, .showcase-header, .catalog-header, .sse-header) { background: var(--color-bg-primary); color: var(--color-text-primary); border-bottom: 1px solid var(--color-border); box-shadow: none; padding: 24px max(24px, calc((100vw - 1120px) / 2)); flex-wrap: wrap; }
+  .sample-shell :is(.chat-header, .demo-header, .showcase-header, .catalog-header) h1 { font-size: clamp(1.3rem, 3vw, 1.8rem); letter-spacing: -.04em; }
+  .sample-shell .btn-back { background: var(--color-bg-secondary); color: var(--color-accent); border: 1px solid var(--color-border); border-radius: 8px; }
+  .sample-shell .bbq-chat-container { flex: 1; height: auto; min-height: 300px; width: 100%; max-width: 1120px; margin: auto; }
+  .sample-shell .bbq-chat-messages { gap: 20px; padding: 24px; }
+  .sample-shell .bbq-message-content { border-radius: 14px; padding: 16px 20px; box-shadow: none; overflow-wrap: anywhere; }
+  .sample-shell .bbq-message-user .bbq-message-content { color: var(--color-text-primary); }
+  .sample-shell .chat-input-section { width: 100%; max-width: 1120px; margin: 0 auto; padding: 24px; background: var(--color-bg-primary); }
+  .sample-shell .input-group { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; }
+  .sample-shell .input-group > :is(label, input) { grid-column: 1 / -1; }
+  .sample-shell .input-group :is(input:not([type=checkbox]), textarea) { min-width: 0; width: 100%; padding: 12px 14px; border: 1px solid var(--color-input-border); border-radius: 8px; background: var(--color-input-bg); color: var(--color-text-primary); }
+  .sample-shell .widget-preference { display: flex; align-items: center; gap: 8px; }
+  .sample-shell .input-group input[type=checkbox] { width: auto; flex: none; padding: 0; margin: 0; box-shadow: none; accent-color: var(--color-accent); }
+  .sample-shell .btn-send { background: var(--color-accent); border-radius: 8px; box-shadow: none; }
+  .widget-generation-notice { padding: 12px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-bg-secondary); overflow-wrap: anywhere; }
+  .theme-controls { background: var(--color-bg-primary); padding: 8px 24px; }
+  .theme-switcher { display: flex; align-items: center; gap: 8px; }
+  .theme-switcher select { padding: 6px 10px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--color-input-bg); color: var(--color-text-primary); }
+  @media (max-width: 640px) {
+    .sample-shell .chat-input-section, .sample-shell .bbq-chat-messages { padding: 16px; }
+    .sample-shell .input-group textarea { font-size: 16px; }
+    .sample-shell .bbq-message-content { max-width: 100%; }
+  }
+}
+
+/* Native Blazor forms use component wrappers instead of the JS fieldset markup. */
+@layer landing {
+  .home-page { color-scheme: light; }
+  .home-page .preview-widgets .bbq-form { box-shadow: none; }
+  .home-page .preview-widgets .bbq-form-title { color: var(--ink); font-size: 14px; font-weight: 650; margin: 0 0 14px; padding: 0; border: 0; }
+  .home-page .preview-widgets .bbq-form-fields { gap: 0; margin: 0; }
+  .home-page .preview-widgets .bbq-input-widget { margin: 0; }
+  .home-page .preview-widgets .bbq-input-label { color: var(--ink); }
+  .home-page .preview-widgets .bbq-input { margin: 0; box-shadow: none; }
+  .home-page .preview-widgets .bbq-input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .home-page .preview-widgets .bbq-form-actions { padding: 0; margin: 16px 0 0; border: 0; background: transparent; gap: 8px; justify-content: flex-start; flex-wrap: wrap; }
+  .home-page .preview-widgets .bbq-button { margin: 0; box-shadow: none; transform: none; }
+  .home-page .preview-widgets .bbq-button:hover:not(:disabled) { background: #194e37; box-shadow: none; transform: none; }
+}
+
+@layer landing {
+  .home-page .preview-widgets :is(.bbq-form-validation-message, .bbq-form-field-error-text) { color: #a63c32; }
+}

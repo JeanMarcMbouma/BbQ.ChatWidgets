@@ -4,6 +4,26 @@ All notable changes to BbQ.ChatWidgets will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and package versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.2] - Unreleased
+
+### Changed
+
+- Align the Blazor sample landing page and interactive booking, support, and approval playground with the React and Angular samples, including responsive layout and shared styles.
+- Keep playground colors, inputs, buttons, and spacing consistent across saved light, dark, and corporate themes.
+- Expose widget generation outcomes and the widget requirement option in live Blazor examples; consume streaming responses as they arrive.
+- Support configurable OpenAI-compatible endpoints and local structured responses in the Blazor sample.
+
+### Fixed
+
+- Preserve Blazor form values and validation state when a parent rerenders the same widget; reset state when the widget changes.
+- Associate input labels with unique control IDs and render chat text safely.
+- Load shared landing styles in development and published output, and initialize theme interop after interactive rendering.
+
+### Release preparation
+
+- Align `BbQ.ChatWidgets`, `BbQ.ChatWidgets.Blazor`, and `BbQ.LlamaCpp` at 1.1.2 for the existing NuGet release workflow. npm packages remain at 1.1.1.
+- After merge and successful checks, the `v1.1.2` tag triggers the existing .NET publishing workflow. This preparation does not publish packages.
+
 ## [1.1.0] - Unreleased
 
 ### Added

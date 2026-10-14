@@ -1,14 +1,15 @@
 @inherits LayoutComponentBase
 
-<div class="page">
+<div class="sample-shell">
     <div class="theme-controls">
-        <ThemeSwitcher />
+        <ThemeSwitcher @rendermode="InteractiveServer" />
     </div>
     @Body
 </div>
 
 <style>
-    .page {
+@@layer demos {
+    .sample-shell {
         position: relative;
         display: flex;
         flex-direction: column;
@@ -22,4 +23,5 @@
         justify-content: flex-end;
         transition: background-color 0.3s ease, border-color 0.3s ease;
     }
+}
 </style>

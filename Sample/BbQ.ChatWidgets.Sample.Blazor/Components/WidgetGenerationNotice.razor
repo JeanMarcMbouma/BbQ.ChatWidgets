@@ -1,0 +1,18 @@
+@using BbQ.ChatWidgets.Models
+@if (Outcome is not null && Outcome.Status != "emitted")
+{
+    <aside class="widget-generation-notice" role="status">
+        <p>@(Outcome.Status switch {
+            "not_called" => "No widget was generated: the model did not invoke the widget tool.",
+            "rejected" => "The widget was rejected by validation and was not displayed.",
+            _ => "The model chose a text-only response; no widget was generated."
+        })</p>
+        @foreach (var diagnostic in Outcome.Diagnostics ?? [])
+        {
+            <p><code>@diagnostic.Code</code> at <code>@diagnostic.Path</code>: @diagnostic.Message</p>
+        }
+    </aside>
+}
+@code {
+    [Parameter] public WidgetGenerationOutcome? Outcome { get; set; }
+}

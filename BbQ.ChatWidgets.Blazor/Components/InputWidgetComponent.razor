@@ -2,8 +2,9 @@
 @using Microsoft.AspNetCore.Components
 
 <div class="bbq-widget bbq-input-widget">
-    <label class="bbq-input-label">@Widget?.Label</label>
+    <label class="bbq-input-label" for="@inputId">@Widget?.Label</label>
     <input 
+        id="@inputId"
         type="text" 
         class="bbq-input" 
         placeholder="@(Widget?.Placeholder ?? string.Empty)"
@@ -14,6 +15,7 @@
 </div>
 
 @code {
+    private readonly string inputId = $"bbq-input-{Guid.NewGuid():N}";
     [Parameter]
     public InputWidget? Widget { get; set; }
 

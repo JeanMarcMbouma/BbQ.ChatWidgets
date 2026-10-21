@@ -210,3 +210,7 @@ See **[CHANGELOG.md](CHANGELOG.md)** for version history and release notes.
 ## 📄 License
 
 See `LICENSE`.
+
+## External listings 
+
+[![XERJ Corpus Hub contributor](https://hub.xerj.org/contributors/JeanMarcMbouma/badge.svg)](https://hub.xerj.org/contributors/JeanMarcMbouma)

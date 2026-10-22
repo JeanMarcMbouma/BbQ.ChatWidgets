@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@angular/build": "^21.0.5",
-    "@angular/cli": "^21.0.5",
+    "@angular/cli": "^22.2.3",
     "@angular/compiler-cli": "^21.2.24",
     "@bbq-chat/widgets": "file:../js",
     "@types/node": "^20.19.0",

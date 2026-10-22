@@ -155,7 +155,8 @@ jobs:
       working-directory: Sample/BbQ.ChatWidgets.Sample.React/ClientApp
       run: npm run test:e2e
     - uses: actions/upload-artifact@v4
-      if: always()
+      if: failure()
       with:
+        retention-days: 7
         name: playground-browser-results
         path: Sample/BbQ.ChatWidgets.Sample.React/ClientApp/test-results

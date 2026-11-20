@@ -4,6 +4,8 @@
   <Folder Name="/samples/">
     <Project Path="Sample/BbQ.ChatWidgets.Sample.React/BbQ.ChatWidgets.Sample.React.csproj" />
     <Project Path="Sample/BbQ.ChatWidgets.Sample.Angular/BbQ.ChatWidgets.Sample.Angular.csproj" />
+    <Project Path="Sample/BbQ.ChatWidgets.Sample.Reporting/Host/Sample.csproj" />
+    <Project Path="Sample/BbQ.ChatWidgets.Sample.Reporting/Reporting/Reporting.csproj" />
     <Project Path="Sample/BbQ.ChatWidgets.Sample.Shared/BbQ.ChatWidgets.Sample.Shared.csproj" />
     <Project Path="Sample/BbQ.ChatWidgets.Sample.Console/BbQ.ChatWidgets.Sample.Console.csproj" />
     <Project Path="Sample/BbQ.ChatWidgets.Sample.Blazor/BbQ.ChatWidgets.Sample.Blazor.csproj" />

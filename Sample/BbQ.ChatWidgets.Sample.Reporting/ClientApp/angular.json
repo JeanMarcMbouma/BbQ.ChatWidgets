@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "projects": {
+    "reporting-sample": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "src/main.ts",
+            "index": "src/index.html",
+            "tsConfig": "tsconfig.json",
+            "styles": ["src/styles.css"],
+            "outputPath": { "base": "../Host/wwwroot", "browser": "" }
+          }
+        }
+      }
+    }
+  }
+}

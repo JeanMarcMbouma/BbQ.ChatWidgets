@@ -179,6 +179,10 @@ services.AddBbQChatWidgetsBlazor(overrides =>
 
 Resolution order is: local exact type -> local type id -> local assignable type -> global exact type -> global type id -> global assignable type -> built-in fallback.
 
+## Reporting sample
+
+[Build reports and dashboards with Angular, .NET, and ChatWidgets](Sample/BbQ.ChatWidgets.Sample.Reporting/). The sample includes built-in and saved custom definitions, interactive chart and table tiles, and integration points for your own data and authorization.
+
 ## 📖 Documentation
 
 - **[Production Deployment](docs_src/guides/PRODUCTION.md)** - Authorization, request limits, hosting and release verification

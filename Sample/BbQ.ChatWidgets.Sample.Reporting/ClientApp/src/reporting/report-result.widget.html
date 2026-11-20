@@ -1,0 +1,43 @@
+<h3>{{ widget.label }}</h3>
+@if (widget.error) {
+  <p class="error" role="alert">{{ widget.error }}</p>
+} @else if (widget.rows.length === 0) {
+  <p>No results for this date range.</p>
+} @else {
+  <div class="result-actions">
+    <button type="button" (click)="toggleView()">
+      Show {{ view === 'bar' ? 'table' : 'chart' }}
+    </button>
+    <button type="button" [attr.aria-pressed]="highestFirst" (click)="toggleSort()">Highest first</button>
+  </div>
+  @if (view === 'bar') {
+    @let range = scale;
+    <div class="plot" aria-label="Report values">
+      @for (row of rows; track row) {
+        <button type="button" [attr.aria-pressed]="selected === row" (click)="select(row)">
+          <span>{{ row.label }}</span>
+          <svg viewBox="0 0 100 8" preserveAspectRatio="none" aria-hidden="true">
+            <rect [attr.x]="100 * ((row.value < 0 ? row.value : 0) - range.low) / range.span"
+              [attr.width]="100 * (row.value < 0 ? -row.value : row.value) / range.span"
+              height="8" fill="#386ab5" />
+            <line [attr.x1]="100 * -range.low / range.span" [attr.x2]="100 * -range.low / range.span"
+              y1="0" y2="8" stroke="#667b98" stroke-width=".5" />
+          </svg>
+          <span>{{ row.value | number:'1.0-2' }}</span>
+        </button>
+      }
+    </div>
+  } @else {
+    <table>
+      <thead><tr><th scope="col">Group</th><th scope="col">Value</th></tr></thead>
+      <tbody>
+        @for (row of rows; track row) {
+          <tr [attr.data-selected]="selected === row">
+            <td><button type="button" [attr.aria-pressed]="selected === row" (click)="select(row)">{{ row.label }}</button></td>
+            <td>{{ row.value | number:'1.0-2' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+}

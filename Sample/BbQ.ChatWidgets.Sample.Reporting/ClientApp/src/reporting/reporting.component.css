@@ -6,7 +6,7 @@ h2 { font-size: 1.1rem; margin: .3rem 0 .6rem; }
 .page-header { justify-content: space-between; }
 .status { min-height: 1.5rem; margin: .35rem 0; }
 .workspace { display: grid; grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr); align-items: start; gap: 1rem; }
-nav, form, .tile-result { background: #fff; border: 1px solid #d3ddeb; border-radius: .75rem; padding: 1rem; min-width: 0; }
+nav, form { background: #fff; border: 1px solid #d3ddeb; border-radius: .75rem; padding: 1rem; min-width: 0; }
 nav button { display: block; width: 100%; margin-bottom: .4rem; text-align: left; }
 nav button[aria-current] { background: #eaf2ff; }
 nav small { display: block; color: #485973; text-transform: capitalize; }
@@ -22,9 +22,8 @@ label { display: grid; gap: .25rem; min-width: 0; font-size: .88rem; }
 input, select { box-sizing: border-box; min-width: 0; width: 100%; border: 1px solid #889fbf; border-radius: .35rem; padding: .35rem .45rem; background: white; color: inherit; }
 .tile-editor { margin: .75rem 0; border: 1px solid #d3ddeb; padding: .65rem; border-radius: .4rem; }
 .tile-editor button { margin-top: .6rem; }
-.fields, .results { display: grid; gap: .7rem; }
+.fields { display: grid; gap: .7rem; }
 .fields { grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); }
-.results { grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); }
 section { margin-top: 1.2rem; }
 .selected { margin: .25rem 0 .7rem; }
 @media (max-width: 700px) { .workspace { grid-template-columns: minmax(0, 1fr); } }

@@ -24,6 +24,9 @@
         {
             @switch (Widget)
             {
+                case ReportingWidget reportingWidget:
+                    <ReportingWidgetComponent Widget="reportingWidget" OnAction="OnAction" />
+                    break;
                 case ButtonWidget buttonWidget:
                     <ButtonWidgetComponent Widget="buttonWidget" OnAction="OnAction" />
                     break;

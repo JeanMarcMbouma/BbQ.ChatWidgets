@@ -71,11 +71,20 @@
                     </label>
                     <label>Display
                       <select [name]="'view-' + index" [(ngModel)]="tile.view" (ngModelChange)="clearPreview()">
-                        <option value="table">Table</option><option value="bar">Bar chart</option>
+                        @for (view of views; track view.id) {
+                          @if (view.id !== 'filter' || definition.kind === 'dashboard') { <option [value]="view.id">{{ view.label }}</option> }
+                        }
                       </select>
                     </label>
                   </div>
-                  @if (definition.tiles.length > 1) { <button type="button" (click)="removeTile(index)">Remove tile {{ index + 1 }}</button> }
+                  @if (tile.view === 'timeline' && tile.query.groupBy !== 'day') { <p>Choose a date grouping to populate the timeline.</p> }
+                  @if (definition.tiles.length > 1) {
+                    <div class="actions">
+                      @if (index > 0) { <button type="button" (click)="moveTile(index, -1)">Move tile {{ index + 1 }} up</button> }
+                      @if (index + 1 < definition.tiles.length) { <button type="button" (click)="moveTile(index, 1)">Move tile {{ index + 1 }} down</button> }
+                      <button type="button" (click)="removeTile(index)">Remove tile {{ index + 1 }}</button>
+                    </div>
+                  }
                 </fieldset>
               }
 
@@ -94,11 +103,7 @@
             <section aria-label="Report results">
               <h2>Results</h2>
               @if (selected) { <p class="selected" aria-live="polite">Selected {{ selected }}</p> }
-              <div class="results">
-                @for (tile of widgets; track tile) {
-                  <div class="tile-result"><bbq-widget-renderer [widgets]="tile" (widgetAction)="onWidgetAction($event)" /></div>
-                }
-              </div>
+              <bbq-widget-renderer [widgets]="widgets" (widgetAction)="onWidgetAction($event)" />
             </section>
           }
         } @else {

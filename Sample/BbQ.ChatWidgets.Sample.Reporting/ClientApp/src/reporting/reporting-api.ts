@@ -2,7 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, InjectionToken } from '@angular/core';
 
 export type ReportKind = 'report' | 'dashboard';
-export type ReportView = 'table' | 'bar';
+export const reportViews = [
+  { id: 'bar', label: 'Bar chart' }, { id: 'line', label: 'Line chart' }, { id: 'pie', label: 'Pie chart' },
+  { id: 'timeline', label: 'Timeline' }, { id: 'scatter', label: 'Scatter plot' }, { id: 'table', label: 'Table' },
+  { id: 'filter', label: 'Filter' }, { id: 'grid', label: 'Data grid' }, { id: 'metric', label: 'Metric' },
+] as const;
+export type ReportView = typeof reportViews[number]['id'];
 export interface ReportField { id: string; label: string }
 export interface ReportDataset { id: string; label: string; metrics: ReportField[]; dimensions: ReportField[] }
 export interface ReportQuery { dataset: string; metric: string; groupBy: string | null; from: string; to: string }

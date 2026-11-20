@@ -1,3 +1,4 @@
+import { ReportingWidgetComponent } from '../components/reporting.component';
 import { Type } from '@angular/core';
 import { CustomWidgetComponent } from '../custom-widget-renderer.types';
 import {
@@ -23,6 +24,7 @@ import {
  * Maps widget type to Angular component class
  */
 export const BUILT_IN_WIDGET_COMPONENTS: Record<string, Type<CustomWidgetComponent>> = {
+  reporting: ReportingWidgetComponent,
   button: ButtonWidgetComponent,
   card: CardWidgetComponent,
   input: InputWidgetComponent,

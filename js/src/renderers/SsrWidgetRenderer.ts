@@ -1,3 +1,5 @@
+import { renderReporting } from '../reporting/engine';
+import type { ReportingWidget } from '../models/ChatWidget';
 import { ChatWidget } from '../models/ChatWidget';
 import { renderImage, renderImageCollection } from './imageRenderers';
 
@@ -52,6 +54,8 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     }
 
     switch (type) {
+      case 'reporting':
+        return renderReporting(widget as ReportingWidget);
       case 'button':
         return this.renderButton(widget as any);
       case 'card':

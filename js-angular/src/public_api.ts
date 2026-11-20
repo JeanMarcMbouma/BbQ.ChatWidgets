@@ -106,3 +106,5 @@ export { AngularSchemaFirstWidgetConsumer } from './schema-first-widget-consumer
 
 // Version
 export const VERSION = '1.0.11';
+
+export { ReportingWidgetComponent } from './components/reporting.component';

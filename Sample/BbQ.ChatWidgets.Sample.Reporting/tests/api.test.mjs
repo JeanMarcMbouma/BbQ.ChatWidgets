@@ -20,7 +20,9 @@ test('the catalog requires a principal and contains both built-in types', async 
   assert.equal(response.status, 200);
   assert.equal(response.headers.get('cache-control'), 'no-store');
   const catalog = await response.json();
-  assert.deepEqual(catalog.presets.map(item => item.definition.kind), ['report', 'dashboard']);
+  assert.ok(catalog.presets.some(item => item.definition.kind === 'report'));
+  assert.ok(catalog.presets.some(item => item.definition.kind === 'dashboard'));
+  assert.equal(catalog.presets.find(item => item.id === 'reporting-widgets')?.definition.tiles.length, 8);
 });
 
 test('report runs aggregate only the current tenant and validate the query against the catalog', async () => {
@@ -38,7 +40,7 @@ test('report runs aggregate only the current tenant and validate the query again
 });
 
 test('a custom dashboard can be saved, edited, and deleted by its owner only', async () => {
-  const definition = { title: 'My dashboard', kind: 'dashboard', tiles: [tile, { ...tile, title: 'Second tile' }] };
+  const definition = { title: 'My dashboard', kind: 'dashboard', tiles: [tile, { ...tile, title: 'Second tile', view: 'grid' }] };
   const created = await request('/saved', { method: 'POST', body: definition });
   assert.equal(created.status, 200);
   const { id } = await created.json();

@@ -2,3 +2,4 @@ export * from './ChatWidget';
 export * from './ChatTurn';
 export * from './CustomWidgetRegistry';
 export * from './ImageWidgets';
+export * from '../reporting/types';

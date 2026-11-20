@@ -12,6 +12,7 @@
             "browser": "src/main.ts",
             "index": "src/index.html",
             "tsConfig": "tsconfig.json",
+            "preserveSymlinks": true,
             "styles": ["src/styles.css"],
             "outputPath": { "base": "../Host/wwwroot", "browser": "" }
           }

@@ -56,6 +56,26 @@ describe("native widgets", () => {
       );
     },
   );
+  it("hydrates a shared reporting dashboard and forwards its filter actions in StrictMode", () => {
+    const action = vi.fn();
+    const definition: WidgetData = {
+      type: "reporting", kind: "dashboard", label: "Orders", action: "",
+      settings: { dataSource: "sales" },
+      sources: { sales: [{ label: "South", value: 4 }, { label: "North", value: 8 }] },
+      children: [
+        { kind: "filter", label: "Region", action: "filter", filterField: "label" },
+        { kind: "table", label: "Totals", action: "" },
+      ],
+    };
+    expect(renderToString(<WidgetRenderer widgets={[definition]} />)).toContain("<table");
+    render(<StrictMode><WidgetRenderer widgets={[definition]} onWidgetAction={action} /></StrictMode>);
+    fireEvent.change(screen.getByRole("combobox", { name: "Filter by label" }), { target: { value: "1" } });
+    expect(screen.getByRole("table").textContent).toContain("North");
+    expect(screen.getByRole("table").textContent).not.toContain("South");
+    expect(action.mock.calls).toEqual([[
+      "filter", { kind: "filter", source: "sales", field: "label", value: "North", active: true },
+    ]]);
+  });
   it("emits button and field actions once in StrictMode", () => {
     const action = vi.fn();
     render(

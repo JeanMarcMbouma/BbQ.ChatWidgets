@@ -9,6 +9,7 @@ on:
       - 'js-react/**'
       - 'Sample/BbQ.ChatWidgets.Sample.React/**'
       - 'Sample/BbQ.ChatWidgets.Sample.Angular/**'
+      - 'Sample/BbQ.ChatWidgets.Sample.Reporting/**'
       - '.github/workflows/npm-*.yml'
       - 'test-fixtures/**'
   push:
@@ -19,6 +20,7 @@ on:
       - 'js-react/**'
       - 'Sample/BbQ.ChatWidgets.Sample.React/**'
       - 'Sample/BbQ.ChatWidgets.Sample.Angular/**'
+      - 'Sample/BbQ.ChatWidgets.Sample.Reporting/**'
       - '.github/workflows/npm-*.yml'
       - 'test-fixtures/**'
 
@@ -73,6 +75,9 @@ jobs:
 
     - name: Audit runtime dependencies
       run: npm audit --omit=dev
+
+    - name: Check Blazor reporting asset
+      run: npm run build:reporting -- --check
 
     - name: Lint
       run: npm run lint
@@ -161,3 +166,9 @@ jobs:
         retention-days: 7
         name: playground-browser-results
         path: Sample/BbQ.ChatWidgets.Sample.React/ClientApp/test-results
+
+    - name: Build the reporting sample
+      working-directory: Sample/BbQ.ChatWidgets.Sample.Reporting/ClientApp
+      run: |
+        npm ci
+        npm run build

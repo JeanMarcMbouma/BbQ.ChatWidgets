@@ -4,3 +4,11 @@
   background: #f2f5fa;
 }
 body { margin: 0; }
+
+.bbq-reporting, bbq-reporting-widget { display: block; }
+.bbq-report-dashboard > div > .bbq-report {
+  background: white; border: 1px solid #d3ddeb; border-radius: .75rem; padding: .85rem;
+}
+.bbq-report h3 { margin: 0 0 .6rem; }
+.bbq-report th, .bbq-report td { border-bottom: 1px solid #d3ddeb; }
+.bbq-report :focus-visible { outline: .15rem solid #234f89; outline-offset: .1rem; }

@@ -59,6 +59,7 @@ namespace BbQ.ChatWidgets.Renderers
         /// </returns>
         public string RenderWidget(ChatWidget widget) => widget switch
         {
+            ReportingWidget report => ReportingHtml.Render(report),
             ButtonWidget btn => RenderButton(btn),
             CardWidget card => RenderCard(card),
             InputWidget input => RenderInput(input),

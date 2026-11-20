@@ -181,7 +181,7 @@ Resolution order is: local exact type -> local type id -> local assignable type 
 
 ## Reporting sample
 
-[Build reports and dashboards with Angular, .NET, and ChatWidgets](Sample/BbQ.ChatWidgets.Sample.Reporting/). The sample includes built-in and saved custom definitions, interactive chart and table tiles, and integration points for your own data and authorization.
+[Build reports and dashboards with Angular, .NET, and ChatWidgets](Sample/BbQ.ChatWidgets.Sample.Reporting/). The sample includes built-in and saved custom definitions, interactive charts, filters, grids, and integration points for your own data and authorization. See the [reporting widget authoring guide](docs_src/widgets/REPORTING.md).
 
 ## 📖 Documentation
 

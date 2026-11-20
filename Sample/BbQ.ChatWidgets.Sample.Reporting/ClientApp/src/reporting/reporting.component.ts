@@ -3,10 +3,10 @@ import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { WidgetRendererComponent } from '@bbq-chat/widgets-angular';
 import { firstValueFrom } from 'rxjs';
-import { registerReportResultWidget, ReportResultWidget } from './report-result.widget';
+import { ReportingWidget, type ReportingAction, type ReportingRow } from '@bbq-chat/widgets';
 import {
   ReportCatalog, ReportDataset, ReportDefinition, ReportKind, ReportTile,
-  ReportingApi, SavedReport,
+  ReportingApi, reportViews, SavedReport,
 } from './reporting-api';
 
 @Component({
@@ -24,15 +24,12 @@ export class ReportingComponent implements OnInit {
   saved: SavedReport[] = [];
   draft: ReportDefinition | null = null;
   savedId: string | null = null;
-  widgets: ReportResultWidget[][] = [];
+  readonly views = reportViews;
+  widgets: ReportingWidget[] = [];
   selected: string | null = null;
   busy = false;
   error = '';
   status = '';
-
-  constructor() {
-    registerReportResultWidget();
-  }
 
   ngOnInit() {
     void this.load();
@@ -45,7 +42,7 @@ export class ReportingComponent implements OnInit {
       ]);
       this.catalog = catalog;
       this.saved = saved;
-      const first = catalog.presets.find(preset => preset.definition.kind === 'dashboard') ?? catalog.presets[0];
+      const first = catalog.presets.find(preset => preset.id === 'order-overview') ?? catalog.presets[0];
       if (first) {
         this.open(first, false);
         await this.render();
@@ -88,6 +85,13 @@ export class ReportingComponent implements OnInit {
     this.clearPreview();
   }
 
+  moveTile(index: number, offset: -1 | 1) {
+    const tiles = this.draft?.tiles;
+    if (!tiles || !tiles[index + offset]) return;
+    [tiles[index], tiles[index + offset]] = [tiles[index + offset], tiles[index]];
+    this.clearPreview();
+  }
+
   clearPreview() {
     this.widgets = [];
     this.selected = null;
@@ -126,9 +130,12 @@ export class ReportingComponent implements OnInit {
   }
 
   onWidgetAction(event: { actionName: string; payload: unknown }) {
-    if (event.actionName !== 'report-row-selected') return;
-    const payload = event.payload as { tile: string; row: { label: string } | null };
-    this.selected = payload.row ? payload.tile + ' · ' + payload.row.label : null;
+    const payload = event.payload as ReportingAction;
+    const tile = this.draft?.tiles[Number(event.actionName.slice('report-result-'.length))];
+    if (!event.actionName.startsWith('report-result-') || !tile || payload?.kind !== 'select') return;
+    this.selected = payload.row
+      ? tile.title + ' · ' + String(payload.row['label'] ?? '')
+      : tile.title + ' · ' + payload.rowIndices.length + ' selected';
   }
 
   private newTile(): ReportTile {
@@ -147,14 +154,48 @@ export class ReportingComponent implements OnInit {
   private async render() {
     if (!this.draft) return;
     this.clearPreview();
-    this.widgets = await Promise.all(this.draft.tiles.map(async tile => {
-      try {
-        const rows = await firstValueFrom(this.api.run(tile.query));
-        return [new ReportResultWidget(tile.title, tile.view, rows)];
-      } catch (error) {
-        return [new ReportResultWidget(tile.title, tile.view, [], this.message(error))];
+    const requests = new Map<string, { id: string; result: Promise<{ rows: ReportingRow[]; error?: string }> }>();
+    const tiles = this.draft.tiles.map(tile => {
+      const key = JSON.stringify(tile.query);
+      let request = requests.get(key);
+      if (!request) {
+        const result = firstValueFrom(this.api.run(tile.query)).then(rows => ({
+          rows: rows.map((row, index) => ({ ...row, x: index + 1, date: tile.query.groupBy === 'day' ? row.label : null })),
+        })).catch(error => ({ rows: [], error: this.message(error) }));
+        request = { id: 'source-' + requests.size, result };
+        requests.set(key, request);
       }
+      return { tile, request };
+    });
+
+    const sources: Record<string, ReportingRow[]> = {};
+    const filters: ReportingWidget[] = [];
+    const children = await Promise.all(tiles.map(async ({ tile, request }, index) => {
+      const { rows, error } = await request.result;
+      return new ReportingWidget(tile.title, 'report-result-' + index, tile.view, {
+        settings: { dataSource: request.id },
+        filterField: tile.view === 'filter' ? 'label' : undefined,
+        rows: error ? [] : undefined,
+        error,
+      });
     }));
+    for (const { id, result } of requests.values()) {
+      const { rows } = await result;
+      sources[id] = rows;
+      const matching = tiles.filter(({ request }) => request.id === id);
+      if (rows.length > 1 && matching.length > 1 && !matching.some(({ tile }) => tile.view === 'filter')) {
+        filters.push(new ReportingWidget('Filter ' + matching[0].tile.title, '', 'filter', {
+          settings: { dataSource: id }, filterField: 'label',
+        }));
+      }
+    }
+
+    this.widgets = [new ReportingWidget(this.draft.title, '', 'dashboard', {
+      settings: { categoryField: 'label', valueField: 'value', xField: 'x', dateField: 'date',
+        columns: [{ field: 'label', label: 'Group' }, { field: 'value', label: 'Value' }] },
+      sources,
+      children: [...filters, ...children],
+    })];
   }
 
   private async work(action: () => Promise<void>) {

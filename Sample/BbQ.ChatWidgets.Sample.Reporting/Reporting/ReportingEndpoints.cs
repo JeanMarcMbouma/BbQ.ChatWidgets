@@ -106,8 +106,9 @@ public static class ReportingEndpoints
 
         foreach (var tile in definition.Tiles)
         {
-            if (tile is null || !ValidTitle(tile.Title) || tile.View is not ("table" or "bar"))
-                return "Each tile needs a title and a table or bar presentation.";
+            if (tile is null || !ValidTitle(tile.Title) || tile.View is not ("table" or "grid" or "bar" or "line" or "pie" or "timeline" or "scatter" or "metric" or "filter") ||
+                (tile.View == "filter" && definition.Kind != "dashboard"))
+                return "Each tile needs a title and a supported presentation.";
 
             if (QueryError(tile.Query, datasets) is { } error)
                 return error;

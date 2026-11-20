@@ -56,7 +56,18 @@ sealed class FixtureSource : IReportingSource
     private static readonly SavedReport[] Presets =
     [
         new("orders-by-status", new("Orders by status", "report", [Volume])),
-        new("order-overview", new("Order overview", "dashboard", [Volume, Value]))
+        new("order-overview", new("Order overview", "dashboard", [Volume, Value with { View = "grid" }])),
+        new("reporting-widgets", new("Reporting widget gallery", "dashboard",
+        [
+            Volume,
+            Volume with { Title = "Status share", View = "pie" },
+            Value with { Title = "Daily order value", View = "line" },
+            Value with { Title = "Daily position and value", View = "scatter" },
+            Value with { Title = "Reporting dates", View = "timeline" },
+            Value with { Title = "Daily data grid", View = "grid" },
+            Value,
+            Value with { Title = "Total order value", View = "metric" }
+        ]))
     ];
 
     public ValueTask<ReportScope?> ResolveScopeAsync(ClaimsPrincipal user, CancellationToken cancellation)

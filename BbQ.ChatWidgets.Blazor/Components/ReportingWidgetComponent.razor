@@ -1,0 +1,72 @@
+@using System.Text.Json
+@using BbQ.ChatWidgets.Models
+@using BbQ.ChatWidgets.Renderers
+@using Microsoft.AspNetCore.Components
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
+@implements IAsyncDisposable
+
+<div @ref="host">@fallback</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public ReportingWidget Widget { get; set; } = default!;
+
+    [Parameter]
+    public EventCallback<(string Action, object? Payload)> OnAction { get; set; }
+
+    private ElementReference host;
+    private MarkupString fallback;
+    private string? definition;
+    private string? mounted;
+    private Task<IJSObjectReference>? moduleTask;
+    private DotNetObjectReference<ReportingWidgetComponent>? callback;
+
+    protected override void OnParametersSet()
+    {
+        // Blazor owns the initial markup. After hydration the reporting engine owns the contents.
+        definition = Widget.ToJson();
+        if (mounted is null)
+            fallback = (MarkupString)ReportingHtml.Render(Widget);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (definition is null || definition == mounted)
+            return;
+
+        moduleTask ??= JS.InvokeAsync<IJSObjectReference>(
+            "import", "./_content/BbQ.ChatWidgets.Blazor/js/reporting.js").AsTask();
+        var module = await moduleTask;
+        if (definition == mounted)
+            return;
+
+        callback ??= DotNetObjectReference.Create(this);
+        mounted = definition;
+        await module.InvokeVoidAsync("mount", host, mounted, callback);
+    }
+
+    [JSInvokable]
+    public Task DispatchReportAction(string action, JsonElement payload) => OnAction.InvokeAsync((action, payload));
+
+    public async ValueTask DisposeAsync()
+    {
+        try
+        {
+            if (moduleTask?.IsCompletedSuccessfully == true)
+            {
+                var module = await moduleTask;
+                await module.InvokeVoidAsync("unmount", host);
+                await module.DisposeAsync();
+            }
+        }
+        catch (JSDisconnectedException)
+        {
+            // The browser circuit has already closed.
+        }
+        finally
+        {
+            callback?.Dispose();
+        }
+    }
+}

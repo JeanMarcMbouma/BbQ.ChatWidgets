@@ -1,3 +1,5 @@
+import { attachReporting, detachReporting } from '../reporting/engine';
+
 // A DOM element has one active handler per event, even across manager replacements.
 const bindings = new WeakMap<Element, Map<string, EventListener>>();
 
@@ -51,6 +53,7 @@ export class WidgetEventManager {
    * Attach event listeners to widgets in a container
    */
   attachHandlers(container: Element): void {
+    attachReporting(container, (action, payload) => { void this.actionHandler.handle(action, payload); });
     this.attachButtonHandlers(container);
     this.attachInputHandlers(container);
     this.attachTextAreaHandlers(container);
@@ -83,6 +86,7 @@ export class WidgetEventManager {
 
   /** Remove handlers before disposing a rendered container. */
   detachHandlers(container: Element): void {
+    detachReporting(container);
     for (const element of [container, ...container.querySelectorAll('*')]) {
       for (const [event, listener] of bindings.get(element) ?? [])
         element.removeEventListener(event, listener);

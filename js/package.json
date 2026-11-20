@@ -71,7 +71,8 @@
     "type-check": "tsc --noEmit",
     "prepublishOnly": "npm run build && npm test && npm run lint && npm run test:package",
     "test:watch": "vitest",
-    "test:package": "node scripts/test-package.mjs"
+    "test:package": "node scripts/test-package.mjs",
+    "build:reporting": "node scripts/build-reporting.mjs"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",

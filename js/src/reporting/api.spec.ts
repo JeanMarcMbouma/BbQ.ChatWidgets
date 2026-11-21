@@ -30,7 +30,7 @@ describe('reporting integration', () => {
       .mockResolvedValueOnce(Response.json([{ label: 'South', value: 42 }]))
       .mockResolvedValueOnce(new Response(null, { status: 204 }))
       .mockResolvedValueOnce(Response.json({ error: 'Dataset unavailable.' }, { status: 400 }));
-    const client = new ReportingClient({ baseUrl: '/host/reports/', fetch });
+    const client = new ReportingClient({ baseUrl: '/host/reports///', fetch });
 
     await expect(client.run(query, signal)).resolves.toEqual([{ label: 'South', value: 42 }]);
     expect(fetch).toHaveBeenNthCalledWith(1, '/host/reports/run', {

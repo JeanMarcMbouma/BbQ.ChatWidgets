@@ -97,7 +97,10 @@ export class ReportingClient {
   private readonly transport: typeof fetch;
 
   constructor(options: ReportingClientOptions = {}) {
-    this.baseUrl = (options.baseUrl ?? '/api/reporting').replace(/\/+$/, '');
+    const baseUrl = options.baseUrl ?? '/api/reporting';
+    let end = baseUrl.length;
+    while (end > 0 && baseUrl[end - 1] === '/') end--;
+    this.baseUrl = baseUrl.slice(0, end);
     this.transport = options.fetch ?? globalThis.fetch.bind(globalThis);
   }
 

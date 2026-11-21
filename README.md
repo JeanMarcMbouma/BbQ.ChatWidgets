@@ -179,9 +179,9 @@ services.AddBbQChatWidgetsBlazor(overrides =>
 
 Resolution order is: local exact type -> local type id -> local assignable type -> global exact type -> global type id -> global assignable type -> built-in fallback.
 
-## Reporting sample
+## Reporting
 
-[Build reports and dashboards with Angular, .NET, and ChatWidgets](Sample/BbQ.ChatWidgets.Sample.Reporting/). The sample includes built-in and saved custom definitions, interactive charts, filters, grids, and integration points for your own data and authorization. See the [reporting widget authoring guide](docs_src/widgets/REPORTING.md).
+Build reports and dashboards with the standard ChatWidgets renderers. ASP.NET Core hosts can opt into the reporting API with their own authorization, dataset providers, and definition store. Angular, React, and Blazor include a workspace for authoring reports, viewing results, and handling custom interactions. Custom frontends can use the TypeScript client and snapshot composer. See the [reporting integration guide](docs_src/widgets/REPORTING.md) and the [Angular and .NET sample](Sample/BbQ.ChatWidgets.Sample.Reporting/).
 
 ## 📖 Documentation
 

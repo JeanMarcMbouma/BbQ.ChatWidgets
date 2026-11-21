@@ -4,6 +4,28 @@ All notable changes to BbQ.ChatWidgets will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and package versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - Unreleased
+
+### Added
+
+- Opt-in ASP.NET Core reporting with an authorized catalog, report execution, and saved definitions through host-provided data and storage services.
+- Packaged reporting workspaces for Angular, React, and Blazor. Run built-in reports, author dashboards, and reopen saved definitions against the same API.
+- Shared reporting widgets for charts, timelines, filters, tables, grids, and metrics. New analytical views include waterfall, Pareto, histogram, and four time-series charts.
+- Server-paged grids with search, sorting, filtering, and stable row keys. The Warehouse operations sample demonstrates paging through 2,400 orders.
+- Typed host actions for chart and row interactions. Consumers can open a dialog or navigate to a detail page using the selected row or group.
+- A TypeScript reporting client and snapshot composer for custom integrations.
+
+### Changed
+
+- The reporting sample now uses the packaged workspace and API. Its host demonstrates a custom details dialog, with fixture data and sample authentication scoped to development.
+- The Angular and React packages require `@bbq-chat/widgets` 1.2.0 or later within the 1.x release line. Update the core package with either framework integration.
+- Updated JavaScript build and test dependencies and bounded CI artifact retention.
+
+### Release preparation
+
+- Align all NuGet and npm packages at 1.2.0. After the .NET and npm validation workflows pass on the merged commit, tag that commit with `v1.2.0` for NuGet and `npm-v1.2.0` for npm.
+- See the [reporting integration guide](docs_src/widgets/REPORTING.md) for setup and custom action examples.
+
 ## [1.1.2] - Unreleased
 
 ### Changed

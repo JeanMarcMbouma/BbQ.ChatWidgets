@@ -1,10 +1,10 @@
-<main>
+<section class="reporting-shell" aria-label="Reporting">
   <header class="page-header">
     <h1>Reporting</h1>
     @if (catalog && catalog.datasets.length) {
       <div class="actions">
         <button type="button" [disabled]="busy" (click)="start('report')">New report</button>
-        <button type="button" [disabled]="busy" (click)="start('dashboard')">New dashboard</button>
+        <button class="primary" type="button" [disabled]="busy" (click)="start('dashboard')">New dashboard</button>
       </div>
     }
   </header>
@@ -18,7 +18,7 @@
       <nav aria-label="Reports and dashboards">
         <h2>Built in</h2>
         @for (preset of catalog.presets; track preset.id) {
-          <button type="button" [disabled]="busy" (click)="open(preset, false); run()">
+          <button type="button" [disabled]="busy" [attr.aria-current]="presetId === preset.id ? 'true' : null" (click)="open(preset, false); run()">
             {{ preset.definition.title }} <small>{{ preset.definition.kind }}</small>
           </button>
         } @empty { <p>No presets available.</p> }
@@ -31,11 +31,20 @@
         } @empty { <p>No saved items yet.</p> }
       </nav>
 
-      <div class="editor">
+      <div class="content">
         @if (draft; as definition) {
+          <header class="view-header">
+            <div>
+              <p>{{ definition.kind }}</p>
+              <h2>{{ definition.title || (definition.kind === 'dashboard' ? 'Untitled dashboard' : 'Untitled report') }}</h2>
+            </div>
+            <button type="button" [disabled]="busy" (click)="editing = !editing">
+              {{ editing ? 'Back to results' : 'Edit ' + definition.kind }}
+            </button>
+          </header>
+          @if (editing) {
           <form #editorForm="ngForm" (ngSubmit)="run()">
-            <fieldset [disabled]="busy">
-              <legend>{{ definition.kind === 'report' ? 'Report' : 'Dashboard' }}</legend>
+            <fieldset [disabled]="busy" [attr.aria-label]="'Edit ' + definition.kind">
               <label>Title
                 <input name="title" required maxlength="100" [(ngModel)]="definition.title" />
               </label>
@@ -77,7 +86,7 @@
                       </select>
                     </label>
                   </div>
-                  @if (tile.view === 'timeline' && tile.query.groupBy !== 'day') { <p>Choose a date grouping to populate the timeline.</p> }
+                  @if (needsDateGrouping(tile)) { <p>Choose a grouping with dates for this chart.</p> }
                   @if (definition.tiles.length > 1) {
                     <div class="actions">
                       @if (index > 0) { <button type="button" (click)="moveTile(index, -1)">Move tile {{ index + 1 }} up</button> }
@@ -98,18 +107,28 @@
               </div>
             </fieldset>
           </form>
-
-          @if (widgets.length) {
-            <section aria-label="Report results">
-              <h2>Results</h2>
-              @if (selected) { <p class="selected" aria-live="polite">Selected {{ selected }}</p> }
-              <bbq-widget-renderer [widgets]="widgets" (widgetAction)="onWidgetAction($event)" />
-            </section>
+          }
+          @if (widgets.length || pagedGrids.length) {
+              <section class="results" aria-label="Report results" [hidden]="editing">
+                @if (selected) { <p class="selected" aria-live="polite">Selected {{ selected }}</p> }
+                @if (widgets.length) {
+                  <bbq-widget-renderer [widgets]="widgets" (widgetAction)="onWidgetAction($event)" />
+                }
+                @for (grid of pagedGrids; track grid) {
+                  <bbq-paged-reporting-grid [title]="grid.tile.title" [query]="grid.tile.query" [dimension]="grid.dimension"
+                    (rowActivate)="onPagedRowActivate(grid.tile, grid.tileIndex, $event)" />
+                }
+              </section>
+          } @else if (!busy && !editing) {
+              <div class="empty-results">
+                <p>Run this {{ definition.kind }} to see its results.</p>
+                <button class="primary" type="button" (click)="editing = true">Open editor</button>
+              </div>
           }
         } @else {
-          <p>Choose a built-in report or create a custom one.</p>
+          <p>{{ catalog.datasets.length ? 'Choose a report or create one using the actions above.' : 'No reporting datasets are available.' }}</p>
         }
       </div>
     </div>
   }
-</main>
+</section>

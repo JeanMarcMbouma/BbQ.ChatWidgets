@@ -6,6 +6,8 @@ Native React 18/19 components for BbQ ChatWidgets, with the same supported widge
 npm install @bbq-chat/widgets-react @bbq-chat/widgets react react-dom
 ```
 
+The 1.2 release of this package requires `@bbq-chat/widgets` 1.2 or later within the 1.x line.
+
 ```tsx
 import { WidgetProvider, WidgetRenderer, type WidgetData } from '@bbq-chat/widgets-react';
 import '@bbq-chat/widgets/styles/light';
@@ -37,9 +39,14 @@ export function App() {
 | Form field overrides | `WidgetProvider fieldComponents={{ ... }}` with `FormFieldProps` |
 | Form validation events and listener | `onValidationState`, `FormValidationService`, `useFormValidation`, `FormValidationListener` |
 | Schema-first stream consumer | `ReactSchemaFirstWidgetConsumer`; native React store and `useWidgetStream` |
+| Reporting editor, viewer, and server-paged grid | `ReportingWorkspace`, `PagedReportingGrid`, and typed custom actions |
 | Core models, themes, HTML fallback | Core exports re-exported; theme imports from `@bbq-chat/widgets/styles/*` |
 
 The native types are button, card, input, textarea, dropdown, slider, toggle, fileupload, themeswitcher, datepicker, multiselect, progressbar, form, image and imagecollection. Forms support text/input, email, password, number, textarea, dropdown/select, slider, toggle/checkbox/radio, datepicker/date, multiselect, fileupload/file and theme fields. The radio alias is a boolean control, matching Angular's mapping.
+
+## Reporting
+
+Mount `<ReportingWorkspace />` against the authorized same-origin reporting API and import `@bbq-chat/widgets-react/styles/reporting` for the workspace and grid stylesheet. Use the `client` prop to supply a different base URL or authenticated transport. The `onReportingAction` callback lets the host open a dialog or navigate to a detail page. See the [reporting integration guide](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/widgets/REPORTING.md).
 
 ## Forms and actions
 

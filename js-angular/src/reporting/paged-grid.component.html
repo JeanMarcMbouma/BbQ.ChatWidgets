@@ -1,0 +1,98 @@
+<section [attr.aria-label]="title" [attr.aria-busy]="loading">
+  <header>
+    <h3>{{ title }}</h3>
+    @if (selected.size) {
+      <div class="selection">
+        <span role="status">{{ selected.size }} selected</span>
+        <button type="button" (click)="clearSelection()">Clear selection</button>
+      </div>
+    }
+  </header>
+  <form class="controls" (ngSubmit)="apply()">
+    @if (dimension.grid?.searchFields?.length) {
+      <label>Search <input name="search" type="search" maxlength="160" [(ngModel)]="search" /></label>
+    }
+    @if (filterColumns.length) {
+      <label>Filter field
+        <select name="filterField" [(ngModel)]="filterField">
+          <option value="">None</option>
+          @for (column of filterColumns; track column.field) {
+            <option [value]="column.field">{{ column.label }}</option>
+          }
+        </select>
+      </label>
+      @if (filterField) {
+        <label>Exact value <input name="filterValue" maxlength="160" [(ngModel)]="filterValue" /></label>
+      }
+    }
+    @if (dimension.grid?.searchFields?.length || filterColumns.length) {
+      <button type="submit" [disabled]="loading">Apply</button>
+    }
+  </form>
+  @if (loading) { <p role="status">Loading rows…</p> }
+  @if (error) {
+    <p role="alert">{{ error }}</p>
+    <button type="button" (click)="load()">Retry</button>
+  }
+  @if (page; as result) {
+    <div class="table-scroll" tabindex="0" role="region" [attr.aria-label]="title + ' table'">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col"><input #pageSelection type="checkbox" aria-label="Select this page"
+              [checked]="isPageSelected" [disabled]="loading || !result.rows.length"
+              (change)="selectPage(pageSelection.checked)" /></th>
+            @for (column of columns; track column.field) {
+              <th scope="col" [attr.aria-sort]="sortField === column.field ? (descending ? 'descending' : 'ascending') : null">
+                @if (canSort(column.field)) {
+                  <button type="button" [disabled]="loading" (click)="sort(column.field)">
+                    {{ column.label }}
+                    @if (sortField === column.field) { <span aria-hidden="true">{{ descending ? '↓' : '↑' }}</span> }
+                  </button>
+                } @else { {{ column.label }} }
+              </th>
+            }
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (entry of result.rows; track entry.key) {
+            <tr [class.selected]="selected.has(entry.key)" [class.actionable]="!loading" (click)="onRowClick(entry, $event)">
+              <td><input #rowSelection type="checkbox" [checked]="selected.has(entry.key)" [disabled]="loading"
+                [attr.aria-label]="'Select ' + entry.row.label" (change)="select(entry.key, rowSelection.checked)" /></td>
+              @for (column of columns; track column.field) { <td>{{ cell(entry, column.field) }}</td> }
+              <td>
+                <button class="row-action" type="button" [disabled]="loading"
+                  [attr.aria-label]="'View ' + entry.row.label" (click)="activateRow(entry)">View</button>
+              </td>
+            </tr>
+          } @empty {
+            <tr><td [attr.colspan]="columns.length + 2">No matching rows.</td></tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <footer class="pagination">
+      <span class="row-range" role="status">
+        @if (result.rows.length) {
+          <strong>{{ visibleOffset + 1 | number }}–{{ visibleOffset + result.rows.length | number }}</strong> of {{ result.total | number }}
+        } @else { 0 results }
+      </span>
+      <nav aria-label="Grid pagination">
+        <button type="button" [disabled]="loading || !offset" (click)="step(-1)">
+          <span aria-hidden="true">‹</span> Previous
+        </button>
+        @if (pageCount) { <span class="page-position">Page {{ visiblePage | number }} of {{ pageCount | number }}</span> }
+        <button type="button" [disabled]="loading || offset + limit >= result.total" (click)="step(1)">
+          Next <span aria-hidden="true">›</span>
+        </button>
+      </nav>
+      <label class="page-size">Rows per page
+        <select [ngModel]="limit" [disabled]="loading" (ngModelChange)="resize($event)">
+          <option [ngValue]="10">10</option><option [ngValue]="25">25</option>
+          <option [ngValue]="50">50</option><option [ngValue]="100">100</option>
+        </select>
+      </label>
+    </footer>
+  }
+</section>

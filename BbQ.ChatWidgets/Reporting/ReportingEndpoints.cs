@@ -2,13 +2,19 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace AppReporting;
+namespace BbQ.ChatWidgets.Reporting;
 
-public static class ReportingEndpoints
+/// <summary>Registers the reporting HTTP API independently of chat endpoints.</summary>
+public static partial class ReportingEndpoints
 {
     private const int RowLimit = 100;
 
-    public static RouteGroupBuilder MapReporting(this IEndpointRouteBuilder app,
+    /// <summary>Maps the reporting catalog, query, and saved definition endpoints.</summary>
+    /// <param name="app">The endpoint route builder.</param>
+    /// <param name="path">The reporting route prefix.</param>
+    /// <param name="policy">The host's authorization policy name, or null for the default policy.</param>
+    /// <returns>The route group for additional endpoint conventions.</returns>
+    public static RouteGroupBuilder MapBbQReporting(this IEndpointRouteBuilder app,
         string path = "/api/reporting", string? policy = null)
     {
         var group = app.MapGroup(path);
@@ -66,6 +72,7 @@ public static class ReportingEndpoints
             WithScope(source, http, async (scope, ct) => await store.DeleteAsync(scope, id, ct)
                 ? Results.NoContent() : Results.NotFound()));
 
+        MapReportingGrid(group);
         return group;
     }
 
@@ -106,7 +113,9 @@ public static class ReportingEndpoints
 
         foreach (var tile in definition.Tiles)
         {
-            if (tile is null || !ValidTitle(tile.Title) || tile.View is not ("table" or "grid" or "bar" or "line" or "pie" or "timeline" or "scatter" or "metric" or "filter") ||
+            if (tile is null || !ValidTitle(tile.Title) ||
+                tile.View is not ("table" or "grid" or "bar" or "line" or "pie" or "timeline" or "scatter" or "metric"
+                    or "filter" or "waterfall" or "pareto" or "histogram" or "time-line" or "area" or "step" or "time-column") ||
                 (tile.View == "filter" && definition.Kind != "dashboard"))
                 return "Each tile needs a title and a supported presentation.";
 

@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
-using AppReporting;
+using BbQ.ChatWidgets.Reporting;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 
@@ -12,14 +12,24 @@ if (!builder.Environment.IsDevelopment())
 builder.Services.AddAuthentication("Fixture").AddScheme<AuthenticationSchemeOptions, FixtureAuthentication>(
     "Fixture", _ => { });
 builder.Services.AddAuthorization();
-builder.Services.AddSingleton<IReportingSource, FixtureSource>();
 builder.Services.AddSingleton<IReportingStore, MemoryStore>();
+builder.Services.AddBbQReporting<FixtureSource, MemoryStore>();
 var app = builder.Build();
+if (!app.Environment.WebRootFileProvider.GetFileInfo("index.html").Exists)
+    app.Logger.LogWarning("Reporting client is missing. Run npm --prefix ClientApp ci and npm --prefix ClientApp run build from the sample directory.");
+
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapReporting();
+app.MapBbQReporting();
 app.UseDefaultFiles();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = context =>
+    {
+        if (context.Context.Request.Path == "/index.html")
+            context.Context.Response.Headers.CacheControl = "no-cache";
+    }
+});
 app.Run();
 
 sealed class FixtureAuthentication(IOptionsMonitor<AuthenticationSchemeOptions> options,
@@ -40,12 +50,17 @@ sealed class FixtureAuthentication(IOptionsMonitor<AuthenticationSchemeOptions> 
     }
 }
 
-sealed class FixtureSource : IReportingSource
+sealed partial class FixtureSource : IReportingGridSource
 {
     private static readonly ReportDataset[] Datasets =
     [
         new("orders", "Orders", [new("count", "Order count"), new("revenue", "Order value")],
-            [new("status", "Status"), new("day", "Day")])
+            [new("status", "Status"), new("day", "Day") { DateField = "label" }]),
+        new("fulfilment", "Order fulfilment", [new("revenue", "Order value")],
+        [
+            new("order", "Individual orders", FulfilmentColumns(editable: true)),
+            new("paged-order", "Warehouse orders", FulfilmentColumns(editable: false), FulfilmentCapabilities())
+        ])
     ];
 
     private static readonly DateOnly First = new(2026, 11, 1);
@@ -53,10 +68,34 @@ sealed class FixtureSource : IReportingSource
 
     private static readonly ReportTile Volume = new("Orders by status", "bar", new("orders", "count", "status", First, Last));
     private static readonly ReportTile Value = new("Order value by day", "table", new("orders", "revenue", "day", First, Last));
+    private static readonly string[] Warehouses = ["Bristol", "Leeds", "London", "Manchester"];
+    private static readonly string[] Channels = ["Retail", "Trade", "Online"];
+    private static readonly string[] Statuses = ["Delivered", "Dispatched", "Picking", "On hold"];
     private static readonly SavedReport[] Presets =
     [
         new("orders-by-status", new("Orders by status", "report", [Volume])),
         new("order-overview", new("Order overview", "dashboard", [Volume, Value with { View = "grid" }])),
+        new("fulfilment-grid", new("Order fulfilment grid", "report",
+        [
+            new("Order register", "grid", new("fulfilment", "revenue", "order", First, Last))
+        ])),
+        new("warehouse-grid", new("Warehouse operations", "report",
+        [
+            new("Warehouse orders", "grid", new("fulfilment", "revenue", "paged-order", First, Last))
+        ])),
+        new("order-analysis", new("Order value analysis", "dashboard",
+        [
+            Value with { Title = "Daily contribution to total value", View = "waterfall" },
+            Value with { Title = "Largest daily contributions", View = "pareto" },
+            Value with { Title = "Distribution of daily order value", View = "histogram" }
+        ])),
+        new("order-time-series", new("Order value over time", "dashboard",
+        [
+            Value with { Title = "Daily trend", View = "time-line" },
+            Value with { Title = "Daily value area", View = "area" },
+            Value with { Title = "Daily value steps", View = "step" },
+            Value with { Title = "Daily value columns", View = "time-column" }
+        ])),
         new("reporting-widgets", new("Reporting widget gallery", "dashboard",
         [
             Volume,
@@ -87,6 +126,9 @@ sealed class FixtureSource : IReportingSource
         ReportScope scope, ReportQuery query, int limit, CancellationToken cancellation)
     {
         cancellation.ThrowIfCancellationRequested();
+        if (query.Dataset == "fulfilment")
+            return ValueTask.FromResult(RunFulfilment(scope, query, limit));
+
         var count = scope.Tenant == "north" ? 24 : 8;
         var rows = Enumerable.Range(0, count)
             .Select(i => (Day: First.AddDays(i % 14), Status: i % 4 == 0 ? "Pending" : "Complete", Value: 20m + i * 5m))
@@ -104,6 +146,7 @@ sealed class FixtureSource : IReportingSource
 
         return ValueTask.FromResult<IReadOnlyList<ReportRow>>(rows);
     }
+
 }
 
 sealed class MemoryStore : IReportingStore

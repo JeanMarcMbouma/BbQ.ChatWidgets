@@ -1,7 +1,26 @@
 // Generated from js/src/reporting by npm run build:reporting.
 
 // src/reporting/types.ts
-var reportingKinds = ["dashboard", "filter", "bar", "line", "pie", "timeline", "scatter", "table", "grid", "metric"];
+var reportingTimeSeriesKinds = ["time-line", "area", "step", "time-column"];
+var reportingKinds = [
+  "dashboard",
+  "filter",
+  "bar",
+  "line",
+  "pie",
+  "timeline",
+  "scatter",
+  ...reportingTimeSeriesKinds,
+  "waterfall",
+  "pareto",
+  "histogram",
+  "table",
+  "grid",
+  "metric"
+];
+function isReportingTimeSeriesKind(kind) {
+  return reportingTimeSeriesKinds.some((timeSeriesKind) => timeSeriesKind === kind);
+}
 
 // src/reporting/engine.ts
 var initialContext = { settings: {}, sources: {}, filters: [] };
@@ -64,7 +83,8 @@ function renderNode(widget, parent, session, path, depth) {
   const state = stateFor(session, path, widget.pageSize);
   const rows = widget.kind === "dashboard" ? [] : getRows(widget, context, state);
   const columns = widget.kind === "grid" || widget.kind === "table" ? getColumns(context, rows) : [];
-  session.bindings.set(path, { widget, context, rows, columns, state });
+  const binding = { widget, context, rows, columns, state };
+  session.bindings.set(path, binding);
   if (widget.error) return section(widget, path, `<p role="alert">${escapeHtml(widget.error)}</p>`);
   if (widget.kind === "dashboard") {
     const children = Array.isArray(widget.children) ? widget.children : [];
@@ -98,14 +118,16 @@ function renderNode(widget, parent, session, path, depth) {
     return section(widget, path, `<label>Filter by ${escapeHtml(widget.filterField)}
       <select data-report-command="filter" ${control(path, "filter")}><option value="">All</option>${options}</select></label>`);
   }
-  if (widget.kind === "table" || widget.kind === "grid") return section(widget, path, renderTable(widget.kind, path, rows, columns, state, context.settings.groupBy));
+  if (widget.kind === "table" || widget.kind === "grid") {
+    return section(widget, path, renderTable(widget.kind, path, rows, columns, state, context.settings.groupBy, !!widget.action));
+  }
   if (rows.length === 0) return section(widget, path, "<p>No results.</p>");
   if (widget.kind === "metric") {
     const values = rows.flatMap((row) => number(cell(row, context.settings.valueField ?? "value")) ?? []);
     const total = values.reduce((sum, value) => sum + value, 0);
     return section(widget, path, `<p><strong>${Number.isFinite(total) && values.length ? format(total) : "\u2014"}</strong></p>`);
   }
-  return section(widget, path, renderChart(widget, rows, context.settings, state.selected));
+  return section(widget, path, renderChart(binding));
 }
 function compare(a, b) {
   return typeof a === "number" && typeof b === "number" ? a - b : text(a).localeCompare(text(b), void 0, { numeric: true });
@@ -117,7 +139,7 @@ function tableRows(rows, columns, state) {
   const field = state.sort;
   return [...filtered].sort((a, b) => compare(cell(a, field), cell(b, field)) * (state.descending ? -1 : 1));
 }
-function renderTable(kind, path, rows, columns, state, defaultGroup) {
+function renderTable(kind, path, rows, columns, state, defaultGroup, actionable) {
   const grid = kind === "grid";
   const visible = columns.filter((column) => !state.hidden.has(column.field));
   const matching = grid ? tableRows(rows, visible, state) : rows;
@@ -140,7 +162,7 @@ function renderTable(kind, path, rows, columns, state, defaultGroup) {
     return grid ? `<th scope="col" aria-sort="${sort}"><button type="button" data-report-command="sort" data-field="${escapeHtml(col.field)}" ${control(path, "sort:" + col.field)}>${escapeHtml(col.label)}</button></th>` : `<th scope="col">${escapeHtml(col.label)}</th>`;
   }).join("");
   const body = page.map((row, index) => {
-    const group = field && grid && (index === 0 || cell(row, field) !== cell(page[index - 1], field)) ? `<tr><th scope="rowgroup" colspan="${visible.length + 1}">${escapeHtml(text(cell(row, field)) || "(blank)")}</th></tr>` : "";
+    const group = field && grid && (index === 0 || cell(row, field) !== cell(page[index - 1], field)) ? `<tr><th scope="rowgroup" colspan="${visible.length + (actionable ? 2 : 1)}">${escapeHtml(text(cell(row, field)) || "(blank)")}</th></tr>` : "";
     const select = grid ? `<td><input type="checkbox" aria-label="Select row ${row.index + 1}" data-report-command="select"
       data-row="${row.index}" ${control(path, "row:" + row.index)}${state.selected.has(row.index) ? " checked" : ""}></td>` : "";
     const cells = visible.map((col) => {
@@ -150,7 +172,9 @@ function renderTable(kind, path, rows, columns, state, defaultGroup) {
           ${control(path, "edit:" + row.index + ":" + col.field)} value="${escapeHtml(text(value))}">` : escapeHtml(text(value));
       return `<td style="padding:.25rem .45rem">${edit}</td>`;
     }).join("");
-    return `${group}<tr>${select}${cells}</tr>`;
+    const activate = actionable ? ` data-report-command="activate" data-row="${row.index}"` : "";
+    const details = actionable ? `<td><button type="button"${activate} aria-label="View details for row ${row.index + 1}">View</button></td>` : "";
+    return `${group}<tr${activate}>${select}${cells}${details}</tr>`;
   }).join("");
   const all = page.length > 0 && page.every((row) => state.selected.has(row.index));
   const selectAll = grid ? `<th scope="col"><input type="checkbox" aria-label="Select page" data-report-command="select-page"
@@ -161,37 +185,90 @@ function renderTable(kind, path, rows, columns, state, defaultGroup) {
     <button type="button" data-report-command="next" ${control(path, "next")}${state.page >= lastPage ? " disabled" : ""}>Next</button>
     <label>Rows per page <select data-report-command="page-size" ${control(path, "page-size")}>
     ${[10, 25, 50, 100].map((size) => `<option${state.size === size ? " selected" : ""}>${size}</option>`).join("")}</select></label></div>` : "";
-  return `${tools}<div style="overflow:auto"><table style="width:100%;text-align:left"><thead><tr>${selectAll}${heading}</tr></thead>
+  const detailsHeading = actionable ? '<th scope="col">Details</th>' : "";
+  return `${tools}<div style="overflow:auto"><table style="width:100%;text-align:left"><thead><tr>${selectAll}${heading}${detailsHeading}</tr></thead>
     <tbody>${body}</tbody></table></div>${page.length ? "" : "<p>No results.</p>"}${pager}`;
 }
-function renderChart(widget, rows, settings, selection) {
-  const points = [];
+function renderChart(binding) {
+  const { widget, rows, context: { settings }, state: { selected } } = binding;
+  const timeSeries = isReportingTimeSeriesKind(widget.kind) ? widget.kind : void 0;
+  const groupField = ["bar", "line", "pie", "pareto", "waterfall"].includes(widget.kind) ? settings.groupBy : void 0;
+  let points = [];
   const byGroup = /* @__PURE__ */ new Map();
   rows.forEach((row, index) => {
     const value = number(cell(row, settings.valueField ?? "value")) ?? (widget.kind === "timeline" ? 0 : void 0);
     if (value === void 0 || widget.kind === "pie" && value <= 0) return;
-    const label = text(cell(row, settings.groupBy ?? settings.categoryField ?? "label")) || "(blank)";
+    const category = cell(row, settings.groupBy ?? settings.categoryField ?? "label");
+    const label = text(category) || "(blank)";
     const date = cell(row, settings.dateField ?? "date");
-    const x2 = widget.kind === "timeline" ? typeof date === "string" ? Date.parse(date) : NaN : widget.kind === "scatter" ? number(cell(row, settings.xField ?? "x")) : index;
+    const x2 = timeSeries ? timeValue(date) : widget.kind === "timeline" ? typeof date === "string" ? Date.parse(date) : NaN : widget.kind === "scatter" ? number(cell(row, settings.xField ?? "x")) : index;
     if (x2 === void 0 || !Number.isFinite(x2)) return;
-    if (settings.groupBy && ["bar", "line", "pie"].includes(widget.kind)) {
+    if (groupField) {
       const point = byGroup.get(label);
-      if (point) point.value += value;
-      else byGroup.set(label, { label, value, x: byGroup.size, index: void 0 });
+      if (point) {
+        point.value += value;
+        point.group.rowIndices.push(row.index);
+        if (point.group.value !== category) point.group.value = label;
+      } else {
+        byGroup.set(label, {
+          label,
+          value,
+          x: byGroup.size,
+          index: row.index,
+          group: { field: groupField, value: category, rowIndices: [row.index] }
+        });
+      }
     } else {
       points.push({ label, value, x: x2, index: row.index });
     }
   });
   points.push(...[...byGroup.values()].filter((point) => Number.isFinite(point.value)));
-  if (widget.kind === "timeline") points.sort((a, b) => a.x - b.x);
-  if (!points.length) return "<p>No plottable values.</p>";
+  if (timeSeries || widget.kind === "timeline") points.sort((a, b) => a.x - b.x);
+  if (widget.kind === "pareto") {
+    points = points.filter((point) => point.value > 0).sort((a, b) => b.value - a.value);
+  }
+  if (!points.length) return timeSeries ? "<p>No plottable observations. Provide an ISO date and a numeric value for each observation.</p>" : "<p>No plottable values.</p>";
   const visible = points.slice(0, chartLimit);
-  const detail = (point) => `${point.label}: ${format(point.value)}${widget.kind === "scatter" ? ` (x ${format(point.x)})` : ""}${widget.kind === "timeline" ? ` (${new Date(point.x).toISOString().slice(0, 10)})` : ""}`;
-  const button = (point) => point.index === void 0 ? "" : ` role="button" tabindex="0" data-report-command="point" data-row="${point.index}" aria-pressed="${selection.has(point.index)}" aria-label="${escapeHtml(detail(point))}"`;
+  if (widget.action && groupField) {
+    binding.chartGroups = new Map(visible.flatMap((point) => point.group ? [[point.index, point.group]] : []));
+  }
+  if (widget.kind === "histogram") return renderHistogram(widget, points);
+  const detail = (point) => `${point.label}: ${format(point.value)}${widget.kind === "scatter" ? ` (x ${format(point.x)})` : ""}${timeSeries || widget.kind === "timeline" ? ` (${timeSeries ? dateDetail(point.x) : new Date(point.x).toISOString().slice(0, 10)})` : ""}`;
+  const button = (point) => point.group && !widget.action ? "" : ` role="button" tabindex="0" data-report-command="point" data-row="${point.index}" aria-pressed="${selected.has(point.index)}" aria-label="${escapeHtml(detail(point))}"`;
   const title = (point) => `<title>${escapeHtml(detail(point))}</title>`;
   const summary = `<details><summary>Chart data</summary><ul>${visible.map((point) => `<li>${escapeHtml(detail(point))}</li>`).join("")}</ul></details>`;
   const plot = (w, h, body) => `<svg aria-label="${escapeHtml(widget.label)}" viewBox="0 0 ${w} ${h}"
     style="display:block;width:100%;height:auto;color:inherit">${body}</svg>${summary}${visible.length < points.length ? `<p>Showing ${visible.length} of ${points.length} points.</p>` : ""}`;
+  if (timeSeries) return plot(420, 176, renderTimeSeries(timeSeries, visible, button, title));
+  if (widget.kind === "waterfall" || widget.kind === "pareto") {
+    const waterfall = widget.kind === "waterfall";
+    const scale2 = Math.max(...visible.map((point) => Math.abs(point.value))) || 1;
+    let running = 0;
+    const steps = visible.map((point) => {
+      const start = running;
+      running += point.value / scale2;
+      return { start, end: running };
+    });
+    const low = waterfall ? Math.min(0, ...steps.map((step) => step.end)) : 0;
+    const high = waterfall ? Math.max(0, ...steps.map((step) => step.end)) : 1;
+    const y2 = (value) => 136 - 112 * (value - low) / (high - low || 1);
+    const width = 340 / visible.length;
+    const bars = visible.map((point, index) => {
+      const step = steps[index];
+      const x2 = 25 + index * width;
+      const start = y2(waterfall ? step.start : 0);
+      const end = y2(waterfall ? step.end : point.value / scale2);
+      const connector = waterfall && index + 1 < visible.length ? `<line x1="${x2 + 0.72 * width}" x2="${x2 + width}" y1="${end}" y2="${end}" stroke="currentColor" opacity=".45"/>` : "";
+      return `<g${button(point)}>${title(point)}<rect x="${x2}" y="${Math.min(start, end)}" width="${0.72 * width}"
+        height="${Math.max(1, Math.abs(end - start))}" rx="2" fill="${point.value < 0 ? "#b74757" : palette[0]}"/></g>${connector}`;
+    }).join("");
+    const cumulative = waterfall ? "" : `<polyline aria-label="Cumulative share of displayed values" fill="none" stroke="#a14321" stroke-width="2.5"
+      points="${steps.map((step, index) => `${25 + (index + 0.36) * width},${y2(step.end / running)}`).join(" ")}"/>
+      <text x="365" y="17" text-anchor="end" fill="currentColor" font-size="10">100%</text>`;
+    return plot(390, 161, `<line x1="24" x2="366" y1="${y2(0)}" y2="${y2(0)}" stroke="currentColor" opacity=".4"/>
+      ${bars}${cumulative}<text x="25" y="154" fill="currentColor" font-size="10">${escapeHtml(visible[0].label.slice(0, 20))}</text>
+      ${visible.length > 1 ? `<text x="365" y="154" text-anchor="end" fill="currentColor" font-size="10">${escapeHtml(visible[visible.length - 1].label.slice(0, 20))}</text>` : ""}`);
+  }
   if (widget.kind === "pie") {
     const peak = Math.max(...visible.map((point) => point.value));
     const denominator = visible.reduce((sum, point) => sum + point.value / peak, 0);
@@ -238,6 +315,100 @@ function renderChart(widget, rows, settings, selection) {
     ${line}${marks}<text x="28" y="159" fill="currentColor" font-size="10">${escapeHtml(widget.kind === "scatter" ? format(minX) : (visible[0]?.label ?? "").slice(0, 20))}</text>
     <text x="364" y="159" text-anchor="end" fill="currentColor" font-size="10">${escapeHtml(widget.kind === "scatter" ? format(maxX) : (visible[visible.length - 1]?.label ?? "").slice(0, 20))}</text>`);
 }
+function timeValue(value) {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,9})?)?(?:Z|[+-]\d{2}:\d{2}))?$/.test(value)) return void 0;
+  const day = value.slice(0, 10);
+  const midnight = new Date(day);
+  if (!Number.isFinite(midnight.getTime()) || midnight.toISOString().slice(0, 10) !== day) return void 0;
+  return Date.parse(value);
+}
+function dateDetail(timestamp) {
+  const iso = new Date(timestamp).toISOString();
+  return iso.endsWith("T00:00:00.000Z") ? iso.slice(0, 10) : iso.replace(".000Z", "Z");
+}
+function renderTimeSeries(kind, points, pointAction, pointTitle) {
+  const left = 58;
+  const right = 378;
+  const top = 15;
+  const bottom = 139;
+  const first = points[0].x;
+  const last = points[points.length - 1].x;
+  const span = last - first;
+  const low = Math.min(0, ...points.map((point) => point.value));
+  const high = Math.max(0, ...points.map((point) => point.value));
+  const scale = Math.max(Math.abs(low), Math.abs(high)) || 1;
+  const valueSpan = high / scale - low / scale;
+  const x = (timestamp) => span ? left + (right - left) * (timestamp - first) / span : (left + right) / 2;
+  const y = (value) => valueSpan ? bottom - (bottom - top) * (value / scale - low / scale) / valueSpan : (bottom + top) / 2;
+  const baseline = y(0);
+  const color = kind === "area" ? palette[1] : kind === "step" ? palette[3] : palette[0];
+  const plotted = points.map((point) => ({ point, x: x(point.x), y: y(point.value) }));
+  const ticks = span > 0 ? [first, first + span / 2, last] : [first];
+  const timeAxis = ticks.map((tick, index) => {
+    const label = new Date(tick).toISOString();
+    const display = span > 0 && span < 864e5 ? label.slice(11, span < 1e3 ? 23 : span < 6e4 ? 19 : 16) : label.slice(0, 10);
+    const anchor = index === 0 && span ? "start" : index === 2 ? "end" : "middle";
+    return `<line x1="${x(tick)}" x2="${x(tick)}" y1="${top}" y2="${bottom}" stroke="currentColor" opacity=".12"/>
+      <text x="${x(tick)}" y="157" text-anchor="${anchor}" fill="currentColor" font-size="10">${escapeHtml(display)}</text>`;
+  }).join("");
+  const valueAxis = [.../* @__PURE__ */ new Set([low, 0, high])].map((value) => {
+    const absolute = Math.abs(value);
+    const label = absolute >= 1e6 || absolute > 0 && absolute < 1e-3 ? value.toExponential(1) : format(value);
+    return `<line x1="${left}" x2="${right}" y1="${y(value)}" y2="${y(value)}" stroke="currentColor" opacity="${value === 0 ? 0.4 : 0.18}"/>
+      <text x="${left - 8}" y="${y(value) + 3}" text-anchor="end" fill="currentColor" font-size="10">${escapeHtml(label)}</text>`;
+  }).join("");
+  let data;
+  if (kind === "time-column") {
+    const groups = /* @__PURE__ */ new Map();
+    for (const mark of plotted) {
+      const group = groups.get(mark.x) ?? [];
+      group.push(mark);
+      groups.set(mark.x, group);
+    }
+    const ordered = [...groups.entries()];
+    data = ordered.map(([center, group], index) => {
+      const previous = ordered[index - 1]?.[0] ?? -Infinity;
+      const next = ordered[index + 1]?.[0] ?? Infinity;
+      const width = Math.min(26, 0.75 * Math.min(center - previous, next - center));
+      const slot = width / group.length;
+      return group.map(({ point, y: end }, position) => `<rect x="${center - width / 2 + slot * position}" y="${Math.min(end, baseline)}" width="${slot * 0.88}"
+          height="${Math.max(1, Math.abs(end - baseline))}" fill="${point.value < 0 ? "#b74757" : color}"${pointAction(point)}>${pointTitle(point)}</rect>`).join("");
+    }).join("");
+  } else {
+    const path = plotted.map((point, index) => index === 0 ? `M ${point.x} ${point.y}` : kind === "step" ? `H ${point.x} V ${point.y}` : `L ${point.x} ${point.y}`).join(" ");
+    const area = kind === "area" ? `<path d="${path} L ${x(last)} ${baseline} L ${x(first)} ${baseline} Z" fill="${color}" fill-opacity=".2"/>` : "";
+    const markers = plotted.map(({ point, x: cx, y: cy }) => `<circle cx="${cx}" cy="${cy}" r="4" fill="${color}"${pointAction(point)}>${pointTitle(point)}</circle>`).join("");
+    data = `${area}<path d="${path}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>${markers}`;
+  }
+  return `${timeAxis}${valueAxis}${data}<text x="418" y="170" text-anchor="end" fill="currentColor" font-size="9">UTC</text>`;
+}
+function renderHistogram(widget, points) {
+  const minimum = points.reduce((value, point) => Math.min(value, point.value), Infinity);
+  const maximum = points.reduce((value, point) => Math.max(value, point.value), -Infinity);
+  const scale = Math.max(Math.abs(minimum), Math.abs(maximum)) || 1;
+  const low = minimum / scale;
+  const span = maximum / scale - low;
+  const size = span ? Math.min(12, Math.ceil(Math.sqrt(points.length))) : 1;
+  const bins = Array(size).fill(0);
+  for (const point of points) {
+    const index = span ? Math.floor((point.value / scale - low) / span * size) : 0;
+    bins[Math.max(0, Math.min(size - 1, index))]++;
+  }
+  const peak = Math.max(...bins);
+  const width = 340 / size;
+  const edge = (index) => format((low + span * index / size) * scale);
+  const labels = bins.map((count, index) => `${edge(index)}${size === 1 ? "" : `\u2013${edge(index + 1)}`}: ${count} ${count === 1 ? "observation" : "observations"}`);
+  const bars = bins.map((count, index) => {
+    const height = count / peak * 110;
+    return `<rect x="${25 + index * width}" y="${132 - height}" width="${width - 2}" height="${height}" rx="2" fill="${palette[0]}">
+      <title>${escapeHtml(labels[index])}</title></rect>`;
+  }).join("");
+  return `<svg aria-label="${escapeHtml(widget.label)}" viewBox="0 0 390 155" style="display:block;width:100%;height:auto;color:inherit">
+    <line x1="25" x2="365" y1="132" y2="132" stroke="currentColor" opacity=".4"/>${bars}
+    <text x="25" y="149" fill="currentColor" font-size="10">${escapeHtml(format(minimum))}</text>
+    ${size > 1 ? `<text x="365" y="149" text-anchor="end" fill="currentColor" font-size="10">${escapeHtml(format(maximum))}</text>` : ""}</svg>
+    <details><summary>Distribution data</summary><ul>${labels.map((label) => `<li>${escapeHtml(label)}</li>`).join("")}</ul></details>`;
+}
 var mounted = /* @__PURE__ */ new WeakMap();
 function mountReporting(container, definition, emit) {
   mounted.get(container)?.();
@@ -253,14 +424,15 @@ function mountReporting(container, definition, emit) {
     if (selection !== null && next?.matches('input[type="search"]')) next.setSelectionRange(selection, selection);
   };
   const listener = (event) => {
-    const target = event.target?.closest?.("[data-report-command]");
+    const origin = event.target;
+    const target = origin?.closest?.("[data-report-command]");
     const path = target?.closest("[data-report-path]")?.getAttribute("data-report-path");
     const binding = path ? session.bindings.get(path) : void 0;
     if (!target || !binding || !container.contains(target)) return;
     const command = target.dataset.reportCommand;
     const isButton = target.tagName === "BUTTON";
     const keyboard = event.type === "keydown" && command === "point" && ["Enter", " "].includes(event.key);
-    const eventType = command === "search" ? "input" : isButton || command === "point" ? "click" : "change";
+    const eventType = command === "search" ? "input" : isButton || command === "point" || command === "activate" ? "click" : "change";
     if (event.type !== eventType && !keyboard) return;
     if (keyboard) event.preventDefault();
     const input = target;
@@ -284,9 +456,15 @@ function mountReporting(container, definition, emit) {
         state.selected.add(row.index);
         target.closest("[data-report-path]")?.querySelector('[data-report-command="point"][aria-pressed="true"]')?.setAttribute("aria-pressed", "false");
         target.setAttribute("aria-pressed", "true");
-        if (widget.action) emit?.(widget.action, { kind: "select", source, rowIndices: [row.index], row: row.values });
+        const aggregate = binding.chartGroups?.get(row.index);
+        if (widget.action) emit?.(widget.action, aggregate ? { kind: "select", source, rowIndices: [...aggregate.rowIndices], group: { field: aggregate.field, value: aggregate.value } } : { kind: "select", source, rowIndices: [row.index], row: row.values });
         return;
       }
+      case "activate":
+        if (row && widget.action && (isButton || !origin?.closest("button, input, select, label, a, textarea, summary, [contenteditable]"))) {
+          emit?.(widget.action, { kind: "activate", source, rowIndex: row.index, row: row.values });
+        }
+        return;
       case "search":
         state.search = input.value;
         state.page = 0;

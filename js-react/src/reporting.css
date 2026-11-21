@@ -1,0 +1,61 @@
+:where(.bbq-reporting-workspace, .bbq-paged-reporting-grid) {
+  --reporting-border: var(--bbq-reporting-line, #dbe4e3);
+  --reporting-surface: var(--bbq-reporting-surface, #fff);
+  --reporting-accent: var(--bbq-reporting-accent, #12665c);
+  --reporting-highlight: var(--bbq-reporting-accent-light, #e7f4ef);
+  color: var(--bbq-reporting-ink, #182631);
+}
+.bbq-reporting-workspace > header, .bbq-reporting-workspace__content > header {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .75rem;
+}
+.bbq-reporting-workspace > header { padding: .75rem 0; border-bottom: 1px solid var(--reporting-border); }
+.bbq-reporting-workspace > header h1, .bbq-reporting-workspace__content > header h2 { margin: 0; }
+.bbq-reporting-workspace__content > header h2 { font-size: clamp(1.5rem, 4vw, 2.5rem); letter-spacing: -.04em; }
+.bbq-reporting-workspace__layout {
+  display: grid; grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr); align-items: start;
+  gap: clamp(1rem, 3vw, 2rem); margin-block-start: 1rem;
+}
+.bbq-reporting-workspace__layout > nav, .bbq-reporting-workspace__content > form,
+.bbq-paged-reporting-grid, .bbq-reporting-workspace .bbq-report-dashboard > div > .bbq-report {
+  min-width: 0; padding: 1rem; background: var(--reporting-surface);
+  border: 1px solid var(--reporting-border); border-radius: .8rem;
+}
+.bbq-reporting-workspace__layout > nav h2 { margin: .45rem 0; text-transform: uppercase; font-size: .8rem; letter-spacing: .06em; }
+.bbq-reporting-workspace__layout > nav button { display: block; width: 100%; text-align: start; margin: .35rem 0; }
+.bbq-reporting-workspace__layout > nav button[aria-current="true"] { background: var(--reporting-highlight); }
+.bbq-reporting-workspace__content { min-width: 0; }
+.bbq-reporting-workspace__content > :is(form, section[aria-label="Report results"]) { margin-block-start: 1rem; }
+.bbq-reporting-workspace fieldset { min-width: 0; margin: .75rem 0; border: 1px solid var(--reporting-border); border-radius: .55rem; }
+.bbq-reporting-workspace__fields {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: .7rem;
+}
+.bbq-reporting-workspace__fields label { display: grid; gap: .3rem; }
+:where(.bbq-reporting-workspace, .bbq-paged-reporting-grid) :is(button, input:not([type="checkbox"]), select) {
+  box-sizing: border-box; max-width: 100%; min-height: 2.1rem; padding: .35rem .55rem;
+  border: 1px solid var(--reporting-border); border-radius: .45rem;
+  background: var(--reporting-surface); color: inherit; font: inherit;
+}
+:where(.bbq-reporting-workspace, .bbq-paged-reporting-grid) button { cursor: pointer; }
+:where(.bbq-reporting-workspace, .bbq-paged-reporting-grid) button:disabled { opacity: .55; cursor: default; }
+:where(.bbq-reporting-workspace, .bbq-paged-reporting-grid) :focus-visible { outline: 2px solid var(--reporting-accent); outline-offset: 2px; }
+:where(.bbq-reporting-workspace, .bbq-paged-reporting-grid) [role="alert"] { color: var(--bbq-reporting-error, #942f39); }
+.bbq-reporting-workspace .bbq-report > h3, .bbq-paged-reporting-grid h3 { margin: 0 0 .55rem; font-size: 1rem; }
+.bbq-reporting-workspace .bbq-report-dashboard > div > :is(.bbq-report-filter, .bbq-report-grid, .bbq-report-table) { grid-column: 1 / -1; }
+.bbq-reporting-workspace :is(.bbq-report [data-report-command="activate"], .bbq-report [data-report-command="point"]),
+.bbq-paged-reporting-grid tbody tr:has(button) { cursor: pointer; }
+.bbq-paged-reporting-grid { margin-block: .8rem; }
+.bbq-paged-reporting-grid :is(form, footer) { padding-block: .65rem; }
+.bbq-paged-reporting-grid footer { justify-content: space-between; font-size: .875rem; font-variant-numeric: tabular-nums; }
+.bbq-paged-reporting-grid footer nav span { padding: .3rem .5rem; background: var(--reporting-highlight); border-radius: .35rem; }
+:is(.bbq-reporting-workspace .bbq-report, .bbq-paged-reporting-grid) table {
+  border-collapse: separate; border-spacing: 0; white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+:is(.bbq-reporting-workspace .bbq-report, .bbq-paged-reporting-grid) :is(td, th) {
+  padding: .4rem .55rem; border-bottom: 1px solid var(--reporting-border);
+}
+.bbq-paged-reporting-grid thead th { position: sticky; top: 0; background: var(--reporting-highlight); }
+.bbq-paged-reporting-grid tbody tr:is(.is-selected, :hover, :focus-within) { background: var(--reporting-highlight); }
+
+@media (max-width: 42rem) {
+  .bbq-reporting-workspace__layout { grid-template-columns: minmax(0, 1fr); }
+}

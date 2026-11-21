@@ -1,0 +1,403 @@
+@using System.Globalization
+@using BbQ.ChatWidgets.Blazor.Reporting
+@using BbQ.ChatWidgets.Reporting
+@implements IDisposable
+
+<section class="paged-reporting-grid" aria-label="@Title" aria-busy="@(_loading ? "true" : "false")">
+    <header>
+        <h3>@Title</h3>
+        @if (_selected.Count > 0)
+        {
+            <div class="selection">
+                <span role="status">@FormatCount(_selected.Count) selected</span>
+                <button type="button" @onclick="ClearSelectionAsync">Clear selection</button>
+            </div>
+        }
+    </header>
+
+    @if (Dimension.Grid is not null && (CanSearch || FilterColumns.Any()))
+    {
+        <form class="controls" @onsubmit="ApplyAsync" @onsubmit:preventDefault>
+            @if (CanSearch)
+            {
+                <label>Search <input type="search" maxlength="160" @bind="_search" @bind:event="oninput" /></label>
+            }
+            @if (FilterColumns.Any())
+            {
+                <label>
+                    Filter field
+                    <select @bind="_filterField">
+                        <option value="">None</option>
+                        @foreach (var column in FilterColumns)
+                        {
+                            <option value="@column.Field">@column.Label</option>
+                        }
+                    </select>
+                </label>
+                @if (_filterField.Length > 0)
+                {
+                    <label>Exact value <input maxlength="160" @bind="_filterValue" @bind:event="oninput" /></label>
+                }
+            }
+            <button type="submit" disabled="@_loading">Apply</button>
+        </form>
+    }
+
+    @if (_loading)
+    {
+        <p role="status">Loading rows.</p>
+    }
+    @if (_error is not null)
+    {
+        <p role="alert">@_error</p>
+        @if (Dimension.Grid is not null)
+        {
+            <button type="button" @onclick="LoadAsync">Retry</button>
+        }
+    }
+
+    @if (_visible is { } visible)
+    {
+        var last = visible.Offset + visible.Page.Rows.Count;
+        var pageCount = (visible.Page.Total - 1) / visible.Size + 1;
+        <div class="table-scroll" role="region" tabindex="0" aria-label="@(Title + " table")">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <input type="checkbox" aria-label="Select this page"
+                                   checked="@(visible.Page.Rows.Count > 0 && visible.Page.Rows.All(entry => _selected.Contains(entry.Key)))"
+                                   disabled="@(_loading || visible.Page.Rows.Count == 0)" @onchange="SelectPageAsync" />
+                        </th>
+                        @foreach (var column in Columns)
+                        {
+                            <th scope="col" aria-sort="@SortDirection(column.Field)">
+                                @if (CanSort(column.Field))
+                                {
+                                    <button type="button" disabled="@_loading" @onclick="() => SortAsync(column.Field)">
+                                        @column.Label
+                                        @if (visible.SortField == column.Field)
+                                        {
+                                            <span aria-hidden="true">@(visible.Descending ? "↓" : "↑")</span>
+                                        }
+                                    </button>
+                                }
+                                else
+                                {
+                                    @column.Label
+                                }
+                            </th>
+                        }
+                        @if (OnRowActivate.HasDelegate)
+                        {
+                            <th scope="col">Actions</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var entry in visible.Page.Rows)
+                    {
+                        <tr @key="entry.Key" class="@RowClass(entry.Key)" @onclick="() => ActivateAsync(entry)">
+                            <td @onclick:stopPropagation="true">
+                                <input type="checkbox" aria-label="@("Select " + entry.Row.Label)"
+                                       checked="@_selected.Contains(entry.Key)" disabled="@_loading"
+                                       @onchange="args => SelectAsync(entry.Key, args)" />
+                            </td>
+                            @foreach (var column in Columns)
+                            {
+                                <td>@Cell(entry.Row, column.Field)</td>
+                            }
+                            @if (OnRowActivate.HasDelegate)
+                            {
+                                <td @onclick:stopPropagation="true">
+                                    <button class="row-action" type="button" aria-label="@("View " + entry.Row.Label)"
+                                            disabled="@_loading" @onclick="() => ActivateAsync(entry)">View</button>
+                                </td>
+                            }
+                        </tr>
+                    }
+                    @if (visible.Page.Rows.Count == 0)
+                    {
+                        <tr><td colspan="@(Columns.Count + (OnRowActivate.HasDelegate ? 2 : 1))">No matching rows.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <footer class="pagination">
+            <span class="row-range" role="status">
+                @if (visible.Page.Rows.Count > 0)
+                {
+                    <strong>@FormatCount(visible.Offset + 1)–@FormatCount(last)</strong><text> of @FormatCount(visible.Page.Total)</text>
+                }
+                else
+                {
+                    <text>0 results</text>
+                }
+            </span>
+            <nav aria-label="Grid pagination">
+                <button type="button" disabled="@(_loading || _offset == 0)" @onclick="() => StepAsync(-1)">
+                    <span aria-hidden="true">‹</span> Previous
+                </button>
+                @if (visible.Page.Total > 0)
+                {
+                    <span class="page-position">Page @FormatCount(visible.Offset / visible.Size + 1) of @FormatCount(pageCount)</span>
+                }
+                <button type="button" disabled="@(_loading || _offset + _size >= visible.Page.Total || _offset + _size > MaxOffset)"
+                        @onclick="() => StepAsync(1)">
+                    Next <span aria-hidden="true">›</span>
+                </button>
+            </nav>
+            <label class="page-size">
+                Rows per page
+                <select value="@_size" @onchange="ResizeAsync" disabled="@_loading">
+                    @foreach (var size in PageSizes)
+                    {
+                        <option value="@size">@size</option>
+                    }
+                </select>
+            </label>
+        </footer>
+    }
+</section>
+
+@code {
+    /// <summary>The host-provided reporting client.</summary>
+    [Parameter, EditorRequired]
+    public IReportingWorkspaceClient Client { get; set; } = default!;
+
+    /// <summary>The heading and accessible label for the grid.</summary>
+    [Parameter, EditorRequired]
+    public string Title { get; set; } = default!;
+
+    /// <summary>The dataset query to page through.</summary>
+    [Parameter, EditorRequired]
+    public ReportQuery Query { get; set; } = default!;
+
+    /// <summary>The grouping field supplying grid capabilities and visible columns.</summary>
+    [Parameter, EditorRequired]
+    public ReportField Dimension { get; set; } = default!;
+
+    /// <summary>Receives a stable row key and the row when the user activates a result.</summary>
+    [Parameter]
+    public EventCallback<ReportingGridRowActivation> OnRowActivate { get; set; }
+
+    /// <summary>Receives the currently selected keys, including keys on other pages.</summary>
+    [Parameter]
+    public EventCallback<IReadOnlyList<string>> OnSelectionChange { get; set; }
+
+    private const int DefaultSize = 25;
+    private const int MaxOffset = 1_000_000;
+    private static readonly int[] PageSizes = [10, DefaultSize, 50, 100];
+    private static readonly ReportColumn[] DefaultColumns = [new("label", "Order"), new("value", "Value")];
+
+    private readonly HashSet<string> _selected = new(StringComparer.Ordinal);
+    private IReportingWorkspaceClient? _boundClient;
+    private ReportQuery? _boundQuery;
+    private ReportField? _boundDimension;
+    private CancellationTokenSource? _activeRequest;
+    private VisiblePage? _visible;
+    private string? _error;
+    private string _search = "";
+    private string _filterField = "";
+    private string _filterValue = "";
+    private string? _appliedSearch;
+    private ReportGridFilter? _appliedFilter;
+    private string? _sortField;
+    private bool _descending;
+    private bool _loading;
+    private bool _disposed;
+    private int _offset;
+    private int _size = DefaultSize;
+
+    private IReadOnlyList<ReportColumn> Columns => Dimension.Columns ?? DefaultColumns;
+    private IEnumerable<ReportColumn> FilterColumns => Columns.Where(column =>
+        Dimension.Grid?.FilterFields.Contains(column.Field, StringComparer.Ordinal) == true);
+    private bool CanSearch => Dimension.Grid?.SearchFields.Length > 0;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (ReferenceEquals(Client, _boundClient) && Query == _boundQuery && Dimension == _boundDimension)
+            return;
+
+        _boundClient = Client;
+        _boundQuery = Query;
+        _boundDimension = Dimension;
+        _visible = null;
+        _offset = 0;
+        _search = _filterField = _filterValue = "";
+        _appliedSearch = _sortField = null;
+        _appliedFilter = null;
+        _descending = false;
+        await Task.WhenAll(LoadAsync(), ClearSelectionAsync());
+    }
+
+    private bool CanSort(string field) => Dimension.Grid?.SortFields.Contains(field, StringComparer.Ordinal) == true;
+
+    private string? SortDirection(string field) => _visible is { } visible && field == visible.SortField
+        ? visible.Descending ? "descending" : "ascending"
+        : null;
+
+    private async Task SortAsync(string field)
+    {
+        if (_loading || !CanSort(field))
+            return;
+        _descending = _sortField == field && !_descending;
+        _sortField = field;
+        _offset = 0;
+        await LoadAsync();
+    }
+
+    private async Task ApplyAsync()
+    {
+        if (_loading)
+            return;
+
+        _appliedSearch = CanSearch && !string.IsNullOrWhiteSpace(_search) ? _search.Trim() : null;
+        _appliedFilter = FilterColumns.Any(column => column.Field == _filterField) && !string.IsNullOrWhiteSpace(_filterValue)
+            ? new ReportGridFilter(_filterField, _filterValue.Trim())
+            : null;
+        _offset = 0;
+        await Task.WhenAll(LoadAsync(), ClearSelectionAsync());
+    }
+
+    private async Task ResizeAsync(ChangeEventArgs args)
+    {
+        if (_loading || !int.TryParse(args.Value?.ToString(), NumberStyles.None, CultureInfo.InvariantCulture, out var size)
+            || !PageSizes.Contains(size))
+            return;
+        _size = size;
+        _offset = 0;
+        await LoadAsync();
+    }
+
+    private Task StepAsync(int direction)
+    {
+        var offset = _offset + direction * _size;
+        if (_loading || _visible is null || offset < 0 || offset > MaxOffset || offset >= _visible.Page.Total)
+            return Task.CompletedTask;
+        _offset = offset;
+        return LoadAsync();
+    }
+
+    private async Task LoadAsync()
+    {
+        if (_disposed)
+            return;
+
+        var previous = _activeRequest;
+        _activeRequest = null;
+        previous?.Cancel();
+        _error = null;
+        if (Dimension.Grid is null)
+        {
+            _loading = false;
+            _error = "This report does not support server paging.";
+            return;
+        }
+
+        using var request = new CancellationTokenSource();
+        _activeRequest = request;
+        _loading = true;
+        var client = Client;
+        var query = new ReportGridPageRequest(Query, _offset, _size, _appliedSearch, _sortField, _descending,
+            _appliedFilter is { } filter ? [filter] : null);
+
+        try
+        {
+            while (true)
+            {
+                var page = await client.GetPageAsync(query, request.Token);
+                if (!ReferenceEquals(_activeRequest, request))
+                    return;
+
+                if (query.Offset > 0 && query.Offset >= page.Total)
+                {
+                    _offset = page.Total > 0 ? (page.Total - 1) / query.Limit * query.Limit : 0;
+                    query = query with { Offset = _offset };
+                    continue;
+                }
+
+                _visible = new VisiblePage(page, query.Offset, query.Limit, query.SortField, query.Descending);
+                break;
+            }
+        }
+        catch (OperationCanceledException) when (request.IsCancellationRequested)
+        {
+        }
+        catch (Exception)
+        {
+            if (!ReferenceEquals(_activeRequest, request))
+                return;
+            _visible = null;
+            _error = "Could not load this grid page.";
+        }
+        finally
+        {
+            if (ReferenceEquals(_activeRequest, request))
+            {
+                _activeRequest = null;
+                _loading = false;
+            }
+        }
+    }
+
+    private Task ActivateAsync(ReportGridRow entry) => _loading
+        ? Task.CompletedTask
+        : OnRowActivate.InvokeAsync(new ReportingGridRowActivation(entry.Key, entry.Row));
+
+    private Task SelectAsync(string key, ChangeEventArgs args)
+    {
+        if (_loading)
+            return Task.CompletedTask;
+        SetSelected(key, args.Value is true);
+        return PublishSelectionAsync();
+    }
+
+    private Task SelectPageAsync(ChangeEventArgs args)
+    {
+        if (_loading || _visible is not { } visible)
+            return Task.CompletedTask;
+        foreach (var entry in visible.Page.Rows)
+            SetSelected(entry.Key, args.Value is true);
+        return PublishSelectionAsync();
+    }
+
+    private Task ClearSelectionAsync()
+    {
+        if (_selected.Count == 0)
+            return Task.CompletedTask;
+        _selected.Clear();
+        return PublishSelectionAsync();
+    }
+
+    private void SetSelected(string key, bool selected)
+    {
+        if (selected) _selected.Add(key);
+        else _selected.Remove(key);
+    }
+
+    private Task PublishSelectionAsync() => OnSelectionChange.InvokeAsync(_selected.ToArray());
+
+    private string RowClass(string key) =>
+        (_selected.Contains(key) ? "selected " : "") + (OnRowActivate.HasDelegate && !_loading ? "actionable" : "");
+
+    private static string? Cell(ReportRow row, string field) => field switch
+    {
+        "label" => row.Label,
+        "value" => row.Value.ToString(CultureInfo.CurrentCulture),
+        _ => row.Fields is not null && row.Fields.TryGetValue(field, out var value) ? value.ToString() : null
+    };
+
+    private static string FormatCount(int number) => number.ToString("N0", CultureInfo.CurrentCulture);
+
+    /// <inheritdoc />
+    public void Dispose()
+    {
+        _disposed = true;
+        var request = _activeRequest;
+        _activeRequest = null;
+        request?.Cancel();
+    }
+
+    private sealed record VisiblePage(ReportGridPage Page, int Offset, int Size, string? SortField, bool Descending);
+}

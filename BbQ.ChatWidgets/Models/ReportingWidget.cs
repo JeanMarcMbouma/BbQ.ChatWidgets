@@ -30,7 +30,9 @@ public sealed record ReportingWidget(
 {
     /// <inheritdoc/>
     public override string Purpose => """
-        Display authorized report data as a bar, line, pie, timeline, scatter, table, grid, or metric.
+        Display authorized report data as a bar, line, pie, timeline, scatter, waterfall,
+        Pareto chart, histogram, table, grid, or metric.
+        Use kind time-line, area, step, or time-column for numeric values against ISO dates in dateField.
         Use kind dashboard to host children and share named sources, fields, grouping, and columns.
         A filter child filters its source for the other tiles in the same dashboard.
         Provide only data already authorized for the current viewer.

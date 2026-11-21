@@ -1,0 +1,195 @@
+@using BbQ.ChatWidgets.Blazor.Reporting
+@using BbQ.ChatWidgets.Reporting
+
+<section class="reporting-workspace" aria-label="Reporting">
+    <header class="workspace-header">
+        <h1>Reporting</h1>
+        @if (catalog?.Datasets.Length > 0)
+        {
+            <div class="actions">
+                <button type="button" disabled="@busy" @onclick='() => Start("report")'>New report</button>
+                <button type="button" class="primary" disabled="@busy" @onclick='() => Start("dashboard")'>New dashboard</button>
+            </div>
+        }
+    </header>
+
+    @if (error is not null)
+    {
+        <p role="alert">@error</p>
+    }
+    @if (busy || status is not null)
+    {
+        <p role="status">@(busy ? "Working." : status)</p>
+    }
+    @if (catalog is null && !busy)
+    {
+        <button type="button" @onclick="LoadAsync">Load reports</button>
+    }
+    @if (catalog is not null)
+    {
+        <div class="workspace">
+            <nav aria-label="Reports and dashboards">
+                <h2>Built in</h2>
+                @foreach (var preset in catalog.Presets)
+                {
+                    <button @key='("preset", preset.Id)' type="button" disabled="@busy"
+                            aria-current="@(presetId == preset.Id ? "true" : null)"
+                            @onclick="() => OpenAsync(preset, false)">
+                        @preset.Definition.Title <small>@preset.Definition.Kind</small>
+                    </button>
+                }
+                @if (catalog.Presets.Length == 0)
+                {
+                    <p>No presets available.</p>
+                }
+                <h2>Saved</h2>
+                @foreach (var item in saved)
+                {
+                    <button @key='("saved", item.Id)' type="button" disabled="@busy"
+                            aria-current="@(savedId == item.Id ? "true" : null)"
+                            @onclick="() => OpenAsync(item, true)">
+                        @item.Definition.Title <small>@item.Definition.Kind</small>
+                    </button>
+                }
+                @if (saved.Count == 0)
+                {
+                    <p>No saved reports yet.</p>
+                }
+            </nav>
+
+            <div class="content">
+                @if (draft is { } definition)
+                {
+                    <header class="view-header">
+                        <div>
+                            <p>@definition.Kind</p>
+                            <h2>@(string.IsNullOrWhiteSpace(definition.Title) ? $"Untitled {definition.Kind}" : definition.Title)</h2>
+                        </div>
+                        <button type="button" disabled="@busy" @onclick="() => editing = !editing">
+                            @(editing ? "Back to results" : $"Edit {definition.Kind}")
+                        </button>
+                    </header>
+                    @if (editing)
+                    {
+                        <form @onsubmit="RunAsync" @onsubmit:preventDefault>
+                            <fieldset disabled="@busy">
+                                <label>Title
+                                    <input maxlength="100" required value="@definition.Title" @onchange="e => ChangeTitle(e.Value?.ToString() ?? string.Empty)" />
+                                </label>
+                                @for (var index = 0; index < definition.Tiles.Length; index++)
+                                {
+                                    var tileIndex = index;
+                                    var tile = definition.Tiles[tileIndex];
+                                    var dataset = ReportingSnapshotComposer.FindDataset(catalog, tile.Query);
+                                    var grouping = ReportingSnapshotComposer.FindDimension(catalog, tile.Query);
+                                    <fieldset class="tile-editor">
+                                        <legend>Tile @(tileIndex + 1)</legend>
+                                        <div class="fields">
+                                            <label>Tile title
+                                                <input maxlength="100" required value="@tile.Title"
+                                                       @onchange="e => ChangeTile(tileIndex, tile with { Title = e.Value?.ToString() ?? string.Empty })" />
+                                            </label>
+                                            <label>Dataset
+                                                <select value="@tile.Query.Dataset" @onchange="e => ChangeDataset(tileIndex, e.Value?.ToString())">
+                                                    @foreach (var item in catalog.Datasets)
+                                                    {
+                                                        <option value="@item.Id" selected="@(tile.Query.Dataset == item.Id)">@item.Label</option>
+                                                    }
+                                                </select>
+                                            </label>
+                                            <label>Metric
+                                                <select value="@tile.Query.Metric"
+                                                        @onchange="e => ChangeQuery(tileIndex, tile.Query with { Metric = e.Value?.ToString() ?? string.Empty })">
+                                                    @foreach (var metric in dataset?.Metrics ?? [])
+                                                    {
+                                                        <option value="@metric.Id" selected="@(tile.Query.Metric == metric.Id)">@metric.Label</option>
+                                                    }
+                                                </select>
+                                            </label>
+                                            <label>Group by
+                                                <select value="@tile.Query.GroupBy" @onchange="e => ChangeGrouping(tileIndex, e.Value?.ToString())">
+                                                    <option value="" selected="@(tile.Query.GroupBy is null)">No grouping</option>
+                                                    @foreach (var dimension in dataset?.Dimensions ?? [])
+                                                    {
+                                                        <option value="@dimension.Id" selected="@(tile.Query.GroupBy == dimension.Id)">@dimension.Label</option>
+                                                    }
+                                                </select>
+                                            </label>
+                                            <label>From
+                                                <input type="date" required value="@DateValue(tile.Query.From)" @onchange="e => ChangeDate(tileIndex, e.Value?.ToString(), true)" />
+                                            </label>
+                                            <label>Through
+                                                <input type="date" required min="@DateValue(tile.Query.From)" value="@DateValue(tile.Query.To)"
+                                                       @onchange="e => ChangeDate(tileIndex, e.Value?.ToString(), false)" />
+                                            </label>
+                                            <label>Display
+                                                <select value="@tile.View" @onchange="e => ChangeTile(tileIndex, tile with { View = e.Value?.ToString() ?? string.Empty })">
+                                                    @foreach (var (id, label) in Views)
+                                                    {
+                                                        if (id != "filter" || definition.Kind == "dashboard")
+                                                        {
+                                                            <option value="@id" selected="@(tile.View == id)">@label</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </label>
+                                        </div>
+                                        @if (DateViews.Contains(tile.View) && grouping?.DateField is null && grouping?.Id != "day")
+                                        {
+                                            <p>Choose a grouping with dates for this chart.</p>
+                                        }
+                                        @if (definition.Tiles.Length > 1)
+                                        {
+                                            <div class="actions">
+                                                <button type="button" disabled="@(tileIndex == 0)" @onclick="() => MoveTile(tileIndex, -1)">Move up</button>
+                                                <button type="button" disabled="@(tileIndex == definition.Tiles.Length - 1)" @onclick="() => MoveTile(tileIndex, 1)">Move down</button>
+                                                <button type="button" @onclick="() => RemoveTile(tileIndex)">Remove tile</button>
+                                            </div>
+                                        }
+                                    </fieldset>
+                                }
+                                <div class="actions">
+                                    @if (definition.Kind == "dashboard" && definition.Tiles.Length < 8)
+                                    {
+                                        <button type="button" @onclick="AddTile">Add tile</button>
+                                    }
+                                    <button type="submit" class="primary" disabled="@(!CanRun)">Run @definition.Kind</button>
+                                    <button type="button" disabled="@(!CanRun)" @onclick="SaveAsync">@(savedId is null ? "Save as new" : "Save changes")</button>
+                                    @if (savedId is not null)
+                                    {
+                                        <button type="button" @onclick="DeleteAsync">Delete saved copy</button>
+                                    }
+                                </div>
+                            </fieldset>
+                        </form>
+                    }
+
+                    @if (snapshot is not null || paged.Count > 0)
+                    {
+                        var currentTiles = renderedTiles;
+                        <div class="results" aria-label="Report results" hidden="@editing">
+                            @if (snapshot is not null)
+                            {
+                                <ReportingWidgetComponent @key="currentTiles" Widget="snapshot"
+                                                          OnAction="value => OnSnapshotAction(currentTiles, value)" />
+                            }
+                            @foreach (var grid in paged)
+                            {
+                                <PagedReportingGrid @key="(currentTiles, grid.Index)" Title="@grid.Tile.Title" Query="@grid.Tile.Query" Dimension="@grid.Dimension"
+                                                    Client="@Client" OnRowActivate="value => OnPagedAction(currentTiles, grid, value)" />
+                            }
+                        </div>
+                    }
+                    else if (!busy && !editing)
+                    {
+                        <p>Run this @definition.Kind to see its results.</p>
+                    }
+                }
+                else
+                {
+                    <p>@(catalog.Datasets.Length > 0 ? "Choose a report or create one." : "No reporting datasets are available.")</p>
+                }
+            </div>
+        </div>
+    }
+</section>

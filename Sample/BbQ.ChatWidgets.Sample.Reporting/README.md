@@ -6,6 +6,16 @@ ChatWidgets renders the dashboard, shared filters, charts, timelines, tables, me
 
 ## Run the sample
 
+Open **Order value analysis** to see how the same daily order values look as a running total, a ranked contribution chart, and a frequency distribution. All three chart types are also available in the editor.
+
+Open **Order value over time** to compare the same daily values as a time-series line, area, step, and column chart. Select a point or column to inspect its source row.
+
+Open **Order fulfilment grid** for a 96-order register. Search by customer or order, group by warehouse or status, sort numerically by units or value, choose visible columns, select across pages, and export the matching rows. Review notes are editable for the current preview. The fixture resets those edits when the report runs again.
+
+Open **Warehouse operations** for the server-paged variation. It has 2,400 orders in the default demo tenant. Search, sort, or filter by warehouse, channel, or status and page through the full result without loading all rows into the browser. Row selections follow stable order keys across pages.
+
+Click a chart mark or click a grid row to open the host application's details dialog. The **View** button on the row offers the same action by keyboard. Row checkboxes still control selection.
+
 Use the .NET 8 SDK and Node.js 22.12+ or 24. Build the workspace packages from the repository root.
 
 ```sh
@@ -20,21 +30,18 @@ From this sample directory, build the client and run the host.
 ```sh
 npm --prefix ClientApp ci
 npm --prefix ClientApp run build
-ASPNETCORE_ENVIRONMENT=Development dotnet run --project Host/Sample.csproj --no-launch-profile -- --urls http://127.0.0.1:5097
+dotnet run
 ```
 
-On PowerShell, set `$env:ASPNETCORE_ENVIRONMENT = 'Development'` before starting the host. Then open [http://127.0.0.1:5097](http://127.0.0.1:5097).
+The project in this directory serves the Angular build from `wwwroot` and uses the reporting API from `BbQ.ChatWidgets` and the workspace from `@bbq-chat/widgets-angular`. The launch profile sets the Development environment and binds to loopback over HTTP. Open [http://127.0.0.1:5107](http://127.0.0.1:5107). If you override the URL with `dotnet run -- --urls`, set `REPORTING_SAMPLE_URL` to the same URL when running the API tests.
 
 The host stops on startup outside Development. It uses fixture identities and stores saved definitions in memory for the life of the process. The browser sample sends the demo account header automatically. The reporting module gets identities from the ASP.NET Core principal.
 
 ## Integrate with an existing app
 
-1. Reference [Reporting.csproj](Reporting/Reporting.csproj) from your ASP.NET Core host. Implement [IReportingSource and IReportingStore](Reporting/Contracts.cs) against your application services. Register both with dependency injection and call `app.MapReporting(policy: "CanUseReporting")` with your application's authorization policy. Use your existing authentication, authorization, and request protection for the endpoints.
-2. In your source, derive the tenant and user from the authenticated principal and the app's membership rules. Advertise only the datasets, metrics, groupings, and presets the caller may use. Apply the same authorization scope to every aggregate query at the data source. In your store, scope every operation by tenant **and** user. Persist definitions and stable IDs with your existing database. The sample defaults to private saved definitions and last-write-wins editing.
-3. Copy [the reusable Angular reporting folder](ClientApp/src/reporting/) and route to `ReportingComponent`. Use the host's configured `HttpClient`, authentication interceptors, and ChatWidgets packages. Set `REPORTING_API` if your endpoint prefix differs. The sample's [main.ts](ClientApp/src/main.ts) is fixture bootstrap code. Supply your app's own theme and localization for UI strings and catalog labels.
-4. The [reporting widgets](../../docs_src/widgets/REPORTING.md) can also be used in your existing widget surfaces. Build a `ReportingWidget` from authorized data and pass it to the standard renderer. Chart and grid selections emit a typed action that can drive drill-through. The backend remains the source of report data and permissions.
+See the [reporting integration guide](../../docs_src/widgets/REPORTING.md) for service registration, mounting the packaged Angular workspace, and building a custom viewer. The sample's [Program.cs](Program.cs) and [main.ts](ClientApp/src/main.ts) show the application-specific data, persistence, and authentication setup.
 
-Presets and saved definitions use the same query contract and execution endpoint. Definitions contain stable dataset, metric, and grouping IDs and inclusive dates. The backend validates these against the caller's catalog and caps requests at 366 days and results at 100 groups. Source implementations should aggregate in the database and use the provided lookahead limit to detect oversized results. Choose a reporting time zone in the source before mapping date filters to timestamps.
+Presets and saved definitions use the same query contract. Definitions contain stable dataset, metric, and grouping IDs and inclusive dates. The backend validates these against the caller's catalog. Snapshot execution caps requests at 366 days and results at 100 rows. Paged grids request bounded slices from the source.
 
 ## Verify
 

@@ -13,8 +13,9 @@
             "index": "src/index.html",
             "tsConfig": "tsconfig.json",
             "preserveSymlinks": true,
+            "outputHashing": "all",
             "styles": ["src/styles.css"],
-            "outputPath": { "base": "../Host/wwwroot", "browser": "" }
+            "outputPath": { "base": "../wwwroot", "browser": "" }
           }
         }
       }

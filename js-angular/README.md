@@ -21,7 +21,7 @@ npm install @bbq-chat/widgets-angular @bbq-chat/widgets
 This package requires:
 - `@angular/common` >= 17.0.0
 - `@angular/core` >= 17.0.0
-- `@bbq-chat/widgets` ^1.0.0
+- `@bbq-chat/widgets` ^1.2.0
 
 ## Quick Start
 

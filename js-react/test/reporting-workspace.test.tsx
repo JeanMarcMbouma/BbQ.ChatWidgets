@@ -73,7 +73,7 @@ describe("React reporting workspace", () => {
   it("authors a custom report, saves it and reopens its rendered result", async () => {
     const client = reportingClient();
     render(<ReportingWorkspace client={client} />);
-    await screen.findByRole("heading", { name: "Warehouse dashboard" });
+    await screen.findByRole("heading", { level: 2, name: "Warehouse dashboard" });
 
     fireEvent.click(screen.getByRole("button", { name: "New report" }));
     fireEvent.change(screen.getByLabelText("Title", { exact: true }), { target: { value: "Daily trends" } });

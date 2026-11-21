@@ -1292,6 +1292,48 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ReportingColumn.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ReportingColumn.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ReportingColumn",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ReportingColumn.yml\" sourcestartlinenumber=\"1\">A named reporting field with optional grid editing.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ReportingSettings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ReportingSettings.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ReportingSettings",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ReportingSettings.yml\" sourcestartlinenumber=\"1\">Settings inherited by child reporting widgets unless overridden.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ReportingWidget.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ReportingWidget.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ReportingWidget",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ReportingWidget.yml\" sourcestartlinenumber=\"1\">Authors a reporting tile or a dashboard of nested reporting widgets.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Models.Serialization.yml",
       "output": {
         ".html": {
@@ -1698,6 +1740,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Renderers.ReportingHtml.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Renderers.ReportingHtml.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Renderers.ReportingHtml",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Renderers.ReportingHtml.yml\" sourcestartlinenumber=\"1\">Produces a data fallback for a reporting widget before browser hydration.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Renderers.SsrWidgetRenderer.yml",
       "output": {
         ".html": {
@@ -1722,6 +1778,286 @@
       "Uid": null,
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Renderers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.IReportingGridSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.IReportingGridSource.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.IReportingGridSource",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.IReportingGridSource.yml\" sourcestartlinenumber=\"1\">Optional paging support implemented by the registered reporting source.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.IReportingSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.IReportingSource.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.IReportingSource",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.IReportingSource.yml\" sourcestartlinenumber=\"1\">Resolves caller scope and exposes the authorized reporting catalog and results.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.IReportingStore.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.IReportingStore.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.IReportingStore",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.IReportingStore.yml\" sourcestartlinenumber=\"1\">Persists definitions, with each operation scoped by both the tenant and user.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportColumn.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportColumn.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportColumn",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportColumn.yml\" sourcestartlinenumber=\"1\">A visible result column, with opt-in editing in the render preview.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportDataset.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportDataset.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportDataset",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportDataset.yml\" sourcestartlinenumber=\"1\">An authorized dataset and its available metrics and groupings.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportDefinition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportDefinition.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportDefinition",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportDefinition.yml\" sourcestartlinenumber=\"1\">A rerunnable report or dashboard definition.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportField.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportField",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportField.yml\" sourcestartlinenumber=\"1\">A selectable metric or grouping in the catalog.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportGridCapabilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportGridCapabilities.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportGridCapabilities",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportGridCapabilities.yml\" sourcestartlinenumber=\"1\">Supported operations for a detail grid. Fields refer to report column IDs.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportGridFilter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportGridFilter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportGridFilter",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportGridFilter.yml\" sourcestartlinenumber=\"1\">An exact text match on an advertised filter field.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportGridPage.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportGridPage.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportGridPage",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportGridPage.yml\" sourcestartlinenumber=\"1\">A page and the total matching row count before paging.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportGridPageRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportGridPageRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportGridPageRequest",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportGridPageRequest.yml\" sourcestartlinenumber=\"1\">Requests a page of detail rows with optional search, sort, and filters.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportGridRow.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportGridRow.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportGridRow",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportGridRow.yml\" sourcestartlinenumber=\"1\">A report row and its stable key within the queried dataset.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportQuery.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportQuery.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportQuery",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportQuery.yml\" sourcestartlinenumber=\"1\">A dataset query over an inclusive date range with an optional grouping.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportRow.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportRow.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportRow",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportRow.yml\" sourcestartlinenumber=\"1\">An authorized result with a label, numeric value, and optional scalar fields.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportScope.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportScope.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportScope",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportScope.yml\" sourcestartlinenumber=\"1\">The application-resolved tenant and user for a reporting operation.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportTile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportTile.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportTile",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportTile.yml\" sourcestartlinenumber=\"1\">A query and its presentation in a report definition.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportingEndpoints.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportingEndpoints.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportingEndpoints",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportingEndpoints.yml\" sourcestartlinenumber=\"1\">Registers the reporting HTTP API independently of chat endpoints.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportingServiceCollectionExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportingServiceCollectionExtensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportingServiceCollectionExtensions",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportingServiceCollectionExtensions.yml\" sourcestartlinenumber=\"1\">Registers reporting providers independently of the chat services.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.SavedReport.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.SavedReport.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.SavedReport",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.SavedReport.yml\" sourcestartlinenumber=\"1\">A report definition and its stable identifier.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting",
       "Summary": null
     },
     {
@@ -2388,11 +2724,11 @@
       "type": "Toc",
       "source_relative_path": "docs_src/toc.yml",
       "output": {
-        ".json": {
-          "relative_path": "toc.json"
-        },
         ".html": {
           "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
         }
       },
       "version": ""
@@ -2413,6 +2749,16 @@
       "output": {
         ".html": {
           "relative_path": "widgets/README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs_src/widgets/REPORTING.md",
+      "output": {
+        ".html": {
+          "relative_path": "widgets/REPORTING.html"
         }
       },
       "version": ""

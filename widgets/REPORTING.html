@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Reports and dashboards | BbQ.ChatWidgets </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Reports and dashboards | BbQ.ChatWidgets ">
+    
+    
+      <link rel="shortcut icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="../toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="reports-and-dashboards">Reports and dashboards</h1>
+
+<p>ChatWidgets supports both inline reporting widgets and a reporting workspace backed by your application. The same renderer handles either entry point. A saved report definition contains queries and tile settings. Execution resolves the current caller's authorized results into a separate widget snapshot.</p>
+<h2 id="connect-an-aspnet-core-host">Connect an ASP.NET Core host</h2>
+<p>Reference <code>BbQ.ChatWidgets</code> and implement <code>IReportingSource</code> and <code>IReportingStore</code> in your application. Use your existing authentication and authorization setup.</p>
+<pre><code class="lang-csharp">using BbQ.ChatWidgets.Reporting;
+
+builder.Services.AddBbQReporting&lt;OrdersReportingSource, DatabaseReportStore&gt;();
+
+// Map this alongside your application's other authenticated endpoints.
+app.MapBbQReporting(policy: &quot;CanUseReporting&quot;);
+</code></pre>
+<p>The source resolves scope from the authenticated principal, lists the datasets and presets that scope can use, and executes validated queries over application data. Apply the resolved scope again in the data query. The store scopes saved-definition reads and writes by both tenant and user. Use the host's request protection for write operations. Registration is opt-in and requires no chat services or AI configuration. The route prefix defaults to <code>/api/reporting</code>.</p>
+<h2 id="mount-a-reporting-workspace">Mount a reporting workspace</h2>
+<p>The Angular, React, and Blazor packages include a workspace for running presets, editing and saving definitions, and viewing report results. Mount it in your application's reporting route and use the same authorized ASP.NET Core API for all three.</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Workspace</th>
+<th>API configuration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Angular</td>
+<td>Import <code>ReportingComponent</code> from <code>@bbq-chat/widgets-angular</code> and mount <code>&lt;bbq-reporting /&gt;</code>.</td>
+<td>Supply the host's <code>HttpClient</code> and interceptors. Set <code>REPORTING_API</code> to override the route and <code>REPORTING_INITIAL_PRESET</code> to select a preset.</td>
+</tr>
+<tr>
+<td>React</td>
+<td>Import <code>ReportingWorkspace</code> from <code>@bbq-chat/widgets-react</code>.</td>
+<td>By default it uses a same-origin <code>ReportingClient</code>. Supply a <code>client</code> to use a different route or transport and <code>initialPresetId</code> to select a preset.</td>
+</tr>
+<tr>
+<td>Blazor</td>
+<td>Import <code>BbQ.ChatWidgets.Blazor.Components</code> and mount <code>&lt;ReportingWorkspace&gt;</code> in an interactive render mode.</td>
+<td>Supply an <code>IReportingWorkspaceClient</code>. Use <code>ReportingHttpClient</code> with a host-configured <code>HttpClient</code>, or implement the interface against your application's reporting services. Use <code>InitialPreset</code> to select a preset.</td>
+</tr>
+</tbody>
+</table>
+<p>Set the Blazor render mode on the host page or app so the workspace receives its client and callbacks inside the interactive boundary. A Blazor Server circuit's outbound HTTP requests use the credentials of the supplied client. Configure that transport to authenticate as the current caller, or use an in-process adapter that derives the caller's scope from the circuit principal and applies the reporting authorization policy. If you prerender the workspace, the client must also be available in the prerendering host.</p>
+<p>Custom frontends can import <code>ReportingClient</code> and <code>composeReportingSnapshot</code> from <code>@bbq-chat/widgets</code>. The client uses Fetch and accepts a host-supplied Fetch implementation. The composer resolves each distinct query once per render and preserves tile actions. Pass its result to a ChatWidgets renderer.</p>
+<pre><code class="lang-ts">import { ReportingClient, WidgetManager, composeReportingSnapshot } from '@bbq-chat/widgets';
+
+const reporting = new ReportingClient();
+const catalog = await reporting.catalog();
+const preset = catalog.presets[0];
+const container = document.querySelector('#report');
+if (preset &amp;&amp; container) {
+  const widget = await composeReportingSnapshot(preset.definition, catalog, query =&gt; reporting.run(query));
+  new WidgetManager().renderInto(container, widget);
+}
+</code></pre>
+<h2 id="use-server-paged-grids">Use server-paged grids</h2>
+<p>Implement <code>IReportingGridSource</code> on the registered reporting source and advertise <code>ReportGridCapabilities</code> on the catalog dimension that supports paging. Declare which column IDs can participate in text search, sorting, and exact-match filters. The library validates requests against the authorized catalog before calling the provider. Return the matching total and a bounded page of rows. Give every row a stable key and use it as an ordering tie-breaker so paging and selection stay consistent.</p>
+<p>Each workspace uses this path automatically for grid tiles bound to a paging-enabled dimension. Search, sorting, and filtering apply to the full matching result on the server. Paged grids have their own controls below the snapshot widgets. For a standalone grid, use Angular's <code>PagedReportingGridComponent</code>, React's <code>PagedReportingGrid</code>, or Blazor's <code>PagedReportingGrid</code>. A custom TypeScript client can call <code>ReportingClient.page</code>. The snapshot grid supports client-side grouping, editing, and CSV export over its loaded dataset.</p>
+<h2 id="author-a-reporting-widget-directly">Author a reporting widget directly</h2>
+<p>Create a <code>ReportingWidget</code> with kind <code>dashboard</code> to share named row sources and field settings with child reporting widgets. A child can override individual settings or host another dashboard. Each reporting definition is serializable and usable from the standard ChatWidgets renderer in JavaScript, React, Angular, and Blazor.</p>
+<pre><code class="lang-ts">import { ReportingWidget, WidgetManager } from '@bbq-chat/widgets';
+
+const dashboard = new ReportingWidget('Orders', '', 'dashboard', {
+  sources: {
+    daily: [
+      { date: '2026-11-01', region: 'North', orders: 18, value: 810 },
+      { date: '2026-11-02', region: 'South', orders: 12, value: 470 },
+    ],
+  },
+  settings: {
+    dataSource: 'daily',
+    categoryField: 'date',
+    valueField: 'value',
+    dateField: 'date',
+    xField: 'orders',
+    columns: [
+      { field: 'date', label: 'Date' },
+      { field: 'region', label: 'Region' },
+      { field: 'orders', label: 'Orders' },
+      { field: 'value', label: 'Value' },
+    ],
+  },
+  children: [
+    { kind: 'filter', label: 'Region', action: 'region_changed', filterField: 'region' },
+    { kind: 'metric', label: 'Order value', action: '' },
+    { kind: 'bar', label: 'Value by region', action: '', settings: { groupBy: 'region' } },
+    { kind: 'timeline', label: 'Order dates', action: 'open_date' },
+    { kind: 'scatter', label: 'Order count and value', action: 'inspect_orders' },
+    { kind: 'grid', label: 'Order summary', action: 'order_grid' },
+  ],
+});
+
+const container = document.querySelector('#dashboard');
+if (container) {
+  new WidgetManager({
+    actionHandler: {
+      async handle(action, payload) {
+        console.log(action, payload);
+      },
+    },
+  }).renderInto(container, dashboard);
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>Fields and behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dashboard</code></td>
+<td>Hosts reporting children. Sources and settings inherit down the tree.</td>
+</tr>
+<tr>
+<td><code>filter</code></td>
+<td>Uses <code>filterField</code> to select a scalar value. Sibling data widgets and nested dashboards using the same named source update immediately. Multiple filters combine.</td>
+</tr>
+<tr>
+<td><code>bar</code>, <code>line</code>, <code>pie</code></td>
+<td>Use <code>categoryField</code> and numeric <code>valueField</code>. Set <code>groupBy</code> to sum values by a field. Pie charts display positive values. The line chart follows source order.</td>
+</tr>
+<tr>
+<td><code>timeline</code></td>
+<td>Uses ISO dates in <code>dateField</code> and orders events chronologically.</td>
+</tr>
+<tr>
+<td><code>time-line</code></td>
+<td>Plots values in chronological order, with horizontal spacing proportional to elapsed time.</td>
+</tr>
+<tr>
+<td><code>area</code></td>
+<td>Fills the area between the time-series line and zero to emphasise magnitude.</td>
+</tr>
+<tr>
+<td><code>step</code></td>
+<td>Carries each observation forward until the next one, then draws the change.</td>
+</tr>
+<tr>
+<td><code>time-column</code></td>
+<td>Draws a column for each observation on a time axis, with negative values below zero.</td>
+</tr>
+<tr>
+<td><code>scatter</code></td>
+<td>Uses numeric <code>xField</code> and <code>valueField</code>.</td>
+</tr>
+<tr>
+<td><code>waterfall</code></td>
+<td>Accumulates signed values in input order. Each bar starts at the previous total.</td>
+</tr>
+<tr>
+<td><code>pareto</code></td>
+<td>Ranks positive values and overlays their cumulative share among the displayed points.</td>
+</tr>
+<tr>
+<td><code>histogram</code></td>
+<td>Counts numeric observations in up to 12 equal-width bins based on the value range. A bin aggregates rows.</td>
+</tr>
+<tr>
+<td><code>table</code></td>
+<td>Shows the configured <code>columns</code>, or derives columns from the returned rows.</td>
+</tr>
+<tr>
+<td><code>grid</code></td>
+<td>Adds text search, column sorting and visibility, grouping, paging, row and page selection, CSV export, and opt-in per-column text or numeric editing. The CSV contains all matching rows and visible columns.</td>
+</tr>
+<tr>
+<td><code>metric</code></td>
+<td>Sums the numeric <code>valueField</code> after filters.</td>
+</tr>
+</tbody>
+</table>
+<p>A widget can supply <code>rows</code> directly or use the source named by <code>settings.dataSource</code>. Use string, number, Boolean, and null cells. Charts show up to 60 plotted values and announce when more are available. Chart data is also available in a textual list. A standalone filter emits actions. Place it inside a dashboard to apply shared filtering automatically.</p>
+<p>The four time-series views use <code>dateField</code> and a numeric <code>valueField</code>. Supply ISO calendar dates (<code>2026-11-01</code>) or ISO timestamps with a time-zone offset or <code>Z</code>. The charts display dates in UTC and omit rows without a valid date and numeric value. For the reporting workspace, set <code>ReportField.DateField</code> on the catalog grouping to the timestamp field returned in <code>ReportRow.Fields</code>, or set it to <code>label</code> when the query returns dates as labels. For direct widget authoring, set <code>ReportingSettings.dateField</code> in TypeScript or <code>ReportingSettings.DateField</code> in .NET.</p>
+<h2 id="use-the-standard-renderers">Use the standard renderers</h2>
+<ul>
+<li><strong>Angular</strong> passes the widgets to <code>&lt;bbq-widget-renderer&gt;</code> and handles its <code>widgetAction</code> event.</li>
+<li><strong>React</strong> passes the widgets to <code>WidgetRenderer</code> and handles <code>onWidgetAction</code>.</li>
+<li><strong>JavaScript</strong> passes a widget to <code>WidgetManager.renderInto</code>. Server-rendered markup can be attached using <code>WidgetManager.attachHandlers</code>.</li>
+<li><strong>.NET and Blazor</strong> construct <code>BbQ.ChatWidgets.Models.ReportingWidget</code> using the same kind names. In Blazor, pass it to <code>WidgetRenderer</code> and handle <code>OnAction</code> in an interactive render mode. C# SSR returns an encoded, readable data preview that the browser reporting engine can hydrate. The .NET converter recognizes reporting definitions automatically. To expose report authoring as an AI tool, explicitly register a reporting template in the host's widget registry.</li>
+</ul>
+<h2 id="handle-custom-actions">Handle custom actions</h2>
+<p>Give a directly authored widget an action name such as <code>inspect-orders</code>. JavaScript, React, and Angular widget renderers dispatch it through their usual action handler. Interactive Blazor dispatches it through <code>OnAction</code> with a <code>JsonElement</code> payload. The host can open a dialog, navigate to a route, or use the payload to request more data.</p>
+<table>
+<thead>
+<tr>
+<th>Interaction</th>
+<th>Payload</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Activate a table or snapshot-grid row by clicking it or using its <strong>View</strong> button</td>
+<td><code>activate</code> with the original source index and row values.</td>
+</tr>
+<tr>
+<td>Activate a chart mark by clicking it or pressing Enter or Space</td>
+<td><code>select</code> with the original source index and row values. Grouped marks include their group and contributing row indices.</td>
+</tr>
+<tr>
+<td>Activate a server-paged row</td>
+<td><code>activate</code> with <code>rowKey</code> and the server result row. The key stays stable across pages. In Blazor, match the <code>ReportingGridRowActivation</code> payload.</td>
+</tr>
+<tr>
+<td>Select snapshot-grid checkboxes, set a filter, or edit a cell</td>
+<td>Existing <code>select</code>, <code>filter</code>, or <code>edit</code> events.</td>
+</tr>
+</tbody>
+</table>
+<p>Each workspace exposes the tile, its original index, the action name, and the payload. The optional resolver assigns a host-defined action name. The default is <code>report-result-&lt;tile index&gt;</code>.</p>
+<h3 id="angular">Angular</h3>
+<pre><code class="lang-html">&lt;bbq-reporting [resolveAction]=&quot;resolveAction&quot; (reportingAction)=&quot;onReportingAction($event)&quot; /&gt;
+</code></pre>
+<pre><code class="lang-ts">import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import type { ReportingWorkspaceAction } from '@bbq-chat/widgets-angular';
+
+// Members of the host component
+readonly router = inject(Router);
+readonly resolveAction = () =&gt; 'open-order';
+
+onReportingAction({ actionName, payload }: ReportingWorkspaceAction): void {
+  if (actionName === 'open-order' &amp;&amp; payload.kind === 'activate' &amp;&amp; 'rowKey' in payload) {
+    void this.router.navigate(['/orders', payload.rowKey]);
+  }
+}
+</code></pre>
+<h3 id="react">React</h3>
+<pre><code class="lang-tsx">import { ReportingWorkspace } from '@bbq-chat/widgets-react';
+import '@bbq-chat/widgets-react/styles/reporting';
+
+export function OrdersReporting({ openOrder }: { openOrder: (key: string) =&gt; void }) {
+  return (
+    &lt;ReportingWorkspace
+      initialPresetId=&quot;warehouse-grid&quot;
+      resolveAction={() =&gt; 'open-order'}
+      onReportingAction={({ actionName, payload }) =&gt; {
+        if (actionName === 'open-order' &amp;&amp; payload.kind === 'activate' &amp;&amp; 'rowKey' in payload) {
+          openOrder(payload.rowKey);
+        }
+      }}
+    /&gt;
+  );
+}
+</code></pre>
+<h3 id="blazor">Blazor</h3>
+<pre><code class="lang-razor">@using BbQ.ChatWidgets.Blazor.Components
+@using BbQ.ChatWidgets.Blazor.Reporting
+@inject IReportingWorkspaceClient Reporting
+@inject NavigationManager Navigation
+
+&lt;ReportingWorkspace Client=&quot;Reporting&quot; InitialPreset=&quot;warehouse-grid&quot;
+                    ResolveAction=&quot;@((_, _) =&gt; &quot;open-order&quot;)&quot; OnReportingAction=&quot;HandleAction&quot; /&gt;
+
+@code {
+    private void HandleAction(ReportingWorkspaceAction action)
+    {
+        if (action.ActionName == &quot;open-order&quot; &amp;&amp; action.Payload is ReportingGridRowActivation row)
+            Navigation.NavigateTo($&quot;/orders/{Uri.EscapeDataString(row.RowKey)}&quot;);
+    }
+}
+</code></pre>
+<p>Use stable business IDs for detail lookups. For a snapshot, resolve the ID from the row data. Apply the host's authorization when loading details or persisting edits. The Angular sample uses its action output to open a details dialog for chart marks and both kinds of grid rows.</p>
+<p>The <a href="../../Sample/BbQ.ChatWidgets.Sample.Reporting/">Angular and .NET reporting sample</a> demonstrates presets, custom dashboards, and scoped application data.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/widgets/REPORTING.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

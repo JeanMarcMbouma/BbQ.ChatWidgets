@@ -128,6 +128,12 @@ jobs:
         npm run build
         npm audit --omit=dev
 
+    - name: Build the reporting sample
+      working-directory: Sample/BbQ.ChatWidgets.Sample.Reporting/ClientApp
+      run: |
+        npm ci
+        npm run build
+
   build-react-playground:
     # Playwright 1.56.1 supports Ubuntu 24.04; ubuntu-latest may select 26.04.
     runs-on: ubuntu-24.04
@@ -166,9 +172,3 @@ jobs:
         retention-days: 7
         name: playground-browser-results
         path: Sample/BbQ.ChatWidgets.Sample.React/ClientApp/test-results
-
-    - name: Build the reporting sample
-      working-directory: Sample/BbQ.ChatWidgets.Sample.Reporting/ClientApp
-      run: |
-        npm ci
-        npm run build

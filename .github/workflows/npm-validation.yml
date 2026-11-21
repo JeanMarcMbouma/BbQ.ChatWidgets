@@ -9,6 +9,8 @@ on:
       - 'js-react/**'
       - 'Sample/BbQ.ChatWidgets.Sample.React/**'
       - 'Sample/BbQ.ChatWidgets.Sample.Angular/**'
+      - 'Sample/BbQ.ChatWidgets.Sample.Reporting/**'
+      - 'BbQ.ChatWidgets/Reporting/**'
       - '.github/workflows/npm-*.yml'
       - 'test-fixtures/**'
   push:
@@ -19,6 +21,8 @@ on:
       - 'js-react/**'
       - 'Sample/BbQ.ChatWidgets.Sample.React/**'
       - 'Sample/BbQ.ChatWidgets.Sample.Angular/**'
+      - 'Sample/BbQ.ChatWidgets.Sample.Reporting/**'
+      - 'BbQ.ChatWidgets/Reporting/**'
       - '.github/workflows/npm-*.yml'
       - 'test-fixtures/**'
 
@@ -74,6 +78,9 @@ jobs:
     - name: Audit runtime dependencies
       run: npm audit --omit=dev
 
+    - name: Check Blazor reporting asset
+      run: npm run build:reporting -- --check
+
     - name: Lint
       run: npm run lint
 
@@ -122,6 +129,31 @@ jobs:
         npm ci
         npm run build
         npm audit --omit=dev
+
+    - name: Build the reporting sample
+      working-directory: Sample/BbQ.ChatWidgets.Sample.Reporting/ClientApp
+      run: |
+        npm ci
+        npm run build
+
+    - name: Use .NET 8
+      uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Verify the reporting host
+      working-directory: Sample/BbQ.ChatWidgets.Sample.Reporting
+      run: |
+        dotnet build
+        dotnet run --no-build > reporting-host.log 2>&1 &
+        host_pid=$!
+        trap 'kill "$host_pid" 2>/dev/null || true; cat reporting-host.log' EXIT
+        origin=http://127.0.0.1:5107
+        curl --fail --silent --show-error --retry 15 --retry-connrefused --retry-delay 1 "$origin/" -D reporting-index.headers -o reporting-index.html
+        grep -Ei '^Cache-Control: no-cache[[:space:]]*$' reporting-index.headers
+        grep -F '<app-reporting>' reporting-index.html
+        grep -Eq 'src="main-[A-Za-z0-9]+\.js"' reporting-index.html
+        node --test tests/api.test.mjs
 
   build-react-playground:
     # Playwright 1.56.1 supports Ubuntu 24.04; ubuntu-latest may select 26.04.

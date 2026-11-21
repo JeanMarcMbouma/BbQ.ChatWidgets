@@ -1,6 +1,6 @@
 {
   "name": "@bbq-chat/widgets-angular",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Angular components and services for BbQ ChatWidgets",
   "license": "MIT",
   "author": "BbQ ChatWidgets Contributors",
@@ -33,7 +33,10 @@
   },
   "packageManager": "npm@10.9.0",
   "overrides": {
-    "undici": "^7.24.0"
+    "undici": "^7.30.2",
+    "@angular/build": {
+      "vite": "^7.3.8"
+    }
   },
   "peerDependencies": {
     "@angular/common": ">=17.0.0",
@@ -43,7 +46,7 @@
     "@angular/platform-browser": ">=17.0.0",
     "@angular/router": ">=17.0.0",
     "rxjs": "~7.8.0",
-    "@bbq-chat/widgets": "^1.1.0"
+    "@bbq-chat/widgets": "^1.2.0"
   },
   "devDependencies": {
     "@angular/build": "^21.0.5",
@@ -54,7 +57,7 @@
     "jsdom": "^27.1.0",
     "ng-packagr": "^21.0.0",
     "typescript": "~5.9.2",
-    "vitest": "^4.0.8",
+    "vitest": "^4.1.12",
     "@angular/common": "^21.2.24",
     "@angular/compiler": "^21.2.24",
     "@angular/core": "^21.2.24",

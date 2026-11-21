@@ -1,3 +1,4 @@
+import { reportingKinds, type ReportingDefinition, type ReportingKind } from '../reporting/types';
 /**
  * ChatWidget Type Discriminator
  * Used to identify widget types in JSON serialization
@@ -47,6 +48,8 @@ export abstract class ChatWidget {
     if (factory) return factory(obj);
 
     switch (obj.type) {
+      case 'reporting':
+        return reportingKinds.includes(obj.kind) ? new ReportingWidget(obj.label, obj.action, obj.kind, obj) : null;
       case 'button':
         return new ButtonWidget(obj.label, obj.action);
       case 'card':
@@ -510,5 +513,29 @@ export class ImageCollectionWidget extends ChatWidget {
       action: this.action,
       images: this.images,
     };
+  }
+}
+
+/** A reporting tile or a dashboard containing reporting tiles and inherited data. */
+export class ReportingWidget extends ChatWidget implements ReportingDefinition {
+  declare readonly type: 'reporting';
+  readonly settings?: ReportingDefinition['settings'];
+  readonly sources?: ReportingDefinition['sources'];
+  readonly rows?: ReportingDefinition['rows'];
+  readonly children?: ReportingDefinition['children'];
+  readonly filterField?: string;
+  readonly pageSize?: number;
+  readonly error?: string;
+
+  constructor(label: string, action: string, readonly kind: ReportingKind,
+    options: Omit<ReportingDefinition, 'type' | 'kind' | 'label' | 'action'> = {}) {
+    super('reporting', label, action);
+    const { settings, sources, rows, children, filterField, pageSize, error } = options;
+    Object.assign(this, { settings, sources, rows, children, filterField, pageSize, error });
+  }
+
+  toObject(): ReportingDefinition {
+    const { type, label, action, kind, settings, sources, rows, children, filterField, pageSize, error } = this;
+    return { type, label, action, kind, settings, sources, rows, children, filterField, pageSize, error };
   }
 }

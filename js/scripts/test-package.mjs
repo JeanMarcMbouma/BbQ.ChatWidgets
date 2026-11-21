@@ -10,7 +10,7 @@ const npmCli = process.env.npm_execpath;
 assert.ok(npmCli, 'Run this check with npm run test:package');
 
 // Test the tarball an end user installs, not source files or workspace symlinks.
-const temp = mkdtempSync(path.join(tmpdir(), 'bbq-package-'));
+const temp = mkdtempSync(path.join(process.env.BBQ_PACKAGE_TEST_TMPDIR ?? tmpdir(), 'bbq-package-'));
 try {
   const [pack] = JSON.parse(
     execFileSync(process.execPath, [npmCli, 'pack', '--ignore-scripts', '--json', '--pack-destination', temp], {
@@ -26,7 +26,7 @@ try {
   const checks = `
     import assert from 'node:assert/strict';
     import { createRequire } from 'node:module';
-    import { ChatWidget, ImageWidget, ButtonWidget } from '@bbq-chat/widgets';
+    import { ChatWidget, ImageWidget, ButtonWidget, ReportingClient, composeReportingSnapshot } from '@bbq-chat/widgets';
     import { ChatWidget as Model } from '@bbq-chat/widgets/models';
     import { SsrWidgetRenderer } from '@bbq-chat/widgets/renderers';
     import { WidgetEventManager } from '@bbq-chat/widgets/handlers';
@@ -36,9 +36,15 @@ try {
     assert.ok(image instanceof ImageWidget);
     assert.equal(Model.fromObject(null), null);
     assert.match(new SsrWidgetRenderer().renderWidget(new ButtonWidget('Go', 'go')), /Go/);
+    const reporting = new ReportingClient({ fetch: async () => Response.json({ datasets: [], presets: [] }) });
+    const catalog = await reporting.catalog();
+    assert.deepEqual(catalog.presets, []);
+    const dashboard = await composeReportingSnapshot({ kind: 'dashboard', title: 'Orders', tiles: [] }, catalog, () => []);
+    assert.match(new SsrWidgetRenderer().renderWidget(dashboard), /Orders/);
     const require = createRequire(import.meta.url);
     for (const name of ['@bbq-chat/widgets', '@bbq-chat/widgets/models', '@bbq-chat/widgets/renderers', '@bbq-chat/widgets/handlers']) assert.ok(require(name));
     assert.equal(require('@bbq-chat/widgets').ChatWidget, require('@bbq-chat/widgets/models').ChatWidget);
+    assert.equal(typeof require('@bbq-chat/widgets').ReportingClient, 'function');
     assert.equal(require('@bbq-chat/widgets').ChatWidget.fromObject({ type:'image', imageUrl:'/photo.png' }).type, 'image');
     for (const name of ['styles', 'styles/light', 'styles/dark', 'styles/corporate']) assert.ok(require.resolve('@bbq-chat/widgets/' + name));
   `;

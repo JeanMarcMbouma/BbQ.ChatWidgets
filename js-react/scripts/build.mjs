@@ -1,4 +1,4 @@
-import { rmSync } from "node:fs";
+import { copyFileSync, rmSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { build } from "esbuild";
 rmSync(new URL("../dist", import.meta.url), { recursive: true, force: true });
@@ -18,3 +18,4 @@ for (const format of ["esm", "cjs"]) {
     sourcemap: true,
   });
 }
+copyFileSync(new URL("../src/reporting.css", import.meta.url), new URL("../dist/reporting.css", import.meta.url));

@@ -1,0 +1,65 @@
+.paged-reporting-grid {
+    min-width: 0;
+    margin-block: .85rem;
+    padding: 1rem;
+    border: 1px solid var(--bbq-reporting-line, #dbe4e3);
+    border-radius: .75rem;
+    background: var(--bbq-reporting-surface, #fff);
+    color: var(--bbq-reporting-ink, #182631);
+}
+
+header, .controls, .selection, .pagination, .pagination nav, .page-size {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .65rem;
+}
+
+header, .pagination { justify-content: space-between; }
+h3 { margin: 0; font-size: 1.05rem; }
+.controls { align-items: end; margin: .75rem 0; }
+.controls label { display: grid; gap: .2rem; }
+
+button, input:not([type="checkbox"]), select {
+    padding: .35rem .55rem;
+    border: 1px solid var(--bbq-reporting-line, #dbe4e3);
+    border-radius: .4rem;
+    background: var(--bbq-reporting-surface, #fff);
+    color: inherit;
+    font: inherit;
+}
+
+button { cursor: pointer; }
+button:disabled { opacity: .5; cursor: default; }
+button:hover:not(:disabled) { border-color: var(--bbq-reporting-accent, #12665c); color: var(--bbq-reporting-accent, #12665c); }
+input[type="checkbox"] { accent-color: var(--bbq-reporting-accent, #12665c); }
+:is(button, input, select, [tabindex]):focus-visible { outline: 2px solid var(--bbq-reporting-accent, #12665c); outline-offset: 2px; }
+
+.table-scroll { margin-top: .75rem; max-height: 31rem; overflow: auto; }
+table { width: 100%; border-collapse: separate; border-spacing: 0; text-align: left; white-space: nowrap; font-variant-numeric: tabular-nums; }
+th, td { padding: .45rem .55rem; border-bottom: 1px solid var(--bbq-reporting-line, #dbe4e3); }
+th { position: sticky; top: 0; background: var(--bbq-reporting-subtle, #edf5f2); }
+th button { border: 0; background: transparent; padding: 0; font-weight: inherit; }
+tbody tr:nth-child(even) { background: var(--bbq-reporting-stripe, #f7faf9); }
+tbody tr.actionable { cursor: pointer; }
+tbody tr.actionable:hover, tbody tr:focus-within { background: var(--bbq-reporting-subtle, #edf5f2); }
+tbody tr.selected { background: var(--bbq-reporting-accent-light, #dff1e9); }
+.row-action { color: var(--bbq-reporting-accent, #12665c); }
+
+.pagination {
+    padding: .8rem .65rem .15rem;
+    color: var(--bbq-reporting-muted, #52636b);
+    font-size: .85rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.pagination :is(button, select) { min-height: 2.25rem; }
+.pagination button { display: inline-flex; gap: .35rem; align-items: center; font-weight: 600; }
+.pagination button span { font-size: 1.25em; line-height: 1; }
+.page-position { padding: .35rem .6rem; border-radius: .4rem; background: var(--bbq-reporting-subtle, #edf5f2); white-space: nowrap; }
+.row-range strong { color: var(--bbq-reporting-ink, #182631); }
+[role="alert"] { color: var(--bbq-reporting-error, #942f39); }
+
+@media (max-width: 36rem) {
+    .pagination nav { order: 1; flex-basis: 100%; }
+}

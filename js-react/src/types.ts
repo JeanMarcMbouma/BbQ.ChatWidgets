@@ -4,13 +4,15 @@ import type {
   FormField,
   FormAction,
   ImageItem,
+  ReportingDefinition,
+  ReportingRow,
 } from "@bbq-chat/widgets";
 
 /** Accepts model instances and JSON wire objects without requiring class methods. */
 export interface WidgetData extends Pick<
   ChatWidget,
   "type" | "label" | "action"
-> {
+>, Partial<Pick<ReportingDefinition, "kind" | "settings" | "sources" | "children" | "filterField" | "pageSize" | "error">> {
   instanceId?: string;
   hideLabel?: boolean;
   showLabel?: boolean;
@@ -24,7 +26,7 @@ export interface WidgetData extends Pick<
   images?: ImageItem[];
   placeholder?: string;
   maxLength?: number;
-  rows?: number;
+  rows?: number | readonly ReportingRow[];
   options?: string[];
   themes?: string[];
   min?: number;

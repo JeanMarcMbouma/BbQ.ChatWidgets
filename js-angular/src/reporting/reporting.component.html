@@ -1,0 +1,134 @@
+<section class="reporting-shell" aria-label="Reporting">
+  <header class="page-header">
+    <h1>Reporting</h1>
+    @if (catalog && catalog.datasets.length) {
+      <div class="actions">
+        <button type="button" [disabled]="busy" (click)="start('report')">New report</button>
+        <button class="primary" type="button" [disabled]="busy" (click)="start('dashboard')">New dashboard</button>
+      </div>
+    }
+  </header>
+
+  @if (error) { <p class="error" role="alert">{{ error }}</p> }
+  <div class="status" role="status">{{ busy ? 'Working…' : status }}</div>
+  @if (!catalog && !busy) { <button type="button" (click)="load()">Load reports</button> }
+
+  @if (catalog) {
+    <div class="workspace">
+      <nav aria-label="Reports and dashboards">
+        <h2>Built in</h2>
+        @for (preset of catalog.presets; track preset.id) {
+          <button type="button" [disabled]="busy" [attr.aria-current]="presetId === preset.id ? 'true' : null" (click)="open(preset, false); run()">
+            {{ preset.definition.title }} <small>{{ preset.definition.kind }}</small>
+          </button>
+        } @empty { <p>No presets available.</p> }
+        <h2>Saved</h2>
+        @for (report of saved; track report.id) {
+          <button type="button" [disabled]="busy" [attr.aria-current]="savedId === report.id ? 'true' : null"
+            (click)="open(report, true); run()">
+            {{ report.definition.title }} <small>{{ report.definition.kind }}</small>
+          </button>
+        } @empty { <p>No saved items yet.</p> }
+      </nav>
+
+      <div class="content">
+        @if (draft; as definition) {
+          <header class="view-header">
+            <div>
+              <p>{{ definition.kind }}</p>
+              <h2>{{ definition.title || (definition.kind === 'dashboard' ? 'Untitled dashboard' : 'Untitled report') }}</h2>
+            </div>
+            <button type="button" [disabled]="busy" (click)="editing = !editing">
+              {{ editing ? 'Back to results' : 'Edit ' + definition.kind }}
+            </button>
+          </header>
+          @if (editing) {
+          <form #editorForm="ngForm" (ngSubmit)="run()">
+            <fieldset [disabled]="busy" [attr.aria-label]="'Edit ' + definition.kind">
+              <label>Title
+                <input name="title" required maxlength="100" [(ngModel)]="definition.title" />
+              </label>
+
+              @for (tile of definition.tiles; track tile; let index = $index) {
+                <fieldset class="tile-editor">
+                  <legend>Tile {{ index + 1 }}</legend>
+                  <div class="fields">
+                    <label>Tile title
+                      <input [name]="'tile-title-' + index" required maxlength="100" [(ngModel)]="tile.title" (ngModelChange)="clearPreview()" />
+                    </label>
+                    <label>Dataset
+                      <select [name]="'dataset-' + index" [ngModel]="tile.query.dataset" (ngModelChange)="changeDataset(tile, $event)" required>
+                        @for (dataset of catalog.datasets; track dataset.id) { <option [value]="dataset.id">{{ dataset.label }}</option> }
+                      </select>
+                    </label>
+                    <label>Metric
+                      <select [name]="'metric-' + index" [(ngModel)]="tile.query.metric" (ngModelChange)="clearPreview()" required>
+                        @for (metric of dataset(tile)?.metrics ?? []; track metric.id) { <option [value]="metric.id">{{ metric.label }}</option> }
+                      </select>
+                    </label>
+                    <label>Group by
+                      <select [name]="'group-' + index" [(ngModel)]="tile.query.groupBy" (ngModelChange)="clearPreview()">
+                        <option [ngValue]="null">No grouping</option>
+                        @for (dimension of dataset(tile)?.dimensions ?? []; track dimension.id) { <option [ngValue]="dimension.id">{{ dimension.label }}</option> }
+                      </select>
+                    </label>
+                    <label>From
+                      <input type="date" required [name]="'from-' + index" [(ngModel)]="tile.query.from" (ngModelChange)="clearPreview()" />
+                    </label>
+                    <label>Through
+                      <input type="date" required [min]="tile.query.from" [name]="'to-' + index" [(ngModel)]="tile.query.to" (ngModelChange)="clearPreview()" />
+                    </label>
+                    <label>Display
+                      <select [name]="'view-' + index" [(ngModel)]="tile.view" (ngModelChange)="clearPreview()">
+                        @for (view of views; track view.id) {
+                          @if (view.id !== 'filter' || definition.kind === 'dashboard') { <option [value]="view.id">{{ view.label }}</option> }
+                        }
+                      </select>
+                    </label>
+                  </div>
+                  @if (needsDateGrouping(tile)) { <p>Choose a grouping with dates for this chart.</p> }
+                  @if (definition.tiles.length > 1) {
+                    <div class="actions">
+                      @if (index > 0) { <button type="button" (click)="moveTile(index, -1)">Move tile {{ index + 1 }} up</button> }
+                      @if (index + 1 < definition.tiles.length) { <button type="button" (click)="moveTile(index, 1)">Move tile {{ index + 1 }} down</button> }
+                      <button type="button" (click)="removeTile(index)">Remove tile {{ index + 1 }}</button>
+                    </div>
+                  }
+                </fieldset>
+              }
+
+              <div class="actions">
+                @if (definition.kind === 'dashboard' && definition.tiles.length < 8) {
+                  <button type="button" (click)="addTile()">Add tile</button>
+                }
+                <button class="primary" type="submit" [disabled]="!editorForm.valid">Run {{ definition.kind }}</button>
+                <button type="button" [disabled]="!editorForm.valid" (click)="save()">{{ savedId ? 'Save changes' : 'Save as new' }}</button>
+                @if (savedId) { <button type="button" class="danger" (click)="remove()">Delete saved copy</button> }
+              </div>
+            </fieldset>
+          </form>
+          }
+          @if (widgets.length || pagedGrids.length) {
+              <section class="results" aria-label="Report results" [hidden]="editing">
+                @if (selected) { <p class="selected" aria-live="polite">Selected {{ selected }}</p> }
+                @if (widgets.length) {
+                  <bbq-widget-renderer [widgets]="widgets" (widgetAction)="onWidgetAction($event)" />
+                }
+                @for (grid of pagedGrids; track grid) {
+                  <bbq-paged-reporting-grid [title]="grid.tile.title" [query]="grid.tile.query" [dimension]="grid.dimension"
+                    (rowActivate)="onPagedRowActivate(grid.tile, grid.tileIndex, $event)" />
+                }
+              </section>
+          } @else if (!busy && !editing) {
+              <div class="empty-results">
+                <p>Run this {{ definition.kind }} to see its results.</p>
+                <button class="primary" type="button" (click)="editing = true">Open editor</button>
+              </div>
+          }
+        } @else {
+          <p>{{ catalog.datasets.length ? 'Choose a report or create one using the actions above.' : 'No reporting datasets are available.' }}</p>
+        }
+      </div>
+    </div>
+  }
+</section>

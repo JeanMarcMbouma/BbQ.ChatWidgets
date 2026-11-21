@@ -1,0 +1,53 @@
+.reporting-workspace {
+    color: var(--bbq-reporting-ink, #182631);
+}
+
+.workspace-header, .view-header, .actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .6rem;
+}
+
+.workspace-header, .view-header { justify-content: space-between; }
+.workspace-header h1, .view-header h2 { margin: 0; }
+.view-header p { margin: 0 0 .2rem; text-transform: capitalize; }
+.workspace { display: grid; grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr); gap: 1rem; margin-top: 1rem; }
+.content { min-width: 0; }
+nav, form { border: 1px solid var(--bbq-reporting-line, #dbe4e3); border-radius: .75rem; padding: 1rem; }
+nav h2 { margin: .25rem 0 .6rem; font-size: .9rem; }
+nav button { display: block; width: 100%; text-align: left; margin-bottom: .5rem; }
+nav button[aria-current="true"] { background: var(--bbq-reporting-accent-light, #dff1e9); }
+nav small { display: block; text-transform: capitalize; }
+form, .results { margin-top: 1rem; }
+fieldset { min-width: 0; border: 0; padding: 0; margin: 0; }
+.tile-editor { padding: .75rem; margin: .75rem 0; border: 1px solid var(--bbq-reporting-line, #dbe4e3); border-radius: .55rem; }
+.fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: .65rem; }
+.tile-editor .actions { margin-top: .75rem; }
+label { display: grid; gap: .2rem; }
+button, input, select {
+    font: inherit;
+    color: inherit;
+    padding: .35rem .55rem;
+    border: 1px solid var(--bbq-reporting-line, #dbe4e3);
+    border-radius: .4rem;
+    background: var(--bbq-reporting-surface, #fff);
+}
+button { cursor: pointer; }
+button:disabled { cursor: default; opacity: .55; }
+.primary { color: #fff; background: var(--bbq-reporting-accent, #12665c); }
+:is(button, input, select):focus-visible { outline: 2px solid var(--bbq-reporting-accent, #12665c); outline-offset: 2px; }
+[role="alert"] { color: var(--bbq-reporting-error, #9f2839); }
+.results ::deep .bbq-report-dashboard > div > .bbq-report {
+    padding: .85rem;
+    border: 1px solid var(--bbq-reporting-line, #dbe4e3);
+    border-radius: .75rem;
+    background: var(--bbq-reporting-surface, #fff);
+}
+.results ::deep .bbq-report-grid, .results ::deep .bbq-report-filter, .results ::deep .bbq-report-table { grid-column: 1 / -1; }
+.results ::deep [data-report-command="activate"] { cursor: pointer; }
+.results ::deep .bbq-report th, .results ::deep .bbq-report td { border-bottom: 1px solid var(--bbq-reporting-line, #dbe4e3); padding: .35rem .45rem; }
+
+@media (max-width: 42rem) {
+    .workspace { grid-template-columns: minmax(0, 1fr); }
+}

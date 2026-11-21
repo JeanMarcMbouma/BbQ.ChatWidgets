@@ -54,6 +54,10 @@ public sealed class ChatWidgetConverter(IWidgetRegistry widgetRegistry) : JsonCo
 
         // Determine the target type
         Type? targetType = widgetRegistry.GetInstance(discriminator)?.GetType();
+        // Reporting definitions are usually authored over authorized application data.
+        // Hosts can register a template explicitly if they also want to expose it as an AI tool.
+        if (targetType is null && discriminator == "reporting")
+            targetType = typeof(ReportingWidget);
 
         if (targetType == null)
             throw new JsonException($"Unknown widget type: '{discriminator}'.");

@@ -7,14 +7,16 @@ var reportingKinds = ["dashboard", "filter", "bar", "line", "pie", "timeline", "
 var initialContext = { settings: {}, sources: {}, filters: [] };
 var palette = ["#2366ba", "#147c68", "#a45c16", "#883fa1", "#ae3c59", "#467336", "#5968a5", "#9b5f55"];
 var chartLimit = 60;
-var escape = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
+function escapeHtml(value) {
+  return String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
 var own = (record, key) => key && Object.prototype.hasOwnProperty.call(record, key) ? record[key] : void 0;
 var cell = (row, field) => own(row.values, field) ?? null;
 var text = (value) => String(value ?? "");
 var number = (value) => typeof value === "number" && Number.isFinite(value) ? value : void 0;
 var formatter = new Intl.NumberFormat("en", { maximumFractionDigits: 4 });
 var format = (value) => formatter.format(value);
-var control = (path, id) => `data-report-focus="${escape(path + ":" + id)}"`;
+var control = (path, id) => `data-report-focus="${escapeHtml(path + ":" + id)}"`;
 var settingsFor = (widget, parent) => ({
   settings: { ...parent.settings, ...Object.fromEntries(Object.entries(widget.settings ?? {}).filter(([, value]) => value != null)) },
   sources: { ...parent.sources, ...widget.sources },
@@ -53,8 +55,8 @@ function getColumns(context, rows) {
   return fields.map((field) => ({ field, label: field }));
 }
 function section(widget, path, body) {
-  return `<section class="bbq-report bbq-report-${widget.kind}" data-report-path="${path}" style="min-width:0">
-    <h3>${escape(widget.label)}</h3>${body}</section>`;
+  return `<section class="bbq-report bbq-report-${escapeHtml(widget.kind)}" data-report-path="${escapeHtml(path)}" style="min-width:0">
+    <h3>${escapeHtml(widget.label)}</h3>${body}</section>`;
 }
 function renderNode(widget, parent, session, path, depth) {
   if (!widget || !reportingKinds.includes(widget.kind) || depth > 12) return "";
@@ -63,7 +65,7 @@ function renderNode(widget, parent, session, path, depth) {
   const rows = widget.kind === "dashboard" ? [] : getRows(widget, context, state);
   const columns = widget.kind === "grid" || widget.kind === "table" ? getColumns(context, rows) : [];
   session.bindings.set(path, { widget, context, rows, columns, state });
-  if (widget.error) return section(widget, path, `<p role="alert">${escape(widget.error)}</p>`);
+  if (widget.error) return section(widget, path, `<p role="alert">${escapeHtml(widget.error)}</p>`);
   if (widget.kind === "dashboard") {
     const children = Array.isArray(widget.children) ? widget.children : [];
     const filters = [];
@@ -92,8 +94,8 @@ function renderNode(widget, parent, session, path, depth) {
   if (widget.kind === "filter") {
     if (!widget.filterField) return section(widget, path, "<p>Choose a filter field.</p>");
     const choices = [...new Set(rows.map((row) => cell(row, widget.filterField)))];
-    const options = choices.map((value, index) => `<option value="${index}"${value === state.filter ? " selected" : ""}>${escape(text(value) || "(blank)")}</option>`).join("");
-    return section(widget, path, `<label>Filter by ${escape(widget.filterField)}
+    const options = choices.map((value, index) => `<option value="${index}"${value === state.filter ? " selected" : ""}>${escapeHtml(text(value) || "(blank)")}</option>`).join("");
+    return section(widget, path, `<label>Filter by ${escapeHtml(widget.filterField)}
       <select data-report-command="filter" ${control(path, "filter")}><option value="">All</option>${options}</select></label>`);
   }
   if (widget.kind === "table" || widget.kind === "grid") return section(widget, path, renderTable(widget.kind, path, rows, columns, state, context.settings.groupBy));
@@ -125,27 +127,27 @@ function renderTable(kind, path, rows, columns, state, defaultGroup) {
   state.page = Math.min(state.page, lastPage);
   const page = grid ? ordered.slice(state.page * state.size, (state.page + 1) * state.size) : ordered;
   const columnOptions = columns.map((col) => `<label style="display:block"><input type="checkbox" data-report-command="column"
-    data-field="${escape(col.field)}" ${control(path, "column:" + col.field)}${state.hidden.has(col.field) ? "" : " checked"}> ${escape(col.label)}</label>`).join("");
-  const groupOptions = columns.map((col) => `<option value="${escape(col.field)}"${field === col.field ? " selected" : ""}>${escape(col.label)}</option>`).join("");
+    data-field="${escapeHtml(col.field)}" ${control(path, "column:" + col.field)}${state.hidden.has(col.field) ? "" : " checked"}> ${escapeHtml(col.label)}</label>`).join("");
+  const groupOptions = columns.map((col) => `<option value="${escapeHtml(col.field)}"${field === col.field ? " selected" : ""}>${escapeHtml(col.label)}</option>`).join("");
   const tools = grid ? `<div style="display:flex;flex-wrap:wrap;gap:.55rem;align-items:baseline">
-    <label>Search <input type="search" data-report-command="search" ${control(path, "search")} value="${escape(state.search)}"></label>
+    <label>Search <input type="search" data-report-command="search" ${control(path, "search")} value="${escapeHtml(state.search)}"></label>
     <label>Group by <select data-report-command="group" ${control(path, "group")}><option value="">None</option>${groupOptions}</select></label>
     <details${state.hidden.size ? " open" : ""}><summary>Columns</summary>${columnOptions}</details>
     <button type="button" data-report-command="export" ${control(path, "export")}>Export CSV</button>
     <span role="status">${state.selected.size} selected</span></div>` : "";
   const heading = visible.map((col) => {
     const sort = state.sort === col.field ? state.descending ? "descending" : "ascending" : "none";
-    return grid ? `<th scope="col" aria-sort="${sort}"><button type="button" data-report-command="sort" data-field="${escape(col.field)}" ${control(path, "sort:" + col.field)}>${escape(col.label)}</button></th>` : `<th scope="col">${escape(col.label)}</th>`;
+    return grid ? `<th scope="col" aria-sort="${sort}"><button type="button" data-report-command="sort" data-field="${escapeHtml(col.field)}" ${control(path, "sort:" + col.field)}>${escapeHtml(col.label)}</button></th>` : `<th scope="col">${escapeHtml(col.label)}</th>`;
   }).join("");
   const body = page.map((row, index) => {
-    const group = field && grid && (index === 0 || cell(row, field) !== cell(page[index - 1], field)) ? `<tr><th scope="rowgroup" colspan="${visible.length + 1}">${escape(text(cell(row, field)) || "(blank)")}</th></tr>` : "";
+    const group = field && grid && (index === 0 || cell(row, field) !== cell(page[index - 1], field)) ? `<tr><th scope="rowgroup" colspan="${visible.length + 1}">${escapeHtml(text(cell(row, field)) || "(blank)")}</th></tr>` : "";
     const select = grid ? `<td><input type="checkbox" aria-label="Select row ${row.index + 1}" data-report-command="select"
       data-row="${row.index}" ${control(path, "row:" + row.index)}${state.selected.has(row.index) ? " checked" : ""}></td>` : "";
     const cells = visible.map((col) => {
       const value = cell(row, col.field);
-      const edit = grid && col.editable && typeof value !== "boolean" ? `<input aria-label="${escape(col.label)} row ${row.index + 1}" type="${typeof value === "number" ? "number" : "text"}" step="any"
-          data-report-command="edit" data-row="${row.index}" data-field="${escape(col.field)}"
-          ${control(path, "edit:" + row.index + ":" + col.field)} value="${escape(text(value))}">` : escape(text(value));
+      const edit = grid && col.editable && typeof value !== "boolean" ? `<input aria-label="${escapeHtml(col.label)} row ${row.index + 1}" type="${typeof value === "number" ? "number" : "text"}" step="any"
+          data-report-command="edit" data-row="${row.index}" data-field="${escapeHtml(col.field)}"
+          ${control(path, "edit:" + row.index + ":" + col.field)} value="${escapeHtml(text(value))}">` : escapeHtml(text(value));
       return `<td style="padding:.25rem .45rem">${edit}</td>`;
     }).join("");
     return `${group}<tr>${select}${cells}</tr>`;
@@ -185,10 +187,10 @@ function renderChart(widget, rows, settings, selection) {
   if (!points.length) return "<p>No plottable values.</p>";
   const visible = points.slice(0, chartLimit);
   const detail = (point) => `${point.label}: ${format(point.value)}${widget.kind === "scatter" ? ` (x ${format(point.x)})` : ""}${widget.kind === "timeline" ? ` (${new Date(point.x).toISOString().slice(0, 10)})` : ""}`;
-  const button = (point) => point.index === void 0 ? "" : ` role="button" tabindex="0" data-report-command="point" data-row="${point.index}" aria-pressed="${selection.has(point.index)}" aria-label="${escape(detail(point))}"`;
-  const title = (point) => `<title>${escape(detail(point))}</title>`;
-  const summary = `<details><summary>Chart data</summary><ul>${visible.map((point) => `<li>${escape(detail(point))}</li>`).join("")}</ul></details>`;
-  const plot = (w, h, body) => `<svg aria-label="${escape(widget.label)}" viewBox="0 0 ${w} ${h}"
+  const button = (point) => point.index === void 0 ? "" : ` role="button" tabindex="0" data-report-command="point" data-row="${point.index}" aria-pressed="${selection.has(point.index)}" aria-label="${escapeHtml(detail(point))}"`;
+  const title = (point) => `<title>${escapeHtml(detail(point))}</title>`;
+  const summary = `<details><summary>Chart data</summary><ul>${visible.map((point) => `<li>${escapeHtml(detail(point))}</li>`).join("")}</ul></details>`;
+  const plot = (w, h, body) => `<svg aria-label="${escapeHtml(widget.label)}" viewBox="0 0 ${w} ${h}"
     style="display:block;width:100%;height:auto;color:inherit">${body}</svg>${summary}${visible.length < points.length ? `<p>Showing ${visible.length} of ${points.length} points.</p>` : ""}`;
   if (widget.kind === "pie") {
     const peak = Math.max(...visible.map((point) => point.value));
@@ -218,7 +220,7 @@ function renderChart(widget, rows, settings, selection) {
     const bars = visible.map((point, index) => {
       const y2 = index * 25 + 8;
       const x2 = 152 + fraction(point.value) * 234;
-      return `<g${button(point)}>${title(point)}<text x="4" y="${y2 + 12}" fill="currentColor" font-size="10">${escape(point.label.slice(0, 23))}</text>
+      return `<g${button(point)}>${title(point)}<text x="4" y="${y2 + 12}" fill="currentColor" font-size="10">${escapeHtml(point.label.slice(0, 23))}</text>
         <rect x="${Math.min(x2, baseline2)}" y="${y2}" width="${Math.max(Math.abs(x2 - baseline2), 1)}" height="15" fill="${palette[0]}"/></g>`;
     }).join("");
     return plot(398, height, `<line x1="${baseline2}" x2="${baseline2}" y1="0" y2="${height}" stroke="currentColor" opacity=".4"/>${bars}`);
@@ -233,8 +235,8 @@ function renderChart(widget, rows, settings, selection) {
     fill="none" stroke="${palette[0]}" stroke-width="2"/>` : "";
   const baseline = widget.kind === "timeline" ? 85 : 145 - 120 * fraction(0);
   return plot(390, 166, `<line x1="25" x2="367" y1="${baseline}" y2="${baseline}" stroke="currentColor" opacity=".4"/>
-    ${line}${marks}<text x="28" y="159" fill="currentColor" font-size="10">${escape(widget.kind === "scatter" ? format(minX) : (visible[0]?.label ?? "").slice(0, 20))}</text>
-    <text x="364" y="159" text-anchor="end" fill="currentColor" font-size="10">${escape(widget.kind === "scatter" ? format(maxX) : (visible[visible.length - 1]?.label ?? "").slice(0, 20))}</text>`);
+    ${line}${marks}<text x="28" y="159" fill="currentColor" font-size="10">${escapeHtml(widget.kind === "scatter" ? format(minX) : (visible[0]?.label ?? "").slice(0, 20))}</text>
+    <text x="364" y="159" text-anchor="end" fill="currentColor" font-size="10">${escapeHtml(widget.kind === "scatter" ? format(maxX) : (visible[visible.length - 1]?.label ?? "").slice(0, 20))}</text>`);
 }
 var mounted = /* @__PURE__ */ new WeakMap();
 function mountReporting(container, definition, emit) {

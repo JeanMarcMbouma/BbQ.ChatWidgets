@@ -20,6 +20,35 @@ function change(input: HTMLInputElement | HTMLSelectElement, value: string, even
 }
 
 describe('reporting widgets', () => {
+  it('keeps report data and edited grid text literal across SSR and browser rerenders', () => {
+    const marker = `"'><b data-report-marker>literal & text</b>`;
+    const field = 'description' + marker;
+    const widget = new ReportingWidget(marker, '', 'grid', {
+      rows: [{ [field]: marker }],
+      settings: { columns: [{ field, label: marker, editable: true }] },
+    });
+    const root = document.createElement('div');
+    root.innerHTML = new SsrWidgetRenderer().renderWidget(widget);
+    expect(root.querySelector('[data-report-marker]')).toBeNull();
+    expect(root.querySelector('h3')?.textContent).toBe(marker);
+    const host = element(root, '.bbq-reporting');
+    expect(JSON.parse(host.getAttribute('data-bbq-reporting')!)).toEqual(widget.toObject());
+
+    const release = mountReporting(host, widget);
+    const editor = () => element<HTMLInputElement>(host, 'input[data-report-command=edit]');
+    try {
+      expect(editor().getAttribute('data-field')).toBe(field);
+      expect(editor().value).toBe(marker);
+      change(editor(), marker + ' updated');
+      change(element<HTMLInputElement>(host, 'input[type=search]'), marker, 'input');
+      expect(editor().value).toBe(marker + ' updated');
+      expect(element<HTMLInputElement>(host, 'input[type=search]').value).toBe(marker);
+      expect(host.querySelector('[data-report-marker]')).toBeNull();
+    } finally {
+      release();
+    }
+  });
+
   it('round-trips definitions and renders all chart kinds as bounded, encoded SVG', () => {
     const rows = [
       { label: '<img src=x>', value: 14, x: 0, date: '2026-11-01' },

@@ -1,0 +1,151 @@
+@if (definition.layout; as layout) {
+  <fieldset>
+    <legend>Report layout</legend>
+    <p>Choose cards for each display mode. Select up to four tiles in a card.</p>
+    <label
+      >Default mode
+      <select [(ngModel)]="layout.defaultModeId" (ngModelChange)="changed.emit()">
+        <option [ngValue]="undefined">First mode</option>
+        @for (mode of layout.modes; track mode.id) {
+          <option [value]="mode.id">{{ mode.label }}</option>
+        }
+      </select>
+    </label>
+    <div class="buttons">
+      <button type="button" [disabled]="layout.modes.length >= 8" (click)="addMode()">
+        Add display mode
+      </button>
+      <button type="button" (click)="captureDefaults.emit()">
+        Use current filters and dates as defaults
+      </button>
+    </div>
+    @for (mode of layout.modes; track mode.id; let m = $index) {
+      <details [open]="layout.modes.length === 1">
+        <summary>{{ mode.label || 'Display mode' }}</summary>
+        <label
+          >Mode label
+          <input maxlength="100" required [(ngModel)]="mode.label" (ngModelChange)="changed.emit()"
+        /></label>
+        <div class="buttons">
+          <button type="button" [disabled]="m === 0" (click)="move(layout.modes, m, -1)">
+            Move mode up
+          </button>
+          <button
+            type="button"
+            [disabled]="m === layout.modes.length - 1"
+            (click)="move(layout.modes, m, 1)"
+          >
+            Move mode down
+          </button>
+          <button type="button" [disabled]="layout.modes.length === 1" (click)="removeMode(m)">
+            Remove mode
+          </button>
+          <button type="button" [disabled]="mode.placements.length >= 16" (click)="addCard(mode)">
+            Add card
+          </button>
+        </div>
+        @for (card of mode.placements; track card.id; let c = $index) {
+          <fieldset>
+            <legend>Card {{ c + 1 }}</legend>
+            <label
+              >Region
+              <input
+                maxlength="64"
+                [(ngModel)]="card.region"
+                (ngModelChange)="card.region = card.region || undefined; changed.emit()"
+            /></label>
+            <label
+              >Columns
+              <input
+                type="number"
+                min="1"
+                max="12"
+                [(ngModel)]="card.columnSpan"
+                (ngModelChange)="changed.emit()"
+            /></label>
+            <label
+              >Rows
+              <input
+                type="number"
+                min="1"
+                max="4"
+                [(ngModel)]="card.rowSpan"
+                (ngModelChange)="changed.emit()"
+            /></label>
+            @if (card.variants; as variants) {
+              <label
+                >Default variant
+                <select [(ngModel)]="card.defaultVariantId" (ngModelChange)="changed.emit()">
+                  <option [ngValue]="undefined">First variant</option>
+                  @for (variant of variants; track variant.id) {
+                    <option [value]="variant.id">{{ variant.label }}</option>
+                  }
+                </select>
+              </label>
+              @for (variant of variants; track variant.id; let v = $index) {
+                <fieldset>
+                  <legend>Variant {{ v + 1 }}</legend>
+                  <label
+                    >Variant label
+                    <input
+                      maxlength="100"
+                      required
+                      [(ngModel)]="variant.label"
+                      (ngModelChange)="changed.emit()"
+                  /></label>
+                  <label
+                    >Variant tiles
+                    <select
+                      multiple
+                      [ngModel]="variant.tileIds"
+                      (ngModelChange)="assign(variant, $event)"
+                    >
+                      @for (tile of definition.tiles; track tile.id; let t = $index) {
+                        <option [value]="tile.id">{{ tile.title || 'Tile ' + (t + 1) }}</option>
+                      }
+                    </select>
+                  </label>
+                  <button type="button" (click)="removeVariant(card, v)">Remove variant</button>
+                </fieldset>
+              }
+              <button type="button" [disabled]="variants.length >= 8" (click)="addVariant(card)">
+                Add variant
+              </button>
+            } @else {
+              <label
+                >Card tiles
+                <select multiple [ngModel]="card.tileIds" (ngModelChange)="assign(card, $event)">
+                  @for (tile of definition.tiles; track tile.id; let t = $index) {
+                    <option [value]="tile.id">{{ tile.title || 'Tile ' + (t + 1) }}</option>
+                  }
+                </select>
+              </label>
+              <button type="button" (click)="addVariants(card)">Add card variants</button>
+            }
+            <div class="buttons">
+              <button type="button" [disabled]="c === 0" (click)="move(mode.placements, c, -1)">
+                Move card up
+              </button>
+              <button
+                type="button"
+                [disabled]="c === mode.placements.length - 1"
+                (click)="move(mode.placements, c, 1)"
+              >
+                Move card down
+              </button>
+              <button
+                type="button"
+                [disabled]="mode.placements.length === 1"
+                (click)="mode.placements.splice(c, 1); changed.emit()"
+              >
+                Remove card
+              </button>
+            </div>
+          </fieldset>
+        }
+      </details>
+    }
+  </fieldset>
+} @else {
+  <button type="button" (click)="enable()">Add report layout</button>
+}

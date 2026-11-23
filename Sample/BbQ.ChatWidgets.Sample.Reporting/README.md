@@ -124,3 +124,7 @@ An optional `InputBinding` or `inputBinding` names an advertised filter and the 
 With the sample running, run `node --test tests/api.test.mjs`. The checks cover built-in definitions, scoped results, private saved dashboards, custom reports, and invalid queries.
 
 Open **Reporting widget gallery**, filter orders by status, and check that the bar and pie update together. Search, sort, and page through the data grid. Create a custom dashboard with a filter and chart using the same query, reorder the tiles, save it, and reopen it.
+
+### Layout walkthrough
+
+Open **Order comparison**, then switch from **Overview** to **Warehouse analysis**. The value and trend card is shared, and the comparison card switches between grouped warehouse columns and a weighted histogram. Apply the Warehouse filter, inspect the paged order grid, then open the editor to rename a mode, reorder cards, and save as a new dashboard. Reopen the saved dashboard to see the authored layout.

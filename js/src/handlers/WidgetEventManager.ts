@@ -1,3 +1,4 @@
+import type { WidgetPayload } from '../models/WidgetPayload';
 import { attachReporting, detachReporting } from '../reporting/engine';
 
 // A DOM element has one active handler per event, even across manager replacements.
@@ -12,7 +13,7 @@ export interface IWidgetActionHandler {
    * @param action - The action identifier
    * @param payload - The action payload
    */
-  handle(action: string, payload: any): Promise<void>;
+  handle(action: string, payload: WidgetPayload): Promise<void>;
 }
 
 /**
@@ -21,7 +22,7 @@ export interface IWidgetActionHandler {
 export class DefaultWidgetActionHandler implements IWidgetActionHandler {
   constructor(private apiUrl: string = '/api/chat/action') {}
 
-  async handle(action: string, payload: any): Promise<void> {
+  async handle(action: string, payload: unknown): Promise<void> {
     try {
       const response = await fetch(this.apiUrl, {
         method: 'POST',
@@ -327,7 +328,7 @@ export class WidgetEventManager {
           }
 
           // Collect form data
-          const payload: Record<string, any> = {};
+          const payload: Record<string, unknown> = {};
 
           // Iterate over all previously collected form inputs
           inputs.forEach((input: Element) => {

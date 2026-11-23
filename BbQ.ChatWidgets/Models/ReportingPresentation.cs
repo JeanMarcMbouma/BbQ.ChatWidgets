@@ -5,6 +5,14 @@ namespace BbQ.ChatWidgets.Models;
 /// <summary>An authored numeric series and its legend label.</summary>
 public sealed record ReportingSeries(string Field, string Label);
 
+/// <summary>A color keyed by series field or category value.</summary>
+public sealed record ReportingColor(string Key, string Color)
+{
+    /// <summary>Optional color for hosts using a dark color scheme.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? DarkColor { get; init; }
+}
+
 /// <summary>The quantitative axis of a chart reference line.</summary>
 [JsonConverter(typeof(JsonStringEnumConverter<ReportingAxis>))]
 public enum ReportingAxis
@@ -73,4 +81,8 @@ public sealed record ReportingPresentation
     /// <summary>Optional guide lines on quantitative axes.</summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public ReportingReferenceLine[]? ReferenceLines { get; init; }
+
+    /// <summary>Optional colors keyed by series field or category value.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ReportingColor[]? Colors { get; init; }
 }

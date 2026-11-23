@@ -10,6 +10,7 @@ import { reportingKinds, type ReportingDefinition, type ReportingKind } from '..
 export type ChatWidgetType = string;
 
 import { customWidgetRegistry } from './CustomWidgetRegistry';
+import type { WidgetPayload } from './WidgetPayload';
 
 /**
  * Base class for all chat widgets
@@ -40,8 +41,9 @@ export abstract class ChatWidget {
   /**
    * Deserialize a widget from plain object
    */
-  static fromObject(obj: any): ChatWidget | null {
-    if (!obj || typeof obj !== 'object' || typeof obj.type !== 'string') return null;
+  static fromObject(value: unknown): ChatWidget | null {
+    if (!value || typeof value !== 'object' || !('type' in value) || typeof value.type !== 'string') return null;
+    const obj = value as Record<string, WidgetPayload>;
 
     // Try runtime-registered custom widgets first
     const factory = customWidgetRegistry.getFactory(obj.type);
@@ -133,7 +135,7 @@ export abstract class ChatWidget {
   /**
    * Serialize widget to plain object
    */
-  abstract toObject(): Record<string, any>;
+  abstract toObject(): Record<string, WidgetPayload>;
 }
 
 /**
@@ -427,7 +429,7 @@ export interface FormField {
   required: boolean;
   validationHint?: string;
   // Allow additional properties for field-specific attributes (options, min, max, etc.)
-  [key: string]: any;
+  [key: string]: WidgetPayload;
 }
 
 /**

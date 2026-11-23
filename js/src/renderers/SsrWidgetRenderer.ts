@@ -1,5 +1,10 @@
 import { renderReporting } from '../reporting/engine';
-import type { ReportingWidget } from '../models/ChatWidget';
+import type {
+  CardWidget, DatePickerWidget, DropdownWidget, FileUploadWidget, FormWidget, ImageCollectionWidget, ImageWidget,
+  InputWidget, MultiSelectWidget, ProgressBarWidget, ReportingWidget, SliderWidget, TextAreaWidget,
+  ThemeSwitcherWidget, ToggleWidget,
+} from '../models/ChatWidget';
+import type { WidgetPayload } from '../models/WidgetPayload';
 import { ChatWidget } from '../models/ChatWidget';
 import { renderImage, renderImageCollection } from './imageRenderers';
 
@@ -11,7 +16,7 @@ export interface IWidgetRenderer {
   renderWidget(widget: ChatWidget): string;
 }
 
-export type RenderFn = (widget: any, ctx: SsrWidgetRenderer) => string;
+export type RenderFn = (widget: WidgetPayload, ctx: SsrWidgetRenderer) => string;
 
 export interface SsrRendererOptions {
   /**
@@ -57,41 +62,41 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
       case 'reporting':
         return renderReporting(widget as ReportingWidget);
       case 'button':
-        return this.renderButton(widget as any);
+        return this.renderButton(widget);
       case 'card':
-        return this.renderCard(widget as any);
+        return this.renderCard(widget as CardWidget);
       case 'input':
-        return this.renderInput(widget as any);
+        return this.renderInput(widget as InputWidget);
       case 'textarea':
-        return this.renderTextArea(widget as any);
+        return this.renderTextArea(widget as TextAreaWidget);
       case 'dropdown':
-        return this.renderDropdown(widget as any);
+        return this.renderDropdown(widget as DropdownWidget);
       case 'slider':
-        return this.renderSlider(widget as any);
+        return this.renderSlider(widget as SliderWidget);
       case 'toggle':
-        return this.renderToggle(widget as any);
+        return this.renderToggle(widget as ToggleWidget);
       case 'fileupload':
-        return this.renderFileUpload(widget as any);
+        return this.renderFileUpload(widget as FileUploadWidget);
       case 'themeswitcher':
-        return this.renderThemeSwitcher(widget as any);
+        return this.renderThemeSwitcher(widget as ThemeSwitcherWidget);
       case 'datepicker':
-        return this.renderDatePicker(widget as any);
+        return this.renderDatePicker(widget as DatePickerWidget);
       case 'multiselect':
-        return this.renderMultiSelect(widget as any);
+        return this.renderMultiSelect(widget as MultiSelectWidget);
       case 'progressbar':
-        return this.renderProgressBar(widget as any);
+        return this.renderProgressBar(widget as ProgressBarWidget);
       case 'form':
-        return this.renderForm(widget as any);
+        return this.renderForm(widget as FormWidget);
       case 'image':
-        return renderImage(widget as any, this);
+        return renderImage(widget as ImageWidget, this);
       case 'imagecollection':
-        return renderImageCollection(widget as any, this);
+        return renderImageCollection(widget as ImageCollectionWidget, this);
       default:
         return this.renderUnsupported(widget);
     }
   }
 
-  private renderButton(widget: any): string {
+  private renderButton(widget: ChatWidget): string {
     const action = this.escape(widget.action);
     const label = this.escape(widget.label);
     const id = this.generateId(widget.action);
@@ -99,7 +104,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     return `<button class="bbq-widget bbq-button" data-widget-id="${id}" data-widget-type="button" data-action="${action}" type="button">${label}</button>`;
   }
 
-  private renderCard(widget: any): string {
+  private renderCard(widget: CardWidget): string {
     const action = this.escape(widget.action);
     const title = this.escape(widget.title);
     const label = this.escape(widget.label);
@@ -127,7 +132,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     return html;
   }
 
-  private renderInput(widget: any): string {
+  private renderInput(widget: InputWidget): string {
     const label = this.escape(widget.label);
     const action = this.escape(widget.action);
     const id = this.generateId(widget.action);
@@ -149,7 +154,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     return html;
   }
 
-  private renderTextArea(widget: any): string {
+  private renderTextArea(widget: TextAreaWidget): string {
     const label = this.escape(widget.label);
     const action = this.escape(widget.action);
     const id = this.generateId(widget.action);
@@ -172,7 +177,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     return html;
   }
 
-  private renderDropdown(widget: any): string {
+  private renderDropdown(widget: DropdownWidget): string {
     const label = this.escape(widget.label);
     const action = this.escape(widget.action);
     const id = this.generateId(widget.action);
@@ -192,7 +197,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     return html;
   }
 
-  private renderSlider(widget: any): string {
+  private renderSlider(widget: SliderWidget & { default?: number }): string {
     const label = this.escape(widget.label);
     const action = this.escape(widget.action);
     const id = this.generateId(widget.action);
@@ -210,7 +215,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     return html;
   }
 
-  private renderToggle(widget: any): string {
+  private renderToggle(widget: ToggleWidget): string {
     const label = this.escape(widget.label);
     const action = this.escape(widget.action);
     const id = this.generateId(widget.action);
@@ -226,7 +231,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     return html;
   }
 
-  private renderFileUpload(widget: any): string {
+  private renderFileUpload(widget: FileUploadWidget): string {
     const label = this.escape(widget.label);
     const action = this.escape(widget.action);
     const id = this.generateId(widget.action);
@@ -246,7 +251,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     return html;
   }
 
-  private renderThemeSwitcher(widget: any): string {
+  private renderThemeSwitcher(widget: ThemeSwitcherWidget): string {
     const label = this.escape(widget.label);
     const action = this.escape(widget.action);
     const id = this.generateId(widget.action);
@@ -266,7 +271,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     return html;
   }
 
-  private renderDatePicker(widget: any): string {
+  private renderDatePicker(widget: DatePickerWidget): string {
     const label = this.escape(widget.label);
     const action = this.escape(widget.action);
     const id = this.generateId(widget.action);
@@ -284,7 +289,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     return html;
   }
 
-  private renderMultiSelect(widget: any): string {
+  private renderMultiSelect(widget: MultiSelectWidget): string {
     const label = this.escape(widget.label);
     const action = this.escape(widget.action);
     const id = this.generateId(widget.action);
@@ -304,7 +309,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     return html;
   }
 
-  private renderProgressBar(widget: any): string {
+  private renderProgressBar(widget: ProgressBarWidget): string {
     const label = this.escape(widget.label);
     const action = this.escape(widget.action);
     const id = this.generateId(widget.action);
@@ -319,7 +324,7 @@ export class SsrWidgetRenderer implements IWidgetRenderer {
     return html;
   }
 
-  private renderForm(widget: any): string {
+  private renderForm(widget: FormWidget): string {
     const id = this.generateId(widget.action);
     const title = this.escape(widget.title);
     const action = this.escape(widget.action);

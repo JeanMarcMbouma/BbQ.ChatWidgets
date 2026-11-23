@@ -28,7 +28,7 @@ public static partial class ReportingEndpoints
             {
                 var datasets = await source.GetDatasetsAsync(scope, ct);
                 var presets = await source.GetPresetsAsync(scope, ct);
-                return Results.Ok(new { datasets, presets });
+                return Results.Ok(new { datasets, presets, capabilities = new { layouts = true } });
             }));
 
         group.MapPost("/run", (ReportQuery query, IReportingSource source, HttpContext http) =>
@@ -58,12 +58,16 @@ public static partial class ReportingEndpoints
                 return Results.Ok(await store.CreateAsync(scope, definition, ct));
             }));
 
-        group.MapPut("/saved/{id}", (string id, ReportDefinition definition, IReportingStore store,
+        group.MapPut("/saved/{id}", (string id, bool? removeLayout, ReportDefinition definition, IReportingStore store,
             IReportingSource source, HttpContext http) => WithScope(source, http, async (scope, ct) =>
             {
                 var datasets = await source.GetDatasetsAsync(scope, ct);
                 if (await DefinitionErrorAsync(source, scope, definition, datasets, ct) is { } error)
                     return Invalid(error);
+
+                if (definition.Layout is null && removeLayout is not true &&
+                    (await store.ListAsync(scope, ct)).Any(item => item.Id == id && item.Definition.Layout is not null))
+                    return Results.Conflict(new { error = "This report has an authored layout. Use a layout-aware editor to change it." });
 
                 return await store.UpdateAsync(scope, id, definition, ct)
                     ? Results.NoContent() : Results.NotFound();
@@ -94,17 +98,29 @@ public static partial class ReportingEndpoints
     {
         if (!ValidTitle(definition.Title) || definition.Tiles is null ||
             definition.Kind is not ("report" or "dashboard") ||
-            definition.Tiles.Length is < 1 or > 8 ||
-            (definition.Kind == "report" && definition.Tiles.Length != 1))
+            definition.Tiles.Length < 1 ||
+            (definition.Layout is null && (definition.Tiles.Length > 8 ||
+                (definition.Kind == "report" && definition.Tiles.Length != 1))))
             return "Provide a title and one tile for a report or up to eight tiles for a dashboard.";
+
+        if (definition.Layout is { } layout)
+        {
+            if (definition.Tiles.Length > LayoutTileLimit)
+                return "Choose up to 32 tiles for an authored layout.";
+            if (LayoutError(definition, layout) is { } error)
+                return error;
+        }
 
         foreach (var tile in definition.Tiles)
         {
             if (tile is null || !ValidTitle(tile.Title) ||
-                tile.View is not ("table" or "grid" or "bar" or "line" or "pie" or "timeline" or "scatter" or "metric"
+                tile.View is not ("table" or "grid" or "bar" or "column" or "line" or "pie" or "timeline" or "scatter" or "metric"
                     or "filter" or "waterfall" or "pareto" or "histogram" or "time-line" or "area" or "step" or "time-column") ||
                 (tile.View == "filter" && definition.Kind != "dashboard"))
                 return "Each tile needs a title and a supported presentation.";
+
+            if (tile.Renderer is { } renderer && (!ValidInputId(renderer) || definition.Layout is null))
+                return "Choose a valid renderer ID in an authored layout.";
 
             var (_, error) = await ResolveQueryAsync(source, scope, tile.Query, datasets, ct);
             if (error is not null)

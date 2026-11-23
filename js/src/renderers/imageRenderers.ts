@@ -1,4 +1,5 @@
-import { RenderFn } from './SsrWidgetRenderer';
+import type { RenderFn } from './SsrWidgetRenderer';
+import type { ImageWidget, ImageCollectionWidget } from '../models/ChatWidget';
 
 function escapeHtml(value: string | undefined): string {
   if (!value) return '';
@@ -17,7 +18,7 @@ function generateIdFromAction(action: string | undefined): string {
   return `bbq-${escapeHtml(a).replace(/\s+/g, '-').toLowerCase()}`;
 }
 
-export const renderImage: RenderFn = (widget: any) => {
+export const renderImage: RenderFn = (widget: ImageWidget) => {
   const action = escapeHtml(widget.action);
   const label = escapeHtml(widget.label);
   const id = generateIdFromAction(widget.action);
@@ -42,7 +43,7 @@ export const renderImage: RenderFn = (widget: any) => {
   return html;
 };
 
-export const renderImageCollection: RenderFn = (widget: any) => {
+export const renderImageCollection: RenderFn = (widget: ImageCollectionWidget) => {
   const action = escapeHtml(widget.action);
   const id = generateIdFromAction(widget.action);
 
@@ -50,7 +51,7 @@ export const renderImageCollection: RenderFn = (widget: any) => {
 
   // Match Blazor `ImageCollectionWidgetComponent.razor`
   const items = images
-    .map((img: any) => {
+    .map(img => {
       const imageUrl = escapeHtml(img.imageUrl);
       const alt = escapeHtml(img.alt || '');
       const itemAction = escapeHtml(img.action || widget.action);

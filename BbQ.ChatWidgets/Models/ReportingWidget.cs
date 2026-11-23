@@ -16,7 +16,14 @@ public sealed record ReportingSettings(
     /// <summary>Optional native chart presentation settings.</summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public ReportingPresentation? Presentation { get; init; }
+
+    /// <summary>Resolved placement groups for this snapshot.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ReportingWidgetPlacement[]? Layout { get; init; }
 }
+
+/// <summary>Placement indices resolved against the snapshot's child widgets.</summary>
+public sealed record ReportingWidgetPlacement(int[] Children, string? Region, int? ColumnSpan, int? RowSpan);
 
 /// <summary>A named reporting field with optional grid editing.</summary>
 public sealed record ReportingColumn(string Field, string Label, bool Editable = false);
@@ -36,7 +43,7 @@ public sealed record ReportingWidget(
 {
     /// <inheritdoc/>
     public override string Purpose => """
-        Display authorized report data as a bar, line, pie, timeline, scatter, waterfall,
+        Display authorized report data as a bar, column, line, pie, timeline, scatter, waterfall,
         Pareto chart, histogram, table, grid, or metric.
         Use kind time-line, area, step, or time-column for numeric values against ISO dates in dateField.
         Use kind dashboard to host children and share named sources, fields, grouping, and columns.

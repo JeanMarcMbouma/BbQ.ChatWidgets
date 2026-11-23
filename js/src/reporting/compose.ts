@@ -1,9 +1,12 @@
 import { ReportingWidget } from '../models/ChatWidget';
 import type { ReportingCatalog, ReportingDocument, ReportingQuery, ReportingResultRow, ReportingTile } from './api';
-import type { ReportingRow } from './types';
+import type { ReportingRow, ReportingWidgetPlacement } from './types';
+import { resolveReportingLayout, type ReportingLayoutState } from './layout';
 import { normalizeReportingQuery, reportingQueryKey } from './inputs';
 
 export interface ReportingSnapshotOptions {
+  /** Select a named mode and its card variants. */
+  layoutState?: ReportingLayoutState;
   /** Exclude tiles rendered by the host, such as server-paged grids. */
   includeTile?: (tile: ReportingTile) => boolean;
   /** Provide a localized error message for a failed query. */
@@ -24,13 +27,15 @@ export async function composeReportingSnapshot(
   run: (query: ReportingQuery) => Promise<readonly ReportingResultRow[]>,
   options: ReportingSnapshotOptions = {},
 ): Promise<ReportingWidget> {
+  const authored = resolveReportingLayout(document, options.layoutState);
+  const active = authored && new Set(authored.placements.flatMap(card => card.tileIndices));
   const sources = new Map<string, {
     id: string;
     tiles: ReportingTile[];
     result: Promise<{ rows: ReportingRow[]; error?: string }>;
   }>();
   const children = document.tiles.map(async (tile, index) => {
-    if (options.includeTile && !options.includeTile(tile)) return undefined;
+    if ((active && !active.has(index)) || (options.includeTile && !options.includeTile(tile))) return undefined;
     const { dataset, groupBy } = tile.query;
     const data = catalog.datasets.find(item => item.id === dataset);
     const effective = normalizeReportingQuery(tile.query, data?.inputs);
@@ -63,19 +68,29 @@ export async function composeReportingSnapshot(
   for (const { id, result, tiles } of sources.values()) {
     const { rows } = await result;
     rowsBySource[id] = rows;
-    if (!document.filters && rows.length > 1 && tiles.length > 1 && !tiles.some(tile => tile.view === 'filter')) {
+    if (!authored && !document.filters && rows.length > 1 && tiles.length > 1 && !tiles.some(tile => tile.view === 'filter')) {
       filters.push(new ReportingWidget(options.filterLabel?.(tiles[0]) ?? 'Filter ' + tiles[0].title, '', 'filter', {
         settings: { dataSource: id }, filterField: 'label',
       }));
     }
   }
 
+  const visible: ReportingWidget[] = [];
+  const layout: ReportingWidgetPlacement[] | undefined = authored?.placements.flatMap(({ placement, tileIndices }) => {
+    const children = tileIndices.flatMap(index => {
+      const widget = resolved[index];
+      return widget ? [visible.push(widget) - 1] : [];
+    });
+    return children.length ? [{ region: placement.region, columnSpan: placement.columnSpan, rowSpan: placement.rowSpan, children }] : [];
+  });
+
   return new ReportingWidget(document.title, '', 'dashboard', {
     settings: {
       categoryField: 'label', valueField: 'value', xField: 'x', dateField: 'date',
       columns: [{ field: 'label', label: 'Group' }, { field: 'value', label: 'Value' }],
+      ...(layout ? { layout } : {}),
     },
     sources: rowsBySource,
-    children: [...filters, ...resolved.filter(child => child !== undefined)],
+    children: layout ? visible : [...filters, ...resolved.filter(child => child !== undefined)],
   });
 }

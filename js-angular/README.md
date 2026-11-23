@@ -458,3 +458,7 @@ MIT
 ## Repository
 
 https://github.com/JeanMarcMbouma/BbQ.ChatWidgets
+
+### Authored reporting layouts
+
+Open the editor and choose **Add report layout** to create a mode, place tiles in cards and add variants. The viewer and editor preview use the same composition, including paged grids. Use `layoutState` and `layoutStateChange` to keep mode and variant IDs in host routes. Pass `canEdit` for viewer-only UI and enforce the same rule in the server. Provide `tileRenderers` as a map from renderer ID to a function receiving a native reporting widget and its tile. A missing renderer falls back to the native view.

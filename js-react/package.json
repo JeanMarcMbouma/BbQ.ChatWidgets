@@ -1,6 +1,6 @@
 {
   "name": "@bbq-chat/widgets-react",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Native React components, forms and streaming for BbQ ChatWidgets",
   "license": "MIT",
   "type": "module",
@@ -30,7 +30,7 @@
     "node": ">=20.19.0"
   },
   "peerDependencies": {
-    "@bbq-chat/widgets": "^1.2.1",
+    "@bbq-chat/widgets": "^1.2.2",
     "react": "^18.3.1 || ^19.0.0",
     "react-dom": "^18.3.1 || ^19.0.0"
   },

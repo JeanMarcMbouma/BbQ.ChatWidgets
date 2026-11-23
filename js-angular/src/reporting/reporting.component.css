@@ -1,3 +1,20 @@
+.display-modes { display: flex; flex-wrap: wrap; gap: .4rem; margin-block: .5rem; }
+.display-modes button[aria-pressed='true'] { background: var(--bbq-reporting-accent-light, #d9e8fa); }
+.display-variant { display: inline-flex; align-items: center; gap: .4rem; margin-inline-end: .75rem; }
+.authored-cards { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: .85rem; }
+.authored-card {
+  grid-column: span var(--bbq-column-span);
+  grid-row: span var(--bbq-row-span);
+  min-width: 0;
+  overflow-x: auto;
+  border: 1px solid var(--bbq-reporting-line, #d0d6dc);
+  border-radius: .4rem;
+  padding: .65rem;
+}
+@media (max-width: 700px) {
+  .authored-card { grid-column: 1 / -1; grid-row: auto; }
+}
+
 :host {
   display: block;
   color: var(--ink);

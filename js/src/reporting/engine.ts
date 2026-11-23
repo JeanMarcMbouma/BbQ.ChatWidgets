@@ -113,9 +113,22 @@ function renderNode(widget: ReportingNode, parent: Context, session: Session, pa
         childState.filter = undefined;
       }
     });
-    const content = children.map((child, index) => renderNode(child,
+    const rendered = children.map((child, index) => renderNode(child,
       child?.kind === 'filter' ? context : { ...context, filters: [...context.filters, ...filters] },
-      session, `${path}.${index}`, depth + 1)).join('');
+      session, `${path}.${index}`, depth + 1));
+    const layout = widget.settings?.layout;
+    if (Array.isArray(layout)) {
+      const cards = layout.map(card => {
+        const span = (value: number | undefined, maximum: number, fallback: number) =>
+          typeof value === 'number' && Number.isInteger(value) && value >= 1 && value <= maximum ? value : fallback;
+        const content = Array.isArray(card?.children) ? card.children.map((index: number) =>
+          Number.isInteger(index) && index >= 0 ? rendered[index] ?? '' : '').join('') : '';
+        return content ? `<div class="bbq-report-placement" data-region="${escapeHtml(card.region)}"
+          style="--bbq-column-span:${span(card.columnSpan, 12, 12)};--bbq-row-span:${span(card.rowSpan, 4, 1)}">${content}</div>` : '';
+      }).join('');
+      return section(widget, path, `<div class="bbq-report-layout">${cards}</div>`);
+    }
+    const content = rendered.join('');
     return section(widget, path, `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:1rem">${content}</div>`);
   }
 
@@ -209,9 +222,10 @@ function renderTable(kind: 'table' | 'grid', path: string, rows: Row[], columns:
     <tbody>${body}</tbody></table></div>${page.length ? '' : '<p>No results.</p>'}${pager}`;
 }
 
+type SeriesIdentity = { key: string; label: string; index: number };
 type Point = {
   label: string; value: number; x: number; index: number; group?: ChartGroup;
-  series?: { label: string; index: number }; size?: number;
+  series?: SeriesIdentity; size?: number;
 };
 type Reference = { axis: 'X' | 'Y'; label: string; value: number };
 
@@ -244,13 +258,19 @@ function renderChart(binding: Binding): string {
   const { widget, rows, context: { settings }, state: { selected } } = binding;
   const timeSeries = isReportingTimeSeriesKind(widget.kind) ? widget.kind : undefined;
   const presentation = settings.presentation;
+  const hex = /^#[a-fA-F0-9]{6}$/;
+  const colors = new Map((Array.isArray(presentation?.colors) ? presentation.colors.slice(0, 32) : [])
+    .filter(item => item && typeof item.key === 'string' && typeof item.color === 'string' && hex.test(item.color))
+    .map(item => [item.key, typeof item.darkColor === 'string' && hex.test(item.darkColor)
+      ? `light-dark(${item.color},${item.darkColor})` : item.color]));
+  const colorFor = (point: Point, fallback: string) => colors.get(point.series?.key ?? point.label) ?? fallback;
   const valueField = presentation?.valueField ?? settings.valueField ?? 'value';
   const xField = presentation?.xField ?? settings.xField ?? 'x';
-  const seriesAllowed = widget.kind === 'bar' || widget.kind === 'time-column';
+  const seriesAllowed = widget.kind === 'bar' || widget.kind === 'column' || widget.kind === 'time-column';
   const series = seriesAllowed && Array.isArray(presentation?.series) ? presentation.series.slice(0, 8) : [];
   const seriesField = seriesAllowed && !series.length ? presentation?.seriesField : undefined;
-  const groups = new Map<ReportingCell, { label: string; index: number }>();
-  const groupField = !seriesField && !series.length && ['bar', 'line', 'pie', 'pareto', 'waterfall'].includes(widget.kind)
+  const groups = new Map<ReportingCell, SeriesIdentity>();
+  const groupField = !seriesField && !series.length && ['bar', 'column', 'line', 'pie', 'pareto', 'waterfall'].includes(widget.kind)
     ? settings.groupBy : undefined;
   const width = presentation?.binWidth;
   const binned = widget.kind === 'histogram' && typeof width === 'number' && Number.isFinite(width) && width > 0;
@@ -267,7 +287,7 @@ function renderChart(binding: Binding): string {
     if (series.length) {
       series.forEach((item, index) => {
         const value = item && typeof item.field === 'string' ? number(cell(row, item.field)) : undefined;
-        if (value !== undefined) points.push({ label, value, x, index: row.index, series: { label: item.label, index } });
+        if (value !== undefined) points.push({ label, value, x, index: row.index, series: { key: item.field, label: item.label, index } });
       });
       return;
     }
@@ -280,7 +300,7 @@ function renderChart(binding: Binding): string {
       let entry = groups.get(key);
       if (!entry) {
         if (groups.size === 8) return;
-        entry = { label: text(key) || '(blank)', index: groups.size };
+        entry = { key: text(key), label: text(key) || '(blank)', index: groups.size };
         groups.set(key, entry);
       }
       points.push({ label, value, x, index: row.index, series: entry });
@@ -328,16 +348,18 @@ function renderChart(binding: Binding): string {
   const button = (point: Point) => point.group && !widget.action ? ''
     : ` role="button" tabindex="0" data-report-command="point" data-row="${point.index}" aria-pressed="${selected.has(point.index)}" aria-label="${escapeHtml(detail(point))}"`;
   const title = (point: Point) => `<title>${escapeHtml(detail(point))}</title>`;
-  const legend = new Map(visible.flatMap(point => point.series ? [[point.series.index, point.series.label] as const] : []));
+  const legend = new Map(visible.flatMap((point, index) => point.series
+    ? [[point.series.index, { label: point.series.label, color: colorFor(point, palette[point.series.index]) }] as const]
+    : widget.kind === 'pie' && colors.size ? [[index, { label: point.label, color: colorFor(point, palette[index % palette.length]) }] as const] : []));
   const legendHtml = legend.size
-    ? `<ul aria-label="Series" style="display:flex;flex-wrap:wrap;gap:.3rem 1rem;list-style:none;padding:0">${[...legend].map(([index, label]) =>
-      `<li><svg aria-hidden="true" width="12" height="12"><rect width="12" height="12" fill="${palette[index]}"/></svg> ${escapeHtml(label)}</li>`).join('')}</ul>`
+    ? `<ul aria-label="Series" style="display:flex;flex-wrap:wrap;gap:.3rem 1rem;list-style:none;padding:0">${[...legend.values()].map(({ label, color }) =>
+      `<li><svg aria-hidden="true" width="12" height="12"><rect width="12" height="12" fill="${color}"/></svg> ${escapeHtml(label)}</li>`).join('')}</ul>`
     : '';
   const summary = `${legendHtml}<details><summary>Chart data</summary><ul>${visible.map(point => `<li>${escapeHtml(detail(point))}</li>`).join('')}${
     lines.map(line => `<li>${escapeHtml(line.label)}: ${format(line.value)}</li>`).join('')}</ul></details>`;
   const plot = (w: number, h: number, body: string) => `<svg aria-label="${escapeHtml(widget.label)}" viewBox="0 0 ${w} ${h}"
     style="display:block;width:100%;height:auto;color:inherit">${body}</svg>${summary}${visible.length < points.length ? `<p>Showing ${visible.length} of ${points.length} points.</p>` : ''}`;
-  if (timeSeries) return plot(420, 176, renderTimeSeries(timeSeries, visible, button, title, lines, presentation?.dateAxisLabel));
+  if (timeSeries) return plot(420, 176, renderTimeSeries(timeSeries, visible, button, title, lines, colorFor, presentation?.dateAxisLabel));
   if (binned) return plot(390, 165, renderBinnedHistogram(visible, width, button, title, lines));
   if (widget.kind === 'waterfall' || widget.kind === 'pareto') {
     const waterfall = widget.kind === 'waterfall';
@@ -378,7 +400,7 @@ function renderChart(binding: Binding): string {
       const sweep = share * 2 * Math.PI;
       const start = angle;
       angle += sweep;
-      const color = palette[index % palette.length];
+      const color = colorFor(point, palette[index % palette.length]);
       const part = title(point);
       if (sweep >= 2 * Math.PI - 1e-10) {
         if (!inner) return `<circle cx="100" cy="88" r="78" fill="${color}"${button(point)}>${part}</circle>`;
@@ -412,10 +434,44 @@ function renderChart(binding: Binding): string {
       const x = scaleX(point.value);
       const label = first ? `<text x="4" y="${point.series ? position * block + 11 : y + 12}" fill="currentColor" font-size="10">${escapeHtml(point.label.slice(0, 23))}</text>` : '';
       return `<g${button(point)}>${title(point)}${label}
-        <rect x="${Math.min(x, baseline)}" y="${y}" width="${Math.max(Math.abs(x - baseline), 1)}" height="${point.series ? 11 : 15}" fill="${palette[point.series?.index ?? 0]}"/></g>`;
+        <rect x="${Math.min(x, baseline)}" y="${y}" width="${Math.max(Math.abs(x - baseline), 1)}" height="${point.series ? 11 : 15}" fill="${colorFor(point, palette[point.series?.index ?? 0])}"/></g>`;
     }).join('');
     const height = (legend.size ? categories.size : visible.length) * block + 10;
     return plot(398, height, `<line x1="${baseline}" x2="${baseline}" y1="0" y2="${height}" stroke="currentColor" opacity=".4"/>${bars}${referenceMarks(lines, 'X', scaleX, 0, height)}`);
+  }
+  if (widget.kind === 'column') {
+    const categories = new Map<string, Point[]>();
+    for (const point of visible) {
+      const category = categories.get(point.label) ?? [];
+      category.push(point);
+      categories.set(point.label, category);
+    }
+    const left = 40;
+    const top = 13;
+    const bottom = 157;
+    const chartWidth = Math.max(360, categories.size * 86 + left + 12);
+    const slot = (chartWidth - left - 8) / categories.size;
+    const y = (value: number) => bottom - fraction(value) * (bottom - top);
+    const baseline = y(0);
+    const seriesCount = Math.max(1, ...visible.map(point => (point.series?.index ?? 0) + 1));
+    const axes = [...new Set([minimum, 0, maximum])].map(tick =>
+      `<line x1="${left}" x2="${chartWidth - 8}" y1="${y(tick)}" y2="${y(tick)}" stroke="currentColor" opacity=".18"/>
+       <text x="${left - 5}" y="${y(tick) + 3}" text-anchor="end" fill="currentColor" font-size="10">${format(tick)}</text>`).join('');
+    const bars = [...categories].map(([label, points], index) => {
+      const start = left + slot * index;
+      const band = Math.min(slot * .74, 112);
+      const pitch = band / Math.max(seriesCount, points.some(point => !point.series) ? points.length : 1);
+      const marks = points.map((point, position) => {
+        const end = y(point.value);
+        return `<rect x="${start + (slot - band) / 2 + pitch * (point.series?.index ?? position)}"
+           y="${Math.min(end, baseline)}" width="${pitch * .92}" height="${Math.max(1, Math.abs(end - baseline))}"
+           fill="${colorFor(point, palette[point.series?.index ?? 0])}"${button(point)}>${title(point)}</rect>`;
+      }).join('');
+      return `${marks}<text x="${start + slot / 2}" y="172" text-anchor="middle" fill="currentColor" font-size="10">
+        ${escapeHtml(label.length > 16 ? label.slice(0, 15) + '…' : label)}<title>${escapeHtml(label)}</title></text>`;
+    }).join('');
+    return `<div style="overflow-x:auto"><div style="min-width:${chartWidth}px">${plot(chartWidth, 180,
+      `${axes}${bars}${referenceMarks(lines, 'Y', y, left, chartWidth - 8)}`)}</div></div>`;
   }
   const xGuides = widget.kind === 'scatter' ? lines.filter(line => line.axis === 'X').map(line => line.value) : [];
   const minX = Math.min(...xGuides, ...visible.map(point => point.x));
@@ -457,7 +513,7 @@ function dateDetail(timestamp: number): string {
 
 function renderTimeSeries(kind: ReportingTimeSeriesKind, points: Point[],
   pointAction: (point: Point) => string, pointTitle: (point: Point) => string,
-  lines: Reference[], axisLabel?: string): string {
+  lines: Reference[], colorFor: (point: Point, fallback: string) => string, axisLabel?: string): string {
   const left = 58;
   const right = 378;
   const top = 15;
@@ -511,7 +567,7 @@ function renderTimeSeries(kind: ReportingTimeSeriesKind, points: Point[],
       const slot = width / (seriesCount || group.length);
       return group.map(({ point, y: end }, position) =>
         `<rect x="${center - width / 2 + slot * (point.series?.index ?? position)}" y="${Math.min(end, baseline)}" width="${slot * .88}"
-          height="${Math.max(1, Math.abs(end - baseline))}" fill="${point.series ? palette[point.series.index] : point.value < 0 ? '#b74757' : color}"${pointAction(point)}>${pointTitle(point)}</rect>`).join('');
+          height="${Math.max(1, Math.abs(end - baseline))}" fill="${colorFor(point, point.series ? palette[point.series.index] : point.value < 0 ? '#b74757' : color)}"${pointAction(point)}>${pointTitle(point)}</rect>`).join('');
     }).join('');
   } else {
     const path = plotted.map((point, index) =>

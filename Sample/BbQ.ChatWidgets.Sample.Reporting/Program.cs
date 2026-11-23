@@ -12,6 +12,7 @@ if (!builder.Environment.IsDevelopment())
 builder.Services.AddAuthentication("Fixture").AddScheme<AuthenticationSchemeOptions, FixtureAuthentication>(
     "Fixture", _ => { });
 builder.Services.AddAuthorization();
+builder.Services.Configure<RouteHandlerOptions>(options => options.ThrowOnBadRequest = false);
 builder.Services.AddSingleton<IReportingStore, MemoryStore>();
 builder.Services.AddBbQReporting<FixtureSource, MemoryStore>();
 var app = builder.Build();

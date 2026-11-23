@@ -108,3 +108,7 @@ Create a store per stream. Snapshots, patches, removal, duplicate events and rev
 Build the core (`cd ../js && npm ci && npm run build`), then run `npm ci`, `npm run build`, `npm test` and `npm run test:package` here. The package check installs real tarballs against React 18 and 19 and verifies ESM/CommonJS SSR, shared model identity and TypeScript declarations with `moduleResolution: "Bundler"` (the core package's current declaration convention).
 
 The React demo consumes this package. CI runs the native behavior tests on both React versions and the demo browser tests on desktop/mobile. Future `npm-v*` releases publish React after core using the production environment's `NPM_TOKEN`. For the initial React 1.1.0 release, run **NPM Publish React** manually from the merged release commit: this publishes only React and leaves existing core/Angular versions and tags intact. Do not run the aggregate workflow to republish an already released version.
+
+### Authored reporting layouts
+
+The React workspace opens saved layout definitions and lets readers switch modes and card variants. The reporting composer queries the active tiles. Existing report settings can be edited while retaining authored layout references. Configure the layout itself through the reporting definition or the Angular layout editor.

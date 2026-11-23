@@ -3,6 +3,7 @@ import {
   applyReportingAction,
   applyReportingState,
   composeReportingSnapshot,
+  resolveReportingLayout,
   pruneReportingFilters,
   reportingAvailableInputs,
   reportingEditableFilters,
@@ -14,6 +15,7 @@ import {
   isReportingTimeSeriesKind,
   ReportingClient,
   reportingViews,
+  type ReportingLayoutState,
   type ReportingActionResolver,
   type ReportingCatalog,
   type ReportingDocument,
@@ -71,9 +73,14 @@ function errorMessage(error: unknown) {
 
 async function loadPreview(
   document: ReportingDocument, catalog: ReportingCatalog, client: ReportingWorkspaceClient, signal: AbortSignal,
+  layoutState?: ReportingLayoutState,
 ): Promise<Preview> {
+  const layout = resolveReportingLayout(document, layoutState);
+  const indices = layout && new Set(layout.placements.flatMap(card => card.tileIndices));
+  const active = indices ? { ...document, tiles: document.tiles.filter((_, index) => indices.has(index)) } : document;
   const paged = new Set<ReportingTile>();
   const grids = document.tiles.flatMap((tile, tileIndex) => {
+    if (indices && !indices.has(tileIndex)) return [];
     const dimension = tile.view === "grid" && datasetFor(catalog, tile)?.dimensions
       .find(field => field.id === tile.query.groupBy && field.grid);
     if (!dimension) return [];
@@ -81,11 +88,11 @@ async function loadPreview(
     return [{ tileIndex, dimension }];
   });
   const [widget, controls] = await Promise.all([
-    paged.size === document.tiles.length ? undefined
+    paged.size === active.tiles.length ? undefined
       : composeReportingSnapshot(document, catalog, query => client.run(query, signal), {
-        includeTile: tile => !paged.has(tile), describeError: errorMessage,
+        includeTile: tile => !paged.has(tile), describeError: errorMessage, layoutState,
       }),
-    resolveReportingControls(document, catalog, async ({ dataset, from, to }, input) => {
+    resolveReportingControls(active, catalog, async ({ dataset, from, to }, input) => {
       try {
         return await client.inputOptions?.({ dataset, input, from, to }, signal) ?? [];
       } catch {
@@ -116,6 +123,7 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
   const [active, setActive] = useState<{ id: string; saved: boolean }>();
   const [preview, setPreview] = useState<Preview & { generation: number }>();
   const [filterState, setFilterState] = useState<ReportingState>({});
+  const [layoutState, setLayoutState] = useState<ReportingLayoutState>({});
   const [editing, setEditing] = useState(false);
   const [busy, setBusy] = useState(true);
   const [status, setStatus] = useState("");
@@ -193,6 +201,7 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
       if (signal.aborted) return;
       setDraft(definition);
       setFilterState({});
+      setLayoutState({});
       setActive({ id: report.id, saved: fromSaved });
       showPreview(result);
       setEditing(false);
@@ -205,6 +214,7 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
     setDraft(reportingAvailableInputs(definition, catalog).some(input => input.role === "Filter")
       ? { ...definition, filters: [] } : definition);
     setFilterState({});
+    setLayoutState({});
     setActive(undefined);
     setPreview(undefined);
     setStatus("");
@@ -229,9 +239,19 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
   function applyFilters(state: ReportingState) {
     if (!draft || !catalog) return;
     void work(async signal => {
-      const result = await loadPreview(applyReportingState(draft, catalog, state), catalog, client, signal);
+      const result = await loadPreview(applyReportingState(draft, catalog, state), catalog, client, signal, layoutState);
       if (signal.aborted) return;
       setFilterState(state);
+      showPreview(result);
+    });
+  }
+
+  function changeLayout(state: ReportingLayoutState) {
+    if (!draft || !catalog) return;
+    void work(async signal => {
+      const result = await loadPreview(applyReportingState(draft, catalog, filterState), catalog, client, signal, state);
+      if (signal.aborted) return;
+      setLayoutState(state);
       showPreview(result);
     });
   }
@@ -248,7 +268,7 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
   function run() {
     if (!catalog || !draft) return;
     void work(async signal => {
-      const result = await loadPreview(applyReportingState(draft, catalog, filterState), catalog, client, signal);
+      const result = await loadPreview(applyReportingState(draft, catalog, filterState), catalog, client, signal, layoutState);
       if (signal.aborted) return;
       showPreview(result);
       setEditing(false);
@@ -257,7 +277,11 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
 
   function save() {
     if (!draft || !catalog) return;
-    const definition = applyReportingState(draft, catalog, filterState);
+    if (draft.layout && !catalog.capabilities?.layouts) {
+      setError('This server does not support saving report layouts.');
+      return;
+    }
+    const definition = draft.layout ? draft : applyReportingState(draft, catalog, filterState);
     void work(async signal => {
       if (active?.saved) {
         await client.update(active.id, definition, signal);
@@ -296,6 +320,7 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
     }
   }
 
+  const selectedLayout = draft && resolveReportingLayout(draft, layoutState);
   return (
     <section className="bbq-reporting-workspace" aria-label="Reporting" aria-busy={busy}>
       <header>
@@ -345,10 +370,10 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
                 {draft.tiles.length > 1 && <div>
                   <button type="button" disabled={!index} onClick={() => moveTile(index, -1)}>Move tile {index + 1} up</button>
                   <button type="button" disabled={index === draft.tiles.length - 1} onClick={() => moveTile(index, 1)}>Move tile {index + 1} down</button>
-                  <button type="button" onClick={() => updateDraft(pruneReportingFilters({ ...draft, tiles: draft.tiles.filter((_, item) => item !== index) }, catalog))}>Remove tile {index + 1}</button>
+                  {!draft.layout && <button type="button" onClick={() => updateDraft(pruneReportingFilters({ ...draft, tiles: draft.tiles.filter((_, item) => item !== index) }, catalog))}>Remove tile {index + 1}</button>}
                 </div>}
               </fieldset>)}
-              {draft.kind === "dashboard" && draft.tiles.length < 8 && <button type="button"
+              {!draft.layout && draft.kind === "dashboard" && draft.tiles.length < 8 && <button type="button"
                 onClick={() => setDraft({ ...draft, tiles: [...draft.tiles, newTile(catalog)] })}>Add tile</button>}
               <button type="submit">Run {draft.kind}</button>
               <button type="submit" value="save">{active?.saved ? "Save changes" : "Save as new"}</button>
@@ -356,6 +381,21 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
             </fieldset>
           </form>}
           {preview && <section hidden={editing} aria-label="Report results">
+            {selectedLayout && (draft.layout?.modes.length ?? 0) > 1 && <div role="group" aria-label="Display modes">
+              {draft.layout?.modes.map(mode => <button key={mode.id} type="button" disabled={busy}
+                aria-pressed={selectedLayout.mode.id === mode.id} onClick={() => changeLayout({ modeId: mode.id })}>
+                {mode.label}
+              </button>)}
+            </div>}
+            {selectedLayout?.placements.map(({ placement, variantId }) => placement.variants && <label key={placement.id}>
+              Card display
+              <select value={variantId} disabled={busy} onChange={event => changeLayout({
+                modeId: selectedLayout.mode.id,
+                variants: { ...layoutState.variants, [placement.id]: event.currentTarget.value },
+              })}>
+                {placement.variants.map(variant => <option key={variant.id} value={variant.id}>{variant.label}</option>)}
+              </select>
+            </label>)}
             {preview.controls.length > 0 && <fieldset aria-label="Report filters" disabled={busy}>
               <legend>Report filters</legend>
               <div className="bbq-reporting-workspace__fields">

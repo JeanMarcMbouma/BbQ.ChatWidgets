@@ -15,7 +15,6 @@ describe('WidgetEventManager', () => {
     if (container && container.parentNode === document.body) {
       document.body.removeChild(container);
     }
-    container = null as any;
   };
 
   afterEach(teardown);
@@ -56,10 +55,10 @@ describe('WidgetEventManager', () => {
       container.innerHTML = renderer.renderWidget(widget);
 
       let actionCalled = false;
-      let capturedPayload: any;
+      let capturedPayload: unknown;
 
       const handler = {
-        handle: async (_action: string, payload: any) => {
+        handle: async (_action: string, payload: unknown) => {
           actionCalled = true;
           capturedPayload = payload;
         },
@@ -75,7 +74,7 @@ describe('WidgetEventManager', () => {
       await new Promise((resolve) => setTimeout(resolve, 10));
 
       expect(actionCalled).toBe(true);
-      expect(capturedPayload.value).toBe('test value');
+      expect(capturedPayload).toMatchObject({ value: 'test value' });
     });
   });
 
@@ -86,10 +85,10 @@ describe('WidgetEventManager', () => {
       const widget = new DropdownWidget('Select', 'select_option', ['A', 'B', 'C']);
       container.innerHTML = renderer.renderWidget(widget);
 
-      let capturedPayload: any;
+      let capturedPayload: unknown;
 
       const handler = {
-        handle: async (_action: string, payload: any) => {
+        handle: async (_action: string, payload: unknown) => {
           capturedPayload = payload;
         },
       };
@@ -103,7 +102,7 @@ describe('WidgetEventManager', () => {
 
       await new Promise((resolve) => setTimeout(resolve, 10));
 
-      expect(capturedPayload.value).toBe('B');
+      expect(capturedPayload).toMatchObject({ value: 'B' });
     });
   });
 
@@ -149,7 +148,7 @@ describe('WidgetEventManager', () => {
       let actionCalled = false;
 
       const handler = {
-        handle: async (_action: string, _payload: any) => {
+        handle: async (_action: string, _payload: unknown) => {
           actionCalled = true;
         },
       };
@@ -190,10 +189,10 @@ describe('WidgetEventManager', () => {
       container.innerHTML = renderer.renderWidget(widget);
 
       let actionCalled = false;
-      let capturedPayload: any;
+      let capturedPayload: unknown;
 
       const handler = {
-        handle: async (_action: string, payload: any) => {
+        handle: async (_action: string, payload: unknown) => {
           actionCalled = true;
           capturedPayload = payload;
         },
@@ -217,7 +216,7 @@ describe('WidgetEventManager', () => {
 
       // Should call handler when form is valid
       expect(actionCalled).toBe(true);
-      expect(capturedPayload.username).toBe('testuser');
+      expect(capturedPayload).toMatchObject({ username: 'testuser' });
     });
 
     it('should handle forms with mixed required and optional fields', async () => {
@@ -248,7 +247,7 @@ describe('WidgetEventManager', () => {
       let actionCalled = false;
 
       const handler = {
-        handle: async (_action: string, _payload: any) => {
+        handle: async (_action: string, _payload: unknown) => {
           actionCalled = true;
         },
       };
@@ -297,7 +296,7 @@ describe('WidgetEventManager', () => {
       let actionCalled = false;
 
       const handler = {
-        handle: async (_action: string, _payload: any) => {
+        handle: async (_action: string, _payload: unknown) => {
           actionCalled = true;
         },
       };
@@ -337,7 +336,7 @@ describe('WidgetEventManager', () => {
       let actionCalled = false;
 
       const handler = {
-        handle: async (_action: string, _payload: any) => {
+        handle: async (_action: string, _payload: unknown) => {
           actionCalled = true;
         },
       };
@@ -391,7 +390,7 @@ describe('WidgetEventManager', () => {
       let actionCalled = false;
 
       const handler = {
-        handle: async (_action: string, _payload: any) => {
+        handle: async (_action: string, _payload: unknown) => {
           actionCalled = true;
         },
       };
@@ -451,7 +450,7 @@ describe('WidgetEventManager', () => {
       let actionCalled = false;
 
       const handler = {
-        handle: async (_action: string, _payload: any) => {
+        handle: async (_action: string, _payload: unknown) => {
           actionCalled = true;
         },
       };

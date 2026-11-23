@@ -3,13 +3,15 @@ import type { ReportingCalendar, ReportingInput, ReportingInputBinding, Reportin
 import type { ReportingPresentation } from './presentation';
 import type { ReportingAction, ReportingCell, ReportingColumn, ReportingKind } from './types';
 import type { ReportingFilter } from './filters';
+import type { ReportingLayout } from './layout';
+import type { ChatWidget, ReportingWidget } from '../models/ChatWidget';
 import type { ReportingGridCapabilities, ReportingGridPage, ReportingGridPageRequest, ReportingGridRowActivation } from './paging';
 
 export type ReportingDocumentKind = 'report' | 'dashboard';
 export type ReportingView = Exclude<ReportingKind, 'dashboard'>;
 
 export const reportingViews = [
-  { id: 'bar', label: 'Bar chart' }, { id: 'line', label: 'Line chart' }, { id: 'pie', label: 'Pie chart' },
+  { id: 'bar', label: 'Bar chart' }, { id: 'column', label: 'Column chart' }, { id: 'line', label: 'Line chart' }, { id: 'pie', label: 'Pie chart' },
   { id: 'timeline', label: 'Timeline' }, { id: 'scatter', label: 'Scatter plot' }, { id: 'table', label: 'Table' },
   { id: 'time-line', label: 'Time-series line' }, { id: 'area', label: 'Area chart' },
   { id: 'step', label: 'Step chart' }, { id: 'time-column', label: 'Time-series columns' },
@@ -51,12 +53,17 @@ export interface ReportingResultRow {
 }
 
 export interface ReportingTile {
+  id?: string;
+  /** Optional host-registered renderer ID. The reporting view is its native fallback. */
+  renderer?: string;
   title: string;
   view: ReportingView;
   query: ReportingQuery;
   presentation?: ReportingPresentation;
   inputBinding?: ReportingInputBinding;
 }
+
+export type ReportingTileRenderer = (widget: ReportingWidget, tile: ReportingTile) => ChatWidget;
 
 /** Names a workspace action for the host, using the tile's index in the report definition. */
 export type ReportingActionResolver = (tile: ReportingTile, tileIndex: number) => string | undefined;
@@ -76,6 +83,7 @@ export interface ReportingDocument {
   tiles: ReportingTile[];
   /** Ordered filter controls. Omit to inherit catalog filters. An empty array hides them. */
   filters?: ReportingFilter[];
+  layout?: ReportingLayout;
 }
 
 export interface SavedReportingDefinition {
@@ -86,6 +94,7 @@ export interface SavedReportingDefinition {
 export interface ReportingCatalog {
   datasets: ReportingDataset[];
   presets: SavedReportingDefinition[];
+  capabilities?: { layouts?: boolean };
 }
 
 export interface ReportingClientOptions {

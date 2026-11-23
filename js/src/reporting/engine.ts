@@ -209,24 +209,82 @@ function renderTable(kind: 'table' | 'grid', path: string, rows: Row[], columns:
     <tbody>${body}</tbody></table></div>${page.length ? '' : '<p>No results.</p>'}${pager}`;
 }
 
-type Point = { label: string; value: number; x: number; index: number; group?: ChartGroup };
+type Point = {
+  label: string; value: number; x: number; index: number; group?: ChartGroup;
+  series?: { label: string; index: number }; size?: number;
+};
+type Reference = { axis: 'X' | 'Y'; label: string; value: number };
+
+function references(settings: ReportingSettings, rows: Row[]): Reference[] {
+  const lines = settings.presentation?.referenceLines;
+  if (!Array.isArray(lines)) return [];
+
+  return lines.slice(0, 4).flatMap(line => {
+    if (!line || (line.axis !== 'X' && line.axis !== 'Y') || typeof line.label !== 'string') return [];
+    const field = line.field;
+    const values = typeof field === 'string' ? new Set(rows.flatMap(row => number(cell(row, field)) ?? [])) : null;
+    const value = line.value ?? (values?.size === 1 ? values.values().next().value : undefined);
+    return typeof value === 'number' && Number.isFinite(value) ? [{ axis: line.axis, label: line.label, value }] : [];
+  });
+}
+
+function referenceMarks(lines: Reference[], axis: Reference['axis'], at: (value: number) => number,
+  start: number, end: number): string {
+  return lines.filter(line => line.axis === axis).map(line => {
+    const coordinate = at(line.value);
+    const position = axis === 'X'
+      ? `x1="${coordinate}" x2="${coordinate}" y1="${start}" y2="${end}"`
+      : `x1="${start}" x2="${end}" y1="${coordinate}" y2="${coordinate}"`;
+    const title = escapeHtml(line.label + ': ' + format(line.value));
+    return `<line ${position} stroke="currentColor" stroke-dasharray="4 3" opacity=".7" data-report-reference><title>${title}</title></line>`;
+  }).join('');
+}
 
 function renderChart(binding: Binding): string {
   const { widget, rows, context: { settings }, state: { selected } } = binding;
   const timeSeries = isReportingTimeSeriesKind(widget.kind) ? widget.kind : undefined;
-  const groupField = ['bar', 'line', 'pie', 'pareto', 'waterfall'].includes(widget.kind) ? settings.groupBy : undefined;
+  const presentation = settings.presentation;
+  const valueField = presentation?.valueField ?? settings.valueField ?? 'value';
+  const xField = presentation?.xField ?? settings.xField ?? 'x';
+  const seriesAllowed = widget.kind === 'bar' || widget.kind === 'time-column';
+  const series = seriesAllowed && Array.isArray(presentation?.series) ? presentation.series.slice(0, 8) : [];
+  const seriesField = seriesAllowed && !series.length ? presentation?.seriesField : undefined;
+  const groups = new Map<ReportingCell, { label: string; index: number }>();
+  const groupField = !seriesField && !series.length && ['bar', 'line', 'pie', 'pareto', 'waterfall'].includes(widget.kind)
+    ? settings.groupBy : undefined;
+  const width = presentation?.binWidth;
+  const binned = widget.kind === 'histogram' && typeof width === 'number' && Number.isFinite(width) && width > 0;
   let points: Point[] = [];
   const byGroup = new Map<string, Point & { group: ChartGroup }>();
   rows.forEach((row, index) => {
-    const value = number(cell(row, settings.valueField ?? 'value')) ?? (widget.kind === 'timeline' ? 0 : undefined);
-    if (value === undefined || (widget.kind === 'pie' && value <= 0)) return;
-    const category = cell(row, settings.groupBy ?? settings.categoryField ?? 'label');
+    const category = cell(row, groupField ?? presentation?.categoryField ?? settings.categoryField ?? 'label');
     const label = text(category) || '(blank)';
-    const date = cell(row, settings.dateField ?? 'date');
+    const date = cell(row, presentation?.dateField ?? settings.dateField ?? 'date');
     const x = timeSeries ? timeValue(date) : widget.kind === 'timeline' ? (typeof date === 'string' ? Date.parse(date) : NaN)
-      : widget.kind === 'scatter' ? number(cell(row, settings.xField ?? 'x')) : index;
+      : widget.kind === 'scatter' || binned ? number(cell(row, xField)) : index;
     if (x === undefined || !Number.isFinite(x)) return;
-    if (groupField) {
+    const size = presentation?.sizeField ? number(cell(row, presentation.sizeField)) : undefined;
+    if (series.length) {
+      series.forEach((item, index) => {
+        const value = item && typeof item.field === 'string' ? number(cell(row, item.field)) : undefined;
+        if (value !== undefined) points.push({ label, value, x, index: row.index, series: { label: item.label, index } });
+      });
+      return;
+    }
+
+    const value = number(cell(row, valueField)) ?? (widget.kind === 'timeline' ? 0 : undefined);
+    if (value === undefined || (widget.kind === 'pie' && value <= 0) ||
+        (binned && (!Number.isSafeInteger(value) || value < 0 || !Number.isFinite(x + width) || x + width <= x))) return;
+    if (seriesField) {
+      const key = cell(row, seriesField);
+      let entry = groups.get(key);
+      if (!entry) {
+        if (groups.size === 8) return;
+        entry = { label: text(key) || '(blank)', index: groups.size };
+        groups.set(key, entry);
+      }
+      points.push({ label, value, x, index: row.index, series: entry });
+    } else if (groupField) {
       const point = byGroup.get(label);
       if (point) {
         point.value += value;
@@ -237,7 +295,7 @@ function renderChart(binding: Binding): string {
           group: { field: groupField, value: category, rowIndices: [row.index] } });
       }
     } else {
-      points.push({ label, value, x, index: row.index });
+      points.push({ label, value, x, index: row.index, size });
     }
   });
   points.push(...[...byGroup.values()].filter(point => Number.isFinite(point.value)));
@@ -252,15 +310,35 @@ function renderChart(binding: Binding): string {
   if (widget.action && groupField) {
     binding.chartGroups = new Map(visible.flatMap(point => point.group ? [[point.index, point.group]] : []));
   }
-  if (widget.kind === 'histogram') return renderHistogram(widget, points);
-  const detail = (point: Point) => `${point.label}: ${format(point.value)}${widget.kind === 'scatter' ? ` (x ${format(point.x)})` : ''}${timeSeries || widget.kind === 'timeline' ? ` (${timeSeries ? dateDetail(point.x) : new Date(point.x).toISOString().slice(0, 10)})` : ''}`;
+  if (widget.kind === 'histogram' && !binned) return renderHistogram(widget, points);
+  const lines = references(settings, rows);
+  const hole = presentation?.pieHole;
+  const doughnut = widget.kind === 'pie' && typeof hole === 'number' && hole >= .2 && hole <= .8;
+  const peak = widget.kind === 'pie' ? Math.max(...visible.map(point => point.value)) : 1;
+  const total = widget.kind === 'pie' ? visible.reduce((sum, point) => sum + point.value / peak, 0) : 1;
+  const detail = (point: Point) => {
+    const name = binned ? `${format(point.x)} to <${format(point.x + width)}` : point.label;
+    const series = point.series ? ` (${point.series.label})` : '';
+    const scatter = widget.kind === 'scatter' ? ` (x ${format(point.x)}${point.size === undefined ? '' : `, size ${format(point.size)}`})` : '';
+    const date = timeSeries || widget.kind === 'timeline'
+      ? ` (${timeSeries ? dateDetail(point.x) : new Date(point.x).toISOString().slice(0, 10)})` : '';
+    const share = doughnut ? ` (${format(point.value / peak / total * 100)}%)` : '';
+    return `${name}${series}: ${format(point.value)}${scatter}${date}${share}`;
+  };
   const button = (point: Point) => point.group && !widget.action ? ''
     : ` role="button" tabindex="0" data-report-command="point" data-row="${point.index}" aria-pressed="${selected.has(point.index)}" aria-label="${escapeHtml(detail(point))}"`;
   const title = (point: Point) => `<title>${escapeHtml(detail(point))}</title>`;
-  const summary = `<details><summary>Chart data</summary><ul>${visible.map(point => `<li>${escapeHtml(detail(point))}</li>`).join('')}</ul></details>`;
+  const legend = new Map(visible.flatMap(point => point.series ? [[point.series.index, point.series.label] as const] : []));
+  const legendHtml = legend.size
+    ? `<ul aria-label="Series" style="display:flex;flex-wrap:wrap;gap:.3rem 1rem;list-style:none;padding:0">${[...legend].map(([index, label]) =>
+      `<li><svg aria-hidden="true" width="12" height="12"><rect width="12" height="12" fill="${palette[index]}"/></svg> ${escapeHtml(label)}</li>`).join('')}</ul>`
+    : '';
+  const summary = `${legendHtml}<details><summary>Chart data</summary><ul>${visible.map(point => `<li>${escapeHtml(detail(point))}</li>`).join('')}${
+    lines.map(line => `<li>${escapeHtml(line.label)}: ${format(line.value)}</li>`).join('')}</ul></details>`;
   const plot = (w: number, h: number, body: string) => `<svg aria-label="${escapeHtml(widget.label)}" viewBox="0 0 ${w} ${h}"
     style="display:block;width:100%;height:auto;color:inherit">${body}</svg>${summary}${visible.length < points.length ? `<p>Showing ${visible.length} of ${points.length} points.</p>` : ''}`;
-  if (timeSeries) return plot(420, 176, renderTimeSeries(timeSeries, visible, button, title));
+  if (timeSeries) return plot(420, 176, renderTimeSeries(timeSeries, visible, button, title, lines, presentation?.dateAxisLabel));
+  if (binned) return plot(390, 165, renderBinnedHistogram(visible, width, button, title, lines));
   if (widget.kind === 'waterfall' || widget.kind === 'pareto') {
     const waterfall = widget.kind === 'waterfall';
     const scale = Math.max(...visible.map(point => Math.abs(point.value))) || 1;
@@ -292,49 +370,74 @@ function renderChart(binding: Binding): string {
       ${visible.length > 1 ? `<text x="365" y="154" text-anchor="end" fill="currentColor" font-size="10">${escapeHtml(visible[visible.length - 1].label.slice(0, 20))}</text>` : ''}`);
   }
   if (widget.kind === 'pie') {
-    const peak = Math.max(...visible.map(point => point.value));
-    const denominator = visible.reduce((sum, point) => sum + point.value / peak, 0);
     let angle = -Math.PI / 2;
-    const coordinate = (angle: number) => `${100 + Math.cos(angle) * 78},${88 + Math.sin(angle) * 78}`;
+    const inner = doughnut ? hole * 78 : 0;
+    const coordinate = (angle: number, radius = 78) => `${100 + Math.cos(angle) * radius},${88 + Math.sin(angle) * radius}`;
     const slices = visible.map((point, index) => {
-      const sweep = (point.value / peak) / denominator * 2 * Math.PI;
-      const start = coordinate(angle);
+      const share = (point.value / peak) / total;
+      const sweep = share * 2 * Math.PI;
+      const start = angle;
       angle += sweep;
       const color = palette[index % palette.length];
+      const part = title(point);
       if (sweep >= 2 * Math.PI - 1e-10) {
-        return `<circle cx="100" cy="88" r="78" fill="${color}"${button(point)}>${title(point)}</circle>`;
+        if (!inner) return `<circle cx="100" cy="88" r="78" fill="${color}"${button(point)}>${part}</circle>`;
+        const ring = `M22,88 a78,78 0 1,0 156,0 a78,78 0 1,0 -156,0 Z M${100 - inner},88 a${inner},${inner} 0 1,0 ${inner * 2},0 a${inner},${inner} 0 1,0 ${inner * -2},0 Z`;
+        return `<path d="${ring}" fill="${color}" fill-rule="evenodd"${button(point)}>${part}</path>`;
       }
-      return `<path d="M100,88 L${start} A78,78 0 ${sweep > Math.PI ? 1 : 0},1 ${coordinate(angle)} Z"
-        fill="${color}"${button(point)}>${title(point)}</path>`;
+      const arc = sweep > Math.PI ? 1 : 0;
+      const center = inner ? `L${coordinate(angle, inner)} A${inner},${inner} 0 ${arc},0 ${coordinate(start, inner)}` : 'L100,88';
+      return `<path d="M${coordinate(start)} A78,78 0 ${arc},1 ${coordinate(angle)} ${center} Z"
+        fill="${color}"${button(point)}>${part}</path>`;
     }).join('');
     return `<div style="max-width:19rem;margin:auto">${plot(200, 176, slices)}</div>`;
   }
-  const minimum = Math.min(0, ...visible.map(point => point.value));
-  const maximum = Math.max(0, ...visible.map(point => point.value));
+  const valueAxis = widget.kind === 'bar' ? 'X' : 'Y';
+  const guides = lines.filter(line => line.axis === valueAxis).map(line => line.value);
+  const minimum = Math.min(0, ...guides, ...visible.map(point => point.value));
+  const maximum = Math.max(0, ...guides, ...visible.map(point => point.value));
   const scale = Math.max(Math.abs(minimum), Math.abs(maximum)) || 1;
   const fraction = (value: number) => (value / scale - minimum / scale) / (maximum / scale - minimum / scale || 1);
   if (widget.kind === 'bar') {
-    const height = visible.length * 25 + 10;
-    const baseline = 152 + fraction(0) * 234;
+    const categories = new Map<string, number>();
+    const scaleX = (value: number) => 152 + fraction(value) * 234;
+    const baseline = scaleX(0);
+    const slot = legend.size ? 13 : 25;
+    const block = legend.size ? 14 + (Math.max(...legend.keys()) + 1) * slot : slot;
     const bars = visible.map((point, index) => {
-      const y = index * 25 + 8;
-      const x = 152 + fraction(point.value) * 234;
-      return `<g${button(point)}>${title(point)}<text x="4" y="${y + 12}" fill="currentColor" font-size="10">${escapeHtml(point.label.slice(0, 23))}</text>
-        <rect x="${Math.min(x, baseline)}" y="${y}" width="${Math.max(Math.abs(x - baseline), 1)}" height="15" fill="${palette[0]}"/></g>`;
+      const first = !point.series || !categories.has(point.label);
+      if (first && point.series) categories.set(point.label, categories.size);
+      const position = point.series ? categories.get(point.label)! : index;
+      const y = position * block + (point.series ? 14 + point.series.index * slot : 8);
+      const x = scaleX(point.value);
+      const label = first ? `<text x="4" y="${point.series ? position * block + 11 : y + 12}" fill="currentColor" font-size="10">${escapeHtml(point.label.slice(0, 23))}</text>` : '';
+      return `<g${button(point)}>${title(point)}${label}
+        <rect x="${Math.min(x, baseline)}" y="${y}" width="${Math.max(Math.abs(x - baseline), 1)}" height="${point.series ? 11 : 15}" fill="${palette[point.series?.index ?? 0]}"/></g>`;
     }).join('');
-    return plot(398, height, `<line x1="${baseline}" x2="${baseline}" y1="0" y2="${height}" stroke="currentColor" opacity=".4"/>${bars}`);
+    const height = (legend.size ? categories.size : visible.length) * block + 10;
+    return plot(398, height, `<line x1="${baseline}" x2="${baseline}" y1="0" y2="${height}" stroke="currentColor" opacity=".4"/>${bars}${referenceMarks(lines, 'X', scaleX, 0, height)}`);
   }
-  const minX = Math.min(...visible.map(point => point.x));
-  const maxX = Math.max(...visible.map(point => point.x));
+  const xGuides = widget.kind === 'scatter' ? lines.filter(line => line.axis === 'X').map(line => line.value) : [];
+  const minX = Math.min(...xGuides, ...visible.map(point => point.x));
+  const maxX = Math.max(...xGuides, ...visible.map(point => point.x));
   const xScale = Math.max(Math.abs(minX), Math.abs(maxX)) || 1;
-  const x = (point: Point) => 28 + 336 * (point.x / xScale - minX / xScale) / (maxX / xScale - minX / xScale || 1);
-  const y = (point: Point) => widget.kind === 'timeline' ? 85 : 145 - 120 * fraction(point.value);
-  const marks = visible.map(point => `<circle cx="${x(point)}" cy="${y(point)}" r="5" fill="${palette[0]}"${button(point)}>${title(point)}</circle>`).join('');
+  const scaleX = (value: number) => 28 + 336 * (value / xScale - minX / xScale) / (maxX / xScale - minX / xScale || 1);
+  const x = (point: Point) => scaleX(point.x);
+  const scaleY = (value: number) => 145 - 120 * fraction(value);
+  const y = (point: Point) => widget.kind === 'timeline' ? 85 : scaleY(point.value);
+  const maximumSize = Math.max(0, ...visible.map(point => point.size ?? 0));
+  const marks = visible.map(point => {
+    const radius = widget.kind === 'scatter' && point.size !== undefined && maximumSize > 0
+      ? Math.sqrt(9 + 135 * Math.max(0, point.size) / maximumSize) : 5;
+    return `<circle cx="${x(point)}" cy="${y(point)}" r="${radius}" fill="${palette[0]}"${button(point)}>${title(point)}</circle>`;
+  }).join('');
   const line = widget.kind === 'line' ? `<polyline points="${visible.map(point => `${x(point)},${y(point)}`).join(' ')}"
     fill="none" stroke="${palette[0]}" stroke-width="2"/>` : '';
   const baseline = widget.kind === 'timeline' ? 85 : 145 - 120 * fraction(0);
+  const reference = widget.kind === 'scatter'
+    ? referenceMarks(lines, 'X', scaleX, 18, 145) + referenceMarks(lines, 'Y', scaleY, 28, 364) : '';
   return plot(390, 166, `<line x1="25" x2="367" y1="${baseline}" y2="${baseline}" stroke="currentColor" opacity=".4"/>
-    ${line}${marks}<text x="28" y="159" fill="currentColor" font-size="10">${escapeHtml(widget.kind === 'scatter' ? format(minX) : (visible[0]?.label ?? '').slice(0, 20))}</text>
+    ${line}${marks}${reference}<text x="28" y="159" fill="currentColor" font-size="10">${escapeHtml(widget.kind === 'scatter' ? format(minX) : (visible[0]?.label ?? '').slice(0, 20))}</text>
     <text x="364" y="159" text-anchor="end" fill="currentColor" font-size="10">${escapeHtml(widget.kind === 'scatter' ? format(maxX) : (visible[visible.length - 1]?.label ?? '').slice(0, 20))}</text>`);
 }
 
@@ -353,7 +456,8 @@ function dateDetail(timestamp: number): string {
 }
 
 function renderTimeSeries(kind: ReportingTimeSeriesKind, points: Point[],
-  pointAction: (point: Point) => string, pointTitle: (point: Point) => string): string {
+  pointAction: (point: Point) => string, pointTitle: (point: Point) => string,
+  lines: Reference[], axisLabel?: string): string {
   const left = 58;
   const right = 378;
   const top = 15;
@@ -361,8 +465,9 @@ function renderTimeSeries(kind: ReportingTimeSeriesKind, points: Point[],
   const first = points[0].x;
   const last = points[points.length - 1].x;
   const span = last - first;
-  const low = Math.min(0, ...points.map(point => point.value));
-  const high = Math.max(0, ...points.map(point => point.value));
+  const guides = lines.filter(line => line.axis === 'Y').map(line => line.value);
+  const low = Math.min(0, ...guides, ...points.map(point => point.value));
+  const high = Math.max(0, ...guides, ...points.map(point => point.value));
   const scale = Math.max(Math.abs(low), Math.abs(high)) || 1;
   const valueSpan = high / scale - low / scale;
   const x = (timestamp: number) => span ? left + (right - left) * (timestamp - first) / span : (left + right) / 2;
@@ -391,6 +496,7 @@ function renderTimeSeries(kind: ReportingTimeSeriesKind, points: Point[],
 
   let data: string;
   if (kind === 'time-column') {
+    const seriesCount = Math.max(0, ...points.map(point => point.series ? point.series.index + 1 : 0));
     const groups = new Map<number, typeof plotted>();
     for (const mark of plotted) {
       const group = groups.get(mark.x) ?? [];
@@ -402,10 +508,10 @@ function renderTimeSeries(kind: ReportingTimeSeriesKind, points: Point[],
       const previous = ordered[index - 1]?.[0] ?? -Infinity;
       const next = ordered[index + 1]?.[0] ?? Infinity;
       const width = Math.min(26, .75 * Math.min(center - previous, next - center));
-      const slot = width / group.length;
+      const slot = width / (seriesCount || group.length);
       return group.map(({ point, y: end }, position) =>
-        `<rect x="${center - width / 2 + slot * position}" y="${Math.min(end, baseline)}" width="${slot * .88}"
-          height="${Math.max(1, Math.abs(end - baseline))}" fill="${point.value < 0 ? '#b74757' : color}"${pointAction(point)}>${pointTitle(point)}</rect>`).join('');
+        `<rect x="${center - width / 2 + slot * (point.series?.index ?? position)}" y="${Math.min(end, baseline)}" width="${slot * .88}"
+          height="${Math.max(1, Math.abs(end - baseline))}" fill="${point.series ? palette[point.series.index] : point.value < 0 ? '#b74757' : color}"${pointAction(point)}>${pointTitle(point)}</rect>`).join('');
     }).join('');
   } else {
     const path = plotted.map((point, index) =>
@@ -417,7 +523,28 @@ function renderTimeSeries(kind: ReportingTimeSeriesKind, points: Point[],
       `<circle cx="${cx}" cy="${cy}" r="4" fill="${color}"${pointAction(point)}>${pointTitle(point)}</circle>`).join('');
     data = `${area}<path d="${path}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round"/>${markers}`;
   }
-  return `${timeAxis}${valueAxis}${data}<text x="418" y="170" text-anchor="end" fill="currentColor" font-size="9">UTC</text>`;
+  return `${timeAxis}${valueAxis}${data}${referenceMarks(lines, 'Y', y, left, right)}<text x="418" y="170" text-anchor="end" fill="currentColor" font-size="9">${escapeHtml(axisLabel ?? 'UTC')}</text>`;
+}
+
+function renderBinnedHistogram(points: Point[], width: number, action: (point: Point) => string,
+  title: (point: Point) => string, lines: Reference[]): string {
+  const xValues = [...points.flatMap(point => [point.x, point.x + width]),
+    ...lines.filter(line => line.axis === 'X').map(line => line.value)];
+  const minimum = Math.min(...xValues);
+  const maximum = Math.max(...xValues);
+  const scale = Math.max(Math.abs(minimum), Math.abs(maximum)) || 1;
+  const range = maximum / scale - minimum / scale || 1;
+  const x = (value: number) => 30 + (value / scale - minimum / scale) / range * 330;
+  const low = Math.min(0, ...lines.filter(line => line.axis === 'Y').map(line => line.value));
+  const high = Math.max(1, ...points.map(point => point.value), ...lines.filter(line => line.axis === 'Y').map(line => line.value));
+  const heightScale = Math.max(Math.abs(low), high);
+  const y = (value: number) => 138 - (value / heightScale - low / heightScale) / (high / heightScale - low / heightScale) * 116;
+  const bars = points.map(point =>
+    `<rect x="${x(point.x)}" y="${y(point.value)}" width="${Math.max(1, x(point.x + width) - x(point.x) - 1)}" height="${y(0) - y(point.value)}" fill="${palette[0]}"${action(point)}>${title(point)}</rect>`).join('');
+  return `<line x1="30" x2="360" y1="${y(0)}" y2="${y(0)}" stroke="currentColor" opacity=".4"/>${bars}
+    ${referenceMarks(lines, 'X', x, 16, 138)}${referenceMarks(lines, 'Y', y, 30, 360)}
+    <text x="30" y="155" fill="currentColor" font-size="10">${format(minimum)}</text>
+    <text x="360" y="155" text-anchor="end" fill="currentColor" font-size="10">${format(maximum)}</text>`;
 }
 
 function renderHistogram(widget: ReportingNode, points: Point[]): string {

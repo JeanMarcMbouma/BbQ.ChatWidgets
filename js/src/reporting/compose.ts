@@ -1,6 +1,7 @@
 import { ReportingWidget } from '../models/ChatWidget';
 import type { ReportingCatalog, ReportingDocument, ReportingQuery, ReportingResultRow, ReportingTile } from './api';
 import type { ReportingRow } from './types';
+import { normalizeReportingQuery, reportingQueryKey } from './inputs';
 
 export interface ReportingSnapshotOptions {
   /** Exclude tiles rendered by the host, such as server-paged grids. */
@@ -30,11 +31,13 @@ export async function composeReportingSnapshot(
   }>();
   const children = document.tiles.map(async (tile, index) => {
     if (options.includeTile && !options.includeTile(tile)) return undefined;
-    const { dataset, metric, groupBy, from, to } = tile.query;
-    const key = JSON.stringify([dataset, metric, groupBy, from, to]);
+    const { dataset, groupBy } = tile.query;
+    const data = catalog.datasets.find(item => item.id === dataset);
+    const effective = normalizeReportingQuery(tile.query, data?.inputs);
+    const key = reportingQueryKey(effective);
     let source = sources.get(key);
     if (!source) {
-      const result = Promise.resolve().then(() => run(tile.query)).then(rows => ({
+      const result = Promise.resolve().then(() => run(effective)).then(rows => ({
         rows: rows.map(({ fields, label, value }, position) => ({
           x: position + 1, date: groupBy === 'day' ? label : null, ...fields, label, value,
         })),
@@ -45,11 +48,10 @@ export async function composeReportingSnapshot(
       sources.set(key, source);
     }
     source.tiles.push(tile);
-    const dimension = catalog.datasets.find(item => item.id === dataset)?.dimensions
-      .find(field => field.id === groupBy);
+    const dimension = data?.dimensions.find(field => field.id === groupBy);
     const { error } = await source.result;
     return new ReportingWidget(tile.title, options.tileAction?.(tile, index) ?? 'report-result-' + index, tile.view, {
-      settings: { dataSource: source.id, columns: dimension?.columns, dateField: dimension?.dateField },
+      settings: { dataSource: source.id, columns: dimension?.columns, dateField: dimension?.dateField, presentation: tile.presentation },
       filterField: tile.view === 'filter' ? 'label' : undefined,
       error,
     });
@@ -61,7 +63,7 @@ export async function composeReportingSnapshot(
   for (const { id, result, tiles } of sources.values()) {
     const { rows } = await result;
     rowsBySource[id] = rows;
-    if (rows.length > 1 && tiles.length > 1 && !tiles.some(tile => tile.view === 'filter')) {
+    if (!document.filters && rows.length > 1 && tiles.length > 1 && !tiles.some(tile => tile.view === 'filter')) {
       filters.push(new ReportingWidget(options.filterLabel?.(tiles[0]) ?? 'Filter ' + tiles[0].title, '', 'filter', {
         settings: { dataSource: id }, filterField: 'label',
       }));

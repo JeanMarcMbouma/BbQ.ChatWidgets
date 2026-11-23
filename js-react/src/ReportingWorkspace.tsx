@@ -1,6 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  applyReportingAction,
+  applyReportingState,
   composeReportingSnapshot,
+  pruneReportingFilters,
+  reportingAvailableInputs,
+  reportingEditableFilters,
+  reportingWorkspaceInputs,
+  resolveReportingControls,
+  setReportingInput,
+  withReportingFilters,
   isReportingAction,
   isReportingTimeSeriesKind,
   ReportingClient,
@@ -10,6 +19,9 @@ import {
   type ReportingDocument,
   type ReportingDocumentKind,
   type ReportingField,
+  type ReportingFilter,
+  type ReportingInput,
+  type ReportingState,
   type ReportingTile,
   type ReportingView,
   type ReportingWidget,
@@ -19,7 +31,8 @@ import {
 import { PagedReportingGrid } from "./PagedReportingGrid.js";
 import { WidgetRenderer } from "./WidgetRenderer.js";
 
-export type ReportingWorkspaceClient = Pick<ReportingClient, "catalog" | "list" | "run" | "page" | "create" | "update" | "remove">;
+export type ReportingWorkspaceClient = Pick<ReportingClient, "catalog" | "list" | "run" | "page" | "create" | "update" | "remove">
+  & Partial<Pick<ReportingClient, "inputOptions">>;
 
 export interface ReportingWorkspaceProps {
   client?: ReportingWorkspaceClient;
@@ -31,6 +44,7 @@ export interface ReportingWorkspaceProps {
 interface Preview {
   document: ReportingDocument;
   widget?: ReportingWidget;
+  controls: ReportingInput[];
   grids: { tileIndex: number; dimension: ReportingField }[];
 }
 
@@ -66,11 +80,20 @@ async function loadPreview(
     paged.add(tile);
     return [{ tileIndex, dimension }];
   });
-  const widget = paged.size === document.tiles.length ? undefined
-    : await composeReportingSnapshot(document, catalog, query => client.run(query, signal), {
-      includeTile: tile => !paged.has(tile), describeError: errorMessage,
-    });
-  return { document, widget, grids };
+  const [widget, controls] = await Promise.all([
+    paged.size === document.tiles.length ? undefined
+      : composeReportingSnapshot(document, catalog, query => client.run(query, signal), {
+        includeTile: tile => !paged.has(tile), describeError: errorMessage,
+      }),
+    resolveReportingControls(document, catalog, async ({ dataset, from, to }, input) => {
+      try {
+        return await client.inputOptions?.({ dataset, input, from, to }, signal) ?? [];
+      } catch {
+        return [];
+      }
+    }),
+  ]);
+  return { document, widget, controls, grids };
 }
 
 /** Catalog, viewer and authoring controls for the ChatWidgets reporting API. */
@@ -92,6 +115,7 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
   const [draft, setDraft] = useState<ReportingDocument>();
   const [active, setActive] = useState<{ id: string; saved: boolean }>();
   const [preview, setPreview] = useState<Preview & { generation: number }>();
+  const [filterState, setFilterState] = useState<ReportingState>({});
   const [editing, setEditing] = useState(false);
   const [busy, setBusy] = useState(true);
   const [status, setStatus] = useState("");
@@ -106,6 +130,7 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
     setCatalog(undefined);
     setDraft(undefined);
     setPreview(undefined);
+    setFilterState({});
     setEditing(false);
     setActive(undefined);
     setStatus("");
@@ -167,6 +192,7 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
       const result = await loadPreview(definition, catalog, client, signal);
       if (signal.aborted) return;
       setDraft(definition);
+      setFilterState({});
       setActive({ id: report.id, saved: fromSaved });
       showPreview(result);
       setEditing(false);
@@ -175,7 +201,10 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
 
   function start(kind: ReportingDocumentKind) {
     if (!catalog) return;
-    setDraft({ title: "", kind, tiles: [newTile(catalog)] });
+    const definition: ReportingDocument = { title: "", kind, tiles: [newTile(catalog)] };
+    setDraft(reportingAvailableInputs(definition, catalog).some(input => input.role === "Filter")
+      ? { ...definition, filters: [] } : definition);
+    setFilterState({});
     setActive(undefined);
     setPreview(undefined);
     setStatus("");
@@ -183,9 +212,27 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
     setEditing(true);
   }
 
+  function updateDraft(definition: ReportingDocument) {
+    if (!catalog) return;
+    setDraft(definition);
+    const allowed = new Set(reportingWorkspaceInputs(definition, catalog).map(input => input.id));
+    setFilterState(previous => ({ ...previous, inputs: previous.inputs?.filter(input => allowed.has(input.id)) }));
+  }
+
   function changeTile(tileIndex: number, replacement: ReportingTile) {
-    setDraft(previous => previous && {
-      ...previous, tiles: previous.tiles.map((tile, index) => index === tileIndex ? replacement : tile),
+    if (!draft || !catalog) return;
+    updateDraft(pruneReportingFilters({
+      ...draft, tiles: draft.tiles.map((tile, index) => index === tileIndex ? replacement : tile),
+    }, catalog));
+  }
+
+  function applyFilters(state: ReportingState) {
+    if (!draft || !catalog) return;
+    void work(async signal => {
+      const result = await loadPreview(applyReportingState(draft, catalog, state), catalog, client, signal);
+      if (signal.aborted) return;
+      setFilterState(state);
+      showPreview(result);
     });
   }
 
@@ -201,7 +248,7 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
   function run() {
     if (!catalog || !draft) return;
     void work(async signal => {
-      const result = await loadPreview(draft, catalog, client, signal);
+      const result = await loadPreview(applyReportingState(draft, catalog, filterState), catalog, client, signal);
       if (signal.aborted) return;
       showPreview(result);
       setEditing(false);
@@ -209,14 +256,15 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
   }
 
   function save() {
-    if (!draft) return;
+    if (!draft || !catalog) return;
+    const definition = applyReportingState(draft, catalog, filterState);
     void work(async signal => {
       if (active?.saved) {
-        await client.update(active.id, draft, signal);
+        await client.update(active.id, definition, signal);
         if (signal.aborted) return;
-        setSaved(reports => reports.map(report => report.id === active.id ? { ...report, definition: draft } : report));
+        setSaved(reports => reports.map(report => report.id === active.id ? { ...report, definition } : report));
       } else {
-        const result = await client.create(draft, signal);
+        const result = await client.create(definition, signal);
         if (signal.aborted) return;
         setActive({ id: result.id, saved: true });
         setSaved(reports => [...reports, result]);
@@ -238,9 +286,14 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
 
   function emit(tileIndex: number, payload: ReportingWorkspaceAction["payload"]) {
     const tile = preview?.document.tiles[tileIndex];
-    if (!tile || !onReportingAction) return;
+    if (!tile) return;
     const snapshot = structuredClone(tile);
-    onReportingAction({ actionName: resolveAction?.(snapshot, tileIndex) ?? `report-result-${tileIndex}`, tile: snapshot, tileIndex, payload });
+    const action = { actionName: resolveAction?.(snapshot, tileIndex) ?? `report-result-${tileIndex}`, tile: snapshot, tileIndex, payload };
+    onReportingAction?.(action);
+    if (snapshot.inputBinding && preview?.controls.some(input => input.id === snapshot.inputBinding?.input)) {
+      const state = applyReportingAction(filterState, action, snapshot.inputBinding, { inputs: preview.controls });
+      if (state !== filterState) applyFilters(state);
+    }
   }
 
   return (
@@ -283,6 +336,8 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
               <legend>{draft.kind === "report" ? "Report settings" : "Dashboard settings"}</legend>
               <label>Title <input required maxLength={100} value={draft.title}
                 onChange={event => setDraft({ ...draft, title: event.currentTarget.value })} /></label>
+              <ReportFilterEditor document={draft} catalog={catalog}
+                onChange={filters => updateDraft(withReportingFilters(draft, catalog, filters))} />
               {draft.tiles.map((tile, index) => <fieldset key={index}>
                 <legend>Tile {index + 1}</legend>
                 <ReportTileEditor tile={tile} catalog={catalog} kind={draft.kind}
@@ -290,7 +345,7 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
                 {draft.tiles.length > 1 && <div>
                   <button type="button" disabled={!index} onClick={() => moveTile(index, -1)}>Move tile {index + 1} up</button>
                   <button type="button" disabled={index === draft.tiles.length - 1} onClick={() => moveTile(index, 1)}>Move tile {index + 1} down</button>
-                  <button type="button" onClick={() => setDraft({ ...draft, tiles: draft.tiles.filter((_, item) => item !== index) })}>Remove tile {index + 1}</button>
+                  <button type="button" onClick={() => updateDraft(pruneReportingFilters({ ...draft, tiles: draft.tiles.filter((_, item) => item !== index) }, catalog))}>Remove tile {index + 1}</button>
                 </div>}
               </fieldset>)}
               {draft.kind === "dashboard" && draft.tiles.length < 8 && <button type="button"
@@ -301,6 +356,24 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
             </fieldset>
           </form>}
           {preview && <section hidden={editing} aria-label="Report results">
+            {preview.controls.length > 0 && <fieldset aria-label="Report filters" disabled={busy}>
+              <legend>Report filters</legend>
+              <div className="bbq-reporting-workspace__fields">
+                {preview.controls.map(input => {
+                  const options = input.options ?? [];
+                  const value = filterState.inputs?.find(selection => selection.id === input.id)?.value;
+                  const selected = options.findIndex(option => option.value === value);
+                  return <label key={input.id}>{input.label}
+                    <select disabled={!options.length} value={selected} onChange={event =>
+                      applyFilters(setReportingInput(filterState, input, options[Number(event.currentTarget.value)]?.value))}>
+                      <option value={-1}>Use report setting</option>
+                      {options.map((option, index) => <option key={index} value={index}>{option.label}</option>)}
+                    </select>
+                  </label>;
+                })}
+              </div>
+              <button type="button" onClick={() => applyFilters({})}>Clear all filters</button>
+            </fieldset>}
             {preview.widget && <WidgetRenderer key={preview.generation} widgets={[preview.widget]} onWidgetAction={(actionName, payload) => {
               const match = /^report-result-(\d+)$/.exec(actionName);
               if (match && isReportingAction(payload)) emit(Number(match[1]), payload);
@@ -308,7 +381,7 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
             {preview.grids.map(({ tileIndex, dimension }) => {
               const tile = preview.document.tiles[tileIndex];
               return <PagedReportingGrid key={`${preview.generation}-${tileIndex}`} client={client} title={tile.title} query={tile.query}
-                dimension={dimension} onRowActivate={onReportingAction ? payload => emit(tileIndex, payload) : undefined} />;
+                dimension={dimension} onRowActivate={onReportingAction || tile.inputBinding ? payload => emit(tileIndex, payload) : undefined} />;
             })}
           </section>}
         </div> : !busy && <p>{catalog.datasets.length ? "Choose a report or create one." : "No reporting datasets are available."}</p>}
@@ -317,12 +390,62 @@ function ReportingSession({ client, initialPresetId, resolveAction, onReportingA
   );
 }
 
+function ReportFilterEditor({ document, catalog, onChange }: {
+  document: ReportingDocument; catalog: ReportingCatalog; onChange: (filters: ReportingFilter[]) => void;
+}) {
+  const available = reportingAvailableInputs(document, catalog).filter(input => input.role === "Filter");
+  const filters = reportingEditableFilters(document, catalog);
+  const addable = available.filter(input => !filters.some(filter => filter.input === input.id));
+  if (!available.length && !filters.length) return null;
+
+  function move(index: number, offset: number) {
+    if (!filters[index + offset]) return;
+    const next = [...filters];
+    [next[index], next[index + offset]] = [next[index + offset], next[index]];
+    onChange(next);
+  }
+
+  return <fieldset>
+    <legend>Report filters</legend>
+    {filters.map((filter, index) => {
+      const name = available.find(input => input.id === filter.input)?.label ?? filter.input;
+      return <div key={filter.input} className="bbq-reporting-workspace__fields">
+        <label>{name} label <input maxLength={100} placeholder={name} value={filter.label ?? ""}
+          onChange={event => {
+            const label = event.currentTarget.value;
+            onChange(filters.map(item => item.input === filter.input ? { input: item.input, label: label || undefined } : item));
+          }} onBlur={event => {
+            const label = event.currentTarget.value.trim() || undefined;
+            if (label !== filter.label) {
+              onChange(filters.map(item => item.input === filter.input ? { input: item.input, label } : item));
+            }
+          }} /></label>
+        <button type="button" disabled={!index} aria-label={`Move ${name} filter up`} onClick={() => move(index, -1)}>Move up</button>
+        <button type="button" disabled={index === filters.length - 1} aria-label={`Move ${name} filter down`}
+          onClick={() => move(index, 1)}>Move down</button>
+        <button type="button" aria-label={`Remove ${name} filter`}
+          onClick={() => onChange(filters.filter(item => item.input !== filter.input))}>Remove</button>
+      </div>;
+    })}
+    {!!addable.length && <label>Add filter
+      <select value="" onChange={event => {
+        const id = event.currentTarget.value;
+        if (addable.some(item => item.id === id)) onChange([...filters, { input: id }]);
+      }}>
+        <option value="">Choose a filter</option>
+        {addable.map(input => <option value={input.id} key={input.id}>{input.label}</option>)}
+      </select>
+    </label>}
+  </fieldset>;
+}
+
 function ReportTileEditor({ tile, catalog, kind, onChange }: {
   tile: ReportingTile; catalog: ReportingCatalog; kind: ReportingDocumentKind; onChange: (tile: ReportingTile) => void;
 }) {
   const dataset = datasetFor(catalog, tile);
   const grouping = dataset?.dimensions.find(field => field.id === tile.query.groupBy);
-  const needsDates = (tile.view === "timeline" || isReportingTimeSeriesKind(tile.view)) && !grouping?.dateField && grouping?.id !== "day";
+  const needsDates = (tile.view === "timeline" || isReportingTimeSeriesKind(tile.view)) &&
+    !tile.presentation?.dateField && !grouping?.dateField && grouping?.id !== "day";
   return (
     <div className="bbq-reporting-workspace__fields">
       <label>Tile title <input required maxLength={100} value={tile.title}
@@ -330,7 +453,8 @@ function ReportTileEditor({ tile, catalog, kind, onChange }: {
       <label>Dataset <select required value={tile.query.dataset} onChange={event => {
         const datasetId = event.currentTarget.value;
         const metric = catalog.datasets.find(item => item.id === datasetId)?.metrics[0]?.id ?? "";
-        onChange({ ...tile, query: { ...tile.query, dataset: datasetId, metric, groupBy: null } });
+        onChange({ ...tile, presentation: undefined, inputBinding: undefined,
+          query: { ...tile.query, dataset: datasetId, metric, groupBy: null, inputs: undefined } });
       }}>
         <option value="" disabled>Choose dataset</option>
         {catalog.datasets.map(item => <option key={item.id} value={item.id}>{item.label}</option>)}

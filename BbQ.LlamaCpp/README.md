@@ -1,6 +1,6 @@
 # BbQ.LlamaCpp
 
-Verified installation and supervised `llama-server` lifecycle for local Schema First BbQ.ChatWidgets testing.
+Verified installation and supervised `llama-server` lifecycle for local Schema First BbQ.ChatWidgets testing. The .NET 8 package selects a runtime by platform identifier and backend using your deployment manifest. It depends on [BbQ.ChatWidgets](https://www.nuget.org/packages/BbQ.ChatWidgets) for the shared widget contracts.
 
 ## Install
 

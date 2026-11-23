@@ -5,7 +5,7 @@ import { ReportingDemoComponent } from './reporting-demo.component';
 
 bootstrapApplication(ReportingDemoComponent, {
   providers: [
-    { provide: REPORTING_INITIAL_PRESET, useValue: 'order-overview' },
+    { provide: REPORTING_INITIAL_PRESET, useValue: 'order-comparison' },
     provideHttpClient(withInterceptors([
       (request, next) => next(request.url.startsWith('/api/reporting/')
         ? request.clone({ setHeaders: { 'X-Demo-Account': 'demo' } })

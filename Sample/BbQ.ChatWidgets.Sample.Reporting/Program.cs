@@ -50,17 +50,45 @@ sealed class FixtureAuthentication(IOptionsMonitor<AuthenticationSchemeOptions> 
     }
 }
 
-sealed partial class FixtureSource : IReportingGridSource
+sealed partial class FixtureSource : IReportingGridSource, IReportingInputValidationSource
 {
+    private static readonly string[] Channels = ["Retail", "Trade", "Online"];
     private static readonly ReportDataset[] Datasets =
     [
         new("orders", "Orders", [new("count", "Order count"), new("revenue", "Order value")],
-            [new("status", "Status"), new("day", "Day") { DateField = "label" }]),
+            [new("status", "Status"), new("day", "Day") { DateField = "label" }])
+        {
+            Inputs =
+            [
+                new("pending", "Pending orders", ReportInputRole.Filter, ReportInputType.Boolean)
+                {
+                    Options = [new(ReportInputValue.FromBoolean(true), "Pending"), new(ReportInputValue.FromBoolean(false), "Complete")]
+                },
+                new("scale", "Display scale", ReportInputRole.Parameter, ReportInputType.Integer)
+                {
+                    Options = [new(ReportInputValue.FromInteger(1), "Units"), new(ReportInputValue.FromInteger(100), "Hundreds")],
+                    DefaultValue = ReportInputValue.FromInteger(1)
+                }
+            ]
+        },
         new("fulfilment", "Order fulfilment", [new("revenue", "Order value")],
         [
             new("order", "Individual orders", FulfilmentColumns(editable: true)),
-            new("paged-order", "Warehouse orders", FulfilmentColumns(editable: false), FulfilmentCapabilities())
+            new("paged-order", "Warehouse orders", FulfilmentColumns(editable: false), FulfilmentCapabilities()),
+            ..ComparisonDimensions()
         ])
+        {
+            Inputs =
+            [
+                new("warehouse", "Warehouse", ReportInputRole.Filter, ReportInputType.Text),
+                new("channel", "Channel", ReportInputRole.Filter, ReportInputType.Text)
+                {
+                    Options = Channels.Select(channel => new ReportInputOption(ReportInputValue.FromText(channel), channel)).ToArray()
+                },
+                ValueScaleParameter()
+            ],
+            Calendar = new(31) { Label = "Business calendar", Today = new(2026, 11, 14) }
+        }
     ];
 
     private static readonly DateOnly First = new(2026, 11, 1);
@@ -69,7 +97,6 @@ sealed partial class FixtureSource : IReportingGridSource
     private static readonly ReportTile Volume = new("Orders by status", "bar", new("orders", "count", "status", First, Last));
     private static readonly ReportTile Value = new("Order value by day", "table", new("orders", "revenue", "day", First, Last));
     private static readonly string[] Warehouses = ["Bristol", "Leeds", "London", "Manchester"];
-    private static readonly string[] Channels = ["Retail", "Trade", "Online"];
     private static readonly string[] Statuses = ["Delivered", "Dispatched", "Picking", "On hold"];
     private static readonly SavedReport[] Presets =
     [
@@ -96,6 +123,7 @@ sealed partial class FixtureSource : IReportingGridSource
             Value with { Title = "Daily value steps", View = "step" },
             Value with { Title = "Daily value columns", View = "time-column" }
         ])),
+        OrderComparison(),
         new("reporting-widgets", new("Reporting widget gallery", "dashboard",
         [
             Volume,
@@ -129,10 +157,13 @@ sealed partial class FixtureSource : IReportingGridSource
         if (query.Dataset == "fulfilment")
             return ValueTask.FromResult(RunFulfilment(scope, query, limit));
 
+        var pending = query.Inputs?.FirstOrDefault(selection => selection.Id == "pending")?.Value.Boolean;
+        var scale = query.Inputs?.FirstOrDefault(selection => selection.Id == "scale")?.Value.Integer ?? 1;
         var count = scope.Tenant == "north" ? 24 : 8;
         var rows = Enumerable.Range(0, count)
             .Select(i => (Day: First.AddDays(i % 14), Status: i % 4 == 0 ? "Pending" : "Complete", Value: 20m + i * 5m))
-            .Where(row => row.Day >= query.From && row.Day <= query.To)
+            .Where(row => row.Day >= query.From && row.Day <= query.To &&
+                (pending is null || (row.Status == "Pending") == pending))
             .GroupBy(row => query.GroupBy switch
             {
                 "status" => row.Status,
@@ -141,7 +172,8 @@ sealed partial class FixtureSource : IReportingGridSource
             }, StringComparer.Ordinal)
             .OrderBy(group => group.Key, StringComparer.Ordinal)
             .Take(limit)
-            .Select(group => new ReportRow(group.Key, query.Metric == "count" ? group.Count() : group.Sum(row => row.Value)))
+            .Select(group => new ReportRow(group.Key,
+                (query.Metric == "count" ? group.Count() : group.Sum(row => row.Value)) / scale))
             .ToArray();
 
         return ValueTask.FromResult<IReadOnlyList<ReportRow>>(rows);

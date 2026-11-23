@@ -95,6 +95,36 @@ describe("React reporting workspace", () => {
     expect(client.run).toHaveBeenCalledWith({ ...query, groupBy: null }, expect.any(AbortSignal));
   });
 
+  it("authors portable filters and applies them after reopening the saved report", async () => {
+    const client = reportingClient();
+    client.catalog.mockResolvedValue({
+      ...catalog,
+      datasets: [{ ...catalog.datasets[0], inputs: [
+        { id: "warehouse", label: "Warehouse", role: "Filter", type: "Text", options: [{ label: "Leeds", value: "Leeds" }] },
+        { id: "channel", label: "Channel", role: "Filter", type: "Text", options: [{ label: "Retail", value: "retail" }] },
+      ] }],
+      presets: [{ id: "warehouse", definition: { ...preset, filters: [{ input: "warehouse" }] } }],
+    });
+    render(<ReportingWorkspace client={client} />);
+    fireEvent.click(await screen.findByRole("button", { name: "Edit dashboard" }));
+
+    fireEvent.change(screen.getByLabelText("Add filter"), { target: { value: "channel" } });
+    fireEvent.change(screen.getByLabelText("Channel label"), { target: { value: "Sales channel" } });
+    fireEvent.click(screen.getByRole("button", { name: "Move Channel filter up" }));
+    fireEvent.click(screen.getByRole("button", { name: "Save as new" }));
+    const nav = screen.getByRole("navigation", { name: "Reports and dashboards" });
+    await waitFor(() => expect(within(nav).getAllByRole("button", { name: "Warehouse dashboard" })).toHaveLength(2));
+    expect(client.create.mock.calls[0][0].filters).toEqual([
+      { input: "channel", label: "Sales channel" }, { input: "warehouse" },
+    ]);
+    fireEvent.click(within(nav).getAllByRole("button", { name: "Warehouse dashboard" })[1]);
+    const salesChannel = await screen.findByLabelText("Sales channel");
+    fireEvent.change(salesChannel, { target: { value: "0" } });
+    await waitFor(() => expect(client.run).toHaveBeenLastCalledWith({
+      ...query, inputs: [{ id: "channel", value: "retail" }],
+    }, expect.any(AbortSignal)));
+  });
+
   it("does not run an old report on a replacement client", async () => {
     const client = reportingClient();
     const replacement = reportingClient();

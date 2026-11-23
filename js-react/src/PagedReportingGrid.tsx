@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent, type MouseEvent } from "react";
+import { reportingQueryKey } from "@bbq-chat/widgets";
 import type {
   ReportingClient,
   ReportingColumn,
@@ -38,8 +39,7 @@ export function PagedReportingGrid(props: PagedReportingGridProps) {
   const hasSelection = useRef(false);
   const selectionChange = useRef(props.onSelectionChange);
   selectionChange.current = props.onSelectionChange;
-  const { dataset, metric, groupBy, from, to } = props.query;
-  const key = JSON.stringify([scope.generation, dataset, metric, groupBy, from, to, props.dimension.id]);
+  const key = JSON.stringify([scope.generation, reportingQueryKey(props.query), props.dimension.id]);
   useEffect(() => {
     if (hasSelection.current) {
       hasSelection.current = false;

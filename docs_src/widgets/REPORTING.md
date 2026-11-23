@@ -44,6 +44,23 @@ if (preset && container) {
 }
 ```
 
+## Author report filters
+
+In **Edit report** or **Edit dashboard**, use **Report filters** to add a filter supplied by one of the report's datasets. Change the display label, move the filter, or remove it. The same controls are available in Angular, React, and Blazor.
+
+**Save as new** and **Save changes** store the filter list in the report definition. You can move that definition between compatible hosts because it stores catalog IDs and labels. Each host resolves choices in the current caller's scope.
+
+```json
+{
+  "filters": [
+    { "input": "channel", "label": "Sales channel" },
+    { "input": "warehouse" }
+  ]
+}
+```
+
+An omitted `filters` property inherits the dataset filters. An empty array defines a report with no shared filter controls. An authored list also replaces the automatic same-query preview filters. Filter tiles you add explicitly remain part of the report. Running a saved definition still uses any saved query values. Removing a filter in the editor also clears values saved for that filter. The existing API validates each query and saves definitions under the current user's scope.
+
 ## Use server-paged grids
 
 Implement `IReportingGridSource` on the registered reporting source and advertise `ReportGridCapabilities` on the catalog dimension that supports paging. Declare which column IDs can participate in text search, sorting, and exact-match filters. The library validates requests against the authorized catalog before calling the provider. Return the matching total and a bounded page of rows. Give every row a stable key and use it as an ordering tie-breaker so paging and selection stay consistent.

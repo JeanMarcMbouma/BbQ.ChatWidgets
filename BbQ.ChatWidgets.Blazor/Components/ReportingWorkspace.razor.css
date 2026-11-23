@@ -24,6 +24,10 @@ fieldset { min-width: 0; border: 0; padding: 0; margin: 0; }
 .tile-editor { padding: .75rem; margin: .75rem 0; border: 1px solid var(--bbq-reporting-line, #dbe4e3); border-radius: .55rem; }
 .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); gap: .65rem; }
 .tile-editor .actions { margin-top: .75rem; }
+.filter-editor { display: grid; gap: .65rem; }
+.filter-editor > button { justify-self: start; }
+.filter-row, .filter-actions { display: flex; flex-wrap: wrap; align-items: end; gap: .45rem; }
+.filter-row label { flex: 1 1 10rem; }
 label { display: grid; gap: .2rem; }
 button, input, select {
     font: inherit;

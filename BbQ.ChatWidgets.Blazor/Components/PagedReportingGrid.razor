@@ -192,7 +192,7 @@
 
     private readonly HashSet<string> _selected = new(StringComparer.Ordinal);
     private IReportingWorkspaceClient? _boundClient;
-    private ReportQuery? _boundQuery;
+    private string? _boundQueryKey;
     private ReportField? _boundDimension;
     private CancellationTokenSource? _activeRequest;
     private VisiblePage? _visible;
@@ -216,11 +216,12 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        if (ReferenceEquals(Client, _boundClient) && Query == _boundQuery && Dimension == _boundDimension)
+        var queryKey = ReportingQueryIdentity.Create(Query);
+        if (ReferenceEquals(Client, _boundClient) && queryKey == _boundQueryKey && Dimension == _boundDimension)
             return;
 
         _boundClient = Client;
-        _boundQuery = Query;
+        _boundQueryKey = queryKey;
         _boundDimension = Dimension;
         _visible = null;
         _offset = 0;

@@ -90,6 +90,7 @@ public partial class ReportingWorkspace : IDisposable
     private void Open(SavedReport report, bool isSaved)
     {
         draft = report.Definition with { Tiles = [.. report.Definition.Tiles] };
+        filterValues = [];
         savedId = isSaved ? report.Id : null;
         presetId = isSaved ? null : report.Id;
         editing = false;
@@ -99,6 +100,8 @@ public partial class ReportingWorkspace : IDisposable
     private void Start(string kind)
     {
         draft = new ReportDefinition(string.Empty, kind, [NewTile()]);
+        if (AvailableFilters.Count > 0) draft = draft with { Filters = [] };
+        filterValues = [];
         savedId = presetId = error = status = null;
         editing = true;
         ClearPreview();
@@ -127,6 +130,7 @@ public partial class ReportingWorkspace : IDisposable
     private void SetTiles(ReportTile[] tiles)
     {
         draft = draft! with { Tiles = tiles };
+        PruneFilters();
         ClearPreview();
     }
 
@@ -146,13 +150,21 @@ public partial class ReportingWorkspace : IDisposable
 
     private void ChangeDataset(int index, string? id)
     {
-        if (catalog?.Datasets.FirstOrDefault(item => item.Id == id) is { } dataset)
-            ChangeQuery(index, draft!.Tiles[index].Query with
+        if (catalog?.Datasets.FirstOrDefault(item => item.Id == id) is not { } dataset) return;
+        var tile = draft!.Tiles[index];
+        ChangeTile(index, tile with
+        {
+            Presentation = null,
+            InputBinding = null,
+            Query = tile.Query with
             {
                 Dataset = dataset.Id,
                 Metric = dataset.Metrics.FirstOrDefault()?.Id ?? string.Empty,
-                GroupBy = null
-            });
+                GroupBy = null,
+                Inputs = null
+            }
+        });
+        PruneFilters();
     }
 
     private void ChangeGrouping(int index, string? value)
@@ -175,6 +187,7 @@ public partial class ReportingWorkspace : IDisposable
     private void ClearPreview()
     {
         snapshot = null;
+        controls = [];
         paged = [];
         renderedTiles = [];
     }
@@ -190,7 +203,7 @@ public partial class ReportingWorkspace : IDisposable
     {
         if (draft is not { } definition || catalog is not { } available)
             return;
-        var tileSnapshot = definition with { Tiles = [.. definition.Tiles] };
+        var tileSnapshot = ApplyFilters(definition with { Tiles = [.. definition.Tiles] }, available.Datasets);
         var grids = new List<PagedTile>();
         var pagedIndices = new HashSet<int>();
         for (var index = 0; index < tileSnapshot.Tiles.Length; index++)
@@ -203,16 +216,19 @@ public partial class ReportingWorkspace : IDisposable
             }
         }
 
-        var composed = await ReportingSnapshotComposer.ComposeAsync(tileSnapshot, available, client, pagedIndices, cancellationToken);
+        var compose = ReportingSnapshotComposer.ComposeAsync(tileSnapshot, available, client, pagedIndices, cancellationToken);
+        var resolve = ResolveControlsAsync(tileSnapshot, available, client, cancellationToken);
+        await Task.WhenAll(compose, resolve);
         cancellationToken.ThrowIfCancellationRequested();
-        snapshot = composed;
+        snapshot = await compose;
+        controls = await resolve;
         paged = grids;
         renderedTiles = tileSnapshot.Tiles;
     }
 
     private Task SaveAsync() => CanRun ? WorkAsync(async (client, ct) =>
     {
-        var definition = draft! with { Tiles = [.. draft!.Tiles] };
+        var definition = ApplyFilters(draft! with { Tiles = [.. draft!.Tiles] }, catalog!.Datasets);
         if (savedId is { } id)
         {
             await client.UpdateAsync(id, definition, ct);
@@ -258,9 +274,12 @@ public partial class ReportingWorkspace : IDisposable
     private Task OnPagedAction(IReadOnlyList<ReportTile> sourceTiles, PagedTile grid, ReportingGridRowActivation activation)
         => ReferenceEquals(sourceTiles, renderedTiles) ? EmitAsync(grid.Tile, grid.Index, activation) : Task.CompletedTask;
 
-    private Task EmitAsync(ReportTile tile, int index, ReportingInteraction interaction)
-        => OnReportingAction.InvokeAsync(new ReportingWorkspaceAction(
+    private async Task EmitAsync(ReportTile tile, int index, ReportingInteraction interaction)
+    {
+        await OnReportingAction.InvokeAsync(new ReportingWorkspaceAction(
             ResolveAction?.Invoke(tile, index) ?? $"report-result-{index}", tile, index, interaction));
+        await ApplyFilterActionAsync(tile, interaction);
+    }
 
     private async Task WorkAsync(Func<IReportingWorkspaceClient, CancellationToken, Task> operation)
     {

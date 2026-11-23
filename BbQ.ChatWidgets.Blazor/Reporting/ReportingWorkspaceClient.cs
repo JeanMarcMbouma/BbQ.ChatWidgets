@@ -19,9 +19,16 @@ public interface IReportingWorkspaceClient
     ValueTask DeleteAsync(string id, CancellationToken cancellationToken = default);
 }
 
+/// <summary>Optional client access to scoped reporting input choices.</summary>
+public interface IReportingInputWorkspaceClient
+{
+    ValueTask<IReadOnlyList<ReportInputOption>> GetInputOptionsAsync(ReportInputOptionsRequest request,
+        CancellationToken cancellationToken = default);
+}
+
 /// <summary>Uses a host-configured HTTP client to access the ChatWidgets reporting endpoints.</summary>
 /// <remarks>The supplied client owns the base address and caller authentication and remains owned by the host.</remarks>
-public sealed class ReportingHttpClient(HttpClient httpClient, string basePath = "/api/reporting") : IReportingWorkspaceClient
+public sealed class ReportingHttpClient(HttpClient httpClient, string basePath = "/api/reporting") : IReportingWorkspaceClient, IReportingInputWorkspaceClient
 {
     private readonly string basePath = basePath.TrimEnd('/');
 
@@ -33,6 +40,11 @@ public sealed class ReportingHttpClient(HttpClient httpClient, string basePath =
 
     public async ValueTask<IReadOnlyList<ReportRow>> RunAsync(ReportQuery query, CancellationToken cancellationToken = default)
         => await ReadAsync<ReportRow[]>(HttpMethod.Post, "/run", cancellationToken, query);
+
+    /// <inheritdoc />
+    public async ValueTask<IReadOnlyList<ReportInputOption>> GetInputOptionsAsync(ReportInputOptionsRequest request,
+        CancellationToken cancellationToken = default)
+        => await ReadAsync<ReportInputOption[]>(HttpMethod.Post, "/options", cancellationToken, request);
 
     public async ValueTask<ReportGridPage> GetPageAsync(ReportGridPageRequest query, CancellationToken cancellationToken = default)
         => await ReadAsync<ReportGridPage>(HttpMethod.Post, "/page", cancellationToken, query);

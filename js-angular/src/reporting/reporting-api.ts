@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, InjectionToken } from '@angular/core';
 import type {
-  ReportingCatalog, ReportingDocument, ReportingGridPage, ReportingGridPageRequest, ReportingQuery, ReportingResultRow,
+  ReportingCatalog, ReportingDocument, ReportingGridPage, ReportingGridPageRequest, ReportingInputOption,
+  ReportingInputOptionsRequest, ReportingQuery, ReportingResultRow,
   SavedReportingDefinition,
 } from '@bbq-chat/widgets';
 
@@ -20,6 +21,9 @@ export class ReportingApi {
   catalog() { return this.http.get<ReportingCatalog>(this.base + '/catalog'); }
   list() { return this.http.get<SavedReportingDefinition[]>(this.base + '/saved'); }
   run(query: ReportingQuery) { return this.http.post<ReportingResultRow[]>(this.base + '/run', query); }
+  inputOptions(request: ReportingInputOptionsRequest) {
+    return this.http.post<ReportingInputOption[]>(this.base + '/options', request);
+  }
   page(request: ReportingGridPageRequest) { return this.http.post<ReportingGridPage>(this.base + '/page', request); }
   create(definition: ReportingDocument) { return this.http.post<SavedReportingDefinition>(this.base + '/saved', definition); }
   update(id: string, definition: ReportingDocument) {

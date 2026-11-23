@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using BbQ.ChatWidgets.Models;
 
 namespace BbQ.ChatWidgets.Reporting;
 
@@ -21,20 +22,57 @@ public sealed record ReportField(string Id, string Label,
 }
 
 /// <summary>An authorized dataset and its available metrics and groupings.</summary>
-public sealed record ReportDataset(string Id, string Label, ReportField[] Metrics, ReportField[] Dimensions);
+public sealed record ReportDataset(string Id, string Label, ReportField[] Metrics, ReportField[] Dimensions)
+{
+    /// <summary>Optional typed selectors handled by this dataset.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ReportInput[]? Inputs { get; init; }
+
+    /// <summary>Optional calendar metadata for this dataset.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ReportCalendar? Calendar { get; init; }
+}
 
 /// <summary>A dataset query over an inclusive date range with an optional grouping.</summary>
-public sealed record ReportQuery(string Dataset, string Metric, string? GroupBy, DateOnly From, DateOnly To);
+public sealed record ReportQuery(string Dataset, string Metric, string? GroupBy, DateOnly From, DateOnly To)
+{
+    /// <summary>Optional typed selections, validated against the caller's dataset.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ReportInputSelection[]? Inputs { get; init; }
+}
 
 /// <summary>An authorized result with a label, numeric value, and optional scalar fields.</summary>
 public sealed record ReportRow(string Label, decimal Value,
     [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] IReadOnlyDictionary<string, JsonElement>? Fields = null);
 
 /// <summary>A query and its presentation in a report definition.</summary>
-public sealed record ReportTile(string Title, string View, ReportQuery Query);
+public sealed record ReportTile(string Title, string View, ReportQuery Query)
+{
+    /// <summary>Optional native chart presentation settings.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ReportingPresentation? Presentation { get; init; }
+
+    /// <summary>Applies activation of a result row to an advertised filter input.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ReportInputBinding? InputBinding { get; init; }
+}
+
+/// <summary>Maps the value from a result field to a shared reporting filter.</summary>
+public sealed record ReportInputBinding(string Input, string Field);
 
 /// <summary>A rerunnable report or dashboard definition.</summary>
-public sealed record ReportDefinition(string Title, string Kind, ReportTile[] Tiles);
+public sealed record ReportDefinition(string Title, string Kind, ReportTile[] Tiles)
+{
+    /// <summary>The ordered filter controls. Null inherits the dataset filters, and an empty list hides them.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ReportFilter[]? Filters { get; init; }
+}
+
+/// <summary>An authored control referencing a filter in the authorized catalog.</summary>
+/// <param name="Input">The catalog input ID.</param>
+/// <param name="Label">An optional display label. Null uses the catalog label.</param>
+public sealed record ReportFilter(string Input,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] string? Label = null);
 
 /// <summary>A report definition and its stable identifier.</summary>
 public sealed record SavedReport(string Id, ReportDefinition Definition);

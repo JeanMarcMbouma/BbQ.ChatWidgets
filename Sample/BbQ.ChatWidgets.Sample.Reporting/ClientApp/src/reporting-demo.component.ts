@@ -46,7 +46,7 @@ export class ReportingDemoComponent {
   fields: { name: string; value: ReportingCell }[] = [];
 
   openDetails({ actionName, tile, payload }: ReportingWorkspaceAction, dialog: HTMLDialogElement): void {
-    if (actionName !== 'inspect-report-result') return;
+    if (actionName !== 'inspect-report-result' || tile.inputBinding) return;
     if (payload.kind === 'activate') {
       const row = 'rowKey' in payload
         ? { ...payload.row.fields, label: payload.row.label, value: payload.row.value, orderKey: payload.rowKey }

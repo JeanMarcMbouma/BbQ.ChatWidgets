@@ -51,18 +51,19 @@ public static partial class ReportingEndpoints
                     return Results.NotFound();
 
                 var datasets = await source.GetDatasetsAsync(scope, ct);
-                if (QueryError(request.Query, datasets) is { } queryError)
+                var (query, queryError) = await ResolveQueryAsync(source, scope, request.Query, datasets, ct);
+                if (queryError is not null)
                     return Invalid(queryError);
 
-                var dataset = datasets.First(item => item.Id == request.Query.Dataset);
-                var dimension = dataset.Dimensions.FirstOrDefault(item => item.Id == request.Query.GroupBy);
+                var dataset = datasets.First(item => item.Id == query!.Dataset);
+                var dimension = dataset.Dimensions.FirstOrDefault(item => item.Id == query!.GroupBy);
                 if (dimension?.Grid is not { } capabilities)
                     return Invalid("Choose a dataset and grouping that support server-side paging.");
 
                 if (PageError(request, capabilities) is { } pageError)
                     return Invalid(pageError);
 
-                var page = await gridSource.GetPageAsync(scope, request, ct);
+                var page = await gridSource.GetPageAsync(scope, request with { Query = query! }, ct);
                 var expectedCount = Math.Min(request.Limit, Math.Max(0, page.Total - request.Offset));
                 if (page.Total < 0 || page.Rows.Count != expectedCount ||
                     page.Rows.Any(item => string.IsNullOrWhiteSpace(item.Key)) ||

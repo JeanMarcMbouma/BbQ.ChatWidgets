@@ -42,12 +42,49 @@
               {{ editing ? 'Back to results' : 'Edit ' + definition.kind }}
             </button>
           </header>
+          @if (!editing && (inputs.length || calendar)) {
+            <bbq-reporting-controls [inputs]="inputs" [state]="state" [calendar]="calendar"
+              [defaultDates]="defaultDates" [disabled]="busy" (stateChange)="updateState($event)" />
+          }
           @if (editing) {
           <form #editorForm="ngForm" (ngSubmit)="run()">
             <fieldset [disabled]="busy" [attr.aria-label]="'Edit ' + definition.kind">
               <label>Title
                 <input name="title" required maxlength="100" [(ngModel)]="definition.title" />
               </label>
+
+              @if (availableFilterInputs.length || draftFilters.length) {
+                <fieldset class="tile-editor filter-editor">
+                  <legend>Report filters</legend>
+                  @for (filter of draftFilters; track filter.input; let index = $index) {
+                    <div class="filter-editor-row">
+                      <label>{{ filterLabel(filter.input) }} label
+                        <input [name]="'filter-label-' + filter.input" maxlength="100"
+                          [placeholder]="filterLabel(filter.input)" [ngModel]="filter.label ?? ''" [ngModelOptions]="{ updateOn: 'blur' }"
+                          (ngModelChange)="renameFilter(filter.input, $event)" />
+                      </label>
+                      <div class="actions">
+                        <button type="button" [attr.aria-label]="'Move ' + filterLabel(filter.input) + ' filter up'"
+                          [disabled]="index === 0" (click)="moveFilter(index, -1)">Move up</button>
+                        <button type="button" [attr.aria-label]="'Move ' + filterLabel(filter.input) + ' filter down'"
+                          [disabled]="index === draftFilters.length - 1" (click)="moveFilter(index, 1)">Move down</button>
+                        <button type="button" [attr.aria-label]="'Remove ' + filterLabel(filter.input) + ' filter'"
+                          (click)="removeFilter(filter.input)">Remove</button>
+                      </div>
+                    </div>
+                  }
+                  @if (filtersToAdd.length) {
+                    <label>Add filter
+                      <select name="new-report-filter" [ngModel]="''" (ngModelChange)="addFilter($event)">
+                        <option value="">Choose a filter</option>
+                        @for (input of filtersToAdd; track input.id) {
+                          <option [value]="input.id">{{ input.label }}</option>
+                        }
+                      </select>
+                    </label>
+                  }
+                </fieldset>
+              }
 
               @for (tile of definition.tiles; track tile; let index = $index) {
                 <fieldset class="tile-editor">

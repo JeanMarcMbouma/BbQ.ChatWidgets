@@ -7182,6 +7182,165 @@ references:
   commentId: F:BbQ.ChatWidgets.Models.ReportingAxis.Y
   fullName: BbQ.ChatWidgets.Models.ReportingAxis.Y
   nameWithType: ReportingAxis.Y
+- uid: BbQ.ChatWidgets.Models.ReportingColor
+  name: ReportingColor
+  href: BbQ.ChatWidgets.Models.ReportingColor.html
+  commentId: T:BbQ.ChatWidgets.Models.ReportingColor
+  fullName: BbQ.ChatWidgets.Models.ReportingColor
+  nameWithType: ReportingColor
+- uid: BbQ.ChatWidgets.Models.ReportingColor.#ctor(System.String,System.String)
+  name: ReportingColor(string, string)
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor__ctor_System_String_System_String_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingColor.#ctor(System.String,System.String)
+  name.vb: New(String, String)
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.ReportingColor(string, string)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingColor.New(String, String)
+  nameWithType: ReportingColor.ReportingColor(string, string)
+  nameWithType.vb: ReportingColor.New(String, String)
+- uid: BbQ.ChatWidgets.Models.ReportingColor.#ctor*
+  name: ReportingColor
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingColor.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.ReportingColor
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingColor.New
+  nameWithType: ReportingColor.ReportingColor
+  nameWithType.vb: ReportingColor.New
+- uid: BbQ.ChatWidgets.Models.ReportingColor.Color
+  name: Color
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_Color
+  commentId: P:BbQ.ChatWidgets.Models.ReportingColor.Color
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.Color
+  nameWithType: ReportingColor.Color
+- uid: BbQ.ChatWidgets.Models.ReportingColor.Color*
+  name: Color
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_Color_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingColor.Color
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.Color
+  nameWithType: ReportingColor.Color
+- uid: BbQ.ChatWidgets.Models.ReportingColor.DarkColor
+  name: DarkColor
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_DarkColor
+  commentId: P:BbQ.ChatWidgets.Models.ReportingColor.DarkColor
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.DarkColor
+  nameWithType: ReportingColor.DarkColor
+- uid: BbQ.ChatWidgets.Models.ReportingColor.DarkColor*
+  name: DarkColor
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_DarkColor_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingColor.DarkColor
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.DarkColor
+  nameWithType: ReportingColor.DarkColor
+- uid: BbQ.ChatWidgets.Models.ReportingColor.Deconstruct(System.String@,System.String@)
+  name: Deconstruct(out string, out string)
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_Deconstruct_System_String__System_String__
+  commentId: M:BbQ.ChatWidgets.Models.ReportingColor.Deconstruct(System.String@,System.String@)
+  name.vb: Deconstruct(String, String)
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.Deconstruct(out string, out string)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingColor.Deconstruct(String, String)
+  nameWithType: ReportingColor.Deconstruct(out string, out string)
+  nameWithType.vb: ReportingColor.Deconstruct(String, String)
+- uid: BbQ.ChatWidgets.Models.ReportingColor.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingColor.Deconstruct
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.Deconstruct
+  nameWithType: ReportingColor.Deconstruct
+- uid: BbQ.ChatWidgets.Models.ReportingColor.Equals(BbQ.ChatWidgets.Models.ReportingColor)
+  name: Equals(ReportingColor?)
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_Equals_BbQ_ChatWidgets_Models_ReportingColor_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingColor.Equals(BbQ.ChatWidgets.Models.ReportingColor)
+  name.vb: Equals(ReportingColor)
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.Equals(BbQ.ChatWidgets.Models.ReportingColor?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingColor.Equals(BbQ.ChatWidgets.Models.ReportingColor)
+  nameWithType: ReportingColor.Equals(ReportingColor?)
+  nameWithType.vb: ReportingColor.Equals(ReportingColor)
+- uid: BbQ.ChatWidgets.Models.ReportingColor.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingColor.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingColor.Equals(Object)
+  nameWithType: ReportingColor.Equals(object?)
+  nameWithType.vb: ReportingColor.Equals(Object)
+- uid: BbQ.ChatWidgets.Models.ReportingColor.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingColor.Equals
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.Equals
+  nameWithType: ReportingColor.Equals
+- uid: BbQ.ChatWidgets.Models.ReportingColor.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Models.ReportingColor.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.GetHashCode()
+  nameWithType: ReportingColor.GetHashCode()
+- uid: BbQ.ChatWidgets.Models.ReportingColor.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingColor.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.GetHashCode
+  nameWithType: ReportingColor.GetHashCode
+- uid: BbQ.ChatWidgets.Models.ReportingColor.Key
+  name: Key
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_Key
+  commentId: P:BbQ.ChatWidgets.Models.ReportingColor.Key
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.Key
+  nameWithType: ReportingColor.Key
+- uid: BbQ.ChatWidgets.Models.ReportingColor.Key*
+  name: Key
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_Key_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingColor.Key
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.Key
+  nameWithType: ReportingColor.Key
+- uid: BbQ.ChatWidgets.Models.ReportingColor.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_ToString
+  commentId: M:BbQ.ChatWidgets.Models.ReportingColor.ToString
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.ToString()
+  nameWithType: ReportingColor.ToString()
+- uid: BbQ.ChatWidgets.Models.ReportingColor.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingColor.ToString
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.ToString
+  nameWithType: ReportingColor.ToString
+- uid: BbQ.ChatWidgets.Models.ReportingColor.op_Equality(BbQ.ChatWidgets.Models.ReportingColor,BbQ.ChatWidgets.Models.ReportingColor)
+  name: operator ==(ReportingColor?, ReportingColor?)
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_op_Equality_BbQ_ChatWidgets_Models_ReportingColor_BbQ_ChatWidgets_Models_ReportingColor_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingColor.op_Equality(BbQ.ChatWidgets.Models.ReportingColor,BbQ.ChatWidgets.Models.ReportingColor)
+  name.vb: =(ReportingColor, ReportingColor)
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.operator ==(BbQ.ChatWidgets.Models.ReportingColor?, BbQ.ChatWidgets.Models.ReportingColor?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingColor.=(BbQ.ChatWidgets.Models.ReportingColor, BbQ.ChatWidgets.Models.ReportingColor)
+  nameWithType: ReportingColor.operator ==(ReportingColor?, ReportingColor?)
+  nameWithType.vb: ReportingColor.=(ReportingColor, ReportingColor)
+- uid: BbQ.ChatWidgets.Models.ReportingColor.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingColor.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.operator ==
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingColor.=
+  nameWithType: ReportingColor.operator ==
+  nameWithType.vb: ReportingColor.=
+- uid: BbQ.ChatWidgets.Models.ReportingColor.op_Inequality(BbQ.ChatWidgets.Models.ReportingColor,BbQ.ChatWidgets.Models.ReportingColor)
+  name: operator !=(ReportingColor?, ReportingColor?)
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_op_Inequality_BbQ_ChatWidgets_Models_ReportingColor_BbQ_ChatWidgets_Models_ReportingColor_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingColor.op_Inequality(BbQ.ChatWidgets.Models.ReportingColor,BbQ.ChatWidgets.Models.ReportingColor)
+  name.vb: <>(ReportingColor, ReportingColor)
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.operator !=(BbQ.ChatWidgets.Models.ReportingColor?, BbQ.ChatWidgets.Models.ReportingColor?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingColor.<>(BbQ.ChatWidgets.Models.ReportingColor, BbQ.ChatWidgets.Models.ReportingColor)
+  nameWithType: ReportingColor.operator !=(ReportingColor?, ReportingColor?)
+  nameWithType.vb: ReportingColor.<>(ReportingColor, ReportingColor)
+- uid: BbQ.ChatWidgets.Models.ReportingColor.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Models.ReportingColor.html#BbQ_ChatWidgets_Models_ReportingColor_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingColor.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Models.ReportingColor.operator !=
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingColor.<>
+  nameWithType: ReportingColor.operator !=
+  nameWithType.vb: ReportingColor.<>
 - uid: BbQ.ChatWidgets.Models.ReportingColumn
   name: ReportingColumn
   href: BbQ.ChatWidgets.Models.ReportingColumn.html
@@ -7389,6 +7548,18 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.CategoryField
   fullName: BbQ.ChatWidgets.Models.ReportingPresentation.CategoryField
   nameWithType: ReportingPresentation.CategoryField
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.Colors
+  name: Colors
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_Colors
+  commentId: P:BbQ.ChatWidgets.Models.ReportingPresentation.Colors
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.Colors
+  nameWithType: ReportingPresentation.Colors
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.Colors*
+  name: Colors
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_Colors_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.Colors
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.Colors
+  nameWithType: ReportingPresentation.Colors
 - uid: BbQ.ChatWidgets.Models.ReportingPresentation.DateAxisLabel
   name: DateAxisLabel
   href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_DateAxisLabel
@@ -8034,6 +8205,18 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Models.ReportingSettings.GroupBy
   fullName: BbQ.ChatWidgets.Models.ReportingSettings.GroupBy
   nameWithType: ReportingSettings.GroupBy
+- uid: BbQ.ChatWidgets.Models.ReportingSettings.Layout
+  name: Layout
+  href: BbQ.ChatWidgets.Models.ReportingSettings.html#BbQ_ChatWidgets_Models_ReportingSettings_Layout
+  commentId: P:BbQ.ChatWidgets.Models.ReportingSettings.Layout
+  fullName: BbQ.ChatWidgets.Models.ReportingSettings.Layout
+  nameWithType: ReportingSettings.Layout
+- uid: BbQ.ChatWidgets.Models.ReportingSettings.Layout*
+  name: Layout
+  href: BbQ.ChatWidgets.Models.ReportingSettings.html#BbQ_ChatWidgets_Models_ReportingSettings_Layout_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingSettings.Layout
+  fullName: BbQ.ChatWidgets.Models.ReportingSettings.Layout
+  nameWithType: ReportingSettings.Layout
 - uid: BbQ.ChatWidgets.Models.ReportingSettings.Presentation
   name: Presentation
   href: BbQ.ChatWidgets.Models.ReportingSettings.html#BbQ_ChatWidgets_Models_ReportingSettings_Presentation
@@ -8382,6 +8565,177 @@ references:
   fullName.vb: BbQ.ChatWidgets.Models.ReportingWidget.<>
   nameWithType: ReportingWidget.operator !=
   nameWithType.vb: ReportingWidget.<>
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement
+  name: ReportingWidgetPlacement
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html
+  commentId: T:BbQ.ChatWidgets.Models.ReportingWidgetPlacement
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement
+  nameWithType: ReportingWidgetPlacement
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.#ctor(System.Int32[],System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name: ReportingWidgetPlacement(int[], string?, int?, int?)
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement__ctor_System_Int32___System_String_System_Nullable_System_Int32__System_Nullable_System_Int32__
+  commentId: M:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.#ctor(System.Int32[],System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})
+  name.vb: New(Integer(), String, Integer?, Integer?)
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.ReportingWidgetPlacement(int[], string?, int?, int?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.New(Integer(), String, Integer?, Integer?)
+  nameWithType: ReportingWidgetPlacement.ReportingWidgetPlacement(int[], string?, int?, int?)
+  nameWithType.vb: ReportingWidgetPlacement.New(Integer(), String, Integer?, Integer?)
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.#ctor*
+  name: ReportingWidgetPlacement
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.ReportingWidgetPlacement
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.New
+  nameWithType: ReportingWidgetPlacement.ReportingWidgetPlacement
+  nameWithType.vb: ReportingWidgetPlacement.New
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Children
+  name: Children
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_Children
+  commentId: P:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Children
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Children
+  nameWithType: ReportingWidgetPlacement.Children
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Children*
+  name: Children
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_Children_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Children
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Children
+  nameWithType: ReportingWidgetPlacement.Children
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.ColumnSpan
+  name: ColumnSpan
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_ColumnSpan
+  commentId: P:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.ColumnSpan
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.ColumnSpan
+  nameWithType: ReportingWidgetPlacement.ColumnSpan
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.ColumnSpan*
+  name: ColumnSpan
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_ColumnSpan_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.ColumnSpan
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.ColumnSpan
+  nameWithType: ReportingWidgetPlacement.ColumnSpan
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Deconstruct(System.Int32[]@,System.String@,System.Nullable{System.Int32}@,System.Nullable{System.Int32}@)
+  name: Deconstruct(out int[], out string?, out int?, out int?)
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_Deconstruct_System_Int32____System_String__System_Nullable_System_Int32___System_Nullable_System_Int32___
+  commentId: M:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Deconstruct(System.Int32[]@,System.String@,System.Nullable{System.Int32}@,System.Nullable{System.Int32}@)
+  name.vb: Deconstruct(Integer(), String, Integer?, Integer?)
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Deconstruct(out int[], out string?, out int?, out int?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Deconstruct(Integer(), String, Integer?, Integer?)
+  nameWithType: ReportingWidgetPlacement.Deconstruct(out int[], out string?, out int?, out int?)
+  nameWithType.vb: ReportingWidgetPlacement.Deconstruct(Integer(), String, Integer?, Integer?)
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Deconstruct
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Deconstruct
+  nameWithType: ReportingWidgetPlacement.Deconstruct
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Equals(BbQ.ChatWidgets.Models.ReportingWidgetPlacement)
+  name: Equals(ReportingWidgetPlacement?)
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_Equals_BbQ_ChatWidgets_Models_ReportingWidgetPlacement_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Equals(BbQ.ChatWidgets.Models.ReportingWidgetPlacement)
+  name.vb: Equals(ReportingWidgetPlacement)
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Equals(BbQ.ChatWidgets.Models.ReportingWidgetPlacement?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Equals(BbQ.ChatWidgets.Models.ReportingWidgetPlacement)
+  nameWithType: ReportingWidgetPlacement.Equals(ReportingWidgetPlacement?)
+  nameWithType.vb: ReportingWidgetPlacement.Equals(ReportingWidgetPlacement)
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Equals(Object)
+  nameWithType: ReportingWidgetPlacement.Equals(object?)
+  nameWithType.vb: ReportingWidgetPlacement.Equals(Object)
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Equals
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Equals
+  nameWithType: ReportingWidgetPlacement.Equals
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.GetHashCode()
+  nameWithType: ReportingWidgetPlacement.GetHashCode()
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.GetHashCode
+  nameWithType: ReportingWidgetPlacement.GetHashCode
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Region
+  name: Region
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_Region
+  commentId: P:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Region
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Region
+  nameWithType: ReportingWidgetPlacement.Region
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Region*
+  name: Region
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_Region_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Region
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.Region
+  nameWithType: ReportingWidgetPlacement.Region
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.RowSpan
+  name: RowSpan
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_RowSpan
+  commentId: P:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.RowSpan
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.RowSpan
+  nameWithType: ReportingWidgetPlacement.RowSpan
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.RowSpan*
+  name: RowSpan
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_RowSpan_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.RowSpan
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.RowSpan
+  nameWithType: ReportingWidgetPlacement.RowSpan
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_ToString
+  commentId: M:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.ToString
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.ToString()
+  nameWithType: ReportingWidgetPlacement.ToString()
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.ToString
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.ToString
+  nameWithType: ReportingWidgetPlacement.ToString
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.op_Equality(BbQ.ChatWidgets.Models.ReportingWidgetPlacement,BbQ.ChatWidgets.Models.ReportingWidgetPlacement)
+  name: operator ==(ReportingWidgetPlacement?, ReportingWidgetPlacement?)
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_op_Equality_BbQ_ChatWidgets_Models_ReportingWidgetPlacement_BbQ_ChatWidgets_Models_ReportingWidgetPlacement_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.op_Equality(BbQ.ChatWidgets.Models.ReportingWidgetPlacement,BbQ.ChatWidgets.Models.ReportingWidgetPlacement)
+  name.vb: =(ReportingWidgetPlacement, ReportingWidgetPlacement)
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.operator ==(BbQ.ChatWidgets.Models.ReportingWidgetPlacement?, BbQ.ChatWidgets.Models.ReportingWidgetPlacement?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.=(BbQ.ChatWidgets.Models.ReportingWidgetPlacement, BbQ.ChatWidgets.Models.ReportingWidgetPlacement)
+  nameWithType: ReportingWidgetPlacement.operator ==(ReportingWidgetPlacement?, ReportingWidgetPlacement?)
+  nameWithType.vb: ReportingWidgetPlacement.=(ReportingWidgetPlacement, ReportingWidgetPlacement)
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.operator ==
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.=
+  nameWithType: ReportingWidgetPlacement.operator ==
+  nameWithType.vb: ReportingWidgetPlacement.=
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.op_Inequality(BbQ.ChatWidgets.Models.ReportingWidgetPlacement,BbQ.ChatWidgets.Models.ReportingWidgetPlacement)
+  name: operator !=(ReportingWidgetPlacement?, ReportingWidgetPlacement?)
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_op_Inequality_BbQ_ChatWidgets_Models_ReportingWidgetPlacement_BbQ_ChatWidgets_Models_ReportingWidgetPlacement_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.op_Inequality(BbQ.ChatWidgets.Models.ReportingWidgetPlacement,BbQ.ChatWidgets.Models.ReportingWidgetPlacement)
+  name.vb: <>(ReportingWidgetPlacement, ReportingWidgetPlacement)
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.operator !=(BbQ.ChatWidgets.Models.ReportingWidgetPlacement?, BbQ.ChatWidgets.Models.ReportingWidgetPlacement?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.<>(BbQ.ChatWidgets.Models.ReportingWidgetPlacement, BbQ.ChatWidgets.Models.ReportingWidgetPlacement)
+  nameWithType: ReportingWidgetPlacement.operator !=(ReportingWidgetPlacement?, ReportingWidgetPlacement?)
+  nameWithType.vb: ReportingWidgetPlacement.<>(ReportingWidgetPlacement, ReportingWidgetPlacement)
+- uid: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html#BbQ_ChatWidgets_Models_ReportingWidgetPlacement_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingWidgetPlacement.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.operator !=
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingWidgetPlacement.<>
+  nameWithType: ReportingWidgetPlacement.operator !=
+  nameWithType.vb: ReportingWidgetPlacement.<>
 - uid: BbQ.ChatWidgets.Models.Serialization
   name: Serialization
   href: BbQ.ChatWidgets.Models.Serialization.html
@@ -12483,6 +12837,18 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Reporting.ReportDefinition.Kind
   fullName: BbQ.ChatWidgets.Reporting.ReportDefinition.Kind
   nameWithType: ReportDefinition.Kind
+- uid: BbQ.ChatWidgets.Reporting.ReportDefinition.Layout
+  name: Layout
+  href: BbQ.ChatWidgets.Reporting.ReportDefinition.html#BbQ_ChatWidgets_Reporting_ReportDefinition_Layout
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportDefinition.Layout
+  fullName: BbQ.ChatWidgets.Reporting.ReportDefinition.Layout
+  nameWithType: ReportDefinition.Layout
+- uid: BbQ.ChatWidgets.Reporting.ReportDefinition.Layout*
+  name: Layout
+  href: BbQ.ChatWidgets.Reporting.ReportDefinition.html#BbQ_ChatWidgets_Reporting_ReportDefinition_Layout_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportDefinition.Layout
+  fullName: BbQ.ChatWidgets.Reporting.ReportDefinition.Layout
+  nameWithType: ReportDefinition.Layout
 - uid: BbQ.ChatWidgets.Reporting.ReportDefinition.Tiles
   name: Tiles
   href: BbQ.ChatWidgets.Reporting.ReportDefinition.html#BbQ_ChatWidgets_Reporting_ReportDefinition_Tiles
@@ -14772,6 +15138,519 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputValueConverter.Write
   fullName: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.Write
   nameWithType: ReportInputValueConverter.Write
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout
+  name: ReportLayout
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ReportLayout
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout
+  nameWithType: ReportLayout
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.#ctor(BbQ.ChatWidgets.Reporting.ReportMode[])
+  name: ReportLayout(ReportMode[])
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout__ctor_BbQ_ChatWidgets_Reporting_ReportMode___
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportLayout.#ctor(BbQ.ChatWidgets.Reporting.ReportMode[])
+  name.vb: New(ReportMode())
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.ReportLayout(BbQ.ChatWidgets.Reporting.ReportMode[])
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportLayout.New(BbQ.ChatWidgets.Reporting.ReportMode())
+  nameWithType: ReportLayout.ReportLayout(ReportMode[])
+  nameWithType.vb: ReportLayout.New(ReportMode())
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.#ctor*
+  name: ReportLayout
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportLayout.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.ReportLayout
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportLayout.New
+  nameWithType: ReportLayout.ReportLayout
+  nameWithType.vb: ReportLayout.New
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.Deconstruct(BbQ.ChatWidgets.Reporting.ReportMode[]@)
+  name: Deconstruct(out ReportMode[])
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout_Deconstruct_BbQ_ChatWidgets_Reporting_ReportMode____
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportLayout.Deconstruct(BbQ.ChatWidgets.Reporting.ReportMode[]@)
+  name.vb: Deconstruct(ReportMode())
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.Deconstruct(out BbQ.ChatWidgets.Reporting.ReportMode[])
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportLayout.Deconstruct(BbQ.ChatWidgets.Reporting.ReportMode())
+  nameWithType: ReportLayout.Deconstruct(out ReportMode[])
+  nameWithType.vb: ReportLayout.Deconstruct(ReportMode())
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportLayout.Deconstruct
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.Deconstruct
+  nameWithType: ReportLayout.Deconstruct
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.DefaultModeId
+  name: DefaultModeId
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout_DefaultModeId
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportLayout.DefaultModeId
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.DefaultModeId
+  nameWithType: ReportLayout.DefaultModeId
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.DefaultModeId*
+  name: DefaultModeId
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout_DefaultModeId_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportLayout.DefaultModeId
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.DefaultModeId
+  nameWithType: ReportLayout.DefaultModeId
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.Equals(BbQ.ChatWidgets.Reporting.ReportLayout)
+  name: Equals(ReportLayout?)
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout_Equals_BbQ_ChatWidgets_Reporting_ReportLayout_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportLayout.Equals(BbQ.ChatWidgets.Reporting.ReportLayout)
+  name.vb: Equals(ReportLayout)
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.Equals(BbQ.ChatWidgets.Reporting.ReportLayout?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportLayout.Equals(BbQ.ChatWidgets.Reporting.ReportLayout)
+  nameWithType: ReportLayout.Equals(ReportLayout?)
+  nameWithType.vb: ReportLayout.Equals(ReportLayout)
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportLayout.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportLayout.Equals(Object)
+  nameWithType: ReportLayout.Equals(object?)
+  nameWithType.vb: ReportLayout.Equals(Object)
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportLayout.Equals
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.Equals
+  nameWithType: ReportLayout.Equals
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportLayout.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.GetHashCode()
+  nameWithType: ReportLayout.GetHashCode()
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportLayout.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.GetHashCode
+  nameWithType: ReportLayout.GetHashCode
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.Modes
+  name: Modes
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout_Modes
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportLayout.Modes
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.Modes
+  nameWithType: ReportLayout.Modes
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.Modes*
+  name: Modes
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout_Modes_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportLayout.Modes
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.Modes
+  nameWithType: ReportLayout.Modes
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout_ToString
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportLayout.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.ToString()
+  nameWithType: ReportLayout.ToString()
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportLayout.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.ToString
+  nameWithType: ReportLayout.ToString
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.op_Equality(BbQ.ChatWidgets.Reporting.ReportLayout,BbQ.ChatWidgets.Reporting.ReportLayout)
+  name: operator ==(ReportLayout?, ReportLayout?)
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout_op_Equality_BbQ_ChatWidgets_Reporting_ReportLayout_BbQ_ChatWidgets_Reporting_ReportLayout_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportLayout.op_Equality(BbQ.ChatWidgets.Reporting.ReportLayout,BbQ.ChatWidgets.Reporting.ReportLayout)
+  name.vb: =(ReportLayout, ReportLayout)
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.operator ==(BbQ.ChatWidgets.Reporting.ReportLayout?, BbQ.ChatWidgets.Reporting.ReportLayout?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportLayout.=(BbQ.ChatWidgets.Reporting.ReportLayout, BbQ.ChatWidgets.Reporting.ReportLayout)
+  nameWithType: ReportLayout.operator ==(ReportLayout?, ReportLayout?)
+  nameWithType.vb: ReportLayout.=(ReportLayout, ReportLayout)
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportLayout.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.operator ==
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportLayout.=
+  nameWithType: ReportLayout.operator ==
+  nameWithType.vb: ReportLayout.=
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.op_Inequality(BbQ.ChatWidgets.Reporting.ReportLayout,BbQ.ChatWidgets.Reporting.ReportLayout)
+  name: operator !=(ReportLayout?, ReportLayout?)
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout_op_Inequality_BbQ_ChatWidgets_Reporting_ReportLayout_BbQ_ChatWidgets_Reporting_ReportLayout_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportLayout.op_Inequality(BbQ.ChatWidgets.Reporting.ReportLayout,BbQ.ChatWidgets.Reporting.ReportLayout)
+  name.vb: <>(ReportLayout, ReportLayout)
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.operator !=(BbQ.ChatWidgets.Reporting.ReportLayout?, BbQ.ChatWidgets.Reporting.ReportLayout?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportLayout.<>(BbQ.ChatWidgets.Reporting.ReportLayout, BbQ.ChatWidgets.Reporting.ReportLayout)
+  nameWithType: ReportLayout.operator !=(ReportLayout?, ReportLayout?)
+  nameWithType.vb: ReportLayout.<>(ReportLayout, ReportLayout)
+- uid: BbQ.ChatWidgets.Reporting.ReportLayout.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Reporting.ReportLayout.html#BbQ_ChatWidgets_Reporting_ReportLayout_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportLayout.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Reporting.ReportLayout.operator !=
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportLayout.<>
+  nameWithType: ReportLayout.operator !=
+  nameWithType.vb: ReportLayout.<>
+- uid: BbQ.ChatWidgets.Reporting.ReportMode
+  name: ReportMode
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ReportMode
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode
+  nameWithType: ReportMode
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.#ctor(System.String,System.String,BbQ.ChatWidgets.Reporting.ReportPlacement[])
+  name: ReportMode(string, string, ReportPlacement[])
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode__ctor_System_String_System_String_BbQ_ChatWidgets_Reporting_ReportPlacement___
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportMode.#ctor(System.String,System.String,BbQ.ChatWidgets.Reporting.ReportPlacement[])
+  name.vb: New(String, String, ReportPlacement())
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.ReportMode(string, string, BbQ.ChatWidgets.Reporting.ReportPlacement[])
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportMode.New(String, String, BbQ.ChatWidgets.Reporting.ReportPlacement())
+  nameWithType: ReportMode.ReportMode(string, string, ReportPlacement[])
+  nameWithType.vb: ReportMode.New(String, String, ReportPlacement())
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.#ctor*
+  name: ReportMode
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportMode.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.ReportMode
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportMode.New
+  nameWithType: ReportMode.ReportMode
+  nameWithType.vb: ReportMode.New
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.Deconstruct(System.String@,System.String@,BbQ.ChatWidgets.Reporting.ReportPlacement[]@)
+  name: Deconstruct(out string, out string, out ReportPlacement[])
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_Deconstruct_System_String__System_String__BbQ_ChatWidgets_Reporting_ReportPlacement____
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportMode.Deconstruct(System.String@,System.String@,BbQ.ChatWidgets.Reporting.ReportPlacement[]@)
+  name.vb: Deconstruct(String, String, ReportPlacement())
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.Deconstruct(out string, out string, out BbQ.ChatWidgets.Reporting.ReportPlacement[])
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportMode.Deconstruct(String, String, BbQ.ChatWidgets.Reporting.ReportPlacement())
+  nameWithType: ReportMode.Deconstruct(out string, out string, out ReportPlacement[])
+  nameWithType.vb: ReportMode.Deconstruct(String, String, ReportPlacement())
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportMode.Deconstruct
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.Deconstruct
+  nameWithType: ReportMode.Deconstruct
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.Equals(BbQ.ChatWidgets.Reporting.ReportMode)
+  name: Equals(ReportMode?)
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_Equals_BbQ_ChatWidgets_Reporting_ReportMode_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportMode.Equals(BbQ.ChatWidgets.Reporting.ReportMode)
+  name.vb: Equals(ReportMode)
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.Equals(BbQ.ChatWidgets.Reporting.ReportMode?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportMode.Equals(BbQ.ChatWidgets.Reporting.ReportMode)
+  nameWithType: ReportMode.Equals(ReportMode?)
+  nameWithType.vb: ReportMode.Equals(ReportMode)
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportMode.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportMode.Equals(Object)
+  nameWithType: ReportMode.Equals(object?)
+  nameWithType.vb: ReportMode.Equals(Object)
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportMode.Equals
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.Equals
+  nameWithType: ReportMode.Equals
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportMode.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.GetHashCode()
+  nameWithType: ReportMode.GetHashCode()
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportMode.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.GetHashCode
+  nameWithType: ReportMode.GetHashCode
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.Id
+  name: Id
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_Id
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportMode.Id
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.Id
+  nameWithType: ReportMode.Id
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.Id*
+  name: Id
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_Id_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportMode.Id
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.Id
+  nameWithType: ReportMode.Id
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.Label
+  name: Label
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_Label
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportMode.Label
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.Label
+  nameWithType: ReportMode.Label
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.Label*
+  name: Label
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_Label_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportMode.Label
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.Label
+  nameWithType: ReportMode.Label
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.Placements
+  name: Placements
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_Placements
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportMode.Placements
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.Placements
+  nameWithType: ReportMode.Placements
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.Placements*
+  name: Placements
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_Placements_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportMode.Placements
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.Placements
+  nameWithType: ReportMode.Placements
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_ToString
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportMode.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.ToString()
+  nameWithType: ReportMode.ToString()
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportMode.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.ToString
+  nameWithType: ReportMode.ToString
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.op_Equality(BbQ.ChatWidgets.Reporting.ReportMode,BbQ.ChatWidgets.Reporting.ReportMode)
+  name: operator ==(ReportMode?, ReportMode?)
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_op_Equality_BbQ_ChatWidgets_Reporting_ReportMode_BbQ_ChatWidgets_Reporting_ReportMode_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportMode.op_Equality(BbQ.ChatWidgets.Reporting.ReportMode,BbQ.ChatWidgets.Reporting.ReportMode)
+  name.vb: =(ReportMode, ReportMode)
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.operator ==(BbQ.ChatWidgets.Reporting.ReportMode?, BbQ.ChatWidgets.Reporting.ReportMode?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportMode.=(BbQ.ChatWidgets.Reporting.ReportMode, BbQ.ChatWidgets.Reporting.ReportMode)
+  nameWithType: ReportMode.operator ==(ReportMode?, ReportMode?)
+  nameWithType.vb: ReportMode.=(ReportMode, ReportMode)
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportMode.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.operator ==
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportMode.=
+  nameWithType: ReportMode.operator ==
+  nameWithType.vb: ReportMode.=
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.op_Inequality(BbQ.ChatWidgets.Reporting.ReportMode,BbQ.ChatWidgets.Reporting.ReportMode)
+  name: operator !=(ReportMode?, ReportMode?)
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_op_Inequality_BbQ_ChatWidgets_Reporting_ReportMode_BbQ_ChatWidgets_Reporting_ReportMode_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportMode.op_Inequality(BbQ.ChatWidgets.Reporting.ReportMode,BbQ.ChatWidgets.Reporting.ReportMode)
+  name.vb: <>(ReportMode, ReportMode)
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.operator !=(BbQ.ChatWidgets.Reporting.ReportMode?, BbQ.ChatWidgets.Reporting.ReportMode?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportMode.<>(BbQ.ChatWidgets.Reporting.ReportMode, BbQ.ChatWidgets.Reporting.ReportMode)
+  nameWithType: ReportMode.operator !=(ReportMode?, ReportMode?)
+  nameWithType.vb: ReportMode.<>(ReportMode, ReportMode)
+- uid: BbQ.ChatWidgets.Reporting.ReportMode.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Reporting.ReportMode.html#BbQ_ChatWidgets_Reporting_ReportMode_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportMode.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Reporting.ReportMode.operator !=
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportMode.<>
+  nameWithType: ReportMode.operator !=
+  nameWithType.vb: ReportMode.<>
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement
+  name: ReportPlacement
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ReportPlacement
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement
+  nameWithType: ReportPlacement
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.#ctor(System.String)
+  name: ReportPlacement(string)
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement__ctor_System_String_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportPlacement.#ctor(System.String)
+  name.vb: New(String)
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.ReportPlacement(string)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportPlacement.New(String)
+  nameWithType: ReportPlacement.ReportPlacement(string)
+  nameWithType.vb: ReportPlacement.New(String)
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.#ctor*
+  name: ReportPlacement
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportPlacement.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.ReportPlacement
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportPlacement.New
+  nameWithType: ReportPlacement.ReportPlacement
+  nameWithType.vb: ReportPlacement.New
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.ColumnSpan
+  name: ColumnSpan
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_ColumnSpan
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportPlacement.ColumnSpan
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.ColumnSpan
+  nameWithType: ReportPlacement.ColumnSpan
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.ColumnSpan*
+  name: ColumnSpan
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_ColumnSpan_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportPlacement.ColumnSpan
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.ColumnSpan
+  nameWithType: ReportPlacement.ColumnSpan
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.Deconstruct(System.String@)
+  name: Deconstruct(out string)
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_Deconstruct_System_String__
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportPlacement.Deconstruct(System.String@)
+  name.vb: Deconstruct(String)
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.Deconstruct(out string)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportPlacement.Deconstruct(String)
+  nameWithType: ReportPlacement.Deconstruct(out string)
+  nameWithType.vb: ReportPlacement.Deconstruct(String)
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportPlacement.Deconstruct
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.Deconstruct
+  nameWithType: ReportPlacement.Deconstruct
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.DefaultVariantId
+  name: DefaultVariantId
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_DefaultVariantId
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportPlacement.DefaultVariantId
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.DefaultVariantId
+  nameWithType: ReportPlacement.DefaultVariantId
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.DefaultVariantId*
+  name: DefaultVariantId
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_DefaultVariantId_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportPlacement.DefaultVariantId
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.DefaultVariantId
+  nameWithType: ReportPlacement.DefaultVariantId
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.Equals(BbQ.ChatWidgets.Reporting.ReportPlacement)
+  name: Equals(ReportPlacement?)
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_Equals_BbQ_ChatWidgets_Reporting_ReportPlacement_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportPlacement.Equals(BbQ.ChatWidgets.Reporting.ReportPlacement)
+  name.vb: Equals(ReportPlacement)
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.Equals(BbQ.ChatWidgets.Reporting.ReportPlacement?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportPlacement.Equals(BbQ.ChatWidgets.Reporting.ReportPlacement)
+  nameWithType: ReportPlacement.Equals(ReportPlacement?)
+  nameWithType.vb: ReportPlacement.Equals(ReportPlacement)
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportPlacement.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportPlacement.Equals(Object)
+  nameWithType: ReportPlacement.Equals(object?)
+  nameWithType.vb: ReportPlacement.Equals(Object)
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportPlacement.Equals
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.Equals
+  nameWithType: ReportPlacement.Equals
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportPlacement.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.GetHashCode()
+  nameWithType: ReportPlacement.GetHashCode()
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportPlacement.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.GetHashCode
+  nameWithType: ReportPlacement.GetHashCode
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.Id
+  name: Id
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_Id
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportPlacement.Id
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.Id
+  nameWithType: ReportPlacement.Id
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.Id*
+  name: Id
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_Id_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportPlacement.Id
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.Id
+  nameWithType: ReportPlacement.Id
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.Region
+  name: Region
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_Region
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportPlacement.Region
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.Region
+  nameWithType: ReportPlacement.Region
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.Region*
+  name: Region
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_Region_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportPlacement.Region
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.Region
+  nameWithType: ReportPlacement.Region
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.RowSpan
+  name: RowSpan
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_RowSpan
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportPlacement.RowSpan
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.RowSpan
+  nameWithType: ReportPlacement.RowSpan
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.RowSpan*
+  name: RowSpan
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_RowSpan_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportPlacement.RowSpan
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.RowSpan
+  nameWithType: ReportPlacement.RowSpan
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.TileIds
+  name: TileIds
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_TileIds
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportPlacement.TileIds
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.TileIds
+  nameWithType: ReportPlacement.TileIds
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.TileIds*
+  name: TileIds
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_TileIds_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportPlacement.TileIds
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.TileIds
+  nameWithType: ReportPlacement.TileIds
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_ToString
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportPlacement.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.ToString()
+  nameWithType: ReportPlacement.ToString()
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportPlacement.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.ToString
+  nameWithType: ReportPlacement.ToString
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.Variants
+  name: Variants
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_Variants
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportPlacement.Variants
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.Variants
+  nameWithType: ReportPlacement.Variants
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.Variants*
+  name: Variants
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_Variants_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportPlacement.Variants
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.Variants
+  nameWithType: ReportPlacement.Variants
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.op_Equality(BbQ.ChatWidgets.Reporting.ReportPlacement,BbQ.ChatWidgets.Reporting.ReportPlacement)
+  name: operator ==(ReportPlacement?, ReportPlacement?)
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_op_Equality_BbQ_ChatWidgets_Reporting_ReportPlacement_BbQ_ChatWidgets_Reporting_ReportPlacement_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportPlacement.op_Equality(BbQ.ChatWidgets.Reporting.ReportPlacement,BbQ.ChatWidgets.Reporting.ReportPlacement)
+  name.vb: =(ReportPlacement, ReportPlacement)
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.operator ==(BbQ.ChatWidgets.Reporting.ReportPlacement?, BbQ.ChatWidgets.Reporting.ReportPlacement?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportPlacement.=(BbQ.ChatWidgets.Reporting.ReportPlacement, BbQ.ChatWidgets.Reporting.ReportPlacement)
+  nameWithType: ReportPlacement.operator ==(ReportPlacement?, ReportPlacement?)
+  nameWithType.vb: ReportPlacement.=(ReportPlacement, ReportPlacement)
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportPlacement.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.operator ==
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportPlacement.=
+  nameWithType: ReportPlacement.operator ==
+  nameWithType.vb: ReportPlacement.=
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.op_Inequality(BbQ.ChatWidgets.Reporting.ReportPlacement,BbQ.ChatWidgets.Reporting.ReportPlacement)
+  name: operator !=(ReportPlacement?, ReportPlacement?)
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_op_Inequality_BbQ_ChatWidgets_Reporting_ReportPlacement_BbQ_ChatWidgets_Reporting_ReportPlacement_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportPlacement.op_Inequality(BbQ.ChatWidgets.Reporting.ReportPlacement,BbQ.ChatWidgets.Reporting.ReportPlacement)
+  name.vb: <>(ReportPlacement, ReportPlacement)
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.operator !=(BbQ.ChatWidgets.Reporting.ReportPlacement?, BbQ.ChatWidgets.Reporting.ReportPlacement?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportPlacement.<>(BbQ.ChatWidgets.Reporting.ReportPlacement, BbQ.ChatWidgets.Reporting.ReportPlacement)
+  nameWithType: ReportPlacement.operator !=(ReportPlacement?, ReportPlacement?)
+  nameWithType.vb: ReportPlacement.<>(ReportPlacement, ReportPlacement)
+- uid: BbQ.ChatWidgets.Reporting.ReportPlacement.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Reporting.ReportPlacement.html#BbQ_ChatWidgets_Reporting_ReportPlacement_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportPlacement.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Reporting.ReportPlacement.operator !=
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportPlacement.<>
+  nameWithType: ReportPlacement.operator !=
+  nameWithType.vb: ReportPlacement.<>
 - uid: BbQ.ChatWidgets.Reporting.ReportQuery
   name: ReportQuery
   href: BbQ.ChatWidgets.Reporting.ReportQuery.html
@@ -15348,6 +16227,18 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Reporting.ReportTile.GetHashCode
   fullName: BbQ.ChatWidgets.Reporting.ReportTile.GetHashCode
   nameWithType: ReportTile.GetHashCode
+- uid: BbQ.ChatWidgets.Reporting.ReportTile.Id
+  name: Id
+  href: BbQ.ChatWidgets.Reporting.ReportTile.html#BbQ_ChatWidgets_Reporting_ReportTile_Id
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportTile.Id
+  fullName: BbQ.ChatWidgets.Reporting.ReportTile.Id
+  nameWithType: ReportTile.Id
+- uid: BbQ.ChatWidgets.Reporting.ReportTile.Id*
+  name: Id
+  href: BbQ.ChatWidgets.Reporting.ReportTile.html#BbQ_ChatWidgets_Reporting_ReportTile_Id_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportTile.Id
+  fullName: BbQ.ChatWidgets.Reporting.ReportTile.Id
+  nameWithType: ReportTile.Id
 - uid: BbQ.ChatWidgets.Reporting.ReportTile.InputBinding
   name: InputBinding
   href: BbQ.ChatWidgets.Reporting.ReportTile.html#BbQ_ChatWidgets_Reporting_ReportTile_InputBinding
@@ -15384,6 +16275,18 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Reporting.ReportTile.Query
   fullName: BbQ.ChatWidgets.Reporting.ReportTile.Query
   nameWithType: ReportTile.Query
+- uid: BbQ.ChatWidgets.Reporting.ReportTile.Renderer
+  name: Renderer
+  href: BbQ.ChatWidgets.Reporting.ReportTile.html#BbQ_ChatWidgets_Reporting_ReportTile_Renderer
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportTile.Renderer
+  fullName: BbQ.ChatWidgets.Reporting.ReportTile.Renderer
+  nameWithType: ReportTile.Renderer
+- uid: BbQ.ChatWidgets.Reporting.ReportTile.Renderer*
+  name: Renderer
+  href: BbQ.ChatWidgets.Reporting.ReportTile.html#BbQ_ChatWidgets_Reporting_ReportTile_Renderer_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportTile.Renderer
+  fullName: BbQ.ChatWidgets.Reporting.ReportTile.Renderer
+  nameWithType: ReportTile.Renderer
 - uid: BbQ.ChatWidgets.Reporting.ReportTile.Title
   name: Title
   href: BbQ.ChatWidgets.Reporting.ReportTile.html#BbQ_ChatWidgets_Reporting_ReportTile_Title
@@ -15456,6 +16359,165 @@ references:
   fullName.vb: BbQ.ChatWidgets.Reporting.ReportTile.<>
   nameWithType: ReportTile.operator !=
   nameWithType.vb: ReportTile.<>
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant
+  name: ReportVariant
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ReportVariant
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant
+  nameWithType: ReportVariant
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.#ctor(System.String,System.String,System.String[])
+  name: ReportVariant(string, string, string[])
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant__ctor_System_String_System_String_System_String___
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportVariant.#ctor(System.String,System.String,System.String[])
+  name.vb: New(String, String, String())
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.ReportVariant(string, string, string[])
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportVariant.New(String, String, String())
+  nameWithType: ReportVariant.ReportVariant(string, string, string[])
+  nameWithType.vb: ReportVariant.New(String, String, String())
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.#ctor*
+  name: ReportVariant
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportVariant.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.ReportVariant
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportVariant.New
+  nameWithType: ReportVariant.ReportVariant
+  nameWithType.vb: ReportVariant.New
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.Deconstruct(System.String@,System.String@,System.String[]@)
+  name: Deconstruct(out string, out string, out string[])
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_Deconstruct_System_String__System_String__System_String____
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportVariant.Deconstruct(System.String@,System.String@,System.String[]@)
+  name.vb: Deconstruct(String, String, String())
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.Deconstruct(out string, out string, out string[])
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportVariant.Deconstruct(String, String, String())
+  nameWithType: ReportVariant.Deconstruct(out string, out string, out string[])
+  nameWithType.vb: ReportVariant.Deconstruct(String, String, String())
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportVariant.Deconstruct
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.Deconstruct
+  nameWithType: ReportVariant.Deconstruct
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.Equals(BbQ.ChatWidgets.Reporting.ReportVariant)
+  name: Equals(ReportVariant?)
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_Equals_BbQ_ChatWidgets_Reporting_ReportVariant_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportVariant.Equals(BbQ.ChatWidgets.Reporting.ReportVariant)
+  name.vb: Equals(ReportVariant)
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.Equals(BbQ.ChatWidgets.Reporting.ReportVariant?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportVariant.Equals(BbQ.ChatWidgets.Reporting.ReportVariant)
+  nameWithType: ReportVariant.Equals(ReportVariant?)
+  nameWithType.vb: ReportVariant.Equals(ReportVariant)
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportVariant.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportVariant.Equals(Object)
+  nameWithType: ReportVariant.Equals(object?)
+  nameWithType.vb: ReportVariant.Equals(Object)
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportVariant.Equals
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.Equals
+  nameWithType: ReportVariant.Equals
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportVariant.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.GetHashCode()
+  nameWithType: ReportVariant.GetHashCode()
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportVariant.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.GetHashCode
+  nameWithType: ReportVariant.GetHashCode
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.Id
+  name: Id
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_Id
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportVariant.Id
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.Id
+  nameWithType: ReportVariant.Id
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.Id*
+  name: Id
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_Id_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportVariant.Id
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.Id
+  nameWithType: ReportVariant.Id
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.Label
+  name: Label
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_Label
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportVariant.Label
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.Label
+  nameWithType: ReportVariant.Label
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.Label*
+  name: Label
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_Label_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportVariant.Label
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.Label
+  nameWithType: ReportVariant.Label
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.TileIds
+  name: TileIds
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_TileIds
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportVariant.TileIds
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.TileIds
+  nameWithType: ReportVariant.TileIds
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.TileIds*
+  name: TileIds
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_TileIds_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportVariant.TileIds
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.TileIds
+  nameWithType: ReportVariant.TileIds
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_ToString
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportVariant.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.ToString()
+  nameWithType: ReportVariant.ToString()
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportVariant.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.ToString
+  nameWithType: ReportVariant.ToString
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.op_Equality(BbQ.ChatWidgets.Reporting.ReportVariant,BbQ.ChatWidgets.Reporting.ReportVariant)
+  name: operator ==(ReportVariant?, ReportVariant?)
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_op_Equality_BbQ_ChatWidgets_Reporting_ReportVariant_BbQ_ChatWidgets_Reporting_ReportVariant_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportVariant.op_Equality(BbQ.ChatWidgets.Reporting.ReportVariant,BbQ.ChatWidgets.Reporting.ReportVariant)
+  name.vb: =(ReportVariant, ReportVariant)
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.operator ==(BbQ.ChatWidgets.Reporting.ReportVariant?, BbQ.ChatWidgets.Reporting.ReportVariant?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportVariant.=(BbQ.ChatWidgets.Reporting.ReportVariant, BbQ.ChatWidgets.Reporting.ReportVariant)
+  nameWithType: ReportVariant.operator ==(ReportVariant?, ReportVariant?)
+  nameWithType.vb: ReportVariant.=(ReportVariant, ReportVariant)
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportVariant.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.operator ==
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportVariant.=
+  nameWithType: ReportVariant.operator ==
+  nameWithType.vb: ReportVariant.=
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.op_Inequality(BbQ.ChatWidgets.Reporting.ReportVariant,BbQ.ChatWidgets.Reporting.ReportVariant)
+  name: operator !=(ReportVariant?, ReportVariant?)
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_op_Inequality_BbQ_ChatWidgets_Reporting_ReportVariant_BbQ_ChatWidgets_Reporting_ReportVariant_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportVariant.op_Inequality(BbQ.ChatWidgets.Reporting.ReportVariant,BbQ.ChatWidgets.Reporting.ReportVariant)
+  name.vb: <>(ReportVariant, ReportVariant)
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.operator !=(BbQ.ChatWidgets.Reporting.ReportVariant?, BbQ.ChatWidgets.Reporting.ReportVariant?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportVariant.<>(BbQ.ChatWidgets.Reporting.ReportVariant, BbQ.ChatWidgets.Reporting.ReportVariant)
+  nameWithType: ReportVariant.operator !=(ReportVariant?, ReportVariant?)
+  nameWithType.vb: ReportVariant.<>(ReportVariant, ReportVariant)
+- uid: BbQ.ChatWidgets.Reporting.ReportVariant.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Reporting.ReportVariant.html#BbQ_ChatWidgets_Reporting_ReportVariant_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportVariant.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Reporting.ReportVariant.operator !=
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportVariant.<>
+  nameWithType: ReportVariant.operator !=
+  nameWithType.vb: ReportVariant.<>
 - uid: BbQ.ChatWidgets.Reporting.ReportingEndpoints
   name: ReportingEndpoints
   href: BbQ.ChatWidgets.Reporting.ReportingEndpoints.html
@@ -15513,6 +16575,27 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.WorkspaceInputs
   fullName: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.WorkspaceInputs
   nameWithType: ReportingFilterCatalog.WorkspaceInputs
+- uid: BbQ.ChatWidgets.Reporting.ReportingLayouts
+  name: ReportingLayouts
+  href: BbQ.ChatWidgets.Reporting.ReportingLayouts.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ReportingLayouts
+  fullName: BbQ.ChatWidgets.Reporting.ReportingLayouts
+  nameWithType: ReportingLayouts
+- uid: BbQ.ChatWidgets.Reporting.ReportingLayouts.Resolve(BbQ.ChatWidgets.Reporting.ReportDefinition,System.String,System.Collections.Generic.IReadOnlyDictionary{System.String,System.String})
+  name: Resolve(ReportDefinition, string?, IReadOnlyDictionary<string, string>?)
+  href: BbQ.ChatWidgets.Reporting.ReportingLayouts.html#BbQ_ChatWidgets_Reporting_ReportingLayouts_Resolve_BbQ_ChatWidgets_Reporting_ReportDefinition_System_String_System_Collections_Generic_IReadOnlyDictionary_System_String_System_String__
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportingLayouts.Resolve(BbQ.ChatWidgets.Reporting.ReportDefinition,System.String,System.Collections.Generic.IReadOnlyDictionary{System.String,System.String})
+  name.vb: Resolve(ReportDefinition, String, IReadOnlyDictionary(Of String, String))
+  fullName: BbQ.ChatWidgets.Reporting.ReportingLayouts.Resolve(BbQ.ChatWidgets.Reporting.ReportDefinition, string?, System.Collections.Generic.IReadOnlyDictionary<string, string>?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportingLayouts.Resolve(BbQ.ChatWidgets.Reporting.ReportDefinition, String, System.Collections.Generic.IReadOnlyDictionary(Of String, String))
+  nameWithType: ReportingLayouts.Resolve(ReportDefinition, string?, IReadOnlyDictionary<string, string>?)
+  nameWithType.vb: ReportingLayouts.Resolve(ReportDefinition, String, IReadOnlyDictionary(Of String, String))
+- uid: BbQ.ChatWidgets.Reporting.ReportingLayouts.Resolve*
+  name: Resolve
+  href: BbQ.ChatWidgets.Reporting.ReportingLayouts.html#BbQ_ChatWidgets_Reporting_ReportingLayouts_Resolve_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportingLayouts.Resolve
+  fullName: BbQ.ChatWidgets.Reporting.ReportingLayouts.Resolve
+  nameWithType: ReportingLayouts.Resolve
 - uid: BbQ.ChatWidgets.Reporting.ReportingServiceCollectionExtensions
   name: ReportingServiceCollectionExtensions
   href: BbQ.ChatWidgets.Reporting.ReportingServiceCollectionExtensions.html
@@ -15534,6 +16617,312 @@ references:
   fullName.vb: BbQ.ChatWidgets.Reporting.ReportingServiceCollectionExtensions.AddBbQReporting(Of TSource, TStore)(Microsoft.Extensions.DependencyInjection.IServiceCollection)
   nameWithType: ReportingServiceCollectionExtensions.AddBbQReporting<TSource, TStore>(IServiceCollection)
   nameWithType.vb: ReportingServiceCollectionExtensions.AddBbQReporting(Of TSource, TStore)(IServiceCollection)
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout
+  name: ResolvedReportLayout
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ResolvedReportLayout
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout
+  nameWithType: ResolvedReportLayout
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.#ctor(BbQ.ChatWidgets.Reporting.ReportMode,BbQ.ChatWidgets.Reporting.ResolvedReportPlacement[])
+  name: ResolvedReportLayout(ReportMode, ResolvedReportPlacement[])
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout__ctor_BbQ_ChatWidgets_Reporting_ReportMode_BbQ_ChatWidgets_Reporting_ResolvedReportPlacement___
+  commentId: M:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.#ctor(BbQ.ChatWidgets.Reporting.ReportMode,BbQ.ChatWidgets.Reporting.ResolvedReportPlacement[])
+  name.vb: New(ReportMode, ResolvedReportPlacement())
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.ResolvedReportLayout(BbQ.ChatWidgets.Reporting.ReportMode, BbQ.ChatWidgets.Reporting.ResolvedReportPlacement[])
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.New(BbQ.ChatWidgets.Reporting.ReportMode, BbQ.ChatWidgets.Reporting.ResolvedReportPlacement())
+  nameWithType: ResolvedReportLayout.ResolvedReportLayout(ReportMode, ResolvedReportPlacement[])
+  nameWithType.vb: ResolvedReportLayout.New(ReportMode, ResolvedReportPlacement())
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.#ctor*
+  name: ResolvedReportLayout
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.ResolvedReportLayout
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.New
+  nameWithType: ResolvedReportLayout.ResolvedReportLayout
+  nameWithType.vb: ResolvedReportLayout.New
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Deconstruct(BbQ.ChatWidgets.Reporting.ReportMode@,BbQ.ChatWidgets.Reporting.ResolvedReportPlacement[]@)
+  name: Deconstruct(out ReportMode, out ResolvedReportPlacement[])
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout_Deconstruct_BbQ_ChatWidgets_Reporting_ReportMode__BbQ_ChatWidgets_Reporting_ResolvedReportPlacement____
+  commentId: M:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Deconstruct(BbQ.ChatWidgets.Reporting.ReportMode@,BbQ.ChatWidgets.Reporting.ResolvedReportPlacement[]@)
+  name.vb: Deconstruct(ReportMode, ResolvedReportPlacement())
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Deconstruct(out BbQ.ChatWidgets.Reporting.ReportMode, out BbQ.ChatWidgets.Reporting.ResolvedReportPlacement[])
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Deconstruct(BbQ.ChatWidgets.Reporting.ReportMode, BbQ.ChatWidgets.Reporting.ResolvedReportPlacement())
+  nameWithType: ResolvedReportLayout.Deconstruct(out ReportMode, out ResolvedReportPlacement[])
+  nameWithType.vb: ResolvedReportLayout.Deconstruct(ReportMode, ResolvedReportPlacement())
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Deconstruct
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Deconstruct
+  nameWithType: ResolvedReportLayout.Deconstruct
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Equals(BbQ.ChatWidgets.Reporting.ResolvedReportLayout)
+  name: Equals(ResolvedReportLayout?)
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout_Equals_BbQ_ChatWidgets_Reporting_ResolvedReportLayout_
+  commentId: M:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Equals(BbQ.ChatWidgets.Reporting.ResolvedReportLayout)
+  name.vb: Equals(ResolvedReportLayout)
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Equals(BbQ.ChatWidgets.Reporting.ResolvedReportLayout?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Equals(BbQ.ChatWidgets.Reporting.ResolvedReportLayout)
+  nameWithType: ResolvedReportLayout.Equals(ResolvedReportLayout?)
+  nameWithType.vb: ResolvedReportLayout.Equals(ResolvedReportLayout)
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Equals(Object)
+  nameWithType: ResolvedReportLayout.Equals(object?)
+  nameWithType.vb: ResolvedReportLayout.Equals(Object)
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Equals
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Equals
+  nameWithType: ResolvedReportLayout.Equals
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.GetHashCode()
+  nameWithType: ResolvedReportLayout.GetHashCode()
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.GetHashCode
+  nameWithType: ResolvedReportLayout.GetHashCode
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Mode
+  name: Mode
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout_Mode
+  commentId: P:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Mode
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Mode
+  nameWithType: ResolvedReportLayout.Mode
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Mode*
+  name: Mode
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout_Mode_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Mode
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Mode
+  nameWithType: ResolvedReportLayout.Mode
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Placements
+  name: Placements
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout_Placements
+  commentId: P:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Placements
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Placements
+  nameWithType: ResolvedReportLayout.Placements
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Placements*
+  name: Placements
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout_Placements_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Placements
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.Placements
+  nameWithType: ResolvedReportLayout.Placements
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout_ToString
+  commentId: M:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.ToString()
+  nameWithType: ResolvedReportLayout.ToString()
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.ToString
+  nameWithType: ResolvedReportLayout.ToString
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.op_Equality(BbQ.ChatWidgets.Reporting.ResolvedReportLayout,BbQ.ChatWidgets.Reporting.ResolvedReportLayout)
+  name: operator ==(ResolvedReportLayout?, ResolvedReportLayout?)
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout_op_Equality_BbQ_ChatWidgets_Reporting_ResolvedReportLayout_BbQ_ChatWidgets_Reporting_ResolvedReportLayout_
+  commentId: M:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.op_Equality(BbQ.ChatWidgets.Reporting.ResolvedReportLayout,BbQ.ChatWidgets.Reporting.ResolvedReportLayout)
+  name.vb: =(ResolvedReportLayout, ResolvedReportLayout)
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.operator ==(BbQ.ChatWidgets.Reporting.ResolvedReportLayout?, BbQ.ChatWidgets.Reporting.ResolvedReportLayout?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.=(BbQ.ChatWidgets.Reporting.ResolvedReportLayout, BbQ.ChatWidgets.Reporting.ResolvedReportLayout)
+  nameWithType: ResolvedReportLayout.operator ==(ResolvedReportLayout?, ResolvedReportLayout?)
+  nameWithType.vb: ResolvedReportLayout.=(ResolvedReportLayout, ResolvedReportLayout)
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.operator ==
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.=
+  nameWithType: ResolvedReportLayout.operator ==
+  nameWithType.vb: ResolvedReportLayout.=
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.op_Inequality(BbQ.ChatWidgets.Reporting.ResolvedReportLayout,BbQ.ChatWidgets.Reporting.ResolvedReportLayout)
+  name: operator !=(ResolvedReportLayout?, ResolvedReportLayout?)
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout_op_Inequality_BbQ_ChatWidgets_Reporting_ResolvedReportLayout_BbQ_ChatWidgets_Reporting_ResolvedReportLayout_
+  commentId: M:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.op_Inequality(BbQ.ChatWidgets.Reporting.ResolvedReportLayout,BbQ.ChatWidgets.Reporting.ResolvedReportLayout)
+  name.vb: <>(ResolvedReportLayout, ResolvedReportLayout)
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.operator !=(BbQ.ChatWidgets.Reporting.ResolvedReportLayout?, BbQ.ChatWidgets.Reporting.ResolvedReportLayout?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.<>(BbQ.ChatWidgets.Reporting.ResolvedReportLayout, BbQ.ChatWidgets.Reporting.ResolvedReportLayout)
+  nameWithType: ResolvedReportLayout.operator !=(ResolvedReportLayout?, ResolvedReportLayout?)
+  nameWithType.vb: ResolvedReportLayout.<>(ResolvedReportLayout, ResolvedReportLayout)
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html#BbQ_ChatWidgets_Reporting_ResolvedReportLayout_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportLayout.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.operator !=
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportLayout.<>
+  nameWithType: ResolvedReportLayout.operator !=
+  nameWithType.vb: ResolvedReportLayout.<>
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement
+  name: ResolvedReportPlacement
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement
+  nameWithType: ResolvedReportPlacement
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.#ctor(BbQ.ChatWidgets.Reporting.ReportPlacement,System.Int32[],System.String)
+  name: ResolvedReportPlacement(ReportPlacement, int[], string?)
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement__ctor_BbQ_ChatWidgets_Reporting_ReportPlacement_System_Int32___System_String_
+  commentId: M:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.#ctor(BbQ.ChatWidgets.Reporting.ReportPlacement,System.Int32[],System.String)
+  name.vb: New(ReportPlacement, Integer(), String)
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.ResolvedReportPlacement(BbQ.ChatWidgets.Reporting.ReportPlacement, int[], string?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.New(BbQ.ChatWidgets.Reporting.ReportPlacement, Integer(), String)
+  nameWithType: ResolvedReportPlacement.ResolvedReportPlacement(ReportPlacement, int[], string?)
+  nameWithType.vb: ResolvedReportPlacement.New(ReportPlacement, Integer(), String)
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.#ctor*
+  name: ResolvedReportPlacement
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.ResolvedReportPlacement
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.New
+  nameWithType: ResolvedReportPlacement.ResolvedReportPlacement
+  nameWithType.vb: ResolvedReportPlacement.New
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Deconstruct(BbQ.ChatWidgets.Reporting.ReportPlacement@,System.Int32[]@,System.String@)
+  name: Deconstruct(out ReportPlacement, out int[], out string?)
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_Deconstruct_BbQ_ChatWidgets_Reporting_ReportPlacement__System_Int32____System_String__
+  commentId: M:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Deconstruct(BbQ.ChatWidgets.Reporting.ReportPlacement@,System.Int32[]@,System.String@)
+  name.vb: Deconstruct(ReportPlacement, Integer(), String)
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Deconstruct(out BbQ.ChatWidgets.Reporting.ReportPlacement, out int[], out string?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Deconstruct(BbQ.ChatWidgets.Reporting.ReportPlacement, Integer(), String)
+  nameWithType: ResolvedReportPlacement.Deconstruct(out ReportPlacement, out int[], out string?)
+  nameWithType.vb: ResolvedReportPlacement.Deconstruct(ReportPlacement, Integer(), String)
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Deconstruct
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Deconstruct
+  nameWithType: ResolvedReportPlacement.Deconstruct
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Equals(BbQ.ChatWidgets.Reporting.ResolvedReportPlacement)
+  name: Equals(ResolvedReportPlacement?)
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_Equals_BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_
+  commentId: M:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Equals(BbQ.ChatWidgets.Reporting.ResolvedReportPlacement)
+  name.vb: Equals(ResolvedReportPlacement)
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Equals(BbQ.ChatWidgets.Reporting.ResolvedReportPlacement?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Equals(BbQ.ChatWidgets.Reporting.ResolvedReportPlacement)
+  nameWithType: ResolvedReportPlacement.Equals(ResolvedReportPlacement?)
+  nameWithType.vb: ResolvedReportPlacement.Equals(ResolvedReportPlacement)
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Equals(Object)
+  nameWithType: ResolvedReportPlacement.Equals(object?)
+  nameWithType.vb: ResolvedReportPlacement.Equals(Object)
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Equals
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Equals
+  nameWithType: ResolvedReportPlacement.Equals
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.GetHashCode()
+  nameWithType: ResolvedReportPlacement.GetHashCode()
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.GetHashCode
+  nameWithType: ResolvedReportPlacement.GetHashCode
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Placement
+  name: Placement
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_Placement
+  commentId: P:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Placement
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Placement
+  nameWithType: ResolvedReportPlacement.Placement
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Placement*
+  name: Placement
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_Placement_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Placement
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.Placement
+  nameWithType: ResolvedReportPlacement.Placement
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.TileIndices
+  name: TileIndices
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_TileIndices
+  commentId: P:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.TileIndices
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.TileIndices
+  nameWithType: ResolvedReportPlacement.TileIndices
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.TileIndices*
+  name: TileIndices
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_TileIndices_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.TileIndices
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.TileIndices
+  nameWithType: ResolvedReportPlacement.TileIndices
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_ToString
+  commentId: M:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.ToString()
+  nameWithType: ResolvedReportPlacement.ToString()
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.ToString
+  nameWithType: ResolvedReportPlacement.ToString
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.VariantId
+  name: VariantId
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_VariantId
+  commentId: P:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.VariantId
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.VariantId
+  nameWithType: ResolvedReportPlacement.VariantId
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.VariantId*
+  name: VariantId
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_VariantId_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.VariantId
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.VariantId
+  nameWithType: ResolvedReportPlacement.VariantId
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.op_Equality(BbQ.ChatWidgets.Reporting.ResolvedReportPlacement,BbQ.ChatWidgets.Reporting.ResolvedReportPlacement)
+  name: operator ==(ResolvedReportPlacement?, ResolvedReportPlacement?)
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_op_Equality_BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_
+  commentId: M:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.op_Equality(BbQ.ChatWidgets.Reporting.ResolvedReportPlacement,BbQ.ChatWidgets.Reporting.ResolvedReportPlacement)
+  name.vb: =(ResolvedReportPlacement, ResolvedReportPlacement)
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.operator ==(BbQ.ChatWidgets.Reporting.ResolvedReportPlacement?, BbQ.ChatWidgets.Reporting.ResolvedReportPlacement?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.=(BbQ.ChatWidgets.Reporting.ResolvedReportPlacement, BbQ.ChatWidgets.Reporting.ResolvedReportPlacement)
+  nameWithType: ResolvedReportPlacement.operator ==(ResolvedReportPlacement?, ResolvedReportPlacement?)
+  nameWithType.vb: ResolvedReportPlacement.=(ResolvedReportPlacement, ResolvedReportPlacement)
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.operator ==
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.=
+  nameWithType: ResolvedReportPlacement.operator ==
+  nameWithType.vb: ResolvedReportPlacement.=
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.op_Inequality(BbQ.ChatWidgets.Reporting.ResolvedReportPlacement,BbQ.ChatWidgets.Reporting.ResolvedReportPlacement)
+  name: operator !=(ResolvedReportPlacement?, ResolvedReportPlacement?)
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_op_Inequality_BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_
+  commentId: M:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.op_Inequality(BbQ.ChatWidgets.Reporting.ResolvedReportPlacement,BbQ.ChatWidgets.Reporting.ResolvedReportPlacement)
+  name.vb: <>(ResolvedReportPlacement, ResolvedReportPlacement)
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.operator !=(BbQ.ChatWidgets.Reporting.ResolvedReportPlacement?, BbQ.ChatWidgets.Reporting.ResolvedReportPlacement?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.<>(BbQ.ChatWidgets.Reporting.ResolvedReportPlacement, BbQ.ChatWidgets.Reporting.ResolvedReportPlacement)
+  nameWithType: ResolvedReportPlacement.operator !=(ResolvedReportPlacement?, ResolvedReportPlacement?)
+  nameWithType.vb: ResolvedReportPlacement.<>(ResolvedReportPlacement, ResolvedReportPlacement)
+- uid: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html#BbQ_ChatWidgets_Reporting_ResolvedReportPlacement_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.operator !=
+  fullName.vb: BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.<>
+  nameWithType: ResolvedReportPlacement.operator !=
+  nameWithType.vb: ResolvedReportPlacement.<>
 - uid: BbQ.ChatWidgets.Reporting.SavedReport
   name: SavedReport
   href: BbQ.ChatWidgets.Reporting.SavedReport.html

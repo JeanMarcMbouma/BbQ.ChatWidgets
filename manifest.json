@@ -1306,6 +1306,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ReportingColor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ReportingColor.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ReportingColor",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ReportingColor.yml\" sourcestartlinenumber=\"1\">A color keyed by series field or category value.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Models.ReportingColumn.yml",
       "output": {
         ".html": {
@@ -1387,6 +1401,20 @@
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Models.ReportingWidget",
       "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ReportingWidget.yml\" sourcestartlinenumber=\"1\">Authors a reporting tile or a dashboard of nested reporting widgets.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ReportingWidgetPlacement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ReportingWidgetPlacement.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ReportingWidgetPlacement",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ReportingWidgetPlacement.yml\" sourcestartlinenumber=\"1\">Placement indices resolved against the snapshot's child widgets.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -2188,6 +2216,48 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportLayout.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportLayout.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportLayout",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportLayout.yml\" sourcestartlinenumber=\"1\">Ordered display modes and their initial selection.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportMode.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportMode",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportMode.yml\" sourcestartlinenumber=\"1\">A named arrangement of reporting tiles.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportPlacement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportPlacement.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportPlacement",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportPlacement.yml\" sourcestartlinenumber=\"1\">A card containing one or more tiles, optionally with selectable alternatives.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportQuery.yml",
       "output": {
         ".html": {
@@ -2244,6 +2314,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportVariant.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportVariant.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportVariant",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportVariant.yml\" sourcestartlinenumber=\"1\">A named alternative set of tiles for the same card.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportingEndpoints.yml",
       "output": {
         ".html": {
@@ -2272,6 +2356,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportingLayouts.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportingLayouts.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportingLayouts",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportingLayouts.yml\" sourcestartlinenumber=\"1\">Resolves the visible tiles of an authored report layout.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportingServiceCollectionExtensions.yml",
       "output": {
         ".html": {
@@ -2283,6 +2381,34 @@
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Reporting.ReportingServiceCollectionExtensions",
       "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportingServiceCollectionExtensions.yml\" sourcestartlinenumber=\"1\">Registers reporting providers independently of the chat services.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ResolvedReportLayout.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ResolvedReportLayout.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ResolvedReportLayout",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ResolvedReportLayout.yml\" sourcestartlinenumber=\"1\">The selected display mode and its resolved placements.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ResolvedReportPlacement",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ResolvedReportPlacement.yml\" sourcestartlinenumber=\"1\">A resolved placement and its positions in the source definition.</p>\n"
     },
     {
       "type": "ManagedReference",

@@ -11,11 +11,12 @@ Build on .NET, TypeScript, React, Angular or Blazor. Keep your application logic
 
 This repository contains these packages:
 
-- NuGet: `BbQ.ChatWidgets` (the .NET library: services, renderers, endpoints)
+- NuGet: [`BbQ.ChatWidgets`](BbQ.ChatWidgets/README.md) for ASP.NET Core services, renderers and endpoints
 - npm: `@bbq-chat/widgets` (the JavaScript/TypeScript client library: widgets, client helpers)
 - npm: `@bbq-chat/widgets-angular` (Angular-native components and services)
 - npm: `@bbq-chat/widgets-react` (React-native components, forms and streaming; [usage and Angular feature parity](js-react/README.md))
-- NuGet: `BbQ.ChatWidgets.Blazor` (Blazor widget components)
+- NuGet: [`BbQ.ChatWidgets.Blazor`](BbQ.ChatWidgets.Blazor/README.md) for Blazor components and reporting workspaces
+- NuGet: [`BbQ.LlamaCpp`](BbQ.LlamaCpp/README.md) for verified local llama.cpp installation and startup
 
 > Note: the .NET package no longer bundles the JavaScript client or theme CSS. Install the npm package (or bring your own UI) to render widgets in a browser.
 

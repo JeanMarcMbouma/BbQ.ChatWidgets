@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace BbQ.ChatWidgets.Models;
 
@@ -10,7 +11,12 @@ public sealed record ReportingSettings(
     string? XField = null,
     string? DateField = null,
     string? GroupBy = null,
-    IReadOnlyList<ReportingColumn>? Columns = null);
+    IReadOnlyList<ReportingColumn>? Columns = null)
+{
+    /// <summary>Optional native chart presentation settings.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ReportingPresentation? Presentation { get; init; }
+}
 
 /// <summary>A named reporting field with optional grid editing.</summary>
 public sealed record ReportingColumn(string Field, string Label, bool Editable = false);

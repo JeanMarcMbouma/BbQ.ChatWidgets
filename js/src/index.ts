@@ -13,7 +13,7 @@ export { WidgetManager } from './renderers/WidgetManager';
 export * from './handlers';
 
 // Version
-export const VERSION = '1.2.0';
+export const VERSION = '1.2.1';
 
 // Clients
 export { WidgetSseManager } from './clients/WidgetSseManager';
@@ -21,3 +21,6 @@ export * from './clients/WidgetStreamReducer';
 export * from './reporting/api';
 export * from './reporting/compose';
 export * from './reporting/paging';
+export * from './reporting/inputs';
+export * from './reporting/filters';
+export * from './reporting/presentation';

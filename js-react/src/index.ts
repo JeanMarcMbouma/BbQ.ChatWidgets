@@ -6,4 +6,4 @@ export * from "./stream.js";
 export * from "./ReportingWorkspace.js";
 export * from "./PagedReportingGrid.js";
 export * from "@bbq-chat/widgets";
-export const VERSION = "1.2.0";
+export const VERSION = "1.2.1";

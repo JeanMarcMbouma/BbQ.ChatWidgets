@@ -35,10 +35,11 @@ public static partial class ReportingEndpoints
             WithScope(source, http, async (scope, ct) =>
             {
                 var datasets = await source.GetDatasetsAsync(scope, ct);
-                if (QueryError(query, datasets) is { } error)
+                var (resolved, error) = await ResolveQueryAsync(source, scope, query, datasets, ct);
+                if (error is not null)
                     return Invalid(error);
 
-                var rows = await source.RunAsync(scope, query, RowLimit + 1, ct);
+                var rows = await source.RunAsync(scope, resolved!, RowLimit + 1, ct);
                 return rows.Count > RowLimit
                     ? Results.UnprocessableEntity(new { error = "Too many groups. Narrow the date range or change the grouping." })
                     : Results.Ok(rows);
@@ -51,7 +52,7 @@ public static partial class ReportingEndpoints
             WithScope(source, http, async (scope, ct) =>
             {
                 var datasets = await source.GetDatasetsAsync(scope, ct);
-                if (DefinitionError(definition, datasets) is { } error)
+                if (await DefinitionErrorAsync(source, scope, definition, datasets, ct) is { } error)
                     return Invalid(error);
 
                 return Results.Ok(await store.CreateAsync(scope, definition, ct));
@@ -61,7 +62,7 @@ public static partial class ReportingEndpoints
             IReportingSource source, HttpContext http) => WithScope(source, http, async (scope, ct) =>
             {
                 var datasets = await source.GetDatasetsAsync(scope, ct);
-                if (DefinitionError(definition, datasets) is { } error)
+                if (await DefinitionErrorAsync(source, scope, definition, datasets, ct) is { } error)
                     return Invalid(error);
 
                 return await store.UpdateAsync(scope, id, definition, ct)
@@ -72,6 +73,7 @@ public static partial class ReportingEndpoints
             WithScope(source, http, async (scope, ct) => await store.DeleteAsync(scope, id, ct)
                 ? Results.NoContent() : Results.NotFound()));
 
+        MapReportingInputOptions(group);
         MapReportingGrid(group);
         return group;
     }
@@ -87,23 +89,8 @@ public static partial class ReportingEndpoints
 
     private static IResult Invalid(string error) => Results.BadRequest(new { error });
 
-    private static string? QueryError(ReportQuery? query, IReadOnlyList<ReportDataset> datasets)
-    {
-        if (query is null || query.From == default || query.To == default ||
-            query.To < query.From || query.To.DayNumber - query.From.DayNumber >= 366)
-            return "Choose an inclusive date range of up to 366 days.";
-
-        var dataset = datasets.FirstOrDefault(item => item.Id == query.Dataset);
-        if (dataset is null || !dataset.Metrics.Any(metric => metric.Id == query.Metric))
-            return "Choose an available dataset and metric.";
-
-        if (query.GroupBy is not null && !dataset.Dimensions.Any(dimension => dimension.Id == query.GroupBy))
-            return "Choose an available grouping.";
-
-        return null;
-    }
-
-    private static string? DefinitionError(ReportDefinition definition, IReadOnlyList<ReportDataset> datasets)
+    private static async ValueTask<string?> DefinitionErrorAsync(IReportingSource source, ReportScope scope,
+        ReportDefinition definition, IReadOnlyList<ReportDataset> datasets, CancellationToken ct)
     {
         if (!ValidTitle(definition.Title) || definition.Tiles is null ||
             definition.Kind is not ("report" or "dashboard") ||
@@ -119,8 +106,25 @@ public static partial class ReportingEndpoints
                 (tile.View == "filter" && definition.Kind != "dashboard"))
                 return "Each tile needs a title and a supported presentation.";
 
-            if (QueryError(tile.Query, datasets) is { } error)
+            var (_, error) = await ResolveQueryAsync(source, scope, tile.Query, datasets, ct);
+            if (error is not null)
                 return error;
+
+            var dataset = datasets.First(item => item.Id == tile.Query.Dataset);
+            if (TileBindingsError(tile, dataset) is { } tileError)
+                return tileError;
+        }
+
+        if (definition.Filters is { } filters)
+        {
+            var allowed = ReportingFilterCatalog.AvailableInputs(definition, datasets)
+                .Where(input => input.Role == ReportInputRole.Filter).Select(input => input.Id)
+                .ToHashSet(StringComparer.Ordinal);
+            var seen = new HashSet<string>(StringComparer.Ordinal);
+            if (filters.Length > allowed.Count || filters.Any(filter => filter is null ||
+                !ValidInputId(filter.Input) || !allowed.Contains(filter.Input) || !seen.Add(filter.Input) ||
+                (filter.Label is not null && !ValidTitle(filter.Label))))
+                return "Choose distinct available catalog filters with valid labels.";
         }
 
         return null;

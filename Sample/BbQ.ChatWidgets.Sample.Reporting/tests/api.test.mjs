@@ -41,6 +41,177 @@ test('report runs aggregate only the current tenant and validate the query again
   }
 });
 
+test('typed query inputs are scoped, normalized and validated before report execution', async () => {
+  const run = body => request('/run', { method: 'POST', body });
+  const selected = { ...query, inputs: [{ id: 'scale', value: 100 }, { id: 'pending', value: false }] };
+  const result = await run(selected);
+  assert.equal(result.status, 200);
+  assert.deepEqual(await result.json(), [{ label: 'Complete', value: 0.18 }]);
+
+  for (const inputs of [
+    [{ id: 'tenant', value: 'south' }],
+    [{ id: 'scale', value: '100' }],
+    [{ id: 'scale', value: 1000 }],
+    [{ id: 'scale', value: 0.5 }],
+    [{ id: 'scale', value: 9007199254740992 }],
+    [{ id: 'pending', value: true }, { id: 'pending', value: false }],
+  ]) {
+    assert.equal((await run({ ...query, inputs })).status, 400);
+  }
+
+  const definition = { title: 'Selected order count', kind: 'report', tiles: [{ ...tile, query: selected }] };
+  const created = await request('/saved', { method: 'POST', body: definition });
+  assert.equal(created.status, 200);
+  const saved = await created.json();
+  try {
+    assert.deepEqual(saved.definition, definition);
+    const invalid = { ...definition, tiles: [{ ...tile, query: { ...query, inputs: [{ id: 'region', value: 2 }] } }] };
+    assert.equal((await request('/saved/' + saved.id, { method: 'PUT', body: invalid })).status, 400);
+  } finally {
+    assert.equal((await request('/saved/' + saved.id, { method: 'DELETE' })).status, 204);
+  }
+});
+
+test('dynamic input choices use the current scope and also constrain paged queries', async () => {
+  const body = { dataset: 'fulfilment', input: 'warehouse', from: query.from, to: query.to };
+  const options = account => request('/options', { method: 'POST', account, body });
+  assert.equal((await options(null)).status, 401);
+  const response = await options('demo');
+  assert.equal(response.headers.get('cache-control'), 'no-store');
+  assert.deepEqual((await response.json()).map(option => option.value), ['Bristol', 'Leeds', 'London', 'Manchester']);
+  assert.deepEqual((await (await options('other')).json()).map(option => option.value), ['London', 'Manchester']);
+
+  const selected = { ...query, dataset: 'fulfilment', metric: 'revenue', groupBy: 'paged-order',
+    inputs: [{ id: 'warehouse', value: 'Leeds' }] };
+  const page = account => request('/page', { method: 'POST', account, body: { query: selected, offset: 0, limit: 10 } });
+  assert.equal((await page('other')).status, 400);
+  const result = await page('demo');
+  assert.equal(result.status, 200);
+  const data = await result.json();
+  assert.equal(data.total, 600);
+  assert.ok(data.rows.every(entry => entry.row.fields.warehouse === 'Leeds' && entry.key.startsWith('N-')));
+
+  assert.equal((await request('/options', { method: 'POST', body: { ...body, from: '2026-10-01' } })).status, 400);
+});
+
+test('Order comparison uses one scoped order population across the charts and paged grid', async () => {
+  const response = await request('/catalog');
+  assert.equal(response.status, 200);
+  const catalog = await response.json();
+  const { definition } = catalog.presets.find(item => item.id === 'order-comparison');
+  assert.deepEqual(definition.tiles.map(tile => tile.view),
+    ['metric', 'time-column', 'pie', 'bar', 'scatter', 'histogram', 'grid']);
+  assert.ok(definition.tiles.every(tile => tile.query.dataset === 'fulfilment'));
+  const [metric, daily, statuses, warehouses, scatter, histogram, grid] = definition.tiles;
+  assert.equal(daily.presentation.seriesField, 'stage');
+  assert.equal(daily.presentation.dateAxisLabel, 'Business date');
+  assert.equal(statuses.presentation.pieHole, 0.55);
+  assert.deepEqual(warehouses.inputBinding, { input: 'warehouse', field: 'label' });
+  assert.equal(scatter.presentation.sizeField, 'value');
+  assert.equal(histogram.presentation.binWidth, 4);
+
+  const execute = async (path, body, account = 'demo') => {
+    const result = await request(path, { method: 'POST', account, body });
+    assert.equal(result.status, 200, await result.clone().text());
+    return result.json();
+  };
+  const [total, dateRows, statusRows, warehouseRows, bins, page] = await Promise.all([
+    execute('/run', metric.query), execute('/run', daily.query), execute('/run', statuses.query),
+    execute('/run', warehouses.query), execute('/run', histogram.query),
+    execute('/page', { query: grid.query, offset: 0, limit: 10 }),
+  ]);
+  assert.equal(page.total, 2400);
+  assert.deepEqual(new Set(dateRows.map(row => row.fields.stage)), new Set(['Delivered', 'Open']));
+  for (const rows of [dateRows, statusRows, warehouseRows, bins]) {
+    assert.equal(rows.reduce((sum, row) => sum + row.fields.orderCount, 0), page.total);
+  }
+  assert.equal(warehouseRows.reduce((sum, row) => sum + row.value, 0), total[0].value);
+  assert.deepEqual(bins.map(row => row.fields.binStart), [1, 5, 9, 13, 17, 21, 25, 29]);
+  assert.deepEqual((await execute('/run', warehouses.query, 'other')).map(row => row.label).sort(),
+    ['London', 'Manchester']);
+
+  const inputs = [{ id: 'warehouse', value: 'Leeds' }, { id: 'value-scale', value: 1000 }];
+  const [filtered, filteredPage, filteredBins] = await Promise.all([
+    execute('/run', { ...warehouses.query, inputs }),
+    execute('/page', { query: { ...grid.query, inputs }, offset: 0, limit: 10 }),
+    execute('/run', { ...histogram.query, inputs }),
+  ]);
+  assert.equal(filteredPage.total, 600);
+  assert.ok(filteredPage.rows.every(entry => entry.row.fields.warehouse === 'Leeds'));
+  assert.equal(filtered.length, 1);
+  assert.equal(filtered[0].label, 'Leeds');
+  assert.equal(filtered[0].fields.orderCount, filteredPage.total);
+  assert.equal(filtered[0].fields.target, 350);
+  assert.equal(filtered[0].value, warehouseRows.find(row => row.label === 'Leeds').value / 1000);
+  assert.equal(filteredBins.reduce((sum, row) => sum + row.fields.orderCount, 0), 600);
+
+  const savedDefinition = { ...definition, tiles: definition.tiles.map(tile => ({
+    ...tile, query: { ...tile.query, inputs },
+  })) };
+  const saved = await execute('/saved', savedDefinition);
+  try {
+    const definitions = await (await request('/saved')).json();
+    assert.deepEqual(definitions.find(item => item.id === saved.id)?.definition, savedDefinition);
+  } finally {
+    assert.equal((await request('/saved/' + saved.id, { method: 'DELETE' })).status, 204);
+  }
+});
+
+test('report owners can save an ordered list of authorized filter controls', async () => {
+  const catalog = await (await request('/catalog')).json();
+  const { definition } = catalog.presets.find(item => item.id === 'order-comparison');
+  const save = body => request('/saved', { method: 'POST', body });
+  const authored = { ...definition, filters: [{ input: 'channel', label: 'Sales channel' }, { input: 'warehouse' }] };
+  const response = await save(authored);
+  assert.equal(response.status, 200);
+  const created = await response.json();
+  const read = async () => (await (await request('/saved')).json()).find(item => item.id === created.id)?.definition;
+  try {
+    assert.deepEqual(await read(), authored);
+    assert.equal((await (await request('/saved', { account: 'colleague' })).json())
+      .some(item => item.id === created.id), false);
+    const none = { ...authored, filters: [] };
+    assert.equal((await request('/saved/' + created.id, { method: 'PUT', body: none })).status, 204);
+    assert.deepEqual(await read(), none);
+
+    for (const filters of [
+      [{ input: 'tenant' }],
+      [{ input: 'value-scale' }],
+      [{ input: 'warehouse' }, { input: 'warehouse' }],
+      [{ input: 'channel', label: ' '.repeat(2) }],
+      [{ input: 'channel', label: 'x'.repeat(101) }],
+      [{ input: 'pending' }],
+    ]) {
+      const invalid = { ...authored, filters };
+      assert.equal((await save(invalid)).status, 400);
+      assert.equal((await request('/saved/' + created.id, { method: 'PUT', body: invalid })).status, 400);
+    }
+  } finally {
+    assert.equal((await request('/saved/' + created.id, { method: 'DELETE' })).status, 204);
+  }
+});
+
+test('saved chart presentations validate bindings against the dataset and view', async () => {
+  const presentation = { series: [{ field: 'value', label: 'Orders' }],
+    referenceLines: [{ axis: 'X', label: 'Target', value: 25 }] };
+  const valid = { ...tile, presentation, inputBinding: { input: 'pending', field: 'label' } };
+  const save = tiles => request('/saved', { method: 'POST', body: { title: 'Order snapshot', kind: 'report', tiles } });
+  const response = await save([valid]);
+  assert.equal(response.status, 200);
+  const saved = await response.json();
+  try {
+    assert.deepEqual(saved.definition.tiles, [valid]);
+    for (const invalid of [
+      { ...valid, presentation: { series: [{ field: 'unknown', label: 'Unknown' }] } },
+      { ...valid, presentation: { pieHole: 0.5 } },
+      { ...valid, presentation: { referenceLines: [{ axis: 'Y', label: 'Wrong axis', value: 2 }] } },
+      { ...valid, inputBinding: { input: 'scale', field: 'value' } },
+    ]) assert.equal((await save([invalid])).status, 400);
+  } finally {
+    assert.equal((await request('/saved/' + saved.id, { method: 'DELETE' })).status, 204);
+  }
+});
+
 test('the time-series preset uses the day grouping and its chart types can be saved', async () => {
   const catalogResponse = await request('/catalog');
   assert.equal(catalogResponse.status, 200);

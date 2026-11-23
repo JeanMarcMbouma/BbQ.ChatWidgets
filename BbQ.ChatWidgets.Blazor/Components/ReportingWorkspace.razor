@@ -76,6 +76,45 @@
                                 <label>Title
                                     <input maxlength="100" required value="@definition.Title" @onchange="e => ChangeTitle(e.Value?.ToString() ?? string.Empty)" />
                                 </label>
+                                @if (AvailableFilters.Count > 0 || EditableFilters.Length > 0)
+                                {
+                                    var configured = EditableFilters;
+                                    <fieldset class="tile-editor filter-editor">
+                                        <legend>Report filters</legend>
+                                        @for (var index = 0; index < configured.Length; index++)
+                                        {
+                                            var position = index;
+                                            var filter = configured[position];
+                                            var name = FilterLabel(filter.Input);
+                                            <div @key="filter.Input" class="filter-row">
+                                                <label>@name label
+                                                    <input maxlength="100" placeholder="@name" value="@filter.Label"
+                                                           @onchange="e => RenameFilter(filter.Input, e.Value?.ToString())" />
+                                                </label>
+                                                <div class="filter-actions">
+                                                    <button type="button" aria-label="@($"Move {name} filter up")" disabled="@(position == 0)"
+                                                            @onclick="() => MoveFilter(position, -1)">Move up</button>
+                                                    <button type="button" aria-label="@($"Move {name} filter down")" disabled="@(position == configured.Length - 1)"
+                                                            @onclick="() => MoveFilter(position, 1)">Move down</button>
+                                                    <button type="button" aria-label="@($"Remove {name} filter")"
+                                                            @onclick="() => RemoveFilter(filter.Input)">Remove</button>
+                                                </div>
+                                            </div>
+                                        }
+                                        @if (AddableFilters is { Count: > 0 } addable)
+                                        {
+                                            <label>Add filter
+                                                <select value="" @onchange="e => AddFilter(e.Value?.ToString())">
+                                                    <option value="">Choose a filter</option>
+                                                    @foreach (var option in addable)
+                                                    {
+                                                        <option value="@option.Id">@option.Label</option>
+                                                    }
+                                                </select>
+                                            </label>
+                                        }
+                                    </fieldset>
+                                }
                                 @for (var index = 0; index < definition.Tiles.Length; index++)
                                 {
                                     var tileIndex = index;
@@ -134,7 +173,8 @@
                                                 </select>
                                             </label>
                                         </div>
-                                        @if (DateViews.Contains(tile.View) && grouping?.DateField is null && grouping?.Id != "day")
+                                        @if (DateViews.Contains(tile.View) && tile.Presentation?.DateField is null &&
+                                            grouping?.DateField is null && grouping?.Id != "day")
                                         {
                                             <p>Choose a grouping with dates for this chart.</p>
                                         }
@@ -168,6 +208,31 @@
                     {
                         var currentTiles = renderedTiles;
                         <div class="results" aria-label="Report results" hidden="@editing">
+                            @if (controls.Length > 0)
+                            {
+                                <fieldset class="tile-editor filter-editor" disabled="@busy">
+                                    <legend>Report filters</legend>
+                                    <div class="fields">
+                                        @foreach (var control in controls)
+                                        {
+                                            var options = control.Options ?? [];
+                                            var selected = SelectedOption(control);
+                                            <label @key="control.Id">@control.Label
+                                                <select value="@selected" disabled="@(options.Length == 0)"
+                                                        @onchange="e => ChooseOptionAsync(control, e.Value?.ToString())">
+                                                    <option value="" selected="@(selected.Length == 0)">Use report setting</option>
+                                                    @for (var index = 0; index < options.Length; index++)
+                                                    {
+                                                        var key = index.ToString();
+                                                        <option value="@key" selected="@(selected == key)">@options[index].Label</option>
+                                                    }
+                                                </select>
+                                            </label>
+                                        }
+                                    </div>
+                                    <button type="button" @onclick="ClearFiltersAsync">Clear all filters</button>
+                                </fieldset>
+                            }
                             @if (snapshot is not null)
                             {
                                 <ReportingWidgetComponent @key="currentTiles" Widget="snapshot"

@@ -9,7 +9,7 @@ internal static class ReportingSnapshotComposer
     public static async Task<ReportingWidget?> ComposeAsync(ReportDefinition definition, ReportingCatalog catalog,
         IReportingWorkspaceClient client, IReadOnlySet<int> pagedTiles, CancellationToken cancellationToken)
     {
-        var results = new Dictionary<ReportQuery, QueryResult>();
+        var results = new Dictionary<string, QueryResult>(StringComparer.Ordinal);
         var sources = new Dictionary<string, IReadOnlyList<IReadOnlyDictionary<string, JsonElement>>>();
         var children = new List<ReportingWidget>();
         for (var index = 0; index < definition.Tiles.Length; index++)
@@ -18,11 +18,13 @@ internal static class ReportingSnapshotComposer
                 continue;
 
             var tile = definition.Tiles[index];
-            if (!results.TryGetValue(tile.Query, out var result))
+            var effective = ReportingQueryIdentity.Normalize(tile.Query, FindDataset(catalog, tile.Query)?.Inputs);
+            var queryKey = ReportingQueryIdentity.Create(effective);
+            if (!results.TryGetValue(queryKey, out var result))
             {
-                result = await RunAsync(client, tile.Query, $"source-{results.Count}", cancellationToken);
+                result = await RunAsync(client, effective, $"source-{results.Count}", cancellationToken);
                 cancellationToken.ThrowIfCancellationRequested();
-                results.Add(tile.Query, result);
+                results.Add(queryKey, result);
                 sources.Add(result.Id, result.Rows);
             }
 
@@ -30,7 +32,8 @@ internal static class ReportingSnapshotComposer
             var columns = dimension?.Columns?.Select(column =>
                 new ReportingColumn(column.Field, column.Label, column.Editable)).ToArray();
             children.Add(new ReportingWidget(tile.Title, $"report-result-{index}", tile.View,
-                Settings: new ReportingSettings(DataSource: result.Id, DateField: dimension?.DateField, Columns: columns),
+                Settings: new ReportingSettings(DataSource: result.Id, DateField: dimension?.DateField, Columns: columns)
+                { Presentation = tile.Presentation },
                 FilterField: tile.View == "filter" ? "label" : null, Error: result.Error));
         }
 
@@ -38,7 +41,8 @@ internal static class ReportingSnapshotComposer
             return null;
 
         var filters = children.GroupBy(child => child.Settings!.DataSource!)
-            .Where(group => sources[group.Key].Count > 1 && group.Count() > 1 && group.All(child => child.Kind != "filter"))
+            .Where(group => definition.Filters is null && sources[group.Key].Count > 1 &&
+                group.Count() > 1 && group.All(child => child.Kind != "filter"))
             .Select(group => new ReportingWidget("Filter " + group.First().Label, "", "filter",
                 new ReportingSettings(DataSource: group.Key), FilterField: "label"));
 

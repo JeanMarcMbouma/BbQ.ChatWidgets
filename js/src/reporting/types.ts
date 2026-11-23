@@ -1,3 +1,5 @@
+import type { ReportingPresentation } from './presentation';
+
 export const reportingTimeSeriesKinds = ['time-line', 'area', 'step', 'time-column'] as const;
 export type ReportingTimeSeriesKind = typeof reportingTimeSeriesKinds[number];
 export const reportingKinds = ['dashboard', 'filter', 'bar', 'line', 'pie', 'timeline', 'scatter',
@@ -20,6 +22,7 @@ export interface ReportingSettings {
   dateField?: string;
   groupBy?: string;
   columns?: readonly ReportingColumn[];
+  presentation?: ReportingPresentation;
 }
 
 export interface ReportingNode {

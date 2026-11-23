@@ -1,4 +1,8 @@
+import type { ReportingCalendar, ReportingInput, ReportingInputBinding, ReportingInputOption,
+  ReportingInputOptionsRequest, ReportingInputSelection } from './inputs';
+import type { ReportingPresentation } from './presentation';
 import type { ReportingAction, ReportingCell, ReportingColumn, ReportingKind } from './types';
+import type { ReportingFilter } from './filters';
 import type { ReportingGridCapabilities, ReportingGridPage, ReportingGridPageRequest, ReportingGridRowActivation } from './paging';
 
 export type ReportingDocumentKind = 'report' | 'dashboard';
@@ -27,6 +31,8 @@ export interface ReportingDataset {
   label: string;
   metrics: ReportingField[];
   dimensions: ReportingField[];
+  inputs?: ReportingInput[];
+  calendar?: ReportingCalendar;
 }
 
 export interface ReportingQuery {
@@ -35,6 +41,7 @@ export interface ReportingQuery {
   groupBy: string | null;
   from: string;
   to: string;
+  inputs?: readonly ReportingInputSelection[];
 }
 
 export interface ReportingResultRow {
@@ -47,6 +54,8 @@ export interface ReportingTile {
   title: string;
   view: ReportingView;
   query: ReportingQuery;
+  presentation?: ReportingPresentation;
+  inputBinding?: ReportingInputBinding;
 }
 
 /** Names a workspace action for the host, using the tile's index in the report definition. */
@@ -65,6 +74,8 @@ export interface ReportingDocument {
   title: string;
   kind: ReportingDocumentKind;
   tiles: ReportingTile[];
+  /** Ordered filter controls. Omit to inherit catalog filters. An empty array hides them. */
+  filters?: ReportingFilter[];
 }
 
 export interface SavedReportingDefinition {
@@ -114,6 +125,10 @@ export class ReportingClient {
 
   run(query: ReportingQuery, signal?: AbortSignal): Promise<ReportingResultRow[]> {
     return this.request('POST', '/run', signal, query);
+  }
+
+  inputOptions(request: ReportingInputOptionsRequest, signal?: AbortSignal): Promise<ReportingInputOption[]> {
+    return this.request('POST', '/options', signal, request);
   }
 
   page(request: ReportingGridPageRequest, signal?: AbortSignal): Promise<ReportingGridPage> {

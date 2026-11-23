@@ -1,0 +1,125 @@
+:host {
+  display: block;
+  min-inline-size: 0;
+  margin-block: .85rem 1rem;
+  color: var(--bbq-reporting-ink, #182631);
+}
+
+.filter-panel {
+  box-sizing: border-box;
+  min-inline-size: 0;
+  margin: 0;
+  padding: .85rem 1rem 1rem;
+  border: 1px solid var(--bbq-reporting-line, #dbe4e3);
+  border-radius: .85rem;
+  background: var(--bbq-reporting-surface, #fff);
+}
+
+.filter-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .35rem .75rem;
+  margin-block-end: .65rem;
+}
+
+.filter-header > div {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+h3, p {
+  margin: 0;
+}
+
+h3 {
+  font-size: .95rem;
+  font-weight: 720;
+}
+
+.filter-header p {
+  margin-block-start: .1rem;
+  color: var(--bbq-reporting-muted, #52636b);
+  font-size: .8rem;
+}
+
+.filter-fields, .date-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem .65rem;
+}
+
+.date-fields {
+  align-items: end;
+  flex: 2 1 23rem;
+  min-inline-size: 0;
+  margin: 0;
+}
+
+label {
+  display: grid;
+  flex: 1 1 8.5rem;
+  gap: .3rem;
+  min-inline-size: 0;
+  align-content: start;
+  font-size: .84rem;
+  font-weight: 550;
+  overflow-wrap: anywhere;
+}
+
+:is(input, select, button) {
+  box-sizing: border-box;
+  min-block-size: 2.4rem;
+  max-inline-size: 100%;
+  padding: .4rem .65rem;
+  border: 1px solid var(--bbq-reporting-line, #dbe4e3);
+  border-radius: .55rem;
+  color: inherit;
+  background: var(--bbq-reporting-surface, #fff);
+  font: inherit;
+  font-size: .875rem;
+}
+
+:is(input, select) {
+  inline-size: 100%;
+  min-inline-size: 0;
+  font-weight: 400;
+}
+
+button {
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.clear-filters {
+  min-block-size: 2.15rem;
+  padding: .25rem .45rem;
+  border-color: transparent;
+  color: var(--bbq-reporting-accent, #12665c);
+  background: transparent;
+}
+
+.clear-filters:hover:not(:disabled) {
+  background: var(--bbq-reporting-accent-light, #e7f4ef);
+}
+
+:is(.apply-dates, input, select):hover:not(:disabled) {
+  border-color: var(--bbq-reporting-accent, #12665c);
+}
+
+:is(input, select, button):disabled {
+  opacity: .55;
+  cursor: default;
+}
+
+:is(input, select, button):focus-visible {
+  outline: 2px solid var(--bbq-reporting-accent, #12665c);
+  outline-offset: 2px;
+}
+
+.date-error {
+  margin-block-start: .55rem;
+  color: var(--bbq-reporting-error, #942f39);
+  font-size: .8rem;
+}

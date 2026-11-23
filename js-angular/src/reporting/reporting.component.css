@@ -46,6 +46,11 @@ label { display: grid; gap: .3rem; min-width: 0; font-size: .84rem; font-weight:
 input, select { box-sizing: border-box; min-width: 0; width: 100%; border: 1px solid var(--line); border-radius: .55rem; padding: .5rem .6rem; background: #fff; color: var(--ink); }
 .tile-editor { margin: 1.2rem 0; border: 1px solid var(--line); padding: .9rem; border-radius: .75rem; background: #f6f9f8; }
 .tile-editor .actions, .tile-editor p { margin-top: .7rem; }
+.filter-editor { display: grid; gap: .7rem; }
+.filter-editor-row { display: flex; align-items: end; flex-wrap: wrap; gap: .5rem .75rem; }
+.filter-editor-row label { flex: 1 1 10rem; }
+.filter-editor-row .actions { margin: 0; }
+.filter-editor-row button { white-space: nowrap; }
 .fields { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)); }
 .selected { color: var(--accent); margin-bottom: .7rem; }
 @media (max-width: 700px) { .workspace { grid-template-columns: minmax(0, 1fr); } }

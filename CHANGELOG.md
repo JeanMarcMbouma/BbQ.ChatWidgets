@@ -4,6 +4,25 @@ All notable changes to BbQ.ChatWidgets will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and package versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - Unreleased
+
+### Added
+
+- Typed reporting filters and display parameters, scoped option lookup and validation, and dataset-specific date limits.
+- Report authors can add, label, reorder, and remove shared filters in the Angular, React, and Blazor editors. Saved definitions carry the ordered filter list.
+- Reusable Angular reporting controls and public reporting state and selection inputs and outputs. Authored chart or row interactions can apply a shared filter.
+- Typed chart bindings for grouped bars and date columns, reference lines, bubble plots, doughnuts, and weighted, pre-aggregated histograms.
+
+### Changed
+
+- The reporting sample opens a single Order comparison dashboard that demonstrates the new visuals, shared filters, display scale, and server paging using fixture data.
+- Each NuGet package includes a package-specific README for ASP.NET Core, Blazor, or the local llama.cpp integration.
+- The Angular and React packages require `@bbq-chat/widgets` 1.2.1 or later within the 1.x release line.
+
+### Release preparation
+
+- The NuGet and npm packages are aligned at 1.2.1. The existing workflows use `v1.2.1` for NuGet and `npm-v1.2.1` for npm.
+
 ## [1.2.0] - Unreleased
 
 ### Added

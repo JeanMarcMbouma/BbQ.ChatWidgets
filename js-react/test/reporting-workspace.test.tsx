@@ -130,7 +130,8 @@ describe("React reporting workspace", () => {
     const replacement = reportingClient();
     replacement.catalog.mockResolvedValue({ datasets: [], presets: [] });
     const { rerender } = render(<ReportingWorkspace client={client} />);
-    await screen.findByRole("region", { name: "Orders to review" });
+    const warehouse = await screen.findByRole("region", { name: "Orders to review" });
+    await within(warehouse).findByRole("cell", { name: "N-1042" });
     expect(client.page).toHaveBeenCalledTimes(1);
 
     rerender(<ReportingWorkspace client={replacement} />);

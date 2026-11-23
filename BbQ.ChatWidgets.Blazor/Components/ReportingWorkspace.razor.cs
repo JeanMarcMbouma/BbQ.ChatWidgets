@@ -23,7 +23,7 @@ public partial class ReportingWorkspace : IDisposable
 
     private static readonly (string Id, string Label)[] Views =
     [
-        ("bar", "Bar chart"), ("line", "Line chart"), ("pie", "Pie chart"), ("timeline", "Timeline"),
+        ("bar", "Bar chart"), ("column", "Column chart"), ("line", "Line chart"), ("pie", "Pie chart"), ("timeline", "Timeline"),
         ("time-line", "Time-series line"), ("area", "Area chart"), ("step", "Step chart"),
         ("time-column", "Time-series columns"), ("scatter", "Scatter plot"), ("waterfall", "Waterfall"),
         ("pareto", "Pareto"), ("histogram", "Histogram"), ("table", "Table"), ("grid", "Data grid"),
@@ -43,6 +43,9 @@ public partial class ReportingWorkspace : IDisposable
     private string? error;
     private string? status;
     private ReportingWidget? snapshot;
+    private string? modeId;
+    private readonly Dictionary<string, string> variants = new(StringComparer.Ordinal);
+    private ResolvedReportLayout? activeLayout;
     private IReadOnlyList<ReportTile> renderedTiles = [];
     private IReadOnlyList<PagedTile> paged = [];
     private IReportingWorkspaceClient? previousClient;
@@ -90,6 +93,8 @@ public partial class ReportingWorkspace : IDisposable
     private void Open(SavedReport report, bool isSaved)
     {
         draft = report.Definition with { Tiles = [.. report.Definition.Tiles] };
+        modeId = null;
+        variants.Clear();
         filterValues = [];
         savedId = isSaved ? report.Id : null;
         presetId = isSaved ? null : report.Id;
@@ -187,6 +192,7 @@ public partial class ReportingWorkspace : IDisposable
     private void ClearPreview()
     {
         snapshot = null;
+        activeLayout = null;
         controls = [];
         paged = [];
         renderedTiles = [];
@@ -199,15 +205,34 @@ public partial class ReportingWorkspace : IDisposable
         editing = false;
     }) : Task.CompletedTask;
 
+    private Task SelectModeAsync(string id) => WorkAsync(async (client, ct) =>
+    {
+        modeId = id;
+        variants.Clear();
+        await RenderAsync(client, ct);
+    });
+
+    private Task SelectVariantAsync(string placement, string? id) => WorkAsync(async (client, ct) =>
+    {
+        if (id is null || activeLayout is null) return;
+        modeId = activeLayout.Mode.Id;
+        variants[placement] = id;
+        await RenderAsync(client, ct);
+    });
+
     private async Task RenderAsync(IReportingWorkspaceClient client, CancellationToken cancellationToken)
     {
         if (draft is not { } definition || catalog is not { } available)
             return;
         var tileSnapshot = ApplyFilters(definition with { Tiles = [.. definition.Tiles] }, available.Datasets);
+        var layout = ReportingLayouts.Resolve(tileSnapshot, modeId, variants);
+        var visible = layout?.Placements.SelectMany(card => card.TileIndices).ToHashSet();
+        var active = visible is null ? tileSnapshot : tileSnapshot with { Tiles = tileSnapshot.Tiles.Where((_, index) => visible.Contains(index)).ToArray() };
         var grids = new List<PagedTile>();
         var pagedIndices = new HashSet<int>();
         for (var index = 0; index < tileSnapshot.Tiles.Length; index++)
         {
+            if (visible is not null && !visible.Contains(index)) continue;
             var tile = tileSnapshot.Tiles[index];
             if (tile.View == "grid" && ReportingSnapshotComposer.FindDimension(available, tile.Query) is { Grid: not null } dimension)
             {
@@ -216,11 +241,12 @@ public partial class ReportingWorkspace : IDisposable
             }
         }
 
-        var compose = ReportingSnapshotComposer.ComposeAsync(tileSnapshot, available, client, pagedIndices, cancellationToken);
-        var resolve = ResolveControlsAsync(tileSnapshot, available, client, cancellationToken);
+        var compose = ReportingSnapshotComposer.ComposeAsync(tileSnapshot, available, client, pagedIndices, cancellationToken, layout);
+        var resolve = ResolveControlsAsync(active, available, client, cancellationToken);
         await Task.WhenAll(compose, resolve);
         cancellationToken.ThrowIfCancellationRequested();
         snapshot = await compose;
+        activeLayout = layout;
         controls = await resolve;
         paged = grids;
         renderedTiles = tileSnapshot.Tiles;
@@ -228,7 +254,7 @@ public partial class ReportingWorkspace : IDisposable
 
     private Task SaveAsync() => CanRun ? WorkAsync(async (client, ct) =>
     {
-        var definition = ApplyFilters(draft! with { Tiles = [.. draft!.Tiles] }, catalog!.Datasets);
+        var definition = draft!.Layout is null ? ApplyFilters(draft with { Tiles = [.. draft.Tiles] }, catalog!.Datasets) : draft;
         if (savedId is { } id)
         {
             await client.UpdateAsync(id, definition, ct);

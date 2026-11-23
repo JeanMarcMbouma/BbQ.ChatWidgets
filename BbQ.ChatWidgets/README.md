@@ -34,3 +34,7 @@ The default reporting route is `/api/reporting`. A dataset can declare typed inp
 - [JavaScript and TypeScript](https://www.npmjs.com/package/@bbq-chat/widgets), [Angular](https://www.npmjs.com/package/@bbq-chat/widgets-angular), or [React](https://www.npmjs.com/package/@bbq-chat/widgets-react)
 
 See the [reporting integration guide](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/widgets/REPORTING.md) and the [runnable reporting sample](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/tree/master/Sample/BbQ.ChatWidgets.Sample.Reporting).
+
+### Authored reporting layouts
+
+From 1.2.2, `ReportDefinition.Layout` describes optional named modes with ordered placements and card variants. Give each participating `ReportTile` a stable `Id`. The stock catalog advertises `capabilities.layouts`. The stock save API validates references and spans before calling the host store. Serialize the full definition to preserve these fields. Existing provider interfaces and constructors remain usable. An older editor cannot overwrite a saved layout by omitting it. Use the explicit `removeLayout=true` query option on an authorized update to remove the layout.

@@ -4,6 +4,13 @@ All notable changes to BbQ.ChatWidgets will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and package versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.2] - Unreleased
+
+- Save portable display modes, card placements, tile IDs and card variants. Existing definitions continue to use their automatic grid.
+- Author and preview layouts in Angular, including paged grids and optional registered tile renderers. React and Blazor can open and switch modes in saved layouts.
+- Plot categorical columns with shared axes and bind chart colors to series or category identity.
+- The reporting sample demonstrates two modes, reusable KPI and trend tiles, a local chart switch, and a paged grid.
+
 ## [1.2.1] - Unreleased
 
 ### Added

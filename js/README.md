@@ -31,3 +31,7 @@ Supports native ESM, CommonJS and the `/models`, `/renderers`, `/handlers` subpa
 Try booking, support and approval examples in the [local playground](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/guides/PRODUCTION.md). No API key is needed.
 
 [Getting started](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/GETTING_STARTED.md) · [Widget gallery](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/widgets/GALLERY.md) · [Production guide](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/guides/PRODUCTION.md)
+
+### Authored reporting layouts
+
+`resolveReportingLayout(document, state)` resolves selected mode and variant IDs to stable tile indices. `composeReportingSnapshot` accepts the same state through `layoutState` and queries only the selected tiles. Shared queries are deduplicated, and snapshot settings expose resolved placements. Use the native `column` view for categorical columns. Set `presentation.colors` using a series field or category as the key and a six-digit hex color. An optional `darkColor` follows the host's CSS color scheme.

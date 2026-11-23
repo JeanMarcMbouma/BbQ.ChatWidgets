@@ -12,11 +12,12 @@ sealed partial class FixtureSource
     private static ReportField[] ComparisonDimensions() =>
     [
         new("overview", "Overview"),
+        new("day", "Business date") { DateField = "label" },
         new("day-status", "Business date and fulfilment stage",
             [new("stage", "Fulfilment stage"), new("orderCount", "Order count")]) { DateField = "label" },
         new("status", "Order status", [new("orderCount", "Order count")]),
         new("warehouse", "Warehouse",
-            [new("orderCount", "Order count"), new("averageValue", "Average order value"), new("target", "Target order value")]),
+            [new("orderCount", "Order count"), new("averageValue", "Average order value"), new("target", "Target order value"), new("deliveredValue", "Delivered order value")]),
         new("unit-band", "Number of items per order",
             [new("binStart", "Lower bin edge"), new("orderCount", "Order count")])
     ];
@@ -37,40 +38,43 @@ sealed partial class FixtureSource
 
     private static SavedReport OrderComparison()
     {
-        ReportTile Tile(string title, string view, string grouping) =>
-            new(title, view, new("fulfilment", "revenue", grouping, First, Last));
+        ReportTile Tile(string id, string title, string view, string grouping) =>
+            new(title, view, new("fulfilment", "revenue", grouping, First, Last)) { Id = id };
 
         return new("order-comparison", new("Order comparison", "dashboard",
         [
-            Tile("Total order value", "metric", "overview"),
-            Tile("Delivered and open orders by date", "time-column", "day-status") with
+            Tile("value", "Total order value", "metric", "overview"),
+            Tile("stages", "Delivered and open orders by date", "time-column", "day-status") with
             {
                 Presentation = new()
                 {
                     DateField = "label",
                     DateAxisLabel = "Business date",
                     ValueField = "orderCount",
-                    SeriesField = "stage"
+                    SeriesField = "stage",
+                    Colors = [new("Delivered", "#147c68") { DarkColor = "#65c4ad" }, new("Open", "#a45c16") { DarkColor = "#ffc478" }]
                 }
             },
-            Tile("Share of orders by status", "pie", "status") with
+            Tile("status", "Share of orders by status", "pie", "status") with
             {
                 Presentation = new() { ValueField = "orderCount", PieHole = .55 }
             },
-            Tile("Warehouse order value against target", "bar", "warehouse") with
+            Tile("warehouse", "Warehouse order value against target", "column", "warehouse") with
             {
                 Presentation = new()
                 {
-                    ReferenceLines = [new(ReportingAxis.X, "Period target") { Field = "target" }]
+                    Series = [new("value", "Order value"), new("deliveredValue", "Delivered value")],
+                    Colors = [new("value", "#154b91") { DarkColor = "#90bff3" }, new("deliveredValue", "#147c68") { DarkColor = "#65c4ad" }],
+                    ReferenceLines = [new(ReportingAxis.Y, "Period target") { Field = "target" }]
                 },
                 InputBinding = new("warehouse", "label")
             },
-            Tile("Order count vs average value by warehouse", "scatter", "warehouse") with
+            Tile("scatter", "Order count vs average value by warehouse", "scatter", "warehouse") with
             {
                 Presentation = new() { XField = "averageValue", ValueField = "orderCount", SizeField = "value" },
                 InputBinding = new("warehouse", "label")
             },
-            Tile("Items per order", "histogram", "unit-band") with
+            Tile("items", "Items per order", "histogram", "unit-band") with
             {
                 Presentation = new()
                 {
@@ -80,14 +84,37 @@ sealed partial class FixtureSource
                     ReferenceLines = [new(ReportingAxis.X, "Bulk order threshold") { Value = 17 }]
                 }
             },
-            Tile("Order details", "grid", "paged-order")
-        ]) { Filters = [new("warehouse")] });
+            Tile("orders", "Order details", "grid", "paged-order"),
+            Tile("trend", "Daily order value", "time-line", "day")
+        ])
+        {
+            Filters = [new("warehouse")],
+            Layout = new([
+                new("overview", "Overview", [
+                    new("summary") { Region = "summary", TileIds = ["value", "trend"] },
+                    new("stages") { ColumnSpan = 8, TileIds = ["stages"] },
+                    new("status") { ColumnSpan = 4, TileIds = ["status"] },
+                    new("orders") { TileIds = ["orders"] },
+                ]),
+                new("warehouse", "Warehouse analysis", [
+                    new("summary") { Region = "summary", TileIds = ["value", "trend"] },
+                    new("comparison") { ColumnSpan = 8, DefaultVariantId = "value", Variants = [
+                        new("value", "Orders by warehouse", ["warehouse"]),
+                        new("items", "Items per order", ["items"]),
+                    ] },
+                    new("scatter") { ColumnSpan = 4, TileIds = ["scatter"] },
+                    new("orders") { TileIds = ["orders"] },
+                ]),
+            ]) { DefaultModeId = "overview" },
+        });
     }
 
     private static IEnumerable<ReportRow> RunComparison(IEnumerable<FulfilmentOrder> orders,
         string grouping, decimal scale) => grouping switch
     {
         "overview" => [new("Total", orders.Sum(order => order.Value) / scale)],
+        "day" => orders.GroupBy(order => order.Day).OrderBy(group => group.Key)
+            .Select(group => new ReportRow(group.Key.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture), group.Sum(order => order.Value) / scale)),
         "day-status" => orders
             .GroupBy(order => (order.Day, Stage: order.Status == "Delivered" ? "Delivered" : "Open"))
             .OrderBy(group => group.Key.Day)
@@ -101,7 +128,8 @@ sealed partial class FixtureSource
             .OrderByDescending(group => group.Sum(order => order.Value))
             .ThenBy(group => group.Key, StringComparer.Ordinal)
             .Select(group => new ReportRow(group.Key, group.Sum(order => order.Value) / scale, OrderCountFields(group,
-                ("averageValue", group.Average(order => order.Value) / scale), ("target", WarehouseTarget / scale)))),
+                ("averageValue", group.Average(order => order.Value) / scale), ("target", WarehouseTarget / scale),
+                ("deliveredValue", group.Where(order => order.Status == "Delivered").Sum(order => order.Value) / scale)))),
         "unit-band" => orders.GroupBy(order => ((order.Units - 1) / UnitBandWidth) * UnitBandWidth + 1)
             .OrderBy(group => group.Key)
             .Select(group => new ReportRow($"{group.Key} to {group.Key + UnitBandWidth - 1}",

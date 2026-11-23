@@ -1,3 +1,5 @@
+import type { ChatWidget } from '../models/ChatWidget';
+import type { WidgetPayload } from '../models/WidgetPayload';
 import { WidgetManager } from '../renderers/WidgetManager';
 import { WidgetStreamEvent, WidgetStreamReducer } from './WidgetStreamReducer';
 
@@ -19,7 +21,7 @@ export interface WidgetSseOptions {
  */
 export class WidgetSseManager {
   private es: EventSource | null = null;
-  private handlers: Map<string, (payload: any) => void> = new Map();
+  private handlers: Map<string, (payload: WidgetPayload) => void> = new Map();
   private reducer = new WidgetStreamReducer();
 
   constructor(
@@ -65,7 +67,7 @@ export class WidgetSseManager {
     this.es = null;
   }
 
-  registerHandler(widgetId: string, handler: (payload: any) => void): void {
+  registerHandler(widgetId: string, handler: (payload: WidgetPayload) => void): void {
     this.handlers.set(widgetId, handler);
   }
 
@@ -74,7 +76,7 @@ export class WidgetSseManager {
   }
 
   private onMessage(e: MessageEvent) {
-    let data: any;
+    let data: { widgetId?: string; widget?: ChatWidget; payload?: WidgetPayload };
     try {
       data = JSON.parse(e.data);
     } catch {

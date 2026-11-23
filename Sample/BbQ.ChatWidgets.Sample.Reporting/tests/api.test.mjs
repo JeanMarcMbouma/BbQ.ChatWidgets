@@ -27,6 +27,46 @@ test('the catalog requires a principal and contains both built-in types', async 
     ['waterfall', 'pareto', 'histogram']);
 });
 
+test('authored layouts reject invalid references and protected updates and round-trip in the standard store', async () => {
+  const definition = {
+    title: 'Order modes',
+    kind: 'dashboard',
+    tiles: [{ ...tile, id: 'count', view: 'column' }],
+    filters: [],
+    layout: { defaultModeId: 'overview', modes: [
+      { id: 'overview', label: 'Overview', placements: [{ id: 'main', tileIds: ['count'], columnSpan: 8 }] },
+    ] },
+  };
+  const create = body => request('/saved', { method: 'POST', body });
+  const created = await create(definition);
+  assert.equal(created.status, 200, await created.clone().text());
+  const saved = await created.json();
+  const path = '/saved/' + saved.id;
+  try {
+    assert.deepEqual(saved.definition, definition);
+    for (const mutate of [
+      copy => { copy.layout.modes[0].placements[0].tileIds = ['unknown']; },
+      copy => { copy.layout.defaultModeId = 'missing'; },
+      copy => { copy.layout.modes[0].placements[0].columnSpan = 13; },
+      copy => { copy.tiles.push(copy.tiles[0]); },
+      copy => { copy.tiles[0].presentation = { colors: [{ key: 'order', color: 'invalid' }] }; },
+    ]) {
+      const candidate = structuredClone(definition);
+      mutate(candidate);
+      assert.equal((await create(candidate)).status, 400);
+    }
+    const legacy = { title: 'Older editor', kind: 'dashboard', tiles: [tile] };
+    assert.equal((await request(path, { method: 'PUT', body: legacy })).status, 409);
+    const listed = await (await request('/saved')).json();
+    assert.deepEqual(listed.find(item => item.id === saved.id)?.definition, definition);
+    assert.equal((await request(path + '?removeLayout=true', { method: 'PUT', body: legacy })).status, 204);
+    const updated = await (await request('/saved')).json();
+    assert.deepEqual(updated.find(item => item.id === saved.id)?.definition, legacy);
+  } finally {
+    await request(path, { method: 'DELETE' });
+  }
+});
+
 test('report runs aggregate only the current tenant and validate the query against the catalog', async () => {
   for (const [account, values] of [['demo', [18, 6]], ['other', [6, 2]]]) {
     const response = await request('/run', { method: 'POST', account, body: query });
@@ -100,12 +140,17 @@ test('Order comparison uses one scoped order population across the charts and pa
   const catalog = await response.json();
   const { definition } = catalog.presets.find(item => item.id === 'order-comparison');
   assert.deepEqual(definition.tiles.map(tile => tile.view),
-    ['metric', 'time-column', 'pie', 'bar', 'scatter', 'histogram', 'grid']);
+    ['metric', 'time-column', 'pie', 'column', 'scatter', 'histogram', 'grid', 'time-line']);
+  assert.equal(catalog.capabilities.layouts, true);
+  assert.deepEqual(definition.layout.modes.map(mode => mode.id), ['overview', 'warehouse']);
+  assert.equal(definition.layout.modes[1].placements[1].variants.length, 2);
   assert.ok(definition.tiles.every(tile => tile.query.dataset === 'fulfilment'));
   const [metric, daily, statuses, warehouses, scatter, histogram, grid] = definition.tiles;
   assert.equal(daily.presentation.seriesField, 'stage');
   assert.equal(daily.presentation.dateAxisLabel, 'Business date');
   assert.equal(statuses.presentation.pieHole, 0.55);
+  assert.equal(warehouses.presentation.referenceLines[0].axis, 'Y');
+  assert.equal(warehouses.presentation.series.length, 2);
   assert.deepEqual(warehouses.inputBinding, { input: 'warehouse', field: 'label' });
   assert.equal(scatter.presentation.sizeField, 'value');
   assert.equal(histogram.presentation.binWidth, 4);

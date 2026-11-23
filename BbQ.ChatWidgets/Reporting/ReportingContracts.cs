@@ -48,6 +48,14 @@ public sealed record ReportRow(string Label, decimal Value,
 /// <summary>A query and its presentation in a report definition.</summary>
 public sealed record ReportTile(string Title, string View, ReportQuery Query)
 {
+    /// <summary>Stable ID used by an authored layout.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Id { get; init; }
+
+    /// <summary>Optional host renderer ID. The tile's View is its native fallback.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Renderer { get; init; }
+
     /// <summary>Optional native chart presentation settings.</summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public ReportingPresentation? Presentation { get; init; }
@@ -63,6 +71,10 @@ public sealed record ReportInputBinding(string Input, string Field);
 /// <summary>A rerunnable report or dashboard definition.</summary>
 public sealed record ReportDefinition(string Title, string Kind, ReportTile[] Tiles)
 {
+    /// <summary>Optional authored layout. Omit to use the automatic reporting grid.</summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public ReportLayout? Layout { get; init; }
+
     /// <summary>The ordered filter controls. Null inherits the dataset filters, and an empty list hides them.</summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public ReportFilter[]? Filters { get; init; }

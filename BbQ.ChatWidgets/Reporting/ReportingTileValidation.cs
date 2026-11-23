@@ -4,6 +4,8 @@ namespace BbQ.ChatWidgets.Reporting;
 
 public static partial class ReportingEndpoints
 {
+    private static bool ValidColor(string? value) => value is { Length: 7 } && value[0] == '#' && value.Skip(1).All(Uri.IsHexDigit);
+
     private static string? TileBindingsError(ReportTile tile, ReportDataset dataset)
     {
         if (tile.Presentation is null && tile.InputBinding is null)
@@ -33,14 +35,20 @@ public static partial class ReportingEndpoints
             !OptionalField(presentation.SeriesField) || !OptionalField(presentation.SizeField))
             return "Choose available result fields for the chart.";
 
+        if (presentation.Colors is { } colors && (colors.Length > 32 ||
+            colors.Any(color => color is null || !ValidTitle(color.Key) || !ValidColor(color.Color) ||
+                (color.DarkColor is { } dark && !ValidColor(dark))) ||
+            colors.Select(color => color.Key).Distinct(StringComparer.Ordinal).Count() != colors.Length))
+            return "Choose up to 32 distinct color keys with six-digit hexadecimal colors.";
+
         var dateAxis = tile.View is "time-line" or "area" or "step" or "time-column";
         if (presentation.DateAxisLabel is { } label && (!dateAxis || !ValidTitle(label)))
             return "Choose a valid date-axis label for a time-series chart.";
 
         if ((presentation.SeriesField is not null || presentation.Series is not null) &&
-            (tile.View is not ("bar" or "time-column") ||
+            (tile.View is not ("bar" or "column" or "time-column") ||
              (presentation.SeriesField is not null && presentation.Series is not null)))
-            return "Choose one series binding for a bar or time-column chart.";
+            return "Choose one series binding for a bar or column chart.";
 
         if (presentation.Series is { } series && (series.Length is < 1 or > 8 ||
             series.Any(item => item is null || !ValidField(item.Field) || !ValidTitle(item.Label)) ||
@@ -60,7 +68,7 @@ public static partial class ReportingEndpoints
                 {
                     ReportingAxis.X => tile.View is not ("scatter" or "bar") &&
                         (tile.View != "histogram" || presentation.BinWidth is null),
-                    ReportingAxis.Y => !dateAxis && tile.View != "scatter" &&
+                    ReportingAxis.Y => !dateAxis && tile.View is not ("scatter" or "column") &&
                         (tile.View != "histogram" || presentation.BinWidth is null),
                     _ => true
                 }))))

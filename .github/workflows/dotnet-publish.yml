@@ -31,7 +31,7 @@ jobs:
       run: dotnet restore BbQ.ChatWidgets.slnx
 
     - name: Build
-      run: dotnet build BbQ.ChatWidgets.slnx --no-restore --configuration Release /p:SkipClientBuild=true /p:Version=${{ steps.version.outputs.version }}
+      run: dotnet build BbQ.ChatWidgets.slnx --no-restore --configuration Release -warnaserror /p:SkipClientBuild=true /p:Version=${{ steps.version.outputs.version }}
 
     - name: Test
       run: dotnet test BbQ.ChatWidgets.slnx --no-build --configuration Release --verbosity normal
@@ -44,7 +44,7 @@ jobs:
 
     - name: Pack llama.cpp integration
       run: |
-        dotnet build BbQ.LlamaCpp/BbQ.LlamaCpp.csproj --configuration Release /p:Version=${{ steps.version.outputs.version }}
+        dotnet build BbQ.LlamaCpp/BbQ.LlamaCpp.csproj --configuration Release -warnaserror /p:Version=${{ steps.version.outputs.version }}
         dotnet pack BbQ.LlamaCpp/BbQ.LlamaCpp.csproj --no-build --configuration Release --output ./nupkg /p:PackageVersion=${{ steps.version.outputs.version }}
 
     - name: NuGet login (OIDC -> temp API key)

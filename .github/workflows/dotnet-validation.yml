@@ -35,7 +35,7 @@ jobs:
       run: dotnet restore BbQ.ChatWidgets.slnx
 
     - name: Build
-      run: dotnet build BbQ.ChatWidgets.slnx --no-restore --configuration Release /p:SkipClientBuild=true
+      run: dotnet build BbQ.ChatWidgets.slnx --no-restore --configuration Release -warnaserror /p:SkipClientBuild=true
 
     - name: Test
       run: dotnet test BbQ.ChatWidgets.slnx --no-build --configuration Release --verbosity normal

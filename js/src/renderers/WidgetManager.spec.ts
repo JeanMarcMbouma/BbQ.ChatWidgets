@@ -4,8 +4,8 @@ import { ButtonWidget, InputWidget, ProgressBarWidget } from '../models/ChatWidg
 import type { IWidgetActionHandler } from '../handlers/WidgetEventManager';
 
 class TestHandler implements IWidgetActionHandler {
-  public calls: Array<{ action: string; payload: any }> = [];
-  async handle(action: string, payload: any): Promise<void> {
+  public calls: Array<{ action: string; payload: unknown }> = [];
+  async handle(action: string, payload: unknown): Promise<void> {
     this.calls.push({ action, payload });
   }
 }

@@ -4,18 +4,20 @@ import { FormsModule } from '@angular/forms';
 import { WidgetRendererComponent } from '../widget-renderer.component';
 import { firstValueFrom, ReplaySubject, takeUntil } from 'rxjs';
 import { applyReportingAction, applyReportingState, composeReportingSnapshot, isReportingAction, isReportingTimeSeriesKind,
-  pruneReportingFilters, reportingAvailableInputs, reportingEditableFilters, reportingViews,
-  reportingWorkspaceInputs, resolveReportingControls, withReportingFilters, type ReportingWidget } from '@bbq-chat/widgets';
+  pruneReportingFilters, reportingAvailableInputs, reportingEditableFilters, reportingQueryKey, reportingViews,
+  reportingWorkspaceInputs, resolveReportingControls, resolveReportingLayout, withReportingFilters, ReportingWidget } from '@bbq-chat/widgets';
 import type {
   ReportingCatalog as ReportCatalog, ReportingDataset as ReportDataset,
   ReportingDocument as ReportDefinition, ReportingDocumentKind as ReportKind,
   ReportingActionResolver, ReportingCalendar, ReportingDateRange, ReportingField, ReportingGridRowActivation,
-  ReportingFilter, ReportingInput, ReportingSelection, ReportingState, ReportingTile as ReportTile,
+  ChatWidget, ReportingFilter, ReportingInput, ReportingLayoutState, ReportingPlacement, ReportingResultRow,
+  ReportingSelection, ReportingTileRenderer, ReportingState, ReportingTile as ReportTile,
   ReportingWorkspaceAction, SavedReportingDefinition as SavedReport,
 } from '@bbq-chat/widgets';
 import { ReportingApi } from './reporting-api';
 import { PagedReportingGridComponent } from './paged-grid.component';
 import { ReportingControlsComponent } from './reporting-controls.component';
+import { nextReportingId, ReportingLayoutEditorComponent } from './reporting-layout-editor.component';
 
 /** Optional preset to open when the reporting workspace loads. */
 export const REPORTING_INITIAL_PRESET = new InjectionToken<string>('Initial reporting preset');
@@ -26,7 +28,7 @@ export type { ReportingWorkspaceAction } from '@bbq-chat/widgets';
 @Component({
   selector: 'bbq-reporting, app-reporting',
   standalone: true,
-  imports: [FormsModule, WidgetRendererComponent, PagedReportingGridComponent, ReportingControlsComponent],
+  imports: [FormsModule, WidgetRendererComponent, PagedReportingGridComponent, ReportingControlsComponent, ReportingLayoutEditorComponent],
   providers: [ReportingApi],
   templateUrl: './reporting.component.html',
   styleUrl: './reporting.component.css',
@@ -55,6 +57,20 @@ export class ReportingComponent implements OnInit, OnDestroy {
   /** Emits a selected preset or saved item, or null for a new draft. */
   @Output() readonly selectionChange = new EventEmitter<ReportingSelection | null>();
 
+  /** Host permission for the authoring UI. The server still authorizes mutations. */
+  @Input() canEdit = true;
+
+  /** Host renderer adapters keyed by authored renderer ID. */
+  @Input() tileRenderers: Readonly<Record<string, ReportingTileRenderer>> = {};
+
+  get rendererIds(): string[] { return Object.keys(this.tileRenderers); }
+
+  @Input() set layoutState(value: ReportingLayoutState | undefined) {
+    this.updateLayoutState(value ?? {}, false);
+  }
+  @Output() readonly layoutStateChange = new EventEmitter<ReportingLayoutState>();
+  private currentLayoutState: ReportingLayoutState = {};
+
   private readonly api = inject(ReportingApi);
   private readonly initialPreset = inject(REPORTING_INITIAL_PRESET, { optional: true });
   private readonly detector = inject(ChangeDetectorRef);
@@ -63,6 +79,7 @@ export class ReportingComponent implements OnInit, OnDestroy {
   private renderVersion = 0;
   private renderQueued = false;
   private destroyed = false;
+  private readonly results = new Map<string, ReportingResultRow[]>();
 
   state: ReportingState = {};
   inputs: ReportingInput[] = [];
@@ -78,6 +95,12 @@ export class ReportingComponent implements OnInit, OnDestroy {
   readonly views = reportingViews;
   widgets: ReportingWidget[] = [];
   pagedGrids: { tile: ReportTile; tileIndex: number; dimension: ReportingField }[] = [];
+  cards: { placement: ReportingPlacement; tiles: {
+    tileIndex: number;
+    widgets: ChatWidget[];
+    missingRenderer?: string;
+    grid?: ReportingComponent['pagedGrids'][number];
+  }[] }[] = [];
   selected: string | null = null;
   busy = false;
   error = '';
@@ -104,7 +127,7 @@ export class ReportingComponent implements OnInit, OnDestroy {
       const preset = catalog.presets.find(item => item.id === this.initialPreset) ?? catalog.presets[0];
       const first = requested ?? preset ?? saved[0];
       if (first) {
-        this.open(first, requested ? this.requestedSelection?.kind === 'saved' : !preset, !requested);
+        this.open(first, requested ? this.requestedSelection?.kind === 'saved' : !preset, !requested, true);
         await this.render();
       }
     });
@@ -131,8 +154,12 @@ export class ReportingComponent implements OnInit, OnDestroy {
     else this.clearPreview();
   }
 
-  open(report: SavedReport, saved: boolean, emit = true) {
+  open(report: SavedReport, saved: boolean, emit = true, restoreLayout = false) {
     this.draft = structuredClone(report.definition);
+    if (emit && !restoreLayout) {
+      this.currentLayoutState = {};
+      this.layoutStateChange.emit({});
+    }
     this.savedId = saved ? report.id : null;
     this.presetId = saved ? null : report.id;
     this.cancelRender();
@@ -143,6 +170,9 @@ export class ReportingComponent implements OnInit, OnDestroy {
   }
 
   start(kind: ReportKind) {
+    if (!this.canEdit) return;
+    this.currentLayoutState = {};
+    this.layoutStateChange.emit({});
     const draft: ReportDefinition = { title: '', kind, tiles: [this.newTile()] };
     this.draft = this.catalog && reportingAvailableInputs(draft, this.catalog).some(input => input.role === 'Filter')
       ? { ...draft, filters: [] } : draft;
@@ -155,12 +185,16 @@ export class ReportingComponent implements OnInit, OnDestroy {
   }
 
   addTile() {
-    this.draft?.tiles.push(this.newTile());
+    if (!this.draft || this.draft.tiles.length >= (this.draft.layout ? 32 : 8)) return;
+    const tile = this.newTile();
+    if (this.draft.layout) tile.id = nextReportingId(this.draft.tiles, 'tile');
+    this.draft.tiles.push(tile);
     this.clearPreview();
   }
 
   removeTile(index: number) {
     if (!this.draft || !this.catalog) return;
+    if (this.tileReferences(this.draft.tiles[index]?.id)) return;
     const draft = { ...this.draft, tiles: this.draft.tiles.filter((_, position) => position !== index) };
     this.changeFilterDefinition(pruneReportingFilters(draft, this.catalog));
   }
@@ -170,6 +204,51 @@ export class ReportingComponent implements OnInit, OnDestroy {
     if (!tiles || !tiles[index + offset]) return;
     [tiles[index], tiles[index + offset]] = [tiles[index + offset], tiles[index]];
     this.clearPreview();
+  }
+
+  get activeLayout() {
+    return this.draft && resolveReportingLayout(this.draft, this.currentLayoutState);
+  }
+
+  selectMode(modeId: string): void {
+    this.updateLayoutState({ modeId });
+  }
+
+  selectVariant(placementId: string, variantId: string): void {
+    const modeId = this.activeLayout?.mode.id;
+    if (!modeId) return;
+    const variants = this.currentLayoutState.modeId === modeId ? this.currentLayoutState.variants : undefined;
+    this.updateLayoutState({ modeId, variants: { ...variants, [placementId]: variantId } });
+  }
+
+  tileReferences(id: string | undefined): string {
+    if (!id) return '';
+    return this.draft?.layout?.modes.filter(mode => mode.placements.some(card =>
+      card.tileIds?.includes(id) || card.variants?.some(variant => variant.tileIds.includes(id)),
+    )).map(mode => mode.label).join(', ') ?? '';
+  }
+
+  captureLayoutDefaults(): void {
+    if (this.draft && this.catalog) this.draft = applyReportingState(this.draft, this.catalog, this.state);
+  }
+
+  private updateLayoutState(state: ReportingLayoutState, emit = true): void {
+    const key = (value: ReportingLayoutState) => JSON.stringify([value.modeId, Object.entries(value.variants ?? {}).sort()]);
+    if (key(state) === key(this.currentLayoutState)) return;
+    const previousMode = this.activeLayout;
+    this.currentLayoutState = structuredClone(state);
+    const nextMode = this.activeLayout;
+    const calendar = (mode: typeof previousMode) => {
+      const index = mode?.placements[0]?.tileIndices[0];
+      const tile = index === undefined ? undefined : this.draft?.tiles[index];
+      return tile ? this.dataset(tile)?.calendar?.label ?? 'UTC' : 'UTC';
+    };
+    if (emit && previousMode?.mode.id !== nextMode?.mode.id && calendar(previousMode) !== calendar(nextMode) && this.state.dates) {
+      this.state = { ...this.state, dates: undefined };
+      this.reportingStateChange.emit(structuredClone(this.state));
+    }
+    if (emit) this.layoutStateChange.emit(structuredClone(this.currentLayoutState));
+    if (this.draft?.layout && this.catalog) this.requestRender();
   }
 
   get availableFilterInputs(): ReportingInput[] {
@@ -228,13 +307,16 @@ export class ReportingComponent implements OnInit, OnDestroy {
     this.clearPreview();
   }
 
-  clearPreview() {
+  clearPreview(resetCache = true) {
+    if (resetCache) this.results.clear();
     this.widgets = [];
+    this.cards = [];
     this.pagedGrids = [];
     this.selected = null;
   }
 
-  run() {
+  run(refresh = true) {
+    if (refresh) this.results.clear();
     return this.work(async () => {
       await this.render();
       this.editing = false;
@@ -242,7 +324,13 @@ export class ReportingComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    const draft = this.draft && this.catalog ? applyReportingState(this.draft, this.catalog, this.state) : this.draft;
+    if (!this.canEdit) return;
+    const draft = this.draft && this.catalog && !this.draft.layout
+      ? applyReportingState(this.draft, this.catalog, this.state) : this.draft;
+    if (draft?.layout && !this.catalog?.capabilities?.layouts) {
+      this.error = 'This server does not support saving report layouts.';
+      return;
+    }
     if (!draft) return;
     return this.work(async () => {
       if (this.savedId) {
@@ -262,7 +350,7 @@ export class ReportingComponent implements OnInit, OnDestroy {
 
   remove() {
     const id = this.savedId;
-    if (!id) return;
+    if (!id || !this.canEdit) return;
     return this.work(async () => {
       await firstValueFrom(this.api.remove(id));
       this.saved = this.saved.filter(report => report.id !== id);
@@ -339,6 +427,7 @@ export class ReportingComponent implements OnInit, OnDestroy {
     if (selectionOrder(this.state) === selectionOrder(value)) return;
 
     this.state = structuredClone(value);
+    this.results.clear();
     if (emit) this.reportingStateChange.emit(structuredClone(value));
     if (this.draft && this.catalog) this.requestRender();
   }
@@ -353,18 +442,22 @@ export class ReportingComponent implements OnInit, OnDestroy {
   private requestRender(): void {
     this.cancelRender();
     if (this.busy) this.renderQueued = true;
-    else void this.run();
+    else void this.run(false);
   }
 
   private async render() {
     if (!this.draft || !this.catalog || this.destroyed) return;
     this.cancelRender();
-    this.clearPreview();
+    this.clearPreview(false);
     const version = this.renderVersion;
     const stop = this.renderStop = new ReplaySubject<void>(1);
     const effective = applyReportingState(this.draft, this.catalog, this.state);
+    const authored = resolveReportingLayout(effective, this.currentLayoutState);
+    const visible = authored && new Set(authored.placements.flatMap(card => card.tileIndices));
+    const active = visible ? { ...effective, tiles: effective.tiles.filter((_, index) => visible.has(index)) } : effective;
     const paged = new Set<ReportTile>();
     this.pagedGrids = effective.tiles.flatMap((tile, tileIndex) => {
+      if (visible && !visible.has(tileIndex)) return [];
       const dimension = tile.view === 'grid' && this.dataset(tile)?.dimensions
         .find(field => field.id === tile.query.groupBy && field.grid);
       if (!dimension) return [];
@@ -373,19 +466,54 @@ export class ReportingComponent implements OnInit, OnDestroy {
     });
 
     const [snapshot, inputs] = await Promise.all([
-      paged.size === effective.tiles.length ? null : composeReportingSnapshot(effective, this.catalog,
-        query => firstValueFrom(this.api.run(query).pipe(takeUntil(stop))), {
+      paged.size === active.tiles.length ? null : composeReportingSnapshot(effective, this.catalog,
+        async query => {
+          const key = reportingQueryKey(query);
+          const cached = authored && this.results.get(key);
+          if (cached) return cached;
+          const rows = await firstValueFrom(this.api.run(query).pipe(takeUntil(stop)));
+          if (authored && version === this.renderVersion) this.results.set(key, rows);
+          return rows;
+        }, {
           includeTile: tile => !paged.has(tile),
+          layoutState: this.currentLayoutState,
           describeError: error => this.message(error),
         }),
-      this.loadInputs(effective, stop),
+      this.loadInputs(active, stop),
     ]);
     if (this.destroyed || version !== this.renderVersion) return;
-    this.widgets = snapshot ? [snapshot] : [];
+    this.widgets = snapshot && !authored ? [snapshot] : [];
+    if (authored) {
+      const byAction = new Map(snapshot?.children?.map(widget => [widget.action, widget]));
+      this.cards = authored.placements.map(({ placement, tileIndices }) => ({
+        placement,
+        tiles: tileIndices.map(tileIndex => {
+          const grid = this.pagedGrids.find(item => item.tileIndex === tileIndex);
+          const child = byAction.get('report-result-' + tileIndex);
+          const tile = effective.tiles[tileIndex];
+          if (!child) return { tileIndex, grid, widgets: [] };
+          const { dataSource, ...settings } = child.settings ?? {};
+          const native = new ReportingWidget(child.label, child.action, child.kind, {
+            settings: { ...snapshot?.settings, layout: undefined, ...settings },
+            rows: dataSource ? snapshot?.sources?.[dataSource] : undefined,
+            error: child.error,
+            filterField: child.filterField,
+          });
+          const renderer = tile.renderer && Object.prototype.hasOwnProperty.call(this.tileRenderers, tile.renderer)
+            ? this.tileRenderers[tile.renderer] : undefined;
+          return {
+            tileIndex,
+            widgets: [renderer && !native.error ? renderer(native, tile) : native],
+            missingRenderer: renderer ? undefined : tile.renderer,
+          };
+        }),
+      }));
+    }
     this.inputs = inputs;
-    const first = this.draft.tiles[0];
+    const firstIndex = authored?.placements.flatMap(placement => placement.tileIndices)[0] ?? 0;
+    const first = this.draft.tiles[firstIndex];
     this.defaultDates = first ? { from: first.query.from, to: first.query.to } : undefined;
-    const calendars = effective.tiles.flatMap(tile => this.dataset(tile)?.calendar ?? []);
+    const calendars = active.tiles.flatMap(tile => this.dataset(tile)?.calendar ?? []);
     const dateRange = calendars[0];
     this.calendar = dateRange
       ? { ...dateRange, maxDays: Math.min(...calendars.map(calendar => calendar.maxDays)) }
@@ -411,7 +539,7 @@ export class ReportingComponent implements OnInit, OnDestroy {
       this.detector.markForCheck();
       if (!this.destroyed && this.renderQueued) {
         this.renderQueued = false;
-        void this.run();
+        void this.run(false);
       }
     }
   }

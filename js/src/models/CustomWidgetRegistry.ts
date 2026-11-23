@@ -6,8 +6,9 @@
  * return a ChatWidget instance.
  */
 import type { ChatWidget } from './ChatWidget';
+import type { WidgetPayload } from './WidgetPayload';
 
-type WidgetFactory = (obj: any) => ChatWidget | null;
+type WidgetFactory = (obj: WidgetPayload) => ChatWidget | null;
 
 class CustomWidgetRegistry {
   private readonly factories = new Map<string, WidgetFactory>();
@@ -33,7 +34,7 @@ class CustomWidgetRegistry {
    * assigning plain object properties to the prototype (constructor is NOT invoked).
    * This keeps registration simple for POJO-like widget classes.
    */
-  registerClass(discriminator: string, ctor: any) {
+  registerClass(discriminator: string, ctor: WidgetPayload) {
     if (!ctor) throw new Error('ctor is required');
     const factory: WidgetFactory = (obj) => Object.assign(Object.create(ctor.prototype), obj);
     this.registerFactory(discriminator, factory);
@@ -42,7 +43,7 @@ class CustomWidgetRegistry {
   /**
    * Helper: derive discriminator from a class name (lower-cased, strips 'Widget' suffix)
    */
-  registerClassAuto(ctor: any) {
+  registerClassAuto(ctor: WidgetPayload) {
     if (!ctor || !ctor.name) throw new Error('ctor must have a name');
     let name = ctor.name;
     if (name.endsWith('Widget')) name = name.slice(0, -6);

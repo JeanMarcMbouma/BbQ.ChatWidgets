@@ -1,8 +1,15 @@
 import type { ReportingPresentation } from './presentation';
 
+export interface ReportingWidgetPlacement {
+  region?: string;
+  columnSpan?: number;
+  rowSpan?: number;
+  children: readonly number[];
+}
+
 export const reportingTimeSeriesKinds = ['time-line', 'area', 'step', 'time-column'] as const;
 export type ReportingTimeSeriesKind = typeof reportingTimeSeriesKinds[number];
-export const reportingKinds = ['dashboard', 'filter', 'bar', 'line', 'pie', 'timeline', 'scatter',
+export const reportingKinds = ['dashboard', 'filter', 'bar', 'column', 'line', 'pie', 'timeline', 'scatter',
   ...reportingTimeSeriesKinds, 'waterfall', 'pareto', 'histogram', 'table', 'grid', 'metric'] as const;
 export type ReportingKind = typeof reportingKinds[number];
 
@@ -23,6 +30,8 @@ export interface ReportingSettings {
   groupBy?: string;
   columns?: readonly ReportingColumn[];
   presentation?: ReportingPresentation;
+  /** Resolved placement groups for a dashboard snapshot. */
+  layout?: readonly ReportingWidgetPlacement[];
 }
 
 export interface ReportingNode {

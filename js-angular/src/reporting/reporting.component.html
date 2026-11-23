@@ -1,7 +1,7 @@
 <section class="reporting-shell" aria-label="Reporting">
   <header class="page-header">
     <h1>Reporting</h1>
-    @if (catalog && catalog.datasets.length) {
+    @if (canEdit && catalog && catalog.datasets.length) {
       <div class="actions">
         <button type="button" [disabled]="busy" (click)="start('report')">New report</button>
         <button class="primary" type="button" [disabled]="busy" (click)="start('dashboard')">New dashboard</button>
@@ -38,10 +38,32 @@
               <p>{{ definition.kind }}</p>
               <h2>{{ definition.title || (definition.kind === 'dashboard' ? 'Untitled dashboard' : 'Untitled report') }}</h2>
             </div>
-            <button type="button" [disabled]="busy" (click)="editing = !editing">
-              {{ editing ? 'Back to results' : 'Edit ' + definition.kind }}
-            </button>
+            @if (canEdit) {
+              <button type="button" [disabled]="busy" (click)="editing = !editing">
+                {{ editing ? 'Back to results' : 'Edit ' + definition.kind }}
+              </button>
+            }
           </header>
+          @if (!editing && activeLayout; as active) {
+            @if (definition.layout!.modes.length > 1) {
+              <div class="display-modes" role="group" aria-label="Display modes">
+                @for (mode of definition.layout!.modes; track mode.id) {
+                  <button type="button" [disabled]="busy" [attr.aria-pressed]="active.mode.id === mode.id"
+                    (click)="selectMode(mode.id)">{{ mode.label }}</button>
+                }
+              </div>
+            }
+            @for (card of active.placements; track card.placement.id) {
+              @if (card.placement.variants; as variants) {
+                <label class="display-variant">Card display
+                  <select [disabled]="busy" [ngModel]="card.variantId"
+                    (ngModelChange)="selectVariant(card.placement.id, $event)">
+                    @for (variant of variants; track variant.id) { <option [value]="variant.id">{{ variant.label }}</option> }
+                  </select>
+                </label>
+              }
+            }
+          }
           @if (!editing && (inputs.length || calendar)) {
             <bbq-reporting-controls [inputs]="inputs" [state]="state" [calendar]="calendar"
               [defaultDates]="defaultDates" [disabled]="busy" (stateChange)="updateState($event)" />
@@ -123,20 +145,35 @@
                       </select>
                     </label>
                   </div>
+                  @if (definition.layout && (rendererIds.length || tile.renderer)) {
+                    <label>Renderer
+                      <select [name]="'renderer-' + index" [(ngModel)]="tile.renderer" (ngModelChange)="clearPreview()">
+                        <option [ngValue]="undefined">Native display</option>
+                        @if (tile.renderer && !rendererIds.includes(tile.renderer)) { <option [value]="tile.renderer">{{ tile.renderer }}</option> }
+                        @for (id of rendererIds; track id) { <option [value]="id">{{ id }}</option> }
+                      </select>
+                    </label>
+                  }
                   @if (needsDateGrouping(tile)) { <p>Choose a grouping with dates for this chart.</p> }
                   @if (definition.tiles.length > 1) {
                     <div class="actions">
                       @if (index > 0) { <button type="button" (click)="moveTile(index, -1)">Move tile {{ index + 1 }} up</button> }
                       @if (index + 1 < definition.tiles.length) { <button type="button" (click)="moveTile(index, 1)">Move tile {{ index + 1 }} down</button> }
-                      <button type="button" (click)="removeTile(index)">Remove tile {{ index + 1 }}</button>
+                      <button type="button" [disabled]="!!tileReferences(tile.id)" (click)="removeTile(index)">Remove tile {{ index + 1 }}</button>
+                      @if (tileReferences(tile.id); as refs) { <small>Placed in {{ refs }}.</small> }
                     </div>
                   }
                 </fieldset>
               }
 
+              @if (catalog.capabilities?.layouts || definition.layout) {
+                <bbq-reporting-layout-editor [definition]="definition" (changed)="clearPreview()"
+                  (captureDefaults)="captureLayoutDefaults()" />
+              }
+
               <div class="actions">
-                @if (definition.kind === 'dashboard' && definition.tiles.length < 8) {
-                  <button type="button" (click)="addTile()">Add tile</button>
+                @if ((definition.kind === 'dashboard' || definition.layout) && definition.tiles.length < (definition.layout ? 32 : 8)) {
+                  <button type="button" [disabled]="definition.tiles.length >= (definition.layout ? 32 : 8)" (click)="addTile()">Add tile</button>
                 }
                 <button class="primary" type="submit" [disabled]="!editorForm.valid">Run {{ definition.kind }}</button>
                 <button type="button" [disabled]="!editorForm.valid" (click)="save()">{{ savedId ? 'Save changes' : 'Save as new' }}</button>
@@ -145,21 +182,40 @@
             </fieldset>
           </form>
           }
-          @if (widgets.length || pagedGrids.length) {
+          @if (widgets.length || pagedGrids.length || cards.length) {
               <section class="results" aria-label="Report results" [hidden]="editing">
                 @if (selected) { <p class="selected" aria-live="polite">Selected {{ selected }}</p> }
                 @if (widgets.length) {
                   <bbq-widget-renderer [widgets]="widgets" (widgetAction)="onWidgetAction($event)" />
                 }
+                @if (cards.length) {
+                  <div class="authored-cards">
+                    @for (card of cards; track card.placement.id) {
+                      <div class="authored-card" [attr.data-region]="card.placement.region ?? null"
+                        [style.--bbq-column-span]="card.placement.columnSpan ?? 12" [style.--bbq-row-span]="card.placement.rowSpan ?? 1">
+                        @for (tile of card.tiles; track tile.tileIndex) {
+                          @if (tile.grid; as grid) {
+                            <bbq-paged-reporting-grid [title]="grid.tile.title" [query]="grid.tile.query" [dimension]="grid.dimension"
+                              (rowActivate)="onPagedRowActivate(grid.tile, grid.tileIndex, $event)" />
+                          } @else {
+                            @if (tile.missingRenderer) { <p role="status">Renderer {{ tile.missingRenderer }} is unavailable. Showing the native display.</p> }
+                            <bbq-widget-renderer [widgets]="tile.widgets" (widgetAction)="onWidgetAction($event)" />
+                          }
+                        }
+                      </div>
+                    }
+                  </div>
+                } @else {
                 @for (grid of pagedGrids; track grid) {
                   <bbq-paged-reporting-grid [title]="grid.tile.title" [query]="grid.tile.query" [dimension]="grid.dimension"
                     (rowActivate)="onPagedRowActivate(grid.tile, grid.tileIndex, $event)" />
+                }
                 }
               </section>
           } @else if (!busy && !editing) {
               <div class="empty-results">
                 <p>Run this {{ definition.kind }} to see its results.</p>
-                <button class="primary" type="button" (click)="editing = true">Open editor</button>
+                @if (canEdit) { <button class="primary" type="button" (click)="editing = true">Open editor</button> }
               </div>
           }
         } @else {

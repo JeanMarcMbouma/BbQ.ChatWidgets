@@ -42,6 +42,11 @@ button:disabled { cursor: default; opacity: .55; }
 .primary { color: #fff; background: var(--bbq-reporting-accent, #12665c); }
 :is(button, input, select):focus-visible { outline: 2px solid var(--bbq-reporting-accent, #12665c); outline-offset: 2px; }
 [role="alert"] { color: var(--bbq-reporting-error, #9f2839); }
+.results ::deep .bbq-report-layout { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 1rem; }
+.results ::deep .bbq-report-placement { grid-column: span var(--bbq-column-span, 12); grid-row: span var(--bbq-row-span, 1); min-width: 0; }
+@media (max-width: 700px) {
+    .results ::deep .bbq-report-placement { grid-column: 1 / -1; grid-row: auto; }
+}
 .results ::deep .bbq-report-dashboard > div > .bbq-report {
     padding: .85rem;
     border: 1px solid var(--bbq-reporting-line, #dbe4e3);

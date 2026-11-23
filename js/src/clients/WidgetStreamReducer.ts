@@ -1,3 +1,5 @@
+import type { WidgetPayload } from '../models/WidgetPayload';
+
 export type WidgetStreamEventKind =
   | 'widget.snapshot'
   | 'widget.upsert'
@@ -16,12 +18,12 @@ export interface WidgetStreamEvent {
   baseRevision?: number;
   revision?: number;
   kind: WidgetStreamEventKind;
-  payload: any;
+  payload: WidgetPayload;
 }
 
 export interface WidgetState {
   revision: number;
-  widget: any;
+  widget: WidgetPayload;
 }
 export type WidgetStreamReduction =
   | { status: 'applied'; instanceId: string; state?: WidgetState }
@@ -93,7 +95,7 @@ export class WidgetStreamReducer {
   }
 }
 
-function applyPatch(source: any, operations: any[]): any {
+function applyPatch(source: WidgetPayload, operations: unknown): WidgetPayload {
   if (!Array.isArray(operations)) throw new Error('Patch must be an array');
   const result = structuredClone(source);
   for (const operation of operations) {

@@ -233,6 +233,31 @@
                                     <button type="button" @onclick="ClearFiltersAsync">Clear all filters</button>
                                 </fieldset>
                             }
+                            @if (activeLayout is { } layout)
+                            {
+                                @if (definition.Layout is { Modes.Length: > 1 } authored)
+                                {
+                                    <div role="group" aria-label="Display modes">
+                                        @foreach (var mode in authored.Modes)
+                                        {
+                                            <button type="button" disabled="@busy" aria-pressed="@(mode.Id == layout.Mode.Id ? "true" : "false")"
+                                                @onclick="() => SelectModeAsync(mode.Id)">@mode.Label</button>
+                                        }
+                                    </div>
+                                }
+                                @foreach (var card in layout.Placements.Where(item => item.Placement.Variants is not null))
+                                {
+                                    <label>Card display
+                                        <select disabled="@busy" value="@card.VariantId"
+                                            @onchange="args => SelectVariantAsync(card.Placement.Id, args.Value?.ToString())">
+                                            @foreach (var variant in card.Placement.Variants!)
+                                            {
+                                                <option value="@variant.Id">@variant.Label</option>
+                                            }
+                                        </select>
+                                    </label>
+                                }
+                            }
                             @if (snapshot is not null)
                             {
                                 <ReportingWidgetComponent @key="currentTiles" Widget="snapshot"

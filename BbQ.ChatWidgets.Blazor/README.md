@@ -33,3 +33,7 @@ Register an `IReportingWorkspaceClient` in your host. Use `ReportingHttpClient` 
 The workspace runs built-in and saved definitions, renders chart settings, and displays server-paged grids when the catalog supports paging. For a custom layout, construct a `ReportingWidget` with the data and chart settings and pass it to `WidgetRenderer`. The optional `IReportingInputWorkspaceClient` exposes scoped choices for host-supplied controls.
 
 See the [Blazor sample](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/tree/master/Sample/BbQ.ChatWidgets.Sample.Blazor), the [reporting integration guide](https://github.com/JeanMarcMbouma/BbQ.ChatWidgets/blob/master/docs_src/widgets/REPORTING.md), and the [ASP.NET Core package guide](https://www.nuget.org/packages/BbQ.ChatWidgets).
+
+### Authored reporting layouts
+
+The workspace recognizes saved layout definitions and lets readers switch modes and card variants. Native charts and grouped cards use the shared reporting renderer. The Blazor editor retains existing layouts when changing ordinary report settings. Create or rearrange layouts using the Angular layout editor, a host tool, or the typed .NET contract.

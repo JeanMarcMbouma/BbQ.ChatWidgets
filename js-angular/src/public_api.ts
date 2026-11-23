@@ -105,7 +105,7 @@ export { FormValidationListenerComponent } from './examples/form-validation-list
 export { AngularSchemaFirstWidgetConsumer } from './schema-first-widget-consumer';
 
 // Version
-export const VERSION = '1.2.1';
+export const VERSION = '1.2.2';
 
 export { ReportingWidgetComponent } from './components/reporting.component';
 export { REPORTING_API, ReportingApi } from './reporting/reporting-api';

@@ -6,6 +6,12 @@ export interface ReportingSeries {
 export type ReportingReferenceLine = { axis: 'X' | 'Y'; label: string } &
   ({ value: number; field?: never } | { field: string; value?: never });
 
+export interface ReportingColor {
+  key: string;
+  color: string;
+  darkColor?: string;
+}
+
 /** Native chart settings that can be shared across client frameworks. */
 export interface ReportingPresentation {
   categoryField?: string;
@@ -19,4 +25,6 @@ export interface ReportingPresentation {
   pieHole?: number;
   binWidth?: number;
   referenceLines?: readonly ReportingReferenceLine[];
+  /** Colors keyed by series field or category value. */
+  colors?: readonly ReportingColor[];
 }

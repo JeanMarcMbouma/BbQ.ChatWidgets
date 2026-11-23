@@ -4,17 +4,17 @@ import { ButtonWidget } from '../models/ChatWidget';
 import WidgetSseManager from './WidgetSseManager';
 
 class FakeEventSource {
-  private listeners: Record<string, Array<(e: any) => void>> = {};
+  private listeners: Record<string, Array<(e: unknown) => void>> = {};
   constructor(_url: string) {}
-  addEventListener(name: string, cb: (e: any) => void) {
+  addEventListener(name: string, cb: (e: unknown) => void) {
     (this.listeners[name] ||= []).push(cb);
   }
-  dispatchMessage(data: any) {
-    const ev = { data: JSON.stringify(data) } as any;
+  dispatchMessage(data: unknown) {
+    const ev = { data: JSON.stringify(data) };
     (this.listeners['message'] || []).forEach((cb) => cb(ev));
   }
   close() {}
-  dispatchEvent(name: string, data: any) {
+  dispatchEvent(name: string, data: unknown) {
     (this.listeners[name] || []).forEach((cb) => cb({ data: JSON.stringify(data) }));
   }
 }
@@ -24,7 +24,7 @@ describe('WidgetSseManager', () => {
     const sources = [new FakeEventSource(''), new FakeEventSource('')];
     let index = 0;
     const manager = new WidgetSseManager(new WidgetManager(), {
-      createEventSource: () => sources[index++] as any,
+      createEventSource: () => sources[index++] as unknown as EventSource,
     });
     const handler = vi.fn();
     manager.registerHandler('widget', handler);
@@ -43,7 +43,7 @@ describe('WidgetSseManager', () => {
     const widgets = new WidgetManager();
     const update = vi.spyOn(widgets, 'updateWidget');
     const manager = new WidgetSseManager(widgets, {
-      createEventSource: () => sources[index++] as any,
+      createEventSource: () => sources[index++] as unknown as EventSource,
     });
     const event = {
       protocolVersion: '1.0', eventId: '1', streamId: 'stream',
@@ -71,7 +71,7 @@ describe('WidgetSseManager', () => {
     wm.attachHandlers(container);
 
     const fakeEs = new FakeEventSource('');
-    const sse = new WidgetSseManager(wm, { createEventSource: () => (fakeEs as any) });
+    const sse = new WidgetSseManager(wm, { createEventSource: () => (fakeEs as unknown as EventSource) });
     sse.connect('/events');
 
     // Find rendered widget id
@@ -89,7 +89,7 @@ describe('WidgetSseManager', () => {
   it('calls registered handler when present instead of DOM update', () => {
     const wm = new WidgetManager();
     const fakeEs = new FakeEventSource('');
-    const sse = new WidgetSseManager(wm, { createEventSource: () => (fakeEs as any) });
+    const sse = new WidgetSseManager(wm, { createEventSource: () => (fakeEs as unknown as EventSource) });
     sse.connect('/events');
 
     let called = false;

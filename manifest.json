@@ -1292,6 +1292,20 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ReportingAxis.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ReportingAxis.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ReportingAxis",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ReportingAxis.yml\" sourcestartlinenumber=\"1\">The quantitative axis of a chart reference line.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Models.ReportingColumn.yml",
       "output": {
         ".html": {
@@ -1303,6 +1317,48 @@
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Models.ReportingColumn",
       "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ReportingColumn.yml\" sourcestartlinenumber=\"1\">A named reporting field with optional grid editing.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ReportingPresentation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ReportingPresentation.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ReportingPresentation",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ReportingPresentation.yml\" sourcestartlinenumber=\"1\">Optional data bindings and settings for the library's reporting renderer.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ReportingReferenceLine.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ReportingReferenceLine.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ReportingReferenceLine",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ReportingReferenceLine.yml\" sourcestartlinenumber=\"1\">A labeled reference line at a fixed coordinate or a constant numeric field in the result.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Models.ReportingSeries.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Models.ReportingSeries.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Models.ReportingSeries",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Models.ReportingSeries.yml\" sourcestartlinenumber=\"1\">An authored numeric series and its legend label.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1796,6 +1852,34 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.IReportingInputSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.IReportingInputSource.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.IReportingInputSource",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.IReportingInputSource.yml\" sourcestartlinenumber=\"1\">Optional scoped choice resolution for datasets with dynamic inputs.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.IReportingInputValidationSource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.IReportingInputValidationSource.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.IReportingInputValidationSource",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.IReportingInputValidationSource.yml\" sourcestartlinenumber=\"1\">Optional direct availability check for a choice without enumerating the option list.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Reporting.IReportingSource.yml",
       "output": {
         ".html": {
@@ -1821,6 +1905,20 @@
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Reporting.IReportingStore",
       "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.IReportingStore.yml\" sourcestartlinenumber=\"1\">Persists definitions, with each operation scoped by both the tenant and user.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportCalendar.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportCalendar.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportCalendar",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportCalendar.yml\" sourcestartlinenumber=\"1\">Dataset-specific date constraints and optional date picker labels.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1877,6 +1975,20 @@
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Reporting.ReportField",
       "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportField.yml\" sourcestartlinenumber=\"1\">A selectable metric or grouping in the catalog.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportFilter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportFilter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportFilter",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportFilter.yml\" sourcestartlinenumber=\"1\">An authored control referencing a filter in the authorized catalog.</p>\n"
     },
     {
       "type": "ManagedReference",
@@ -1950,6 +2062,132 @@
     },
     {
       "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportInput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportInput.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportInput",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportInput.yml\" sourcestartlinenumber=\"1\">A dataset's typed single-choice filter or parameter.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportInputBinding.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportInputBinding.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportInputBinding",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportInputBinding.yml\" sourcestartlinenumber=\"1\">Maps the value from a result field to a shared reporting filter.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportInputOption.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportInputOption.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportInputOption",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportInputOption.yml\" sourcestartlinenumber=\"1\">An advertised input choice and its display label.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.yml\" sourcestartlinenumber=\"1\">Requests choices for an input in the inclusive report period.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportInputRole.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportInputRole.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportInputRole",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportInputRole.yml\" sourcestartlinenumber=\"1\">Describes whether a query input restricts rows or controls report execution or display.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportInputSelection.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportInputSelection.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportInputSelection",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportInputSelection.yml\" sourcestartlinenumber=\"1\">A single selection for an advertised input.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportInputType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportInputType.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportInputType",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportInputType.yml\" sourcestartlinenumber=\"1\">Supported scalar types for a single-choice input.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportInputValue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportInputValue.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportInputValue",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportInputValue.yml\" sourcestartlinenumber=\"1\">The strongly typed scalar value used by a reporting input.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportInputValueConverter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportInputValueConverter.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportInputValueConverter",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportInputValueConverter.yml\" sourcestartlinenumber=\"1\">Reads and writes reporting input values as JSON scalars.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
       "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportQuery.yml",
       "output": {
         ".html": {
@@ -2017,6 +2255,20 @@
       "IsMRef": true,
       "Title": "BbQ.ChatWidgets.Reporting.ReportingEndpoints",
       "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportingEndpoints.yml\" sourcestartlinenumber=\"1\">Registers the reporting HTTP API independently of chat endpoints.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.yml",
+      "output": {
+        ".html": {
+          "relative_path": "BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "BbQ.ChatWidgets.Reporting.ReportingFilterCatalog",
+      "Summary": "<p sourcefile=\"api/BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.yml\" sourcestartlinenumber=\"1\">Resolves portable filter controls against the datasets used by a report.</p>\n"
     },
     {
       "type": "ManagedReference",

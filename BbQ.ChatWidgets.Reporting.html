@@ -78,6 +78,9 @@
     <h3 id="classes">
 Classes
 </h3>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportCalendar.html">ReportCalendar</a></h4>
+      <section><p>Dataset-specific date constraints and optional date picker labels.</p>
+</section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportColumn.html">ReportColumn</a></h4>
       <section><p>A visible result column, with opt-in editing in the render preview.</p>
 </section>
@@ -89,6 +92,9 @@ Classes
 </section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportField.html">ReportField</a></h4>
       <section><p>A selectable metric or grouping in the catalog.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportFilter.html">ReportFilter</a></h4>
+      <section><p>An authored control referencing a filter in the authorized catalog.</p>
 </section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportGridCapabilities.html">ReportGridCapabilities</a></h4>
       <section><p>Supported operations for a detail grid. Fields refer to report column IDs.</p>
@@ -105,6 +111,24 @@ Classes
       <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportGridRow.html">ReportGridRow</a></h4>
       <section><p>A report row and its stable key within the queried dataset.</p>
 </section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportInput.html">ReportInput</a></h4>
+      <section><p>A dataset's typed single-choice filter or parameter.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportInputBinding.html">ReportInputBinding</a></h4>
+      <section><p>Maps the value from a result field to a shared reporting filter.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportInputOption.html">ReportInputOption</a></h4>
+      <section><p>An advertised input choice and its display label.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html">ReportInputOptionsRequest</a></h4>
+      <section><p>Requests choices for an input in the inclusive report period.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportInputSelection.html">ReportInputSelection</a></h4>
+      <section><p>A single selection for an advertised input.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportInputValueConverter.html">ReportInputValueConverter</a></h4>
+      <section><p>Reads and writes reporting input values as JSON scalars.</p>
+</section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportQuery.html">ReportQuery</a></h4>
       <section><p>A dataset query over an inclusive date range with an optional grouping.</p>
 </section>
@@ -120,11 +144,20 @@ Classes
       <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportingEndpoints.html">ReportingEndpoints</a></h4>
       <section><p>Registers the reporting HTTP API independently of chat endpoints.</p>
 </section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.html">ReportingFilterCatalog</a></h4>
+      <section><p>Resolves portable filter controls against the datasets used by a report.</p>
+</section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportingServiceCollectionExtensions.html">ReportingServiceCollectionExtensions</a></h4>
       <section><p>Registers reporting providers independently of the chat services.</p>
 </section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.SavedReport.html">SavedReport</a></h4>
       <section><p>A report definition and its stable identifier.</p>
+</section>
+    <h3 id="structs">
+Structs
+</h3>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportInputValue.html">ReportInputValue</a></h4>
+      <section><p>The strongly typed scalar value used by a reporting input.</p>
 </section>
     <h3 id="interfaces">
 Interfaces
@@ -132,11 +165,26 @@ Interfaces
       <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.IReportingGridSource.html">IReportingGridSource</a></h4>
       <section><p>Optional paging support implemented by the registered reporting source.</p>
 </section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.IReportingInputSource.html">IReportingInputSource</a></h4>
+      <section><p>Optional scoped choice resolution for datasets with dynamic inputs.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.IReportingInputValidationSource.html">IReportingInputValidationSource</a></h4>
+      <section><p>Optional direct availability check for a choice without enumerating the option list.</p>
+</section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.IReportingSource.html">IReportingSource</a></h4>
       <section><p>Resolves caller scope and exposes the authorized reporting catalog and results.</p>
 </section>
       <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.IReportingStore.html">IReportingStore</a></h4>
       <section><p>Persists definitions, with each operation scoped by both the tenant and user.</p>
+</section>
+    <h3 id="enums">
+Enums
+</h3>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportInputRole.html">ReportInputRole</a></h4>
+      <section><p>Describes whether a query input restricts rows or controls report execution or display.</p>
+</section>
+      <h4><a class="xref" href="BbQ.ChatWidgets.Reporting.ReportInputType.html">ReportInputType</a></h4>
+      <section><p>Supported scalar types for a single-choice input.</p>
 </section>
 
 

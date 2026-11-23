@@ -7164,6 +7164,24 @@ references:
   fullName.vb: BbQ.ChatWidgets.Models.ProgressBarWidget.<>
   nameWithType: ProgressBarWidget.operator !=
   nameWithType.vb: ProgressBarWidget.<>
+- uid: BbQ.ChatWidgets.Models.ReportingAxis
+  name: ReportingAxis
+  href: BbQ.ChatWidgets.Models.ReportingAxis.html
+  commentId: T:BbQ.ChatWidgets.Models.ReportingAxis
+  fullName: BbQ.ChatWidgets.Models.ReportingAxis
+  nameWithType: ReportingAxis
+- uid: BbQ.ChatWidgets.Models.ReportingAxis.X
+  name: X
+  href: BbQ.ChatWidgets.Models.ReportingAxis.html#BbQ_ChatWidgets_Models_ReportingAxis_X
+  commentId: F:BbQ.ChatWidgets.Models.ReportingAxis.X
+  fullName: BbQ.ChatWidgets.Models.ReportingAxis.X
+  nameWithType: ReportingAxis.X
+- uid: BbQ.ChatWidgets.Models.ReportingAxis.Y
+  name: Y
+  href: BbQ.ChatWidgets.Models.ReportingAxis.html#BbQ_ChatWidgets_Models_ReportingAxis_Y
+  commentId: F:BbQ.ChatWidgets.Models.ReportingAxis.Y
+  fullName: BbQ.ChatWidgets.Models.ReportingAxis.Y
+  nameWithType: ReportingAxis.Y
 - uid: BbQ.ChatWidgets.Models.ReportingColumn
   name: ReportingColumn
   href: BbQ.ChatWidgets.Models.ReportingColumn.html
@@ -7323,6 +7341,564 @@ references:
   fullName.vb: BbQ.ChatWidgets.Models.ReportingColumn.<>
   nameWithType: ReportingColumn.operator !=
   nameWithType.vb: ReportingColumn.<>
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation
+  name: ReportingPresentation
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html
+  commentId: T:BbQ.ChatWidgets.Models.ReportingPresentation
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation
+  nameWithType: ReportingPresentation
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.#ctor
+  name: ReportingPresentation()
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation__ctor
+  commentId: M:BbQ.ChatWidgets.Models.ReportingPresentation.#ctor
+  name.vb: New()
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.ReportingPresentation()
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingPresentation.New()
+  nameWithType: ReportingPresentation.ReportingPresentation()
+  nameWithType.vb: ReportingPresentation.New()
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.#ctor*
+  name: ReportingPresentation
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.ReportingPresentation
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingPresentation.New
+  nameWithType: ReportingPresentation.ReportingPresentation
+  nameWithType.vb: ReportingPresentation.New
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.BinWidth
+  name: BinWidth
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_BinWidth
+  commentId: P:BbQ.ChatWidgets.Models.ReportingPresentation.BinWidth
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.BinWidth
+  nameWithType: ReportingPresentation.BinWidth
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.BinWidth*
+  name: BinWidth
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_BinWidth_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.BinWidth
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.BinWidth
+  nameWithType: ReportingPresentation.BinWidth
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.CategoryField
+  name: CategoryField
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_CategoryField
+  commentId: P:BbQ.ChatWidgets.Models.ReportingPresentation.CategoryField
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.CategoryField
+  nameWithType: ReportingPresentation.CategoryField
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.CategoryField*
+  name: CategoryField
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_CategoryField_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.CategoryField
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.CategoryField
+  nameWithType: ReportingPresentation.CategoryField
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.DateAxisLabel
+  name: DateAxisLabel
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_DateAxisLabel
+  commentId: P:BbQ.ChatWidgets.Models.ReportingPresentation.DateAxisLabel
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.DateAxisLabel
+  nameWithType: ReportingPresentation.DateAxisLabel
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.DateAxisLabel*
+  name: DateAxisLabel
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_DateAxisLabel_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.DateAxisLabel
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.DateAxisLabel
+  nameWithType: ReportingPresentation.DateAxisLabel
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.DateField
+  name: DateField
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_DateField
+  commentId: P:BbQ.ChatWidgets.Models.ReportingPresentation.DateField
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.DateField
+  nameWithType: ReportingPresentation.DateField
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.DateField*
+  name: DateField
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_DateField_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.DateField
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.DateField
+  nameWithType: ReportingPresentation.DateField
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.Equals(BbQ.ChatWidgets.Models.ReportingPresentation)
+  name: Equals(ReportingPresentation?)
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_Equals_BbQ_ChatWidgets_Models_ReportingPresentation_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingPresentation.Equals(BbQ.ChatWidgets.Models.ReportingPresentation)
+  name.vb: Equals(ReportingPresentation)
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.Equals(BbQ.ChatWidgets.Models.ReportingPresentation?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingPresentation.Equals(BbQ.ChatWidgets.Models.ReportingPresentation)
+  nameWithType: ReportingPresentation.Equals(ReportingPresentation?)
+  nameWithType.vb: ReportingPresentation.Equals(ReportingPresentation)
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingPresentation.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingPresentation.Equals(Object)
+  nameWithType: ReportingPresentation.Equals(object?)
+  nameWithType.vb: ReportingPresentation.Equals(Object)
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.Equals
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.Equals
+  nameWithType: ReportingPresentation.Equals
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Models.ReportingPresentation.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.GetHashCode()
+  nameWithType: ReportingPresentation.GetHashCode()
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.GetHashCode
+  nameWithType: ReportingPresentation.GetHashCode
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.PieHole
+  name: PieHole
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_PieHole
+  commentId: P:BbQ.ChatWidgets.Models.ReportingPresentation.PieHole
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.PieHole
+  nameWithType: ReportingPresentation.PieHole
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.PieHole*
+  name: PieHole
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_PieHole_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.PieHole
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.PieHole
+  nameWithType: ReportingPresentation.PieHole
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.ReferenceLines
+  name: ReferenceLines
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_ReferenceLines
+  commentId: P:BbQ.ChatWidgets.Models.ReportingPresentation.ReferenceLines
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.ReferenceLines
+  nameWithType: ReportingPresentation.ReferenceLines
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.ReferenceLines*
+  name: ReferenceLines
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_ReferenceLines_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.ReferenceLines
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.ReferenceLines
+  nameWithType: ReportingPresentation.ReferenceLines
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.Series
+  name: Series
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_Series
+  commentId: P:BbQ.ChatWidgets.Models.ReportingPresentation.Series
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.Series
+  nameWithType: ReportingPresentation.Series
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.Series*
+  name: Series
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_Series_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.Series
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.Series
+  nameWithType: ReportingPresentation.Series
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.SeriesField
+  name: SeriesField
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_SeriesField
+  commentId: P:BbQ.ChatWidgets.Models.ReportingPresentation.SeriesField
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.SeriesField
+  nameWithType: ReportingPresentation.SeriesField
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.SeriesField*
+  name: SeriesField
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_SeriesField_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.SeriesField
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.SeriesField
+  nameWithType: ReportingPresentation.SeriesField
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.SizeField
+  name: SizeField
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_SizeField
+  commentId: P:BbQ.ChatWidgets.Models.ReportingPresentation.SizeField
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.SizeField
+  nameWithType: ReportingPresentation.SizeField
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.SizeField*
+  name: SizeField
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_SizeField_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.SizeField
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.SizeField
+  nameWithType: ReportingPresentation.SizeField
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_ToString
+  commentId: M:BbQ.ChatWidgets.Models.ReportingPresentation.ToString
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.ToString()
+  nameWithType: ReportingPresentation.ToString()
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.ToString
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.ToString
+  nameWithType: ReportingPresentation.ToString
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.ValueField
+  name: ValueField
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_ValueField
+  commentId: P:BbQ.ChatWidgets.Models.ReportingPresentation.ValueField
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.ValueField
+  nameWithType: ReportingPresentation.ValueField
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.ValueField*
+  name: ValueField
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_ValueField_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.ValueField
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.ValueField
+  nameWithType: ReportingPresentation.ValueField
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.XField
+  name: XField
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_XField
+  commentId: P:BbQ.ChatWidgets.Models.ReportingPresentation.XField
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.XField
+  nameWithType: ReportingPresentation.XField
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.XField*
+  name: XField
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_XField_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.XField
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.XField
+  nameWithType: ReportingPresentation.XField
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.op_Equality(BbQ.ChatWidgets.Models.ReportingPresentation,BbQ.ChatWidgets.Models.ReportingPresentation)
+  name: operator ==(ReportingPresentation?, ReportingPresentation?)
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_op_Equality_BbQ_ChatWidgets_Models_ReportingPresentation_BbQ_ChatWidgets_Models_ReportingPresentation_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingPresentation.op_Equality(BbQ.ChatWidgets.Models.ReportingPresentation,BbQ.ChatWidgets.Models.ReportingPresentation)
+  name.vb: =(ReportingPresentation, ReportingPresentation)
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.operator ==(BbQ.ChatWidgets.Models.ReportingPresentation?, BbQ.ChatWidgets.Models.ReportingPresentation?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingPresentation.=(BbQ.ChatWidgets.Models.ReportingPresentation, BbQ.ChatWidgets.Models.ReportingPresentation)
+  nameWithType: ReportingPresentation.operator ==(ReportingPresentation?, ReportingPresentation?)
+  nameWithType.vb: ReportingPresentation.=(ReportingPresentation, ReportingPresentation)
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.operator ==
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingPresentation.=
+  nameWithType: ReportingPresentation.operator ==
+  nameWithType.vb: ReportingPresentation.=
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.op_Inequality(BbQ.ChatWidgets.Models.ReportingPresentation,BbQ.ChatWidgets.Models.ReportingPresentation)
+  name: operator !=(ReportingPresentation?, ReportingPresentation?)
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_op_Inequality_BbQ_ChatWidgets_Models_ReportingPresentation_BbQ_ChatWidgets_Models_ReportingPresentation_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingPresentation.op_Inequality(BbQ.ChatWidgets.Models.ReportingPresentation,BbQ.ChatWidgets.Models.ReportingPresentation)
+  name.vb: <>(ReportingPresentation, ReportingPresentation)
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.operator !=(BbQ.ChatWidgets.Models.ReportingPresentation?, BbQ.ChatWidgets.Models.ReportingPresentation?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingPresentation.<>(BbQ.ChatWidgets.Models.ReportingPresentation, BbQ.ChatWidgets.Models.ReportingPresentation)
+  nameWithType: ReportingPresentation.operator !=(ReportingPresentation?, ReportingPresentation?)
+  nameWithType.vb: ReportingPresentation.<>(ReportingPresentation, ReportingPresentation)
+- uid: BbQ.ChatWidgets.Models.ReportingPresentation.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Models.ReportingPresentation.html#BbQ_ChatWidgets_Models_ReportingPresentation_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingPresentation.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Models.ReportingPresentation.operator !=
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingPresentation.<>
+  nameWithType: ReportingPresentation.operator !=
+  nameWithType.vb: ReportingPresentation.<>
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine
+  name: ReportingReferenceLine
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html
+  commentId: T:BbQ.ChatWidgets.Models.ReportingReferenceLine
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine
+  nameWithType: ReportingReferenceLine
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.#ctor(BbQ.ChatWidgets.Models.ReportingAxis,System.String)
+  name: ReportingReferenceLine(ReportingAxis, string)
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine__ctor_BbQ_ChatWidgets_Models_ReportingAxis_System_String_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingReferenceLine.#ctor(BbQ.ChatWidgets.Models.ReportingAxis,System.String)
+  name.vb: New(ReportingAxis, String)
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.ReportingReferenceLine(BbQ.ChatWidgets.Models.ReportingAxis, string)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingReferenceLine.New(BbQ.ChatWidgets.Models.ReportingAxis, String)
+  nameWithType: ReportingReferenceLine.ReportingReferenceLine(ReportingAxis, string)
+  nameWithType.vb: ReportingReferenceLine.New(ReportingAxis, String)
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.#ctor*
+  name: ReportingReferenceLine
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingReferenceLine.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.ReportingReferenceLine
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingReferenceLine.New
+  nameWithType: ReportingReferenceLine.ReportingReferenceLine
+  nameWithType.vb: ReportingReferenceLine.New
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.Axis
+  name: Axis
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_Axis
+  commentId: P:BbQ.ChatWidgets.Models.ReportingReferenceLine.Axis
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.Axis
+  nameWithType: ReportingReferenceLine.Axis
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.Axis*
+  name: Axis
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_Axis_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingReferenceLine.Axis
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.Axis
+  nameWithType: ReportingReferenceLine.Axis
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.Deconstruct(BbQ.ChatWidgets.Models.ReportingAxis@,System.String@)
+  name: Deconstruct(out ReportingAxis, out string)
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_Deconstruct_BbQ_ChatWidgets_Models_ReportingAxis__System_String__
+  commentId: M:BbQ.ChatWidgets.Models.ReportingReferenceLine.Deconstruct(BbQ.ChatWidgets.Models.ReportingAxis@,System.String@)
+  name.vb: Deconstruct(ReportingAxis, String)
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.Deconstruct(out BbQ.ChatWidgets.Models.ReportingAxis, out string)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingReferenceLine.Deconstruct(BbQ.ChatWidgets.Models.ReportingAxis, String)
+  nameWithType: ReportingReferenceLine.Deconstruct(out ReportingAxis, out string)
+  nameWithType.vb: ReportingReferenceLine.Deconstruct(ReportingAxis, String)
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingReferenceLine.Deconstruct
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.Deconstruct
+  nameWithType: ReportingReferenceLine.Deconstruct
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.Equals(BbQ.ChatWidgets.Models.ReportingReferenceLine)
+  name: Equals(ReportingReferenceLine?)
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_Equals_BbQ_ChatWidgets_Models_ReportingReferenceLine_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingReferenceLine.Equals(BbQ.ChatWidgets.Models.ReportingReferenceLine)
+  name.vb: Equals(ReportingReferenceLine)
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.Equals(BbQ.ChatWidgets.Models.ReportingReferenceLine?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingReferenceLine.Equals(BbQ.ChatWidgets.Models.ReportingReferenceLine)
+  nameWithType: ReportingReferenceLine.Equals(ReportingReferenceLine?)
+  nameWithType.vb: ReportingReferenceLine.Equals(ReportingReferenceLine)
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingReferenceLine.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingReferenceLine.Equals(Object)
+  nameWithType: ReportingReferenceLine.Equals(object?)
+  nameWithType.vb: ReportingReferenceLine.Equals(Object)
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingReferenceLine.Equals
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.Equals
+  nameWithType: ReportingReferenceLine.Equals
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.Field
+  name: Field
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_Field
+  commentId: P:BbQ.ChatWidgets.Models.ReportingReferenceLine.Field
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.Field
+  nameWithType: ReportingReferenceLine.Field
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.Field*
+  name: Field
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_Field_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingReferenceLine.Field
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.Field
+  nameWithType: ReportingReferenceLine.Field
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Models.ReportingReferenceLine.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.GetHashCode()
+  nameWithType: ReportingReferenceLine.GetHashCode()
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingReferenceLine.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.GetHashCode
+  nameWithType: ReportingReferenceLine.GetHashCode
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.Label
+  name: Label
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_Label
+  commentId: P:BbQ.ChatWidgets.Models.ReportingReferenceLine.Label
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.Label
+  nameWithType: ReportingReferenceLine.Label
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.Label*
+  name: Label
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_Label_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingReferenceLine.Label
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.Label
+  nameWithType: ReportingReferenceLine.Label
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_ToString
+  commentId: M:BbQ.ChatWidgets.Models.ReportingReferenceLine.ToString
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.ToString()
+  nameWithType: ReportingReferenceLine.ToString()
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingReferenceLine.ToString
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.ToString
+  nameWithType: ReportingReferenceLine.ToString
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.Value
+  name: Value
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_Value
+  commentId: P:BbQ.ChatWidgets.Models.ReportingReferenceLine.Value
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.Value
+  nameWithType: ReportingReferenceLine.Value
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.Value*
+  name: Value
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_Value_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingReferenceLine.Value
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.Value
+  nameWithType: ReportingReferenceLine.Value
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.op_Equality(BbQ.ChatWidgets.Models.ReportingReferenceLine,BbQ.ChatWidgets.Models.ReportingReferenceLine)
+  name: operator ==(ReportingReferenceLine?, ReportingReferenceLine?)
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_op_Equality_BbQ_ChatWidgets_Models_ReportingReferenceLine_BbQ_ChatWidgets_Models_ReportingReferenceLine_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingReferenceLine.op_Equality(BbQ.ChatWidgets.Models.ReportingReferenceLine,BbQ.ChatWidgets.Models.ReportingReferenceLine)
+  name.vb: =(ReportingReferenceLine, ReportingReferenceLine)
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.operator ==(BbQ.ChatWidgets.Models.ReportingReferenceLine?, BbQ.ChatWidgets.Models.ReportingReferenceLine?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingReferenceLine.=(BbQ.ChatWidgets.Models.ReportingReferenceLine, BbQ.ChatWidgets.Models.ReportingReferenceLine)
+  nameWithType: ReportingReferenceLine.operator ==(ReportingReferenceLine?, ReportingReferenceLine?)
+  nameWithType.vb: ReportingReferenceLine.=(ReportingReferenceLine, ReportingReferenceLine)
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingReferenceLine.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.operator ==
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingReferenceLine.=
+  nameWithType: ReportingReferenceLine.operator ==
+  nameWithType.vb: ReportingReferenceLine.=
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.op_Inequality(BbQ.ChatWidgets.Models.ReportingReferenceLine,BbQ.ChatWidgets.Models.ReportingReferenceLine)
+  name: operator !=(ReportingReferenceLine?, ReportingReferenceLine?)
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_op_Inequality_BbQ_ChatWidgets_Models_ReportingReferenceLine_BbQ_ChatWidgets_Models_ReportingReferenceLine_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingReferenceLine.op_Inequality(BbQ.ChatWidgets.Models.ReportingReferenceLine,BbQ.ChatWidgets.Models.ReportingReferenceLine)
+  name.vb: <>(ReportingReferenceLine, ReportingReferenceLine)
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.operator !=(BbQ.ChatWidgets.Models.ReportingReferenceLine?, BbQ.ChatWidgets.Models.ReportingReferenceLine?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingReferenceLine.<>(BbQ.ChatWidgets.Models.ReportingReferenceLine, BbQ.ChatWidgets.Models.ReportingReferenceLine)
+  nameWithType: ReportingReferenceLine.operator !=(ReportingReferenceLine?, ReportingReferenceLine?)
+  nameWithType.vb: ReportingReferenceLine.<>(ReportingReferenceLine, ReportingReferenceLine)
+- uid: BbQ.ChatWidgets.Models.ReportingReferenceLine.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Models.ReportingReferenceLine.html#BbQ_ChatWidgets_Models_ReportingReferenceLine_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingReferenceLine.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Models.ReportingReferenceLine.operator !=
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingReferenceLine.<>
+  nameWithType: ReportingReferenceLine.operator !=
+  nameWithType.vb: ReportingReferenceLine.<>
+- uid: BbQ.ChatWidgets.Models.ReportingSeries
+  name: ReportingSeries
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html
+  commentId: T:BbQ.ChatWidgets.Models.ReportingSeries
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries
+  nameWithType: ReportingSeries
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.#ctor(System.String,System.String)
+  name: ReportingSeries(string, string)
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries__ctor_System_String_System_String_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingSeries.#ctor(System.String,System.String)
+  name.vb: New(String, String)
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.ReportingSeries(string, string)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingSeries.New(String, String)
+  nameWithType: ReportingSeries.ReportingSeries(string, string)
+  nameWithType.vb: ReportingSeries.New(String, String)
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.#ctor*
+  name: ReportingSeries
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingSeries.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.ReportingSeries
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingSeries.New
+  nameWithType: ReportingSeries.ReportingSeries
+  nameWithType.vb: ReportingSeries.New
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.Deconstruct(System.String@,System.String@)
+  name: Deconstruct(out string, out string)
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries_Deconstruct_System_String__System_String__
+  commentId: M:BbQ.ChatWidgets.Models.ReportingSeries.Deconstruct(System.String@,System.String@)
+  name.vb: Deconstruct(String, String)
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.Deconstruct(out string, out string)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingSeries.Deconstruct(String, String)
+  nameWithType: ReportingSeries.Deconstruct(out string, out string)
+  nameWithType.vb: ReportingSeries.Deconstruct(String, String)
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingSeries.Deconstruct
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.Deconstruct
+  nameWithType: ReportingSeries.Deconstruct
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.Equals(BbQ.ChatWidgets.Models.ReportingSeries)
+  name: Equals(ReportingSeries?)
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries_Equals_BbQ_ChatWidgets_Models_ReportingSeries_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingSeries.Equals(BbQ.ChatWidgets.Models.ReportingSeries)
+  name.vb: Equals(ReportingSeries)
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.Equals(BbQ.ChatWidgets.Models.ReportingSeries?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingSeries.Equals(BbQ.ChatWidgets.Models.ReportingSeries)
+  nameWithType: ReportingSeries.Equals(ReportingSeries?)
+  nameWithType.vb: ReportingSeries.Equals(ReportingSeries)
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingSeries.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingSeries.Equals(Object)
+  nameWithType: ReportingSeries.Equals(object?)
+  nameWithType.vb: ReportingSeries.Equals(Object)
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingSeries.Equals
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.Equals
+  nameWithType: ReportingSeries.Equals
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.Field
+  name: Field
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries_Field
+  commentId: P:BbQ.ChatWidgets.Models.ReportingSeries.Field
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.Field
+  nameWithType: ReportingSeries.Field
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.Field*
+  name: Field
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries_Field_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingSeries.Field
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.Field
+  nameWithType: ReportingSeries.Field
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Models.ReportingSeries.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.GetHashCode()
+  nameWithType: ReportingSeries.GetHashCode()
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingSeries.GetHashCode
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.GetHashCode
+  nameWithType: ReportingSeries.GetHashCode
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.Label
+  name: Label
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries_Label
+  commentId: P:BbQ.ChatWidgets.Models.ReportingSeries.Label
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.Label
+  nameWithType: ReportingSeries.Label
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.Label*
+  name: Label
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries_Label_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingSeries.Label
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.Label
+  nameWithType: ReportingSeries.Label
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries_ToString
+  commentId: M:BbQ.ChatWidgets.Models.ReportingSeries.ToString
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.ToString()
+  nameWithType: ReportingSeries.ToString()
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingSeries.ToString
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.ToString
+  nameWithType: ReportingSeries.ToString
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.op_Equality(BbQ.ChatWidgets.Models.ReportingSeries,BbQ.ChatWidgets.Models.ReportingSeries)
+  name: operator ==(ReportingSeries?, ReportingSeries?)
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries_op_Equality_BbQ_ChatWidgets_Models_ReportingSeries_BbQ_ChatWidgets_Models_ReportingSeries_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingSeries.op_Equality(BbQ.ChatWidgets.Models.ReportingSeries,BbQ.ChatWidgets.Models.ReportingSeries)
+  name.vb: =(ReportingSeries, ReportingSeries)
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.operator ==(BbQ.ChatWidgets.Models.ReportingSeries?, BbQ.ChatWidgets.Models.ReportingSeries?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingSeries.=(BbQ.ChatWidgets.Models.ReportingSeries, BbQ.ChatWidgets.Models.ReportingSeries)
+  nameWithType: ReportingSeries.operator ==(ReportingSeries?, ReportingSeries?)
+  nameWithType.vb: ReportingSeries.=(ReportingSeries, ReportingSeries)
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingSeries.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.operator ==
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingSeries.=
+  nameWithType: ReportingSeries.operator ==
+  nameWithType.vb: ReportingSeries.=
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.op_Inequality(BbQ.ChatWidgets.Models.ReportingSeries,BbQ.ChatWidgets.Models.ReportingSeries)
+  name: operator !=(ReportingSeries?, ReportingSeries?)
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries_op_Inequality_BbQ_ChatWidgets_Models_ReportingSeries_BbQ_ChatWidgets_Models_ReportingSeries_
+  commentId: M:BbQ.ChatWidgets.Models.ReportingSeries.op_Inequality(BbQ.ChatWidgets.Models.ReportingSeries,BbQ.ChatWidgets.Models.ReportingSeries)
+  name.vb: <>(ReportingSeries, ReportingSeries)
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.operator !=(BbQ.ChatWidgets.Models.ReportingSeries?, BbQ.ChatWidgets.Models.ReportingSeries?)
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingSeries.<>(BbQ.ChatWidgets.Models.ReportingSeries, BbQ.ChatWidgets.Models.ReportingSeries)
+  nameWithType: ReportingSeries.operator !=(ReportingSeries?, ReportingSeries?)
+  nameWithType.vb: ReportingSeries.<>(ReportingSeries, ReportingSeries)
+- uid: BbQ.ChatWidgets.Models.ReportingSeries.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Models.ReportingSeries.html#BbQ_ChatWidgets_Models_ReportingSeries_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingSeries.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Models.ReportingSeries.operator !=
+  fullName.vb: BbQ.ChatWidgets.Models.ReportingSeries.<>
+  nameWithType: ReportingSeries.operator !=
+  nameWithType.vb: ReportingSeries.<>
 - uid: BbQ.ChatWidgets.Models.ReportingSettings
   name: ReportingSettings
   href: BbQ.ChatWidgets.Models.ReportingSettings.html
@@ -7458,6 +8034,18 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Models.ReportingSettings.GroupBy
   fullName: BbQ.ChatWidgets.Models.ReportingSettings.GroupBy
   nameWithType: ReportingSettings.GroupBy
+- uid: BbQ.ChatWidgets.Models.ReportingSettings.Presentation
+  name: Presentation
+  href: BbQ.ChatWidgets.Models.ReportingSettings.html#BbQ_ChatWidgets_Models_ReportingSettings_Presentation
+  commentId: P:BbQ.ChatWidgets.Models.ReportingSettings.Presentation
+  fullName: BbQ.ChatWidgets.Models.ReportingSettings.Presentation
+  nameWithType: ReportingSettings.Presentation
+- uid: BbQ.ChatWidgets.Models.ReportingSettings.Presentation*
+  name: Presentation
+  href: BbQ.ChatWidgets.Models.ReportingSettings.html#BbQ_ChatWidgets_Models_ReportingSettings_Presentation_
+  commentId: Overload:BbQ.ChatWidgets.Models.ReportingSettings.Presentation
+  fullName: BbQ.ChatWidgets.Models.ReportingSettings.Presentation
+  nameWithType: ReportingSettings.Presentation
 - uid: BbQ.ChatWidgets.Models.ReportingSettings.ToString
   name: ToString()
   href: BbQ.ChatWidgets.Models.ReportingSettings.html#BbQ_ChatWidgets_Models_ReportingSettings_ToString
@@ -11127,6 +11715,45 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Reporting.IReportingGridSource.GetPageAsync
   fullName: BbQ.ChatWidgets.Reporting.IReportingGridSource.GetPageAsync
   nameWithType: IReportingGridSource.GetPageAsync
+- uid: BbQ.ChatWidgets.Reporting.IReportingInputSource
+  name: IReportingInputSource
+  href: BbQ.ChatWidgets.Reporting.IReportingInputSource.html
+  commentId: T:BbQ.ChatWidgets.Reporting.IReportingInputSource
+  fullName: BbQ.ChatWidgets.Reporting.IReportingInputSource
+  nameWithType: IReportingInputSource
+- uid: BbQ.ChatWidgets.Reporting.IReportingInputSource.GetInputOptionsAsync(BbQ.ChatWidgets.Reporting.ReportScope,BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest,System.Int32,System.Threading.CancellationToken)
+  name: GetInputOptionsAsync(ReportScope, ReportInputOptionsRequest, int, CancellationToken)
+  href: BbQ.ChatWidgets.Reporting.IReportingInputSource.html#BbQ_ChatWidgets_Reporting_IReportingInputSource_GetInputOptionsAsync_BbQ_ChatWidgets_Reporting_ReportScope_BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_System_Int32_System_Threading_CancellationToken_
+  commentId: M:BbQ.ChatWidgets.Reporting.IReportingInputSource.GetInputOptionsAsync(BbQ.ChatWidgets.Reporting.ReportScope,BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest,System.Int32,System.Threading.CancellationToken)
+  name.vb: GetInputOptionsAsync(ReportScope, ReportInputOptionsRequest, Integer, CancellationToken)
+  fullName: BbQ.ChatWidgets.Reporting.IReportingInputSource.GetInputOptionsAsync(BbQ.ChatWidgets.Reporting.ReportScope, BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest, int, System.Threading.CancellationToken)
+  fullName.vb: BbQ.ChatWidgets.Reporting.IReportingInputSource.GetInputOptionsAsync(BbQ.ChatWidgets.Reporting.ReportScope, BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest, Integer, System.Threading.CancellationToken)
+  nameWithType: IReportingInputSource.GetInputOptionsAsync(ReportScope, ReportInputOptionsRequest, int, CancellationToken)
+  nameWithType.vb: IReportingInputSource.GetInputOptionsAsync(ReportScope, ReportInputOptionsRequest, Integer, CancellationToken)
+- uid: BbQ.ChatWidgets.Reporting.IReportingInputSource.GetInputOptionsAsync*
+  name: GetInputOptionsAsync
+  href: BbQ.ChatWidgets.Reporting.IReportingInputSource.html#BbQ_ChatWidgets_Reporting_IReportingInputSource_GetInputOptionsAsync_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.IReportingInputSource.GetInputOptionsAsync
+  fullName: BbQ.ChatWidgets.Reporting.IReportingInputSource.GetInputOptionsAsync
+  nameWithType: IReportingInputSource.GetInputOptionsAsync
+- uid: BbQ.ChatWidgets.Reporting.IReportingInputValidationSource
+  name: IReportingInputValidationSource
+  href: BbQ.ChatWidgets.Reporting.IReportingInputValidationSource.html
+  commentId: T:BbQ.ChatWidgets.Reporting.IReportingInputValidationSource
+  fullName: BbQ.ChatWidgets.Reporting.IReportingInputValidationSource
+  nameWithType: IReportingInputValidationSource
+- uid: BbQ.ChatWidgets.Reporting.IReportingInputValidationSource.IsInputValueAvailableAsync(BbQ.ChatWidgets.Reporting.ReportScope,BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest,BbQ.ChatWidgets.Reporting.ReportInputValue,System.Threading.CancellationToken)
+  name: IsInputValueAvailableAsync(ReportScope, ReportInputOptionsRequest, ReportInputValue, CancellationToken)
+  href: BbQ.ChatWidgets.Reporting.IReportingInputValidationSource.html#BbQ_ChatWidgets_Reporting_IReportingInputValidationSource_IsInputValueAvailableAsync_BbQ_ChatWidgets_Reporting_ReportScope_BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_BbQ_ChatWidgets_Reporting_ReportInputValue_System_Threading_CancellationToken_
+  commentId: M:BbQ.ChatWidgets.Reporting.IReportingInputValidationSource.IsInputValueAvailableAsync(BbQ.ChatWidgets.Reporting.ReportScope,BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest,BbQ.ChatWidgets.Reporting.ReportInputValue,System.Threading.CancellationToken)
+  fullName: BbQ.ChatWidgets.Reporting.IReportingInputValidationSource.IsInputValueAvailableAsync(BbQ.ChatWidgets.Reporting.ReportScope, BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest, BbQ.ChatWidgets.Reporting.ReportInputValue, System.Threading.CancellationToken)
+  nameWithType: IReportingInputValidationSource.IsInputValueAvailableAsync(ReportScope, ReportInputOptionsRequest, ReportInputValue, CancellationToken)
+- uid: BbQ.ChatWidgets.Reporting.IReportingInputValidationSource.IsInputValueAvailableAsync*
+  name: IsInputValueAvailableAsync
+  href: BbQ.ChatWidgets.Reporting.IReportingInputValidationSource.html#BbQ_ChatWidgets_Reporting_IReportingInputValidationSource_IsInputValueAvailableAsync_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.IReportingInputValidationSource.IsInputValueAvailableAsync
+  fullName: BbQ.ChatWidgets.Reporting.IReportingInputValidationSource.IsInputValueAvailableAsync
+  nameWithType: IReportingInputValidationSource.IsInputValueAvailableAsync
 - uid: BbQ.ChatWidgets.Reporting.IReportingSource
   name: IReportingSource
   href: BbQ.ChatWidgets.Reporting.IReportingSource.html
@@ -11244,6 +11871,165 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Reporting.IReportingStore.UpdateAsync
   fullName: BbQ.ChatWidgets.Reporting.IReportingStore.UpdateAsync
   nameWithType: IReportingStore.UpdateAsync
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar
+  name: ReportCalendar
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ReportCalendar
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar
+  nameWithType: ReportCalendar
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.#ctor(System.Int32)
+  name: ReportCalendar(int)
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar__ctor_System_Int32_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportCalendar.#ctor(System.Int32)
+  name.vb: New(Integer)
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.ReportCalendar(int)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportCalendar.New(Integer)
+  nameWithType: ReportCalendar.ReportCalendar(int)
+  nameWithType.vb: ReportCalendar.New(Integer)
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.#ctor*
+  name: ReportCalendar
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportCalendar.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.ReportCalendar
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportCalendar.New
+  nameWithType: ReportCalendar.ReportCalendar
+  nameWithType.vb: ReportCalendar.New
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.Deconstruct(System.Int32@)
+  name: Deconstruct(out int)
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_Deconstruct_System_Int32__
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportCalendar.Deconstruct(System.Int32@)
+  name.vb: Deconstruct(Integer)
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.Deconstruct(out int)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportCalendar.Deconstruct(Integer)
+  nameWithType: ReportCalendar.Deconstruct(out int)
+  nameWithType.vb: ReportCalendar.Deconstruct(Integer)
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportCalendar.Deconstruct
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.Deconstruct
+  nameWithType: ReportCalendar.Deconstruct
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.Equals(BbQ.ChatWidgets.Reporting.ReportCalendar)
+  name: Equals(ReportCalendar?)
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_Equals_BbQ_ChatWidgets_Reporting_ReportCalendar_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportCalendar.Equals(BbQ.ChatWidgets.Reporting.ReportCalendar)
+  name.vb: Equals(ReportCalendar)
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.Equals(BbQ.ChatWidgets.Reporting.ReportCalendar?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportCalendar.Equals(BbQ.ChatWidgets.Reporting.ReportCalendar)
+  nameWithType: ReportCalendar.Equals(ReportCalendar?)
+  nameWithType.vb: ReportCalendar.Equals(ReportCalendar)
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportCalendar.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportCalendar.Equals(Object)
+  nameWithType: ReportCalendar.Equals(object?)
+  nameWithType.vb: ReportCalendar.Equals(Object)
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportCalendar.Equals
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.Equals
+  nameWithType: ReportCalendar.Equals
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportCalendar.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.GetHashCode()
+  nameWithType: ReportCalendar.GetHashCode()
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportCalendar.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.GetHashCode
+  nameWithType: ReportCalendar.GetHashCode
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.Label
+  name: Label
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_Label
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportCalendar.Label
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.Label
+  nameWithType: ReportCalendar.Label
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.Label*
+  name: Label
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_Label_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportCalendar.Label
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.Label
+  nameWithType: ReportCalendar.Label
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.MaxDays
+  name: MaxDays
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_MaxDays
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportCalendar.MaxDays
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.MaxDays
+  nameWithType: ReportCalendar.MaxDays
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.MaxDays*
+  name: MaxDays
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_MaxDays_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportCalendar.MaxDays
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.MaxDays
+  nameWithType: ReportCalendar.MaxDays
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_ToString
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportCalendar.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.ToString()
+  nameWithType: ReportCalendar.ToString()
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportCalendar.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.ToString
+  nameWithType: ReportCalendar.ToString
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.Today
+  name: Today
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_Today
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportCalendar.Today
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.Today
+  nameWithType: ReportCalendar.Today
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.Today*
+  name: Today
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_Today_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportCalendar.Today
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.Today
+  nameWithType: ReportCalendar.Today
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.op_Equality(BbQ.ChatWidgets.Reporting.ReportCalendar,BbQ.ChatWidgets.Reporting.ReportCalendar)
+  name: operator ==(ReportCalendar?, ReportCalendar?)
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_op_Equality_BbQ_ChatWidgets_Reporting_ReportCalendar_BbQ_ChatWidgets_Reporting_ReportCalendar_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportCalendar.op_Equality(BbQ.ChatWidgets.Reporting.ReportCalendar,BbQ.ChatWidgets.Reporting.ReportCalendar)
+  name.vb: =(ReportCalendar, ReportCalendar)
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.operator ==(BbQ.ChatWidgets.Reporting.ReportCalendar?, BbQ.ChatWidgets.Reporting.ReportCalendar?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportCalendar.=(BbQ.ChatWidgets.Reporting.ReportCalendar, BbQ.ChatWidgets.Reporting.ReportCalendar)
+  nameWithType: ReportCalendar.operator ==(ReportCalendar?, ReportCalendar?)
+  nameWithType.vb: ReportCalendar.=(ReportCalendar, ReportCalendar)
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportCalendar.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.operator ==
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportCalendar.=
+  nameWithType: ReportCalendar.operator ==
+  nameWithType.vb: ReportCalendar.=
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.op_Inequality(BbQ.ChatWidgets.Reporting.ReportCalendar,BbQ.ChatWidgets.Reporting.ReportCalendar)
+  name: operator !=(ReportCalendar?, ReportCalendar?)
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_op_Inequality_BbQ_ChatWidgets_Reporting_ReportCalendar_BbQ_ChatWidgets_Reporting_ReportCalendar_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportCalendar.op_Inequality(BbQ.ChatWidgets.Reporting.ReportCalendar,BbQ.ChatWidgets.Reporting.ReportCalendar)
+  name.vb: <>(ReportCalendar, ReportCalendar)
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.operator !=(BbQ.ChatWidgets.Reporting.ReportCalendar?, BbQ.ChatWidgets.Reporting.ReportCalendar?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportCalendar.<>(BbQ.ChatWidgets.Reporting.ReportCalendar, BbQ.ChatWidgets.Reporting.ReportCalendar)
+  nameWithType: ReportCalendar.operator !=(ReportCalendar?, ReportCalendar?)
+  nameWithType.vb: ReportCalendar.<>(ReportCalendar, ReportCalendar)
+- uid: BbQ.ChatWidgets.Reporting.ReportCalendar.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Reporting.ReportCalendar.html#BbQ_ChatWidgets_Reporting_ReportCalendar_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportCalendar.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Reporting.ReportCalendar.operator !=
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportCalendar.<>
+  nameWithType: ReportCalendar.operator !=
+  nameWithType.vb: ReportCalendar.<>
 - uid: BbQ.ChatWidgets.Reporting.ReportColumn
   name: ReportColumn
   href: BbQ.ChatWidgets.Reporting.ReportColumn.html
@@ -11427,6 +12213,18 @@ references:
   fullName.vb: BbQ.ChatWidgets.Reporting.ReportDataset.New
   nameWithType: ReportDataset.ReportDataset
   nameWithType.vb: ReportDataset.New
+- uid: BbQ.ChatWidgets.Reporting.ReportDataset.Calendar
+  name: Calendar
+  href: BbQ.ChatWidgets.Reporting.ReportDataset.html#BbQ_ChatWidgets_Reporting_ReportDataset_Calendar
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportDataset.Calendar
+  fullName: BbQ.ChatWidgets.Reporting.ReportDataset.Calendar
+  nameWithType: ReportDataset.Calendar
+- uid: BbQ.ChatWidgets.Reporting.ReportDataset.Calendar*
+  name: Calendar
+  href: BbQ.ChatWidgets.Reporting.ReportDataset.html#BbQ_ChatWidgets_Reporting_ReportDataset_Calendar_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportDataset.Calendar
+  fullName: BbQ.ChatWidgets.Reporting.ReportDataset.Calendar
+  nameWithType: ReportDataset.Calendar
 - uid: BbQ.ChatWidgets.Reporting.ReportDataset.Deconstruct(System.String@,System.String@,BbQ.ChatWidgets.Reporting.ReportField[]@,BbQ.ChatWidgets.Reporting.ReportField[]@)
   name: Deconstruct(out string, out string, out ReportField[], out ReportField[])
   href: BbQ.ChatWidgets.Reporting.ReportDataset.html#BbQ_ChatWidgets_Reporting_ReportDataset_Deconstruct_System_String__System_String__BbQ_ChatWidgets_Reporting_ReportField____BbQ_ChatWidgets_Reporting_ReportField____
@@ -11502,6 +12300,18 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Reporting.ReportDataset.Id
   fullName: BbQ.ChatWidgets.Reporting.ReportDataset.Id
   nameWithType: ReportDataset.Id
+- uid: BbQ.ChatWidgets.Reporting.ReportDataset.Inputs
+  name: Inputs
+  href: BbQ.ChatWidgets.Reporting.ReportDataset.html#BbQ_ChatWidgets_Reporting_ReportDataset_Inputs
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportDataset.Inputs
+  fullName: BbQ.ChatWidgets.Reporting.ReportDataset.Inputs
+  nameWithType: ReportDataset.Inputs
+- uid: BbQ.ChatWidgets.Reporting.ReportDataset.Inputs*
+  name: Inputs
+  href: BbQ.ChatWidgets.Reporting.ReportDataset.html#BbQ_ChatWidgets_Reporting_ReportDataset_Inputs_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportDataset.Inputs
+  fullName: BbQ.ChatWidgets.Reporting.ReportDataset.Inputs
+  nameWithType: ReportDataset.Inputs
 - uid: BbQ.ChatWidgets.Reporting.ReportDataset.Label
   name: Label
   href: BbQ.ChatWidgets.Reporting.ReportDataset.html#BbQ_ChatWidgets_Reporting_ReportDataset_Label
@@ -11637,6 +12447,18 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Reporting.ReportDefinition.Equals
   fullName: BbQ.ChatWidgets.Reporting.ReportDefinition.Equals
   nameWithType: ReportDefinition.Equals
+- uid: BbQ.ChatWidgets.Reporting.ReportDefinition.Filters
+  name: Filters
+  href: BbQ.ChatWidgets.Reporting.ReportDefinition.html#BbQ_ChatWidgets_Reporting_ReportDefinition_Filters
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportDefinition.Filters
+  fullName: BbQ.ChatWidgets.Reporting.ReportDefinition.Filters
+  nameWithType: ReportDefinition.Filters
+- uid: BbQ.ChatWidgets.Reporting.ReportDefinition.Filters*
+  name: Filters
+  href: BbQ.ChatWidgets.Reporting.ReportDefinition.html#BbQ_ChatWidgets_Reporting_ReportDefinition_Filters_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportDefinition.Filters
+  fullName: BbQ.ChatWidgets.Reporting.ReportDefinition.Filters
+  nameWithType: ReportDefinition.Filters
 - uid: BbQ.ChatWidgets.Reporting.ReportDefinition.GetHashCode
   name: GetHashCode()
   href: BbQ.ChatWidgets.Reporting.ReportDefinition.html#BbQ_ChatWidgets_Reporting_ReportDefinition_GetHashCode
@@ -11916,6 +12738,153 @@ references:
   fullName.vb: BbQ.ChatWidgets.Reporting.ReportField.<>
   nameWithType: ReportField.operator !=
   nameWithType.vb: ReportField.<>
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter
+  name: ReportFilter
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ReportFilter
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter
+  nameWithType: ReportFilter
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.#ctor(System.String,System.String)
+  name: ReportFilter(string, string?)
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter__ctor_System_String_System_String_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportFilter.#ctor(System.String,System.String)
+  name.vb: New(String, String)
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.ReportFilter(string, string?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportFilter.New(String, String)
+  nameWithType: ReportFilter.ReportFilter(string, string?)
+  nameWithType.vb: ReportFilter.New(String, String)
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.#ctor*
+  name: ReportFilter
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportFilter.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.ReportFilter
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportFilter.New
+  nameWithType: ReportFilter.ReportFilter
+  nameWithType.vb: ReportFilter.New
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.Deconstruct(System.String@,System.String@)
+  name: Deconstruct(out string, out string?)
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter_Deconstruct_System_String__System_String__
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportFilter.Deconstruct(System.String@,System.String@)
+  name.vb: Deconstruct(String, String)
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.Deconstruct(out string, out string?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportFilter.Deconstruct(String, String)
+  nameWithType: ReportFilter.Deconstruct(out string, out string?)
+  nameWithType.vb: ReportFilter.Deconstruct(String, String)
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportFilter.Deconstruct
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.Deconstruct
+  nameWithType: ReportFilter.Deconstruct
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.Equals(BbQ.ChatWidgets.Reporting.ReportFilter)
+  name: Equals(ReportFilter?)
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter_Equals_BbQ_ChatWidgets_Reporting_ReportFilter_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportFilter.Equals(BbQ.ChatWidgets.Reporting.ReportFilter)
+  name.vb: Equals(ReportFilter)
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.Equals(BbQ.ChatWidgets.Reporting.ReportFilter?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportFilter.Equals(BbQ.ChatWidgets.Reporting.ReportFilter)
+  nameWithType: ReportFilter.Equals(ReportFilter?)
+  nameWithType.vb: ReportFilter.Equals(ReportFilter)
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportFilter.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportFilter.Equals(Object)
+  nameWithType: ReportFilter.Equals(object?)
+  nameWithType.vb: ReportFilter.Equals(Object)
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportFilter.Equals
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.Equals
+  nameWithType: ReportFilter.Equals
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportFilter.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.GetHashCode()
+  nameWithType: ReportFilter.GetHashCode()
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportFilter.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.GetHashCode
+  nameWithType: ReportFilter.GetHashCode
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.Input
+  name: Input
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter_Input
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportFilter.Input
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.Input
+  nameWithType: ReportFilter.Input
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.Input*
+  name: Input
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter_Input_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportFilter.Input
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.Input
+  nameWithType: ReportFilter.Input
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.Label
+  name: Label
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter_Label
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportFilter.Label
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.Label
+  nameWithType: ReportFilter.Label
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.Label*
+  name: Label
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter_Label_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportFilter.Label
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.Label
+  nameWithType: ReportFilter.Label
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter_ToString
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportFilter.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.ToString()
+  nameWithType: ReportFilter.ToString()
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportFilter.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.ToString
+  nameWithType: ReportFilter.ToString
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.op_Equality(BbQ.ChatWidgets.Reporting.ReportFilter,BbQ.ChatWidgets.Reporting.ReportFilter)
+  name: operator ==(ReportFilter?, ReportFilter?)
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter_op_Equality_BbQ_ChatWidgets_Reporting_ReportFilter_BbQ_ChatWidgets_Reporting_ReportFilter_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportFilter.op_Equality(BbQ.ChatWidgets.Reporting.ReportFilter,BbQ.ChatWidgets.Reporting.ReportFilter)
+  name.vb: =(ReportFilter, ReportFilter)
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.operator ==(BbQ.ChatWidgets.Reporting.ReportFilter?, BbQ.ChatWidgets.Reporting.ReportFilter?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportFilter.=(BbQ.ChatWidgets.Reporting.ReportFilter, BbQ.ChatWidgets.Reporting.ReportFilter)
+  nameWithType: ReportFilter.operator ==(ReportFilter?, ReportFilter?)
+  nameWithType.vb: ReportFilter.=(ReportFilter, ReportFilter)
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportFilter.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.operator ==
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportFilter.=
+  nameWithType: ReportFilter.operator ==
+  nameWithType.vb: ReportFilter.=
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.op_Inequality(BbQ.ChatWidgets.Reporting.ReportFilter,BbQ.ChatWidgets.Reporting.ReportFilter)
+  name: operator !=(ReportFilter?, ReportFilter?)
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter_op_Inequality_BbQ_ChatWidgets_Reporting_ReportFilter_BbQ_ChatWidgets_Reporting_ReportFilter_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportFilter.op_Inequality(BbQ.ChatWidgets.Reporting.ReportFilter,BbQ.ChatWidgets.Reporting.ReportFilter)
+  name.vb: <>(ReportFilter, ReportFilter)
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.operator !=(BbQ.ChatWidgets.Reporting.ReportFilter?, BbQ.ChatWidgets.Reporting.ReportFilter?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportFilter.<>(BbQ.ChatWidgets.Reporting.ReportFilter, BbQ.ChatWidgets.Reporting.ReportFilter)
+  nameWithType: ReportFilter.operator !=(ReportFilter?, ReportFilter?)
+  nameWithType.vb: ReportFilter.<>(ReportFilter, ReportFilter)
+- uid: BbQ.ChatWidgets.Reporting.ReportFilter.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Reporting.ReportFilter.html#BbQ_ChatWidgets_Reporting_ReportFilter_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportFilter.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Reporting.ReportFilter.operator !=
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportFilter.<>
+  nameWithType: ReportFilter.operator !=
+  nameWithType.vb: ReportFilter.<>
 - uid: BbQ.ChatWidgets.Reporting.ReportGridCapabilities
   name: ReportGridCapabilities
   href: BbQ.ChatWidgets.Reporting.ReportGridCapabilities.html
@@ -12723,6 +13692,1086 @@ references:
   fullName.vb: BbQ.ChatWidgets.Reporting.ReportGridRow.<>
   nameWithType: ReportGridRow.operator !=
   nameWithType.vb: ReportGridRow.<>
+- uid: BbQ.ChatWidgets.Reporting.ReportInput
+  name: ReportInput
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ReportInput
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput
+  nameWithType: ReportInput
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.#ctor(System.String,System.String,BbQ.ChatWidgets.Reporting.ReportInputRole,BbQ.ChatWidgets.Reporting.ReportInputType)
+  name: ReportInput(string, string, ReportInputRole, ReportInputType)
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput__ctor_System_String_System_String_BbQ_ChatWidgets_Reporting_ReportInputRole_BbQ_ChatWidgets_Reporting_ReportInputType_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInput.#ctor(System.String,System.String,BbQ.ChatWidgets.Reporting.ReportInputRole,BbQ.ChatWidgets.Reporting.ReportInputType)
+  name.vb: New(String, String, ReportInputRole, ReportInputType)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.ReportInput(string, string, BbQ.ChatWidgets.Reporting.ReportInputRole, BbQ.ChatWidgets.Reporting.ReportInputType)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInput.New(String, String, BbQ.ChatWidgets.Reporting.ReportInputRole, BbQ.ChatWidgets.Reporting.ReportInputType)
+  nameWithType: ReportInput.ReportInput(string, string, ReportInputRole, ReportInputType)
+  nameWithType.vb: ReportInput.New(String, String, ReportInputRole, ReportInputType)
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.#ctor*
+  name: ReportInput
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInput.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.ReportInput
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInput.New
+  nameWithType: ReportInput.ReportInput
+  nameWithType.vb: ReportInput.New
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.Deconstruct(System.String@,System.String@,BbQ.ChatWidgets.Reporting.ReportInputRole@,BbQ.ChatWidgets.Reporting.ReportInputType@)
+  name: Deconstruct(out string, out string, out ReportInputRole, out ReportInputType)
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_Deconstruct_System_String__System_String__BbQ_ChatWidgets_Reporting_ReportInputRole__BbQ_ChatWidgets_Reporting_ReportInputType__
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInput.Deconstruct(System.String@,System.String@,BbQ.ChatWidgets.Reporting.ReportInputRole@,BbQ.ChatWidgets.Reporting.ReportInputType@)
+  name.vb: Deconstruct(String, String, ReportInputRole, ReportInputType)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.Deconstruct(out string, out string, out BbQ.ChatWidgets.Reporting.ReportInputRole, out BbQ.ChatWidgets.Reporting.ReportInputType)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInput.Deconstruct(String, String, BbQ.ChatWidgets.Reporting.ReportInputRole, BbQ.ChatWidgets.Reporting.ReportInputType)
+  nameWithType: ReportInput.Deconstruct(out string, out string, out ReportInputRole, out ReportInputType)
+  nameWithType.vb: ReportInput.Deconstruct(String, String, ReportInputRole, ReportInputType)
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInput.Deconstruct
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.Deconstruct
+  nameWithType: ReportInput.Deconstruct
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.DefaultValue
+  name: DefaultValue
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_DefaultValue
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInput.DefaultValue
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.DefaultValue
+  nameWithType: ReportInput.DefaultValue
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.DefaultValue*
+  name: DefaultValue
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_DefaultValue_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInput.DefaultValue
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.DefaultValue
+  nameWithType: ReportInput.DefaultValue
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.Equals(BbQ.ChatWidgets.Reporting.ReportInput)
+  name: Equals(ReportInput?)
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_Equals_BbQ_ChatWidgets_Reporting_ReportInput_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInput.Equals(BbQ.ChatWidgets.Reporting.ReportInput)
+  name.vb: Equals(ReportInput)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.Equals(BbQ.ChatWidgets.Reporting.ReportInput?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInput.Equals(BbQ.ChatWidgets.Reporting.ReportInput)
+  nameWithType: ReportInput.Equals(ReportInput?)
+  nameWithType.vb: ReportInput.Equals(ReportInput)
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInput.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInput.Equals(Object)
+  nameWithType: ReportInput.Equals(object?)
+  nameWithType.vb: ReportInput.Equals(Object)
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInput.Equals
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.Equals
+  nameWithType: ReportInput.Equals
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInput.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.GetHashCode()
+  nameWithType: ReportInput.GetHashCode()
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInput.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.GetHashCode
+  nameWithType: ReportInput.GetHashCode
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.Id
+  name: Id
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_Id
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInput.Id
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.Id
+  nameWithType: ReportInput.Id
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.Id*
+  name: Id
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_Id_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInput.Id
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.Id
+  nameWithType: ReportInput.Id
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.Label
+  name: Label
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_Label
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInput.Label
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.Label
+  nameWithType: ReportInput.Label
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.Label*
+  name: Label
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_Label_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInput.Label
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.Label
+  nameWithType: ReportInput.Label
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.Options
+  name: Options
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_Options
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInput.Options
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.Options
+  nameWithType: ReportInput.Options
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.Options*
+  name: Options
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_Options_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInput.Options
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.Options
+  nameWithType: ReportInput.Options
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.Role
+  name: Role
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_Role
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInput.Role
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.Role
+  nameWithType: ReportInput.Role
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.Role*
+  name: Role
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_Role_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInput.Role
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.Role
+  nameWithType: ReportInput.Role
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_ToString
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInput.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.ToString()
+  nameWithType: ReportInput.ToString()
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInput.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.ToString
+  nameWithType: ReportInput.ToString
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.Type
+  name: Type
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_Type
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInput.Type
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.Type
+  nameWithType: ReportInput.Type
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.Type*
+  name: Type
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_Type_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInput.Type
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.Type
+  nameWithType: ReportInput.Type
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.op_Equality(BbQ.ChatWidgets.Reporting.ReportInput,BbQ.ChatWidgets.Reporting.ReportInput)
+  name: operator ==(ReportInput?, ReportInput?)
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_op_Equality_BbQ_ChatWidgets_Reporting_ReportInput_BbQ_ChatWidgets_Reporting_ReportInput_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInput.op_Equality(BbQ.ChatWidgets.Reporting.ReportInput,BbQ.ChatWidgets.Reporting.ReportInput)
+  name.vb: =(ReportInput, ReportInput)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.operator ==(BbQ.ChatWidgets.Reporting.ReportInput?, BbQ.ChatWidgets.Reporting.ReportInput?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInput.=(BbQ.ChatWidgets.Reporting.ReportInput, BbQ.ChatWidgets.Reporting.ReportInput)
+  nameWithType: ReportInput.operator ==(ReportInput?, ReportInput?)
+  nameWithType.vb: ReportInput.=(ReportInput, ReportInput)
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInput.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.operator ==
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInput.=
+  nameWithType: ReportInput.operator ==
+  nameWithType.vb: ReportInput.=
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.op_Inequality(BbQ.ChatWidgets.Reporting.ReportInput,BbQ.ChatWidgets.Reporting.ReportInput)
+  name: operator !=(ReportInput?, ReportInput?)
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_op_Inequality_BbQ_ChatWidgets_Reporting_ReportInput_BbQ_ChatWidgets_Reporting_ReportInput_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInput.op_Inequality(BbQ.ChatWidgets.Reporting.ReportInput,BbQ.ChatWidgets.Reporting.ReportInput)
+  name.vb: <>(ReportInput, ReportInput)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.operator !=(BbQ.ChatWidgets.Reporting.ReportInput?, BbQ.ChatWidgets.Reporting.ReportInput?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInput.<>(BbQ.ChatWidgets.Reporting.ReportInput, BbQ.ChatWidgets.Reporting.ReportInput)
+  nameWithType: ReportInput.operator !=(ReportInput?, ReportInput?)
+  nameWithType.vb: ReportInput.<>(ReportInput, ReportInput)
+- uid: BbQ.ChatWidgets.Reporting.ReportInput.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Reporting.ReportInput.html#BbQ_ChatWidgets_Reporting_ReportInput_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInput.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Reporting.ReportInput.operator !=
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInput.<>
+  nameWithType: ReportInput.operator !=
+  nameWithType.vb: ReportInput.<>
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding
+  name: ReportInputBinding
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ReportInputBinding
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding
+  nameWithType: ReportInputBinding
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.#ctor(System.String,System.String)
+  name: ReportInputBinding(string, string)
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding__ctor_System_String_System_String_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputBinding.#ctor(System.String,System.String)
+  name.vb: New(String, String)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.ReportInputBinding(string, string)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputBinding.New(String, String)
+  nameWithType: ReportInputBinding.ReportInputBinding(string, string)
+  nameWithType.vb: ReportInputBinding.New(String, String)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.#ctor*
+  name: ReportInputBinding
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputBinding.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.ReportInputBinding
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputBinding.New
+  nameWithType: ReportInputBinding.ReportInputBinding
+  nameWithType.vb: ReportInputBinding.New
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.Deconstruct(System.String@,System.String@)
+  name: Deconstruct(out string, out string)
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding_Deconstruct_System_String__System_String__
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputBinding.Deconstruct(System.String@,System.String@)
+  name.vb: Deconstruct(String, String)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.Deconstruct(out string, out string)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputBinding.Deconstruct(String, String)
+  nameWithType: ReportInputBinding.Deconstruct(out string, out string)
+  nameWithType.vb: ReportInputBinding.Deconstruct(String, String)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputBinding.Deconstruct
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.Deconstruct
+  nameWithType: ReportInputBinding.Deconstruct
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.Equals(BbQ.ChatWidgets.Reporting.ReportInputBinding)
+  name: Equals(ReportInputBinding?)
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding_Equals_BbQ_ChatWidgets_Reporting_ReportInputBinding_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputBinding.Equals(BbQ.ChatWidgets.Reporting.ReportInputBinding)
+  name.vb: Equals(ReportInputBinding)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.Equals(BbQ.ChatWidgets.Reporting.ReportInputBinding?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputBinding.Equals(BbQ.ChatWidgets.Reporting.ReportInputBinding)
+  nameWithType: ReportInputBinding.Equals(ReportInputBinding?)
+  nameWithType.vb: ReportInputBinding.Equals(ReportInputBinding)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputBinding.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputBinding.Equals(Object)
+  nameWithType: ReportInputBinding.Equals(object?)
+  nameWithType.vb: ReportInputBinding.Equals(Object)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputBinding.Equals
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.Equals
+  nameWithType: ReportInputBinding.Equals
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.Field
+  name: Field
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding_Field
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInputBinding.Field
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.Field
+  nameWithType: ReportInputBinding.Field
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.Field*
+  name: Field
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding_Field_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputBinding.Field
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.Field
+  nameWithType: ReportInputBinding.Field
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputBinding.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.GetHashCode()
+  nameWithType: ReportInputBinding.GetHashCode()
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputBinding.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.GetHashCode
+  nameWithType: ReportInputBinding.GetHashCode
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.Input
+  name: Input
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding_Input
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInputBinding.Input
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.Input
+  nameWithType: ReportInputBinding.Input
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.Input*
+  name: Input
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding_Input_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputBinding.Input
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.Input
+  nameWithType: ReportInputBinding.Input
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding_ToString
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputBinding.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.ToString()
+  nameWithType: ReportInputBinding.ToString()
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputBinding.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.ToString
+  nameWithType: ReportInputBinding.ToString
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.op_Equality(BbQ.ChatWidgets.Reporting.ReportInputBinding,BbQ.ChatWidgets.Reporting.ReportInputBinding)
+  name: operator ==(ReportInputBinding?, ReportInputBinding?)
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding_op_Equality_BbQ_ChatWidgets_Reporting_ReportInputBinding_BbQ_ChatWidgets_Reporting_ReportInputBinding_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputBinding.op_Equality(BbQ.ChatWidgets.Reporting.ReportInputBinding,BbQ.ChatWidgets.Reporting.ReportInputBinding)
+  name.vb: =(ReportInputBinding, ReportInputBinding)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.operator ==(BbQ.ChatWidgets.Reporting.ReportInputBinding?, BbQ.ChatWidgets.Reporting.ReportInputBinding?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputBinding.=(BbQ.ChatWidgets.Reporting.ReportInputBinding, BbQ.ChatWidgets.Reporting.ReportInputBinding)
+  nameWithType: ReportInputBinding.operator ==(ReportInputBinding?, ReportInputBinding?)
+  nameWithType.vb: ReportInputBinding.=(ReportInputBinding, ReportInputBinding)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputBinding.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.operator ==
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputBinding.=
+  nameWithType: ReportInputBinding.operator ==
+  nameWithType.vb: ReportInputBinding.=
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.op_Inequality(BbQ.ChatWidgets.Reporting.ReportInputBinding,BbQ.ChatWidgets.Reporting.ReportInputBinding)
+  name: operator !=(ReportInputBinding?, ReportInputBinding?)
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding_op_Inequality_BbQ_ChatWidgets_Reporting_ReportInputBinding_BbQ_ChatWidgets_Reporting_ReportInputBinding_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputBinding.op_Inequality(BbQ.ChatWidgets.Reporting.ReportInputBinding,BbQ.ChatWidgets.Reporting.ReportInputBinding)
+  name.vb: <>(ReportInputBinding, ReportInputBinding)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.operator !=(BbQ.ChatWidgets.Reporting.ReportInputBinding?, BbQ.ChatWidgets.Reporting.ReportInputBinding?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputBinding.<>(BbQ.ChatWidgets.Reporting.ReportInputBinding, BbQ.ChatWidgets.Reporting.ReportInputBinding)
+  nameWithType: ReportInputBinding.operator !=(ReportInputBinding?, ReportInputBinding?)
+  nameWithType.vb: ReportInputBinding.<>(ReportInputBinding, ReportInputBinding)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputBinding.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Reporting.ReportInputBinding.html#BbQ_ChatWidgets_Reporting_ReportInputBinding_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputBinding.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputBinding.operator !=
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputBinding.<>
+  nameWithType: ReportInputBinding.operator !=
+  nameWithType.vb: ReportInputBinding.<>
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption
+  name: ReportInputOption
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ReportInputOption
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption
+  nameWithType: ReportInputOption
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.#ctor(BbQ.ChatWidgets.Reporting.ReportInputValue,System.String)
+  name: ReportInputOption(ReportInputValue, string)
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption__ctor_BbQ_ChatWidgets_Reporting_ReportInputValue_System_String_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputOption.#ctor(BbQ.ChatWidgets.Reporting.ReportInputValue,System.String)
+  name.vb: New(ReportInputValue, String)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.ReportInputOption(BbQ.ChatWidgets.Reporting.ReportInputValue, string)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOption.New(BbQ.ChatWidgets.Reporting.ReportInputValue, String)
+  nameWithType: ReportInputOption.ReportInputOption(ReportInputValue, string)
+  nameWithType.vb: ReportInputOption.New(ReportInputValue, String)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.#ctor*
+  name: ReportInputOption
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOption.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.ReportInputOption
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOption.New
+  nameWithType: ReportInputOption.ReportInputOption
+  nameWithType.vb: ReportInputOption.New
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.Deconstruct(BbQ.ChatWidgets.Reporting.ReportInputValue@,System.String@)
+  name: Deconstruct(out ReportInputValue, out string)
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption_Deconstruct_BbQ_ChatWidgets_Reporting_ReportInputValue__System_String__
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputOption.Deconstruct(BbQ.ChatWidgets.Reporting.ReportInputValue@,System.String@)
+  name.vb: Deconstruct(ReportInputValue, String)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.Deconstruct(out BbQ.ChatWidgets.Reporting.ReportInputValue, out string)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOption.Deconstruct(BbQ.ChatWidgets.Reporting.ReportInputValue, String)
+  nameWithType: ReportInputOption.Deconstruct(out ReportInputValue, out string)
+  nameWithType.vb: ReportInputOption.Deconstruct(ReportInputValue, String)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOption.Deconstruct
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.Deconstruct
+  nameWithType: ReportInputOption.Deconstruct
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.Equals(BbQ.ChatWidgets.Reporting.ReportInputOption)
+  name: Equals(ReportInputOption?)
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption_Equals_BbQ_ChatWidgets_Reporting_ReportInputOption_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputOption.Equals(BbQ.ChatWidgets.Reporting.ReportInputOption)
+  name.vb: Equals(ReportInputOption)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.Equals(BbQ.ChatWidgets.Reporting.ReportInputOption?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOption.Equals(BbQ.ChatWidgets.Reporting.ReportInputOption)
+  nameWithType: ReportInputOption.Equals(ReportInputOption?)
+  nameWithType.vb: ReportInputOption.Equals(ReportInputOption)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputOption.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOption.Equals(Object)
+  nameWithType: ReportInputOption.Equals(object?)
+  nameWithType.vb: ReportInputOption.Equals(Object)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOption.Equals
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.Equals
+  nameWithType: ReportInputOption.Equals
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputOption.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.GetHashCode()
+  nameWithType: ReportInputOption.GetHashCode()
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOption.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.GetHashCode
+  nameWithType: ReportInputOption.GetHashCode
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.Label
+  name: Label
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption_Label
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInputOption.Label
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.Label
+  nameWithType: ReportInputOption.Label
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.Label*
+  name: Label
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption_Label_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOption.Label
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.Label
+  nameWithType: ReportInputOption.Label
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption_ToString
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputOption.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.ToString()
+  nameWithType: ReportInputOption.ToString()
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOption.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.ToString
+  nameWithType: ReportInputOption.ToString
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.Value
+  name: Value
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption_Value
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInputOption.Value
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.Value
+  nameWithType: ReportInputOption.Value
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.Value*
+  name: Value
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption_Value_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOption.Value
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.Value
+  nameWithType: ReportInputOption.Value
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.op_Equality(BbQ.ChatWidgets.Reporting.ReportInputOption,BbQ.ChatWidgets.Reporting.ReportInputOption)
+  name: operator ==(ReportInputOption?, ReportInputOption?)
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption_op_Equality_BbQ_ChatWidgets_Reporting_ReportInputOption_BbQ_ChatWidgets_Reporting_ReportInputOption_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputOption.op_Equality(BbQ.ChatWidgets.Reporting.ReportInputOption,BbQ.ChatWidgets.Reporting.ReportInputOption)
+  name.vb: =(ReportInputOption, ReportInputOption)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.operator ==(BbQ.ChatWidgets.Reporting.ReportInputOption?, BbQ.ChatWidgets.Reporting.ReportInputOption?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOption.=(BbQ.ChatWidgets.Reporting.ReportInputOption, BbQ.ChatWidgets.Reporting.ReportInputOption)
+  nameWithType: ReportInputOption.operator ==(ReportInputOption?, ReportInputOption?)
+  nameWithType.vb: ReportInputOption.=(ReportInputOption, ReportInputOption)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOption.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.operator ==
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOption.=
+  nameWithType: ReportInputOption.operator ==
+  nameWithType.vb: ReportInputOption.=
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.op_Inequality(BbQ.ChatWidgets.Reporting.ReportInputOption,BbQ.ChatWidgets.Reporting.ReportInputOption)
+  name: operator !=(ReportInputOption?, ReportInputOption?)
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption_op_Inequality_BbQ_ChatWidgets_Reporting_ReportInputOption_BbQ_ChatWidgets_Reporting_ReportInputOption_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputOption.op_Inequality(BbQ.ChatWidgets.Reporting.ReportInputOption,BbQ.ChatWidgets.Reporting.ReportInputOption)
+  name.vb: <>(ReportInputOption, ReportInputOption)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.operator !=(BbQ.ChatWidgets.Reporting.ReportInputOption?, BbQ.ChatWidgets.Reporting.ReportInputOption?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOption.<>(BbQ.ChatWidgets.Reporting.ReportInputOption, BbQ.ChatWidgets.Reporting.ReportInputOption)
+  nameWithType: ReportInputOption.operator !=(ReportInputOption?, ReportInputOption?)
+  nameWithType.vb: ReportInputOption.<>(ReportInputOption, ReportInputOption)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOption.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Reporting.ReportInputOption.html#BbQ_ChatWidgets_Reporting_ReportInputOption_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOption.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOption.operator !=
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOption.<>
+  nameWithType: ReportInputOption.operator !=
+  nameWithType.vb: ReportInputOption.<>
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest
+  name: ReportInputOptionsRequest
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest
+  nameWithType: ReportInputOptionsRequest
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.#ctor(System.String,System.String,System.DateOnly,System.DateOnly)
+  name: ReportInputOptionsRequest(string, string, DateOnly, DateOnly)
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest__ctor_System_String_System_String_System_DateOnly_System_DateOnly_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.#ctor(System.String,System.String,System.DateOnly,System.DateOnly)
+  name.vb: New(String, String, DateOnly, DateOnly)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.ReportInputOptionsRequest(string, string, System.DateOnly, System.DateOnly)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.New(String, String, System.DateOnly, System.DateOnly)
+  nameWithType: ReportInputOptionsRequest.ReportInputOptionsRequest(string, string, DateOnly, DateOnly)
+  nameWithType.vb: ReportInputOptionsRequest.New(String, String, DateOnly, DateOnly)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.#ctor*
+  name: ReportInputOptionsRequest
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.ReportInputOptionsRequest
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.New
+  nameWithType: ReportInputOptionsRequest.ReportInputOptionsRequest
+  nameWithType.vb: ReportInputOptionsRequest.New
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Dataset
+  name: Dataset
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_Dataset
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Dataset
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Dataset
+  nameWithType: ReportInputOptionsRequest.Dataset
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Dataset*
+  name: Dataset
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_Dataset_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Dataset
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Dataset
+  nameWithType: ReportInputOptionsRequest.Dataset
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Deconstruct(System.String@,System.String@,System.DateOnly@,System.DateOnly@)
+  name: Deconstruct(out string, out string, out DateOnly, out DateOnly)
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_Deconstruct_System_String__System_String__System_DateOnly__System_DateOnly__
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Deconstruct(System.String@,System.String@,System.DateOnly@,System.DateOnly@)
+  name.vb: Deconstruct(String, String, DateOnly, DateOnly)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Deconstruct(out string, out string, out System.DateOnly, out System.DateOnly)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Deconstruct(String, String, System.DateOnly, System.DateOnly)
+  nameWithType: ReportInputOptionsRequest.Deconstruct(out string, out string, out DateOnly, out DateOnly)
+  nameWithType.vb: ReportInputOptionsRequest.Deconstruct(String, String, DateOnly, DateOnly)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Deconstruct
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Deconstruct
+  nameWithType: ReportInputOptionsRequest.Deconstruct
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Equals(BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest)
+  name: Equals(ReportInputOptionsRequest?)
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_Equals_BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Equals(BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest)
+  name.vb: Equals(ReportInputOptionsRequest)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Equals(BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Equals(BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest)
+  nameWithType: ReportInputOptionsRequest.Equals(ReportInputOptionsRequest?)
+  nameWithType.vb: ReportInputOptionsRequest.Equals(ReportInputOptionsRequest)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Equals(Object)
+  nameWithType: ReportInputOptionsRequest.Equals(object?)
+  nameWithType.vb: ReportInputOptionsRequest.Equals(Object)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Equals
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Equals
+  nameWithType: ReportInputOptionsRequest.Equals
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.From
+  name: From
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_From
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.From
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.From
+  nameWithType: ReportInputOptionsRequest.From
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.From*
+  name: From
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_From_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.From
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.From
+  nameWithType: ReportInputOptionsRequest.From
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.GetHashCode()
+  nameWithType: ReportInputOptionsRequest.GetHashCode()
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.GetHashCode
+  nameWithType: ReportInputOptionsRequest.GetHashCode
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Input
+  name: Input
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_Input
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Input
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Input
+  nameWithType: ReportInputOptionsRequest.Input
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Input*
+  name: Input
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_Input_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Input
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.Input
+  nameWithType: ReportInputOptionsRequest.Input
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.To
+  name: To
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_To
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.To
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.To
+  nameWithType: ReportInputOptionsRequest.To
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.To*
+  name: To
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_To_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.To
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.To
+  nameWithType: ReportInputOptionsRequest.To
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_ToString
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.ToString()
+  nameWithType: ReportInputOptionsRequest.ToString()
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.ToString
+  nameWithType: ReportInputOptionsRequest.ToString
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.op_Equality(BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest,BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest)
+  name: operator ==(ReportInputOptionsRequest?, ReportInputOptionsRequest?)
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_op_Equality_BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.op_Equality(BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest,BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest)
+  name.vb: =(ReportInputOptionsRequest, ReportInputOptionsRequest)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.operator ==(BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest?, BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.=(BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest, BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest)
+  nameWithType: ReportInputOptionsRequest.operator ==(ReportInputOptionsRequest?, ReportInputOptionsRequest?)
+  nameWithType.vb: ReportInputOptionsRequest.=(ReportInputOptionsRequest, ReportInputOptionsRequest)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.operator ==
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.=
+  nameWithType: ReportInputOptionsRequest.operator ==
+  nameWithType.vb: ReportInputOptionsRequest.=
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.op_Inequality(BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest,BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest)
+  name: operator !=(ReportInputOptionsRequest?, ReportInputOptionsRequest?)
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_op_Inequality_BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.op_Inequality(BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest,BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest)
+  name.vb: <>(ReportInputOptionsRequest, ReportInputOptionsRequest)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.operator !=(BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest?, BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.<>(BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest, BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest)
+  nameWithType: ReportInputOptionsRequest.operator !=(ReportInputOptionsRequest?, ReportInputOptionsRequest?)
+  nameWithType.vb: ReportInputOptionsRequest.<>(ReportInputOptionsRequest, ReportInputOptionsRequest)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.html#BbQ_ChatWidgets_Reporting_ReportInputOptionsRequest_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.operator !=
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputOptionsRequest.<>
+  nameWithType: ReportInputOptionsRequest.operator !=
+  nameWithType.vb: ReportInputOptionsRequest.<>
+- uid: BbQ.ChatWidgets.Reporting.ReportInputRole
+  name: ReportInputRole
+  href: BbQ.ChatWidgets.Reporting.ReportInputRole.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ReportInputRole
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputRole
+  nameWithType: ReportInputRole
+- uid: BbQ.ChatWidgets.Reporting.ReportInputRole.Filter
+  name: Filter
+  href: BbQ.ChatWidgets.Reporting.ReportInputRole.html#BbQ_ChatWidgets_Reporting_ReportInputRole_Filter
+  commentId: F:BbQ.ChatWidgets.Reporting.ReportInputRole.Filter
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputRole.Filter
+  nameWithType: ReportInputRole.Filter
+- uid: BbQ.ChatWidgets.Reporting.ReportInputRole.Parameter
+  name: Parameter
+  href: BbQ.ChatWidgets.Reporting.ReportInputRole.html#BbQ_ChatWidgets_Reporting_ReportInputRole_Parameter
+  commentId: F:BbQ.ChatWidgets.Reporting.ReportInputRole.Parameter
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputRole.Parameter
+  nameWithType: ReportInputRole.Parameter
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection
+  name: ReportInputSelection
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ReportInputSelection
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection
+  nameWithType: ReportInputSelection
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.#ctor(System.String,BbQ.ChatWidgets.Reporting.ReportInputValue)
+  name: ReportInputSelection(string, ReportInputValue)
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection__ctor_System_String_BbQ_ChatWidgets_Reporting_ReportInputValue_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputSelection.#ctor(System.String,BbQ.ChatWidgets.Reporting.ReportInputValue)
+  name.vb: New(String, ReportInputValue)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.ReportInputSelection(string, BbQ.ChatWidgets.Reporting.ReportInputValue)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputSelection.New(String, BbQ.ChatWidgets.Reporting.ReportInputValue)
+  nameWithType: ReportInputSelection.ReportInputSelection(string, ReportInputValue)
+  nameWithType.vb: ReportInputSelection.New(String, ReportInputValue)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.#ctor*
+  name: ReportInputSelection
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputSelection.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.ReportInputSelection
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputSelection.New
+  nameWithType: ReportInputSelection.ReportInputSelection
+  nameWithType.vb: ReportInputSelection.New
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.Deconstruct(System.String@,BbQ.ChatWidgets.Reporting.ReportInputValue@)
+  name: Deconstruct(out string, out ReportInputValue)
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection_Deconstruct_System_String__BbQ_ChatWidgets_Reporting_ReportInputValue__
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputSelection.Deconstruct(System.String@,BbQ.ChatWidgets.Reporting.ReportInputValue@)
+  name.vb: Deconstruct(String, ReportInputValue)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.Deconstruct(out string, out BbQ.ChatWidgets.Reporting.ReportInputValue)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputSelection.Deconstruct(String, BbQ.ChatWidgets.Reporting.ReportInputValue)
+  nameWithType: ReportInputSelection.Deconstruct(out string, out ReportInputValue)
+  nameWithType.vb: ReportInputSelection.Deconstruct(String, ReportInputValue)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.Deconstruct*
+  name: Deconstruct
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection_Deconstruct_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputSelection.Deconstruct
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.Deconstruct
+  nameWithType: ReportInputSelection.Deconstruct
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.Equals(BbQ.ChatWidgets.Reporting.ReportInputSelection)
+  name: Equals(ReportInputSelection?)
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection_Equals_BbQ_ChatWidgets_Reporting_ReportInputSelection_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputSelection.Equals(BbQ.ChatWidgets.Reporting.ReportInputSelection)
+  name.vb: Equals(ReportInputSelection)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.Equals(BbQ.ChatWidgets.Reporting.ReportInputSelection?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputSelection.Equals(BbQ.ChatWidgets.Reporting.ReportInputSelection)
+  nameWithType: ReportInputSelection.Equals(ReportInputSelection?)
+  nameWithType.vb: ReportInputSelection.Equals(ReportInputSelection)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.Equals(System.Object)
+  name: Equals(object?)
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputSelection.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.Equals(object?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputSelection.Equals(Object)
+  nameWithType: ReportInputSelection.Equals(object?)
+  nameWithType.vb: ReportInputSelection.Equals(Object)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputSelection.Equals
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.Equals
+  nameWithType: ReportInputSelection.Equals
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputSelection.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.GetHashCode()
+  nameWithType: ReportInputSelection.GetHashCode()
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputSelection.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.GetHashCode
+  nameWithType: ReportInputSelection.GetHashCode
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.Id
+  name: Id
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection_Id
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInputSelection.Id
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.Id
+  nameWithType: ReportInputSelection.Id
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.Id*
+  name: Id
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection_Id_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputSelection.Id
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.Id
+  nameWithType: ReportInputSelection.Id
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection_ToString
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputSelection.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.ToString()
+  nameWithType: ReportInputSelection.ToString()
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputSelection.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.ToString
+  nameWithType: ReportInputSelection.ToString
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.Value
+  name: Value
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection_Value
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInputSelection.Value
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.Value
+  nameWithType: ReportInputSelection.Value
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.Value*
+  name: Value
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection_Value_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputSelection.Value
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.Value
+  nameWithType: ReportInputSelection.Value
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.op_Equality(BbQ.ChatWidgets.Reporting.ReportInputSelection,BbQ.ChatWidgets.Reporting.ReportInputSelection)
+  name: operator ==(ReportInputSelection?, ReportInputSelection?)
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection_op_Equality_BbQ_ChatWidgets_Reporting_ReportInputSelection_BbQ_ChatWidgets_Reporting_ReportInputSelection_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputSelection.op_Equality(BbQ.ChatWidgets.Reporting.ReportInputSelection,BbQ.ChatWidgets.Reporting.ReportInputSelection)
+  name.vb: =(ReportInputSelection, ReportInputSelection)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.operator ==(BbQ.ChatWidgets.Reporting.ReportInputSelection?, BbQ.ChatWidgets.Reporting.ReportInputSelection?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputSelection.=(BbQ.ChatWidgets.Reporting.ReportInputSelection, BbQ.ChatWidgets.Reporting.ReportInputSelection)
+  nameWithType: ReportInputSelection.operator ==(ReportInputSelection?, ReportInputSelection?)
+  nameWithType.vb: ReportInputSelection.=(ReportInputSelection, ReportInputSelection)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputSelection.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.operator ==
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputSelection.=
+  nameWithType: ReportInputSelection.operator ==
+  nameWithType.vb: ReportInputSelection.=
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.op_Inequality(BbQ.ChatWidgets.Reporting.ReportInputSelection,BbQ.ChatWidgets.Reporting.ReportInputSelection)
+  name: operator !=(ReportInputSelection?, ReportInputSelection?)
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection_op_Inequality_BbQ_ChatWidgets_Reporting_ReportInputSelection_BbQ_ChatWidgets_Reporting_ReportInputSelection_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputSelection.op_Inequality(BbQ.ChatWidgets.Reporting.ReportInputSelection,BbQ.ChatWidgets.Reporting.ReportInputSelection)
+  name.vb: <>(ReportInputSelection, ReportInputSelection)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.operator !=(BbQ.ChatWidgets.Reporting.ReportInputSelection?, BbQ.ChatWidgets.Reporting.ReportInputSelection?)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputSelection.<>(BbQ.ChatWidgets.Reporting.ReportInputSelection, BbQ.ChatWidgets.Reporting.ReportInputSelection)
+  nameWithType: ReportInputSelection.operator !=(ReportInputSelection?, ReportInputSelection?)
+  nameWithType.vb: ReportInputSelection.<>(ReportInputSelection, ReportInputSelection)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputSelection.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Reporting.ReportInputSelection.html#BbQ_ChatWidgets_Reporting_ReportInputSelection_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputSelection.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputSelection.operator !=
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputSelection.<>
+  nameWithType: ReportInputSelection.operator !=
+  nameWithType.vb: ReportInputSelection.<>
+- uid: BbQ.ChatWidgets.Reporting.ReportInputType
+  name: ReportInputType
+  href: BbQ.ChatWidgets.Reporting.ReportInputType.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ReportInputType
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputType
+  nameWithType: ReportInputType
+- uid: BbQ.ChatWidgets.Reporting.ReportInputType.Boolean
+  name: Boolean
+  href: BbQ.ChatWidgets.Reporting.ReportInputType.html#BbQ_ChatWidgets_Reporting_ReportInputType_Boolean
+  commentId: F:BbQ.ChatWidgets.Reporting.ReportInputType.Boolean
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputType.Boolean
+  nameWithType: ReportInputType.Boolean
+- uid: BbQ.ChatWidgets.Reporting.ReportInputType.Integer
+  name: Integer
+  href: BbQ.ChatWidgets.Reporting.ReportInputType.html#BbQ_ChatWidgets_Reporting_ReportInputType_Integer
+  commentId: F:BbQ.ChatWidgets.Reporting.ReportInputType.Integer
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputType.Integer
+  nameWithType: ReportInputType.Integer
+- uid: BbQ.ChatWidgets.Reporting.ReportInputType.Text
+  name: Text
+  href: BbQ.ChatWidgets.Reporting.ReportInputType.html#BbQ_ChatWidgets_Reporting_ReportInputType_Text
+  commentId: F:BbQ.ChatWidgets.Reporting.ReportInputType.Text
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputType.Text
+  nameWithType: ReportInputType.Text
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue
+  name: ReportInputValue
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ReportInputValue
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue
+  nameWithType: ReportInputValue
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.Boolean
+  name: Boolean
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_Boolean
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInputValue.Boolean
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.Boolean
+  nameWithType: ReportInputValue.Boolean
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.Boolean*
+  name: Boolean
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_Boolean_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputValue.Boolean
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.Boolean
+  nameWithType: ReportInputValue.Boolean
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.Equals(BbQ.ChatWidgets.Reporting.ReportInputValue)
+  name: Equals(ReportInputValue)
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_Equals_BbQ_ChatWidgets_Reporting_ReportInputValue_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputValue.Equals(BbQ.ChatWidgets.Reporting.ReportInputValue)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.Equals(BbQ.ChatWidgets.Reporting.ReportInputValue)
+  nameWithType: ReportInputValue.Equals(ReportInputValue)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.Equals(System.Object)
+  name: Equals(object)
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_Equals_System_Object_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputValue.Equals(System.Object)
+  name.vb: Equals(Object)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.Equals(object)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputValue.Equals(Object)
+  nameWithType: ReportInputValue.Equals(object)
+  nameWithType.vb: ReportInputValue.Equals(Object)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.Equals*
+  name: Equals
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_Equals_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputValue.Equals
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.Equals
+  nameWithType: ReportInputValue.Equals
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.FromBoolean(System.Boolean)
+  name: FromBoolean(bool)
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_FromBoolean_System_Boolean_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputValue.FromBoolean(System.Boolean)
+  name.vb: FromBoolean(Boolean)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.FromBoolean(bool)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputValue.FromBoolean(Boolean)
+  nameWithType: ReportInputValue.FromBoolean(bool)
+  nameWithType.vb: ReportInputValue.FromBoolean(Boolean)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.FromBoolean*
+  name: FromBoolean
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_FromBoolean_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputValue.FromBoolean
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.FromBoolean
+  nameWithType: ReportInputValue.FromBoolean
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.FromInteger(System.Int64)
+  name: FromInteger(long)
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_FromInteger_System_Int64_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputValue.FromInteger(System.Int64)
+  name.vb: FromInteger(Long)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.FromInteger(long)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputValue.FromInteger(Long)
+  nameWithType: ReportInputValue.FromInteger(long)
+  nameWithType.vb: ReportInputValue.FromInteger(Long)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.FromInteger*
+  name: FromInteger
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_FromInteger_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputValue.FromInteger
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.FromInteger
+  nameWithType: ReportInputValue.FromInteger
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.FromText(System.String)
+  name: FromText(string)
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_FromText_System_String_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputValue.FromText(System.String)
+  name.vb: FromText(String)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.FromText(string)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputValue.FromText(String)
+  nameWithType: ReportInputValue.FromText(string)
+  nameWithType.vb: ReportInputValue.FromText(String)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.FromText*
+  name: FromText
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_FromText_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputValue.FromText
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.FromText
+  nameWithType: ReportInputValue.FromText
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.GetHashCode
+  name: GetHashCode()
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_GetHashCode
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputValue.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.GetHashCode()
+  nameWithType: ReportInputValue.GetHashCode()
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.GetHashCode*
+  name: GetHashCode
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_GetHashCode_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputValue.GetHashCode
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.GetHashCode
+  nameWithType: ReportInputValue.GetHashCode
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.Integer
+  name: Integer
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_Integer
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInputValue.Integer
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.Integer
+  nameWithType: ReportInputValue.Integer
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.Integer*
+  name: Integer
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_Integer_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputValue.Integer
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.Integer
+  nameWithType: ReportInputValue.Integer
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.Text
+  name: Text
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_Text
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInputValue.Text
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.Text
+  nameWithType: ReportInputValue.Text
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.Text*
+  name: Text
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_Text_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputValue.Text
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.Text
+  nameWithType: ReportInputValue.Text
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.ToString
+  name: ToString()
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_ToString
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputValue.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.ToString()
+  nameWithType: ReportInputValue.ToString()
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.ToString*
+  name: ToString
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_ToString_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputValue.ToString
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.ToString
+  nameWithType: ReportInputValue.ToString
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.Type
+  name: Type
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_Type
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportInputValue.Type
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.Type
+  nameWithType: ReportInputValue.Type
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.Type*
+  name: Type
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_Type_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputValue.Type
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.Type
+  nameWithType: ReportInputValue.Type
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.op_Equality(BbQ.ChatWidgets.Reporting.ReportInputValue,BbQ.ChatWidgets.Reporting.ReportInputValue)
+  name: operator ==(ReportInputValue, ReportInputValue)
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_op_Equality_BbQ_ChatWidgets_Reporting_ReportInputValue_BbQ_ChatWidgets_Reporting_ReportInputValue_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputValue.op_Equality(BbQ.ChatWidgets.Reporting.ReportInputValue,BbQ.ChatWidgets.Reporting.ReportInputValue)
+  name.vb: =(ReportInputValue, ReportInputValue)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.operator ==(BbQ.ChatWidgets.Reporting.ReportInputValue, BbQ.ChatWidgets.Reporting.ReportInputValue)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputValue.=(BbQ.ChatWidgets.Reporting.ReportInputValue, BbQ.ChatWidgets.Reporting.ReportInputValue)
+  nameWithType: ReportInputValue.operator ==(ReportInputValue, ReportInputValue)
+  nameWithType.vb: ReportInputValue.=(ReportInputValue, ReportInputValue)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.op_Equality*
+  name: operator ==
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_op_Equality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputValue.op_Equality
+  name.vb: =
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.operator ==
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputValue.=
+  nameWithType: ReportInputValue.operator ==
+  nameWithType.vb: ReportInputValue.=
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.op_Inequality(BbQ.ChatWidgets.Reporting.ReportInputValue,BbQ.ChatWidgets.Reporting.ReportInputValue)
+  name: operator !=(ReportInputValue, ReportInputValue)
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_op_Inequality_BbQ_ChatWidgets_Reporting_ReportInputValue_BbQ_ChatWidgets_Reporting_ReportInputValue_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputValue.op_Inequality(BbQ.ChatWidgets.Reporting.ReportInputValue,BbQ.ChatWidgets.Reporting.ReportInputValue)
+  name.vb: <>(ReportInputValue, ReportInputValue)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.operator !=(BbQ.ChatWidgets.Reporting.ReportInputValue, BbQ.ChatWidgets.Reporting.ReportInputValue)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputValue.<>(BbQ.ChatWidgets.Reporting.ReportInputValue, BbQ.ChatWidgets.Reporting.ReportInputValue)
+  nameWithType: ReportInputValue.operator !=(ReportInputValue, ReportInputValue)
+  nameWithType.vb: ReportInputValue.<>(ReportInputValue, ReportInputValue)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValue.op_Inequality*
+  name: operator !=
+  href: BbQ.ChatWidgets.Reporting.ReportInputValue.html#BbQ_ChatWidgets_Reporting_ReportInputValue_op_Inequality_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputValue.op_Inequality
+  name.vb: <>
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValue.operator !=
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputValue.<>
+  nameWithType: ReportInputValue.operator !=
+  nameWithType.vb: ReportInputValue.<>
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValueConverter
+  name: ReportInputValueConverter
+  href: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ReportInputValueConverter
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValueConverter
+  nameWithType: ReportInputValueConverter
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.#ctor
+  name: ReportInputValueConverter()
+  href: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.html#BbQ_ChatWidgets_Reporting_ReportInputValueConverter__ctor
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputValueConverter.#ctor
+  name.vb: New()
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.ReportInputValueConverter()
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.New()
+  nameWithType: ReportInputValueConverter.ReportInputValueConverter()
+  nameWithType.vb: ReportInputValueConverter.New()
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.#ctor*
+  name: ReportInputValueConverter
+  href: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.html#BbQ_ChatWidgets_Reporting_ReportInputValueConverter__ctor_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputValueConverter.#ctor
+  name.vb: New
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.ReportInputValueConverter
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.New
+  nameWithType: ReportInputValueConverter.ReportInputValueConverter
+  nameWithType.vb: ReportInputValueConverter.New
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)
+  name: Read(ref Utf8JsonReader, Type, JsonSerializerOptions)
+  href: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.html#BbQ_ChatWidgets_Reporting_ReportInputValueConverter_Read_System_Text_Json_Utf8JsonReader__System_Type_System_Text_Json_JsonSerializerOptions_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputValueConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)
+  name.vb: Read(Utf8JsonReader, Type, JsonSerializerOptions)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.Read(ref System.Text.Json.Utf8JsonReader, System.Type, System.Text.Json.JsonSerializerOptions)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.Read(System.Text.Json.Utf8JsonReader, System.Type, System.Text.Json.JsonSerializerOptions)
+  nameWithType: ReportInputValueConverter.Read(ref Utf8JsonReader, Type, JsonSerializerOptions)
+  nameWithType.vb: ReportInputValueConverter.Read(Utf8JsonReader, Type, JsonSerializerOptions)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.Read*
+  name: Read
+  href: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.html#BbQ_ChatWidgets_Reporting_ReportInputValueConverter_Read_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputValueConverter.Read
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.Read
+  nameWithType: ReportInputValueConverter.Read
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.Write(System.Text.Json.Utf8JsonWriter,BbQ.ChatWidgets.Reporting.ReportInputValue,System.Text.Json.JsonSerializerOptions)
+  name: Write(Utf8JsonWriter, ReportInputValue, JsonSerializerOptions)
+  href: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.html#BbQ_ChatWidgets_Reporting_ReportInputValueConverter_Write_System_Text_Json_Utf8JsonWriter_BbQ_ChatWidgets_Reporting_ReportInputValue_System_Text_Json_JsonSerializerOptions_
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportInputValueConverter.Write(System.Text.Json.Utf8JsonWriter,BbQ.ChatWidgets.Reporting.ReportInputValue,System.Text.Json.JsonSerializerOptions)
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.Write(System.Text.Json.Utf8JsonWriter, BbQ.ChatWidgets.Reporting.ReportInputValue, System.Text.Json.JsonSerializerOptions)
+  nameWithType: ReportInputValueConverter.Write(Utf8JsonWriter, ReportInputValue, JsonSerializerOptions)
+- uid: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.Write*
+  name: Write
+  href: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.html#BbQ_ChatWidgets_Reporting_ReportInputValueConverter_Write_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportInputValueConverter.Write
+  fullName: BbQ.ChatWidgets.Reporting.ReportInputValueConverter.Write
+  nameWithType: ReportInputValueConverter.Write
 - uid: BbQ.ChatWidgets.Reporting.ReportQuery
   name: ReportQuery
   href: BbQ.ChatWidgets.Reporting.ReportQuery.html
@@ -12834,6 +14883,18 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Reporting.ReportQuery.GroupBy
   fullName: BbQ.ChatWidgets.Reporting.ReportQuery.GroupBy
   nameWithType: ReportQuery.GroupBy
+- uid: BbQ.ChatWidgets.Reporting.ReportQuery.Inputs
+  name: Inputs
+  href: BbQ.ChatWidgets.Reporting.ReportQuery.html#BbQ_ChatWidgets_Reporting_ReportQuery_Inputs
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportQuery.Inputs
+  fullName: BbQ.ChatWidgets.Reporting.ReportQuery.Inputs
+  nameWithType: ReportQuery.Inputs
+- uid: BbQ.ChatWidgets.Reporting.ReportQuery.Inputs*
+  name: Inputs
+  href: BbQ.ChatWidgets.Reporting.ReportQuery.html#BbQ_ChatWidgets_Reporting_ReportQuery_Inputs_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportQuery.Inputs
+  fullName: BbQ.ChatWidgets.Reporting.ReportQuery.Inputs
+  nameWithType: ReportQuery.Inputs
 - uid: BbQ.ChatWidgets.Reporting.ReportQuery.Metric
   name: Metric
   href: BbQ.ChatWidgets.Reporting.ReportQuery.html#BbQ_ChatWidgets_Reporting_ReportQuery_Metric
@@ -13287,6 +15348,30 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Reporting.ReportTile.GetHashCode
   fullName: BbQ.ChatWidgets.Reporting.ReportTile.GetHashCode
   nameWithType: ReportTile.GetHashCode
+- uid: BbQ.ChatWidgets.Reporting.ReportTile.InputBinding
+  name: InputBinding
+  href: BbQ.ChatWidgets.Reporting.ReportTile.html#BbQ_ChatWidgets_Reporting_ReportTile_InputBinding
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportTile.InputBinding
+  fullName: BbQ.ChatWidgets.Reporting.ReportTile.InputBinding
+  nameWithType: ReportTile.InputBinding
+- uid: BbQ.ChatWidgets.Reporting.ReportTile.InputBinding*
+  name: InputBinding
+  href: BbQ.ChatWidgets.Reporting.ReportTile.html#BbQ_ChatWidgets_Reporting_ReportTile_InputBinding_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportTile.InputBinding
+  fullName: BbQ.ChatWidgets.Reporting.ReportTile.InputBinding
+  nameWithType: ReportTile.InputBinding
+- uid: BbQ.ChatWidgets.Reporting.ReportTile.Presentation
+  name: Presentation
+  href: BbQ.ChatWidgets.Reporting.ReportTile.html#BbQ_ChatWidgets_Reporting_ReportTile_Presentation
+  commentId: P:BbQ.ChatWidgets.Reporting.ReportTile.Presentation
+  fullName: BbQ.ChatWidgets.Reporting.ReportTile.Presentation
+  nameWithType: ReportTile.Presentation
+- uid: BbQ.ChatWidgets.Reporting.ReportTile.Presentation*
+  name: Presentation
+  href: BbQ.ChatWidgets.Reporting.ReportTile.html#BbQ_ChatWidgets_Reporting_ReportTile_Presentation_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportTile.Presentation
+  fullName: BbQ.ChatWidgets.Reporting.ReportTile.Presentation
+  nameWithType: ReportTile.Presentation
 - uid: BbQ.ChatWidgets.Reporting.ReportTile.Query
   name: Query
   href: BbQ.ChatWidgets.Reporting.ReportTile.html#BbQ_ChatWidgets_Reporting_ReportTile_Query
@@ -13392,6 +15477,42 @@ references:
   commentId: Overload:BbQ.ChatWidgets.Reporting.ReportingEndpoints.MapBbQReporting
   fullName: BbQ.ChatWidgets.Reporting.ReportingEndpoints.MapBbQReporting
   nameWithType: ReportingEndpoints.MapBbQReporting
+- uid: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog
+  name: ReportingFilterCatalog
+  href: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.html
+  commentId: T:BbQ.ChatWidgets.Reporting.ReportingFilterCatalog
+  fullName: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog
+  nameWithType: ReportingFilterCatalog
+- uid: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.AvailableInputs(BbQ.ChatWidgets.Reporting.ReportDefinition,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Reporting.ReportDataset})
+  name: AvailableInputs(ReportDefinition, IReadOnlyList<ReportDataset>)
+  href: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.html#BbQ_ChatWidgets_Reporting_ReportingFilterCatalog_AvailableInputs_BbQ_ChatWidgets_Reporting_ReportDefinition_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Reporting_ReportDataset__
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.AvailableInputs(BbQ.ChatWidgets.Reporting.ReportDefinition,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Reporting.ReportDataset})
+  name.vb: AvailableInputs(ReportDefinition, IReadOnlyList(Of ReportDataset))
+  fullName: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.AvailableInputs(BbQ.ChatWidgets.Reporting.ReportDefinition, System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Reporting.ReportDataset>)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.AvailableInputs(BbQ.ChatWidgets.Reporting.ReportDefinition, System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Reporting.ReportDataset))
+  nameWithType: ReportingFilterCatalog.AvailableInputs(ReportDefinition, IReadOnlyList<ReportDataset>)
+  nameWithType.vb: ReportingFilterCatalog.AvailableInputs(ReportDefinition, IReadOnlyList(Of ReportDataset))
+- uid: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.AvailableInputs*
+  name: AvailableInputs
+  href: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.html#BbQ_ChatWidgets_Reporting_ReportingFilterCatalog_AvailableInputs_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.AvailableInputs
+  fullName: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.AvailableInputs
+  nameWithType: ReportingFilterCatalog.AvailableInputs
+- uid: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.WorkspaceInputs(BbQ.ChatWidgets.Reporting.ReportDefinition,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Reporting.ReportDataset})
+  name: WorkspaceInputs(ReportDefinition, IReadOnlyList<ReportDataset>)
+  href: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.html#BbQ_ChatWidgets_Reporting_ReportingFilterCatalog_WorkspaceInputs_BbQ_ChatWidgets_Reporting_ReportDefinition_System_Collections_Generic_IReadOnlyList_BbQ_ChatWidgets_Reporting_ReportDataset__
+  commentId: M:BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.WorkspaceInputs(BbQ.ChatWidgets.Reporting.ReportDefinition,System.Collections.Generic.IReadOnlyList{BbQ.ChatWidgets.Reporting.ReportDataset})
+  name.vb: WorkspaceInputs(ReportDefinition, IReadOnlyList(Of ReportDataset))
+  fullName: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.WorkspaceInputs(BbQ.ChatWidgets.Reporting.ReportDefinition, System.Collections.Generic.IReadOnlyList<BbQ.ChatWidgets.Reporting.ReportDataset>)
+  fullName.vb: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.WorkspaceInputs(BbQ.ChatWidgets.Reporting.ReportDefinition, System.Collections.Generic.IReadOnlyList(Of BbQ.ChatWidgets.Reporting.ReportDataset))
+  nameWithType: ReportingFilterCatalog.WorkspaceInputs(ReportDefinition, IReadOnlyList<ReportDataset>)
+  nameWithType.vb: ReportingFilterCatalog.WorkspaceInputs(ReportDefinition, IReadOnlyList(Of ReportDataset))
+- uid: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.WorkspaceInputs*
+  name: WorkspaceInputs
+  href: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.html#BbQ_ChatWidgets_Reporting_ReportingFilterCatalog_WorkspaceInputs_
+  commentId: Overload:BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.WorkspaceInputs
+  fullName: BbQ.ChatWidgets.Reporting.ReportingFilterCatalog.WorkspaceInputs
+  nameWithType: ReportingFilterCatalog.WorkspaceInputs
 - uid: BbQ.ChatWidgets.Reporting.ReportingServiceCollectionExtensions
   name: ReportingServiceCollectionExtensions
   href: BbQ.ChatWidgets.Reporting.ReportingServiceCollectionExtensions.html

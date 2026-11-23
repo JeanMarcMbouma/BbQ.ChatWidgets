@@ -124,6 +124,17 @@ if (preset &amp;&amp; container) {
   new WidgetManager().renderInto(container, widget);
 }
 </code></pre>
+<h2 id="author-report-filters">Author report filters</h2>
+<p>In <strong>Edit report</strong> or <strong>Edit dashboard</strong>, use <strong>Report filters</strong> to add a filter supplied by one of the report's datasets. Change the display label, move the filter, or remove it. The same controls are available in Angular, React, and Blazor.</p>
+<p><strong>Save as new</strong> and <strong>Save changes</strong> store the filter list in the report definition. You can move that definition between compatible hosts because it stores catalog IDs and labels. Each host resolves choices in the current caller's scope.</p>
+<pre><code class="lang-json">{
+  &quot;filters&quot;: [
+    { &quot;input&quot;: &quot;channel&quot;, &quot;label&quot;: &quot;Sales channel&quot; },
+    { &quot;input&quot;: &quot;warehouse&quot; }
+  ]
+}
+</code></pre>
+<p>An omitted <code>filters</code> property inherits the dataset filters. An empty array defines a report with no shared filter controls. An authored list also replaces the automatic same-query preview filters. Filter tiles you add explicitly remain part of the report. Running a saved definition still uses any saved query values. Removing a filter in the editor also clears values saved for that filter. The existing API validates each query and saves definitions under the current user's scope.</p>
 <h2 id="use-server-paged-grids">Use server-paged grids</h2>
 <p>Implement <code>IReportingGridSource</code> on the registered reporting source and advertise <code>ReportGridCapabilities</code> on the catalog dimension that supports paging. Declare which column IDs can participate in text search, sorting, and exact-match filters. The library validates requests against the authorized catalog before calling the provider. Return the matching total and a bounded page of rows. Give every row a stable key and use it as an ordering tie-breaker so paging and selection stay consistent.</p>
 <p>Each workspace uses this path automatically for grid tiles bound to a paging-enabled dimension. Search, sorting, and filtering apply to the full matching result on the server. Paged grids have their own controls below the snapshot widgets. For a standalone grid, use Angular's <code>PagedReportingGridComponent</code>, React's <code>PagedReportingGrid</code>, or Blazor's <code>PagedReportingGrid</code>. A custom TypeScript client can call <code>ReportingClient.page</code>. The snapshot grid supports client-side grouping, editing, and CSV export over its loaded dataset.</p>
